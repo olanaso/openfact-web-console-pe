@@ -10,11 +10,11 @@ import {
   async, inject
 } from '@angular/core/testing';
 
-import { ContentComponent } from './content.component';
+import { SidebarAreaComponent } from './sidebar-area.component';
 
-describe('Component: Content', () => {
+describe('Component: SidebarArea', () => {
   it('should create an instance', () => {
-    let component = new ContentComponent();
+    let component = new SidebarAreaComponent();
     expect(component).toBeTruthy();
   });
 });

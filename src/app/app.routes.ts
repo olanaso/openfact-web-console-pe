@@ -2,18 +2,18 @@ import { provideRouter, RouterConfig }  from '@angular/router';
 
 // import { DashboardComponent } from './dashboard.component';
 // import { HeroesComponent } from './heroes.component';
-// import { HeroDetailComponent } from './hero-detail.component';
+ import { ModuleFacturaComponent } from './documentos-electronicos/module-factura';
 
-// export const routes: RouterConfig = [
-//   {
-//     path: '',
-//     redirectTo: '/dashboard',
-//     pathMatch: 'full'
-//   },
-//   {
-//     path: 'dashboard',
-//     component: DashboardComponent
-//   },
+export const routes: RouterConfig = [
+  {
+    path: '',
+    redirectTo: '/ModuleFacturaComponent',
+    pathMatch: 'full'
+  },
+  {
+    path: 'ModuleFacturaComponent',
+    component: ModuleFacturaComponent
+  }
 //   {
 //     path: 'detail/:id',
 //     component: HeroDetailComponent
@@ -26,7 +26,7 @@ import { provideRouter, RouterConfig }  from '@angular/router';
 
 // export const APP_ROUTER_PROVIDERS = [
 //   provideRouter(routes)
-// ];
+];
 
 
 /*

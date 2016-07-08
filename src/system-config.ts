@@ -44,6 +44,8 @@ const barrels: string[] = [
   'app/shared/center-area/content',
   'app/shared/center-area/sidebar-area',
   'app/shared/center-area/content-area',
+  'app/documentos-electronicos',
+  'app/documentos-electronicos/module-factura',
   /** @cli-barrel */
 ];
 

@@ -1,36 +1,13 @@
 import { provideRouter, RouterConfig }  from '@angular/router';
+import { ModuleFacturaComponent } from './documentos-electronicos/module-factura/module-factura.component';
 
-// import { DashboardComponent } from './dashboard.component';
-// import { HeroesComponent } from './heroes.component';
- import { ModuleFacturaComponent } from './documentos-electronicos/module-factura';
-
-export const routes: RouterConfig = [
+const routes: RouterConfig = [
   {
-    path: '',
-    redirectTo: '/ModuleFacturaComponent',
-    pathMatch: 'full'
-  },
-  {
-    path: 'ModuleFacturaComponent',
+    path: 'heroes',
     component: ModuleFacturaComponent
   }
-//   {
-//     path: 'detail/:id',
-//     component: HeroDetailComponent
-//   },
-//   {
-//     path: 'heroes',
-//     component: HeroesComponent
-//   }
-// ];
-
-// export const APP_ROUTER_PROVIDERS = [
-//   provideRouter(routes)
 ];
 
-
-/*
-Copyright 2016 Google Inc. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that
-can be found in the LICENSE file at http://angular.io/license
-*/
+export const APP_ROUTER_PROVIDERS = [
+  provideRouter(routes)
+];

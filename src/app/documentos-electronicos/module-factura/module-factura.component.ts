@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-//import {Router} from '@angular/router';
+import {Router} from '@angular/router';
 
 @Component({
   moduleId: module.id,
@@ -9,7 +9,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ModuleFacturaComponent implements OnInit {
 
-  constructor() {}
+  constructor() {
+//private router: Router
+    
+  }
 
   ngOnInit() {
   }

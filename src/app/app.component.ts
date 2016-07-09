@@ -12,7 +12,7 @@ import { ROUTER_DIRECTIVES} from '@angular/router';
   moduleId: module.id,
   selector: 'app-root',
   templateUrl: 'app.component.html',
-  directives: [ROUTER_DIRECTIVES,TopAreaComponent,CenterAreaComponent], 
+  directives: [TopAreaComponent,CenterAreaComponent], 
   styleUrls: ['app.component.css','PatternFly/css/patternfly.css','PatternFly/css/patternfly-additions.css'],
   encapsulation: ViewEncapsulation.None
 })

@@ -9,9 +9,7 @@ import { ModuleFacturaComponent } from './module-factura';
   directives: [ModuleFacturaComponent]
 })
 export class DocumentosElectronicosComponent implements OnInit {
-
   constructor() {}
-
   ngOnInit() {
   }
 

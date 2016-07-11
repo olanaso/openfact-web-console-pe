@@ -1,8 +1,8 @@
 import { provideRouter, RouterConfig }  from '@angular/router';
 //import { ModuleFacturaComponent } from './documentos-electronicos/module-factura/module-factura.component';
-import { HeroesRoutes } from './documentos-electronicos/module-factura/module-factura.routes';
+import { FacturaRoutes } from './documentos-electronicos/module-factura/module-factura.routes';
 export const routes = [
-  ...HeroesRoutes
+  ...FacturaRoutes
 //  { path: 'crisis-center', component: CrisisListComponent }
 ];
 

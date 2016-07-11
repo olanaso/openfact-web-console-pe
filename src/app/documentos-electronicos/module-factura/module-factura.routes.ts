@@ -1,7 +1,7 @@
     import { RouterConfig }          from '@angular/router';
-    import { ModuleFacturaComponent } from './/module-factura.component';
+    import { ModuleFacturaComponent } from './module-factura.component';
     
-    export const HeroesRoutes: RouterConfig = [
-      { path: 'heroes',  component: ModuleFacturaComponent },
+    export const FacturaRoutes: RouterConfig = [
+      { path: 'factura',  component: ModuleFacturaComponent },
      
     ];

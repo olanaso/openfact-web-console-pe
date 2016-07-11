@@ -1,17 +1,38 @@
 <div class="layout-pf layout-pf-fixed">
-  
-  <!--<script src="components/c3/c3.min.js"></script>-->
- <!--<script src="components/d3/d3.min.js"></script>-->
-  <!--<script src="components/matchHeight/jquery.matchHeight-min.js"></script>-->
- 
- 
-  <app-top-area>
-  </app-top-area>
-  <app-center-area>
-   </app-center-area>
- <router-outlet></router-outlet>
 
-  <!--<script>
+  <!--<script src="components/c3/c3.min.js"></script>-->
+  <!--<script src="components/d3/d3.min.js"></script>-->
+  <!--<script src="components/matchHeight/jquery.matchHeight-min.js"></script>-->
+  <div class="container">
+
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+        <app-top-area>
+        </app-top-area>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+        <app-center-area>
+        </app-center-area>
+      </div>
+    </div>
+
+
+
+  </div>
+
+
+  <router-outlet></router-outlet>
+
+</div>
+
+
+
+
+
+<!--<script>
   $(document).ready(function() {
     // matchHeight the contents of each .card-pf and then the .card-pf itself
     $(".row-cards-pf > [class*='col'] > .card-pf .card-pf-title").matchHeight();
@@ -26,5 +47,3 @@
     $().setupVerticalNavigation(true);
   });
 </script>-->
-
-</div>

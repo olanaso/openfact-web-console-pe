@@ -55,6 +55,8 @@ const barrels: string[] = [
   'app/modules/boletas',
   'app/modules/facturas/facturas-nuevo',
   'app/modules/facturas/facturas-editar',
+  'app/modules/facturas/facturas-enviar',
+  'app/modules/facturas/facturas-importar',
   /** @cli-barrel */
 ];
 

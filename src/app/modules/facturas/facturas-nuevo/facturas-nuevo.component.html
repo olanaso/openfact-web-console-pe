@@ -1,0 +1,37 @@
+<form class="form-horizontal">
+  <div class="form-group">
+    <label class="col-sm-2 control-label" for="modalInput">Default</label>
+    <div class="col-sm-10">
+      <input type="text" id="modalInput" class="form-control"></div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label" for="modalInputDisabled">Disabled</label>
+    <div class="col-sm-10">
+      <input type="text" id="modalInputDisabled" class="form-control" disabled></div>
+  </div>
+  <div class="form-group ">
+    <label class="col-sm-2 control-label" for="modalInputError">No error</label>
+    <div class="col-sm-10">
+      <input type="text" id="modalInputError" class="form-control">
+
+    </div>
+  </div>
+</form>
+
+
+
+
+
+<div>
+  <pre class="card card-block card-header">Selected date is: <em *ngIf="dt">{{ getDate() | date:'fullDate'}}</em></pre>
+  <h4>Inline</h4>
+  <div style="display:inline-block; min-height:290px;">
+    <datepicker [(ngModel)]="dt" [minDate]="minDate" [showWeeks]="true"></datepicker>
+  </div>
+
+  <hr />
+  <button type="button" class="btn btn-sm btn-info" (click)="today()">Today</button>
+  <button type="button" class="btn btn-sm btn-default btn-secondary" (click)="d20090824();">2009-08-24</button>
+  <button type="button" class="btn btn-sm btn-danger" (click)="clear()">Clear</button>
+  <button type="button" class="btn btn-sm btn-default btn-secondary" (click)="toggleMin()" tooltip="After today restriction">Min date</button>
+</div>

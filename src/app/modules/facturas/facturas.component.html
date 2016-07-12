@@ -1,0 +1,55 @@
+<h1><strong>Tipos de documento</strong></h1>
+
+<form name="form" novalidate>
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group">
+        <div class="input-group">
+          <input type="text" name="filterText" class="form-control" placeholder="Filter text" pf-focused="true" autofocus>
+          <span class="input-group-btn"><button class="btn btn-default" type="submit"><i class="fa fa-search text"></i></button></span>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="form-group pull-right">
+        <div class="btn-group">
+          <label class="btn btn-default">Activo</label>
+          <label class="btn btn-default">Inactivo</label>
+        </div>
+        <a (click)="nuevo()" class="btn btn-primary">Nuevo</a>
+        <a (click)="editar()" class="btn btn-primary">Editar</a>
+      </div>
+    </div>
+  </div>
+</form>
+
+<table class="table table-striped table-bordered">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Username</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>Mark</td>
+      <td>Otto</td>
+      <td>@mdo</td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Jacob</td>
+      <td>Thornton</td>
+      <td>@fat</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>Larry</td>
+      <td>the Bird</td>
+      <td>@twitter</td>
+    </tr>
+  </tbody>
+</table>

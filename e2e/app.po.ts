@@ -1,4 +1,4 @@
-export class OpenfactWebConsolePage {
+export class RepeidWebConsolePage {
   navigateTo() {
     return browser.get('/');
   }

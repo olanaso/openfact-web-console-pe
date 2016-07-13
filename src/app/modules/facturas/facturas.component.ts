@@ -25,27 +25,7 @@ export class FacturasComponent implements OnInit {
   public items:Array<string> = ['The first choice!',
     'And another choice for you.', 'but wait! A third!'];
  
- public ListaFacturas=[
-   {
-    "createdAt":1456399292790,
-    "isActive":true,
-    "name":"Hero 1"
-   },
-   {
-    "createdAt":1456399371220,
-    "isActive":true,
-    "name":"Hero 2"
-   },
-   {
-     "createdAt":1456399374548,
-     "isActive":true,
-     "name":"Hero 3"
-   }
- ];
-
-
   constructor(private router: Router) { }
-
 
   ngOnInit() {
   }
@@ -78,5 +58,24 @@ export class FacturasComponent implements OnInit {
     $event.stopPropagation();
     this.status.isopen = !this.status.isopen;
   }
+
+   public ListaFacturas=[
+   {
+    "createdAt":1456399292790,
+    "isActive":true,
+    "name":"Hero 1"
+   },
+   {
+    "createdAt":1456399371220,
+    "isActive":true,
+    "name":"Hero 2"
+   },
+   {
+     "createdAt":1456399374548,
+     "isActive":true,
+     "name":"Hero 3"
+   }
+ ];
+
 
 }

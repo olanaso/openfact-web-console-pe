@@ -5,10 +5,12 @@ import { Router } from '@angular/router';
   moduleId: module.id,
   selector: 'app-facturas',
   templateUrl: 'facturas.component.html',
-  styleUrls: ['facturas.component.css']
+  styleUrls: ['facturas.component.css'],
+  
 })
 export class FacturasComponent implements OnInit {
 
+clickMessage ='';
   constructor(private router: Router) {}
 
   ngOnInit() {
@@ -16,6 +18,8 @@ export class FacturasComponent implements OnInit {
 
   nuevo() {
     let link = ['/facturas/nuevo'];
+    //this.clickMessage = 'You are my hero!';
+    //alert("Holaaaa...." + link);
     this.router.navigate(link);
   }
 

@@ -8,9 +8,17 @@ import {DROPDOWN_DIRECTIVES } from 'ng2-bootstrap/ng2-bootstrap';
   moduleId: module.id,
   selector: 'app-facturas',
   templateUrl: 'facturas.component.html',
-  styleUrls: ['facturas.component.css'],
-  directives: [DROPDOWN_DIRECTIVES, CORE_DIRECTIVES]
+  styleUrls: ['facturas.component.css']
+
+  
 })
+// export class FacturasComponent implements OnInit {
+
+// clickMessage ='';
+//   constructor(private router: Router) {}
+//   directives: [DROPDOWN_DIRECTIVES, CORE_DIRECTIVES]
+// })
+
 export class FacturasComponent implements OnInit {
   public disabled:boolean = false;
   public status:{isopen:boolean} = {isopen: false};
@@ -38,11 +46,14 @@ export class FacturasComponent implements OnInit {
 
   constructor(private router: Router) { }
 
+
   ngOnInit() {
   }
 
   nuevo() {
     let link = ['/facturas/nuevo'];
+    //this.clickMessage = 'You are my hero!';
+    //alert("Holaaaa...." + link);
     this.router.navigate(link);
   }
 

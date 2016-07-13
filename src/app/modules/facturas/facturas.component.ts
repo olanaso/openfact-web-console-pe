@@ -12,12 +12,12 @@ import {DROPDOWN_DIRECTIVES } from 'ng2-bootstrap/ng2-bootstrap';
 
   
 })
-export class FacturasComponent implements OnInit {
+// export class FacturasComponent implements OnInit {
 
-clickMessage ='';
-  constructor(private router: Router) {}
-  directives: [DROPDOWN_DIRECTIVES, CORE_DIRECTIVES]
-})
+// clickMessage ='';
+//   constructor(private router: Router) {}
+//   directives: [DROPDOWN_DIRECTIVES, CORE_DIRECTIVES]
+// })
 
 export class FacturasComponent implements OnInit {
   public disabled:boolean = false;

@@ -8,8 +8,7 @@
 /** Map relative paths to URLs. */
 const map: any = {
   'moment': 'vendor/moment/moment.js',
-  'ng2-bootstrap': 'vendor/ng2-bootstrap',
-  'ng2-datepicker':'vendor/ng2-datepicker'
+  'ng2-bootstrap': 'vendor/ng2-bootstrap'
   // 'bootstrap-datepicker':'vendor/bootstrap-datepicker',
   // 'bootstrap-timepicker':'vendor/bootstrap-timepicker'
 };
@@ -23,12 +22,7 @@ const packages: any = {
     format: 'cjs',    
     defaultExtension: 'js',
     main: 'ng2-bootstrap.js'    
-  },
-   'ng2-datepicker': {
-    //format: 'cjs',    
-    defaultExtension: 'js',
-    main: 'ng2-datepicker.js'    
-  },
+  }
   //  'bootstrap-datepicker': {
   //   format: 'cjs',    
   //   defaultExtension: 'js',

@@ -2,7 +2,6 @@ import { Component, OnInit, forwardRef, Provider } from '@angular/core';
 import {CORE_DIRECTIVES, ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/common';
 import {FORM_DIRECTIVES} from '@angular/forms';
 
-import {DatePicker} from 'ng2-datepicker';
 
 // const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = new Provider(
 //   NG_VALUE_ACCESSOR, {
@@ -24,7 +23,7 @@ export class Test {
   //     `,
   templateUrl: 'facturas-nuevo.component.html',
   styleUrls: ['facturas-nuevo.component.css'],
-  directives: [DatePicker, CORE_DIRECTIVES, FORM_DIRECTIVES]  
+  directives: [CORE_DIRECTIVES, FORM_DIRECTIVES]  
 })
 export class FacturasNuevoComponent implements OnInit {
   //selectDays: string = "01/01/2016";

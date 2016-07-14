@@ -1,52 +1,69 @@
-import { Component, OnInit, forwardRef, Provider } from '@angular/core';
+import {Component, OnInit, forwardRef, Provider,ViewChild } from '@angular/core';
 import {CORE_DIRECTIVES, ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/common';
 import {FORM_DIRECTIVES} from '@angular/forms';
 
+
+import {MODAL_DIRECTIVES, BS_VIEW_PROVIDERS} from 'ng2-bootstrap/ng2-bootstrap';
+import {ACCORDION_DIRECTIVES } from 'ng2-bootstrap/ng2-bootstrap';
 import {DatePicker} from 'ng2-datepicker';
 
-// const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = new Provider(
-//   NG_VALUE_ACCESSOR, {
-//     useExisting: forwardRef(() => FacturasNuevoComponent),
-//     multi: true
-//   });
-
-export class Test {
-  date: string;
-}
+// todo: change to ng2-bootstrap
+import {ModalDirective} from 'ng2-bootstrap/ng2-bootstrap';
 
 @Component({
   moduleId: module.id,
   selector: 'app-facturas-nuevo',
-  // template: ` 
-  //   <span>hola</span> 
-  //   <datepicker [(ngModel)]="test.date" showWeeks="true" ></datepicker>     
-  //   <datepicker [(ngModel)]="test.date" view-format="DD.MM.YYYY" model-format="YYY-MM-DD" init-date="2017-05-12"></datepicker> 
-  //     `,
   templateUrl: 'facturas-nuevo.component.html',
   styleUrls: ['facturas-nuevo.component.css'],
-  directives: [DatePicker, CORE_DIRECTIVES, FORM_DIRECTIVES]  
+  directives: [DatePicker, CORE_DIRECTIVES, FORM_DIRECTIVES, MODAL_DIRECTIVES, ACCORDION_DIRECTIVES],
+  viewProviders: [BS_VIEW_PROVIDERS]
 })
 export class FacturasNuevoComponent implements OnInit {
-  //selectDays: string = "01/01/2016";
-   test:Test;//={date:"1/1/2016"};
-  //  ={
-  //    date : "01/01/2016"
-  //  };
+  // @ViewChild('childModal') public childModal: ModalDirective;
+  public oneAtATime: boolean = true;
+  public items: Array<string> = ['Item 1', 'Item 2', 'Item 3'];
+  public status: Object = {
+    isFirstOpen: true,
+    isFirstDisabled: true
+  };
+  public addItem(): void {
+    this.items.push(`Items ${this.items.length + 1}`);
+  }
+
+  // public showChildModal(): void {
+  //   this.childModal.show();
+  // }
+
+  // public hideChildModal(): void {
+  //   this.childModal.hide();
+  // }
+
+  listDetalleFactura = [
+    {
+      Cantidad: 1,
+      UnidadMedida: "Und",
+      Producto: "Cemento Portland Tipo I",
+      PrecioUnitario: 12.2,
+      precioParcial: 12.2
+    },
+    {
+      Cantidad: 2,
+      UnidadMedida: "Und",
+      Producto: "Cemento Portland Tipo II",
+      PrecioUnitario: 12.2,
+      precioParcial: 24.4
+    }
+  ];
+  //test: Test;
   constructor() {
-    this.test = {date:"1/1/2016"};
-    // this.test1 = Test();
+    //this.test = { date: "1/1/2016" };
   }
   ngOnInit() {
 
   }
+
+  ngAfterViewInit() {
+    // this.LoadComponentAsync("src/comps/app2/notes/NoteDynamic", 
+    //     "TestComponent", this.extensionAnchor);
+  }
 }
-
-// class App {
-//   test: Test;
-//   test1: Test;
-
-//   constructor() {
-//     //this.test = Test();
-//     // this.test1 = Test();
-//   }
-// }

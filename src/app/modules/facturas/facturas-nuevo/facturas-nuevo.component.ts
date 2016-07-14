@@ -5,7 +5,7 @@ import {FORM_DIRECTIVES} from '@angular/forms';
 
 import {MODAL_DIRECTIVES, BS_VIEW_PROVIDERS} from 'ng2-bootstrap/ng2-bootstrap';
 import {ACCORDION_DIRECTIVES } from 'ng2-bootstrap/ng2-bootstrap';
-import {DatePicker} from 'ng2-datepicker';
+//import {DatePicker} from 'ng2-datepicker';
 
 // todo: change to ng2-bootstrap
 import {ModalDirective} from 'ng2-bootstrap/ng2-bootstrap';
@@ -15,7 +15,7 @@ import {ModalDirective} from 'ng2-bootstrap/ng2-bootstrap';
   selector: 'app-facturas-nuevo',
   templateUrl: 'facturas-nuevo.component.html',
   styleUrls: ['facturas-nuevo.component.css'],
-  directives: [DatePicker, CORE_DIRECTIVES, FORM_DIRECTIVES, MODAL_DIRECTIVES, ACCORDION_DIRECTIVES],
+  directives: [ CORE_DIRECTIVES, FORM_DIRECTIVES, MODAL_DIRECTIVES, ACCORDION_DIRECTIVES],
   viewProviders: [BS_VIEW_PROVIDERS]
 })
 export class FacturasNuevoComponent implements OnInit {

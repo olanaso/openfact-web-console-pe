@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation,ViewContainerRef } from '@angular/core';
 import { HeaderComponent } from './layout/header';
 import { SidebarComponent } from './layout/sidebar';
 import { ContainerComponent } from './layout/container';
@@ -15,4 +15,9 @@ import { ContainerComponent } from './layout/container';
 })
 export class AppComponent {
   title = 'app works!';
+  private viewContainerRef:ViewContainerRef;
+  public constructor(viewContainerRef:ViewContainerRef) {
+    // You need this small hack in order to catch application root view container ref
+    this.viewContainerRef = viewContainerRef;
+  }
 }

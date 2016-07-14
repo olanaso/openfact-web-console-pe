@@ -2,7 +2,7 @@ import { bootstrap } from '@angular/platform-browser-dynamic';
 import { enableProdMode } from '@angular/core';
 import { AppComponent, environment, APP_ROUTER_PROVIDERS } from './app/';
 import { HTTP_PROVIDERS } from '@angular/http';
-import { XHRBackend } from '@angular/http';
+//import { XHRBackend } from '@angular/http';
 
 
 if (environment.production) {
@@ -11,6 +11,4 @@ if (environment.production) {
 
 bootstrap(AppComponent, 
 [APP_ROUTER_PROVIDERS,
-HTTP_PROVIDERS,
-{ provide: XHRBackend}
-]);
+HTTP_PROVIDERS]);

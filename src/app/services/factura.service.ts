@@ -12,7 +12,7 @@ export class FacturaService {
 
   constructor(private http: Http) { }
 
-  private facturasUrl = 'app/services/facturas';//URL TO WEB API
+  private facturasUrl = './facturas';//URL TO WEB API
 
 
   getFacturas(): Observable<Factura[]> {
@@ -45,7 +45,7 @@ export class FacturaService {
     let options = new RequestOptions({ headers: headers });
 
     return this.http.post(this.facturasUrl, body, options)
-                    .map(this.extractData)
-                    .catch(this.handleError);
+                    .map(this.extractData);
+                   // .catch(this.handleError);
   }
 }

@@ -1,9 +1,9 @@
-<a>New Factura name:</a>
+<!--<a>New Factura name:</a>
 <input #newHeroName />
 <button (click)="addFactura(newFacturaName.value); newFacturaName.value=''">
   Add Factura
 </button>
-<div class="error" *ngIf="errorMessage">{{errorMessage}}</div>
+<div class="error" *ngIf="errorMessage">{{errorMessage}}</div>-->
 
 <h3><strong>Busqueda</strong></h3>
 
@@ -23,10 +23,10 @@
           <label class="btn btn-default">Activo</label>
           <label class="btn btn-default">Inactivo</label>
         </div>
-        <!--<a (click)="nuevo()" class="btn btn-primary">Nuevo</a>-->
-        <!--<a (click)="editar()" class="btn btn-primary">Editar</a>-->
-        <!--<a (click)="enviar()" class="btn btn-primary">Enviar</a>-->
-        <!--<a (click)="importar()" class="btn btn-primary">Importar</a>-->
+        <a (click)="nuevo()" class="btn btn-primary">Nuevo</a>
+        <a (click)="editar()" class="btn btn-primary">Editar</a>
+        <a (click)="enviar()" class="btn btn-primary">Enviar</a>
+        <a (click)="importar()" class="btn btn-primary">Importar</a>
 
       </div>
     </div>
@@ -133,7 +133,7 @@
 
         <div class="list-view-pf-description">
           <div class="list-group-item-heading">
-            {{listsf.name}}
+             {{listsf.name}}
           </div>
           <div class="list-group-item-text">
             Ahren Contratistas Generales SAC. Por compras de agregados <a href="#">mas...</a>.

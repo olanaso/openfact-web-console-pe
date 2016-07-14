@@ -2,7 +2,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { HeaderComponent } from './layout/header';
 import { SidebarComponent } from './layout/sidebar';
 import { ContainerComponent } from './layout/container';
-import './rxjs-operators';
+//import './rxjs-operators';
 
 @Component({
   moduleId: module.id,

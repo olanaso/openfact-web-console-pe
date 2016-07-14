@@ -1,4 +1,4 @@
-import { Factura } from './facturas';
+import { Factura } from './factura';
 export const FACTURAS: Factura[] = [
   {id: 11, name: 'Mr. Nice'},
   {id: 12, name: 'Narco'},

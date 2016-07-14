@@ -39,7 +39,7 @@ export class FacturasComponent implements OnInit {
   constructor(private router: Router, private facturaService: FacturaService) { }
 
   ngOnInit() {
-    this.getFacturas();
+    //this.getFacturas();
   }
 
 

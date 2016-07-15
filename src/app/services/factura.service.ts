@@ -15,19 +15,19 @@ export class FacturaService {
   private facturasUrl = './facturas';//URL TO WEB API
   private listFacturas: Factura[];
 
-  getFacturas(): Promise<Factura[]> {
-    // this.listFacturas = [];
-    return this.listFacturas
-    // return this.http.get(this.facturasUrl)
-    //   .toPromise()
-    //   .then(response => response.json().data)
-    //   .catch(this.handleError);
-  }
+  // getFacturas(): Promise<Factura[]> {
+  //   // this.listFacturas = [];
+  //   return this.listFacturas
+  //   // return this.http.get(this.facturasUrl)
+  //   //   .toPromise()
+  //   //   .then(response => response.json().data)
+  //   //   .catch(this.handleError);
+  // }
 
-  getFactura(idFactura: number) {
-    return this.getFacturas()
-      .then(factura => factura.find(factura => factura.idFactura === idFactura));
-  }
+  // getFactura(idFactura: number) {
+  //   return this.getFacturas()
+  //     .then(factura => factura.find(factura => factura.idFactura === idFactura));
+  // }
 
   private extractData(res: Response) {
     let body = res.json();

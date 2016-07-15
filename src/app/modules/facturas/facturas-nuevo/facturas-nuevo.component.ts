@@ -58,15 +58,15 @@ export class FacturasNuevoComponent implements OnInit {
   }
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
-      if (params['id'] !== undefined) {
-        let id = +params['id'];
-        //this.navigated = true;
-        this.facturaService.getFacturas(id)
-          .then(facturaDetalle => this.facturaDetalle = facturaDetalle);
-      } else {
+      // if (params['id'] !== undefined) {
+      //   let id = +params['id'];
+      //   //this.navigated = true;
+      //   this.facturaService.getFacturas(id)
+      //     .then(facturaDetalle => this.facturaDetalle = facturaDetalle);
+      // } else {
         //this.navigated = false;
         this.facturaDetalle = new FacturaDetalle();
-      }
+      // }
     });
   }
 

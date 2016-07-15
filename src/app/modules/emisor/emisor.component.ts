@@ -27,7 +27,7 @@ export class EmisorComponent implements OnInit {
   getEmisores() {
     //this.emisor = this.emisorFactory.getEmisores();
 
-    this.emisorFactory.getEmisores().then(emisor => this.emisor = emisor);
+    this.emisorFactory.getHeroesSlowly().then(emisor => this.emisor = emisor);
     
   }
 

@@ -7,6 +7,8 @@ import {MODAL_DIRECTIVES, BS_VIEW_PROVIDERS} from 'ng2-bootstrap/ng2-bootstrap';
 import {ACCORDION_DIRECTIVES } from 'ng2-bootstrap/ng2-bootstrap';
 //import {DatePicker} from 'ng2-datepicker';
 
+// import { Factura } from '../../../../app/services/factura';
+
 // todo: change to ng2-bootstrap
 import {ModalDirective} from 'ng2-bootstrap/ng2-bootstrap';
 

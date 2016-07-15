@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {Http, Response,Headers,RequestOptions } from '@angular/http'
 
 import { Factura } from './factura';
-import { FACTURAS } from './facturas-mock';
+// import { FACTURAS } from './facturas-mock';
 import { Observable }     from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 

@@ -1,4 +1,8 @@
+
+import { FacturaDetalle } from './factura-detalle';
+
 export class Factura {
-  id: number;
-  name: string;
+  public id: number;
+  public name: string;
+  public facturaDetalle: FacturaDetalle[]
 }

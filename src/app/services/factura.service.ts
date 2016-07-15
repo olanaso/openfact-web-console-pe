@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import {Http, Response,Headers,RequestOptions } from '@angular/http'
+import {Http, Response, Headers, RequestOptions } from '@angular/http'
 
-import { Factura } from './factura';
+import { Factura } from '../../app/models/factura';
 // import { FACTURAS } from './facturas-mock';
 import { Observable }     from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -13,13 +13,22 @@ export class FacturaService {
   constructor(private http: Http) { }
 
   private facturasUrl = './facturas';//URL TO WEB API
+  private listFacturas: Factura[];
 
-
-  getFacturas(): Observable<Factura[]> {
-    return this.http.get(this.facturasUrl)
-      .map(this.extractData);
-      //.catch(this.handleError);
+  getFacturas(): Promise<Factura[]> {
+    // this.listFacturas = [];
+    return this.listFacturas
+    // return this.http.get(this.facturasUrl)
+    //   .toPromise()
+    //   .then(response => response.json().data)
+    //   .catch(this.handleError);
   }
+
+  getFactura(idFactura: number) {
+    return this.getFacturas()
+      .then(factura => factura.find(factura => factura.idFactura === idFactura));
+  }
+
   private extractData(res: Response) {
     let body = res.json();
     return body.data || {};
@@ -39,13 +48,13 @@ export class FacturaService {
   //     setTimeout(() => resolve(HEROES), 2000) // 2 seconds
   //   );
   // }
-  addFactura (name: string): Observable<Factura> {
+  addFactura(name: string): Observable<Factura> {
     let body = JSON.stringify({ name });
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
     return this.http.post(this.facturasUrl, body, options)
-                    .map(this.extractData);
-                   // .catch(this.handleError);
+      .map(this.extractData);
+    // .catch(this.handleError);
   }
 }

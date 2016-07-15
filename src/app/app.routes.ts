@@ -3,6 +3,7 @@ import { provideRouter, RouterConfig }  from '@angular/router';
 import { HomeComponent } from './pages/home';
 import { AboutComponent } from './pages/about';
 import { FacturaRoutes } from './modules/facturas';
+import { EmisorRoutes } from './modules/emisor';
 export const routes: RouterConfig = [
   /*{
     path: '',
@@ -17,7 +18,8 @@ export const routes: RouterConfig = [
     path: 'about',
     component: AboutComponent
   },
-  ...FacturaRoutes
+  ...FacturaRoutes,
+  ...EmisorRoutes
 ];
 
 export const APP_ROUTER_PROVIDERS = [

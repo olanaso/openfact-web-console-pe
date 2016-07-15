@@ -1,7 +1,7 @@
 export class Emisor {
 
-    public ruc: string;
+    public ruc: number;
 
-
+    public razonSocial: string;
 
 }

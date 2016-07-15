@@ -1,4 +1,5 @@
-import { Emisor } from './emisor';
+import { Emisor } from '../../app/models/emisor';
+
 export const EMISOR: Emisor[] = [
   {ruc: 11, razonSocial: 'Mr. Nice'},
   {ruc: 12, razonSocial: 'Narco'},

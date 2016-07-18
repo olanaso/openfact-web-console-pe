@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import {CORE_DIRECTIVES} from '@angular/common';
 import {DROPDOWN_DIRECTIVES } from 'ng2-bootstrap/ng2-bootstrap';
 import { FacturaService } from '../../../app/services/factura.service';
-import { Factura } from '../../../app/services/factura';
+import { Factura } from '../../../app/models/factura';
 //import { HTTP_PROVIDERS } from '@angular/http';
 //import { Observable }     from 'rxjs/Observable';
 //import './rxjs-operators';

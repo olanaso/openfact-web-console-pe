@@ -1,6 +1,6 @@
 import { EmisorService  } from './emisor.service';
 import { EMISOR } from './emisor-mock';
-import { Emisor } from './/emisor';
+import { Emisor } from '../models/emisor';
 
 export class EmisorFactory {
 
@@ -18,10 +18,10 @@ export class EmisorFactory {
         //return EMISOR;
         return Promise.resolve(EMISOR);
     }
-    getHeroesSlowly() {
-        return new Promise<Emisor[]>(resolve =>
-            setTimeout(() => resolve(EMISOR), 2000) // 2 seconds
-        )
-    }
+    // getHeroesSlowly() {
+    //     return new Promise<Emisor[]>(resolve =>
+    //         setTimeout(() => resolve(EMISOR), 2000) // 2 seconds
+    //     )
+    // }
 
 }

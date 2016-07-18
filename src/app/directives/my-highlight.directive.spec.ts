@@ -6,10 +6,11 @@
 //   expect, it, xit,
 //   async, inject
 // } from '@angular/core/testing';
-// import {Emisor} from './emisor';
+// import { MyHighlight } from './my-highlight.directive';
 
-// describe('Emisor', () => {
+// describe('MyHighlight Directive', () => {
 //   it('should create an instance', () => {
-//     expect(new Emisor()).toBeTruthy();
+//     let directive = new MyHighlight();
+//     expect(directive).toBeTruthy();
 //   });
 // });

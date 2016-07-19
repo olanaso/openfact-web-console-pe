@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import {Http, Response, Headers, RequestOptions } from '@angular/http'
 
 import { Factura } from '../../app/models/factura';
+import { FacturaDetalle } from '../../app/models/factura-detalle';
+import { DETALLE } from '../../app/models/mock-factura-detalle';
 // import { FACTURAS } from './facturas-mock';
 import { Observable }     from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -13,7 +15,7 @@ export class FacturaService {
   constructor(private http: Http) { }
 
   private facturasUrl = './facturas';//URL TO WEB API
-  private listFacturas: Factura[];
+  //private listFacturas: Factura[];
 
   // getFacturas(): Promise<Factura[]> {
   //   // this.listFacturas = [];
@@ -28,6 +30,10 @@ export class FacturaService {
   //   return this.getFacturas()
   //     .then(factura => factura.find(factura => factura.idFactura === idFactura));
   // }
+
+  getDetalleFactura() {
+    return Promise.resolve(DETALLE);
+  }
 
   private extractData(res: Response) {
     let body = res.json();
@@ -57,4 +63,37 @@ export class FacturaService {
       .map(this.extractData);
     // .catch(this.handleError);
   }
+
+  // saveDetalle():Observable<Factura.facturaDetalle>
+  // saveDetalle(facturaDetalle: FacturaDetalle): Promise<Hero>  {
+  //   if (facturaDetalle.idFacturaDetalle) {
+  //     return this.put(facturaDetalle);
+  //   }
+  //   //return this.post(facturaDetalle);
+  // }
+
+  //  private post(facturaDetalle: FacturaDetalle): Promise<Hero> {
+  //   let headers = new Headers({
+  //     'Content-Type': 'application/json'});
+
+  //   return this.http
+  //              .post(this.heroesUrl, JSON.stringify(hero), {headers: headers})
+  //              .toPromise()
+  //              .then(res => res.json().data)
+  //              .catch(this.handleError);
+  // }
+
+  // Update existing Hero
+  // private put(facturaDetalle: FacturaDetalle) {
+  //   let headers = new Headers();
+  //   headers.append('Content-Type', 'application/json');
+
+  //   let url = `${this.facturasUrl}/${facturaDetalle.idFacturaDetalle}`;
+
+  //   return this.http
+  //              .put(url, JSON.stringify(facturaDetalle), {headers: headers})
+  //              .toPromise()
+  //              .then(() => facturaDetalle)
+  //              .catch(this.handleError);
+  // }
 }

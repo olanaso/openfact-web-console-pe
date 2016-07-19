@@ -1,7 +1,7 @@
 
 import { FacturaDetalle } from './factura-detalle';
 
-export class Factura {
+export class Factura   {
 
   private _idFactura: number;
   public get idFactura(): number {

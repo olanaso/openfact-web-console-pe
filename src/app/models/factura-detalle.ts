@@ -1,17 +1,34 @@
+import {Model} from './model';
 
+export class FacturaDetalle{ //extends Model {
 
-export class FacturaDetalle {
-  
-  private _cantidad : number;
-  public get cantidad() : number {
-    return this._cantidad;
-  }
-  public set cantidad(v : number) {
-    this._cantidad = v;
-  }
-  
+ public idFacturaDetalle: number;
+ public  cantidad: number;
   public unidadMedida: string;
-  public producto:string;
-  public precioUnitario:number;
-  public precioParcial:number;
+  public producto: string;
+ public  precioUnitario: number;
+ public  precioParcial: number;
+
+  //attributeNames: string[] = ['idFacturaDetalle', 'cantidad', 'unidadMedida', 'producto', 'precioUnitario','precioParcial'];
+
+  // constructor(attributes: {} = null) {
+  //   this.attributes = attributes;
+  // }
+
+  // set attributes(attributes: {}) {
+  //   for (var k in attributes) {
+  //     this[k] = attributes[k];
+  //   }
+  // }
+
+  // get attributes(): {} {
+  //   return {
+  //     idFacturaDetalle : this.idFacturaDetalle,
+  //     cantidad : this.cantidad,
+  //     unidadMedida: this.unidadMedida,
+  //     producto:this.producto,
+  //     precioUnitario:this.precioUnitario,
+  //     precioParcial:this.precioParcial
+  //   };
+  // }
 }

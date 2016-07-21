@@ -2,59 +2,68 @@
 
 <accordion [closeOthers]="oneAtATime">
   <accordion-group heading="Registro de factura" [isOpen]="status.isFirstOpen" [isDisabled]="status.isFirstDisabled">
-    <!--<p>The body of the accordion group grows to fit the contents</p>
-    <button type="button" class="btn btn-primary btn-sm" (click)="addItem()">Add Item</button>
-    <div *ngFor="let item of items">{{item}}</div>-->
     <form class="form-horizontal">
       <div class="form-group">
         <label class="col-sm-2 control-label" for="exampleInput">Serie</label>
         <div class="col-sm-2">
-          <input type="text" id="exampleInput" class="form-control" placeholder="Serie">
+          <input type="text" *ngIf="selectFactura" [(ngModel)]="selectFactura.serie" [ngModelOptions]="{standalone: true}" id="exampleInput"
+            class="form-control" placeholder="Serie">
         </div>
         <label class="col-sm-2 control-label" for="exampleInput">Numero</label>
         <div class="col-sm-2">
-          <input type="text" id="exampleInput" class="form-control" placeholder="Numero">
+          <input type="text" *ngIf="selectFactura" [(ngModel)]="selectFactura.numero" [ngModelOptions]="{standalone: true}" id="exampleInput"
+            class="form-control" placeholder="Numero">
         </div>
         <label class="col-sm-2 control-label" for="exampleInput">Fecha Emision</label>
         <div class="col-sm-2">
-          <input type="text" id="exampleInput" class="form-control" placeholder="Fecha Emision">
+          <input type="text" *ngIf="selectFactura" [(ngModel)]="selectFactura.fechaEmision" [ngModelOptions]="{standalone: true}" id="exampleInput"
+            class="form-control" placeholder="Fecha Emision">
         </div>
       </div>
       <div class="form-group">
         <label class="col-sm-2 control-label" for="exampleInput">Ruc</label>
         <div class="col-sm-2">
-          <input type="text" id="exampleInput" class="form-control" placeholder="RUC">
+          <input type="text" *ngIf="selectFactura" [(ngModel)]="selectFactura.ruc" [ngModelOptions]="{standalone: true}" id="exampleInput"
+            class="form-control" placeholder="RUC">
         </div>
         <label class="col-sm-2 control-label" for="exampleInput">Razon Social</label>
         <div class="col-sm-6">
-          <input type="text" id="exampleInput" class="form-control" placeholder="Razon Social">
+          <input type="text" *ngIf="selectFactura" [(ngModel)]="selectFactura.razonSocial" [ngModelOptions]="{standalone: true}" id="exampleInput"
+            class="form-control" placeholder="Razon Social">
         </div>
       </div>
       <div class="form-group">
         <label class="col-sm-2 control-label" for="exampleInput">Moneda</label>
         <div class="col-sm-2">
-          <select class="combobox form-control">
-          <option>Soles</option>
-          <option>Dolares</option>            
-          <option disabled>Euros</option>
+          <select class="combobox form-control" *ngIf="selectFactura" [(ngModel)]="selectFactura.moneda" [ngModelOptions]="{standalone: true}">
+          <option *ngFor="let moneda of listMoneda" value="moneda.codigo" >{{moneda.denominacion}}</option>
+          <!--<option>Dolares</option>            
+          <option disabled>Euros</option>-->
         </select>
         </div>
         <label class="col-sm-2 control-label" for="exampleInput">Afecto</label>
-        <div class="col-sm-2">
-          <label class="switch">
-                <input type="checkbox"/>
-                <div class="slider"></div>
-                </label>
+        <div class="col-sm-1">
+
+          <input type="checkbox" *ngIf="selectFactura" [(ngModel)]="selectFactura.afecto" [ngModelOptions]="{standalone: true}" />
+
+          <!--<div class="btn-group btn-toggle">
+            <button [ngClass]="'btn btn-xs btn-default':isON">ON</button>
+            <button [ngClass]="'btn btn-xs btn-primary active',isOFF" >OFF</button>
+          </div>-->
         </div>
         <label class="col-sm-2 control-label" for="exampleInput">Email</label>
-        <div class="col-sm-2">
-          <input type="email" id="exampleInput" class="form-control" placeholder="jane.doe@example.com">
+        <div class="col-sm-3">
+          <div class="input-group">
+            <span class="input-group-addon">@</span>
+            <input type="email" *ngIf="selectFactura" [(ngModel)]="selectFactura.email" [ngModelOptions]="{standalone: true}" id="exampleInput"
+              class="form-control" placeholder="jane.doe@example.com">
+          </div>
         </div>
       </div>
       <div class="form-group">
         <div class="col-sm-6">
           <!--<button type="button" class="btn btn-primary btn-xs">Nuevo</button>-->
-          <button class="btn btn-primary" (click)="lgModal.show()">Nuevo</button>
+          <button class="btn btn-primary" (click)="showChildModal()">Nuevo</button>
           <button type="button" class="btn btn-default btn-xs">Editar</button>
           <button type="button" class="btn btn-default btn-xs">Eliminar</button>
         </div>
@@ -62,7 +71,7 @@
       </div>
       <div class="form-group">
         <div class="col-sm-12">
-          <table class="table table-condensed">
+          <table class="table table-hover">
             <thead>
               <tr>
                 <th>#</th>
@@ -75,14 +84,24 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let detalleFactura of listDetalleFactura">
+              <tr *ngFor="let detalleFactura of facturaDetalles">
                 <th scope="row">1</th>
-                <td>{{ detalleFactura.Cantidad }}</td>
-                <td>{{ detalleFactura.UnidadMedida }}</td>
-                <td>{{ detalleFactura.Producto }}</td>
-                <td>{{ detalleFactura.PrecioUnitario }}</td>
+                <td>{{ detalleFactura.cantidad }}</td>
+                <td>{{ detalleFactura.unidadMedida }}</td>
+                <td>{{ detalleFactura.producto }}</td>
+                <td>{{ detalleFactura.precioUnitario }}</td>
                 <td>{{ detalleFactura.precioParcial }}</td>
-                <td>Editar</td>
+                <td>
+                  <!--<a href="javascript:void(0)" (click)="Editar(detalleFactura)">
+                    Editar
+                  </a>-->
+
+                  <!--<a href="javascript:void(0)" class="destroy" (click)="deleteModel(detalleFactura)">
+                    Eliminar
+                  </a>-->
+                  <button type="button" (click)="deleteModel(detalleFactura)" class="close" aria-label="Close"><span aria-hidden="true">&#x02717;</span></button>
+                  <button type="button" (click)="Editar(detalleFactura)" class="close" aria-label="Close"><span aria-hidden="true">&#x021D9;</span></button>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -97,45 +116,48 @@
         </div>
       </div>
     </form>
-
   </accordion-group>
 </accordion>
 
-
-
-
-
-<div bsModal #lgModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+<div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" (click)="lgModal.hide()" aria-label="Close">
+        <button type="button" class="close" (click)="hideChildModal()" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-        <h4 class="modal-title">Large modal</h4>
+        <h4 class="modal-title">NUEVO DETALLE DE FACTURA</h4>
       </div>
       <div class="modal-body">
-
         <form>
           <div class="form-group">
-            <label for="exampleInputEmail1">Cantidad</label>
-            <input type="number" [(ngModel)]="facturaDetalle.cantidad" class="form-control" id="exampleInputEmail1" placeholder="Cantidad">
+            <label for="cantidad">Cantidad</label>
+            <!--<div *ngIf="selectedFactura">-->
+            <input type="number" *ngIf="selectFacturaDetalle" [(ngModel)]="selectFacturaDetalle.cantidad" ngControl="someValue" name="cantidad"
+              class="form-control" id="cantidad" placeholder="Cantidad">
+            <!--</div>-->
           </div>
           <div class="form-group">
             <label for="exampleInputPassword1">Unidad Medida</label>
-            <select class="combobox form-control">
-                  <option>Unidades</option>
-                  <option>Galones</option>            
-                  <option>Pares</option>
+            <select class="combobox form-control" *ngIf="selectFacturaDetalle" [(ngModel)]="selectFacturaDetalle.unidadMedida" [ngModelOptions]="{standalone: true}">
+                  <option value="Unidades">Unidades</option>
+                  <option value="Galones">Galones</option>            
+                  <option value="Pares">Pares</option>
                 </select>
           </div>
           <div class="form-group">
             <label for="exampleInputPassword1">Producto/Servicio</label>
-            <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Producto o Servicio">
+            <input type="text" ngControl="producto" *ngIf="selectFacturaDetalle" [(ngModel)]="selectFacturaDetalle.producto" [ngModelOptions]="{standalone: true}"
+              class="form-control" id="exampleInputPassword1" placeholder="Producto o Servicio">
           </div>
           <div class="form-group">
             <label for="exampleInputPassword1">Precio Unitario</label>
-            <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Precio Unitario">
+            <div class="input-group">
+              <div class="input-group-addon">$</div>
+              <input type="number" ngControl="precioUnitario" *ngIf="selectFacturaDetalle" [(ngModel)]="selectFacturaDetalle.precioUnitario"
+                [ngModelOptions]="{standalone: true}" class="form-control" id="exampleInputPassword1" placeholder="Precio Unitario">
+              <div class="input-group-addon">.00</div>
+            </div>
           </div>
           <div class="form-group">
             <label for="">Afecto</label>
@@ -144,11 +166,11 @@
                 <div class="slider"></div>
              </label>
           </div>
-          <div class="form-group">
-            <button type="submit" class="btn btn-default">Agregar</button>
-          </div>
         </form>
-
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" (click)="agregar(selectFacturaDetalle)" data-dismiss="modal" class="btn btn-primary">Agregar</button>
       </div>
     </div>
   </div>

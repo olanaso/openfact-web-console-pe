@@ -1,3 +1,11 @@
+<h1>Lista de Emisores por modos: ({{mode}})</h1>
+Nuevo Emisor:
+<input #newEmisorName />
+<button (click)="addEmisorObservable(newEmisorName.value); newEmisorName.value=''">
+  + Emisor
+</button>
+<div class="error" *ngIf="errorMessage">{{errorMessage}}</div>
+
 <!--<h1>My First Attribute Directive</h1>
 <h4>Pick a highlight color</h4>
 <div>
@@ -7,12 +15,6 @@
 </div>
 <p [myHighlight]="color">Highlight me!</p>-->
 
-<!--<a>New Factura name:</a>
-<input #newHeroName />
-<button (click)="addFactura(newFacturaName.value); newFacturaName.value=''">
-  Add Factura
-</button>
-<div class="error" *ngIf="errorMessage">{{errorMessage}}</div>-->
 
 <h3><strong>Busqueda</strong></h3>
 
@@ -111,8 +113,9 @@
 </div>
 
 <div class="list-group list-view-pf">
-  <div class="list-group-item" *ngFor="#listsf of emisor">
-    
+  <!--<div class="list-group-item" *ngFor="#listsf of emisor">-->
+  <div class="list-group-item" *ngFor="let listsf of emisoresP">
+
     <div class="list-view-pf-checkbox">
       <input type="checkbox">
     </div>
@@ -143,7 +146,7 @@
 
         <div class="list-view-pf-description">
           <div class="list-group-item-heading">
-             {{listsf.razonSocial}}
+            {{listsf.name}}
           </div>
           <div class="list-group-item-text">
             Ahren Contratistas Generales SAC. Por compras de agregados <a href="#">mas...</a>.

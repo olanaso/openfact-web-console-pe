@@ -45,34 +45,17 @@ export class FacturasNuevoComponent implements OnInit {
   isON: boolean = true;
   isOFF: boolean = true;
 
-  facturaDetalles: Array<FacturaDetalle>;
+  //facturaDetalles: Array<FacturaDetalle>;
   facturaDetalle: FacturaDetalle = new FacturaDetalle();
   userForm: ControlGroup;
   selectFacturaDetalle: FacturaDetalle;
   selectFactura: Factura;
   listMoneda: Moneda[];
 
-  constructor(private http: Http, protected router: Router, builder: FormBuilder, private facturaService: FacturaService) {
-    //this.http.get('/users')
-    //.map(res => res.json())
-    //.subscribe(
-    //   .(facturaDetalle) => {
-    //     facturaDetalle.forEach(userData => {
-    //       var facturaDetalle: FacturaDetalle = new FacturaDetalle(userData);
-    //       this.facturaDetalles.push(facturaDetalle);
-    //     });
-    //   console.log(this.facturaDetalles);
-    // }
-    //);
-    this.facturaDetalles = [];
+  constructor(private http: Http, protected router: Router, builder: FormBuilder, private facturaService: FacturaService) {   
     this.selectFactura = new Factura();
+    this.selectFactura.facturaDetalle = [];
     this.listMoneda = [];
-    // this.userForm = builder.group({
-    //   cantidad: ['', Validators.compose([Validators.required, Validators.minLength(2)])],
-    //   unidadMedida: ['', Validators.compose([Validators.required, Validators.minLength(2)])],
-    //   producto: ['', Validators.compose([Validators.required, Validators.minLength(2)])],
-    //   precioUnitario: ['', Validators.compose([Validators.minLength(2)])]
-    // });
   }
 
   /**
@@ -97,27 +80,7 @@ export class FacturasNuevoComponent implements OnInit {
     this.selectFacturaDetalle = facturaDetalle;
     this.childModal.show();
   }
-
-  // deleteModel(facturaDetalle: FacturaDetalle) {
-  //   if (confirm('Are you sure you want to delete user ' + facturaDetalle.producto)) {
-  //     this.http.delete('/users/' + facturaDetalle.idFacturaDetalle)
-  //       .subscribe(
-  //       (response) => {
-  //         if (response.status === 204) {
-  //           this.facturaDetalles.forEach((u: FacturaDetalle, i) => {
-  //             if (u.idFacturaDetalle === facturaDetalle.idFacturaDetalle) {
-  //               this.facturaDetalles.splice(i, 1);
-  //             }
-  //           });
-  //           console.log(this.facturaDetalles);
-  //         }
-  //       }
-  //       );
-  //   }
-  // }
-
   /*metodos para el popup de registro de detalle de factura.*/
-
   /**
      * Handle errors
      * @param response
@@ -137,63 +100,21 @@ export class FacturasNuevoComponent implements OnInit {
 
   deleteModel(selectFacturaDetalle: FacturaDetalle) {
     if (confirm('Are you sure you want to delete user ' + selectFacturaDetalle.producto)) {
-      let index = this.facturaDetalles.indexOf(selectFacturaDetalle);
-      this.facturaDetalles.splice(index, 1);
+      let index = this.selectFactura.facturaDetalle.indexOf(selectFacturaDetalle);
+      this.selectFactura.facturaDetalle.splice(index, 1);
     }
   }
 
   agregar(selectFacturaDetalle: FacturaDetalle): void {
     if (!selectFacturaDetalle.idFacturaDetalle) {
-      selectFacturaDetalle.idFacturaDetalle = this.facturaDetalles.length + 1;
+      selectFacturaDetalle.idFacturaDetalle = this.selectFactura.facturaDetalle.length + 1;
       selectFacturaDetalle.precioParcial = selectFacturaDetalle.precioUnitario * selectFacturaDetalle.cantidad;
       console.log("ANTES DE GRABAR NUEVO..." + JSON.stringify(selectFacturaDetalle));
-      this.facturaDetalles.push(selectFacturaDetalle);
+      this.selectFactura.facturaDetalle.push(selectFacturaDetalle);
     } else {
       console.log("ANTES DE GRABAR EDICION..." + JSON.stringify(selectFacturaDetalle));
       selectFacturaDetalle.precioParcial = selectFacturaDetalle.precioUnitario * selectFacturaDetalle.cantidad;
     }
-    this.hideChildModal();
-    //this.facturaDetalles.push(selectFacturaDetalle);
-    // this.facturaService
-    //   .addItem(this.selectFacturaDetalle);
-    // .then(selectFacturaDetalle => {
-    //   this.selectFacturaDetalle = selectFacturaDetalle; // saved hero, w/ id if new
-    //   //this.goBack(selectFacturaDetalle);
-    //   //this.ngOnInit();
-    //   this.childModal.hide();
-    // })
-    //.catch(error => this.error = error); // TODO: Display error message
-
-    // console.log(this.userForm);
-    // // if (!this.userForm.valid) {
-    // //   return;
-    // // }
-    // //this.facturaDetalle.attributes = this.userForm.value;
-    // console.log(this.facturaDetalle);
-    // if (this.facturaDetalle.idFacturaDetalle) {
-    //   this.http.put('/users/' + this.facturaDetalle.idFacturaDetalle, JSON.stringify({ facturaDetalle: this.facturaDetalle }))
-    //     .map(res => res.json())
-    //     .subscribe(
-    //     (data) => {
-    //       this.router.navigate(['UserList']);
-    //     },
-    //     (response: Response) => {
-    //       this.handleError(response);
-    //     }
-    //     );
-    // } else {
-    //   this.http.post('/users', JSON.stringify({ facturaDetalle: this.facturaDetalle }))
-    //     .map(res => res.json())
-    //     .subscribe(
-    //     (data) => {
-    //       this.facturaDetalle.idFacturaDetalle = data.idFacturaDetalle;
-    //       this.router.navigate(['UserList']);
-    //     },
-    //     (response: Response) => {
-    //       this.handleError(response);
-    //     }
-    //     );
-    // }
+    this.hideChildModal(); 
   }
-
 }

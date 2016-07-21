@@ -9,7 +9,6 @@ import { Observable }     from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 
-
 @Injectable()
 export class FacturaService {
   //private heroesUrl = 'app/heroes';
@@ -31,10 +30,6 @@ export class FacturaService {
     }
     return this.post(facturaDetalle);
   }
-
-  // public addItem(facturaDetalle: FacturaDetalle): void {
-  //   this.items.push(facturaDetalle);
-  // }
 
   // Update existing Hero
   private put(facturaDetalle: FacturaDetalle) {
@@ -61,10 +56,6 @@ export class FacturaService {
       .then(res => res.json().data)
       .catch(this.handleError);
   }
-
-  // getDetalleFactura() {
-  //   return Promise.resolve(this.items);
-  // }
 
   private extractData(res: Response) {
     let body = res.json();

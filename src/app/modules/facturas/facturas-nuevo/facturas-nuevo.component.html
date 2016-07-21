@@ -84,7 +84,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let detalleFactura of facturaDetalles">
+              <tr *ngFor="let detalleFactura of selectFactura.facturaDetalle">
                 <th scope="row">1</th>
                 <td>{{ detalleFactura.cantidad }}</td>
                 <td>{{ detalleFactura.unidadMedida }}</td>

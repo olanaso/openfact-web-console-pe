@@ -2,11 +2,11 @@
 import { FacturaDetalle } from './factura-detalle';
 
 export class Factura   {
-
   private _idFactura: number;
   public get idFactura(): number {
     return this._idFactura;
   }
+
   public set idFactura(v: number) {
     this._idFactura = v;
   }

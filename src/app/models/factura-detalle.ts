@@ -1,13 +1,13 @@
 import {Model} from './model';
 
-export class FacturaDetalle{ //extends Model {
+export class FacturaDetalle { //extends Model {
 
- public idFacturaDetalle: number;
- public  cantidad: number;
+  public idFacturaDetalle: number;
+  public cantidad: number;
   public unidadMedida: string;
   public producto: string;
- public  precioUnitario: number;
- public  precioParcial: number;
+  public precioUnitario: number;
+  public precioParcial: number;
 
   //attributeNames: string[] = ['idFacturaDetalle', 'cantidad', 'unidadMedida', 'producto', 'precioUnitario','precioParcial'];
 

@@ -16,6 +16,8 @@ import {ACCORDION_DIRECTIVES } from 'ng2-bootstrap/ng2-bootstrap';
 
 import { FacturaService } from '../../../../app/services/factura.service';
 import { FacturaDetalle } from '../../../../app/models/factura-detalle';
+import { Factura } from '../../../../app/models/factura';
+import { Moneda } from '../../../../app/models/moneda';
 // todo: change to ng2-bootstrap
 import {ModalDirective} from 'ng2-bootstrap/ng2-bootstrap';
 import {AppValidators} from '../validators';
@@ -33,23 +35,22 @@ import {ControlGroupHelper} from '../ControlGroupHelper';
 export class FacturasNuevoComponent implements OnInit {
   @ViewChild('childModal') public childModal: ModalDirective;
   public oneAtATime: boolean = true;
-  public items: Array<string> = ['Item 1', 'Item 2', 'Item 3'];
   public status: Object = {
     isFirstOpen: true,
     isFirstDisabled: true
   };
-
   error: any;
   sub: any;
 
-  public addItem(): void {
-    this.items.push(`Items ${this.items.length + 1}`);
-  }
+  isON: boolean = true;
+  isOFF: boolean = true;
 
-  facturaDetalles: FacturaDetalle[];
+  facturaDetalles: Array<FacturaDetalle>;
   facturaDetalle: FacturaDetalle = new FacturaDetalle();
   userForm: ControlGroup;
-  selectedFactura: FacturaDetalle;
+  selectFacturaDetalle: FacturaDetalle;
+  selectFactura: Factura;
+  listMoneda: Moneda[];
 
   constructor(private http: Http, protected router: Router, builder: FormBuilder, private facturaService: FacturaService) {
     //this.http.get('/users')
@@ -63,50 +64,57 @@ export class FacturasNuevoComponent implements OnInit {
     //   console.log(this.facturaDetalles);
     // }
     //);
-    this.userForm = builder.group({
-      cantidad: ['', Validators.compose([Validators.required, Validators.minLength(2)])],
-      unidadMedida: ['', Validators.compose([Validators.required, Validators.minLength(2)])],
-      producto: ['', Validators.compose([Validators.required, Validators.minLength(2)])],
-      precioUnitario: ['', Validators.compose([Validators.minLength(2)])]
-    });
+    this.facturaDetalles = [];
+    this.selectFactura = new Factura();
+    this.listMoneda = [];
+    // this.userForm = builder.group({
+    //   cantidad: ['', Validators.compose([Validators.required, Validators.minLength(2)])],
+    //   unidadMedida: ['', Validators.compose([Validators.required, Validators.minLength(2)])],
+    //   producto: ['', Validators.compose([Validators.required, Validators.minLength(2)])],
+    //   precioUnitario: ['', Validators.compose([Validators.minLength(2)])]
+    // });
   }
 
-  getFacturaDetalles() {
-    this.facturaService.getDetalleFactura().then(facturaDetalles => this.facturaDetalles = facturaDetalles);
+  /**
+   * getDataMoneda
+   */
+  public getDataMoneda() {
+    this.listMoneda = this.facturaService.getMoneda();
   }
 
   public showChildModal(): void {
-    this.facturaDetalle = new FacturaDetalle();
+    this.selectFacturaDetalle = new FacturaDetalle();
     this.childModal.show();
   }
   public hideChildModal(): void {
     this.childModal.hide();
   }
   ngOnInit() {
-    this.getFacturaDetalles();
+    this.getDataMoneda();
   }
 
   Editar(facturaDetalle: FacturaDetalle) {
-    this.selectedFactura = facturaDetalle;
+    this.selectFacturaDetalle = facturaDetalle;
+    this.childModal.show();
   }
 
-  deleteModel(facturaDetalle: FacturaDetalle) {
-    if (confirm('Are you sure you want to delete user ' + facturaDetalle.producto)) {
-      this.http.delete('/users/' + facturaDetalle.idFacturaDetalle)
-        .subscribe(
-        (response) => {
-          if (response.status === 204) {
-            this.facturaDetalles.forEach((u: FacturaDetalle, i) => {
-              if (u.idFacturaDetalle === facturaDetalle.idFacturaDetalle) {
-                this.facturaDetalles.splice(i, 1);
-              }
-            });
-            console.log(this.facturaDetalles);
-          }
-        }
-        );
-    }
-  }
+  // deleteModel(facturaDetalle: FacturaDetalle) {
+  //   if (confirm('Are you sure you want to delete user ' + facturaDetalle.producto)) {
+  //     this.http.delete('/users/' + facturaDetalle.idFacturaDetalle)
+  //       .subscribe(
+  //       (response) => {
+  //         if (response.status === 204) {
+  //           this.facturaDetalles.forEach((u: FacturaDetalle, i) => {
+  //             if (u.idFacturaDetalle === facturaDetalle.idFacturaDetalle) {
+  //               this.facturaDetalles.splice(i, 1);
+  //             }
+  //           });
+  //           console.log(this.facturaDetalles);
+  //         }
+  //       }
+  //       );
+  //   }
+  // }
 
   /*metodos para el popup de registro de detalle de factura.*/
 
@@ -127,46 +135,65 @@ export class FacturasNuevoComponent implements OnInit {
     console.log(response);
   }
 
-  // @Input()
-  // set model(facturaDetalle: FacturaDetalle) {
-  //   if (facturaDetalle) {
-  //     this.facturaDetalle = facturaDetalle;
-  //     ControlGroupHelper.updateControls(this.userForm, this.facturaDetalle);
-  //     console.log((<Control>this.userForm.controls['producto']).errors);
-  //   }
-  // }
-
-  agregar() {
-    console.log(this.userForm);
-    // if (!this.userForm.valid) {
-    //   return;
-    // }
-    //this.facturaDetalle.attributes = this.userForm.value;
-    console.log(this.facturaDetalle);
-    if (this.facturaDetalle.idFacturaDetalle) {
-      this.http.put('/users/' + this.facturaDetalle.idFacturaDetalle, JSON.stringify({ facturaDetalle: this.facturaDetalle }))
-        .map(res => res.json())
-        .subscribe(
-        (data) => {
-          this.router.navigate(['UserList']);
-        },
-        (response: Response) => {
-          this.handleError(response);
-        }
-        );
-    } else {
-      this.http.post('/users', JSON.stringify({ facturaDetalle: this.facturaDetalle }))
-        .map(res => res.json())
-        .subscribe(
-        (data) => {
-          this.facturaDetalle.idFacturaDetalle = data.idFacturaDetalle;
-          this.router.navigate(['UserList']);
-        },
-        (response: Response) => {
-          this.handleError(response);
-        }
-        );
+  deleteModel(selectFacturaDetalle: FacturaDetalle) {
+    if (confirm('Are you sure you want to delete user ' + selectFacturaDetalle.producto)) {
+      let index = this.facturaDetalles.indexOf(selectFacturaDetalle);
+      this.facturaDetalles.splice(index, 1);
     }
+  }
+
+  agregar(selectFacturaDetalle: FacturaDetalle): void {
+    if (!selectFacturaDetalle.idFacturaDetalle) {
+      selectFacturaDetalle.idFacturaDetalle = this.facturaDetalles.length + 1;
+      selectFacturaDetalle.precioParcial = selectFacturaDetalle.precioUnitario * selectFacturaDetalle.cantidad;
+      console.log("ANTES DE GRABAR NUEVO..." + JSON.stringify(selectFacturaDetalle));
+      this.facturaDetalles.push(selectFacturaDetalle);
+    } else {
+      console.log("ANTES DE GRABAR EDICION..." + JSON.stringify(selectFacturaDetalle));
+      selectFacturaDetalle.precioParcial = selectFacturaDetalle.precioUnitario * selectFacturaDetalle.cantidad;
+    }
+    this.hideChildModal();
+    //this.facturaDetalles.push(selectFacturaDetalle);
+    // this.facturaService
+    //   .addItem(this.selectFacturaDetalle);
+    // .then(selectFacturaDetalle => {
+    //   this.selectFacturaDetalle = selectFacturaDetalle; // saved hero, w/ id if new
+    //   //this.goBack(selectFacturaDetalle);
+    //   //this.ngOnInit();
+    //   this.childModal.hide();
+    // })
+    //.catch(error => this.error = error); // TODO: Display error message
+
+    // console.log(this.userForm);
+    // // if (!this.userForm.valid) {
+    // //   return;
+    // // }
+    // //this.facturaDetalle.attributes = this.userForm.value;
+    // console.log(this.facturaDetalle);
+    // if (this.facturaDetalle.idFacturaDetalle) {
+    //   this.http.put('/users/' + this.facturaDetalle.idFacturaDetalle, JSON.stringify({ facturaDetalle: this.facturaDetalle }))
+    //     .map(res => res.json())
+    //     .subscribe(
+    //     (data) => {
+    //       this.router.navigate(['UserList']);
+    //     },
+    //     (response: Response) => {
+    //       this.handleError(response);
+    //     }
+    //     );
+    // } else {
+    //   this.http.post('/users', JSON.stringify({ facturaDetalle: this.facturaDetalle }))
+    //     .map(res => res.json())
+    //     .subscribe(
+    //     (data) => {
+    //       this.facturaDetalle.idFacturaDetalle = data.idFacturaDetalle;
+    //       this.router.navigate(['UserList']);
+    //     },
+    //     (response: Response) => {
+    //       this.handleError(response);
+    //     }
+    //     );
+    // }
   }
 
 }

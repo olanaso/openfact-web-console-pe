@@ -1,0 +1,24 @@
+{
+  "data": [
+    {
+      "ruc": 1,
+      "razonSocial": "Windstorm",
+      "name": "aaa1"
+    },
+    {
+      "ruc": 2,
+      "razonSocial": "Bombasto",
+      "name": "aaa2"
+    },
+    {
+      "ruc": 3,
+      "razonSocial": "Magneta",
+      "name": "aaa3"
+    },
+    {
+      "ruc": 4,
+      "razonSocial": "Tornado",
+      "name": "aaa4"
+    }
+  ]
+}

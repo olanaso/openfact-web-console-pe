@@ -1,10 +1,24 @@
-<h1>Lista de Emisores por modos: ({{mode}})</h1>
+<!--<h1>Lista de Emisores por modos: ({{mode}})</h1>
 Nuevo Emisor:
 <input #newEmisorName />
 <button (click)="addEmisorObservable(newEmisorName.value); newEmisorName.value=''">
   + Emisor
 </button>
-<div class="error" *ngIf="errorMessage">{{errorMessage}}</div>
+<div class="error" *ngIf="errorMessage">{{errorMessage}}</div>-->
+
+<!--
+<div class="error" *ngIf="error">{{error}}</div>
+<button (click)="addEmisor()">Add New Emisor</button>
+<div *ngIf="addingEmisor">
+  <app-emisor-nuevo (close)="close($event)"></app-emisor-nuevo>
+</div>
+
+<div *ngIf="selectedEmisor">
+  <h2>
+    {{selectedEmisor.name | uppercase}} is my Emisor
+  </h2>
+  <button (click)="gotoDetail()">View Details</button>
+</div>-->
 
 <!--<h1>My First Attribute Directive</h1>
 <h4>Pick a highlight color</h4>
@@ -16,11 +30,11 @@ Nuevo Emisor:
 <p [myHighlight]="color">Highlight me!</p>-->
 
 
-<h3><strong>Busqueda</strong></h3>
-
+  <h3><strong>Busqueda</strong></h3>
 <form name="form" novalidate>
   <div class="row">
     <div class="col-sm-6">
+    
       <div class="form-group">
         <div class="input-group">
           <input type="text" name="filterText" class="form-control" placeholder="Filter text" pf-focused="true" autofocus>
@@ -29,17 +43,17 @@ Nuevo Emisor:
       </div>
     </div>
     <div class="col-sm-6">
-      <!--<div class="form-group pull-right">
-        <div class="btn-group">
+      <div class="form-group pull-right">
+        <!--<div class="btn-group">
           <label class="btn btn-default">Activo</label>
           <label class="btn btn-default">Inactivo</label>
-        </div>
+        </div>-->
         <a (click)="nuevo()" class="btn btn-primary">Nuevo</a>
-        <a (click)="editar()" class="btn btn-primary">Editar</a>
+        <!--<a (click)="editar()" class="btn btn-primary">Editar</a>
         <a (click)="enviar()" class="btn btn-primary">Enviar</a>
-        <a (click)="importar()" class="btn btn-primary">Importar</a>
+        <a (click)="importar()" class="btn btn-primary">Importar</a>-->
 
-      </div>-->
+      </div>
     </div>
   </div>
 </form>
@@ -114,7 +128,7 @@ Nuevo Emisor:
 
 <div class="list-group list-view-pf">
   <!--<div class="list-group-item" *ngFor="#listsf of emisor">-->
-  <div class="list-group-item" *ngFor="let listsf of emisoresP">
+  <div class="list-group-item" *ngFor="let emisor of emisores">
 
     <div class="list-view-pf-checkbox">
       <input type="checkbox">
@@ -146,7 +160,7 @@ Nuevo Emisor:
 
         <div class="list-view-pf-description">
           <div class="list-group-item-heading">
-            {{listsf.name}}
+            {{emisor.name}}
           </div>
           <div class="list-group-item-text">
             Ahren Contratistas Generales SAC. Por compras de agregados <a href="#">mas...</a>.

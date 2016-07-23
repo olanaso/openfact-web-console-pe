@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {CORE_DIRECTIVES} from '@angular/common';
 import { Emisor } from '../../../app/models/emisor';
+//import { EmisorNuevoComponent } from './emisor-nuevo/emisor-nuevo.component';
 
 //import { Highlight } from '../../../app/directives/my-highlight.directive';
 //import { HeroDetailComponent } from './hero-detail.component';
-//import {DROPDOWN_DIRECTIVES } from 'ng2-bootstrap/ng2-bootstrap';
+import {DROPDOWN_DIRECTIVES } from 'ng2-bootstrap/ng2-bootstrap';
 
 import { EmisorService } from '../../../app/services/emisor.service';
 import { EmisorFactory } from '../../../app/services/emisor-factory';
@@ -15,17 +16,19 @@ import { EmisorFactory } from '../../../app/services/emisor-factory';
   selector: 'app-emisor',
   templateUrl: 'emisor.component.html',
   styleUrls: ['emisor.component.css'],
-  directives: [CORE_DIRECTIVES],//,Highlight],
   providers: [EmisorService, EmisorFactory],
+  directives: [DROPDOWN_DIRECTIVES, CORE_DIRECTIVES]//,Highlight],
 })
 export class EmisorComponent implements OnInit {
 
-  // emisor: Emisor[];
+  selectedEmisor: Emisor;
+  addingEmisor = false;
+  error: any;
   /*para http-------------------*/
   errorMessage: string;
   emisores: Emisor[];
-  emisoresP: Emisor[];
-  emisoresO: Emisor[];
+  // emisoresP: Emisor[];
+  //  emisoresO: Emisor[];
   mode = 'Normal Function -  Promise y Observable';
   /*--------------------------- */
   constructor(
@@ -37,50 +40,69 @@ export class EmisorComponent implements OnInit {
   { }
 
   ngOnInit() {
-    this.getEmisores();
-    this.getEmisoresObservable();
+    //  this.getEmisores();
+    //  this.getEmisoresObservable();
     this.getEmisoresPromise();
   }
 
   getEmisores() {
-    this.emisorFactory.getEmisores().then(emisores => this.emisores = emisores);
+    this.emisorFactory
+      .getEmisores()
+      .then(emisores => this.emisores = emisores);
 
   }
   getEmisoresPromise() {
     this.emisorService
       .getEmisoresPromise()
-      .then(emisoresP => this.emisoresP = emisoresP,
+      .then(emisores => this.emisores = emisores,
       error => this.errorMessage = <any>error);
 
   }
-  getEmisoresObservable() {
-    this.emisorService
-      .getEmisoresObservable()
-      .subscribe(emisoresO => this.emisoresO = emisoresO,
-      error => this.errorMessage = <any>error);
+  // getEmisoresObservable() {
+  //   this.emisorService
+  //     .getEmisoresObservable()
+  //     .subscribe(emisoresO => this.emisores = emisoresO,
+  //     error => this.errorMessage = <any>error);
 
+  // }
+
+  // addEmisorPromise(name: string) {
+  //   if (!name) { return; }
+  //   this.emisorService.addEmisorPromise(name)
+  //     .then(
+  //     emisor => this.emisores.push(emisor),
+  //     error => this.errorMessage = <any>error);
+  // }
+  // addEmisorObservable(name: string) {
+  //   if (!name) { return; }
+  //   this.emisorService.addEmisorObservable(name)
+  //     .subscribe(
+  //     emisor => this.emisores.push(emisor),
+  //     error => this.errorMessage = <any>error);
+  // }
+  addEmisor() {
+    this.addingEmisor = true;
+    this.selectedEmisor = null;
+  }
+  close(savedEmisor: Emisor) {
+    this.addingEmisor = false;
+    if (savedEmisor) { this.getEmisoresPromise(); }
   }
 
-  addEmisorPromise(name: string) {
-    if (!name) { return; }
-    this.emisorService.addEmisorPromise(name)
-      .then(
-      emisor => this.emisores.push(emisor),
-      error => this.errorMessage = <any>error);
+  onSelect(emisor: Emisor) {
+    this.selectedEmisor = emisor;
+    this.addingEmisor = false;
   }
-  addEmisorObservable(name: string) {
-    if (!name) { return; }
-    this.emisorService.addEmisorObservable(name)
-      .subscribe(
-      emisor => this.emisores.push(emisor),
-      error => this.errorMessage = <any>error);
+  gotoDetail() {
+    this.router.navigate(['/detail', this.selectedEmisor.id]);
   }
 
-
-
-
-
-
+  nuevo() {
+    let link = ['emisor/nuevo'];
+    //this.clickMessage = 'You are my hero!';
+    //("Holaaaa...." + link);
+    this.router.navigate(link);
+  }
 
 
 }

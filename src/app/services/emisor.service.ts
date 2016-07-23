@@ -46,26 +46,26 @@ export class EmisorService {
     /*METODOS GET ----------------------------------------FIN*/
 
     /*METODOS PUT ------------------------------------------*/
-    addEmisorPromise(name: string): Promise<Emisor> {
-        let body = JSON.stringify({ name });
-        let headers = new Headers({ 'Content-Type': 'application/json' });
-        let options = new RequestOptions({ headers: headers });
+    // addEmisorPromise(name: string): Promise<Emisor> {
+    //     let body = JSON.stringify({ name });
+    //     let headers = new Headers({ 'Content-Type': 'application/json' });
+    //     let options = new RequestOptions({ headers: headers });
 
-        return this.http.post(this.emisoresUrl, body, options)
-            .toPromise()
-            .then(this.extractData)
-            .catch(this.handleErrorPro);
+    //     return this.http.post(this.emisoresUrl, body, options)
+    //         .toPromise()
+    //         .then(this.extractData)
+    //         .catch(this.handleErrorPro);
 
-    }
-    addEmisorObservable(name: string): Observable<Emisor> {
-        let body = JSON.stringify({ name });
-        let headers = new Headers({ 'Content-Type': 'application/json' });
-        let options = new RequestOptions({ headers: headers });
+    // }
+    // addEmisorObservable(name: string): Observable<Emisor> {
+    //     let body = JSON.stringify({ name });
+    //     let headers = new Headers({ 'Content-Type': 'application/json' });
+    //     let options = new RequestOptions({ headers: headers });
 
-        return this.http.post(this.emisoresUrl, body, options)
-            .map(this.extractData)
-            .catch(this.handleErrorObs);
-    }
+    //     return this.http.post(this.emisoresUrl, body, options)
+    //         .map(this.extractData)
+    //         .catch(this.handleErrorObs);
+    // }
 
     /*METODOS GET ----------------------------------------FIN*/
 
@@ -91,4 +91,45 @@ export class EmisorService {
         return body.data || {};
     }
     /*METODOS MANEJADORES DE ERROR --------------------------------FIN*/
+
+    /*METODOS SAVE GET(ID) -----------------------------------*/
+    getEmisor(id: number) {
+        return this.getEmisoresPromise()
+            .then(emisores => emisores.filter(emisor => emisor.id === id)[0]);
+    }
+   
+    save(emisor: Emisor): Promise<Emisor> {
+        if (emisor.id) {
+            return this.put(emisor);
+        }
+        return this.post(emisor);
+    }
+    // Add new Emisor
+    private post(emisor: Emisor): Promise<Emisor> {
+        let headers = new Headers({
+            'Content-Type': 'application/json'
+        });
+        return this.http
+            .post(this.emisoresUrl, JSON.stringify(emisor), { headers: headers })
+            .toPromise()
+            .then(res => res.json().data)
+            .catch(this.handleError);
+    }
+    // Update existing Hero
+    private put(emisor: Emisor) {
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        let url = `${this.emisoresUrl}/${emisor.id}`;
+        return this.http
+            .put(url, JSON.stringify(emisor), { headers: headers })
+            .toPromise()
+            .then(() => emisor)
+            .catch(this.handleError);
+    }
+    private handleError(error: any) {
+        console.error('An error occurred', error);
+        return Promise.reject(error.message || error);
+    }
+    /*METODOS SAVE GET(ID) ------------------------------FIN*/
+
 }

@@ -9,7 +9,6 @@ import { Observable }     from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 
-
 @Injectable()
 export class FacturaService {
   //private heroesUrl = 'app/heroes';
@@ -24,47 +23,37 @@ export class FacturaService {
 
   private facturasUrl = './facturas';//URL TO WEB API
 
-  save(facturaDetalle: FacturaDetalle): Promise<FacturaDetalle> {
-    console.log("ANTES DE GRABAR ..." + JSON.stringify(facturaDetalle));
-    if (facturaDetalle.idFacturaDetalle) {
-      return this.put(facturaDetalle);
+  save(factura: Factura): Promise<Factura> {
+    console.log("ANTES DE GRABAR ..." + JSON.stringify(factura));
+    if (factura.idFactura) {
+      return this.put(factura);
     }
-    return this.post(facturaDetalle);
+    return this.post(factura);
   }
 
-  // public addItem(facturaDetalle: FacturaDetalle): void {
-  //   this.items.push(facturaDetalle);
-  // }
-
   // Update existing Hero
-  private put(facturaDetalle: FacturaDetalle) {
+  private put(factura: Factura) {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-
-    let url = `${this.facturasUrl}/${facturaDetalle.idFacturaDetalle}`;
-
+    let url = `${this.facturasUrl}/${factura.idFactura}`;
     return this.http
-      .put(url, JSON.stringify(facturaDetalle), { headers: headers })
+      .put(url, JSON.stringify(factura), { headers: headers })
       .toPromise()
-      .then(() => facturaDetalle)
+      .then(() => factura)
       .catch(this.handleError);
   }
 
   // Add new Hero
-  private post(facturaDetalle: FacturaDetalle): Promise<FacturaDetalle> {
+  private post(factura: Factura): Promise<Factura> {
     let headers = new Headers({
       'Content-Type': 'application/json'
     });
     return this.http
-      .post(this.facturasUrl, JSON.stringify(facturaDetalle), { headers: headers })
+      .post(this.facturasUrl, JSON.stringify(factura), { headers: headers })
       .toPromise()
       .then(res => res.json().data)
       .catch(this.handleError);
   }
-
-  // getDetalleFactura() {
-  //   return Promise.resolve(this.items);
-  // }
 
   private extractData(res: Response) {
     let body = res.json();

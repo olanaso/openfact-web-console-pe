@@ -1,7 +1,9 @@
 <!--<div class="container-fluid container-cards-pf container-pf-nav-pf-vertical container-pf-nav-pf-vertical-with-secondary ">-->
 
-<accordion [closeOthers]="oneAtATime">
-  <accordion-group heading="Registro de factura" [isOpen]="status.isFirstOpen" [isDisabled]="status.isFirstDisabled">
+<div class="panel panel-default">
+  <!-- Default panel contents -->
+  <div class="panel-heading">Registro de Factura</div>
+  <div class="panel-body">
     <form class="form-horizontal">
       <div class="form-group">
         <label class="col-sm-2 control-label" for="exampleInput">Serie</label>
@@ -36,20 +38,16 @@
         <label class="col-sm-2 control-label" for="exampleInput">Moneda</label>
         <div class="col-sm-2">
           <select class="combobox form-control" *ngIf="selectFactura" [(ngModel)]="selectFactura.moneda" [ngModelOptions]="{standalone: true}">
-          <option *ngFor="let moneda of listMoneda" value="moneda.codigo" >{{moneda.denominacion}}</option>
-          <!--<option>Dolares</option>            
-          <option disabled>Euros</option>-->
-        </select>
+                    <option *ngFor="let moneda of listMoneda" value="moneda.codigo" >{{moneda.denominacion}}</option>
+          
+                  </select>
         </div>
         <label class="col-sm-2 control-label" for="exampleInput">Afecto</label>
         <div class="col-sm-1">
 
           <input type="checkbox" *ngIf="selectFactura" [(ngModel)]="selectFactura.afecto" [ngModelOptions]="{standalone: true}" />
 
-          <!--<div class="btn-group btn-toggle">
-            <button [ngClass]="'btn btn-xs btn-default':isON">ON</button>
-            <button [ngClass]="'btn btn-xs btn-primary active',isOFF" >OFF</button>
-          </div>-->
+
         </div>
         <label class="col-sm-2 control-label" for="exampleInput">Email</label>
         <div class="col-sm-3">
@@ -64,60 +62,92 @@
         <div class="col-sm-6">
           <!--<button type="button" class="btn btn-primary btn-xs">Nuevo</button>-->
           <button class="btn btn-primary" (click)="showChildModal()">Nuevo</button>
-          <button type="button" class="btn btn-default btn-xs">Editar</button>
-          <button type="button" class="btn btn-default btn-xs">Eliminar</button>
         </div>
         <div class="col-sm-6"></div>
       </div>
       <div class="form-group">
         <div class="col-sm-12">
-          <table class="table table-hover">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Cantidad</th>
-                <th>U.Medida</th>
-                <th>Producto</th>
-                <th>P.Unitario</th>
-                <th>P. Parcial</th>
-                <th>Operaciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let detalleFactura of selectFactura.facturaDetalle">
-                <th scope="row">1</th>
-                <td>{{ detalleFactura.cantidad }}</td>
-                <td>{{ detalleFactura.unidadMedida }}</td>
-                <td>{{ detalleFactura.producto }}</td>
-                <td>{{ detalleFactura.precioUnitario }}</td>
-                <td>{{ detalleFactura.precioParcial }}</td>
-                <td>
-                  <!--<a href="javascript:void(0)" (click)="Editar(detalleFactura)">
-                    Editar
-                  </a>-->
-
-                  <!--<a href="javascript:void(0)" class="destroy" (click)="deleteModel(detalleFactura)">
-                    Eliminar
-                  </a>-->
-                  <button type="button" (click)="deleteModel(detalleFactura)" class="close" aria-label="Close"><span aria-hidden="true">&#x02717;</span></button>
-                  <button type="button" (click)="Editar(detalleFactura)" class="close" aria-label="Close"><span aria-hidden="true">&#x021D9;</span></button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          <div class="table-responsive">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Cantidad</th>
+                  <th>U.Medida</th>
+                  <th>Producto</th>
+                  <th>P.Unitario</th>
+                  <th>P. Parcial</th>
+                  <th>Operaciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let detalleFactura of selectFactura.facturaDetalle">
+                  <th scope="row">1</th>
+                  <td>{{ detalleFactura.cantidad }}</td>
+                  <td>{{ detalleFactura.unidadMedida }}</td>
+                  <td>{{ detalleFactura.producto }}</td>
+                  <td class="classAlignRigth">{{ detalleFactura.precioUnitario| number:'.2' }}</td>
+                  <td class="classAlignRigth">{{ detalleFactura.precioParcial| number:'.2' }}</td>
+                  <td>
+                    <button type="button" (click)="deleteModel(detalleFactura)" class="close" aria-label="Close"><span aria-hidden="true">&#x02717;</span></button>
+                    <button type="button" (click)="Editar(detalleFactura)" class="close" aria-label="Close"><span aria-hidden="true">&#x021D9;</span></button>
+                  </td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th scope="row">&nbsp;</th>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td><label class="control-label" for="exampleInput">SUBTOTAL</label></td>
+                  <td class="classAlignRigth">
+                    <p>{{subTotal| number:'.2'}}</p>
+                  </td>
+                  <td>&nbsp;</td>
+                </tr>
+                <tr>
+                  <th scope="row">&nbsp;</th>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td><label class="control-label" for="exampleInput">IGV({{igv|percent:'.0'}})</label></td>
+                  <td class="classAlignRigth">
+                    <p>{{totalIgv | number:'.2'}}</p>
+                  </td>
+                  <td>&nbsp;</td>
+                </tr>
+                <tr>
+                  <th scope="row">&nbsp;</th>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td><label class="control-label" for="exampleInput">TOTAL</label></td>
+                  <td class="classAlignRigth">
+                    <p>{{total| number:'.2'}}</p>
+                  </td>
+                  <td>&nbsp;</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
         </div>
       </div>
 
       <div class="form-group">
         <div class="col-sm-12">
-          <button type="submit" class="btn btn-primary">Grabar y Enviar</button>
-          <button type="submit" class="btn btn-primary">Grabar</button>
-          <button type="submit" class="btn btn-default">Cancelar</button>
+
         </div>
       </div>
     </form>
-  </accordion-group>
-</accordion>
+  </div>
+
+  <div class="panel-fotter">
+    <button type="submit" class="btn btn-primary">Grabar y Enviar</button>
+    <button type="submit" (click)="save()" class="btn btn-primary">Grabar</button>
+    <button type="submit" class="btn btn-default">Cancelar</button>
+  </div>
+</div>
 
 <div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
@@ -126,7 +156,7 @@
         <button type="button" class="close" (click)="hideChildModal()" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-        <h4 class="modal-title">NUEVO DETALLE DE FACTURA</h4>
+        <h4 class="modal-title">DETALLE DE FACTURA</h4>
       </div>
       <div class="modal-body">
         <form>
@@ -169,7 +199,7 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-default" (click)="hideChildModal()" data-dismiss="modal">Close</button>
         <button type="button" (click)="agregar(selectFacturaDetalle)" data-dismiss="modal" class="btn btn-primary">Agregar</button>
       </div>
     </div>

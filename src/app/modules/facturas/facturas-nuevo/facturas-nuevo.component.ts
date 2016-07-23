@@ -34,16 +34,12 @@ import {ControlGroupHelper} from '../ControlGroupHelper';
 })
 export class FacturasNuevoComponent implements OnInit {
   @ViewChild('childModal') public childModal: ModalDirective;
-  public oneAtATime: boolean = true;
+
   public status: Object = {
     isFirstOpen: true,
     isFirstDisabled: true
   };
   error: any;
-  sub: any;
-
-  isON: boolean = true;
-  isOFF: boolean = true;
 
   //facturaDetalles: Array<FacturaDetalle>;
   facturaDetalle: FacturaDetalle = new FacturaDetalle();
@@ -51,12 +47,44 @@ export class FacturasNuevoComponent implements OnInit {
   selectFacturaDetalle: FacturaDetalle;
   selectFactura: Factura;
   listMoneda: Moneda[];
+  subTotal: number;
+  totalIgv: number;
+  igv: number;
+  total: number;
 
-  constructor(private http: Http, protected router: Router, builder: FormBuilder, private facturaService: FacturaService) {   
+  constructor(private http: Http, protected router: Router, builder: FormBuilder, private facturaService: FacturaService) {
     this.selectFactura = new Factura();
     this.selectFactura.facturaDetalle = [];
     this.listMoneda = [];
+    this.igv = 0.18;
+    this.calcularTotales();
   }
+
+  //para calcular los totaels de la factura.
+  calcularTotales() {
+    this.total = 0;
+    this.selectFactura.facturaDetalle.forEach(element => {
+      this.total = this.total + element.precioParcial;       
+    });
+    this.totalIgv = this.total * this.igv;
+    this.subTotal = this.total - this.totalIgv;
+    console.log(this.total);    
+  }
+
+  /*PARA ALMACENAR LA FACTURA EN LA URL O API.*/
+  save() {
+    this.facturaService
+      .save(this.selectFactura)
+      .then(selectFactura => {
+        this.selectFactura = selectFactura; // saved hero, w/ id if new       
+        //this.goBack(selectFactura);
+      })
+      .catch(error => this.error = error); // TODO: Display error message
+  }
+
+
+
+
 
   /**
    * getDataMoneda
@@ -76,10 +104,7 @@ export class FacturasNuevoComponent implements OnInit {
     this.getDataMoneda();
   }
 
-  Editar(facturaDetalle: FacturaDetalle) {
-    this.selectFacturaDetalle = facturaDetalle;
-    this.childModal.show();
-  }
+
   /*metodos para el popup de registro de detalle de factura.*/
   /**
      * Handle errors
@@ -97,11 +122,15 @@ export class FacturasNuevoComponent implements OnInit {
 
     console.log(response);
   }
-
+  Editar(facturaDetalle: FacturaDetalle) {
+    this.selectFacturaDetalle = facturaDetalle;
+    this.childModal.show();
+  }
   deleteModel(selectFacturaDetalle: FacturaDetalle) {
     if (confirm('Are you sure you want to delete user ' + selectFacturaDetalle.producto)) {
       let index = this.selectFactura.facturaDetalle.indexOf(selectFacturaDetalle);
       this.selectFactura.facturaDetalle.splice(index, 1);
+      this.calcularTotales();
     }
   }
 
@@ -115,6 +144,7 @@ export class FacturasNuevoComponent implements OnInit {
       console.log("ANTES DE GRABAR EDICION..." + JSON.stringify(selectFacturaDetalle));
       selectFacturaDetalle.precioParcial = selectFacturaDetalle.precioUnitario * selectFacturaDetalle.cantidad;
     }
-    this.hideChildModal(); 
+    this.calcularTotales();
+    this.hideChildModal();
   }
 }

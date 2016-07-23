@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ROUTER_DIRECTIVES } from '@angular/router';
 
+
 @Component({
   moduleId: module.id,
   selector: '[app-sidebar]',
@@ -10,7 +11,7 @@ import { ROUTER_DIRECTIVES } from '@angular/router';
 })
 export class SidebarComponent implements OnInit {
 
-  constructor() {}
+  constructor() { }
 
   ngOnInit() {
   }

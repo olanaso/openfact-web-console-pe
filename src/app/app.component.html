@@ -1,3 +1,20 @@
-<nav app-header class="navbar navbar-pf-vertical"></nav>
-<div app-sidebar class="nav-pf-vertical nav-pf-vertical-with-secondary-nav"></div>
-<div app-container class="container-fluid container-cards-pf container-pf-nav-pf-vertical container-pf-nav-pf-vertical-with-secondary"></div>
+<nav class="navbar navbar-pf-vertical">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" (click)="colapse(isCollapsed = !isCollapsed)">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+        <a href="/" class="navbar-brand">
+            <img class="navbar-brand-icon" src="http://www.patternfly.org/assets/img/logo-alt.svg" alt="" />
+            <img class="navbar-brand-name" src="http://www.patternfly.org/assets/img/brand-alt.svg" alt="PatternFly Enterprise Application"
+            />
+        </a>
+    </div>
+    <nav app-header class="collapse navbar-collapse"></nav>
+</nav>
+
+
+<div app-sidebar class="{{classSidebar}}"></div>
+<div app-container class="{{classContent}}"></div>

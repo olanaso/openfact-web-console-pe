@@ -4,6 +4,7 @@ import { HomeComponent } from './pages/home';
 import { AboutComponent } from './pages/about';
 import { FacturaRoutes } from './modules/facturas';
 import { EmisorRoutes } from './modules/emisor';
+import { EmisoresRoutes } from './modules/emisores';
 export const routes: RouterConfig = [
   /*{
     path: '',
@@ -19,7 +20,8 @@ export const routes: RouterConfig = [
     component: AboutComponent
   },
   ...FacturaRoutes,
-  ...EmisorRoutes
+  ...EmisorRoutes,
+  ...EmisoresRoutes
 ];
 
 export const APP_ROUTER_PROVIDERS = [

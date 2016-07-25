@@ -1,0 +1,90 @@
+<div class="panel panel-default">
+  <!-- Default panel contents -->
+  <div class="panel-heading">Registro de Emisores</div>
+  <div class="panel-body">
+    <form class="form-horizontal col-md-2">
+      <div class="form-group">
+        <div class="col-md-12 text-center">
+          <img src="http://bcthsbreece.com/img/shakespeare.jpeg" alt="..." class="img-rounded">
+        </div>
+
+      </div>
+    </form>
+    <form class="form-horizontal col-md-10">
+      <div class="form-group">
+        <label class="col-md-1 control-label" for="exampleInput">Ruc</label>
+        <div class="col-md-2">
+          <input type="text" *ngIf="selectEmisor" [(ngModel)]="selectEmisor.ruc" [ngModelOptions]="{standalone: true}" id="exampleInput"
+            class="form-control" placeholder="Ruc">
+        </div>
+        <label class="col-md-1 control-label" for="exampleInput">Razon social</label>
+        <div class="col-md-2">
+          <input type="text" *ngIf="selectEmisor" [(ngModel)]="selectEmisor.razonSocial" [ngModelOptions]="{standalone: true}" id="exampleInput"
+            class="form-control" placeholder="RazonSocial">
+        </div>
+
+        <label class="col-md-2 control-label" for="exampleInput">Nombre Comercial</label>
+        <div class="col-md-2">
+          <input type="text" *ngIf="selectEmisor" [(ngModel)]="selectEmisor.nombreComercial" [ngModelOptions]="{standalone: true}"
+            id="exampleInput" class="form-control" placeholder="NombreComercial">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-1 control-label" for="exampleInput">Departamento</label>
+        <div class="col-md-2">
+          <input type="text" *ngIf="selectEmisor" [(ngModel)]="selectEmisor.departamento" [ngModelOptions]="{standalone: true}" id="exampleInput"
+            class="form-control" placeholder="Departamento">
+        </div>
+        <label class="col-md-1 control-label" for="exampleInput">Provincia</label>
+        <div class="col-md-2">
+          <input type="text" *ngIf="selectEmisor" [(ngModel)]="selectEmisor.provincia" [ngModelOptions]="{standalone: true}" id="exampleInput"
+            class="form-control" placeholder="Provincia">
+        </div>
+        <label class="col-md-2 control-label" for="exampleInput">Distrito</label>
+        <div class="col-md-2">
+          <input type="text" *ngIf="selectEmisor" [(ngModel)]="selectEmisor.distrito" [ngModelOptions]="{standalone: true}" id="exampleInput"
+            class="form-control" placeholder="Distrito">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-1 control-label" for="exampleInput">Direccion</label>
+        <div class="col-md-2">
+          <input type="text" *ngIf="selectEmisor" [(ngModel)]="selectEmisor.direccion" [ngModelOptions]="{standalone: true}" id="exampleInput"
+            class="form-control" placeholder="Direccion">
+        </div>
+        <label class="col-md-1 control-label" for="exampleInput">Ciudad</label>
+        <div class="col-md-2">
+          <input type="text" *ngIf="selectEmisor" [(ngModel)]="selectEmisor.ciudad" [ngModelOptions]="{standalone: true}" id="exampleInput"
+            class="form-control" placeholder="Ciudad">
+        </div>
+        <label class="col-md-2 control-label" for="exampleInput">Telefono</label>
+        <div class="col-md-2">
+          <input type="text" *ngIf="selectEmisor" [(ngModel)]="selectEmisor.telefono" [ngModelOptions]="{standalone: true}" id="exampleInput"
+            class="form-control" placeholder="Telefono">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-1 control-label" for="exampleInput">Email</label>
+        <div class="col-md-2">
+          <input type="text" *ngIf="selectEmisor" [(ngModel)]="selectEmisor.email" [ngModelOptions]="{standalone: true}" id="exampleInput"
+            class="form-control" placeholder="Email">
+        </div>
+        <label class="col-md-1 control-label" for="exampleInput">Pagina Web</label>
+        <div class="col-md-2">
+          <input type="text" *ngIf="selectEmisor" [(ngModel)]="selectEmisor.paginaWeb" [ngModelOptions]="{standalone: true}" id="exampleInput"
+            class="form-control" placeholder="Pagina Web">
+        </div>
+        <label class="col-md-2 control-label" for="exampleInput">Observacion</label>
+        <div class="col-md-2">
+          <input type="text" *ngIf="selectEmisor" [(ngModel)]="selectEmisor.observacion" [ngModelOptions]="{standalone: true}" id="exampleInput"
+            class="form-control" placeholder="Observacion">
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="panel-fotter text-right">
+    <button type="submit" (click)="save()" class="btn btn-primary">Grabar</button>
+    <button type="submit" class="btn btn-default">Cancelar</button>
+  </div>
+</div>

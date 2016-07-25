@@ -23,7 +23,7 @@ export class EmisorService {
         return '';
     }
 
-    private emisoresUrl = 'app/emisor.json';  // URL to web API
+    private emisoresUrl = 'http://localhost:8080/admin/organizations';  // URL to web API
     /*METODOS GET ------------------------------------------*/
     getEmisores() {
         return this.http.get(this.emisoresUrl)

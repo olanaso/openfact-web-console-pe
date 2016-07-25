@@ -3,25 +3,25 @@
     {
       "id": 1,
       "ruc": 1,
-      "razonSocial": "Windstorm",
+      "razonSocial": "AHREN CONTRATISTAS GENERALES",
       "name": "aaa1"
     },
     {
       "id": 2,
       "ruc": 2,
-      "razonSocial": "Bombasto",
+      "razonSocial": "ABC SOLUCIONES",
       "name": "aaa2"
     },
     {
       "id": 3,
       "ruc": 3,
-      "razonSocial": "Magneta",
+      "razonSocial": "M Y R MULTISERVICIOS",
       "name": "aaa3"
     },
     {
       "id": 4,
       "ruc": 4,
-      "razonSocial": "Tornado",
+      "razonSocial": "MAQUINARIAS AHREN",
       "name": "aaa4"
     }
   ]

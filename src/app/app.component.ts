@@ -26,20 +26,18 @@ export class AppComponent {
 
   colapse() {
     if (!this.isCollapsed) {
-      this.classSidebar = "nav-pf-vertical nav-pf-vertical-with-secondary-nav hidden-icons-pf";
-      this.classContent = "container-fluid container-cards-pf container-pf-nav-pf-vertical container-pf-nav-pf-vertical-with-secondary hidden-icons-pf";
+      this.classSidebar = "nav-pf-vertical nav-pf-vertical-with-secondary-nav";
+      this.classContent = "container-fluid container-cards-pf container-pf-nav-pf-vertical container-pf-nav-pf-vertical-with-secondary";
     } else {
-      this.classSidebar = "nav-pf-vertical nav-pf-vertical-with-secondary-nav hidden-icons-pf collapsed";
-      this.classContent = "container-fluid container-cards-pf container-pf-nav-pf-vertical container-pf-nav-pf-vertical-with-secondary hidden-icons-pf collapsed-nav";
+      this.classSidebar = "nav-pf-vertical nav-pf-vertical-with-secondary-nav collapsed";
+      this.classContent = "container-fluid container-cards-pf container-pf-nav-pf-vertical container-pf-nav-pf-vertical-with-secondary collapsed-nav";
     }
   }
-
-  
 
   public constructor(viewContainerRef: ViewContainerRef) {
     // You need this small hack in order to catch application root view container ref
     this.viewContainerRef = viewContainerRef;
-    this.classSidebar = "nav-pf-vertical nav-pf-vertical-with-secondary-nav hidden-icons-pf";
-    this.classContent = "container-fluid container-cards-pf container-pf-nav-pf-vertical container-pf-nav-pf-vertical-with-secondary hidden-icons-pf";
+    this.classSidebar = "nav-pf-vertical nav-pf-vertical-with-secondary-nav";
+    this.classContent = "container-fluid container-cards-pf container-pf-nav-pf-vertical container-pf-nav-pf-vertical-with-secondary";
   }
 }

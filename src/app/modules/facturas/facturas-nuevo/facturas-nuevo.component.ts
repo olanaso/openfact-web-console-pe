@@ -15,9 +15,11 @@ import {ACCORDION_DIRECTIVES } from 'ng2-bootstrap/ng2-bootstrap';
 //import {DatePicker} from 'ng2-datepicker';
 
 import { FacturaService } from '../../../../app/services/factura.service';
+
 import { FacturaDetalle } from '../../../../app/models/factura-detalle';
 import { Factura } from '../../../../app/models/factura';
 import { Moneda } from '../../../../app/models/moneda';
+
 // todo: change to ng2-bootstrap
 import {ModalDirective} from 'ng2-bootstrap/ng2-bootstrap';
 import {AppValidators} from '../validators';
@@ -52,6 +54,7 @@ export class FacturasNuevoComponent implements OnInit {
   igv: number;
   total: number;
 
+
   constructor(private http: Http, protected router: Router, builder: FormBuilder, private facturaService: FacturaService) {
     this.selectFactura = new Factura();
     this.selectFactura.facturaDetalle = [];
@@ -64,11 +67,11 @@ export class FacturasNuevoComponent implements OnInit {
   calcularTotales() {
     this.total = 0;
     this.selectFactura.facturaDetalle.forEach(element => {
-      this.total = this.total + element.precioParcial;       
+      this.total = this.total + element.precioParcial;
     });
     this.totalIgv = this.total * this.igv;
     this.subTotal = this.total - this.totalIgv;
-    console.log(this.total);    
+    console.log(this.total);
   }
 
   /*PARA ALMACENAR LA FACTURA EN LA URL O API.*/
@@ -84,7 +87,7 @@ export class FacturasNuevoComponent implements OnInit {
 
 
 
-
+ 
 
   /**
    * getDataMoneda

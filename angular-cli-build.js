@@ -18,8 +18,8 @@ module.exports = function(defaults) {
       '@angular/**/*.+(js|js.map)',
       'moment/moment.js',
       'ng2-bootstrap/**/*.js',
-      'patternfly/**/*.*'
-    
+      'patternfly/**/*.*',
+      'bootstrap-select/**/**/*.*'
       // 'bootstrap-datepicker/**/*.js',
       // 'bootstrap-timepicker/**/*.js'
     ]

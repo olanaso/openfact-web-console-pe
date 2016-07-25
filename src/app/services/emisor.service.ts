@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
-
 import { Http, Response } from '@angular/http';
 import { Observable }     from 'rxjs/Observable';
 import { Emisor } from '../models/emisor';
 import { Headers, RequestOptions } from '@angular/http';
-
+import { Organization } from '../../app/models/organization';
 import { EMISOR } from './emisor-mock';
 
 @Injectable()
@@ -25,6 +24,8 @@ export class EmisorService {
     }
 
     private emisoresUrl = 'app/emisor.json';  // URL to web API
+    //private emisoresUrl = 'http://localhost:8080/admin/organizations/';  // URL to web API
+    private organizationUrl = 'http://localhost:8080/admin/organizations/';  // URL to web API
     /*METODOS GET ------------------------------------------*/
     getEmisores() {
         return this.http.get(this.emisoresUrl)
@@ -40,6 +41,12 @@ export class EmisorService {
 
     getEmisoresObservable(): Observable<Emisor[]> {
         return this.http.get(this.emisoresUrl)
+            .map(this.extractData)
+            .catch(this.handleErrorObs);
+    }
+
+    getOrganizationsObservable(): Observable<Organization[]> {
+        return this.http.get(this.organizationUrl)
             .map(this.extractData)
             .catch(this.handleErrorObs);
     }
@@ -88,7 +95,7 @@ export class EmisorService {
     }
     private extractData(res: Response) {
         let body = res.json();
-        return body.data || {};
+        return body || {};
     }
     /*METODOS MANEJADORES DE ERROR --------------------------------FIN*/
 

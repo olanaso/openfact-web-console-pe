@@ -96,7 +96,36 @@ export class EmisorService {
         return this.getEmisoresPromise()
             .then(emisores => emisores.filter(emisor => emisor.id === id)[0]);
     }
-
+    save(selectEmisor: Emisor): Promise<Emisor> {
+        
+       console.log("ANTES DE GRABAR ..." + JSON.stringify(selectEmisor));
+        if (selectEmisor.id) {
+            return this.put(selectEmisor);
+        }
+        return this.post(selectEmisor);
+    }
+     private put(selectEmisor: Emisor) {
+     alert("put");
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        let url = `${this.emisoresUrl}/${selectEmisor.id}`;
+        return this.http
+            .put(url, JSON.stringify(selectEmisor), { headers: headers })
+            .toPromise()
+            .then(() => selectEmisor)
+            .catch(this.handleError);
+    }
+     private post(selectEmisor: Emisor): Promise<Emisor> {
+     alert("post");
+        let headers = new Headers({
+            'Content-Type': 'application/json'
+        });
+        return this.http
+            .post(this.emisoresUrl, JSON.stringify(selectEmisor), { headers: headers })
+            .toPromise()
+            .then(res => res.json().data)
+            .catch(this.handleError);
+    }
     // save(emisor: Emisor): Promise<Emisor> {
     //     if (emisor.id) {
     //         return this.put(emisor);
@@ -125,10 +154,11 @@ export class EmisorService {
     //         .then(() => emisor)
     //         .catch(this.handleError);
     // }
-    // private handleError(error: any) {
-    //     console.error('An error occurred', error);
-    //     return Promise.reject(error.message || error);
-    // }
+    private handleError(error: any) {
+        console.error('An error occurred', error);
+        return Promise.reject(error.message || error);
+
+    }
     /*METODOS SAVE GET(ID) ------------------------------FIN*/
 
 }

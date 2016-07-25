@@ -87,7 +87,7 @@ export class EmisorService {
     }
     private extractData(res: Response) {
         let body = res.json();
-        return body.data || {};
+        return body || {};
     }
     /*METODOS MANEJADORES DE ERROR --------------------------------FIN*/
 

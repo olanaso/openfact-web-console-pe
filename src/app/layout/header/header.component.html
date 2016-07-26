@@ -2,13 +2,23 @@
 <ul class="nav navbar-nav">
   <li><a href="#" target="_blank" class="nav-item-iconic nav-item-iconic-new-window"><span title="Launch" class="fa fa-external-link"></span></a></li>
 </ul>
+
 <ul class="nav navbar-nav navbar-right navbar-iconic">
   <li>
     <div class="form-group">
       <!--<label for="sel1">Select list:</label>-->
-      <select class="selectpicker" *ngIf="listOrganization" id="sel1">
+      <!--<select class="form-control" *ngIf="listOrganization" id="sel1">
         <option  *ngFor="let organization of listOrganization" value="organization.name" >{{organization.name}}</option>
-      </select>
+      </select>-->
+      <ng-select [allowClear]="true" 
+                  [items]="listOrganization" 
+                  [disabled]="disabled" 
+                  (data)="refreshValue($event)" 
+                  (selected)="selected($event)"
+                  (removed)="removed($event)" 
+                  (typed)="typed($event)" 
+                  placeholder="SELECCIONE EMPRESA">
+      </ng-select>
     </div>
   </li>
   <li class="dropdown">

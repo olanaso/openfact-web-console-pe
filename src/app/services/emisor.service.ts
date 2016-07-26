@@ -47,7 +47,7 @@ export class EmisorService {
 
     getOrganizationsObservable(): Observable<Organization[]> {
         return this.http.get(this.organizationUrl)
-            .map(this.extractData)
+            .map(this.extractDataOrganization)
             .catch(this.handleErrorObs);
     }
     /*METODOS GET ----------------------------------------FIN*/
@@ -95,7 +95,16 @@ export class EmisorService {
     }
     private extractData(res: Response) {
         let body = res.json();
+      
         return body || {};
+    }
+      private extractDataOrganization(res: Response) {
+        let body = res.json();
+        let items = Array<string>();
+        body.forEach(element => {
+            items.push(element.name);
+        });
+        return items || {};
     }
     /*METODOS MANEJADORES DE ERROR --------------------------------FIN*/
 

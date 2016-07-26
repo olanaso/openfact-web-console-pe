@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
 import { Observable }     from 'rxjs/Observable';
-import { Emisor } from '../models/emisor';
-import { Headers, RequestOptions } from '@angular/http';
 import { Organization } from '../../app/models/organization';
+import {Http, Response, Headers, RequestOptions } from '@angular/http'
+import { Emisor } from '../models/emisor';
 import { EMISOR } from './emisor-mock';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/toPromise';
+
 
 @Injectable()
 export class EmisorService {
@@ -23,9 +25,10 @@ export class EmisorService {
         return '';
     }
 
-    private emisoresUrl = 'app/emisor.json';  // URL to web API
     //private emisoresUrl = 'http://localhost:8080/admin/organizations/';  // URL to web API
     private organizationUrl = 'http://localhost:8080/admin/organizations/';  // URL to web API
+
+    private emisoresUrl = 'http://localhost:8080/admin/organizations';  // URL to web API
     /*METODOS GET ------------------------------------------*/
     getEmisores() {
         return this.http.get(this.emisoresUrl)
@@ -94,8 +97,7 @@ export class EmisorService {
         return Promise.reject(errMsg);
     }
     private extractData(res: Response) {
-        let body = res.json();
-      
+        let body = res.json();      
         return body || {};
     }
       private extractDataOrganization(res: Response) {
@@ -113,38 +115,68 @@ export class EmisorService {
         return this.getEmisoresPromise()
             .then(emisores => emisores.filter(emisor => emisor.id === id)[0]);
     }
-   
-    save(emisor: Emisor): Promise<Emisor> {
-        if (emisor.id) {
-            return this.put(emisor);
+    save(selectEmisor: Emisor): Promise<Emisor> {
+        
+       console.log("ANTES DE GRABAR ..." + JSON.stringify(selectEmisor));
+        if (selectEmisor.id) {
+            return this.put(selectEmisor);
         }
-        return this.post(emisor);
+        return this.post(selectEmisor);
     }
-    // Add new Emisor
-    private post(emisor: Emisor): Promise<Emisor> {
+     private put(selectEmisor: Emisor) {
+     alert("put");
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        let url = `${this.emisoresUrl}/${selectEmisor.id}`;
+        return this.http
+            .put(url, JSON.stringify(selectEmisor), { headers: headers })
+            .toPromise()
+            .then(() => selectEmisor)
+            .catch(this.handleError);
+    }
+     private post(selectEmisor: Emisor): Promise<Emisor> {
+     alert("post");
         let headers = new Headers({
             'Content-Type': 'application/json'
         });
         return this.http
-            .post(this.emisoresUrl, JSON.stringify(emisor), { headers: headers })
+            .post(this.emisoresUrl, JSON.stringify(selectEmisor), { headers: headers })
             .toPromise()
             .then(res => res.json().data)
             .catch(this.handleError);
     }
-    // Update existing Hero
-    private put(emisor: Emisor) {
-        let headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-        let url = `${this.emisoresUrl}/${emisor.id}`;
-        return this.http
-            .put(url, JSON.stringify(emisor), { headers: headers })
-            .toPromise()
-            .then(() => emisor)
-            .catch(this.handleError);
-    }
+    // save(emisor: Emisor): Promise<Emisor> {
+    //     if (emisor.id) {
+    //         return this.put(emisor);
+    //     }
+    //     return this.post(emisor);
+    // }
+    // // Add new Emisor
+    // private post(emisor: Emisor): Promise<Emisor> {
+    //     let headers = new Headers({
+    //         'Content-Type': 'application/json'
+    //     });
+    //     return this.http
+    //         .post(this.emisoresUrl, JSON.stringify(emisor), { headers: headers })
+    //         .toPromise()
+    //         .then(res => res.json().data)
+    //         .catch(this.handleError);
+    // }
+    // // Update existing Hero
+    // private put(emisor: Emisor) {
+    //     let headers = new Headers();
+    //     headers.append('Content-Type', 'application/json');
+    //     let url = `${this.emisoresUrl}/${emisor.id}`;
+    //     return this.http
+    //         .put(url, JSON.stringify(emisor), { headers: headers })
+    //         .toPromise()
+    //         .then(() => emisor)
+    //         .catch(this.handleError);
+    // }
     private handleError(error: any) {
         console.error('An error occurred', error);
         return Promise.reject(error.message || error);
+
     }
     /*METODOS SAVE GET(ID) ------------------------------FIN*/
 

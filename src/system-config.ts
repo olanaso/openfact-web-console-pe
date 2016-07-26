@@ -88,6 +88,8 @@ const barrels: string[] = [
 
   'app/modules/emisor',
   'app/modules/emisor/emisor-nuevo',
+  'app/modules/emisores',
+  'app/modules/emisores/emisores-nuevo',
   /** @cli-barrel */
 ];
 

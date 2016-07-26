@@ -20,6 +20,7 @@ module.exports = function (defaults) {
       'ng2-bootstrap/**/*.js',
       'patternfly/**/*.*',
       'ng2-select/**/*.js'
+
       // 'bootstrap-datepicker/**/*.js',
       // 'bootstrap-timepicker/**/*.js'
     ]

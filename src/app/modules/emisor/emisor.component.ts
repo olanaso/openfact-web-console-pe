@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {CORE_DIRECTIVES} from '@angular/common';
 import { Emisor } from '../../../app/models/emisor';
-//import { EmisorNuevoComponent } from './emisor-nuevo/emisor-nuevo.component';
+//import { EmisorNuevoComponent } from './emisor-nuevo';
 
 //import { Highlight } from '../../../app/directives/my-highlight.directive';
 //import { HeroDetailComponent } from './hero-detail.component';
@@ -16,7 +16,7 @@ import { EmisorFactory } from '../../../app/services/emisor-factory';
   selector: 'app-emisor',
   templateUrl: 'emisor.component.html',
   styleUrls: ['emisor.component.css'],
-  providers: [EmisorService, EmisorFactory],
+  providers: [ EmisorService,EmisorFactory],
   directives: [DROPDOWN_DIRECTIVES, CORE_DIRECTIVES]//,Highlight],
 })
 export class EmisorComponent implements OnInit {
@@ -42,15 +42,15 @@ export class EmisorComponent implements OnInit {
   ngOnInit() {
     //  this.getEmisores();
     //  this.getEmisoresObservable();
-    this.getEmisoresPromise();
+   this.getEmisoresPromise();
   }
 
-  getEmisores() {
-    this.emisorFactory
-      .getEmisores()
-      .then(emisores => this.emisores = emisores);
+  // getEmisores() {
+  //   this.emisorFactory
+  //     .getEmisores()
+  //     .then(emisores => this.emisores = emisores);
 
-  }
+  // }
   getEmisoresPromise() {
     this.emisorService
       .getEmisoresPromise()
@@ -84,22 +84,23 @@ export class EmisorComponent implements OnInit {
     this.addingEmisor = true;
     this.selectedEmisor = null;
   }
-  close(savedEmisor: Emisor) {
-    this.addingEmisor = false;
-    if (savedEmisor) { this.getEmisoresPromise(); }
-  }
+  // close(savedEmisor: Emisor) {
+  //   this.addingEmisor = false;
+  //   if (savedEmisor) { this.getEmisoresPromise(); }
+  // }
 
   onSelect(emisor: Emisor) {
     this.selectedEmisor = emisor;
     this.addingEmisor = false;
   }
-  gotoDetail() {
-    this.router.navigate(['/detail', this.selectedEmisor.id]);
-  }
+  // gotoDetail() {
+  //   this.router.navigate(['/detail', this.selectedEmisor.id]);
+  // }
 
   nuevo() {
-    let link = ['emisor/nuevo'];
+    let link = ['/emisor/nuevo'];
     //this.clickMessage = 'You are my hero!';
+    
     //("Holaaaa...." + link);
     this.router.navigate(link);
   }

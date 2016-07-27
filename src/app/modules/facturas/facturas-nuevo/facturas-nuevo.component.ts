@@ -20,6 +20,7 @@ import { FacturaService } from '../../../../app/services/factura.service';
 //import { Factura } from '../../../../app/models/factura';
 import { Invoice } from '../../../../app/models/invoice';
 import { InvoiceDetails } from '../../../../app/models/invoiceDetails';
+import { Customer } from '../../../../app/models/customer';
 import { Moneda } from '../../../../app/models/moneda';
 
 // todo: change to ng2-bootstrap
@@ -59,6 +60,7 @@ export class FacturasNuevoComponent implements OnInit {
   constructor(private http: Http, protected router: Router, builder: FormBuilder, private facturaService: FacturaService) {
     this.selectFactura = new Invoice();
     this.selectFactura.invoiceDetails = [];
+    this.selectFactura.customer = new Customer();
     this.listMoneda = [];
     this.igv = 0.18;
     this.calcularTotales();
@@ -77,6 +79,7 @@ export class FacturasNuevoComponent implements OnInit {
 
   /*PARA ALMACENAR LA FACTURA EN LA URL O API.*/
   save() {
+    console.log(JSON.stringify(this.selectFactura));    
     this.facturaService
       .saveInvoice(this.selectFactura)
       .subscribe(

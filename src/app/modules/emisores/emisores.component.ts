@@ -8,7 +8,7 @@ import { Emisor } from '../../../app/models/emisor';
   selector: 'app-emisores',
   templateUrl: 'emisores.component.html',
   styleUrls: ['emisores.component.css'],
-  providers: [ EmisorService]
+  providers: [EmisorService]
 
 
 })
@@ -18,8 +18,8 @@ export class EmisoresComponent implements OnInit {
   constructor(private router: Router, private emisorService: EmisorService) { }
 
   ngOnInit() {
-   // this.getEmisoresPromise();
-   this.getEmisoresObservable()
+    // this.getEmisoresPromise();
+    this.getEmisoresObservable()
   }
 
   nuevo() {
@@ -36,12 +36,12 @@ export class EmisoresComponent implements OnInit {
 
   // }
   getEmisoresObservable() {
-    this.emisorService
-      .getEmisoresObservable()
-      .subscribe(emisores => this.emisores = emisores,
+    this.emisorService.getEmisoresObservable()
+      .subscribe(
+      emisores => this.emisores = emisores,
       error => this.errorMessage = <any>error);
 
   }
-   
+
 
 }

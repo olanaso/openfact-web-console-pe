@@ -86,7 +86,11 @@ export class EmisorService {
         return Promise.reject(errMsg);
     }
     private extractData(res: Response) {
-        let body = res.json();
+        let body;
+
+        if (res.text()) {
+            body = res.json();
+        }
         return body || {};
     }
     /*METODOS MANEJADORES DE ERROR --------------------------------FIN*/
@@ -96,35 +100,43 @@ export class EmisorService {
         return this.getEmisoresPromise()
             .then(emisores => emisores.filter(emisor => emisor.id === id)[0]);
     }
-    save(selectEmisor: Emisor): Promise<Emisor> {
-        
-       console.log("ANTES DE GRABAR ..." + JSON.stringify(selectEmisor));
-        if (selectEmisor.id) {
-            return this.put(selectEmisor);
-        }
+    // save(selectEmisor: Emisor): Promise<Emisor> {
+
+    //    console.log("ANTES DE GRABAR ..." + JSON.stringify(selectEmisor));
+    //     if (selectEmisor.id) {
+    //         return this.put(selectEmisor);
+    //     }
+    //     return this.post(selectEmisor);
+    // }
+    save(selectEmisor: Emisor): Observable<Emisor> {
+
+        //console.log("ANTES DE GRABAR ..." + JSON.stringify(selectEmisor));
+
+
+        //  if (selectEmisor.id) {
+        //  return this.put(selectEmisor);
+        //}
         return this.post(selectEmisor);
     }
-     private put(selectEmisor: Emisor) {
-     alert("put");
+    private put(selectEmisor: Emisor) {
+        alert("put");
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
         let url = `${this.emisoresUrl}/${selectEmisor.id}`;
         return this.http
             .put(url, JSON.stringify(selectEmisor), { headers: headers })
-            .toPromise()
-            .then(() => selectEmisor)
-            .catch(this.handleError);
+            .map(this.extractData)
+            .catch(this.handleErrorObs);
     }
-     private post(selectEmisor: Emisor): Promise<Emisor> {
-     alert("post");
-        let headers = new Headers({
-            'Content-Type': 'application/json'
-        });
-        return this.http
-            .post(this.emisoresUrl, JSON.stringify(selectEmisor), { headers: headers })
-            .toPromise()
-            .then(res => res.json().data)
-            .catch(this.handleError);
+    private post(selectEmisor: Emisor): Observable<Emisor> {
+        //alert("post");
+        let body = JSON.stringify(selectEmisor);
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+
+        return this.http.post(this.emisoresUrl, body, options)
+            .map(this.extractData)
+            .catch(this.handleErrorObs);
     }
     // save(emisor: Emisor): Promise<Emisor> {
     //     if (emisor.id) {

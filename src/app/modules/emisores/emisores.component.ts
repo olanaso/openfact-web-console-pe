@@ -18,6 +18,7 @@ export class EmisoresComponent implements OnInit {
   emisores: Emisor[];
   selectedEmisor: Emisor[];
   errorMessage: string;
+  linkEmisor:string;
   constructor(private router: Router, private emisorService: EmisorService) { }
 
   ngOnInit() {
@@ -44,7 +45,8 @@ export class EmisoresComponent implements OnInit {
       error => this.errorMessage = <any>error);
   }
   editRowEmisor(emisor) {
-    let link = ['/emisores/editar', emisor.id];
+    let link = ['/emisores/editar', emisor.name];
+    //this.linkEmisor=link.toString();    
     this.router.navigate(link);
   }
 

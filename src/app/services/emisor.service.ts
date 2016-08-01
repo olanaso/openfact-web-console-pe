@@ -97,18 +97,13 @@ export class EmisorService {
         return Promise.reject(errMsg);
     }
     private extractData(res: Response) {
-<<<<<<< HEAD
         let body;
-
         if (res.text()) {
             body = res.json();
         }
-=======
-        let body = res.json();      
->>>>>>> 4be8c368ee64faa9018fb19991f54b2e6c434acb
         return body || {};
     }
-      private extractDataOrganization(res: Response) {
+    private extractDataOrganization(res: Response) {
         let body = res.json();
         let items = Array<string>();
         body.forEach(element => {
@@ -123,18 +118,19 @@ export class EmisorService {
     //     return this.getEmisoresPromise()
     //         .then(emisores => emisores.filter(emisor => emisor.id === id)[0]);
     // }
-    getEmisor(id: string) {
+    getEmisor(name: string) {
         //alert(id);
         return this.getEmisoresPromise()
-            .then(emisores => emisores.filter(emisor => emisor.id === id)[0]);
+            .then(emisores => emisores.filter(emisor => emisor.name === name)[0]);
     }
-
-// getEmisoresObservableId(id: number) {
-//         //alert(id);
-//         return this.getEmisoresObservable()
-//             .then(emisores => emisores.filter(emisor => emisor.id === id)[0]);
-//     }
     
+
+    // getEmisoresObservableId(id: number) {
+    //         //alert(id);
+    //         return this.getEmisoresObservable()
+    //             .then(emisores => emisores.filter(emisor => emisor.id === id)[0]);
+    //     }
+
     // save(selectEmisor: Emisor): Promise<Emisor> {
 
     //    console.log("ANTES DE GRABAR ..." + JSON.stringify(selectEmisor));
@@ -148,23 +144,24 @@ export class EmisorService {
         //console.log("ANTES DE GRABAR ..." + JSON.stringify(selectEmisor));
 
 
-        //  if (selectEmisor.id) {
-        //  return this.put(selectEmisor);
-        //}
+        if (selectEmisor.id) {
+            return this.put(selectEmisor);
+        }
         return this.post(selectEmisor);
     }
     private put(selectEmisor: Emisor) {
+      
         alert("put");
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
-        let url = `${this.emisoresUrl}/${selectEmisor.id}`;
+        let url = `${this.emisoresUrl}/${selectEmisor.name}`;
         return this.http
             .put(url, JSON.stringify(selectEmisor), { headers: headers })
             .map(this.extractData)
             .catch(this.handleErrorObs);
     }
     private post(selectEmisor: Emisor): Observable<Emisor> {
-        //alert("post");
+        alert("post");
         let body = JSON.stringify(selectEmisor);
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });

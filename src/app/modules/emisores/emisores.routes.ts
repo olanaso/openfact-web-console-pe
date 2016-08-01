@@ -15,7 +15,7 @@ export const EmisoresRoutes: RouterConfig = [
     component: EmisoresNuevoComponent
   },
  {
-    path: 'emisores/editar/:id',
+    path: 'emisores/editar/:name',
     //name: 'emisorEdit',
     component: EmisoresEditarComponent
   }

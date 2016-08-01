@@ -25,13 +25,24 @@ export class EmisoresEditarComponent implements OnInit {
   }
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
-      let id = params['id'];
-      this.emisorService.getEmisor(id)
+      let name = params['name'];
+      this.emisorService.getEmisor(name)
         .then(selectEmisor => this.selectEmisor = selectEmisor);
+
     });
+
   }
   cancelar() {
     window.history.back();
   }
+  save() {
+    this.emisorService
+      .save(this.selectEmisor)
+      .subscribe(
+      selectEmisor => {
+        this.selectEmisor = selectEmisor; // saved emisor, w/ id if new       
+      },
+      error => this.errorMessage = <any>error);
 
+  }
 }

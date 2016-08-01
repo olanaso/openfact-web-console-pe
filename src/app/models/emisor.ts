@@ -15,8 +15,8 @@ export class Emisor {
     public paginaWeb: string;
     public observacion: string;
 
-
-
-
+    // greet() {
+    //     console.log("hello", this.name)
+    // };
 
 }

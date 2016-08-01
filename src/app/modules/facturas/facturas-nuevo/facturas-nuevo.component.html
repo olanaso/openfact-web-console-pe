@@ -1,5 +1,3 @@
-<!--<div class="container-fluid container-cards-pf container-pf-nav-pf-vertical container-pf-nav-pf-vertical-with-secondary ">-->
-
 <div class="panel panel-default">
   <!-- Default panel contents -->
   <div class="panel-heading">Registro de Factura</div>
@@ -8,52 +6,49 @@
       <div class="form-group">
         <label class="col-sm-2 control-label" for="exampleInput">Serie</label>
         <div class="col-sm-2">
-          <input type="text" *ngIf="selectFactura" [(ngModel)]="selectFactura.serie" [ngModelOptions]="{standalone: true}" id="exampleInput"
+          <input type="text" *ngIf="selectFactura" [(ngModel)]="selectFactura.invoiceSet" [ngModelOptions]="{standalone: true}" id="exampleInput"
             class="form-control" placeholder="Serie">
         </div>
         <label class="col-sm-2 control-label" for="exampleInput">Numero</label>
         <div class="col-sm-2">
-          <input type="text" *ngIf="selectFactura" [(ngModel)]="selectFactura.numero" [ngModelOptions]="{standalone: true}" id="exampleInput"
+          <input type="text" *ngIf="selectFactura" [(ngModel)]="selectFactura.invoiceNumber" [ngModelOptions]="{standalone: true}" id="exampleInput"
             class="form-control" placeholder="Numero">
         </div>
         <label class="col-sm-2 control-label" for="exampleInput">Fecha Emision</label>
         <div class="col-sm-2">
-          <input type="text" *ngIf="selectFactura" [(ngModel)]="selectFactura.fechaEmision" [ngModelOptions]="{standalone: true}" id="exampleInput"
+          <input type="date" *ngIf="selectFactura" [(ngModel)]="selectFactura.issueDate" [ngModelOptions]="{standalone: true}" id="exampleInput"
             class="form-control" placeholder="Fecha Emision">
         </div>
       </div>
       <div class="form-group">
         <label class="col-sm-2 control-label" for="exampleInput">Ruc</label>
         <div class="col-sm-2">
-          <input type="text" *ngIf="selectFactura" [(ngModel)]="selectFactura.ruc" [ngModelOptions]="{standalone: true}" id="exampleInput"
+          <input type="text" *ngIf="selectFactura" [(ngModel)]="selectFactura.customer.assignedIdentificationId" [ngModelOptions]="{standalone: true}" id="exampleInput"
             class="form-control" placeholder="RUC">
         </div>
         <label class="col-sm-2 control-label" for="exampleInput">Razon Social</label>
         <div class="col-sm-6">
-          <input type="text" *ngIf="selectFactura" [(ngModel)]="selectFactura.razonSocial" [ngModelOptions]="{standalone: true}" id="exampleInput"
+          <input type="text" *ngIf="selectFactura" [(ngModel)]="selectFactura.customer.registrationName" [ngModelOptions]="{standalone: true}" id="exampleInput"
             class="form-control" placeholder="Razon Social">
         </div>
       </div>
       <div class="form-group">
         <label class="col-sm-2 control-label" for="exampleInput">Moneda</label>
         <div class="col-sm-2">
-          <select class="combobox form-control" *ngIf="selectFactura" [(ngModel)]="selectFactura.moneda" [ngModelOptions]="{standalone: true}">
-                    <option *ngFor="let moneda of listMoneda" value="moneda.codigo" >{{moneda.denominacion}}</option>
+          <select class="combobox form-control" *ngIf="selectFactura" [(ngModel)]="selectFactura.currencyCode" [ngModelOptions]="{standalone: true}">
+              <option *ngFor="let moneda of listMoneda" value="moneda.codigo" >{{moneda.denominacion}}</option>
           
-                  </select>
+          </select>
         </div>
         <label class="col-sm-2 control-label" for="exampleInput">Afecto</label>
         <div class="col-sm-1">
-
-          <input type="checkbox" *ngIf="selectFactura" [(ngModel)]="selectFactura.afecto" [ngModelOptions]="{standalone: true}" />
-
-
+          <input type="checkbox" *ngIf="selectFactura" [(ngModel)]="selectFactura.afectAmount" [ngModelOptions]="{standalone: true}" />
         </div>
         <label class="col-sm-2 control-label" for="exampleInput">Email</label>
         <div class="col-sm-3">
           <div class="input-group">
             <span class="input-group-addon">@</span>
-            <input type="email" *ngIf="selectFactura" [(ngModel)]="selectFactura.email" [ngModelOptions]="{standalone: true}" id="exampleInput"
+            <input type="email" *ngIf="selectFactura" [(ngModel)]="selectFactura.customer.email" [ngModelOptions]="{standalone: true}" id="exampleInput"
               class="form-control" placeholder="jane.doe@example.com">
           </div>
         </div>
@@ -72,22 +67,20 @@
               <thead>
                 <tr>
                   <th>#</th>
-                  <th>Cantidad</th>
-                  <th>U.Medida</th>
+                  <th>Cantidad</th>                 
                   <th>Producto</th>
                   <th>P.Unitario</th>
                   <th>P. Parcial</th>
-                  <th>Operaciones</th>
+                  <th>OP</th>
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let detalleFactura of selectFactura.facturaDetalle">
+                <tr *ngFor="let detalleFactura of selectFactura.invoiceDetails">
                   <th scope="row">1</th>
-                  <td>{{ detalleFactura.cantidad }}</td>
-                  <td>{{ detalleFactura.unidadMedida }}</td>
-                  <td>{{ detalleFactura.producto }}</td>
-                  <td class="classAlignRigth">{{ detalleFactura.precioUnitario| number:'.2' }}</td>
-                  <td class="classAlignRigth">{{ detalleFactura.precioParcial| number:'.2' }}</td>
+                  <td>{{ detalleFactura.quantity }}</td>    
+                  <td>{{ detalleFactura.descryption }}</td>
+                  <td class="classAlignRigth">{{ detalleFactura.priceAmount| number:'.2' }}</td>
+                  <td class="classAlignRigth">{{ detalleFactura.pricePartial| number:'.2' }}</td>
                   <td>
                     <button type="button" (click)="deleteModel(detalleFactura)" class="close" aria-label="Close"><span aria-hidden="true">&#x02717;</span></button>
                     <button type="button" (click)="Editar(detalleFactura)" class="close" aria-label="Close"><span aria-hidden="true">&#x021D9;</span></button>
@@ -97,8 +90,7 @@
               <tfoot>
                 <tr>
                   <th scope="row">&nbsp;</th>
-                  <td>&nbsp;</td>
-                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>   
                   <td>&nbsp;</td>
                   <td><label class="control-label" for="exampleInput">SUBTOTAL</label></td>
                   <td class="classAlignRigth">
@@ -108,8 +100,7 @@
                 </tr>
                 <tr>
                   <th scope="row">&nbsp;</th>
-                  <td>&nbsp;</td>
-                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>        
                   <td>&nbsp;</td>
                   <td><label class="control-label" for="exampleInput">IGV({{igv|percent:'.0'}})</label></td>
                   <td class="classAlignRigth">
@@ -119,8 +110,7 @@
                 </tr>
                 <tr>
                   <th scope="row">&nbsp;</th>
-                  <td>&nbsp;</td>
-                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>             
                   <td>&nbsp;</td>
                   <td><label class="control-label" for="exampleInput">TOTAL</label></td>
                   <td class="classAlignRigth">
@@ -163,61 +153,31 @@
           <div class="form-group">
             <label for="cantidad">Cantidad</label>
             <!--<div *ngIf="selectedFactura">-->
-            <input type="number" *ngIf="selectFacturaDetalle" [(ngModel)]="selectFacturaDetalle.cantidad" ngControl="someValue" name="cantidad"
+            <input type="number" *ngIf="selectFacturaDetalle" [(ngModel)]="selectFacturaDetalle.quantity" ngControl="quantity" name="cantidad"
               class="form-control" id="cantidad" placeholder="Cantidad">
             <!--</div>-->
           </div>
           <div class="form-group">
-            <label for="exampleInputPassword1">Unidad Medida</label>
-            <select class="combobox form-control" *ngIf="selectFacturaDetalle" [(ngModel)]="selectFacturaDetalle.unidadMedida" [ngModelOptions]="{standalone: true}">
-                  <option value="Unidades">Unidades</option>
-                  <option value="Galones">Galones</option>            
-                  <option value="Pares">Pares</option>
-                </select>
-          </div>
-          <div class="form-group">
             <label for="exampleInputPassword1">Producto/Servicio</label>
-            <input type="text" ngControl="producto" *ngIf="selectFacturaDetalle" [(ngModel)]="selectFacturaDetalle.producto" [ngModelOptions]="{standalone: true}"
+            <input type="text" ngControl="descryption" *ngIf="selectFacturaDetalle" [(ngModel)]="selectFacturaDetalle.descryption" [ngModelOptions]="{standalone: true}"
               class="form-control" id="exampleInputPassword1" placeholder="Producto o Servicio">
           </div>
           <div class="form-group">
             <label for="exampleInputPassword1">Precio Unitario</label>
             <div class="input-group">
               <div class="input-group-addon">$</div>
-              <input type="number" ngControl="precioUnitario" *ngIf="selectFacturaDetalle" [(ngModel)]="selectFacturaDetalle.precioUnitario"
+              <input type="number" ngControl="priceAmount" *ngIf="selectFacturaDetalle" [(ngModel)]="selectFacturaDetalle.priceAmount"
                 [ngModelOptions]="{standalone: true}" class="form-control" id="exampleInputPassword1" placeholder="Precio Unitario">
               <div class="input-group-addon">.00</div>
             </div>
-          </div>
-          <div class="form-group">
-            <label for="">Afecto</label>
-            <label class="switch"> 
-                <input type="checkbox"/> 
-                <div class="slider"></div>
-             </label>
-          </div>
+          </div> 
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" (click)="hideChildModal()" data-dismiss="modal">Close</button>
         <button type="button" (click)="agregar(selectFacturaDetalle)" data-dismiss="modal" class="btn btn-primary">Agregar</button>
+        <button type="button" class="btn btn-default" (click)="hideChildModal()" data-dismiss="modal">Close</button>        
       </div>
     </div>
   </div>
 </div>
 
-
-
-<!--<div>
-  <pre class="card card-block card-header">Selected date is: <em *ngIf="dt">{{ getDate() | date:'fullDate'}}</em></pre>
-  <h4>Inline</h4>
-  <div style="display:inline-block; min-height:290px;">
-    <datepicker [(ngModel)]="dt" [minDate]="minDate" [showWeeks]="true"></datepicker>
-  </div>
-
-  <hr />
-  <button type="button" class="btn btn-sm btn-info" (click)="today()">Today</button>
-  <button type="button" class="btn btn-sm btn-default btn-secondary" (click)="d20090824();">2009-08-24</button>
-  <button type="button" class="btn btn-sm btn-danger" (click)="clear()">Clear</button>
-  <button type="button" class="btn btn-sm btn-default btn-secondary" (click)="toggleMin()" tooltip="After today restriction">Min date</button>
-</div>-->

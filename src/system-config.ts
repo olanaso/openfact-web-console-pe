@@ -9,7 +9,8 @@
 const map: any = {
   'moment': 'vendor/moment/moment.js',
   'ng2-bootstrap': 'vendor/ng2-bootstrap',
-  'angular2-in-memory-web-api': 'node_modules/angular2-in-memory-web-api'
+  'angular2-in-memory-web-api': 'node_modules/angular2-in-memory-web-api',
+  'ng2-select': 'vendor/ng2-select'
   //'rxjs':                       'node_modules/rxjs'
   // 'bootstrap-datepicker':'vendor/bootstrap-datepicker',
   // 'bootstrap-timepicker':'vendor/bootstrap-timepicker'
@@ -25,7 +26,14 @@ const packages: any = {
     defaultExtension: 'js',
     main: 'ng2-bootstrap.js'    
   },
-   'angular2-in-memory-web-api': { main: 'index.js', defaultExtension: 'js' }
+   'angular2-in-memory-web-api': { main: 'index.js', defaultExtension: 'js'
+  }
+  ,
+   'ng2-select': {
+    format: 'cjs',    
+    defaultExtension: 'js',
+    main: 'ng2-select.js'    
+  }
   
   //  'bootstrap-datepicker': {
   //   format: 'cjs',    

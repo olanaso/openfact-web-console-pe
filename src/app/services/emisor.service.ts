@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
+import { Observable }     from 'rxjs/Observable';
+import { Organization } from '../../app/models/organization';
 import {Http, Response, Headers, RequestOptions } from '@angular/http'
 import { Emisor } from '../models/emisor';
 import { EMISOR } from './emisor-mock';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
-import { Observable } from 'rxjs/Observable';
+
 
 @Injectable()
 export class EmisorService {
@@ -23,6 +25,9 @@ export class EmisorService {
         return '';
     }
 
+    //private emisoresUrl = 'http://localhost:8080/admin/organizations/';  // URL to web API
+    private organizationUrl = 'http://localhost:8080/admin/organizations/';  // URL to web API
+
     private emisoresUrl = 'http://localhost:8080/admin/organizations';  // URL to web API
     /*METODOS GET ------------------------------------------*/
     getEmisores() {
@@ -40,6 +45,12 @@ export class EmisorService {
     getEmisoresObservable(): Observable<Emisor[]> {
         return this.http.get(this.emisoresUrl)
             .map(this.extractData)
+            .catch(this.handleErrorObs);
+    }
+
+    getOrganizationsObservable(): Observable<Organization[]> {
+        return this.http.get(this.organizationUrl)
+            .map(this.extractDataOrganization)
             .catch(this.handleErrorObs);
     }
     /*METODOS GET ----------------------------------------FIN*/
@@ -86,12 +97,24 @@ export class EmisorService {
         return Promise.reject(errMsg);
     }
     private extractData(res: Response) {
+<<<<<<< HEAD
         let body;
 
         if (res.text()) {
             body = res.json();
         }
+=======
+        let body = res.json();      
+>>>>>>> 4be8c368ee64faa9018fb19991f54b2e6c434acb
         return body || {};
+    }
+      private extractDataOrganization(res: Response) {
+        let body = res.json();
+        let items = Array<string>();
+        body.forEach(element => {
+            items.push(element.name);
+        });
+        return items || {};
     }
     /*METODOS MANEJADORES DE ERROR --------------------------------FIN*/
 

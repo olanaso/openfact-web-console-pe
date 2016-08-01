@@ -15,9 +15,14 @@ import {ACCORDION_DIRECTIVES } from 'ng2-bootstrap/ng2-bootstrap';
 //import {DatePicker} from 'ng2-datepicker';
 
 import { FacturaService } from '../../../../app/services/factura.service';
-import { FacturaDetalle } from '../../../../app/models/factura-detalle';
-import { Factura } from '../../../../app/models/factura';
+
+//import { FacturaDetalle } from '../../../../app/models/factura-detalle';
+//import { Factura } from '../../../../app/models/factura';
+import { Invoice } from '../../../../app/models/invoice';
+import { InvoiceDetails } from '../../../../app/models/invoiceDetails';
+import { Customer } from '../../../../app/models/customer';
 import { Moneda } from '../../../../app/models/moneda';
+
 // todo: change to ng2-bootstrap
 import {ModalDirective} from 'ng2-bootstrap/ng2-bootstrap';
 import {AppValidators} from '../validators';
@@ -42,10 +47,10 @@ export class FacturasNuevoComponent implements OnInit {
   error: any;
 
   //facturaDetalles: Array<FacturaDetalle>;
-  facturaDetalle: FacturaDetalle = new FacturaDetalle();
+  facturaDetalle: InvoiceDetails = new InvoiceDetails();
   userForm: ControlGroup;
-  selectFacturaDetalle: FacturaDetalle;
-  selectFactura: Factura;
+  selectFacturaDetalle: InvoiceDetails;
+  selectFactura: Invoice;
   listMoneda: Moneda[];
   subTotal: number;
   totalIgv: number;
@@ -53,8 +58,9 @@ export class FacturasNuevoComponent implements OnInit {
   total: number;
 
   constructor(private http: Http, protected router: Router, builder: FormBuilder, private facturaService: FacturaService) {
-    this.selectFactura = new Factura();
-    this.selectFactura.facturaDetalle = [];
+    this.selectFactura = new Invoice();
+    this.selectFactura.invoiceDetails = [];
+    this.selectFactura.customer = new Customer();
     this.listMoneda = [];
     this.igv = 0.18;
     this.calcularTotales();
@@ -63,28 +69,25 @@ export class FacturasNuevoComponent implements OnInit {
   //para calcular los totaels de la factura.
   calcularTotales() {
     this.total = 0;
-    this.selectFactura.facturaDetalle.forEach(element => {
-      this.total = this.total + element.precioParcial;       
+    this.selectFactura.invoiceDetails.forEach(element => {
+      this.total = this.total + (element.priceAmount * element.quantity);
     });
     this.totalIgv = this.total * this.igv;
     this.subTotal = this.total - this.totalIgv;
-    console.log(this.total);    
+    console.log(this.total);
   }
 
   /*PARA ALMACENAR LA FACTURA EN LA URL O API.*/
   save() {
+    console.log(JSON.stringify(this.selectFactura));    
     this.facturaService
-      .save(this.selectFactura)
-      .then(selectFactura => {
-        this.selectFactura = selectFactura; // saved hero, w/ id if new       
-        //this.goBack(selectFactura);
-      })
-      .catch(error => this.error = error); // TODO: Display error message
+      .saveInvoice(this.selectFactura)
+      .subscribe(
+      selectFactura => this.selectFactura = selectFactura,
+      error => console.error(error)
+      //this.goBack(selectFactura);
+      ); // TODO: Display error message
   }
-
-
-
-
 
   /**
    * getDataMoneda
@@ -94,7 +97,7 @@ export class FacturasNuevoComponent implements OnInit {
   }
 
   public showChildModal(): void {
-    this.selectFacturaDetalle = new FacturaDetalle();
+    this.selectFacturaDetalle = new InvoiceDetails();
     this.childModal.show();
   }
   public hideChildModal(): void {
@@ -122,27 +125,28 @@ export class FacturasNuevoComponent implements OnInit {
 
     console.log(response);
   }
-  Editar(facturaDetalle: FacturaDetalle) {
+
+  Editar(facturaDetalle: InvoiceDetails) {
     this.selectFacturaDetalle = facturaDetalle;
     this.childModal.show();
   }
-  deleteModel(selectFacturaDetalle: FacturaDetalle) {
-    if (confirm('Are you sure you want to delete user ' + selectFacturaDetalle.producto)) {
-      let index = this.selectFactura.facturaDetalle.indexOf(selectFacturaDetalle);
-      this.selectFactura.facturaDetalle.splice(index, 1);
+  deleteModel(selectFacturaDetalle: InvoiceDetails) {
+    if (confirm('Are you sure you want to delete user ' + selectFacturaDetalle.descryption)) {
+      let index = this.selectFactura.invoiceDetails.indexOf(selectFacturaDetalle);
+      this.selectFactura.invoiceDetails.splice(index, 1);
       this.calcularTotales();
     }
   }
 
-  agregar(selectFacturaDetalle: FacturaDetalle): void {
-    if (!selectFacturaDetalle.idFacturaDetalle) {
-      selectFacturaDetalle.idFacturaDetalle = this.selectFactura.facturaDetalle.length + 1;
-      selectFacturaDetalle.precioParcial = selectFacturaDetalle.precioUnitario * selectFacturaDetalle.cantidad;
+  agregar(selectFacturaDetalle: InvoiceDetails): void {
+    if (!selectFacturaDetalle.id) {
+      selectFacturaDetalle.id = this.selectFactura.invoiceDetails.length + 1;
+      selectFacturaDetalle.pricePartial = selectFacturaDetalle.priceAmount * selectFacturaDetalle.quantity;
       console.log("ANTES DE GRABAR NUEVO..." + JSON.stringify(selectFacturaDetalle));
-      this.selectFactura.facturaDetalle.push(selectFacturaDetalle);
+      this.selectFactura.invoiceDetails.push(selectFacturaDetalle);
     } else {
       console.log("ANTES DE GRABAR EDICION..." + JSON.stringify(selectFacturaDetalle));
-      selectFacturaDetalle.precioParcial = selectFacturaDetalle.precioUnitario * selectFacturaDetalle.cantidad;
+      selectFacturaDetalle.pricePartial = selectFacturaDetalle.priceAmount * selectFacturaDetalle.quantity;
     }
     this.calcularTotales();
     this.hideChildModal();

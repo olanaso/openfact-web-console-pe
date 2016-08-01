@@ -3,6 +3,7 @@ import { HeaderComponent } from './layout/header';
 import { SidebarComponent } from './layout/sidebar';
 import { ContainerComponent } from './layout/container';
 import { HTTP_PROVIDERS } from '@angular/http';
+import { ROUTER_DIRECTIVES } from '@angular/router';
 import {CollapseDirective} from 'ng2-bootstrap';
 //import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router-deprecated';
 
@@ -14,7 +15,7 @@ import './rxjs-operator';
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.css', '../styles/main.css'],
   encapsulation: ViewEncapsulation.None,
-  directives: [HeaderComponent, SidebarComponent, ContainerComponent, CollapseDirective],
+  directives: [ROUTER_DIRECTIVES,HeaderComponent, SidebarComponent, ContainerComponent, CollapseDirective],
   providers: [HTTP_PROVIDERS]
 })
 export class AppComponent {

@@ -41,9 +41,9 @@
       <span class="sr-only">Split button!</span>
     </button>
         <ul class="dropdown-menu" dropdownMenu role="menu" aria-labelledby="split-button">
-          <li role="menuitem"><a class="dropdown-item" href="#">Editar</a></li>
-          <li role="menuitem"><a class="dropdown-item" href="#">Eliminar</a></li>
-          <li role="menuitem"><a class="dropdown-item" href="#">Ver Detalle</a></li>
+          <li role="menuitem"><a class="dropdown-item">Editar</a></li>
+          <li role="menuitem"><a class="dropdown-item">Eliminar</a></li>
+          <li role="menuitem"><a class="dropdown-item">Ver Detalle</a></li>
           <li class="divider dropdown-divider"></li>
           <li role="menuitem"><a class="dropdown-item" href="#">Enviar a receptor</a></li>
         </ul>
@@ -112,9 +112,9 @@
       <span class="sr-only">Split button!</span>
     </button>
         <ul class="dropdown-menu" dropdownMenu role="menu" aria-labelledby="split-button">
-          <li role="menuitem"><a class="dropdown-item" href="#">Editar</a></li>
-          <li role="menuitem"><a class="dropdown-item" href="#">Eliminar</a></li>
-          <li role="menuitem"><a class="dropdown-item" href="#">Ver Detalle</a></li>
+          <li role="menuitem" (click)="editRowEmisor(emisor)"><a class="dropdown-item">Editar</a></li>
+          <li role="menuitem" (click)="deleteRowEmisor(emisor)"><a class="dropdown-item">Eliminar</a></li>
+          <li role="menuitem" (click)="getDetailRowEmisor(emisor)"><a class="dropdown-item">Ver Detalle</a></li>
           <li class="divider dropdown-divider"></li>
           <li role="menuitem"><a class="dropdown-item" href="#">Enviar a receptor</a></li>
         </ul>
@@ -162,5 +162,3 @@
     </div>
   </div>
 </div>
-
-

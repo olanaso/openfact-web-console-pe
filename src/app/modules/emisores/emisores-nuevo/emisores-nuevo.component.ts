@@ -24,7 +24,6 @@ export class EmisoresNuevoComponent implements OnInit {
   ngOnInit() {
   }
 
-
   /*PARA ALMACENAR LA FACTURA EN LA URL O API.*/
   save() {
     this.emisorService
@@ -32,10 +31,9 @@ export class EmisoresNuevoComponent implements OnInit {
       .subscribe(
       selectEmisor => {
       this.selectEmisor = selectEmisor; // saved emisor, w/ id if new       
-        //this.goBack(selectFactura);
-      },
+              },
       error => this.errorMessage = <any>error);
-    //.catch(error => this.error = error); // TODO: Display error message
+    
   }
   cancelar() {
     window.history.back();

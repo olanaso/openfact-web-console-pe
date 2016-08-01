@@ -96,10 +96,22 @@ export class EmisorService {
     /*METODOS MANEJADORES DE ERROR --------------------------------FIN*/
 
     /*METODOS SAVE GET(ID) -----------------------------------*/
-    getEmisor(id: number) {
+    // getEmisor(id: number) {
+    //     return this.getEmisoresPromise()
+    //         .then(emisores => emisores.filter(emisor => emisor.id === id)[0]);
+    // }
+    getEmisor(id: string) {
+        //alert(id);
         return this.getEmisoresPromise()
             .then(emisores => emisores.filter(emisor => emisor.id === id)[0]);
     }
+
+// getEmisoresObservableId(id: number) {
+//         //alert(id);
+//         return this.getEmisoresObservable()
+//             .then(emisores => emisores.filter(emisor => emisor.id === id)[0]);
+//     }
+    
     // save(selectEmisor: Emisor): Promise<Emisor> {
 
     //    console.log("ANTES DE GRABAR ..." + JSON.stringify(selectEmisor));

@@ -1,0 +1,24 @@
+<nav class="collapse navbar-collapse">
+    <ul class="nav navbar-nav navbar-right navbar-iconic">
+        <li class="dropdown" dropdown>
+            <a class="dropdown-toggle nav-item-iconic" dropdownToggle>
+                <span title="Help" class="fa pficon-help"></span>
+                <span class="sr-only">Help</span>
+                <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu" dropdownMenu>
+                <li><a href="#">Documentation</a></li>
+                <li><a [routerLink]="['/about']">About</a></li>
+            </ul>
+        </li>
+        <li class="dropdown" dropdown *ngIf="user">
+            <a class="dropdown-toggle nav-item-iconic" dropdownToggle>
+                <span title="Username" class="fa pficon-user"></span>
+                <span class="caret">{{user.fullName || user.metadata.name}}</span>
+            </a>
+            <ul class="dropdown-menu" dropdownMenu>
+                <li><a href="#">Logout</a></li>
+            </ul>
+        </li>
+    </ul>
+</nav>

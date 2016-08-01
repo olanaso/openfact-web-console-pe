@@ -1,3 +1,5 @@
+"use strict";
+
 // SystemJS configuration file, see links for more information
 // https://github.com/systemjs/systemjs
 // https://github.com/systemjs/systemjs/blob/master/docs/config-api.md
@@ -8,12 +10,7 @@
 /** Map relative paths to URLs. */
 const map: any = {
   'moment': 'vendor/moment/moment.js',
-  'ng2-bootstrap': 'vendor/ng2-bootstrap',
-  'angular2-in-memory-web-api': 'node_modules/angular2-in-memory-web-api',
-  'ng2-select': 'vendor/ng2-select'
-  //'rxjs':                       'node_modules/rxjs'
-  // 'bootstrap-datepicker':'vendor/bootstrap-datepicker',
-  // 'bootstrap-timepicker':'vendor/bootstrap-timepicker'
+  'ng2-bootstrap': 'vendor/ng2-bootstrap'
 };
 
 /** User packages configuration. */
@@ -25,26 +22,7 @@ const packages: any = {
     format: 'cjs',    
     defaultExtension: 'js',
     main: 'ng2-bootstrap.js'    
-  },
-   'angular2-in-memory-web-api': { main: 'index.js', defaultExtension: 'js'
   }
-  ,
-   'ng2-select': {
-    format: 'cjs',    
-    defaultExtension: 'js',
-    main: 'ng2-select.js'    
-  }
-  
-  //  'bootstrap-datepicker': {
-  //   format: 'cjs',    
-  //   defaultExtension: 'js',
-  //   main: 'bootstrap-datepicker/js/bootstrap-datepicker.js'    
-  // },
-  //  'bootstrap-timepicker': {
-  //   format: 'cjs',    
-  //   defaultExtension: 'js',
-  //   main: 'bootstrap-timepicker/js/bootstrap-timepicker.js'    
-  // }
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -68,28 +46,20 @@ const barrels: string[] = [
   // App specific barrels.
   'app',
   'app/shared',
-  'app/my-component',
-
-  'app/layout',
-  'app/layout/header',
-  'app/layout/sidebar',
-  'app/layout/container',
-  
-  'app/pages/home',
-  'app/pages/about',
-
-  'app/modules/facturas',
-  'app/modules/facturas/facturas-nuevo',
-  'app/modules/facturas/facturas-editar',
-  'app/modules/facturas/facturas-enviar',
-  'app/modules/facturas/facturas-importar',
-
-  'app/modules/boletas',
-
-  'app/modules/emisor',
-  'app/modules/emisor/emisor-nuevo',
-  'app/modules/emisores',
-  'app/modules/emisores/emisores-nuevo',
+  'app/directives/navbar-utility',
+  'app/directives/navbar-utility-mobile',
+  'app/directives/default-header',  
+  'app/directives/project-header',
+  'app/directives/project-page',
+  'app/directives/sidebar',
+  'app/directives/events-sidebar',         
+  'app/components/about',
+  'app/components/error',
+  'app/components/organizations',
+  'app/components/organizations/create-organization',
+  'app/components/organizations/edit-organization',
+  'app/components/organizations/edit-organization/overview',
+  'app/components/organizations/edit-organization/settings',
   /** @cli-barrel */
 ];
 

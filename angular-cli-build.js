@@ -6,7 +6,7 @@
 
 var Angular2App = require('angular-cli/lib/broccoli/angular2-app');
 
-module.exports = function (defaults) {
+module.exports = function(defaults) {
   return new Angular2App(defaults, {
     vendorNpmFiles: [
       'systemjs/dist/system-polyfills.js',
@@ -18,11 +18,7 @@ module.exports = function (defaults) {
       '@angular/**/*.+(js|js.map)',
       'moment/moment.js',
       'ng2-bootstrap/**/*.js',
-      'patternfly/**/*.*',
-      'ng2-select/**/*.js'
-
-      // 'bootstrap-datepicker/**/*.js',
-      // 'bootstrap-timepicker/**/*.js'
+      'patternfly/**/*.*'      
     ]
   });
 };

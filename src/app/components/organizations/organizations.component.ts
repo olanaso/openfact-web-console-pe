@@ -8,8 +8,8 @@ import { NavbarUtilityMobileComponent } from '../../directives/navbar-utility-mo
 import { OrganizationModel } from '../../models/organization-model';
 import { AlertModel } from '../../models/alert-model';
 
-import { AlertMessageService } from '../../services/alert-message.service';
-import { AuthService } from '../../services/auth.service';
+import { AlertMessageService } from '../../services/util/alert-message.service';
+import { AuthService } from '../../services/auth/auth.service';
 import { OrganizationService } from '../../services/organization.service';
 
 @Component({
@@ -50,11 +50,20 @@ export class OrganizationsComponent implements OnInit {
   }
 
   loadProjects() {
-    this.organizationService.getAll().then(result => this.projects = result);
+ 
      /*DataService.list("projects", $scope, function(projects) {
         $scope.projects = projects.by("metadata.name");
         $scope.showGetStarted = hashSizeFilter($scope.projects) === 0;
       });*/
+
+      this.organizationService.getAll()
+      .subscribe(
+      result => this.projects = result,
+      error => console.log('error'));
+
+      this.organizationService.findById('master').subscribe(
+      result => console.log(result),
+      error => console.log('error'));
   }
 
   editOrganization(organization: OrganizationModel) {

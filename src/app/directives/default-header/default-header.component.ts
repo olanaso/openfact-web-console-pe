@@ -3,7 +3,7 @@ import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { NavbarUtilityComponent } from '../navbar-utility';
 
 import { Subscription }   from 'rxjs/Subscription';
-import { NavbarService } from '../../services/navbar.service';
+import { NavbarService } from '../../services/util/navbar.service';
 
 @Component({
   moduleId: module.id,

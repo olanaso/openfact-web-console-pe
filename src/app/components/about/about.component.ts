@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DefaultHeaderComponent } from '../../directives/default-header';
 import { NavbarUtilityMobileComponent } from '../../directives/navbar-utility-mobile';
-import { ConstantService } from '../../services/constant.service';
-import { AuthService } from '../../services/auth.service';
+import { ConstantService } from '../../services/util/constant.service';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   moduleId: module.id,

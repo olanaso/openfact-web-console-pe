@@ -1,21 +1,19 @@
 import { Injectable } from '@angular/core';
 import { OrganizationModel } from '../models/organization-model';
+import { RestangularOpenfactService } from './rest/restangular-openfact.service';
+import { GenericOpenfactService } from './generic-openfact.service';
 
 @Injectable()
-export class OrganizationService {
+export class OrganizationService extends GenericOpenfactService<OrganizationModel> { 
 
-  organizations: OrganizationModel[];
+  private static path: string = "/organizations";
 
-  constructor() {   
-    this.organizations = [
-      new OrganizationModel('master0', 'descripcion 01'),
-      new OrganizationModel('master1', 'descripcion 02'),
-      new OrganizationModel('master2', 'descripcion 03')
-    ];
+  constructor(restangularOpenfactService: RestangularOpenfactService) {   
+    super(OrganizationService.path, restangularOpenfactService);
   }
+  
+  cargarCertificado() {
 
-  getAll() {
-    return Promise.resolve(this.organizations);
   }
-
+  
 }

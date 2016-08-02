@@ -1,13 +1,18 @@
-export class OrganizationModel {
+import { RestangularService } from '../services/rest/restangular.service';
+import { Model } from './model'
+
+export class OrganizationModel extends Model {
     
     id: string;
     name: string;
-    description: string;
-    enabled: boolean;
+    supplierName: string;    
+    registrationName: string;
+    additionalAccountId: string;
+    assignedIdentificationId: string;
+    enabled: boolean;    
 
-    constructor(name:string, description: string) {        
-        this.name = name;
-        this.description = description;
+    constructor() {        
+        super();
     }
     
 }

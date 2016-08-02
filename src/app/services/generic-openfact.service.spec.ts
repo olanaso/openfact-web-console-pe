@@ -1,7 +1,7 @@
-/* tslint:disable:no-unused-variable */
+// /* tslint:disable:no-unused-variable */
 
-import { addProviders, async, inject } from '@angular/core/testing';
-import { GenericOpenfactService } from './generic-openfact.service';
+// import { addProviders, async, inject } from '@angular/core/testing';
+// import { GenericOpenfactService } from './generic-openfact.service';
 
 /*describe('Service: GenericOpenfact', () => {
   beforeEach(() => {

@@ -1,16 +1,16 @@
-/* tslint:disable:no-unused-variable */
+// /* tslint:disable:no-unused-variable */
 
-import { addProviders, async, inject } from '@angular/core/testing';
-import { AuthService } from './auth.service';
+// import { addProviders, async, inject } from '@angular/core/testing';
+// import { AuthService } from './auth.service';
 
-describe('Service: Auth', () => {
-  beforeEach(() => {
-    addProviders([AuthService]);
-  });
+// describe('Service: Auth', () => {
+//   beforeEach(() => {
+//     addProviders([AuthService]);
+//   });
 
-  it('should ...',
-    inject([AuthService],
-      (service: AuthService) => {
-        expect(service).toBeTruthy();
-      }));
-});
+//   it('should ...',
+//     inject([AuthService],
+//       (service: AuthService) => {
+//         expect(service).toBeTruthy();
+//       }));
+// });

@@ -1,16 +1,16 @@
-/* tslint:disable:no-unused-variable */
+// /* tslint:disable:no-unused-variable */
 
-import { addProviders, async, inject } from '@angular/core/testing';
-import { NavbarService } from './navbar.service';
+// import { addProviders, async, inject } from '@angular/core/testing';
+// import { NavbarService } from './navbar.service';
 
-describe('Service: Navbar', () => {
-  beforeEach(() => {
-    addProviders([NavbarService]);
-  });
+// describe('Service: Navbar', () => {
+//   beforeEach(() => {
+//     addProviders([NavbarService]);
+//   });
 
-  it('should ...',
-    inject([NavbarService],
-      (service: NavbarService) => {
-        expect(service).toBeTruthy();
-      }));
-});
+//   it('should ...',
+//     inject([NavbarService],
+//       (service: NavbarService) => {
+//         expect(service).toBeTruthy();
+//       }));
+// });

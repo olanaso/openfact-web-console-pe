@@ -1,26 +1,28 @@
+import { RestangularOpenfactService } from '../services/rest/restangular-openfact.service';
+
 export abstract class Model {
 
-  attributeNames: string[] = [];
+    /*Restangular reference*/
+    restangular: RestangularOpenfactService;
 
-  [k: string]: any;
-
-  constructor(attributes: {} = null) {
-    this.attributes = attributes;
-  }
-
-  set attributes(attributes: {}) {
-    for (var k in attributes) {
-      this[k] =  (<any>attributes)[k];
+    /*Constructor*/
+    constructor(restangularOpenfactService: RestangularOpenfactService) {
+        this.restangular = restangularOpenfactService;
     }
-  }
 
-  get attributes(): {} {
-    var attributes : any = {};
-    this.attributeNames.forEach( (attributeName) => {
-      attributes[attributeName] = this[attributeName];
-    });
-    return attributes;
-  }
+    /*Save the current object*/
+    save() {
+        return this.restangular.post(this);
+    }
 
+    /*Enable the current object*/
+    enable() {
+        return this.restangular.all('enable').post(this);
+    }
+
+    /*Disable the current object*/
+    disable() {
+        return this.restangular.all('disable').post(this);
+    }
 
 }

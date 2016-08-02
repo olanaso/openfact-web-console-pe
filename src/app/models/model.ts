@@ -1,13 +1,28 @@
-import { RestangularService } from '../services/rest/restangular.service';
+import { RestangularOpenfactService } from '../services/rest/restangular-openfact.service';
 
-export class Model {
+export abstract class Model {
 
-    private restangular: RestangularService;
+    /*Restangular reference*/
+    restangular: RestangularOpenfactService;
 
-    constructor() {}
-
-    setRestangular(restangular: RestangularService) {
-        this.restangular = restangular;
+    /*Constructor*/
+    constructor(restangularOpenfactService: RestangularOpenfactService) {
+        this.restangular = restangularOpenfactService;
     }
-    
+
+    /*Save the current object*/
+    save() {
+        return this.restangular.post(this);
+    }
+
+    /*Enable the current object*/
+    enable() {
+        return this.restangular.all('enable').post(this);
+    }
+
+    /*Disable the current object*/
+    disable() {
+        return this.restangular.all('disable').post(this);
+    }
+
 }

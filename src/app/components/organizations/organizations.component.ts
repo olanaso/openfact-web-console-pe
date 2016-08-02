@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 
 import { DefaultHeaderComponent } from '../../directives/default-header';
 import { NavbarUtilityMobileComponent } from '../../directives/navbar-utility-mobile';
+import { AlertsComponent } from '../../directives/alerts';
 
 import { OrganizationModel } from '../../models/organization-model';
 import { AlertModel } from '../../models/alert-model';
@@ -17,10 +18,11 @@ import { OrganizationService } from '../../services/organization.service';
   selector: 'app-organizations',
   templateUrl: 'organizations.component.html',
   styleUrls: ['organizations.component.css'],
-  directives: [ROUTER_DIRECTIVES, DefaultHeaderComponent, NavbarUtilityMobileComponent],
+  directives: [ROUTER_DIRECTIVES, DefaultHeaderComponent, NavbarUtilityMobileComponent, AlertsComponent],
   providers: [AlertMessageService, AuthService, OrganizationService]
 })
 export class OrganizationsComponent implements OnInit {
+  
   projects: Array<OrganizationModel>;
   alerts: Array<AlertModel>;
   showGetStarted: boolean;
@@ -42,28 +44,12 @@ export class OrganizationsComponent implements OnInit {
     });
     this.alertMessageService.clearAlerts();
 
-    /*Auth*/
-    /*this.authService.withUser().then(function() {
-      this.loadProjects();
-    });*/
     this.loadProjects();
   }
 
   loadProjects() {
- 
-     /*DataService.list("projects", $scope, function(projects) {
-        $scope.projects = projects.by("metadata.name");
-        $scope.showGetStarted = hashSizeFilter($scope.projects) === 0;
-      });*/
-
-      this.organizationService.getAll()
-      .subscribe(
-      result => this.projects = result,
-      error => console.log('error'));
-
-      this.organizationService.findById('master').subscribe(
-      result => console.log(result),
-      error => console.log('error'));
+    this.organizationService.getAll()
+    .subscribe(result => this.projects = result, error => this.alertMessageService.addAlert(undefined));
   }
 
   editOrganization(organization: OrganizationModel) {

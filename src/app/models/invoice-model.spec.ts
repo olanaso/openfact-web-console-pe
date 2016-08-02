@@ -1,10 +1,10 @@
 /* tslint:disable:no-unused-variable */
 
 /*import { addProviders, async, inject } from '@angular/core/testing';
-import {Model} from './model';
+import {InvoiceModel} from './invoice-model';
 
-describe('Model', () => {
+describe('InvoiceModel', () => {
   it('should create an instance', () => {
-    expect(new Model()).toBeTruthy();
+    expect(new InvoiceModel()).toBeTruthy();
   });
 });*/

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable }     from 'rxjs/Observable';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { Http, Response } from '@angular/http';
 
 @Injectable()
 export class RestangularService {
@@ -13,7 +13,7 @@ export class RestangularService {
     this.http = http;
   }
 
-  /*cONSRUCTORTERS DE RUTAS*/
+  /*Contructor de rutas*/
   one(path: string, id: string) {
     return new RestangularService(this.path + path + '/' + id, this.http);
   }
@@ -22,17 +22,21 @@ export class RestangularService {
     return new RestangularService(this.path + path, this.http);
   }
 
-  /*hTTP*/
+  /*Metodos http*/
   get(): Observable<Response> {
     return this.http.get(this.path);
   }
 
-  getList(): Observable<Response> {
-    return this.http.get(this.path);
+  post(obj: any): Observable<Response> {
+    return this.http.post(this.path, obj);
   }
 
-  post(obj: any): Observable<Response>{    
-    return this.http.post(this.path, obj);
+  put(obj: any): Observable<Response> {
+    return this.http.put(this.path, obj);
+  }
+
+  delete(): Observable<Response> {
+    return this.http.delete(this.path);
   }
 
 }

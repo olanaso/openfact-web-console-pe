@@ -1,25 +1,30 @@
 import { Injectable } from '@angular/core';
-import { AlertModel } from '../../models/alert-model';
+import { Alert } from '../../models/alert';
+
+interface AlertMap {
+  name: string;
+  data: Alert;
+};
 
 @Injectable()
 export class AlertMessageService {
 
-  alerts: Array<AlertModel>;
+  private alerts: Array<AlertMap>;
 
   constructor() {
     this.alerts = [];
   }
 
-  addAlert(alert) {
+  addAlert(alert: AlertMap) {
     this.alerts.push(alert);
   }
-  
+
   getAlerts() {
     return this.alerts;
   }
-  
+
   clearAlerts() {
     this.alerts = [];
   }
-  
+
 }

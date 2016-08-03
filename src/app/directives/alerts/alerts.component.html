@@ -1,40 +1,31 @@
-<!--<div ng-attr-row="{{toast}}"  ng-attr-wrap="{{toast}}">
-  <div ng-repeat="alert in (alerts | filterCollection : filter)" ng-if="!alert.hidden" class="alert-wrapper">
-    <div class="alert" ng-class="{
+<div *ngFor="let alert of (alerts | filterCollection : filter)">
+  <div *ngIf="!alert.hidden">
+    <div class="alert alert-dismissable" [ngClass]="{
       'alert-danger': alert.type === 'error',
       'alert-warning': alert.type === 'warning',
       'alert-success': alert.type === 'success',
       'alert-info': !alert.type || alert.type === 'info',
-      'toast-pf': toast,
-      'mar-left-sm': toast
+      'toast-pf toast-pf-max-width toast-pf-top-right': toast
     }">
-      <button ng-if="!hideCloseButton" ng-click="close(alert)" type="button" class="close">
-        <span class="pficon pficon-close" aria-hidden="true"></span>
-        <span class="sr-only">Close</span>
-      </button>
-      <span class="pficon" aria-hidden="true" ng-class="{
+      <button ng-if="!hideCloseButton" (click)="close(alert)" type="button" class="close">
+          <span class="pficon pficon-close"></span>
+          <span class="sr-only">Close</span>
+        </button>
+      <span class="pficon" [ngClass]="{
         'pficon-error-circle-o': alert.type === 'error',
         'pficon-warning-triangle-o': alert.type === 'warning',
         'pficon-ok': alert.type === 'success',
         'pficon-info': !alert.type || alert.type === 'info'
       }"></span>
       <span class="sr-only">{{alert.type}}</span>
-      <span ng-if="alert.message" style="margin-right: 5px;" ng-class="{'strong': !toast}">{{alert.message}}</span><span ng-if="alert.details">{{alert.details}}</span>
-      <span ng-repeat="link in alert.links">
-        <a ng-if="!link.href" href="" ng-click="onClick(alert, link)" role="button">{{link.label}}</a>
-        <a ng-if="link.href" href="{{link.href}}" ng-click="onClick(alert, link)">{{link.label}}</a>
-        <span ng-if="!$last" class="action-divider">|</span>
+
+      <strong *ngIf="alert.message">{{alert.message}}</strong>
+      <span *ngIf="alert.details">{{alert.details}}</span>
+      <span *ngFor="let link of alert.links; let $last=last;">
+        <a *ngIf="!link.href" href="" (click)="onClick(alert, link)">{{link.label}}</a>
+        <a *ngIf="link.href" href="{{link.href}}" (click)="onClick(alert, link)">{{link.label}}</a>
+        <span *ngIf="!$last" class="action-divider">|</span>
       </span>
     </div>
   </div>
 </div>
-
-
-<div class="alert alert-danger alert-dismissable">
-  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-    <span class="pficon pficon-close"></span>
-  </button>
-  <span class="pficon pficon-error-circle-o"></span>
-  <strong>Hey there is a problem!</strong> Yeah this is really messed up and you should <a href="#" class="alert-link">know about it</a>.
-</div>
--->

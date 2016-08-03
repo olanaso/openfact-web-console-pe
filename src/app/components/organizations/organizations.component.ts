@@ -7,7 +7,7 @@ import { NavbarUtilityMobileComponent } from '../../directives/navbar-utility-mo
 import { AlertsComponent } from '../../directives/alerts';
 
 import { OrganizationModel } from '../../models/organization-model';
-import { AlertModel } from '../../models/alert-model';
+import { Alert } from '../../models/alert';
 
 import { AlertMessageService } from '../../services/util/alert-message.service';
 import { AuthService } from '../../services/auth/auth.service';
@@ -22,25 +22,26 @@ import { OrganizationService } from '../../services/organization.service';
   providers: [AlertMessageService, AuthService, OrganizationService]
 })
 export class OrganizationsComponent implements OnInit {
-  
+
   projects: Array<OrganizationModel>;
-  alerts: Array<AlertModel>;
+  alerts: Array<Alert>;
   showGetStarted: boolean;
   canCreate = undefined;
-  
+
   constructor(
     private router: Router,
     private alertMessageService: AlertMessageService,
     private authService: AuthService,
     private organizationService: OrganizationService) {
-      this.projects = [];
-      this.alerts = [];
-      this.showGetStarted = false;
+    this.projects = [];
+    this.alerts = [];
+    this.showGetStarted = false;
   }
 
   ngOnInit() {
-    this.alertMessageService.getAlerts().forEach(function(alert) {
-      this.alerts[alert.name] = alert.data;    
+    this.alertMessageService.getAlerts().forEach(alert => {
+      this.alerts.push(alert.data);
+      this.alerts[alert.name] = alert.data;
     });
     this.alertMessageService.clearAlerts();
 
@@ -49,7 +50,7 @@ export class OrganizationsComponent implements OnInit {
 
   loadProjects() {
     this.organizationService.getAll()
-    .subscribe(result => this.projects = result, error => this.alertMessageService.addAlert(undefined));
+      .subscribe(result => this.projects = result, error => this.alertMessageService.addAlert(undefined));
   }
 
   editOrganization(organization: OrganizationModel) {
@@ -57,8 +58,8 @@ export class OrganizationsComponent implements OnInit {
     this.router.navigate(link);
   }
 
-  deleteOrganization(organization: OrganizationModel) {     
-    console.log('eliminando');   
+  deleteOrganization(organization: OrganizationModel) {
+    console.log('eliminando');
     this.loadProjects();
   }
 

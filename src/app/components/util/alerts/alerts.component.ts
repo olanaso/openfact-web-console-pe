@@ -1,9 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { Alert } from '../../models/alert';
-import { AlertLink } from '../../models/alert-link';
+import { Alert } from '../../../services/alert';
+import { AlertLink } from '../../../services/alert-link';
 
-import { FilterCollectionPipe } from '../../pipes/filter-collection.pipe';
+import { FilterCollectionPipe } from '../../../pipes/filter-collection.pipe';
 
 @Component({
   moduleId: module.id,

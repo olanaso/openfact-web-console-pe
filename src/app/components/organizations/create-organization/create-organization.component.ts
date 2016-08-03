@@ -1,33 +1,55 @@
 import { Component, OnInit } from '@angular/core';
-import { DefaultHeaderComponent } from '../../../directives/default-header';
-import { OrganizationService } from '../../../services/organization.service';
-import { OrganizationModel } from '../../../models/organization-model';
+import { DefaultHeaderComponent } from '../../util/default-header';
+import { ButtonSaveComponent } from '../../util/button-save';
+import { ButtonCancelComponent } from '../../util/button-cancel';
+import { OrganizationModel } from '../../../services/models/organization-model';
+import { DataService } from '../../../services/data.service';
+import { AlertMessageService } from '../../../services/alert-message.service';
 
 @Component({
   moduleId: module.id,
   selector: 'app-create-organization',
   templateUrl: 'create-organization.component.html',
   styleUrls: ['create-organization.component.css'],
-  directives: [DefaultHeaderComponent],
-  providers: [OrganizationService]
+  directives: [DefaultHeaderComponent, ButtonSaveComponent, ButtonCancelComponent],
+  providers: [DataService, AlertMessageService]
 })
 export class CreateOrganizationComponent implements OnInit {
 
-  constructor(private organizationService: OrganizationService) { }
+  working: boolean;
+  organization: OrganizationModel;
 
-  ngOnInit() {
-    this.save();
+  constructor(private dataService: DataService, private alertMessageService: AlertMessageService) {
+    this.working = false;
+    this.organization = this.dataService.organizations().build();
   }
 
+  ngOnInit() {}
+
   save() {
-    let organization: OrganizationModel = this.organizationService.build();
-    organization.name = 'ahren';
-    organization.supplierName = 'ahren S.A.C.';
-    
-    this.organizationService.create(organization)
-          .subscribe(
-            result => console.log(result),
-            error => console.log('error'));
+    /*Disable button*/
+    this.working = true;
+
+    this.dataService.organizations().create(this.organization)
+    .subscribe(result => {
+      this.working = false;
+      this.alertMessageService.addAlert({
+        name: this.organization.name,
+        data: {
+          type: 'success',
+          message: this.organization.name + ' was created.'
+        }
+      });
+    }, error => {
+      this.working = false;
+      this.alertMessageService.addAlert({
+        name: this.organization.name,
+        data: {
+          type: 'error',
+          message: this.organization.name + ' could not be created.'
+        }
+      });
+    });
   }
 
 }

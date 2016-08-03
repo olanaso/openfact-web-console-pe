@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Alert } from '../../models/alert';
+import { Alert } from './alert';
 
 interface AlertMap {
   name: string;

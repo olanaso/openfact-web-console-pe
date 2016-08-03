@@ -1,26 +1,26 @@
 import { Injectable } from '@angular/core';
-import { OrganizationService } from './organization.service';
-import { InvoiceService } from './invoice.service';
+import { OrganizationProviderService } from './providers/organization-provider.service';
+import { InvoiceProviderService } from './providers/invoice-provider.service';
 
 @Injectable()
 export class DataService {
 
-  private organizationService: OrganizationService;
-  private invoiceService: InvoiceService;
+  private organizationProviderService: OrganizationProviderService;
+  private invoiceProviderService: InvoiceProviderService;
 
   constructor(
-    organizationService: OrganizationService, 
-    invoiceService: InvoiceService) { 
-    this.organizationService = organizationService;
-    this.invoiceService= invoiceService;
+    organizationProviderService: OrganizationProviderService, 
+    invoiceProviderService: InvoiceProviderService) { 
+    this.organizationProviderService = organizationProviderService;
+    this.invoiceProviderService= invoiceProviderService;
   }
 
-  organizations() {
-    return this.organizationService;
+  organizations(): OrganizationProviderService {
+    return this.organizationProviderService;
   }
 
-  invoices() {
-    return this.invoiceService;
+  invoices(): InvoiceProviderService {
+    return this.invoiceProviderService;
   }
 
 }

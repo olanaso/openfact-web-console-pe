@@ -3,16 +3,16 @@ import { ROUTER_DIRECTIVES } from '@angular/router';
 import { Router } from '@angular/router';
 
 /*Directives import*/
-import { DefaultHeaderComponent } from '../../directives/default-header';
-import { NavbarUtilityMobileComponent } from '../../directives/navbar-utility-mobile';
-import { AlertsComponent } from '../../directives/alerts';
+import { DefaultHeaderComponent } from '../util/default-header';
+import { NavbarUtilityMobileComponent } from '../util/navbar-utility-mobile';
+import { AlertsComponent } from '../util/alerts';
 
 /*Models import*/
-import { Alert } from '../../models/alert';
-import { OrganizationModel } from '../../models/organization-model';
+import { Alert } from '../../services/alert';
+import { OrganizationModel } from '../../services/models/organization-model';
 
 /*Services import*/
-import { AlertMessageService } from '../../services/util/alert-message.service';
+import { AlertMessageService } from '../../services/alert-message.service';
 import { DataService } from '../../services/data.service';
 
 @Component({

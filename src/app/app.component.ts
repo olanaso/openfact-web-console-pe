@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { ROUTER_DIRECTIVES } from '@angular/router';
 
-import { NavbarService } from './services/util/navbar.service';
+import { NavbarService } from './services/navbar.service';
 import { DataService } from './services/data.service';
-import { RestangularService } from './services/rest/restangular.service';
-import { RestangularOpenfactService } from './services/rest/restangular-openfact.service';
-import { OrganizationService } from './services/organization.service';
-import { InvoiceService } from './services/invoice.service';
+import { RestangularService } from './services/providers/restangular.service';
+import { RestangularOpenfactService } from './services/providers/restangular-openfact.service';
+import { OrganizationProviderService } from './services/providers/organization-provider.service';
+import { InvoiceProviderService } from './services/providers/invoice-provider.service';
 
 @Component({
   moduleId: module.id,
@@ -14,7 +14,7 @@ import { InvoiceService } from './services/invoice.service';
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.css'],
   directives: [ROUTER_DIRECTIVES],
-  providers: [NavbarService, DataService, RestangularService, RestangularOpenfactService, OrganizationService, InvoiceService]
+  providers: [NavbarService, DataService, RestangularService, RestangularOpenfactService, OrganizationProviderService, InvoiceProviderService]
 })
 export class AppComponent {
 

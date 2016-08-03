@@ -1,0 +1,4 @@
+<button type="submit" [disabled]="working" class="btn btn-primary">
+  <span *ngIf="working">Guardando...</span>
+  <span *ngIf="!working">Guardar</span>
+</button>

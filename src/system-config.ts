@@ -50,14 +50,14 @@ const barrels: string[] = [
   // App specific barrels.
   'app',
   'app/shared',
-  'app/directives/navbar-utility',
-  'app/directives/navbar-utility-mobile',
-  'app/directives/default-header',
-  'app/directives/project-header',
-  'app/directives/project-page',
-  'app/directives/sidebar',
-  'app/directives/events-sidebar',
-  'app/directives/alerts',
+  'app/components/util/navbar-utility',
+  'app/components/util/navbar-utility-mobile',
+  'app/components/util/default-header',
+  'app/components/util/project-header',
+  'app/components/util/project-page',
+  'app/components/util/sidebar',
+  'app/components/util/events-sidebar',
+  'app/components/util/alerts',
   'app/components/about',
   'app/components/error',
   'app/components/organizations',
@@ -65,6 +65,8 @@ const barrels: string[] = [
   'app/components/organizations/edit-organization',
   'app/components/organizations/edit-organization/overview',
   'app/components/organizations/edit-organization/settings',
+  'app/components/util/button-save',
+  'app/components/util/button-cancel',
   /** @cli-barrel */
 ];
 

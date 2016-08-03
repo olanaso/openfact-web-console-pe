@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { DefaultHeaderComponent } from '../../directives/default-header';
-import { NavbarUtilityMobileComponent } from '../../directives/navbar-utility-mobile';
+import { DefaultHeaderComponent } from '../util/default-header';
+import { NavbarUtilityMobileComponent } from '../util/navbar-utility-mobile';
 
 @Component({
   moduleId: module.id,

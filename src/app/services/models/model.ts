@@ -1,4 +1,4 @@
-import { RestangularOpenfactService } from '../services/rest/restangular-openfact.service';
+import { RestangularOpenfactService } from '../providers/restangular-openfact.service';
 
 export abstract class Model {
 

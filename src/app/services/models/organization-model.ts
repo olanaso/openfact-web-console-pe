@@ -1,6 +1,6 @@
-import { RestangularService } from '../services/rest/restangular.service';
 import { Model } from './model'
-import { RestangularOpenfactService } from '../services/rest/restangular-openfact.service';
+import { RestangularService } from '../providers/restangular.service';
+import { RestangularOpenfactService } from '../providers/restangular-openfact.service';
 
 export class OrganizationModel extends Model {
 

@@ -5,10 +5,10 @@ import { Observable }     from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
 import { Model } from '../models/model';
-import { RestangularOpenfactService } from './rest/restangular-openfact.service';
+import { RestangularOpenfactService } from './restangular-openfact.service';
 
 @Injectable()
-export abstract class GenericOpenfactService<T extends Model> {
+export abstract class ProviderService<T extends Model>{
 
   private path: string;
   private restangular: RestangularOpenfactService;

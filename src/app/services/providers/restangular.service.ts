@@ -13,7 +13,11 @@ export class RestangularService {
     this.http = http;
   }
 
-  /*Contructor de rutas*/
+  getPath(): string {
+    return this.path;
+  }
+
+  /*path builder*/
   one(path: string, id: string) {
     return new RestangularService(this.path + path + '/' + id, this.http);
   }
@@ -22,7 +26,7 @@ export class RestangularService {
     return new RestangularService(this.path + path, this.http);
   }
 
-  /*Metodos http*/
+  /*http methods*/
   get(): Observable<Response> {
     return this.http.get(this.path);
   }

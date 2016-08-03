@@ -2,16 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import { ROUTER_DIRECTIVES } from '@angular/router';
 import { Router } from '@angular/router';
 
+/*Directives import*/
 import { DefaultHeaderComponent } from '../../directives/default-header';
 import { NavbarUtilityMobileComponent } from '../../directives/navbar-utility-mobile';
 import { AlertsComponent } from '../../directives/alerts';
 
-import { OrganizationModel } from '../../models/organization-model';
+/*Models import*/
 import { Alert } from '../../models/alert';
+import { OrganizationModel } from '../../models/organization-model';
 
+/*Services import*/
 import { AlertMessageService } from '../../services/util/alert-message.service';
-import { AuthService } from '../../services/auth/auth.service';
-import { OrganizationService } from '../../services/organization.service';
+import { DataService } from '../../services/data.service';
 
 @Component({
   moduleId: module.id,
@@ -19,29 +21,24 @@ import { OrganizationService } from '../../services/organization.service';
   templateUrl: 'organizations.component.html',
   styleUrls: ['organizations.component.css'],
   directives: [ROUTER_DIRECTIVES, DefaultHeaderComponent, NavbarUtilityMobileComponent, AlertsComponent],
-  providers: [AlertMessageService, AuthService, OrganizationService]
+  providers: [AlertMessageService]
 })
 export class OrganizationsComponent implements OnInit {
 
-  projects: Array<OrganizationModel>;
+  organizations: Array<OrganizationModel>;
   alerts: Array<Alert>;
-  showGetStarted: boolean;
-  canCreate = undefined;
 
   constructor(
     private router: Router,
     private alertMessageService: AlertMessageService,
-    private authService: AuthService,
-    private organizationService: OrganizationService) {
-    this.projects = [];
+    private dataService: DataService) {
+    this.organizations = [];
     this.alerts = [];
-    this.showGetStarted = false;
   }
 
   ngOnInit() {
     this.alertMessageService.getAlerts().forEach(alert => {
       this.alerts.push(alert.data);
-      this.alerts[alert.name] = alert.data;
     });
     this.alertMessageService.clearAlerts();
 
@@ -49,8 +46,8 @@ export class OrganizationsComponent implements OnInit {
   }
 
   loadProjects() {
-    this.organizationService.getAll()
-      .subscribe(result => this.projects = result, error => this.alertMessageService.addAlert(undefined));
+    this.dataService.organizations().getAll()
+      .subscribe(result => this.organizations = result, error => this.alertMessageService.addAlert(undefined));
   }
 
   editOrganization(organization: OrganizationModel) {

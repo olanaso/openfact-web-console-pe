@@ -22,9 +22,7 @@ export class AlertsComponent implements OnInit {
   constructor() { 
   }
 
-  ngOnInit() {
-    console.log(this.alerts);
-  }
+  ngOnInit() {}
 
   close(alert: Alert) {
     alert.hidden = true;

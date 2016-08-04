@@ -67,6 +67,7 @@ const barrels: string[] = [
   'app/components/organizations/edit-organization/settings',
   'app/components/util/button-save',
   'app/components/util/button-cancel',
+  'app/components/util/button-delete',
   /** @cli-barrel */
 ];
 

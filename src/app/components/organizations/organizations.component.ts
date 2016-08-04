@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { DefaultHeaderComponent } from '../util/default-header';
 import { NavbarUtilityMobileComponent } from '../util/navbar-utility-mobile';
 import { AlertsComponent } from '../util/alerts';
+import { ButtonDeleteComponent } from '../util/button-delete';
 
 /*Models import*/
 import { Alert } from '../../services/alert';
@@ -20,7 +21,7 @@ import { DataService } from '../../services/data.service';
   selector: 'app-organizations',
   templateUrl: 'organizations.component.html',
   styleUrls: ['organizations.component.css'],
-  directives: [ROUTER_DIRECTIVES, DefaultHeaderComponent, NavbarUtilityMobileComponent, AlertsComponent],
+  directives: [ROUTER_DIRECTIVES, DefaultHeaderComponent, NavbarUtilityMobileComponent, AlertsComponent, ButtonDeleteComponent],
   providers: []
 })
 export class OrganizationsComponent implements OnInit {

@@ -39,7 +39,7 @@ export class OrganizationsComponent implements OnInit {
 
   ngOnInit() {
     this.loadAlerts();
-    this.loadProjects();
+    this.loadOrganizations();
   }
 
   loadAlerts() {
@@ -49,7 +49,7 @@ export class OrganizationsComponent implements OnInit {
     this.alertMessageService.clearAlerts();
   }
 
-  loadProjects() {
+  loadOrganizations() {
     this.dataService.organizations().getAll().subscribe(
       result => {
         this.organizations = result
@@ -73,7 +73,7 @@ export class OrganizationsComponent implements OnInit {
 
   deleteOrganization(organization: OrganizationModel) {
     console.log('eliminando');
-    this.loadProjects();
+    this.loadOrganizations();
   }
 
 }

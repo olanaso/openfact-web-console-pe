@@ -14,7 +14,7 @@
 
             <div *ngFor="let organization of organizations" class="card-pf">
                 <div class="card-pf-heading">                    
-                    <button-delete [model]="organization" [type]="'Organization'" [alerts]="alerts" [buttonOnly]="true" class="card-pf-heading-details">                                         
+                    <button-delete [model]="organization" [type]="'Organization'" [alerts]="alerts" [buttonOnly]="true" (success)="loadOrganizations($event)" class="card-pf-heading-details">                                         
                     </button-delete>
                     <h2 class="card-pf-title">
                         <a href="javascript:void(0)" (click)="editOrganization(organization)">{{organization.name}}</a>

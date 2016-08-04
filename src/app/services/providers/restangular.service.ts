@@ -13,18 +13,14 @@ export class RestangularService {
     this.http = http;
   }
 
-<<<<<<< HEAD:src/app/services/rest/restangular.service.ts
+
   getPath() {
     return this.path;
   }
   /*Contructor de rutas*/
-=======
-  getPath(): string {
-    return this.path;
-  }
 
   /*path builder*/
->>>>>>> e351ed0ac80cb6f403a1747630c6bbf18a3902de:src/app/services/providers/restangular.service.ts
+
   one(path: string, id: string) {
     return new RestangularService(this.path + path + '/' + id, this.http);
   }

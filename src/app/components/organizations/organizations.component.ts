@@ -2,16 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import { ROUTER_DIRECTIVES } from '@angular/router';
 import { Router } from '@angular/router';
 
-import { DefaultHeaderComponent } from '../../directives/default-header';
-import { NavbarUtilityMobileComponent } from '../../directives/navbar-utility-mobile';
-import { AlertsComponent } from '../../directives/alerts';
+/*Directives import*/
+import { DefaultHeaderComponent } from '../util/default-header';
+import { NavbarUtilityMobileComponent } from '../util/navbar-utility-mobile';
+import { AlertsComponent } from '../util/alerts';
 
-import { OrganizationModel } from '../../models/organization-model';
-import { AlertModel } from '../../models/alert-model';
+/*Models import*/
+import { Alert } from '../../services/alert';
+import { OrganizationModel } from '../../services/models/organization-model';
 
-import { AlertMessageService } from '../../services/util/alert-message.service';
-import { AuthService } from '../../services/auth/auth.service';
-import { OrganizationService } from '../../services/organization.service';
+/*Services import*/
+import { AlertMessageService } from '../../services/alert-message.service';
+import { DataService } from '../../services/data.service';
 
 @Component({
   moduleId: module.id,
@@ -19,37 +21,48 @@ import { OrganizationService } from '../../services/organization.service';
   templateUrl: 'organizations.component.html',
   styleUrls: ['organizations.component.css'],
   directives: [ROUTER_DIRECTIVES, DefaultHeaderComponent, NavbarUtilityMobileComponent, AlertsComponent],
-  providers: [AlertMessageService, AuthService, OrganizationService]
+  providers: []
 })
 export class OrganizationsComponent implements OnInit {
-  
-  projects: Array<OrganizationModel>;
-  alerts: Array<AlertModel>;
-  showGetStarted: boolean;
-  canCreate = undefined;
-  
+
+  organizations: Array<OrganizationModel>;
+  alerts: Array<Alert>;
+
   constructor(
     private router: Router,
     private alertMessageService: AlertMessageService,
-    private authService: AuthService,
-    private organizationService: OrganizationService) {
-      this.projects = [];
-      this.alerts = [];
-      this.showGetStarted = false;
+    private dataService: DataService) {
+    this.organizations = [];
+    this.alerts = [];
   }
 
   ngOnInit() {
-    this.alertMessageService.getAlerts().forEach(function(alert) {
-      this.alerts[alert.name] = alert.data;    
-    });
-    this.alertMessageService.clearAlerts();
-
+    this.loadAlerts();
     this.loadProjects();
   }
 
+  loadAlerts() {
+    this.alertMessageService.getAlerts().forEach(alert => {
+      this.alerts.push(alert.data);
+    });
+    this.alertMessageService.clearAlerts();
+  }
+
   loadProjects() {
-    this.organizationService.getAll()
-    .subscribe(result => this.projects = result, error => this.alertMessageService.addAlert(undefined));
+    this.dataService.organizations().getAll().subscribe(
+      result => {
+        this.organizations = result
+      }, error => {
+        this.alerts.push({
+          type: 'error',
+          message: 'Error loading projects ',
+          details: 'Something happend when loading projects.',
+          links: [{
+            label: 'Retry',
+            href: './'
+          }]
+        });
+      });
   }
 
   editOrganization(organization: OrganizationModel) {
@@ -57,8 +70,8 @@ export class OrganizationsComponent implements OnInit {
     this.router.navigate(link);
   }
 
-  deleteOrganization(organization: OrganizationModel) {     
-    console.log('eliminando');   
+  deleteOrganization(organization: OrganizationModel) {
+    console.log('eliminando');
     this.loadProjects();
   }
 

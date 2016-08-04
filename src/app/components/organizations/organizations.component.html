@@ -4,36 +4,40 @@
     <navbar-utility-mobile></navbar-utility-mobile>
 </div>
 
-<div class="container">
-    <alerts></alerts>
-</div>
-
-<div class="container-fluid container-cards-pf">    
-
+<div class="container-fluid container-cards-pf">
     <div class="row row-cards-pf">
         <div class="col-md-10 col-md-offset-1">
+            <alerts [alerts]="alerts"></alerts>
 
-            <!--Header page-->
             <h1 style="margin: 10px 0px 20px; display: inline-block;">Organizations</h1>
-            <a style="margin-top: 10px;" href="" [routerLink]="['./create-organization']" class="btn btn-lg btn-primary pull-right">Create organization</a>
-            <!--End Header page-->
+            <a style="margin-top: 10px;" [routerLink]="['./create-organization']" class="btn btn-lg btn-primary pull-right">Create organization</a>
 
-            <div *ngFor="let item of projects" class="card-pf">
+            <div *ngFor="let organization of organizations" class="card-pf">
                 <div class="card-pf-heading">
-                    <a href="javascript:void(0)" class="card-pf-heading-details" (click)="deleteOrganization(item)">
+                    <a href="javascript:void(0)" class="card-pf-heading-details" (click)="deleteOrganization(organization)">
                         <i class="fa fa-trash-o"></i>
-                        <span class="sr-only">Delete Project {{item.name}}</span>
+                        <span class="sr-only">Delete Organizations {{organization.name}}</span>
                     </a>
                     <h2 class="card-pf-title">
-                        <a href="javascript:void(0)" (click)="editOrganization(item)">{{item.name}}</a>
+                        <a href="javascript:void(0)" (click)="editOrganization(organization)">{{organization.name}}</a>
                     </h2>
                     <div style="margin-bottom: 10px;">
-                        <span>{{item.description}}</span>
+                        <span>{{organization.description}}</span>
                     </div>
+                </div>
+            </div>
+
+            <div *ngIf="!organizations.length">
+                <div class="blank-slate-pf">
+                    <p>
+                        There are no organizations to show you.
+                    </p>
+                    <p>
+                        Learn more about this problem <a href="#">on the documentation</a>.
+                    </p>
                 </div>
             </div>
 
         </div>
     </div>
-
 </div>

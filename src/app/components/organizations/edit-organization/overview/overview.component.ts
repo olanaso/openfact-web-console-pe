@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { ProjectHeaderComponent } from '../../../../directives/project-header';
-import { ProjectPageComponent } from '../../../../directives/project-page';
+import { ProjectHeaderComponent } from '../../../util/project-header';
+import { ProjectPageComponent } from '../../../util/project-page';
 
 @Component({
   moduleId: module.id,

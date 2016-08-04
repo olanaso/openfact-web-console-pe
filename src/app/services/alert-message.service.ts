@@ -19,6 +19,16 @@ export class AlertMessageService {
     this.alerts.push(alert);
   }
 
+  addShortAlert(type: string, message: string ) {
+    this.alerts.push({
+      name: '',
+      data: {
+        type: type,
+        message: message
+      }
+    });
+  }
+
   getAlerts() {
     return this.alerts;
   }

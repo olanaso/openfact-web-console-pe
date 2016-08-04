@@ -27,6 +27,17 @@
                 </div>
             </div>
 
+            <div *ngIf="!organizations.length">
+                <div class="blank-slate-pf">
+                    <p>
+                        There are no organizations to show you.
+                    </p>
+                    <p>
+                        Learn more about this problem <a href="#">on the documentation</a>.
+                    </p>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>

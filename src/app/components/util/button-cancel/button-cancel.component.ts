@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   moduleId: module.id,
@@ -8,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ButtonCancelComponent implements OnInit {
 
+  @Input() working: boolean = false;
+  @Output() onClick: EventEmitter<boolean> = new EventEmitter<boolean>();
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  onClickChild(event) {
+    this.onClick.emit(true)
   }
 
 }

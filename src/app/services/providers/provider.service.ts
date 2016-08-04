@@ -3,6 +3,7 @@ import { Http, Response } from '@angular/http';
 import { Observable }     from 'rxjs/Observable';
 
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
 
 import { Model } from '../models/model';
 import { RestangularOpenfactService } from './restangular-openfact.service';
@@ -35,16 +36,18 @@ export abstract class ProviderService<T extends Model>{
     return this.restangular
       .one(this.path, id)
       .get()
-      .map(result => <T>result.json())
-      .map(model => this.extractSingleData(model));
+      .map(this.extractObject)
+      .map(model => this.extractSingleData(model))
+      .catch(this.handleError);
   }
 
   getAll(): Observable<T[]> {
     return this.restangular
       .all(this.path)
       .get()
-      .map(result => <T[]>result.json())
-      .map(models => this.extractMultipleData(models));
+      .map(result => result.json())
+      .map(models => this.extractMultipleData(models))
+      .catch(this.handleError);
   }
 
   create(t: T): Observable<T> {
@@ -53,8 +56,38 @@ export abstract class ProviderService<T extends Model>{
     return this.restangular
       .all(this.path)
       .post(copy)
-      .map(result => <T>result.json())
-      .map(model => this.extractSingleData(model));
+      .map(this.extractObject)
+      .map(model => this.extractSingleData(model))
+      .catch(this.handleError);
+  }
+
+  private extractObject(res: Response) {
+    if (res.status === 201) {
+      return <T>{};
+    } else {
+      return <T>res.json();
+    }
+  }
+
+  private handleError(error: any) {
+    // In a real world app, we might use a remote logging infrastructure
+    // We'd also dig deeper into the error to get a better message
+    let serverMessage;
+    try {
+      serverMessage = error.json();
+    } catch (error) {
+      console.log('Server did not send error message');
+    }
+
+    let errMsg;
+    if (serverMessage != null) {
+      errMsg = (error.message) ? error.message : error.status ? serverMessage.errorMessage : 'Server error' + `- ${error.status} - ${error.statusText}`;
+    } else {
+      errMsg = (error.message) ? error.message : error.status ? `${error._body.errorMessage}` : 'Server error' + `- ${error.status} - ${error.statusText}`;
+    }
+
+    console.error(errMsg); // log to console instead
+    return Observable.throw(errMsg);
   }
 
   /*Extract data*/

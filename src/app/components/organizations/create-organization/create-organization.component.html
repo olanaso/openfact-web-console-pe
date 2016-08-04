@@ -1,34 +1,39 @@
 <default-header></default-header>
-<div class="container-fluid container-cards-pf">
 
+<div class="visible-xs-block">
+  <navbar-utility-mobile></navbar-utility-mobile>
+</div>
+
+<div class="container-fluid container-cards-pf">
   <div class="row row-cards-pf">
     <div class="col-md-10 col-md-offset-1">
 
       <h1>Create Organization</h1>
+      <alerts [alerts]="alerts"></alerts>
 
-      <form name="form" class="form-horizontal">
-        <div class="form-group" data-ng-class="{ 'has-error' : form.apellidoPaterno.$invalid && form.$submitted }">
-          <label class="col-sm-2 control-label">Apellido paterno:</label>
-          <div class="col-sm-3">
-            <input name="apellidoPaterno" type="text" data-ng-model="view.persona.apellidoPaterno" data-ng-minlength="1" data-ng-maxlength="60"
-              class="form-control" capitalize required/>
-            <div data-ng-messages="form.apellidoPaterno.$error" data-ng-if="form.$submitted">
-              <div class="has-error" data-ng-message="required">Ingrese apellido paterno.</div>
-              <div class="has-error" data-ng-message="minlength">Ingrese apellido paterno.</div>
-              <div class="has-error" data-ng-message="maxlength">Apellido muy extenso, maximo 60 caracteres.</div>
+      <form [formGroup]="form" (ngSubmit)="save(form.value)" class="form-horizontal" novalidate>
+        <fieldset>
+          <div class="form-group" [ngClass]="{ 'has-error' : !form.controls.name.valid && submitted }">
+            <label class="col-sm-2 control-label">Name
+              <a><span class="fa fa-info-circle"></span></a>
+            </label>
+            <div class="col-sm-3">
+              <input formControlName="name" type="text" class="form-control" />
+              <div *ngIf="!form.controls.name.valid && submitted">
+                <span class="help-block">Type a correct name</span>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="form-group">
-          <div class="col-sm-offset-2 col-sm-10">
-            <button-save [disabled]="working"></button-save>
-            <button-cancel [disabled]="!working"></button-cancel>
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <button-save [form]="form" [working]="working" [alerts]="alerts" (onClick)="setSubmitted($event)"></button-save>
+              <button-cancel [working]="working" (onClick)="cancel($event)"></button-cancel>
+            </div>
           </div>
-        </div>
+        </fieldset>
       </form>
 
     </div>
   </div>
-
 </div>

@@ -21,7 +21,7 @@ import { DataService } from '../../services/data.service';
   templateUrl: 'organizations.component.html',
   styleUrls: ['organizations.component.css'],
   directives: [ROUTER_DIRECTIVES, DefaultHeaderComponent, NavbarUtilityMobileComponent, AlertsComponent],
-  providers: [AlertMessageService]
+  providers: []
 })
 export class OrganizationsComponent implements OnInit {
 
@@ -37,17 +37,32 @@ export class OrganizationsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loadAlerts();
+    this.loadProjects();
+  }
+
+  loadAlerts() {
     this.alertMessageService.getAlerts().forEach(alert => {
       this.alerts.push(alert.data);
     });
     this.alertMessageService.clearAlerts();
-
-    this.loadProjects();
   }
 
   loadProjects() {
-    this.dataService.organizations().getAll()
-      .subscribe(result => this.organizations = result, error => this.alertMessageService.addAlert(undefined));
+    this.dataService.organizations().getAll().subscribe(
+      result => {
+        this.organizations = result
+      }, error => {
+        this.alerts.push({
+          type: 'error',
+          message: 'Error loading projects ',
+          details: 'Something happend when loading projects.',
+          links: [{
+            label: 'Retry',
+            href: './'
+          }]
+        });
+      });
   }
 
   editOrganization(organization: OrganizationModel) {

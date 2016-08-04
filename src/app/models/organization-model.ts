@@ -1,6 +1,7 @@
 import { RestangularService } from '../services/rest/restangular.service';
 import { Model } from './model'
 import { RestangularOpenfactService } from '../services/rest/restangular-openfact.service';
+import { InvoiceService } from '../services/invoice.service';
 
 export class OrganizationModel extends Model {
 
@@ -17,5 +18,9 @@ export class OrganizationModel extends Model {
     constructor(restangularOpenfactService: RestangularOpenfactService) {
         super(restangularOpenfactService);
     }
+
+    // builInvoiceService(): InvoiceService {      
+    //     return new InvoiceService(this, this.restangular);
+    // }
 
 }

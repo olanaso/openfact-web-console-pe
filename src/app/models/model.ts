@@ -10,6 +10,10 @@ export abstract class Model {
         this.restangular = restangularOpenfactService;
     }
 
+    getObjectPath() {
+        return this.restangular.getPath();
+    }
+
     /*Save the current object*/
     save() {
         return this.restangular.post(this);

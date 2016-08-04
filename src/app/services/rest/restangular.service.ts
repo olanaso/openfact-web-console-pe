@@ -13,6 +13,9 @@ export class RestangularService {
     this.http = http;
   }
 
+  getPath() {
+    return this.path;
+  }
   /*Contructor de rutas*/
   one(path: string, id: string) {
     return new RestangularService(this.path + path + '/' + id, this.http);

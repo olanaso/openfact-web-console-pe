@@ -61,6 +61,9 @@ const barrels: string[] = [
   'app/components/organizations/edit-organization',
   'app/components/organizations/edit-organization/overview',
   'app/components/organizations/edit-organization/settings',
+  'app/components/invoices',
+  'app/components/invoices/create-invoice',
+  'app/components/invoices/edit-invoice',
   /** @cli-barrel */
 ];
 

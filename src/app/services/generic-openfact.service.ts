@@ -24,6 +24,9 @@ export abstract class GenericOpenfactService<T extends Model> {
   getPath(): string {
     return this.path;
   }
+  setPath(path: string) {
+    this.path = path;
+  }
 
   /*Return the reference to the RestangularOpenfactService object*/
   getRestangularService(): RestangularOpenfactService {
@@ -58,12 +61,12 @@ export abstract class GenericOpenfactService<T extends Model> {
   }
 
   /*Extract data*/
-  private extractSingleData(t: T) {
+  extractSingleData(t: T) {
     t.restangular = this.restangular;
     return t;
   }
 
-  private extractMultipleData(t: T[]) {
+  extractMultipleData(t: T[]) {
     t.forEach(element => this.extractSingleData(element));
     return t;
   }

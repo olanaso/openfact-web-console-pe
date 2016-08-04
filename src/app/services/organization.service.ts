@@ -16,5 +16,4 @@ export class OrganizationService extends GenericOpenfactService<OrganizationMode
     let model: OrganizationModel = new OrganizationModel(this.getRestangularService());
     return model;
   }
-
 }

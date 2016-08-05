@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewContainerRef } from '@angular/core';
 import { ROUTER_DIRECTIVES } from '@angular/router';
 
 import { NavbarService } from './services/navbar.service';
@@ -18,9 +18,11 @@ import { InvoiceProviderService } from './services/providers/invoice-provider.se
 })
 export class AppComponent {
 
+  private viewContainerRef: ViewContainerRef;
   private navbarService;
 
-  constructor(navbarService: NavbarService) {
+  constructor(viewContainerRef: ViewContainerRef, navbarService: NavbarService) {
+    this.viewContainerRef = viewContainerRef;
     this.navbarService = navbarService;
   }
 

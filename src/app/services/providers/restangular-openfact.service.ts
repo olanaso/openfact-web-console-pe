@@ -5,10 +5,16 @@ import { Http } from '@angular/http';
 @Injectable()
 export class RestangularOpenfactService extends RestangularService {
 
-  private static path: string = "http://192.168.1.41:8081/admin";
-
+  public static domainUrl: string = 'http://localhost:8080/admin';
+  
   constructor(http: Http) {
-    super(RestangularOpenfactService.path, http);
+    super(http, RestangularOpenfactService.domainUrl);    
+  }
+
+  public clone() {
+    let restangularOpenfactService = new RestangularOpenfactService(this.http);
+    restangularOpenfactService.path = this.path;
+    return restangularOpenfactService;
   }
 
 }

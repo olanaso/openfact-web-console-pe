@@ -6,14 +6,15 @@ import { ProviderService } from './provider.service';
 @Injectable()
 export class InvoiceProviderService extends ProviderService<InvoiceModel> {
 
-  private static path: string = '/invoices';
+  private static idName: string = 'id';
+  private static resourcePath: string = 'invoices';
 
-  constructor(restangularOpenfactService: RestangularOpenfactService) {
-    super(InvoiceProviderService.path, restangularOpenfactService);
+  constructor(restangularService: RestangularOpenfactService) {
+    super(restangularService, InvoiceProviderService.resourcePath, InvoiceProviderService.idName);
   }
 
   build(): InvoiceModel {
-    let model: InvoiceModel = new InvoiceModel(this.getRestangularService());
+    let model: InvoiceModel = new InvoiceModel(this.restangularService);
     return model;
   }
 }

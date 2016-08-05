@@ -42,10 +42,10 @@ export class ButtonDeleteComponent implements OnInit {
   @Input() buttonOnly: boolean;
 
   // Stay on the current page without redirecting to the resource list.
-  @Input() stayOnCurrentPage: boolean;
+  @Input() stayOnCurrentPage: boolean = true;
 
   // Optional callback when the delete succeeds
-  @Input() success: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() success: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   // Optional redirect URL when the delete succeeds
   @Input() redirectUrl: string;
@@ -64,8 +64,17 @@ export class ButtonDeleteComponent implements OnInit {
           type: 'success',
           message: this.type + 'deleted'
         });
-        this.callBack();
-        this.navigate();
+
+        // callback
+        this.success.emit(true);
+
+        // navigate
+        if (!this.stayOnCurrentPage) {
+          let link = [this.redirectUrl];
+          this.router.navigate(link);
+        }
+
+        this.hideModalResource();
       }, error => {
         if (this.alerts != null) {
           this.alerts.push({
@@ -87,17 +96,6 @@ export class ButtonDeleteComponent implements OnInit {
       this.alerts.push(alert);
     } else {
       this.alertMessageService.addAlert({ name: 'delete', data: alert });
-    }
-  }
-
-  callBack() {
-    this.success.emit(true);
-  }
-
-  navigate() {
-    if (!this.stayOnCurrentPage) {
-      let link = [this.redirectUrl];
-      this.router.navigate(link);
     }
   }
 

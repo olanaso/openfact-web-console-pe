@@ -1,16 +1,18 @@
 import { Model } from './model'
 import { RestangularService } from '../providers/restangular.service';
-import { RestangularOpenfactService } from '../providers/restangular-openfact.service';
 
-export class InvoiceModel extends Model {
+export class InvoiceModel implements Model {
+
+    /*Restangular*/
+    restangular: RestangularService;
 
     /*Attributes*/
     id: string;
     issueDate: Date;
 
     /*Constructor*/
-    constructor(restangularOpenfactService: RestangularOpenfactService) {
-        super(restangularOpenfactService);
+    constructor(restangularService: RestangularService) {
+        this.restangular = restangularService;
     }
 
 }

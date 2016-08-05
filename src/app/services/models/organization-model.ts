@@ -1,8 +1,10 @@
 import { Model } from './model'
 import { RestangularService } from '../providers/restangular.service';
-import { RestangularOpenfactService } from '../providers/restangular-openfact.service';
 
-export class OrganizationModel extends Model {
+export class OrganizationModel implements Model {
+
+    /*Restangular*/
+    restangular: RestangularService;
 
     /*Attributes*/
     id: string;
@@ -14,8 +16,8 @@ export class OrganizationModel extends Model {
     enabled: boolean;
 
     /*Constructor*/
-    constructor(restangularOpenfactService: RestangularOpenfactService) {
-        super(restangularOpenfactService);
+    constructor(restangularService: RestangularService) {
+        this.restangular = restangularService;
     }
 
 }

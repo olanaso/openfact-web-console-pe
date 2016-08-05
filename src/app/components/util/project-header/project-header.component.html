@@ -7,10 +7,21 @@
       <span class="icon-bar"></span>
     </button>
     <a href="/" class="navbar-brand">
-      <img class="navbar-brand-icon" src="images/logo-alt.svg" alt=""/>
-      <img class="navbar-brand-name" src="images/brand-alt.svg" alt="PatternFly Enterprise Application" />
-      project utility
+      <img class="navbar-brand-icon" src="images/logo-alt.svg" alt="" />
+      <img class="navbar-brand-name" src="images/brand-alt.svg" alt="PatternFly Enterprise Application" /> project utility2
+
     </a>
   </div>
+  <div class="navbar-header">
+    <a class="navbar-brand">
+      <select class="combobox form-control" (change)="onSelectOrganization($event.target.value)">
+         <option *ngFor="let o of organizations" [value]="o.name">{{o.name}}</option>
+      </select>
+    </a>
+  </div>
+  <!--<div class="col-md-2"> <select class="form-control">
+         <option *ngFor="let o of refData" [value]="o.value">{{o.name}}</option>
+      </select></div>-->
+
   <navbar-utility></navbar-utility>
 </nav>

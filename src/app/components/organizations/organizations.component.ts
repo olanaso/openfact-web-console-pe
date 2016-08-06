@@ -71,9 +71,4 @@ export class OrganizationsComponent implements OnInit {
     this.router.navigate(link);
   }
 
-  deleteOrganization(organization: OrganizationModel) {
-    console.log('eliminando');
-    this.loadOrganizations();
-  }
-
 }

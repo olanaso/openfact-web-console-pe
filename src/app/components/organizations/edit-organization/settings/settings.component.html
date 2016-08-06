@@ -1,4 +1,44 @@
 <project-header></project-header>
 <project-page>
-ssetings
+
+    <div class="pull-right">        
+        <button class="btn btn-danger">Eliminar</button>
+    </div>
+
+    <h1>
+        <strong>Edit organization <small data-ng-bind="view.almacen.denominacion"></small></strong>
+    </h1>
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div>
+
+                <div class="tab-container">
+                    <ul class="nav nav-tabs">
+                        <li ui-sref-active="active">
+                            <a href ui-sref=".resumen">
+              Resumen
+            </a>
+                        </li>
+                        <li ui-sref-active="active">
+                            <a href ui-sref=".datosPrincipales">
+              Datos principales
+            </a>
+                        </li>
+                        <li ui-sref-active="active">
+                            <a href ui-sref=".productos">
+                                <i class="fa fa-exchange"></i> Productos
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="tab-pane">
+                        <div ui-view></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
 </project-page>

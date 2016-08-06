@@ -3,18 +3,22 @@
 <div class="visible-xs-block">
     <navbar-utility-mobile></navbar-utility-mobile>
 </div>
-
 <div class="container-fluid container-cards-pf">
     <div class="row row-cards-pf">
         <div class="col-md-10 col-md-offset-1">
-            <alerts [alerts]="alerts"></alerts>            
+            <alerts [alerts]="alerts"></alerts>
+
+            <toggle-button [(on)]="state">
+                {{state?'ont':'offt'}}
+            </toggle-button>
 
             <h1 style="margin: 10px 0px 20px; display: inline-block;">Organizations</h1>
             <a style="margin-top: 10px;" [routerLink]="['./create-organization']" class="btn btn-lg btn-primary pull-right">Create organization</a>
 
             <div *ngFor="let organization of organizations" class="card-pf">
-                <div class="card-pf-heading">                    
-                    <button-delete [model]="organization" [type]="'Organization'" [alerts]="alerts" [buttonOnly]="true" (success)="loadOrganizations($event)" class="card-pf-heading-details">                                         
+                <div class="card-pf-heading">
+                    <button-delete [model]="organization" [type]="'Organization'" [alerts]="alerts" [buttonOnly]="true" (success)="loadOrganizations($event)"
+                        class="card-pf-heading-details">
                     </button-delete>
                     <h2 class="card-pf-title">
                         <a href="javascript:void(0)" (click)="editOrganization(organization)">{{organization.name}}</a>

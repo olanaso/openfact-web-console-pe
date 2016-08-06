@@ -3,7 +3,6 @@ import { ROUTER_DIRECTIVES } from '@angular/router';
 import { Router } from '@angular/router';
 import { Validators } from '@angular/common';
 import { REACTIVE_FORM_DIRECTIVES, FormGroup, FormControl, FormBuilder } from '@angular/forms';
-import { ConditionsPipe } from '../../../pipes/conditions.pipe';
 
 import 'rxjs/Rx';
 
@@ -24,8 +23,7 @@ import { OrganizationModel } from '../../../services/models/organization-model';
   templateUrl: 'create-organization.component.html',
   styleUrls: ['create-organization.component.css'],
   directives: [ROUTER_DIRECTIVES, REACTIVE_FORM_DIRECTIVES, DefaultHeaderComponent, ButtonSaveComponent, ButtonCancelComponent, AlertsComponent],
-  providers: [DataService],
-  pipes: [ConditionsPipe]
+  providers: [DataService]
 })
 export class CreateOrganizationComponent implements OnInit {
 

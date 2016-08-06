@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { NavbarUtilityComponent } from '../navbar-utility';
+import { ROUTER_DIRECTIVES } from '@angular/router';
 import { Router } from '@angular/router';
 import { DataService } from '../../../services/data.service';
+
+import { NavbarUtilityComponent } from '../navbar-utility';
 
 import { OrganizationModel } from '../../../services/models/organization-model';
 import { AlertMessageService } from '../../../services/alert-message.service';
@@ -12,57 +14,28 @@ import { Alert } from '../../../services/alert';
   selector: 'project-header',
   templateUrl: 'project-header.component.html',
   styleUrls: ['project-header.component.css'],
-  directives: [NavbarUtilityComponent]
+  directives: [ROUTER_DIRECTIVES, NavbarUtilityComponent]
 })
 export class ProjectHeaderComponent implements OnInit {
-  //refData;
-  organizations: Array<OrganizationModel>;
-  alerts: Array<Alert>;
+
+  organizations: Array<OrganizationModel> = [];
+
   constructor(
     private router: Router,
-    private dataService: DataService,
-    private alertMessageService: AlertMessageService) {
-    this.organizations = [];
-    this.alerts = [];
-    // this.refData = [
-    //   { name: 'select', value: 'none' },
-    //   { name: 'one', value: 'one' },
-    //   { name: 'two', value: 'two' }
-    // ];
+    private dataService: DataService) {
   }
 
   ngOnInit() {
-    this.loadAlerts();
     this.loadProjects();
   }
-  loadAlerts() {
-    this.alertMessageService.getAlerts().forEach(alert => {
-      this.alerts.push(alert.data);
-    });
-    this.alertMessageService.clearAlerts();
+
+  editOrganization(organizationName: string) {
+    let link = ['/organizations/edit-organization', organizationName];
+    this.router.navigate(link);
   }
 
-  onSelectOrganization(value) {
-    //value=
-    let link = ['/organizations/edit-organization', value];
-    this.router.navigate(link);
-    // console.log(value);  
-  }
   loadProjects() {
-    this.dataService.organizations().getAll().subscribe(
-      organizations => {
-        this.organizations = organizations
-      }, error => {
-        this.alerts.push({
-          type: 'error',
-          message: 'Error loading projects ',
-          details: 'Something happend when loading projects.',
-          links: [{
-            label: 'Retry',
-            href: './'
-          }]
-        });
-      });
+    this.dataService.organizations().getAll().subscribe(organizations => { this.organizations = organizations });
   }
 
 

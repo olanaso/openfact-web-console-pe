@@ -11,10 +11,11 @@
                 <li><a [routerLink]="['/about']">About</a></li>
             </ul>
         </li>
-        <li class="dropdown" dropdown *ngIf="user">
+        <li class="dropdown" dropdown>
             <a class="dropdown-toggle nav-item-iconic" dropdownToggle>
                 <span title="Username" class="fa pficon-user"></span>
-                <span class="caret">{{user.fullName || user.metadata.name}}</span>
+                <span class="username truncate">User full name</span>
+                <span class="caret"></span>
             </a>
             <ul class="dropdown-menu" dropdownMenu>
                 <li><a href="#">Logout</a></li>

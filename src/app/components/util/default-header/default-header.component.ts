@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { ROUTER_DIRECTIVES } from '@angular/router';
 
 import { NavbarUtilityComponent } from '../navbar-utility';
 
@@ -10,7 +11,7 @@ import { NavbarService } from '../../../services/navbar.service';
   selector: 'default-header',
   templateUrl: 'default-header.component.html',
   styleUrls: ['default-header.component.css'],
-  directives: [NavbarUtilityComponent]
+  directives: [ROUTER_DIRECTIVES, NavbarUtilityComponent]
 })
 export class DefaultHeaderComponent implements OnInit, OnDestroy {
   isCollapsed: boolean;

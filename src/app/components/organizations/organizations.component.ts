@@ -7,8 +7,6 @@ import { DefaultHeaderComponent } from '../util/default-header';
 import { NavbarUtilityMobileComponent } from '../util/navbar-utility-mobile';
 import { AlertsComponent } from '../util/alerts';
 import { ButtonDeleteComponent } from '../util/button-delete';
-import { ToggleButtonComponent } from '../util/toggle-button';
-
 
 /*Models import*/
 import { Alert } from '../../services/alert';
@@ -28,13 +26,12 @@ import { DataService } from '../../services/data.service';
     DefaultHeaderComponent,
     NavbarUtilityMobileComponent,
     AlertsComponent,
-    ButtonDeleteComponent,
-    ToggleButtonComponent
+    ButtonDeleteComponent
   ],
   providers: []
 })
 export class OrganizationsComponent implements OnInit {
-  state = true;
+  
   organizations: Array<OrganizationModel>;
   alerts: Array<Alert>;
 

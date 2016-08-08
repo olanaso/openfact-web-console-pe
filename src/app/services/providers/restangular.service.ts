@@ -10,7 +10,6 @@ export abstract class RestangularService {
 
   public constructor(http: Http, path: string) {
     this.http = http;
-
   }
 
   getPath() {

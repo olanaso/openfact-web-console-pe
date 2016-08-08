@@ -2,8 +2,8 @@
  * InvoiceDetails
  */
 import { Model } from './model';
-import { RestangularOpenfactService } from '../services/rest/restangular-openfact.service';
-import { RestangularService } from '../services/rest/restangular.service';
+import { RestangularOpenfactService } from '../providers/restangular-openfact.service';
+import { RestangularService } from '../providers/restangular.service';
 
 export class LinesModel  {
     public id:number;

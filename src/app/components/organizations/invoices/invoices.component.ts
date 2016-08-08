@@ -2,20 +2,20 @@ import { Component, OnInit } from '@angular/core';
 import { ROUTER_DIRECTIVES } from '@angular/router';
 import { Router } from '@angular/router';
 /**menu opénfact */
-import { DefaultHeaderComponent } from '../../../directives/default-header';
-import { NavbarUtilityMobileComponent } from '../../../directives/navbar-utility-mobile';
-import { AlertsComponent } from '../../../directives/alerts';
-import { ProjectHeaderComponent } from '../../../directives/project-header';
-import { ProjectPageComponent } from '../../../directives/project-page';
+import { DefaultHeaderComponent } from '../../util/default-header';
+import { NavbarUtilityMobileComponent } from '../../util/navbar-utility-mobile';
+import { AlertsComponent } from '../../util/alerts';
+import { ProjectHeaderComponent } from '../../util/project-header';
+import { ProjectPageComponent } from '../../util/project-page';
 /*services */
-import { AlertMessageService } from '../../../services/util/alert-message.service';
+import { AlertMessageService } from '../../../services/alert-message.service';
 import { InvoiceService } from '../../../services/invoice.service';
-import { AuthService } from '../../../services/auth/auth.service';
-import { OrganizationService } from '../../../services/organization.service';
+
+import { OrganizationProviderService } from '../../../services/providers/organization-provider.service';
 /**models */
-import { InvoiceModel } from '../../../models/invoice-model';
-import { AlertModel } from '../../../models/alert-model';
-import { OrganizationModel } from '../../../models/organization-model';
+import { InvoiceModel } from '../../../services/models/invoice-model';
+
+import { OrganizationModel } from '../../../services/models/organization-model';
 
 @Component({
   moduleId: module.id,
@@ -24,22 +24,21 @@ import { OrganizationModel } from '../../../models/organization-model';
   styleUrls: ['invoices.component.css'],
   directives: [ROUTER_DIRECTIVES, DefaultHeaderComponent, NavbarUtilityMobileComponent, AlertsComponent, ProjectHeaderComponent
     , ProjectPageComponent],
-  providers: [InvoiceService, AuthService, AlertMessageService, OrganizationService],
+  providers: [InvoiceService, AlertMessageService, OrganizationProviderService],
 })
 export class InvoicesComponent implements OnInit {
 
   invoices: Array<InvoiceModel>;
-  alerts: Array<AlertModel>;
+  //alerts: Array<AlertModel>;
   organizations: OrganizationModel;
 
   constructor(
     private router: Router,
     private alertMessageService: AlertMessageService,
-    private authService: AuthService,
-    private organizationService: OrganizationService,
+    private organizationService: OrganizationProviderService,
     private invoiceService: InvoiceService) {
     this.invoices = [];
-    this.alerts = [];
+    //this.alerts = [];
   }
 
   ngOnInit() {

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { InvoiceModel } from '../models/invoice-model';
-import { RestangularOpenfactService } from './rest/restangular-openfact.service';
+import { InvoiceModel } from './models/invoice-model';
+import { RestangularOpenfactService } from './providers/restangular-openfact.service';
 import { GenericOpenfactService } from './generic-openfact.service';
-import { OrganizationModel } from '../models/organization-model';
+import { OrganizationModel } from './models/organization-model';
 import { Observable }     from 'rxjs/Observable';
 
 @Injectable()

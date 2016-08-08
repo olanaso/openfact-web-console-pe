@@ -3,15 +3,15 @@ import { LinesModel } from './lines-model';
 import { CustomerModel } from './customer-model';
 import { RestangularService } from '../providers/restangular.service';
 
-<<<<<<< HEAD
+/*<<<<<<< HEAD
 
 export class InvoiceModel extends Model {
-=======
+=======*/
 export class InvoiceModel implements Model {
 
     /*Restangular*/
     restangular: RestangularService;
->>>>>>> 870cbdc99536e749c1ea83fd5372a69ce4bec23c
+/*>>>>>>> 870cbdc99536e749c1ea83fd5372a69ce4bec23c*/
 
     /*Attributes*/
     public type: string;//tipo de documente -- BOLETA o FACTURA

@@ -3,36 +3,36 @@ import { RestangularOpenfactService } from '../providers/restangular-openfact.se
 import { RestangularService } from '../providers/restangular.service';
 import { Restable } from './restable';
 
-export abstract class Model {
+// export abstract class Model {
 
-    /*Restangular reference*/
-    restangular: RestangularOpenfactService;
+//     /*Restangular reference*/
+//     restangular: RestangularOpenfactService;
 
-    /*Constructor*/
-    constructor(restangularOpenfactService: RestangularOpenfactService) {
-        this.restangular = restangularOpenfactService;
-    }
+//     /*Constructor*/
+//     constructor(restangularOpenfactService: RestangularOpenfactService) {
+//         this.restangular = restangularOpenfactService;
+//     }
 
-    getObjectPath() {
-        return this.restangular.getPath();
-    }
+//     getObjectPath() {
+//         return this.restangular.getPath();
+//     }
 
-    /*Save the current object*/
-    save() {
-        return this.restangular.post(this);
-    }
+//     /*Save the current object*/
+//     save() {
+//         return this.restangular.post(this);
+//     }
 
-    /*Enable the current object*/
-    enable() {
-        return this.restangular.all('enable').post(this);
-    }
+//     /*Enable the current object*/
+//     enable() {
+//         return this.restangular.all('enable').post(this);
+//     }
 
-    /*Disable the current object*/
-    disable() {
-        return this.restangular.all('disable').post(this);
-    }
+//     /*Disable the current object*/
+//     disable() {
+//         return this.restangular.all('disable').post(this);
+//     }
 
-}
+// }
 
 
 export interface Model extends Restable {

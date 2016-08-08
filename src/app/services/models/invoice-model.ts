@@ -3,7 +3,7 @@ import { LinesModel } from './lines-model';
 import { CustomerModel } from './customer-model';
 import { RestangularService } from '../providers/restangular.service';
 
-export class InvoiceModel extends Model {
+export class InvoiceModel implements Model {
 
     /*Restangular*/
     restangular: RestangularService;

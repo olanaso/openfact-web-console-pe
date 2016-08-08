@@ -20,9 +20,6 @@ export abstract class RestangularService {
 
   /*path builder*/
 
-
-
-
   public abstract clone(): RestangularService;
 
   public one(path: string, id: string): RestangularService {

@@ -1,23 +1,23 @@
 import { Model } from './model'
-import { RestangularService } from '../providers/restangular.service';
+import { Restangular } from '../restangular/restangular';
 
 export class OrganizationModel implements Model {
 
     /*Restangular*/
-    restangular: RestangularService;
+    public restangular: Restangular;
 
     /*Attributes*/
-    id: string;
-    name: string;
-    supplierName: string;
-    registrationName: string;
-    additionalAccountId: string;
-    assignedIdentificationId: string;
-    enabled: boolean;
+    public id: string;
+    public name: string;
+    public supplierName: string;
+    public registrationName: string;
+    public additionalAccountId: string;
+    public assignedIdentificationId: string;
+    public enabled: boolean;
 
     /*Constructor*/
-    constructor(restangularService: RestangularService) {
-        this.restangular = restangularService;
+    constructor(restangular: Restangular) {
+        this.restangular = restangular;
     }
 
 }

@@ -58,7 +58,7 @@ export class OrganizationsComponent implements OnInit {
   loadOrganizations() {
     this.dataService.organizations().getAll().subscribe(
       result => {
-        this.organizations = result
+        this.organizations = result;   
       }, error => {
         this.alerts.push({
           type: 'error',

@@ -1,20 +1,25 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+
+import { Provider } from './provider';
 import { InvoiceModel } from '../models/invoice-model';
-import { RestangularOpenfactService } from './restangular-openfact.service';
-import { ProviderService } from './provider.service';
+
+import { Restangular } from '../restangular/restangular';
+import { OpenfactService } from '../restangular-impl/openfact.service';
+
+const ID: string = 'id';
+const PATH: string = 'invoices';
 
 @Injectable()
-export class InvoiceProviderService extends ProviderService<InvoiceModel> {
+export class InvoiceProviderService implements Provider {
 
-  private static idName: string = 'id';
-  private static resourcePath: string = 'invoices';
+  public path: string = PATH;
 
-  constructor(restangularService: RestangularOpenfactService) {
-    super(restangularService, InvoiceProviderService.resourcePath, InvoiceProviderService.idName);
+  private id: string = ID;
+  private restangular: Restangular;
+
+  constructor(restangular: OpenfactService) {
+    this.restangular = restangular;
   }
 
-  build(): InvoiceModel {
-    let model: InvoiceModel = new InvoiceModel(this.restangularService);
-    return model;
-  }
 }

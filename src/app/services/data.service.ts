@@ -9,10 +9,10 @@ export class DataService {
   private invoiceProviderService: InvoiceProviderService;
 
   constructor(
-    organizationProviderService: OrganizationProviderService, 
-    invoiceProviderService: InvoiceProviderService) { 
+    organizationProviderService: OrganizationProviderService,
+    invoiceProviderService: InvoiceProviderService) {
     this.organizationProviderService = organizationProviderService;
-    this.invoiceProviderService= invoiceProviderService;
+    this.invoiceProviderService = invoiceProviderService;
   }
 
   organizations(): OrganizationProviderService {

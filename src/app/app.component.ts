@@ -3,8 +3,6 @@ import { ROUTER_DIRECTIVES } from '@angular/router';
 
 import { NavbarService } from './services/navbar.service';
 import { DataService } from './services/data.service';
-import { RestangularService } from './services/providers/restangular.service';
-import { RestangularOpenfactService } from './services/providers/restangular-openfact.service';
 import { OrganizationProviderService } from './services/providers/organization-provider.service';
 import { InvoiceProviderService } from './services/providers/invoice-provider.service';
 
@@ -14,7 +12,7 @@ import { InvoiceProviderService } from './services/providers/invoice-provider.se
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.css'],
   directives: [ROUTER_DIRECTIVES],
-  providers: [NavbarService, DataService, RestangularService, RestangularOpenfactService, OrganizationProviderService, InvoiceProviderService]
+  providers: [NavbarService, DataService, OrganizationProviderService, InvoiceProviderService]
 })
 export class AppComponent {
 

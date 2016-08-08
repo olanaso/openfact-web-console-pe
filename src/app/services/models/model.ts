@@ -1,6 +1,5 @@
-import { RestangularService } from '../providers/restangular.service';
-import { Restable } from './restable';
+import { Restangular } from '../restangular/restangular';
 
-export interface Model extends Restable {
-    
+export interface Model {
+    restangular: Restangular;
 }

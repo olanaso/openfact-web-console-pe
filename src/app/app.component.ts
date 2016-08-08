@@ -18,8 +18,9 @@ import { InvoiceProviderService } from './services/providers/invoice-provider.se
 })
 export class AppComponent {
 
+
   title = 'Repeid Web Console';
-  viewContainerRef: ViewContainerRef;
+  viewContainerRef: ViewContainerRef; 
 
   constructor(private navbarService: NavbarService, viewContainerRef: ViewContainerRef) {
     this.viewContainerRef = viewContainerRef;

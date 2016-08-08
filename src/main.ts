@@ -12,9 +12,14 @@ if (environment.production) {
 }
 
 bootstrap(AppComponent, [
+  /*angular components*/
   disableDeprecatedForms(),
   provideForms(),
   APP_ROUTER_PROVIDERS,
   HTTP_PROVIDERS,
+
+  /*third party components*/
+
+  /*project components*/
   AlertMessageService
 ]);

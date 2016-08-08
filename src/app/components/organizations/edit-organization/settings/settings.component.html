@@ -1,3 +1,35 @@
-<p>
-  settings works!
-</p>
+<project-header></project-header>
+<project-page>
+
+    <div class="pull-right">
+        <button class="btn btn-danger">Eliminar</button>
+    </div>
+
+    <h1>
+        <strong>Edit organization <small data-ng-bind="view.almacen.denominacion"></small></strong>
+    </h1>
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div>
+
+                <div class="tab-container">
+                    <ul class="nav nav-tabs">
+                        <li routerLinkActive="active">
+                            <a [routerLink]="['./address']">Resumen</a>
+                        </li>
+                        <li routerLinkActive="active">
+                            <a [routerLink]="['./general-information']">Datos principales</a>
+                        </li>
+                    </ul>
+                    <div class="tab-pane">
+                        <router-outlet></router-outlet>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+</project-page>

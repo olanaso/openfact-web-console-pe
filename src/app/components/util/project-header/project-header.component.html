@@ -1,16 +1,21 @@
 <nav class="navbar navbar-pf-vertical">
   <div class="navbar-header">
-    <button type="button" class="navbar-toggle">
-      <span class="sr-only">Toggle navigation</span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
+    <button type="button" class="navbar-toggle" [routerLink]="['/organizations']" style="margin: 0px; color: #A8A9AA;">
+      <span class="fa-3x pficon pficon-home"></span> 
+      <span class="visible-xlg-inline-block" style="font-size: 15px;vertical-align: super;font-weight: 600; margin-right: 39px;"> Organizations</span>
     </button>
-    <a href="/" class="navbar-brand">
-      <img class="navbar-brand-icon" src="images/logo-alt.svg" alt=""/>
-      <img class="navbar-brand-name" src="images/brand-alt.svg" alt="PatternFly Enterprise Application" />
-      project utility
-    </a>
   </div>
+  <div class="navbar-header">
+    <div class="form-group" style="margin: 0;">
+      <select class="combobox form-control" (change)="editOrganization($event.target.value)" style="height: 58px; width: 300px; font-size: 16px;">
+         <option *ngFor="let organization of organizations" [value]="organization.name">{{organization.name}}</option>
+      </select>
+    </div>
+
+  </div>
+  <!--<div class="col-md-2"> <select class="form-control">
+         <option *ngFor="let o of refData" [value]="o.value">{{o.name}}</option>
+      </select></div>-->
+
   <navbar-utility></navbar-utility>
 </nav>

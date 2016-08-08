@@ -6,59 +6,47 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 import { Model } from '../models/model';
+import { RestangularService } from './restangular.service';
 import { RestangularOpenfactService } from './restangular-openfact.service';
 
 @Injectable()
 export abstract class ProviderService<T extends Model>{
 
-  private path: string;
-  private restangular: RestangularOpenfactService;
+  public path: string;
+  public idName: string;
+  public restangularService: RestangularService;
 
-  constructor(path: string, restangularOpenfactService: RestangularOpenfactService) {
+  constructor(restangularService: RestangularOpenfactService, path: string, idName?: string) {
     this.path = path;
-    this.restangular = restangularOpenfactService;
+    this.idName = idName || 'id';
+    this.restangularService = restangularService;
   }
 
   abstract build(): T;
 
-  /*Return the absolute url of the current object*/
-  getPath(): string {
-    return this.path;
-  }
-
-  /*Return the reference to the RestangularOpenfactService object*/
-  getRestangularService(): RestangularOpenfactService {
-    return this.restangular;
-  }
-
   /*Http custome methods*/
-  findById(id: string): Observable<T> {
-    return this.restangular
-      .one(this.path, id)
-      .get()
+  public findById(id: string): Observable<T> {
+    let restangularService = this.restangularService.one(this.path, id);
+    return restangularService.get()
       .map(this.extractObject)
-      .map(model => this.extractSingleData(model))
-      .catch(this.handleError);
+      .map(model => this.extractSingleData(model, restangularService, false));
   }
 
-  getAll(): Observable<T[]> {
-    return this.restangular
-      .all(this.path)
-      .get()
+  public getAll(): Observable<T[]> {
+    let restangularService = this.restangularService.all(this.path);
+    return restangularService.get()
       .map(result => result.json())
-      .map(models => this.extractMultipleData(models))
-      .catch(this.handleError);
+      .map(models => this.extractMultipleData(models, restangularService));
   }
 
-  create(t: T): Observable<T> {
+  public create(t: T): Observable<T> {
     let copy = Object.assign({}, t);
     delete copy['restangular'];
-    return this.restangular
-      .all(this.path)
-      .post(copy)
+
+    let restangularService = this.restangularService.all(this.path);
+    return restangularService.post(copy)
       .map(this.extractObject)
-      .map(model => this.extractSingleData(model))
-      .catch(this.handleError);
+      .map(model => this.extractSingleData(model, restangularService, true));
   }
 
   private extractObject(res: Response) {
@@ -69,35 +57,18 @@ export abstract class ProviderService<T extends Model>{
     }
   }
 
-  private handleError(error: any) {
-    // In a real world app, we might use a remote logging infrastructure
-    // We'd also dig deeper into the error to get a better message
-    let serverMessage;
-    try {
-      serverMessage = error.json();
-    } catch (error) {
-      console.log('Server did not send error message');
-    }
-
-    let errMsg;
-    if (serverMessage != null) {
-      errMsg = (error.message) ? error.message : error.status ? serverMessage.errorMessage : 'Server error' + `- ${error.status} - ${error.statusText}`;
-    } else {
-      errMsg = (error.message) ? error.message : error.status ? `${error._body.errorMessage}` : 'Server error' + `- ${error.status} - ${error.statusText}`;
-    }
-
-    console.error(errMsg); // log to console instead
-    return Observable.throw(errMsg);
-  }
-
   /*Extract data*/
-  private extractSingleData(t: T) {
-    t.restangular = this.restangular;
+  private extractSingleData(t: T, restangularService: RestangularService, test: boolean) {
+    if (test) {
+      t.restangular = restangularService.one('', t[this.idName]);
+    } else {
+      t.restangular = restangularService;
+    }
     return t;
   }
 
-  private extractMultipleData(t: T[]) {
-    t.forEach(element => this.extractSingleData(element));
+  private extractMultipleData(t: T[], restangularService: RestangularService) {
+    t.forEach(element => this.extractSingleData(element, restangularService.clone(), true));
     return t;
   }
 

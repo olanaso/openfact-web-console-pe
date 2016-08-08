@@ -1,14 +1,13 @@
 /* tslint:disable:no-unused-variable */
 
-/*import { By }           from '@angular/platform-browser';
+import { By }           from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 import { addProviders, async, inject } from '@angular/core/testing';
-import { ButtonDeleteComponent } from './button-delete.component';
+import { ToggleButtonComponent } from './toggle-button.component';
 
-describe('Component: ButtonDelete', () => {
+describe('Component: ToggleButton', () => {
   it('should create an instance', () => {
-    let component = new ButtonDeleteComponent();
+    let component = new ToggleButtonComponent();
     expect(component).toBeTruthy();
   });
 });
-*/

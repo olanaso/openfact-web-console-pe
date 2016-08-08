@@ -2,10 +2,16 @@ import { Model } from './model'
 import { LinesModel } from './lines-model';
 import { CustomerModel } from './customer-model';
 import { RestangularService } from '../providers/restangular.service';
-import { RestangularOpenfactService } from '../providers/restangular-openfact.service';
 
+<<<<<<< HEAD
 
 export class InvoiceModel extends Model {
+=======
+export class InvoiceModel implements Model {
+
+    /*Restangular*/
+    restangular: RestangularService;
+>>>>>>> 870cbdc99536e749c1ea83fd5372a69ce4bec23c
 
     /*Attributes*/
     public type: string;//tipo de documente -- BOLETA o FACTURA
@@ -26,8 +32,8 @@ export class InvoiceModel extends Model {
     public afectAmount:boolean;
 
     /*Constructor*/
-    constructor(restangularOpenfactService: RestangularOpenfactService) {
-        super(restangularOpenfactService);
+    constructor(restangularService: RestangularService) {
+        this.restangular = restangularService;
     }
 
 }

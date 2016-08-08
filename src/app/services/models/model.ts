@@ -1,4 +1,7 @@
+
 import { RestangularOpenfactService } from '../providers/restangular-openfact.service';
+import { RestangularService } from '../providers/restangular.service';
+import { Restable } from './restable';
 
 export abstract class Model {
 
@@ -29,4 +32,9 @@ export abstract class Model {
         return this.restangular.all('disable').post(this);
     }
 
+}
+
+
+export interface Model extends Restable {
+    
 }

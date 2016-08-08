@@ -6,14 +6,15 @@ import { ProviderService } from './provider.service';
 @Injectable()
 export class OrganizationProviderService extends ProviderService<OrganizationModel>{
 
-  private static path: string = '/organizations';
+  private static idName: string = 'name';
+  private static resourcePath: string = 'organizations';
 
-  constructor(restangularOpenfactService: RestangularOpenfactService) {
-    super(OrganizationProviderService.path, restangularOpenfactService);
+  constructor(restangularService: RestangularOpenfactService) {
+    super(restangularService, OrganizationProviderService.resourcePath, OrganizationProviderService.idName);
   }
 
   build(): OrganizationModel {
-    let model: OrganizationModel = new OrganizationModel(this.getRestangularService());
+    let model: OrganizationModel = new OrganizationModel(this.restangularService);
     return model;
   }
 

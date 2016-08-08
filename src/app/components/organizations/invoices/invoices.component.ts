@@ -9,7 +9,7 @@ import { ProjectHeaderComponent } from '../../util/project-header';
 import { ProjectPageComponent } from '../../util/project-page';
 /*services */
 import { AlertMessageService } from '../../../services/alert-message.service';
-import { InvoiceService } from '../../../services/invoice.service';
+//import { InvoiceService } from '../../../services/invoice.service';
 
 import { OrganizationProviderService } from '../../../services/providers/organization-provider.service';
 /**models */
@@ -24,7 +24,7 @@ import { OrganizationModel } from '../../../services/models/organization-model';
   styleUrls: ['invoices.component.css'],
   directives: [ROUTER_DIRECTIVES, DefaultHeaderComponent, NavbarUtilityMobileComponent, AlertsComponent, ProjectHeaderComponent
     , ProjectPageComponent],
-  providers: [InvoiceService, AlertMessageService, OrganizationProviderService],
+  providers: [/*InvoiceService, */AlertMessageService, OrganizationProviderService]
 })
 export class InvoicesComponent implements OnInit {
 
@@ -32,30 +32,30 @@ export class InvoicesComponent implements OnInit {
   //alerts: Array<AlertModel>;
   organizations: OrganizationModel;
 
-  constructor(
+  constructor(/*
     private router: Router,
     private alertMessageService: AlertMessageService,
-    private organizationService: OrganizationProviderService,
-    private invoiceService: InvoiceService) {
-    this.invoices = [];
+    private organizationService: OrganizationProviderService*/
+    /*private invoiceService: InvoiceService*/) {
+    //this.invoices = [];
     //this.alerts = [];
   }
 
   ngOnInit() {
-    this.alertMessageService.getAlerts().forEach(function (alert) {
+    /*this.alertMessageService.getAlerts().forEach(function (alert) {
       this.alerts[alert.name] = alert.data;
     });
     this.alertMessageService.clearAlerts();
     this.loadInvoices();
     
     this.organizationService.findById('master') 
-    .subscribe(result => this.organizations = result, error => this.alertMessageService.addAlert(undefined));;
+    .subscribe(result => this.organizations = result, error => this.alertMessageService.addAlert(undefined));;*/
   }
 
   loadInvoices() {
-    this.invoiceService.setPath("/organizations/master/invoices");
+    /*this.invoiceService.setPath("/organizations/master/invoices");
     console.log(this.invoiceService.getPath());
     this.invoiceService.getAll()
-      .subscribe(result => this.invoices = result, error => this.alertMessageService.addAlert(undefined));
+      .subscribe(result => this.invoices = result, error => this.alertMessageService.addAlert(undefined));*/
   }
 }

@@ -20,7 +20,7 @@ import { Alert } from '../../../../services/alert';
 // import { Moneda } from '../../../../../app/models/moneda';
 /**service */
 import { InvoiceProviderService } from '../../../../../app/services/providers/invoice-provider.service';
-import { CustomerProviderService } from '../../../../../app/services/providers/customer-provider.service';
+//import { CustomerProviderService } from '../../../../../app/services/providers/customer-provider.service';
 
 @Component({
   moduleId: module.id,
@@ -29,29 +29,29 @@ import { CustomerProviderService } from '../../../../../app/services/providers/c
   styleUrls: ['create-invoice.component.css'],
   directives: [ROUTER_DIRECTIVES, MODAL_DIRECTIVES, CORE_DIRECTIVES, ProjectHeaderComponent, ProjectPageComponent, DefaultHeaderComponent, ButtonSaveComponent, ButtonCancelComponent, AlertsComponent],
   viewProviders: [BS_VIEW_PROVIDERS],
-  providers: [InvoiceProviderService, CustomerProviderService]
+  providers: [InvoiceProviderService/*, CustomerProviderService*/]
 })
 export class CreateInvoiceComponent implements OnInit {
-  @ViewChild('childModal') public childModal: ModalDirective;
+  /*@ViewChild('childModal') public childModal: ModalDirective;
   selectInvoice: InvoiceModel;
   selectLines: LinesModel;
   //form1: FormGroup;
-  alerts: Array<Alert> = [];
+  alerts: Array<Alert> = [];*/
 
-  constructor(invoiceService: InvoiceProviderService
-    , customerService: CustomerProviderService
+  constructor(/*invoiceService: InvoiceProviderService
+    //, customerService: CustomerProviderService
     , private router: Router
     , private alertMessageService: AlertMessageService
-    , private formBuilder: FormBuilder) {
-    this.selectInvoice = invoiceService.build();;
-    this.selectInvoice.lines = new Array<LinesModel>();
-    this.selectInvoice.customer = customerService.build();
-    this.selectLines = new LinesModel();
+    , private formBuilder: FormBuilder*/) {
+    //this.selectInvoice = invoiceService.build();;
+    //this.selectInvoice.lines = new Array<LinesModel>();
+    //this.selectInvoice.customer = customerService.build();
+    //this.selectLines = new LinesModel();
     //console.log(JSON.stringify(this.selectInvoice));
   }
 
   ngOnInit() {
-    this.loadAlerts();
+    //this.loadAlerts();
     //this.buildForm();
   }
 
@@ -86,10 +86,10 @@ export class CreateInvoiceComponent implements OnInit {
 
 
   loadAlerts() {
-    this.alertMessageService.getAlerts().forEach(alert => {
+    /*this.alertMessageService.getAlerts().forEach(alert => {
       this.alerts.push(alert.data);
     });
-    this.alertMessageService.clearAlerts();
+    this.alertMessageService.clearAlerts();*/
   }
 
   // buildForm() {
@@ -98,7 +98,7 @@ export class CreateInvoiceComponent implements OnInit {
   //   });
   // }
 
-  public status: Object = {
+  /*public status: Object = {
     isFirstOpen: true,
     isFirstDisabled: true
   };
@@ -115,5 +115,5 @@ export class CreateInvoiceComponent implements OnInit {
 
   public hideChildModal(): void {
     this.childModal.hide();
-  }
+  }*/
 }

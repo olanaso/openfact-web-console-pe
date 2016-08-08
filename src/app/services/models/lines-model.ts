@@ -1,9 +1,5 @@
-/**
- * InvoiceDetails
- */
-import { Model } from './model';
-import { RestangularOpenfactService } from '../providers/restangular-openfact.service';
-import { RestangularService } from '../providers/restangular.service';
+import { Model } from './model'
+import { Restangular } from '../restangular/restangular';
 
 export class LinesModel  {
     public id:number;
@@ -19,8 +15,4 @@ export class LinesModel  {
     public isc:number;
     public othertexs:number;
     public allowanceCharge:number;
-     /*Constructor*/
-    // constructor(restangularOpenfactService: RestangularOpenfactService) {
-    //     super(restangularOpenfactService);
-    // }
 }

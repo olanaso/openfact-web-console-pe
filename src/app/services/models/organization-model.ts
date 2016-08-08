@@ -20,8 +20,4 @@ export class OrganizationModel implements Model {
         this.restangular = restangular;
     }
 
-    // builInvoiceService(): InvoiceService {      
-    //     return new InvoiceService(this, this.restangular);
-    // }
-
 }

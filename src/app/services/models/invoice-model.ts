@@ -18,9 +18,9 @@ export class InvoiceModel implements Model {
     public currencyCode: string;//MONEDA -- PEN USD
     public issueDate: Date;//fecha de la factura
     public totalByFree: number;//total CUANDO ES gratis
-    public customer: CustomerModel;//CLIENTE 
+    //public customer: CustomerModel;//CLIENTE 
     public totalTaxed: number;//TOTAL GRAVADO
-    public lines: Array<LinesModel>;
+    //public lines: Array<LinesModel>;
 
     public afectAmount:boolean;
 

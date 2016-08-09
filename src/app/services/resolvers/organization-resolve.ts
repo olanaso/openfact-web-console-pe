@@ -12,13 +12,22 @@ import { Http, Response } from '@angular/http';
 import 'rxjs/add/operator/catch';
 
 @Injectable()
-export class OrganizationResolve implements Resolve<any> {
+export class OrganizationResolve implements Resolve<Observable<OrganizationModel>> {
 
     constructor(private http: Http, private organizationProvider: OrganizationProviderService) { }
 
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
-        //return this.organizationProvider.findById(route.params['organization']);
-         return this.http.get('http://localhost:8080/admin/organizations');
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<OrganizationModel> {
+        return this.organizationProvider.findById(route.params['organization']);
     }
 
 }
+/*export class OrganizationResolve implements Resolve<string> {
+
+    constructor() { }
+
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): string {
+        console.log('returning resolved data');
+        return 'For science...you monster';
+    }
+
+}*/

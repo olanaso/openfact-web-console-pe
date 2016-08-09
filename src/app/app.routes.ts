@@ -15,7 +15,7 @@ export const routes: RouterConfig = [
   { path: 'about', component: AboutComponent },
   { path: 'error', component: ErrorComponent },
   ...OrganizationsRoutes,
-  ...InvoicesRoutes
+  //...InvoicesRoutes
 ];
 
 export const APP_ROUTER_PROVIDERS = [

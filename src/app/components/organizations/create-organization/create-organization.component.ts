@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ROUTER_DIRECTIVES } from '@angular/router';
 import { Router } from '@angular/router';
-import { Validators } from '@angular/common';
+import { Validators, CORE_DIRECTIVES } from '@angular/common';
 import { REACTIVE_FORM_DIRECTIVES, FormGroup, FormControl, FormBuilder } from '@angular/forms';
 
 import 'rxjs/Rx';
+
+import {FORM_DIRECTIVES} from '@angular/forms';
+import {TOOLTIP_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
 
 import { DefaultHeaderComponent } from '../../util/default-header';
 import { ButtonSaveComponent } from '../../util/button-save';
@@ -22,7 +25,10 @@ import { OrganizationModel } from '../../../services/models/organization-model';
   selector: 'app-create-organization',
   templateUrl: 'create-organization.component.html',
   styleUrls: ['create-organization.component.css'],
-  directives: [ROUTER_DIRECTIVES, REACTIVE_FORM_DIRECTIVES, DefaultHeaderComponent, ButtonSaveComponent, ButtonCancelComponent, AlertsComponent],
+  directives: [
+    ROUTER_DIRECTIVES, REACTIVE_FORM_DIRECTIVES, 
+    TOOLTIP_DIRECTIVES, CORE_DIRECTIVES, FORM_DIRECTIVES,
+    DefaultHeaderComponent, ButtonSaveComponent,  ButtonCancelComponent, AlertsComponent],
   providers: [DataService]
 })
 export class CreateOrganizationComponent implements OnInit {

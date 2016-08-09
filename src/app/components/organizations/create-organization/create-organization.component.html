@@ -14,9 +14,9 @@
       <form [formGroup]="form" (ngSubmit)="save(form.value)" class="form-horizontal" novalidate>
         <fieldset>
           <div class="form-group" [ngClass]="{ 'has-error' : !form.controls.name.valid && submitted }">
-            <label class="col-sm-2 control-label">Name
-              <a><span class="fa fa-info-circle"></span></a>
-            </label>
+            <label class="col-sm-2 control-label">Name              
+              <a tooltip="Name of the organization" tooltipPlacement="right"><span class="fa fa-info-circle"></span></a>
+            </label>            
             <div class="col-sm-3">
               <input formControlName="name" type="text" class="form-control" autofocus/>
               <div *ngIf="!form.controls.name.valid && submitted">

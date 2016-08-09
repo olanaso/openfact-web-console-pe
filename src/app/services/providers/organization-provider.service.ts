@@ -8,8 +8,8 @@ import { OrganizationModel } from '../models/organization-model';
 import { Restangular } from '../restangular/restangular';
 import { OpenfactService } from '../restangular-impl/openfact.service';
 
-const ID: string = 'name';
-const PATH: string = 'organizations';
+export const ID: string = 'name';
+export const PATH: string = 'organizations';
 
 @Injectable()
 export class OrganizationProviderService implements Provider {

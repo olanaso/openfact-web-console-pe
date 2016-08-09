@@ -12,6 +12,11 @@ import { Restangular } from './app/services/restangular/restangular';
 import { OpenfactService } from './app/services/restangular-impl/openfact.service';
 import { SunatService } from './app/services/restangular-impl/sunat.service';
 
+import { DataService } from './app/services/data.service';
+import { OrganizationProviderService } from './app/services/providers/organization-provider.service';
+import { InvoiceProviderService } from './app/services/providers/invoice-provider.service';
+import { OrganizationResolve } from './app/services/resolvers/organization-resolve';
+
 import { AlertMessageService } from './app/services/alert-message.service';
 
 if (environment.production) {
@@ -49,6 +54,11 @@ bootstrap(AppComponent, [
   OpenfactServiceProvider,
   provide(APP_CONFIG, { useValue: SUNAT_CONFIG }),
   SunatServiceProvider,
+
+  DataService,
+  OrganizationProviderService,
+  InvoiceProviderService,
+  OrganizationResolve,
 
   AlertMessageService
 ]);

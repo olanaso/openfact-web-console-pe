@@ -1,13 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { provideRouter, RouterConfig } from '@angular/router';
+import { RouterConfig, Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+
+import { Observable } from 'rxjs/Observable';
+
+import { OrganizationResolve } from '../../services/resolvers/organization-resolve';
 
 import { OrganizationsComponent } from './organizations.component';
 import { CreateOrganizationComponent } from './create-organization';
 import { EditOrganizationComponent } from './edit-organization';
 import { OverviewComponent } from './edit-organization/overview';
 import { SettingsComponent } from './edit-organization/settings';
-import {AddressComponent} from './edit-organization/settings/address';
-import {GeneralInformationComponent} from './edit-organization/settings/general-information';
+import { AddressComponent } from './edit-organization/settings/address';
+import { GeneralInformationComponent } from './edit-organization/settings/general-information';
 
 export const OrganizationsRoutes: RouterConfig = [
   {
@@ -24,6 +28,13 @@ export const OrganizationsRoutes: RouterConfig = [
       {
         path: 'edit-organization/:organization',
         component: EditOrganizationComponent,
+        /*data: {
+          prueba1: 'hola'
+        },*/
+        resolve: {
+          organization: OrganizationResolve,
+          prueba2: OrganizationResolve
+        },
         children: [
           {
             path: '',
@@ -32,8 +43,7 @@ export const OrganizationsRoutes: RouterConfig = [
           },
           {
             path: 'overview',
-            component: OverviewComponent
-
+            component: OverviewComponent,
           },
           {
             path: 'settings',
@@ -52,7 +62,6 @@ export const OrganizationsRoutes: RouterConfig = [
                 path: 'general-information',
                 component: GeneralInformationComponent
               }
-
             ]
           }
         ]

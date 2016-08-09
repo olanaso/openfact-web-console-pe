@@ -7,6 +7,7 @@ import { DefaultHeaderComponent } from '../util/default-header';
 import { NavbarUtilityMobileComponent } from '../util/navbar-utility-mobile';
 import { AlertsComponent } from '../util/alerts';
 import { ButtonDeleteComponent } from '../util/button-delete';
+import { ToggleButtonComponent } from '../util/toggle-button';
 
 /*Models import*/
 import { Alert } from '../../services/alert';
@@ -26,14 +27,24 @@ import { DataService } from '../../services/data.service';
     DefaultHeaderComponent,
     NavbarUtilityMobileComponent,
     AlertsComponent,
-    ButtonDeleteComponent
+    ButtonDeleteComponent,
+    ToggleButtonComponent
   ],
   providers: []
 })
 export class OrganizationsComponent implements OnInit {
-  
+
   organizations: Array<OrganizationModel>;
   alerts: Array<Alert>;
+
+/*para usar el toggle button*/
+  state: boolean = true;
+  disable: boolean = true;
+/*hasta aqui para el toggle button*/
+
+  onMyChange(arg) {
+    console.log(arg);
+  }
 
   constructor(
     private router: Router,
@@ -70,6 +81,7 @@ export class OrganizationsComponent implements OnInit {
           }]
         });
       });
+    //this.dataService.organizations().getAll().subscribe(organizations => { this.organizations = organizations });
   }
 
   editOrganization(organization: OrganizationModel) {

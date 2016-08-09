@@ -6,7 +6,7 @@ import { Http } from '@angular/http';
 export class RestangularOpenfactService extends RestangularService {
 
 
-  public static path: string = "http://192.168.1.41:8081/admin";
+  //public static path: string = "http://192.168.1.41:8081/admin";
 
   public static domainUrl: string = 'http://192.168.1.41:8081/admin';
   
@@ -17,6 +17,8 @@ export class RestangularOpenfactService extends RestangularService {
   public clone() {
     let restangularOpenfactService = new RestangularOpenfactService(this.http);
     restangularOpenfactService.path = this.path;
+    //console.log("HolA: "+this.domainUrl);
+    
     return restangularOpenfactService;
   }
 

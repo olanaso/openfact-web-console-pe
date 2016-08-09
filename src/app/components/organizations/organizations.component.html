@@ -11,6 +11,9 @@
 
     <alerts [alerts]="alerts"></alerts>
 
+     <toggle-button [(on)]="state" [(disable)]="disable" (onChange)="onMyChange($event)"></toggle-button>
+     {{state|json}} {{disable|json}}
+  
     <div *ngFor="let organization of organizations">
         <div class="tile tile-project tile-click tile-flex">
             <button-delete [model]="organization" [type]="'Organization'" [alerts]="alerts" [buttonOnly]="true" (success)="loadOrganizations($event)"

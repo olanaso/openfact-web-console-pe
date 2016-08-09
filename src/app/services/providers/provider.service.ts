@@ -34,6 +34,8 @@ export abstract class ProviderService<T extends Model>{
 
   public getAll(): Observable<T[]> {
     let restangularService = this.restangularService.all(this.path);
+    console.log(this.path);
+    
     return restangularService.get()
       .map(result => result.json())
       .map(models => this.extractMultipleData(models, restangularService));

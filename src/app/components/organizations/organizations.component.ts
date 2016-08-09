@@ -39,7 +39,7 @@ export class OrganizationsComponent implements OnInit {
 
 /*para usar el toggle button*/
   state: boolean = true;
-  disable: boolean = true;
+  disable: boolean = false;
 /*hasta aqui para el toggle button*/
 
   onMyChange(arg) {
@@ -82,6 +82,18 @@ export class OrganizationsComponent implements OnInit {
         });
       });
     //this.dataService.organizations().getAll().subscribe(organizations => { this.organizations = organizations });
+  }
+
+  test(){
+     this.alerts.push({
+          type: 'error',
+          message: 'Error loading projects ',
+          details: 'Something happend when loading projects.',
+          links: [{
+            label: 'Retry',
+            href: './'
+          }]
+        });
   }
 
   editOrganization(organization: OrganizationModel) {

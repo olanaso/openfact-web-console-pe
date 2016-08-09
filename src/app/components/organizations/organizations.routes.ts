@@ -27,13 +27,8 @@ export const OrganizationsRoutes: RouterConfig = [
       },
       {
         path: 'edit-organization/:organization',
-        component: EditOrganizationComponent,
-        /*data: {
-          prueba1: 'hola'
-        },*/
         resolve: {
-          organization: OrganizationResolve,
-          prueba2: OrganizationResolve
+          organization: OrganizationResolve
         },
         children: [
           {
@@ -43,7 +38,7 @@ export const OrganizationsRoutes: RouterConfig = [
           },
           {
             path: 'overview',
-            component: OverviewComponent,
+            component: OverviewComponent
           },
           {
             path: 'settings',

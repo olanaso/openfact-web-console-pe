@@ -1,5 +1,5 @@
 <div *ngFor="let alert of (alerts | filterCollection : filter)" (ngModelChange)="onChange($event)">
-  <div *ngIf="!alert.hidden">
+  <div [ngClass]="alert.hidden?'hidden':'visible'">
     <div class="alert alert-dismissable" [ngClass]="{
       'alert-danger': alert.type === 'error',
       'alert-warning': alert.type === 'warning',

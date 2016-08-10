@@ -22,13 +22,13 @@ export class AlertsComponent implements OnInit {
   differ: any;
 
   constructor(private differs: KeyValueDiffers) {
-    this.differ = differs.find({}).create(null);    
+    this.differ = differs.find({}).create(null);
   }
 
   ngDoCheck() {
     var changes = this.differ.diff(this.alerts);
     if (changes) {
-     // console.log('changes detected');
+      // console.log('changes detected');
       //changes.forEachChangedItem(r => this.changeItemAlert(r.currentValue));
       changes.forEachAddedItem(r => this.addItemAlert(r.currentValue));
       //changes.forEachRemovedItem(r => console.log('removed ' + JSON.stringify(r.currentValue)));
@@ -47,11 +47,7 @@ export class AlertsComponent implements OnInit {
   ngOnDestroy() {
   }
 
-  onChange(newValue) {
-    console.log("cambio de valor de lista....");
-  }
-
-  close(alert: Alert) { 
+  close(alert: Alert) {
     alert.hidden = true;
     if (alert.onClose != null) {
       alert.onClose();

@@ -1,3 +1,103 @@
-<p>
-  general-information works!
-</p>
+<div class="visible-xs-block">
+  <navbar-utility-mobile></navbar-utility-mobile>
+</div>
+
+<div class="container-fluid container-cards-pf">
+  <div class="row row-cards-pf">
+    <div class="col-md-10 col-md-offset-1">
+
+
+      <alerts [alerts]="alerts"></alerts>
+
+      <form [formGroup]="form" (ngSubmit)="save(form.value)" class="form-horizontal" novalidate>
+        <fieldset>
+          <div class="form-group" [ngClass]="{ 'has-error' : !form.controls.name.valid && submitted }">
+            <label class="col-sm-2 control-label">Razon Social
+              <a><span class="fa fa-info-circle"></span></a>
+            </label>
+            <div class="col-sm-4">
+              <input formControlName="name" type="text" class="form-control" autofocus/>
+              <div *ngIf="!form.controls.name.valid && submitted">
+                <span class="help-block">Type a correct name</span>
+              </div>
+            </div>
+            <label class="col-sm-2 control-label">Nombre Comercial
+              <a><span class="fa fa-info-circle"></span></a>
+            </label>
+            <div class="col-sm-4">
+              <input formControlName="supplierName" type="text" class="form-control" autofocus/>
+              <div *ngIf="!form.controls.supplierName.valid && submitted">
+                <span class="help-block">Type a correct supplierName</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group" [ngClass]="{ 'has-error' : !form.controls.name.valid && submitted }">
+            <label class="col-sm-2 control-label">Ruc
+              <a><span class="fa fa-info-circle"></span></a>
+            </label>
+            <div class="col-sm-4">
+              <input formControlName="ruc" type="text" class="form-control" autofocus/>
+              <div *ngIf="!form.controls.ruc.valid && submitted">
+                <span class="help-block">Type a correct ruc</span>
+              </div>
+            </div>
+            <label class="col-sm-2 control-label">Telefono
+              <a><span class="fa fa-info-circle"></span></a>
+            </label>
+            <div class="col-sm-4">
+              <input formControlName="telefono" type="text" class="form-control" autofocus/>
+              <div *ngIf="!form.controls.telefono.valid && submitted">
+                <span class="help-block">Type a correct telefono</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group" [ngClass]="{ 'has-error' : !form.controls.name.valid && submitted }">
+            <label class="col-sm-2 control-label">Email
+              <a><span class="fa fa-info-circle"></span></a>
+            </label>
+            <div class="col-sm-4">
+              <input formControlName="email" type="text" class="form-control" autofocus/>
+              <div *ngIf="!form.controls.email.valid && submitted">
+                <span class="help-block">Type a correct email</span>
+              </div>
+            </div>
+            <label class="col-sm-2 control-label">Pagina Web
+              <a><span class="fa fa-info-circle"></span></a>
+            </label>
+            <div class="col-sm-4">
+              <input formControlName="paginaWeb" type="text" class="form-control" autofocus/>
+              <div *ngIf="!form.controls.paginaWeb.valid && submitted">
+                <span class="help-block">Type a correct telefono</span>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="form-group" [ngClass]="{ 'has-error' : !form.controls.name.valid && submitted }">
+            <label class="col-sm-2 control-label">Observacion
+              <a><span class="fa fa-info-circle"></span></a>
+            </label>
+            <div class="col-sm-10">
+              <input formControlName="observacion" type="text" class="form-control" autofocus/>
+              <div *ngIf="!form.controls.observacion.valid && submitted">
+                <span class="help-block">Type a correct observacion</span>
+              </div>
+            </div>
+
+          </div>
+
+
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <button-save [form]="form" [working]="working" [alerts]="alerts" (onClick)="setSubmitted($event)"></button-save>
+              <button-cancel [working]="working" (onClick)="cancel($event)"></button-cancel>
+            </div>
+          </div>
+        </fieldset>
+      </form>
+
+    </div>
+  </div>
+</div>

@@ -60,7 +60,8 @@ export class CreateOrganizationComponent implements OnInit {
 
   buildForm() {
     this.form = this.formBuilder.group({
-      name: ['', [<any>Validators.required, <any>Validators.maxLength(60)]]
+      name: ['', [<any>Validators.required, <any>Validators.maxLength(60)]],
+      supplierName: ['', [<any>Validators.required, <any>Validators.maxLength(60)]]
     });
   }
 

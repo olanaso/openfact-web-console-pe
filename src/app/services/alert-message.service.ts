@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable} from '@angular/core';
 import { Alert } from './alert';
 
 interface AlertMap {
@@ -11,6 +11,7 @@ export class AlertMessageService {
 
   private alerts: Array<AlertMap>;
 
+
   constructor() {
     this.alerts = [];
   }
@@ -19,7 +20,7 @@ export class AlertMessageService {
     this.alerts.push(alert);
   }
 
-  addShortAlert(type: string, message: string ) {
+  addShortAlert(type: string, message: string) {
     this.alerts.push({
       name: '',
       data: {

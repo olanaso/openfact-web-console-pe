@@ -15,6 +15,7 @@ import { OrganizationModel } from '../../services/models/organization-model';
 
 /*Services import*/
 import { AlertMessageService } from '../../services/alert-message.service';
+import { HeaderService } from '../../services/header.service';
 import { DataService } from '../../services/data.service';
 
 @Component({
@@ -28,19 +29,20 @@ import { DataService } from '../../services/data.service';
     NavbarUtilityMobileComponent,
     AlertsComponent,
     ButtonDeleteComponent,
-    ToggleButtonComponent
+    ToggleButtonComponent    
   ],
-  providers: []
+  providers: [HeaderService]
 })
 export class OrganizationsComponent implements OnInit {
 
   organizations: Array<OrganizationModel>;
   alerts: Array<Alert>;
+  selectOrganization: OrganizationModel;
 
-/*para usar el toggle button*/
+  /*para usar el toggle button*/
   state: boolean = true;
-  disable: boolean = true;
-/*hasta aqui para el toggle button*/
+  disable: boolean = false;
+  /*hasta aqui para el toggle button*/
 
   onMyChange(arg) {
     console.log(arg);
@@ -49,9 +51,11 @@ export class OrganizationsComponent implements OnInit {
   constructor(
     private router: Router,
     private alertMessageService: AlertMessageService,
-    private dataService: DataService) {
+    private dataService: DataService,
+    private headerService: HeaderService) {
     this.organizations = [];
     this.alerts = [];
+    this.selectOrganization = this.dataService.organizations().build();
   }
 
   ngOnInit() {
@@ -84,8 +88,21 @@ export class OrganizationsComponent implements OnInit {
     //this.dataService.organizations().getAll().subscribe(organizations => { this.organizations = organizations });
   }
 
-  editOrganization(organization: OrganizationModel) {
+  test() {
+    this.alerts.push({
+      type: 'error',
+      message: 'Error loading projects ',
+      details: 'Something happend when loading projects.',
+      links: [{
+        label: 'Retry',
+        href: './'
+      }]
+    });
+  }
+
+  editOrganization(organization: OrganizationModel) {    
     let link = ['/organizations/edit-organization', organization.name];
+    this.headerService.setOrganization(organization);
     this.router.navigate(link);
   }
 

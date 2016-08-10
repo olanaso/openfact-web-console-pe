@@ -5,11 +5,11 @@ import {Component, OnInit} from '@angular/core';
 import {ROUTER_DIRECTIVES} from '@angular/router';
 import {Router} from '@angular/router';
 /**menu opénfact */
-import {DefaultHeaderComponent} from '../../util/default-header';
-import {NavbarUtilityMobileComponent} from '../../util/navbar-utility-mobile';
-import {AlertsComponent} from '../../util/alerts';
-import {ProjectHeaderComponent} from '../../util/project-header';
-import {ProjectPageComponent} from '../../util/project-page';
+import {DefaultHeaderComponent} from '../../../shared/default-header';
+import {NavbarUtilityMobileComponent} from '../../../shared/navbar-utility-mobile';
+import {AlertsComponent} from '../../../shared/alerts';
+import {ProjectHeaderComponent} from '../../../shared/project-header';
+import {ProjectPageComponent} from '../../../shared/project-page';
 /*services */
 import {AlertMessageService} from '../../../services/alert-message.service';
 import {CertifiedService} from '../../../services/certified.service';
@@ -41,19 +41,19 @@ export class CertifiedsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.alertMessageService.getAlerts().forEach(function (alert) {
-      this.alerts[alert.name] = alert.data;
+    /*this.alertMessageService.getAlerts().forEach(function (alert) {
+      this.alerts.push(alert);
     });
     this.alertMessageService.clearAlerts();
     this.loadCertifieds();
 
     this.organizationService.findById('master')
-      .subscribe(result => this.organizations = result, error => this.alertMessageService.addAlert(undefined));    
+      .subscribe(result => this.organizations = result, error => this.alertMessageService.addAlert(undefined)); */   
   }
-  loadCertifieds() {
+  /*loadCertifieds() {
     this.certifiedService.setPath("/organizations/master/certifieds");
     console.log(this.certifiedService.getPath());
     this.certifiedService.getAll()
       .subscribe(result => this.certifieds = result, error => this.alertMessageService.addAlert(undefined));
-  }
+  }*/
 }

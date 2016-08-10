@@ -9,23 +9,23 @@
  **********************************************************************************************/
 /** Map relative paths to URLs. */
 const map: any = {
+  'underscore': 'vendor/underscore/underscore.js',
   'moment': 'vendor/moment/moment.js',
-  'ng2-bootstrap': 'vendor/ng2-bootstrap',
-  'underscore': 'vendor/underscore/underscore.js'
+  'ng2-bootstrap': 'vendor/ng2-bootstrap'
 };
 
 /** User packages configuration. */
 const packages: any = {
-  'moment': {
+  'underscore':{
+    format: 'cjs',
+  },
+  'moment':{
     format: 'cjs'
   },
   'ng2-bootstrap': {
-    format: 'cjs',    
+    format: 'cjs',
     defaultExtension: 'js',
-    main: 'ng2-bootstrap.js'    
-  },
-  'underscore':{
-    format: 'cjs'
+    main: 'ng2-bootstrap.js'
   }
 };
 
@@ -50,34 +50,28 @@ const barrels: string[] = [
   // App specific barrels.
   'app',
   'app/shared',
-  'app/components/util/navbar-utility',
-  'app/components/util/navbar-utility-mobile',
-  'app/components/util/default-header',
-  'app/components/util/project-header',
-  'app/components/util/project-page',
-  'app/components/util/sidebar',
-  'app/components/util/events-sidebar',
-  'app/components/util/alerts',
+  'app/shared/navbar-utility',
+  'app/shared/navbar-utility-mobile',
+  'app/shared/default-header',
+  'app/shared/project-header',
+  'app/shared/project-page',
+  'app/shared/sidebar',
+  'app/shared/events-sidebar',
+  'app/shared/alerts',
+  'app/shared/button-save',
+  'app/shared/button-cancel',
+  'app/shared/button-delete',
+  'app/shared/toggle-button',
+
   'app/components/about',
   'app/components/error',
-  'app/components/organizations',
+  
   'app/components/organizations/create-organization',
-  'app/components/organizations/edit-organization',
+  'app/components/organizations/list-organization',
   'app/components/organizations/edit-organization/overview',
   'app/components/organizations/edit-organization/settings',
-
-  'app/components/organizations/invoices',
-  'app/components/organizations/invoices/create-invoice',
-  'app/components/organizations/invoices/edit-invoice',
-
-  'app/components/util/button-save',
-  'app/components/util/button-cancel',
-  'app/components/util/button-delete',
-
-  'app/components/util/toggle-button',
   'app/components/organizations/edit-organization/settings/address',
   'app/components/organizations/edit-organization/settings/general-information',
-
   /** @cli-barrel */
 ];
 

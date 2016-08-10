@@ -16,10 +16,10 @@ module.exports = function(defaults) {
       'reflect-metadata/**/*.+(ts|js|js.map)',
       'rxjs/**/*.+(js|js.map)',
       '@angular/**/*.+(js|js.map)',
+      'underscore/underscore.js',
       'moment/moment.js',
       'ng2-bootstrap/**/*.js',
-      'underscore/underscore.js',
-      'patternfly/**/*.*'      
+      'patternfly/**/*.*'
     ]
   });
 };

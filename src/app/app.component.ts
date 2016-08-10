@@ -1,24 +1,16 @@
-import { Component, ViewContainerRef } from '@angular/core';
-import { ROUTER_DIRECTIVES } from '@angular/router';
-
-import { NavbarService } from './services/navbar.service';
+import {Component, ViewContainerRef} from '@angular/core';
 
 @Component({
   moduleId: module.id,
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.css'],
-  directives: [ROUTER_DIRECTIVES],
-  providers: [NavbarService]
+  directives: []
 })
 export class AppComponent {
+  title = 'app works!';
 
-  title = 'Repeid Web Console';
-  viewContainerRef: ViewContainerRef; 
-
-  constructor(private navbarService: NavbarService, viewContainerRef: ViewContainerRef) {
-    this.viewContainerRef = viewContainerRef;
-    this.navbarService = navbarService;
+  constructor(private viewContainerRef: ViewContainerRef) {
   }
 
 }

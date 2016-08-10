@@ -1,23 +1,28 @@
-import { provideRouter, RouterConfig } from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
 
 import { AboutComponent } from './components/about';
 import { ErrorComponent } from './components/error';
-import { OrganizationsRoutes } from './components/organizations/organizations.routes';
-import { InvoicesRoutes } from './components/organizations/invoices/invoice.routes';
 
-// Route Configuration
-export const routes: RouterConfig = [
+const appRoutes: Routes = [
   {
     path: '',
-    redirectTo: '/organizations',
+    redirectTo: '/about',
     pathMatch: 'full'
   },
-  { path: 'about', component: AboutComponent },
-  { path: 'error', component: ErrorComponent },
-  ...OrganizationsRoutes,
-  //...InvoicesRoutes
+  { 
+    path: 'about',
+    component: AboutComponent
+  },
+  { path: 'error', 
+    component: ErrorComponent 
+  },
+  { path:  'organizations', 
+    loadChildren: './app/components/organizations/organization.module#OrganizationModule' 
+  }
 ];
 
-export const APP_ROUTER_PROVIDERS = [
-  provideRouter(routes)
+export const appRoutingProviders: any[] = [
+
 ];
+
+export const routing = RouterModule.forRoot(appRoutes);

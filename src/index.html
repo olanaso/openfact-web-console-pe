@@ -2,7 +2,7 @@
 <html class="layout-pf layout-pf-fixed">
 <head>
   <meta charset="utf-8">
-  <title>Repeid Web Console</title>
+  <title>OpenfactWebConsole</title>
   <base href="/">
 
   {{#unless environment.production}}
@@ -48,10 +48,10 @@
   </style>
 </head>
 <body class="cards-pf">
-  <app-root>    
+  <app-root>
     <div class="spinner"></div>
   </app-root>
-    
+  
     {{#each scripts.polyfills}}
     <script src="{{.}}"></script>
     {{/each}}

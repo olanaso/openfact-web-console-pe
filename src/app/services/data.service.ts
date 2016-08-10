@@ -5,22 +5,17 @@ import { InvoiceProviderService } from './providers/invoice-provider.service';
 @Injectable()
 export class DataService {
 
-  private organizationProviderService: OrganizationProviderService;
-  private invoiceProviderService: InvoiceProviderService;
-
   constructor(
-    organizationProviderService: OrganizationProviderService,
-    invoiceProviderService: InvoiceProviderService) {
-    this.organizationProviderService = organizationProviderService;
-    this.invoiceProviderService = invoiceProviderService;
+    private organizationProvider: OrganizationProviderService,
+    private invoiceProvider: InvoiceProviderService) {
   }
 
-  organizations(): OrganizationProviderService {
-    return this.organizationProviderService;
+  public organizations(): OrganizationProviderService {
+    return this.organizationProvider;
   }
 
-  invoices(): InvoiceProviderService {
-    return this.invoiceProviderService;
+  public invoices(): InvoiceProviderService {
+    return this.invoiceProvider;
   }
 
 }

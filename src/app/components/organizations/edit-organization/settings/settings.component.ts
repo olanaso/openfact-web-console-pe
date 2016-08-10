@@ -1,20 +1,23 @@
 import { Component, OnInit } from '@angular/core';
-import { ROUTER_DIRECTIVES } from '@angular/router';
-import { ProjectHeaderComponent } from '../../../util/project-header';
-import { ProjectPageComponent } from '../../../util/project-page';
+import {Router, ActivatedRoute} from '@angular/router';
 
-
+import {OrganizationModel} from '../../../../services/models/organization-model';
 
 @Component({
   moduleId: module.id,
   selector: 'app-settings',
   templateUrl: 'settings.component.html',
-  styleUrls: ['settings.component.css'],
-  directives: [ProjectHeaderComponent, ProjectPageComponent,ROUTER_DIRECTIVES]
+  styleUrls: ['settings.component.css']
 })
 export class SettingsComponent implements OnInit {
 
-  constructor() { }
+  organization: OrganizationModel;
+
+  constructor(private activatedRoute: ActivatedRoute) { 
+    this.activatedRoute.data.subscribe(result => {
+      this.organization = <OrganizationModel>result;           
+    });
+  }
 
   ngOnInit() {
   }

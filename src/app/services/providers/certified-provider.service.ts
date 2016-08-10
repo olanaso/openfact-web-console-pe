@@ -1,23 +1,30 @@
-/**
- * Created by AHREN on 10/08/2016.
- */
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { Http, Response } from '@angular/http';
+
+import { Provider } from './provider';
 import { CertifiedModel } from '../models/certified-model';
-import { RestangularOpenfactService } from './restangular-openfact.service';
-import { ProviderService } from './provider.service';
+
+import { Restangular } from '../restangular/restangular';
+import { OpenfactService } from '../restangular-impl/openfact.service';
+
+export const ID: string = 'name';
+export const PATH: string = 'organizations';
 
 @Injectable()
-export class CertifiedProviderService extends ProviderService<CertifiedModel>{
+export class CertifiedProviderService implements Provider {
 
-  private static idName: string = 'name';
-  private static resourcePath: string = 'certifieds';
+  public path: string = PATH;
 
-  constructor(restangularService: RestangularOpenfactService) {
-    super(restangularService, CertifiedProviderService.resourcePath, CertifiedProviderService.idName);
+  private id: string = ID;
+  private restangular: Restangular;
+
+  constructor(restangular: OpenfactService) {
+    this.restangular = restangular;
   }
 
   build(): CertifiedModel {
-    let model: CertifiedModel = new CertifiedModel(this.restangularService);
+    let model: CertifiedModel = new CertifiedModel(this.restangular);
     return model;
   }
 

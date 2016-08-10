@@ -22,11 +22,17 @@ export class InvoiceModel implements Model {
   public totalTaxed: number;//TOTAL GRAVADO
   //public lines: Array<LinesModel>;
 
-  public afectAmount:boolean;
+  public afectAmount: boolean;
 
   /*Constructor*/
   constructor(restangular: Restangular) {
     this.restangular = restangular;
   }
+
+   public clone(): InvoiceModel {
+        let copy = Object.assign({}, this);
+        delete copy['restangular'];
+        return copy;
+    }
 
 }

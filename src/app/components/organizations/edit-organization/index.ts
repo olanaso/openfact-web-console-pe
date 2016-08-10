@@ -1,1 +1,1 @@
-export * from './edit-organization.component';
+export * from './overview';

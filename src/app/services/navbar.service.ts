@@ -4,17 +4,21 @@ import { Subject }    from 'rxjs/Subject';
 @Injectable()
 export class NavbarService {
 
-  isCollapsed: boolean;
+  public isCollapsed: boolean;
   private isCollapsedSource = new Subject<boolean>();
-  isCollapsed$ = this.isCollapsedSource.asObservable();
+  public isCollapsed$ = this.isCollapsedSource.asObservable();
 
-  changeCollapsed() {
+  constructor() {
+
+  }
+
+  public changeCollapsed() {
     this.isCollapsed = !this.isCollapsed;
     this.isCollapsedSource.next(this.isCollapsed);
   }
 
-  getIsCollapsed() {
+  public getIsCollapsed() {
     return this.isCollapsed;
-  }  
+  }
 
 }

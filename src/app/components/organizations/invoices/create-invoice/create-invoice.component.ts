@@ -2,16 +2,16 @@ import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 //import {Component, View, formDirectives, FormBuilder, Validators, ControlGroup} from "@angular2/core";
 import { REACTIVE_FORM_DIRECTIVES, FormGroup, FormControl, FormBuilder,NgForm } from '@angular/forms';
 import { CORE_DIRECTIVES, Validators, ControlGroup} from '@angular/common';
-import { ProjectHeaderComponent } from './../../../util/project-header';
-import { ProjectPageComponent } from './../../../util/project-page';
+import { ProjectHeaderComponent } from './../../../../shared/project-header';
+import { ProjectPageComponent } from './../../../../shared/project-page';
 import { MODAL_DIRECTIVES, ModalDirective, BS_VIEW_PROVIDERS} from 'ng2-bootstrap/ng2-bootstrap';
 import { ROUTER_DIRECTIVES, Router } from '@angular/router';
 
 import { AlertMessageService } from '../../../../services/alert-message.service';
-import { DefaultHeaderComponent } from '../../../util/default-header';
-import { ButtonSaveComponent } from '../../../util/button-save';
-import { ButtonCancelComponent } from '../../../util/button-cancel';
-import { AlertsComponent } from '../../../util/alerts';
+import { DefaultHeaderComponent } from '../../../../shared/default-header';
+import { ButtonSaveComponent } from '../../../../shared/button-save';
+import { ButtonCancelComponent } from '../../../../shared/button-cancel';
+import { AlertsComponent } from '../../../../shared/alerts';
 /**models */
 import { InvoiceModel } from '../../../../../app/services/models/invoice-model';
 import { LinesModel } from '../../../../../app/services/models/lines-model';

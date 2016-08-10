@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ROUTER_DIRECTIVES } from '@angular/router';
 import { Router } from '@angular/router';
 /**menu opénfact */
-import { DefaultHeaderComponent } from '../../util/default-header';
-import { NavbarUtilityMobileComponent } from '../../util/navbar-utility-mobile';
-import { AlertsComponent } from '../../util/alerts';
-import { ProjectHeaderComponent } from '../../util/project-header';
-import { ProjectPageComponent } from '../../util/project-page';
+import { DefaultHeaderComponent } from '../../../shared/default-header';
+import { NavbarUtilityMobileComponent } from '../../../shared/navbar-utility-mobile';
+import { AlertsComponent } from '../../../shared/alerts';
+import { ProjectHeaderComponent } from '../../../shared/project-header';
+import { ProjectPageComponent } from '../../../shared/project-page';
 /*services */
 import { AlertMessageService } from '../../../services/alert-message.service';
 //import { InvoiceService } from '../../../services/invoice.service';

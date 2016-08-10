@@ -1,13 +1,10 @@
-/**
- * Created by AHREN on 10/08/2016.
- */
-import {Model} from './model'
-import {RestangularService} from '../providers/restangular.service';
+import { Model } from './model'
+import { Restangular } from '../restangular/restangular';
 
 export class CertifiedModel implements Model {
 
   /*Restangular*/
-  restangular:RestangularService;
+  restangular:Restangular;
 
   /*Attributes*/
   public alias:string;//Alias del Certificado
@@ -17,8 +14,14 @@ export class CertifiedModel implements Model {
   public validity:Date;//Fecha Vigencia
  
   /*Constructor*/
-  constructor(restangularService:RestangularService) {
-    this.restangular = restangularService;
+  constructor(restangular:Restangular) {
+    this.restangular = restangular;
+  }
+
+  public clone(): CertifiedModel {
+    let copy = Object.assign({}, this);
+    delete copy['restangular'];
+    return copy;
   }
 
 }

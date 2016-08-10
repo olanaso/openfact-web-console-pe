@@ -20,4 +20,13 @@ export class OrganizationModel implements Model {
         this.restangular = restangular;
     }
 
+    public clone(): OrganizationModel {
+        let copy = Object.assign({}, this);
+        delete copy['restangular'];
+        return copy;
+    }
+
+    public save() {
+        return this.restangular.put(this.clone());
+    }
 }

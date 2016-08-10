@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 
-import { DefaultHeaderComponent } from '../util/default-header';
-import { NavbarUtilityMobileComponent } from '../util/navbar-utility-mobile';
+import { DefaultHeaderComponent } from '../../shared/default-header';
+import { NavbarUtilityMobileComponent } from '../../shared/navbar-utility-mobile';
 
 @Component({
   moduleId: module.id,
   selector: 'app-error',
   templateUrl: 'error.component.html',
-  styleUrls: ['error.component.css'],
-  providers: [DefaultHeaderComponent, NavbarUtilityMobileComponent]
+  styleUrls: ['error.component.css']
 })
 export class ErrorComponent implements OnInit {
 

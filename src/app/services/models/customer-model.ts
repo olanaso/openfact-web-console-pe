@@ -18,4 +18,10 @@ export class CustomerModel implements Model {
         this.restangular = restangular;
     }
 
+    public clone(): CustomerModel {
+        let copy = Object.assign({}, this);
+        delete copy['restangular'];
+        return copy;
+    }
+
 }

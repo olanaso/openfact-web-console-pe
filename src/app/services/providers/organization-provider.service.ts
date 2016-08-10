@@ -42,8 +42,7 @@ export class OrganizationProviderService implements Provider {
   }
 
   public create(organization: OrganizationModel): Observable<OrganizationModel> {
-    let copy = Object.assign({}, organization);
-    delete copy['restangular'];
+    let copy = organization.clone();
 
     let restangular = this.restangular.all(this.path);
     return restangular.post(copy)

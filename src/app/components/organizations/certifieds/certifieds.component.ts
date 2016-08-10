@@ -12,7 +12,7 @@ import {ProjectHeaderComponent} from '../../../shared/project-header';
 import {ProjectPageComponent} from '../../../shared/project-page';
 /*services */
 import {AlertMessageService} from '../../../services/alert-message.service';
-import {CertifiedService} from '../../../services/certified.service';
+//import {CertifiedService} from '../../../services/certified.service';
 
 import {OrganizationProviderService} from '../../../services/providers/organization-provider.service';
 /**models */
@@ -26,7 +26,7 @@ import {OrganizationModel} from '../../../services/models/organization-model';
   styleUrls: ['certifieds.component.css'],
   directives: [ROUTER_DIRECTIVES, DefaultHeaderComponent, NavbarUtilityMobileComponent, AlertsComponent, ProjectHeaderComponent
     , ProjectPageComponent],
-  providers: [CertifiedService, AlertMessageService, OrganizationProviderService],
+  providers: [/*CertifiedService, */AlertMessageService, OrganizationProviderService],
 })
 export class CertifiedsComponent implements OnInit {
 
@@ -35,8 +35,8 @@ export class CertifiedsComponent implements OnInit {
 
   constructor(private router:Router,
               private alertMessageService:AlertMessageService,
-              private organizationService:OrganizationProviderService,
-              private certifiedService:CertifiedService) {
+              private organizationService:OrganizationProviderService
+              /*private certifiedService:CertifiedService*/) {
     this.certifieds = [];
   }
 

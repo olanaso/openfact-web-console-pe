@@ -1,0 +1,32 @@
+<!--<button (click)="onClick($event)" [ngClass]="on?'btn btn-primary btn-lg':'btn btn-danger btn-lg'">
+  <ng-content></ng-content>-->
+<!--<div (click)="onClick($event)">
+  <div *ngIf="on" class="bootstrap-switch bootstrap-switch-wrapper bootstrap-switch-id-bootstrap-switch-state bootstrap-switch-animate bootstrap-switch-on" style="width: 72px;">
+    <div class="bootstrap-switch-container" style="width: 105px; margin-left: 0px;"><span class="bootstrap-switch-handle-on bootstrap-switch-primary" style="width: 35px;">ON</span><span class="bootstrap-switch-label"
+        style="width: 35px;">&nbsp;</span><span class="bootstrap-switch-handle-off bootstrap-switch-default" style="width: 35px;">OFF</span>
+      <input class="bootstrap-switch" id="bootstrap-switch-state" type="checkbox" checked=""></div>
+  </div>
+
+
+  <div *ngIf="!on" class="bootstrap-switch bootstrap-switch-wrapper bootstrap-switch-id-bootstrap-switch-state bootstrap-switch-animate bootstrap-switch-off">
+    <div class="bootstrap-switch-container" style="width: 105px; margin-left: -35px;"><span class="bootstrap-switch-handle-on bootstrap-switch-primary" style="width: 35px;">ON</span><span class="bootstrap-switch-label"
+        style="width: 35px;">&nbsp;</span><span class="bootstrap-switch-handle-off bootstrap-switch-default" style="width: 35px;">OFF</span>
+      <input class="bootstrap-switch" id="bootstrap-switch-state" type="checkbox" checked=""></div>
+  </div>
+</div>-->
+<!--</button>-->
+<div (click)="onClick($event)"  [ngClass]="disable?'disabledToggle':'enableToggle'"  style="width:72px;">
+  <div [ngClass]="on?'bootstrap-switch bootstrap-switch-wrapper bootstrap-switch-id-bootstrap-switch-state bootstrap-switch-animate bootstrap-switch-on bootstrap-switch-focused':' 
+                      bootstrap-switch bootstrap-switch-wrapper bootstrap-switch-id-bootstrap-switch-state bootstrap-switch-animate bootstrap-switch-off onHide bootstrap-switch-focused'" style="width: 72px;">
+    <div [ngClass]="on?'bootstrap-switch-container onFocus':'bootstrap-switch-container offFocus'"> <span class="bootstrap-switch-handle-on bootstrap-switch-primary" style="width: 35px;float: left;">ON</span> <span class="bootstrap-switch-label"
+        style="width: 35px;float: left;">&nbsp;</span> <span class="bootstrap-switch-handle-off bootstrap-switch-default" style="width: 35px;float: left;">OFF</span>
+      <input class="bootstrap-switch" id="bootstrap-switch-state" type="checkbox" checked="">
+    </div>
+  </div>
+</div>
+
+<!--
+<div><input id="check" bs-switch ng-model="check" switch-active="{{ active }}" type="checkbox">
+
+
+</div>-->

@@ -1,0 +1,31 @@
+<!--Link-->
+<a *ngIf="!buttonOnly" href="javascript:void(0)" (click)="showModalResource()" [ngClass]="{ 'disabled': disableDelete }">
+    {{label || 'Delete'}}
+</a>
+
+<!--Button-->
+<div *ngIf="buttonOnly" class="actions">
+  <a href="javascript:void(0)" (click)="showModalResource()" class="action-button" [ngClass]="{ 'disabled-link': disableDelete }">
+    <i class="fa fa-trash-o"></i>
+    <span class="sr-only">Delete {{type}}</span>
+  </a>
+</div>
+
+<!-- modal -->
+<div bsModal #modalResource="bs-modal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form>
+        <div class="modal-body">
+          <h1>Are you sure you want to delete the '<strong>{{type}} {{resourceName}}</strong>'?</h1>
+          <p>This will <strong>delete all resources</strong> associated with the {{type}} and <strong>cannot be undone</strong>.
+            Make sure this is something you really want to do!</p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-lg btn-danger" type="button" (click)="delete();">Delete</button>
+          <button class="btn btn-lg btn-default" type="button" (click)="cancel();">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

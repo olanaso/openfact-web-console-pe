@@ -42,6 +42,7 @@ export class InvoicesComponent implements OnInit {
   }
 
   ngOnInit() {
+   // alert("sasasa");
     /*this.alertMessageService.getAlerts().forEach(function (alert) {
       this.alerts[alert.name] = alert.data;
     });

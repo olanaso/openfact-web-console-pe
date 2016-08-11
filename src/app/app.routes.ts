@@ -1,23 +1,31 @@
-import { Routes, RouterModule } from '@angular/router';
-
-import { AboutComponent } from './components/about';
-import { ErrorComponent } from './components/error';
+import {Routes, RouterModule} from '@angular/router';
+import {AboutComponent, ErrorComponent, ListOrganizationComponent, CreateOrganizationComponent} from './pages';
 
 const appRoutes: Routes = [
   {
     path: '',
-    redirectTo: '/about',
+    redirectTo: '/organizations',
     pathMatch: 'full'
   },
-  { 
+  {
     path: 'about',
     component: AboutComponent
   },
-  { path: 'error', 
-    component: ErrorComponent 
+  {
+    path: 'error',
+    component: ErrorComponent
   },
-  { path:  'organizations', 
-    loadChildren: './app/components/organizations/organization.module#OrganizationModule' 
+  {
+    path: 'organizations',
+    component: ListOrganizationComponent
+  },
+  {
+    path: 'create-organization',
+    component: CreateOrganizationComponent
+  },
+  {
+    path: 'organizations/:organization',
+    loadChildren: './app/organization/organization.module#OrganizationModule'
   }
 ];
 

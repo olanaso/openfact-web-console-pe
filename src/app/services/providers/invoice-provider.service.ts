@@ -3,10 +3,10 @@ import { Observable } from 'rxjs/Observable';
 import { Http, Response } from '@angular/http';
 
 import { Provider } from './provider';
-import { InvoiceModel } from '../models/invoice-model';
+import { InvoiceModel } from '../models';
 
-import { Restangular } from '../restangular/restangular';
-import { OpenfactService } from '../restangular-impl/openfact.service';
+import { Restangular } from '../restangular';
+import { OpenfactService } from '../restangular-impl';
 
 export const INVOICE_ID: string = 'name';
 export const INVOICE_PATH: string = 'invoices';

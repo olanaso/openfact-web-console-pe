@@ -1,20 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { ROUTER_DIRECTIVES } from '@angular/router';
-import { Router } from '@angular/router';
-import { DataService } from '../../services/data.service';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
 
-import { NavbarUtilityComponent } from '../navbar-utility';
-
-import { OrganizationModel } from '../../services/models/organization-model';
-import { AlertMessageService } from '../../services/alert-message.service';
-import { Alert } from '../../services/alert';
+import {Alert, AlertMessageService} from '../shared-services';
+import {OrganizationModel, DataService} from '../../services';
 
 @Component({
   moduleId: module.id,
   selector: 'project-header',
   templateUrl: 'project-header.component.html',
-  styleUrls: ['project-header.component.css'],
-  directives: [ROUTER_DIRECTIVES, NavbarUtilityComponent]
+  styleUrls: ['project-header.component.css']
 })
 export class ProjectHeaderComponent implements OnInit {
 
@@ -37,6 +31,5 @@ export class ProjectHeaderComponent implements OnInit {
   loadProjects() {
     this.dataService.organizations().getAll().subscribe(organizations => { this.organizations = organizations });
   }
-
 
 }

@@ -47,9 +47,26 @@ const barrels: string[] = [
   // Thirdparty barrels.
   'rxjs',
 
-  // App specific barrels.
+  // App specific barrels.  
   'app',
+
+  'app/pipes',
+
+  'app/pages',
+  'app/pages/about',
+  'app/pages/error',
+  'app/pages/list-organization',
+  'app/pages/create-organization',  
+
+  'app/services',
+  'app/services/models',
+  'app/services/providers',
+  'app/services/resolvers',
+  'app/services/restangular',
+  'app/services/restangular-impl',
+
   'app/shared',
+  'app/shared/shared-services',  
   'app/shared/navbar-utility',
   'app/shared/navbar-utility-mobile',
   'app/shared/default-header',
@@ -62,16 +79,12 @@ const barrels: string[] = [
   'app/shared/button-cancel',
   'app/shared/button-delete',
   'app/shared/toggle-button',
-
-  'app/components/about',
-  'app/components/error',
   
-  'app/components/organizations/create-organization',
-  'app/components/organizations/list-organization',
-  'app/components/organizations/edit-organization/overview',
-  'app/components/organizations/edit-organization/settings',
-  'app/components/organizations/edit-organization/settings/address',
-  'app/components/organizations/edit-organization/settings/general-information',
+  'app/organization',
+  'app/organization/overview',
+  'app/organization/settings',
+  'app/organization/settings/address',
+  'app/organization/settings/general-information',
   /** @cli-barrel */
 ];
 

@@ -3,8 +3,8 @@ import {Observable} from 'rxjs/Observable';
 import {Http, Response} from '@angular/http';
 import {Resolve, ActivatedRouteSnapshot, RouterStateSnapshot} from '@angular/router';
 
-import {OrganizationModel} from '../models/organization-model';
-import {OrganizationProviderService} from '../providers/organization-provider.service';
+import {OrganizationModel} from '../models';
+import {OrganizationProviderService} from '../providers';
 
 @Injectable()
 export class OrganizationResolve implements Resolve<OrganizationModel> {

@@ -1,5 +1,5 @@
 import { Model } from './model'
-import { Restangular } from '../restangular/restangular';
+import { Restangular } from '../restangular';
 
 export class LinesModel {
     

@@ -1,7 +1,7 @@
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import {Component, OnInit, OnDestroy, Input} from '@angular/core';
+import {Subscription}   from 'rxjs/Subscription';
 
-import { Subscription }   from 'rxjs/Subscription';
-import { NavbarService } from '../../services/navbar.service';
+import {NavbarService} from '../shared-services';
 
 @Component({
   moduleId: module.id,
@@ -10,13 +10,12 @@ import { NavbarService } from '../../services/navbar.service';
   styleUrls: ['navbar-utility-mobile.component.css']
 })
 export class NavbarUtilityMobileComponent implements OnInit, OnDestroy {
+
   isCollapsed: boolean;
   subscription: Subscription;
 
   constructor(private navbarService: NavbarService) {
-    this.subscription = navbarService.isCollapsed$.subscribe(isCollapsed => {
-      this.isCollapsed = isCollapsed;
-    });
+    this.subscription = navbarService.isCollapsed$.subscribe(isCollapsed => this.isCollapsed = isCollapsed);
   }
 
   ngOnInit() {

@@ -3,10 +3,10 @@ import { Observable } from 'rxjs/Observable';
 import { Http, Response } from '@angular/http';
 
 import { Provider } from './provider';
-import { CertifiedModel } from '../models/certified-model';
+import { CertifiedModel } from '../models';
 
-import { Restangular } from '../restangular/restangular';
-import { OpenfactService } from '../restangular-impl/openfact.service';
+import { Restangular } from '../restangular';
+import { OpenfactService } from '../restangular-impl';
 
 export const ID: string = 'name';
 export const PATH: string = 'organizations';

@@ -1,44 +1,39 @@
 import {NgModule, provide} from '@angular/core';
 import {BrowserModule } from '@angular/platform-browser';
-import {FormsModule} from '@angular/forms';
-
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 import {HTTP_PROVIDERS, Http} from '@angular/http';
 
 import {AppComponent} from './app.component';
+import {PipeModule} from './pipes';
+import {SharedModule} from './shared';
+import {OrganizationModule} from './organization';
+
 import {routing, appRoutingProviders} from './app.routes';
 import {APP_CONFIG, DEFAULT_CONFIG, AppConfig} from './app.config';
 
-import {Restangular} from './services/restangular';
-import {OpenfactService} from './services/restangular-impl/openfact.service';
-import {SunatService} from './services/restangular-impl/sunat.service';
-import {NavbarService} from './services/navbar.service';
-import {AlertMessageService} from './services/alert-message.service';
+import {Restangular, OpenfactService, SunatService, DataService} from './services';
+import {AboutComponent, ErrorComponent, CreateOrganizationComponent, ListOrganizationComponent} from './pages';
 
-import {OrganizationModule} from './components/organizations/organization.module';
-import {AboutComponent} from './components/about';
-import {ErrorComponent} from './components/error';
-
-import {DefaultHeaderComponent} from './shared/default-header';
-import {NavbarUtilityComponent} from './shared/navbar-utility';
-import {AlertsComponent} from './shared/alerts';
-
-import {DataService} from './services/data.service';
-import {OrganizationProviderService} from './services/providers/organization-provider.service';
-import {InvoiceProviderService} from './services/providers/invoice-provider.service';
-import {OrganizationResolve} from './services/resolvers/organization-resolve';
+import {OrganizationProviderService, InvoiceProviderService} from './services';
+import {OrganizationResolve} from './services';
 
 @NgModule({
     imports: [
         BrowserModule,
         FormsModule,
-        routing,
-        OrganizationModule
+        ReactiveFormsModule,
+        PipeModule,
+        SharedModule,
+        OrganizationModule,
+        routing        
     ],
     declarations: [
         AppComponent,
         AboutComponent,
         ErrorComponent,
+        CreateOrganizationComponent,
+        ListOrganizationComponent
     ],
     
     providers: [
@@ -70,10 +65,7 @@ import {OrganizationResolve} from './services/resolvers/organization-resolve';
         DataService,
         OrganizationResolve,
         InvoiceProviderService,
-        OrganizationProviderService,
-
-        NavbarService,
-        AlertMessageService
+        OrganizationProviderService
     ],
     bootstrap: [AppComponent],
 })

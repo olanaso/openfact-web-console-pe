@@ -2,7 +2,7 @@ import {Injectable, Inject} from '@angular/core';
 import {Http, Response} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 
-import {Restangular} from '../restangular/restangular';
+import {Restangular} from '../restangular';
 
 @Injectable()
 export class SunatService extends Restangular {

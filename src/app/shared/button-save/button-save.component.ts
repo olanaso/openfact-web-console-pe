@@ -1,15 +1,13 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { FormGroup, AbstractControl } from '@angular/forms';
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import {FormGroup, AbstractControl} from '@angular/forms';
 
-import { Alert } from '../../services/alert';
-import { AlertMessageService } from '../../services/alert-message.service';
+import {Alert, AlertMessageService} from '../shared-services';
 
 @Component({
   moduleId: module.id,
   selector: 'button-save',
   templateUrl: 'button-save.component.html',
-  styleUrls: ['button-save.component.css'],
-  providers: [AlertMessageService]
+  styleUrls: ['button-save.component.css']
 })
 export class ButtonSaveComponent implements OnInit {
 

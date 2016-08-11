@@ -1,24 +1,18 @@
-import { Component, ViewChild, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Router } from '@angular/router';
-import { CORE_DIRECTIVES } from '@angular/common';
+import {Component, ViewChild, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import {Router} from '@angular/router';
 
-import { MODAL_DIRECTIVES, BS_VIEW_PROVIDERS, ModalDirective } from 'ng2-bootstrap/ng2-bootstrap';
-
-import { Alert } from '../../services/alert';
-import { Model } from '../../services/models/model';
-import { AlertMessageService } from '../../services/alert-message.service';
+import {Model} from '../../services';
+import {Alert, AlertMessageService} from '../shared-services';
 
 @Component({
   moduleId: module.id,
   selector: 'button-delete',
   templateUrl: 'button-delete.component.html',
-  styleUrls: ['button-delete.component.css'],
-  directives: [MODAL_DIRECTIVES, CORE_DIRECTIVES],
-  providers: [BS_VIEW_PROVIDERS],
+  styleUrls: ['button-delete.component.css']
 })
 export class ButtonDeleteComponent implements OnInit {
 
-  @ViewChild('modalResource') modalResource: ModalDirective;
+  //@ViewChild('modalResource') modalResource: ModalDirective;
 
   // Object to be deleted
   @Input() model: Model;
@@ -103,11 +97,11 @@ export class ButtonDeleteComponent implements OnInit {
     if (this.disableDelete) {
       return;
     }
-    this.modalResource.show();
+    //this.modalResource.show();
   }
 
   public hideModalResource(): void {
-    this.modalResource.hide();
+    //this.modalResource.hide();
   }
 
 }

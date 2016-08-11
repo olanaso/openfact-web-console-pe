@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { OrganizationProviderService } from './providers/organization-provider.service';
-import { InvoiceProviderService } from './providers/invoice-provider.service';
+import { OrganizationProviderService, InvoiceProviderService } from './providers';
 
 @Injectable()
 export class DataService {

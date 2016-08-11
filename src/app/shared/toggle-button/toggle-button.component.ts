@@ -1,12 +1,10 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-//import {NgClass} from '@angular/common'
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 
 @Component({
   moduleId: module.id,
   selector: 'toggle-button',
   templateUrl: 'toggle-button.component.html',
   styleUrls: ['toggle-button.component.css']
-  //directives: [NgClass]
 })
 export class ToggleButtonComponent implements OnInit {
 

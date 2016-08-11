@@ -7,9 +7,9 @@ export interface RestConfig {
 }
 
 export const OPENFACT_CONFIG: RestConfig = {
-    url: 'http://localhost:8080/admin'
+    url: 'http://192.168.1.41:8081/admin'
 };
 
 export const SUNAT_CONFIG: RestConfig = {
-    url: 'http://localhost:8080/admin'
+    url: 'http://192.168.1.41:8081/admin'
 };

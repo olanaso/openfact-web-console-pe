@@ -8,15 +8,15 @@ import { InvoiceModel } from '../models/invoice-model';
 import { Restangular } from '../restangular/restangular';
 import { OpenfactService } from '../restangular-impl/openfact.service';
 
-export const ID: string = 'name';
-export const PATH: string = 'invoices';
+export const INVOICE_ID: string = 'name';
+export const INVOICE_PATH: string = 'invoices';
 
 @Injectable()
 export class InvoiceProviderService implements Provider {
 
-  public path: string = PATH;
+  public path: string = INVOICE_PATH;
 
-  private id: string = ID;
+  private id: string = INVOICE_ID;
   private restangular: Restangular;
 
   constructor(restangular: OpenfactService) {

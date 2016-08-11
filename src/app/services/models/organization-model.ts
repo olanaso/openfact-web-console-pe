@@ -1,5 +1,5 @@
-import { Model } from './model'
-import { Restangular } from '../restangular/restangular';
+import {Model} from './model'
+import {Restangular} from '../restangular/restangular';
 
 export class OrganizationModel implements Model {
 

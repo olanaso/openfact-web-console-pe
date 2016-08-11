@@ -1,68 +1,46 @@
 import {NgModule, provide} from '@angular/core';
 import {BrowserModule } from '@angular/platform-browser';
-import {FormsModule}    from '@angular/forms';
+import {FormsModule} from '@angular/forms';
 
 import {RouterModule} from '@angular/router';
 import {HTTP_PROVIDERS, Http} from '@angular/http';
 
 import {AppComponent} from './app.component';
 import {routing, appRoutingProviders} from './app.routes';
-import {RestConfig, APP_CONFIG, OPENFACT_CONFIG, SUNAT_CONFIG} from './app.config';
+import {APP_CONFIG, DEFAULT_CONFIG, AppConfig} from './app.config';
 
-import {TOOLTIP_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
-
-import { Restangular } from './services/restangular/restangular';
-import { OpenfactService } from './services/restangular-impl/openfact.service';
-import { SunatService } from './services/restangular-impl/sunat.service';
+import {Restangular} from './services/restangular';
+import {OpenfactService} from './services/restangular-impl/openfact.service';
+import {SunatService} from './services/restangular-impl/sunat.service';
+import {NavbarService} from './services/navbar.service';
+import {AlertMessageService} from './services/alert-message.service';
 
 import {OrganizationModule} from './components/organizations/organization.module';
 import {AboutComponent} from './components/about';
 import {ErrorComponent} from './components/error';
 
-import {AlertsComponent} from './shared/alerts';
 import {DefaultHeaderComponent} from './shared/default-header';
-import {NavbarUtilityMobileComponent} from './shared/navbar-utility-mobile';
+import {NavbarUtilityComponent} from './shared/navbar-utility';
+import {AlertsComponent} from './shared/alerts';
 
 import {DataService} from './services/data.service';
 import {OrganizationProviderService} from './services/providers/organization-provider.service';
 import {InvoiceProviderService} from './services/providers/invoice-provider.service';
 import {OrganizationResolve} from './services/resolvers/organization-resolve';
 
-import {NavbarService} from './services/navbar.service';
-import {AlertMessageService} from './services/alert-message.service';
-
-let openfactServiceFactory = (config: RestConfig, http: Http) => {
-    return new OpenfactService(config.url, http);
-}
-export let OpenfactServiceProvider = provide(OpenfactService, {
-    useFactory: openfactServiceFactory,
-    deps: [APP_CONFIG, Http]
-});
-
-let sunatServiceFactory = (config: RestConfig, http: Http) => {
-    return new SunatService(config.url, http);
-}
-export let SunatServiceProvider = provide(SunatService, {
-    useFactory: sunatServiceFactory,
-    deps: [APP_CONFIG, Http]
-});
-
 @NgModule({
-    declarations: [
-        AppComponent,
-
-        /*routing config*/
-        AboutComponent,
-        ErrorComponent
-    ],
     imports: [
         BrowserModule,
         FormsModule,
-
-        /*router config*/
         routing,
-        OrganizationModule        
+        OrganizationModule
     ],
+    declarations: [
+        AppComponent,
+        AboutComponent,
+        ErrorComponent,
+    ],
+    
     providers: [
         /*router providers*/
         appRoutingProviders,
@@ -71,10 +49,23 @@ export let SunatServiceProvider = provide(SunatService, {
         HTTP_PROVIDERS,
 
         /*openfact services*/
-        provide(APP_CONFIG, { useValue: OPENFACT_CONFIG }),
-        OpenfactServiceProvider,
-        provide(APP_CONFIG, { useValue: SUNAT_CONFIG }),
-        SunatServiceProvider,
+        provide(APP_CONFIG, { useValue: DEFAULT_CONFIG }),
+        provide(OpenfactService, {
+            useFactory: (config: AppConfig, http: Http) => {
+                let host = config.api.openfact.host;
+                let prefix = config.api.openfact.prefix;
+                return new OpenfactService(host + prefix, http);
+            },
+            deps: [APP_CONFIG, Http]
+        }),
+        provide(SunatService, {
+            useFactory: (config: AppConfig, http: Http) => {
+                let host = config.api.sunat.host;
+                let prefix = config.api.sunat.prefix;
+                return new SunatService(host + prefix, http);
+            },
+            deps: [APP_CONFIG, Http]
+        }),
 
         DataService,
         OrganizationResolve,

@@ -15,39 +15,44 @@ import { HeaderService } from '../../services/header.service';
   selector: 'project-header',
   templateUrl: 'project-header.component.html',
   styleUrls: ['project-header.component.css'],
-  directives: [ROUTER_DIRECTIVES, NavbarUtilityComponent],
-  providers: [HeaderService]
+  directives: [ROUTER_DIRECTIVES, NavbarUtilityComponent]
+  //providers: [HeaderService]
 })
 export class ProjectHeaderComponent implements OnInit {
 
   organizations: Array<OrganizationModel> = [];
-  selectOrganization: OrganizationModel;
+  private selectOrganization: OrganizationModel;
 
   constructor(
     private router: Router,
     private dataService: DataService,
     private route: ActivatedRoute,
     private headerService: HeaderService) {
-    //console.log(this.route);
-    this.selectOrganization=this.dataService.organizations().build();
+
   }
 
   ngOnInit() {
-    this.loadProjects();    
+    this.loadProjects();
   }
 
   changeOrganization(organization: OrganizationModel) {
-    this.selectOrganization = organization; 
-    console.log(JSON.stringify(this.selectOrganization));    
+    this.selectOrganization = organization;
+    console.log("new: " + organization.name);
+    //console.log(this.router);
+    //let link = [this.router.url, organization.name];
     let link = ['/organizations/edit-organization', organization.name];
-    //this.headerService.setOrganization(organization);
+    this.headerService.setOrganization(organization);
+    //console.log("after : " + this.selectOrganization.name);
     this.router.navigate(link);
-    //console.log("Aqui probando...: " + JSON.stringify(this.headerService.getOrganization()));
   }
 
   loadProjects() {
     this.dataService.organizations().getAll().subscribe(organizations => { this.organizations = organizations });
-    //this.selectOrganization=this.organizations[1];
+    this.selectOrganization = this.headerService.getOrganization();
+    if (this.selectOrganization)
+      console.log("creando... " + this.selectOrganization.name);
+    else
+      console.log("sin instancia de organizations.");
   }
 
 

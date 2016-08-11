@@ -1,6 +1,6 @@
 <alerts [alerts]="alerts"></alerts>
-
-<form [formGroup]="form" (ngSubmit)="save(form.value)" class="form-horizontal" novalidate>
+{{organization | json}}
+<!--<form [formGroup]="form" (ngSubmit)="save(form.value)" class="form-horizontal" novalidate>
   <fieldset>
     <div class="form-group" [ngClass]="{ 'has-error' : !form.controls.name.valid && submitted }">
       <label class="col-sm-2 control-label">Name
@@ -75,4 +75,4 @@
       </div>
     </div>
   </fieldset>
-</form>
+</form>-->

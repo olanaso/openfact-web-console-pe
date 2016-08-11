@@ -1,34 +1,17 @@
 <project-header></project-header>
 <project-page>
 
-  <div class="pull-right">
-    <button class="btn btn-danger">Eliminar</button>
+  <div>
+    <h1>
+      {{organization.name}}
+      <i class="pficon pficon-delete"></i>
+    </h1>
+    <ul class="nav nav-tabs">
+      <li routerLinkActive="active"><a [routerLink]="['./general-information']">General information</a></li>
+      <li routerLinkActive="active"><a [routerLink]="['./address']">Address</a></li>
+    </ul>
   </div>
 
-  <h1>
-    <strong>Edit organization</strong>
-  </h1>
-
-  <div class="panel panel-default">
-    <div class="panel-body">
-      <div>
-
-        <div class="tab-container">
-          <ul class="nav nav-tabs">
-            <li routerLinkActive="active">
-              <a [routerLink]="['./general-information']">General information</a>
-            </li>
-            <li routerLinkActive="active">
-              <a [routerLink]="['./address']">Address</a>
-            </li>
-          </ul>
-          <div class="tab-pane">
-            <router-outlet></router-outlet>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </div>
+  <router-outlet></router-outlet>
 
 </project-page>

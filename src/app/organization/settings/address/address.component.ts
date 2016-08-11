@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {Router, ActivatedRoute} from '@angular/router';
+
+import {OrganizationModel, DataService} from '../../../services';
 
 @Component({
   moduleId: module.id,
@@ -8,7 +11,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddressComponent implements OnInit {
 
-  constructor() { }
+  organization: OrganizationModel;
+
+  constructor(   
+    private activatedRoute: ActivatedRoute) {
+    this.organization = this.activatedRoute.parent.snapshot.data['organization'];
+  }
 
   ngOnInit() {
   }

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 import {Validators, CORE_DIRECTIVES} from '@angular/common';
-import {REACTIVE_FORM_DIRECTIVES, FormGroup, FormControl, FormBuilder} from '@angular/forms';
+import {FormGroup, FormControl, FormBuilder} from '@angular/forms';
 
 import {OrganizationModel, DataService} from '../../../services';
 import {Alert, AlertMessageService} from '../../../shared';
@@ -10,11 +10,7 @@ import {Alert, AlertMessageService} from '../../../shared';
   moduleId: module.id,
   selector: 'app-general-information',
   templateUrl: 'general-information.component.html',
-  styleUrls: ['general-information.component.css'],
-  directives: [
-    REACTIVE_FORM_DIRECTIVES
-  ],
-  providers: [FormBuilder]
+  styleUrls: ['general-information.component.css']
 })
 export class GeneralInformationComponent implements OnInit {
 

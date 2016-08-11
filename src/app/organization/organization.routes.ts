@@ -1,29 +1,44 @@
 import {Routes, RouterModule} from '@angular/router';
 
+import {OrganizationResolve} from '../services';
+
 import {OverviewComponent} from './overview';
-import {SettingsComponent} from './settings';
+import {SettingsComponent, GeneralInformationComponent, AddressComponent} from './settings';
 
 const organizationRoutes: Routes = [
   {
     path: '',
-    component: OverviewComponent
+    redirectTo: 'overview',
+    pathMatch: 'full'
+  },
+  {
+    path: 'overview',
+    component: OverviewComponent,
+    resolve: {
+      organization: OrganizationResolve
+    },
   },
   {
     path: 'settings',
     component: SettingsComponent,
-    /*resolve: {
+    resolve: {
       organization: OrganizationResolve
-    },*//*
+    },
     children: [
       {
         path: '',
+        redirectTo: 'general-information',
+        pathMatch: 'full'
+      },
+      {
+        path: 'general-information',
         component: GeneralInformationComponent
       },
       {
         path: 'address',
         component: AddressComponent
-      },
-    ]*/
+      }
+    ]
   }
 ];
 

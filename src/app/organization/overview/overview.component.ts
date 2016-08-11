@@ -11,7 +11,12 @@ import {OrganizationModel} from '../../services';
 })
 export class OverviewComponent implements OnInit {
 
-  constructor(public route: ActivatedRoute) {
+  organization: OrganizationModel;
+
+  constructor(public activatedRoute: ActivatedRoute) {
+    this.activatedRoute.data.subscribe(result => {
+      this.organization = <OrganizationModel>result;
+    });
   }
 
   ngOnInit() {

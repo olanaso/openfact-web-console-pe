@@ -7,6 +7,7 @@ import { SettingsComponent } from './edit-organization/settings';
 import { InvoicesComponent} from './invoices';
 import { GeneralInformationComponent } from './edit-organization/settings/general-information';
 import { AddressComponent } from './edit-organization/settings/address';
+import { CreateInvoiceComponent } from './invoices/create-invoice/create-invoice.component';
 
 import { OrganizationResolve } from '../../services/resolvers/organization-resolve';
 
@@ -61,6 +62,10 @@ const organizationsRoutes: Routes = [
       {
         path: 'invoices',
         component: InvoicesComponent
+      },
+      {
+        path: 'invoice-create.component',
+        component: CreateInvoiceComponent
       }
     ]
   }

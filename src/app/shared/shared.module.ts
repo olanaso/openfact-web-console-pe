@@ -18,6 +18,7 @@ import {ButtonSaveComponent} from './button-save';
 import {ButtonResetComponent} from './button-reset';
 import {ButtonCancelComponent} from './button-cancel';
 import {ButtonDeleteComponent} from './button-delete';
+import {ToggleButtonComponent} from './toggle-button';
 
 import {NavbarService} from './shared-services/navbar.service';
 import {AlertMessageService} from './shared-services/alert-message.service';
@@ -44,7 +45,8 @@ import {AlertMessageService} from './shared-services/alert-message.service';
         ButtonSaveComponent,
         ButtonResetComponent,
         ButtonCancelComponent,
-        ButtonDeleteComponent
+        ButtonDeleteComponent,
+        ToggleButtonComponent
     ],
     exports: [
         DefaultHeaderComponent,
@@ -60,7 +62,8 @@ import {AlertMessageService} from './shared-services/alert-message.service';
         ButtonSaveComponent,
         ButtonResetComponent,
         ButtonCancelComponent,
-        ButtonDeleteComponent
+        ButtonDeleteComponent,
+        ToggleButtonComponent
     ],
     providers: [
         NavbarService,

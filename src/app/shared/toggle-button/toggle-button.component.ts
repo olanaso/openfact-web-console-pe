@@ -1,4 +1,5 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import {ControlValueAccessor} from '@angular/forms';
 
 @Component({
   moduleId: module.id,
@@ -6,32 +7,32 @@ import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
   templateUrl: 'toggle-button.component.html',
   styleUrls: ['toggle-button.component.css']
 })
-export class ToggleButtonComponent implements OnInit {
+export class ToggleButtonComponent implements OnInit, ControlValueAccessor {
 
-  @Input() on = true;
-  @Output() onChange = new EventEmitter();
-  @Input() disable = false;
-  state: boolean = true;
+  @Input() value: boolean;
+  @Output() onChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Input() disable: boolean = false;
 
   onClick() {
-    this.on = !this.on;
-    this.onChange.emit(this.on);
-    //this.classMap = { 'class1': true, 'class2': false };
+    this.value = !this.value;
+    this.onChange.emit(this.value);
   }
 
   constructor() {
-    // this.classMap = { 'class1': true, 'class2': false };
-    console.log("holaaaa aqui en disabled: " + this.disable);
-
-
   }
 
   ngOnInit() {
 
   }
 
-  // onChange(event:any){
-  //   console.log(event.target.value);    
-  // }
+  writeValue(obj: any): void { }
+  /**
+   * Set the function to be called when the control receives a change event.
+   */
+  registerOnChange(fn: any): void { }
+  /**
+   * Set the function to be called when the control receives a touch event.
+   */
+  registerOnTouched(fn: any): void { }
 
 }

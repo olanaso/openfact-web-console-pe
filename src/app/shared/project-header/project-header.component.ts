@@ -37,23 +37,22 @@ export class ProjectHeaderComponent implements OnInit {
 
   changeOrganization(organization: OrganizationModel) {
     this.selectOrganization = organization;
-    console.log("new: " + organization.name);
-    //console.log(this.router);
+    //console.log("new: " + organization.name+new Date());
+    console.log(this.router.url);
     //let link = [this.router.url, organization.name];
     let link = ['/organizations/edit-organization', organization.name];
     this.headerService.setOrganization(organization);
-    //console.log("after : " + this.selectOrganization.name);
+
+    console.log("after : " + link);
     this.router.navigate(link);
   }
 
   loadProjects() {
     this.dataService.organizations().getAll().subscribe(organizations => { this.organizations = organizations });
     this.selectOrganization = this.headerService.getOrganization();
-    if (this.selectOrganization)
-      console.log("creando... " + this.selectOrganization.name);
-    else
-      console.log("sin instancia de organizations.");
+    // if (this.selectOrganization)
+      //console.log("creando... " + this.selectOrganization.name+new Date());
+    //else
+      //console.log("sin instancia de organizations.");
   }
-
-
 }

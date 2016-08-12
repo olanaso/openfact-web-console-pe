@@ -7,9 +7,9 @@ import {SettingsComponent, GeneralInformationComponent, AddressComponent} from '
 
 const organizationRoutes: Routes = [
   {
-    path: '',
-    redirectTo: 'overview',
-    pathMatch: 'full'
+    path: 'organizations/:organization',
+    redirectTo: 'organizations/:organization/overview',
+    pathMatch: 'prefix'
   },
   {
     path: 'overview',
@@ -28,7 +28,7 @@ const organizationRoutes: Routes = [
       {
         path: '',
         redirectTo: 'general-information',
-        pathMatch: 'full'
+        pathMatch: 'prefix'
       },
       {
         path: 'general-information',

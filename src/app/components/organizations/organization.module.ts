@@ -9,23 +9,26 @@ import {OverviewComponent} from './edit-organization/overview';
 import {SettingsComponent} from './edit-organization/settings';
 import {GeneralInformationComponent} from './edit-organization/settings/general-information';
 import {AddressComponent} from './edit-organization/settings/address';
+import {CertifiedComponent} from './edit-organization/settings/certified';
 
 import {organizationsRouting} from './organization.routes';
 
 @NgModule({
-    declarations: [
-        ListOrganizationComponent,
-        CreateOrganizationComponent,
-        OverviewComponent,
-        SettingsComponent, GeneralInformationComponent, AddressComponent
-    ],
-    imports: [
-        organizationsRouting,
-
-        CommonModule,
-        FormsModule     
-    ],
-    providers: []
+  declarations: [
+    ListOrganizationComponent,
+    CreateOrganizationComponent,
+    OverviewComponent,
+    SettingsComponent,
+    GeneralInformationComponent,
+    AddressComponent,
+    CertifiedComponent
+  ],
+  imports: [
+    organizationsRouting,
+    CommonModule,
+    FormsModule
+  ],
+  providers: []
 })
 
 export class OrganizationModule {

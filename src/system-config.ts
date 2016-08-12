@@ -72,6 +72,7 @@ const barrels: string[] = [
   'app/components/organizations/edit-organization/settings',
   'app/components/organizations/edit-organization/settings/address',
   'app/components/organizations/edit-organization/settings/general-information',
+  'app/components/organizations/edit-organization/settings/certified',
   /** @cli-barrel */
 ];
 

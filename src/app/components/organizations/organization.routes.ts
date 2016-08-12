@@ -1,15 +1,16 @@
-import { Routes, RouterModule } from '@angular/router';
+import {Routes, RouterModule} from '@angular/router';
 
-import { ListOrganizationComponent } from './list-organization';
-import { CreateOrganizationComponent } from './create-organization';
-import { OverviewComponent } from './edit-organization/overview';
-import { SettingsComponent } from './edit-organization/settings';
-import { GeneralInformationComponent } from './edit-organization/settings/general-information';
-import { AddressComponent } from './edit-organization/settings/address';
+import {ListOrganizationComponent} from './list-organization';
+import {CreateOrganizationComponent} from './create-organization';
+import {OverviewComponent} from './edit-organization/overview';
+import {SettingsComponent} from './edit-organization/settings';
+import {GeneralInformationComponent} from './edit-organization/settings/general-information';
+import {AddressComponent} from './edit-organization/settings/address';
+import {CertifiedComponent} from  './edit-organization/settings/certified'
 
-import { OrganizationResolve } from '../../services/resolvers/organization-resolve';
+import {OrganizationResolve} from '../../services/resolvers/organization-resolve';
 
-const organizationsRoutes: Routes = [
+const organizationsRoutes:Routes = [
   {
     path: '',
     redirectTo: 'organizations',
@@ -54,6 +55,10 @@ const organizationsRoutes: Routes = [
           {
             path: 'address',
             component: AddressComponent
+          },
+          {
+            path: 'certified',
+            component: CertifiedComponent
           },
         ]
       }

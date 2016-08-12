@@ -86,6 +86,7 @@ const barrels: string[] = [
   'app/organization/settings',
   'app/organization/settings/address',
   'app/organization/settings/general-information',  
+  'app/organization/settings/tasks-schedule',
   /** @cli-barrel */
 ];
 

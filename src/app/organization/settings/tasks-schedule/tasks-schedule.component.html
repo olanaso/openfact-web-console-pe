@@ -1,0 +1,184 @@
+<alerts [alerts]="alerts"></alerts>
+
+<form [formGroup]="form" (ngSubmit)="save(form.value)" class="form-horizontal" novalidate>
+  <fieldset>
+
+    <div class="form-group" [ngClass]="{ 'has-error' : !form.controls.submitDays.valid && submitted }">
+      <label class="col-md-2 control-label">Submit days
+        <a tooltip="Submit days" tooltipPlacement="right"><span class="fa fa-info-circle"></span></a>
+      </label>
+      <div class="col-md-6 time-selector">
+        <div class="btn-group">
+          <button type="button" class="btn btn-default">Monday</button>
+          <button type="button" class="btn btn-default">Tuesday</button>
+          <button type="button" class="btn btn-default">Wenesday</button>
+          <button type="button" class="btn btn-default">Thursday</button>
+          <button type="button" class="btn btn-default">Friday</button>
+          <button type="button" class="btn btn-default">Saturday</button>
+          <button type="button" class="btn btn-default">Sunday</button>
+        </div>
+        <div *ngIf="!form.controls.submitDays.valid && submitted">
+          <span class="help-block">Type a correct submit days</span>
+        </div>
+      </div>
+    </div>
+    <div class="form-group" [ngClass]="{ 'has-error' : !form.controls.submitTime.valid && submitted }">
+      <label class="col-md-2 control-label">Submit time
+        <a tooltip="Submit time" tooltipPlacement="right"><span class="fa fa-info-circle"></span></a>
+      </label>
+      <div class="col-md-3 time-selector">
+        <input formControlName="submitTime" type="time" class="form-control" />
+        <div *ngIf="!form.controls.submitTime.valid && submitted">
+          <span class="help-block">Type a correct submit time</span>
+        </div>
+      </div>
+    </div>
+    <div class="form-group" [ngClass]="{ 'has-error' : !form.controls.delayTime.valid && submitted }">
+      <label class="col-md-2 control-label">Delay time
+        <a tooltip="Delay time" tooltipPlacement="right"><span class="fa fa-info-circle"></span></a>
+      </label>
+      <div class="col-md-6 time-selector">
+        <input formControlName="delayTime" type="number" class="form-control" />
+        <select class="form-control">
+          <option value="Minutes">Minutes</option>
+          <option value="Hours">Hours</option>
+          <option value="Days">Days</option>
+        </select>
+        <div *ngIf="!form.controls.delayTime.valid && submitted">
+          <span class="help-block">Type a correct delay time</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group" [ngClass]="{ 'has-error' : !form.controls.attempNumber.valid && submitted }">
+      <label class="col-md-2 control-label">Attemp number
+        <a tooltip="Attemp number" tooltipPlacement="right"><span class="fa fa-info-circle"></span></a>
+      </label>
+      <div class="col-md-6 time-selector">
+        <input formControlName="attempNumber" type="number" class="form-control" />
+        <select class="form-control">
+          <option value="Minutes">Minutes</option>
+          <option value="Hours">Hours</option>
+          <option value="Days">Days</option>
+        </select>
+        <div *ngIf="!form.controls.attempNumber.valid && submitted">
+          <span class="help-block">Type a correct attemp number</span>
+        </div>
+      </div>
+    </div>
+    <div class="form-group" [ngClass]="{ 'has-error' : !form.controls.lapseTime.valid && submitted }">
+      <label class="col-md-2 control-label">Lapse time
+        <a tooltip="Lapse time" tooltipPlacement="right"><span class="fa fa-info-circle"></span></a>
+      </label>
+      <div class="col-md-6 time-selector">
+        <input formControlName="lapseTime" type="number" class="form-control" />
+        <select class="form-control">
+          <option value="Minutes">Minutes</option>
+          <option value="Hours">Hours</option>
+          <option value="Days">Days</option>
+        </select>
+        <div *ngIf="!form.controls.lapseTime.valid && submitted">
+          <span class="help-block">Type a correct lapse time</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group" [ngClass]="{ 'has-error' : !form.controls.onErrorAttempNumber.valid && submitted }">
+      <label class="col-md-2 control-label">On error attemp number
+        <a tooltip="On error attemp number" tooltipPlacement="right"><span class="fa fa-info-circle"></span></a>
+      </label>
+      <div class="col-md-6 time-selector">
+        <input formControlName="onErrorAttempNumber" type="number" class="form-control" />
+        <select class="form-control">
+          <option value="Minutes">Minutes</option>
+          <option value="Hours">Hours</option>
+          <option value="Days">Days</option>
+        </select>
+        <div *ngIf="!form.controls.onErrorAttempNumber.valid && submitted">
+          <span class="help-block">Type a correct on error attemp number</span>
+        </div>
+      </div>
+    </div>
+    <div class="form-group" [ngClass]="{ 'has-error' : !form.controls.onErrorLapseTime.valid && submitted }">
+      <label class="col-md-2 control-label">On error lapse time
+        <a tooltip="On error lapse time" tooltipPlacement="right"><span class="fa fa-info-circle"></span></a>
+      </label>
+      <div class="col-md-6 time-selector">
+        <input formControlName="onErrorLapseTime" type="number" class="form-control" />
+        <select class="form-control">
+          <option value="Minutes">Minutes</option>
+          <option value="Hours">Hours</option>
+          <option value="Days">Days</option>
+        </select>
+        <div *ngIf="!form.controls.onErrorLapseTime.valid && submitted">
+          <span class="help-block">Type a correct lapse time</span>
+        </div>
+      </div>
+    </div>
+
+    <!--<div class="form-group" [ngClass]="{ 'has-error' : !form.controls.citySubdivisionName.valid && submitted }">
+      <label class="col-md-2 control-label">City subdivision name
+        <a tooltip="City subdivision name" tooltipPlacement="right"><span class="fa fa-info-circle"></span></a>
+      </label>
+      <div class="col-md-3">
+        <input formControlName="citySubdivisionName" type="text" class="form-control"/>
+        <div *ngIf="!form.controls.citySubdivisionName.valid && submitted">
+          <span class="help-block">Type a correct city subdivision name</span>
+        </div>
+      </div>
+    </div>
+    <div class="form-group" [ngClass]="{ 'has-error' : !form.controls.cityName.valid && submitted }">
+      <label class="col-md-2 control-label">City name
+        <a tooltip="City name" tooltipPlacement="right"><span class="fa fa-info-circle"></span></a>
+      </label>
+      <div class="col-md-2">
+        <input formControlName="cityName" type="text" class="form-control" />
+        <div *ngIf="!form.controls.cityName.valid && submitted">
+          <span class="help-block">Type a correct city name</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group" [ngClass]="{ 'has-error' : !form.controls.countrySubentity.valid && submitted }">
+      <label class="col-md-2 control-label">Country subentity
+        <a tooltip="Country subentity" tooltipPlacement="right"><span class="fa fa-info-circle"></span></a>
+      </label>
+      <div class="col-md-5">
+        <input formControlName="countrySubentity" type="text" class="form-control" />
+        <div *ngIf="!form.controls.countrySubentity.valid && submitted">
+          <span class="help-block">Type a correct country subentity</span>
+        </div>
+      </div>
+    </div>
+    <div class="form-group" [ngClass]="{ 'has-error' : !form.controls.district.valid && submitted }">
+      <label class="col-md-2 control-label">District
+        <a tooltip="District" tooltipPlacement="right"><span class="fa fa-info-circle"></span></a>
+      </label>
+      <div class="col-md-5">
+        <input formControlName="district" type="text" class="form-control" />
+        <div *ngIf="!form.controls.district.valid && submitted">
+          <span class="help-block">Type a correct district</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group" [ngClass]="{ 'has-error' : !form.controls.countryIdentificationCode.valid && submitted }">
+      <label class="col-md-2 control-label">Country identification code
+        <a tooltip="Country identification code" tooltipPlacement="right"><span class="fa fa-info-circle"></span></a>
+      </label>
+      <div class="col-md-2">
+        <input formControlName="countryIdentificationCode" type="text" class="form-control" />
+        <div *ngIf="!form.controls.countryIdentificationCode.valid && submitted">
+          <span class="help-block">Type a correct country identification code</span>
+        </div>
+      </div>
+    </div>-->
+
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <button-save [form]="form" [working]="working" [alerts]="alerts" (onClick)="setSubmitted($event)"></button-save>
+        <button-reset [form]="form" [working]="working" (onClick)="reset($event)"></button-reset>
+      </div>
+    </div>
+  </fieldset>
+</form>

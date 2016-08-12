@@ -70,7 +70,7 @@ export class CreateOrganizationComponent implements OnInit {
           details: 'Success! The organization has been created.'
         });        
 
-        let link = ['/organizations', organization.name];
+        let link = ['/organization', organization.name];
         this.router.navigate(link);
       },
       error => {

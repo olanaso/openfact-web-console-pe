@@ -48,7 +48,7 @@ export class ListOrganizationComponent implements OnInit {
   }
 
   editOrganization(organization: OrganizationModel) {
-    let link = ['/organizations', organization.name];
+    let link = ['/organization', organization.name];
     this.router.navigate(link);
   }
 

@@ -14,7 +14,9 @@ export class OrganizationModel implements Model {
     public additionalAccountId: string;
     public assignedIdentificationId: string;
     public enabled: boolean;
+
     public postalAddress: PostalAddress;
+    public tasksSchedule: TasksSchedule;
 
     /*Constructor*/
     constructor(restangular: Restangular) {
@@ -39,4 +41,15 @@ export interface PostalAddress {
     countrySubentity: string;
     district: string;
     countryIdentificationCode: string;
+}
+
+export interface TasksSchedule {
+    attempNumber: string;
+    lapseTime: string;
+    onErrorAttempNumber: string;
+    onErrorLapseTime: string;
+
+    delayTime: string;
+    submitTime: string;
+    submitDays: number[];
 }

@@ -3,12 +3,12 @@ import {Routes, RouterModule} from '@angular/router';
 import {OrganizationResolve} from '../services';
 
 import {OverviewComponent} from './overview';
-import {SettingsComponent, GeneralInformationComponent, AddressComponent} from './settings';
+import {SettingsComponent, GeneralInformationComponent, AddressComponent, TasksScheduleComponent} from './settings';
 
 const organizationRoutes: Routes = [
   {
-    path: 'organizations/:organization',
-    redirectTo: 'organizations/:organization/overview',
+    path: 'organization/:organization',
+    redirectTo: 'organization/:organization/overview',
     pathMatch: 'prefix'
   },
   {
@@ -37,6 +37,10 @@ const organizationRoutes: Routes = [
       {
         path: 'address',
         component: AddressComponent
+      },
+      {
+        path: 'tasks-schedule',
+        component: TasksScheduleComponent
       }
     ]
   }

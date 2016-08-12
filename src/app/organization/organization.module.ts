@@ -7,7 +7,7 @@ import {SharedModule} from '../shared';
 import {organizationRouting} from './organization.routes';
 
 import {OverviewComponent} from './overview';
-import {SettingsComponent, GeneralInformationComponent, AddressComponent} from './settings';
+import {SettingsComponent, GeneralInformationComponent, AddressComponent, TasksScheduleComponent} from './settings';
 
 @NgModule({
     imports: [
@@ -21,7 +21,8 @@ import {SettingsComponent, GeneralInformationComponent, AddressComponent} from '
         OverviewComponent,
         SettingsComponent,
         GeneralInformationComponent,
-        AddressComponent
+        AddressComponent,
+        TasksScheduleComponent
     ],
     providers: []
 })

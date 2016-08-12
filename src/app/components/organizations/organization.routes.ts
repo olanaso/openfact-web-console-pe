@@ -4,6 +4,7 @@ import { ListOrganizationComponent } from './list-organization';
 import { CreateOrganizationComponent } from './create-organization';
 import { OverviewComponent } from './edit-organization/overview';
 import { SettingsComponent } from './edit-organization/settings';
+import { ListInvoiceComponent} from './invoices/list-invoice';
 import { InvoicesComponent} from './invoices';
 import { GeneralInformationComponent } from './edit-organization/settings/general-information';
 import { AddressComponent } from './edit-organization/settings/address';
@@ -60,7 +61,8 @@ const organizationsRoutes: Routes = [
       },
       {
         path: 'invoices',
-        component: InvoicesComponent
+        //component:InvoicesComponent
+        component: ListInvoiceComponent
       }
     ]
   }

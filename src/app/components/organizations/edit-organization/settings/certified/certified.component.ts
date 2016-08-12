@@ -4,9 +4,9 @@
 
 import { Component, OnInit } from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
-import {Validators} from '@angular/common';
+import {Validators,CORE_DIRECTIVES, FORM_DIRECTIVES, NgClass, NgStyle} from '@angular/common';
 import {REACTIVE_FORM_DIRECTIVES, FormGroup, FormControl, FormBuilder} from '@angular/forms';
-
+import {FILE_UPLOAD_DIRECTIVES, FileUploader} from 'ng2-file-upload';
 
 /*Directives import*/
 import {AlertsComponent} from '../../../../../shared/alerts';
@@ -19,6 +19,8 @@ import {AlertMessageService} from '../../../../../services/alert-message.service
 import {Alert} from '../../../../../services/alert';
 import {CertifiedModel} from '../../../../../services/models/certified-model';
 
+const URL = 'https://evening-anchorage-3159.herokuapp.com/api/';
+
 @Component({
   moduleId: module.id,
   selector: 'app-certified',
@@ -28,12 +30,17 @@ import {CertifiedModel} from '../../../../../services/models/certified-model';
     REACTIVE_FORM_DIRECTIVES,
     AlertsComponent,
     ButtonSaveComponent,
-    ButtonCancelComponent
-  ],
+    ButtonCancelComponent,
+    FILE_UPLOAD_DIRECTIVES,
+    NgClass,
+    NgStyle,
+    CORE_DIRECTIVES,
+    FORM_DIRECTIVES  ],
   providers: [FormBuilder]
 })
 
 export class CertifiedComponent implements OnInit {
+
   certified:CertifiedModel;
   form: FormGroup;
   working: boolean = false;
@@ -47,6 +54,22 @@ export class CertifiedComponent implements OnInit {
     private alertMessageService: AlertMessageService) {
     this.certified = this.activatedRoute.parent.snapshot.data['certified'];
   }
+
+  public uploader:FileUploader = new FileUploader({url: URL});
+  public hasBaseDropZoneOver:boolean = false;
+  public hasAnotherDropZoneOver:boolean = false;
+
+  public fileOverBase(e:any):void {
+    this.hasBaseDropZoneOver = e;
+  }
+
+  public fileOverAnother(e:any):void {
+    this.hasAnotherDropZoneOver = e;
+  }
+
+
+
+
   ngOnInit() {
     this.loadAlerts();
     this.buildForm();
@@ -66,14 +89,13 @@ export class CertifiedComponent implements OnInit {
     this.alertMessageService.clearAlerts();
   }
   buildForm() {
-   /* this.form = this.formBuilder.group({
-      name: ['', []],
-      supplierName: ['', []],
-      registrationName: ['', []],
-      additionalAccountId: ['', []],
-      assignedIdentificationId: ['', []],
-      enabled: ['', []]
-    });*/
+    this.form = this.formBuilder.group({
+      alias: ['', []],
+      certificate: ['', []],
+      password: ['', []],
+      passwordConfirmation: ['', []],
+      validity: ['', []]
+    });
   }
   setSubmitted(submitted: boolean) {
     this.submitted = submitted;

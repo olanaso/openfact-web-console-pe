@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule} from '@angular/router';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CommonModule}   from '@angular/common';
 import {SharedModule} from '../shared';
 
@@ -13,6 +13,7 @@ import {SettingsComponent, GeneralInformationComponent, AddressComponent} from '
     imports: [
         CommonModule,
         FormsModule,
+        ReactiveFormsModule,
         SharedModule,
         organizationRouting
     ],

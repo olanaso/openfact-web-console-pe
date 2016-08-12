@@ -1,14 +1,16 @@
 <!--Link-->
-<a *ngIf="!buttonOnly" href="javascript:void(0)" (click)="showModalResource()" [ngClass]="{ 'disabled': disableDelete }">
+<div style="display: inline-block;">
+  <a *ngIf="!buttonOnly" href="javascript:void(0)" (click)="showModalResource()" [ngClass]="{ 'disabled': disableDelete }">
     {{label || 'Delete'}}
-</a>
-
-<!--Button-->
-<div *ngIf="buttonOnly" class="actions">
-  <a href="javascript:void(0)" (click)="showModalResource()" class="action-button" [ngClass]="{ 'disabled-link': disableDelete }">
-    <i class="fa fa-trash-o"></i>
-    <span class="sr-only">Delete {{type}}</span>
   </a>
+
+  <!--Button-->
+  <div *ngIf="buttonOnly" class="actions">
+    <a href="javascript:void(0)" (click)="showModalResource()" class="action-button" [ngClass]="{ 'disabled-link': disableDelete }">
+      <i class="pficon pficon-delete"></i>
+      <span class="sr-only">Delete {{type}}</span>
+    </a>
+  </div>
 </div>
 
 <!-- modal -->

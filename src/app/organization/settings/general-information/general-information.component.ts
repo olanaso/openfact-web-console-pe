@@ -8,13 +8,14 @@ import {Alert, AlertMessageService} from '../../../shared';
 
 @Component({
   moduleId: module.id,
-  selector: 'app-general-information',
+  selector: 'general-information',
   templateUrl: 'general-information.component.html',
   styleUrls: ['general-information.component.css']
 })
 export class GeneralInformationComponent implements OnInit {
 
   organization: OrganizationModel;
+  additionalAccountIds: string[] = ['DNI', 'RUC'];
 
   form: FormGroup;
   working: boolean = false;
@@ -38,12 +39,12 @@ export class GeneralInformationComponent implements OnInit {
   }
 
   loadData() {
-    (<FormControl>this.form.controls['name']).updateValue(this.organization.name);
-    (<FormControl>this.form.controls['supplierName']).updateValue(this.organization.supplierName);
-    (<FormControl>this.form.controls['registrationName']).updateValue(this.organization.registrationName);
-    (<FormControl>this.form.controls['additionalAccountId']).updateValue(this.organization.additionalAccountId);
-    (<FormControl>this.form.controls['assignedIdentificationId']).updateValue(this.organization.assignedIdentificationId);
-    //this.form.setValue(this.organization);
+    (<FormControl>this.form.controls['name']).setValue(this.organization.name);
+    (<FormControl>this.form.controls['additionalAccountId']).setValue(this.organization.additionalAccountId);
+    (<FormControl>this.form.controls['assignedIdentificationId']).setValue(this.organization.assignedIdentificationId);
+    (<FormControl>this.form.controls['supplierName']).setValue(this.organization.supplierName);
+    (<FormControl>this.form.controls['registrationName']).setValue(this.organization.registrationName);
+    (<FormControl>this.form.controls['enabled']).setValue(this.organization.enabled);
   }
 
   loadAlerts() {
@@ -72,29 +73,30 @@ export class GeneralInformationComponent implements OnInit {
     /*Disable button*/
     this.working = true;
 
-    this.organization = Object.assign(this.organization, organization);
+    Object.assign(this.organization, organization);
 
     this.organization.save().subscribe(
       result => {
         this.alerts.push({
           type: 'success',
-          message: 'Organization ' + organization.name + ' updated.'
+          message: 'Success',
+          details: 'Your changes have been saved to the organization.'
         });
+        this.working = false;
       },
       error => {
         this.working = false;
         this.alerts.push({
           type: 'error',
-          message: 'Organizations could not be create.',
-          details: error
+          message: 'Error',
+          details: 'Your changes could not saved to the organization.'
         });
       }
     );;
   }
 
-  cancel() {
-    let link = ['./overview'];
-    this.router.navigate(link);
+  reset() {    
+    this.loadData();
   }
 
 }

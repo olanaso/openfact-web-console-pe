@@ -1,7 +1,7 @@
-export * from './shared.module';
 export * from './alerts';
 export * from './button-cancel';
 export * from './button-delete';
+export * from './button-reset';
 export * from './button-save';
 export * from './default-header';
 export * from './events-sidebar';
@@ -9,5 +9,6 @@ export * from './navbar-utility';
 export * from './navbar-utility-mobile';
 export * from './project-header';
 export * from './shared-services';
+export * from './shared.module';
 export * from './sidebar';
 export * from './toggle-button';

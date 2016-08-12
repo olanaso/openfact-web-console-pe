@@ -14,6 +14,7 @@ export class OrganizationModel implements Model {
     public additionalAccountId: string;
     public assignedIdentificationId: string;
     public enabled: boolean;
+    public postalAddress: PostalAddress;
 
     /*Constructor*/
     constructor(restangular: Restangular) {
@@ -29,4 +30,13 @@ export class OrganizationModel implements Model {
     public save() {
         return this.restangular.put(this.clone());
     }
+}
+
+export interface PostalAddress {
+    streetName: string;
+    citySubdivisionName: string;
+    cityName: string;
+    countrySubentity: string;
+    district: string;
+    countryIdentificationCode: string;
 }

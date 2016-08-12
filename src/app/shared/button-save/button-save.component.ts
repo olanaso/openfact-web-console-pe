@@ -18,7 +18,7 @@ export class ButtonSaveComponent implements OnInit {
 
   constructor(private alertMessageService: AlertMessageService) { }
 
-  ngOnInit() {
+  ngOnInit() {    
   }
 
   onClickChild(event) {
@@ -27,7 +27,7 @@ export class ButtonSaveComponent implements OnInit {
         this.putErrorAlerts(this.form, this.alerts);
       }
       event.preventDefault();
-    }
+    }    
     this.onClick.emit(true);
   }
 

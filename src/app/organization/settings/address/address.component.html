@@ -1,1 +1,82 @@
-{{organization | json}}
+<alerts [alerts]="alerts"></alerts>
+
+<form [formGroup]="form" (ngSubmit)="save(form.value)" class="form-horizontal" novalidate>
+  <fieldset>
+    <div class="form-group" [ngClass]="{ 'has-error' : !form.controls.streetName.valid && submitted }">
+      <label class="col-md-2 control-label">Street name
+        <a tooltip="Street name" tooltipPlacement="right"><span class="fa fa-info-circle"></span></a>
+      </label>
+      <div class="col-md-3">
+        <input formControlName="streetName" type="text" class="form-control"/>
+        <div *ngIf="!form.controls.streetName.valid && submitted">
+          <span class="help-block">Type a correct street name</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group" [ngClass]="{ 'has-error' : !form.controls.citySubdivisionName.valid && submitted }">
+      <label class="col-md-2 control-label">City subdivision name
+        <a tooltip="City subdivision name" tooltipPlacement="right"><span class="fa fa-info-circle"></span></a>
+      </label>
+      <div class="col-md-3">
+        <input formControlName="citySubdivisionName" type="text" class="form-control"/>
+        <div *ngIf="!form.controls.citySubdivisionName.valid && submitted">
+          <span class="help-block">Type a correct city subdivision name</span>
+        </div>
+      </div>
+    </div>
+    <div class="form-group" [ngClass]="{ 'has-error' : !form.controls.cityName.valid && submitted }">
+      <label class="col-md-2 control-label">City name
+        <a tooltip="City name" tooltipPlacement="right"><span class="fa fa-info-circle"></span></a>
+      </label>
+      <div class="col-md-2">
+        <input formControlName="cityName" type="text" class="form-control" />
+        <div *ngIf="!form.controls.cityName.valid && submitted">
+          <span class="help-block">Type a correct city name</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group" [ngClass]="{ 'has-error' : !form.controls.countrySubentity.valid && submitted }">
+      <label class="col-md-2 control-label">Country subentity
+        <a tooltip="Country subentity" tooltipPlacement="right"><span class="fa fa-info-circle"></span></a>
+      </label>
+      <div class="col-md-5">
+        <input formControlName="countrySubentity" type="text" class="form-control" />
+        <div *ngIf="!form.controls.countrySubentity.valid && submitted">
+          <span class="help-block">Type a correct country subentity</span>
+        </div>
+      </div>
+    </div>
+    <div class="form-group" [ngClass]="{ 'has-error' : !form.controls.district.valid && submitted }">
+      <label class="col-md-2 control-label">District
+        <a tooltip="District" tooltipPlacement="right"><span class="fa fa-info-circle"></span></a>
+      </label>
+      <div class="col-md-5">
+        <input formControlName="district" type="text" class="form-control" />
+        <div *ngIf="!form.controls.district.valid && submitted">
+          <span class="help-block">Type a correct district</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group" [ngClass]="{ 'has-error' : !form.controls.countryIdentificationCode.valid && submitted }">
+      <label class="col-md-2 control-label">Country identification code
+        <a tooltip="Country identification code" tooltipPlacement="right"><span class="fa fa-info-circle"></span></a>
+      </label>
+      <div class="col-md-2">
+        <input formControlName="countryIdentificationCode" type="text" class="form-control" />
+        <div *ngIf="!form.controls.countryIdentificationCode.valid && submitted">
+          <span class="help-block">Type a correct country identification code</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <button-save [form]="form" [working]="working" [alerts]="alerts" (onClick)="setSubmitted($event)"></button-save>
+        <button-reset [form]="form" [working]="working" (onClick)="reset($event)"></button-reset>
+      </div>
+    </div>
+  </fieldset>
+</form>

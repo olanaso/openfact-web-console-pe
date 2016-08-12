@@ -64,6 +64,12 @@ export class CreateOrganizationComponent implements OnInit {
     /*Call to the service*/
     this.dataService.organizations().create(this.organization).subscribe(
       result => {
+        this.alertMessageService.addAlert({
+          type: 'success',
+          message: 'Success',
+          details: 'Success! The organization has been created.'
+        });        
+
         let link = ['/organizations', organization.name];
         this.router.navigate(link);
       },
@@ -71,8 +77,8 @@ export class CreateOrganizationComponent implements OnInit {
         this.working = false;
         this.alerts.push({
           type: 'error',
-          message: 'Organizations could not be create.',
-          details: error
+          message: 'Error',
+          details: 'Organization could not be created.'
         });
       }
     );

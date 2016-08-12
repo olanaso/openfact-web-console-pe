@@ -4,7 +4,8 @@
   <div>
     <h1>
       {{organization.name}}
-      <i class="pficon pficon-delete"></i>
+      <button-delete [model]="organization" [type]="'Organization'" [resourceName]="organization.name" [buttonOnly]="true" [redirectUrl]="'/organizations'">
+      </button-delete>
     </h1>
     <ul class="nav nav-tabs">
       <li routerLinkActive="active"><a [routerLink]="['./general-information']">General information</a></li>

@@ -11,10 +11,14 @@ export class AlertsComponent implements OnInit {
 
   differ: any;
 
-  @Input() alerts: Array<Alert>
+  @Input() alerts: Array<Alert>;
   @Input() filter: any;
   @Input() hideCloseButton: boolean;
+  
+  @Input() floating: boolean = true;
   @Input() toast: boolean;
+
+  @Input() timeout: number = 5000;
 
   constructor(private differs: KeyValueDiffers) {
     this.differ = differs.find({}).create(null);
@@ -28,7 +32,7 @@ export class AlertsComponent implements OnInit {
   }
 
   addItemAlert(currentValue: Alert) {
-    setTimeout(() => this.close(currentValue), 3000);
+    setTimeout(() => this.close(currentValue), this.timeout);
   }
 
   ngOnInit() {

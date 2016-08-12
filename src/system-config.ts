@@ -76,6 +76,7 @@ const barrels: string[] = [
   'app/shared/events-sidebar',
   'app/shared/alerts',
   'app/shared/button-save',
+  'app/shared/button-reset',
   'app/shared/button-cancel',
   'app/shared/button-delete',
   'app/shared/toggle-button',
@@ -84,7 +85,7 @@ const barrels: string[] = [
   'app/organization/overview',
   'app/organization/settings',
   'app/organization/settings/address',
-  'app/organization/settings/general-information',
+  'app/organization/settings/general-information',  
   /** @cli-barrel */
 ];
 

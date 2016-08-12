@@ -1,78 +1,85 @@
 <alerts [alerts]="alerts"></alerts>
-{{organization | json}}
-<!--<form [formGroup]="form" (ngSubmit)="save(form.value)" class="form-horizontal" novalidate>
+
+<form [formGroup]="form" (ngSubmit)="save(form.value)" class="form-horizontal" novalidate>
   <fieldset>
     <div class="form-group" [ngClass]="{ 'has-error' : !form.controls.name.valid && submitted }">
-      <label class="col-sm-2 control-label">Name
+      <label class="col-md-2 control-label">Name
         <a tooltip="Name of the organization" tooltipPlacement="right"><span class="fa fa-info-circle"></span></a>
       </label>
-      <div class="col-sm-3">
-        <input formControlName="name" type="text" class="form-control" autofocus/>
+      <div class="col-md-3">
+        <input formControlName="name" type="text" class="form-control" disabled/>
         <div *ngIf="!form.controls.name.valid && submitted">
           <span class="help-block">Type a correct name</span>
         </div>
       </div>
     </div>
-    <div class="form-group" [ngClass]="{ 'has-error' : !form.controls.supplierName.valid && submitted }">
-      <label class="col-sm-2 control-label">Supplier name
-        <a tooltip="Name of the organization" tooltipPlacement="right"><span class="fa fa-info-circle"></span></a>
-      </label>
-      <div class="col-sm-3">
-        <input formControlName="supplierName" type="text" class="form-control" />
-        <div *ngIf="!form.controls.supplierName.valid && submitted">
-          <span class="help-block">Type a correct supplierName</span>
-        </div>
-      </div>
-    </div>
-    <div class="form-group" [ngClass]="{ 'has-error' : !form.controls.registrationName.valid && submitted }">
-      <label class="col-sm-2 control-label">Registration name
-        <a tooltip="Name of the organization" tooltipPlacement="right"><span class="fa fa-info-circle"></span></a>
-      </label>
-      <div class="col-sm-3">
-        <input formControlName="registrationName" type="text" class="form-control" />
-        <div *ngIf="!form.controls.registrationName.valid && submitted">
-          <span class="help-block">Type a correct registrationName</span>
-        </div>
-      </div>
-    </div>
+
     <div class="form-group" [ngClass]="{ 'has-error' : !form.controls.additionalAccountId.valid && submitted }">
-      <label class="col-sm-2 control-label">AdditionalAccount id
-        <a tooltip="Name of the organization" tooltipPlacement="right"><span class="fa fa-info-circle"></span></a>
+      <label class="col-md-2 control-label">Additional account id
+        <a tooltip="Document type used on your location" tooltipPlacement="right"><span class="fa fa-info-circle"></span></a>
       </label>
-      <div class="col-sm-3">
-        <input formControlName="additionalAccountId" type="text" class="form-control" />
+      <div class="col-md-3">
+        <select formControlName="additionalAccountId" class="form-control">
+            <option></option>
+            <option *ngFor="let i of additionalAccountIds">{{i}}</option>
+        </select>
         <div *ngIf="!form.controls.additionalAccountId.valid && submitted">
-          <span class="help-block">Type a correct additionalAccountId</span>
+          <span class="help-block">Type a correct additional account id</span>
         </div>
       </div>
     </div>
     <div class="form-group" [ngClass]="{ 'has-error' : !form.controls.assignedIdentificationId.valid && submitted }">
-      <label class="col-sm-2 control-label">assigned Identification id
-        <a tooltip="Name of the organization" tooltipPlacement="right"><span class="fa fa-info-circle"></span></a>
+      <label class="col-md-2 control-label">Assigned identification id
+        <a tooltip="Number of the document asigned to you" tooltipPlacement="right"><span class="fa fa-info-circle"></span></a>
       </label>
-      <div class="col-sm-3">
+      <div class="col-md-2">
         <input formControlName="assignedIdentificationId" type="text" class="form-control" />
         <div *ngIf="!form.controls.assignedIdentificationId.valid && submitted">
-          <span class="help-block">Type a correct assignedIdentificationId</span>
+          <span class="help-block">Type a correct assigned identification id</span>
         </div>
       </div>
     </div>
+
+    <div class="form-group" [ngClass]="{ 'has-error' : !form.controls.supplierName.valid && submitted }">
+      <label class="col-md-2 control-label">Supplier name
+        <a tooltip="Supplier name" tooltipPlacement="right"><span class="fa fa-info-circle"></span></a>
+      </label>
+      <div class="col-md-5">
+        <input formControlName="supplierName" type="text" class="form-control" />
+        <div *ngIf="!form.controls.supplierName.valid && submitted">
+          <span class="help-block">Type a correct supplier name</span>
+        </div>
+      </div>
+    </div>
+    <div class="form-group" [ngClass]="{ 'has-error' : !form.controls.registrationName.valid && submitted }">
+      <label class="col-md-2 control-label">Registration name
+        <a tooltip="Registration name" tooltipPlacement="right"><span class="fa fa-info-circle"></span></a>
+      </label>
+      <div class="col-md-5">
+        <input formControlName="registrationName" type="text" class="form-control" />
+        <div *ngIf="!form.controls.registrationName.valid && submitted">
+          <span class="help-block">Type a correct registration name</span>
+        </div>
+      </div>
+    </div>
+
     <div class="form-group" [ngClass]="{ 'has-error' : !form.controls.enabled.valid && submitted }">
-      <label class="col-sm-2 control-label">enabled
+      <label class="col-md-2 control-label">Enabled
         <a tooltip="Name of the organization" tooltipPlacement="right"><span class="fa fa-info-circle"></span></a>
       </label>
-      <div class="col-sm-3">
+      <div class="col-md-2">
         <input formControlName="enabled" type="text" class="form-control" />
         <div *ngIf="!form.controls.enabled.valid && submitted">
           <span class="help-block">Type a correct enabled</span>
         </div>
       </div>
     </div>
+
     <div class="form-group">
       <div class="col-sm-offset-2 col-sm-10">
         <button-save [form]="form" [working]="working" [alerts]="alerts" (onClick)="setSubmitted($event)"></button-save>
-        <button-cancel [working]="working" (onClick)="cancel($event)"></button-cancel>
+        <button-reset [form]="form" [working]="working" (onClick)="reset($event)"></button-reset>
       </div>
     </div>
   </fieldset>
-</form>-->
+</form>

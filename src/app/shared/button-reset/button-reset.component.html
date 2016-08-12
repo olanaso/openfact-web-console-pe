@@ -1,0 +1,6 @@
+<button type="button" *ngIf="!form.dirty" class="btn btn-default" disabled>
+  <span>Cancel</span>
+</button>
+<button type="button" *ngIf="form.dirty" (click)="onChildClick()" [disabled]="working" class="btn btn-default">
+  <span>Cancel</span>
+</button>

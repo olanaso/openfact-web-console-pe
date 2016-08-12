@@ -7,11 +7,8 @@ import { SettingsComponent } from './edit-organization/settings';
 import { InvoicesComponent} from './invoices';
 import { GeneralInformationComponent } from './edit-organization/settings/general-information';
 import { AddressComponent } from './edit-organization/settings/address';
-<<<<<<< HEAD
 import { CreateInvoiceComponent } from './invoices/create-invoice/create-invoice.component';
-=======
 import {CertifiedComponent} from  './edit-organization/settings/certified'
->>>>>>> 0053340110b815190dcc67d35a334184f6af3ac6
 
 import { OrganizationResolve } from '../../services/resolvers/organization-resolve';
 

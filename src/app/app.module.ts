@@ -30,6 +30,7 @@ import {OrganizationResolve} from './services/resolvers/organization-resolve';
 
 import {NavbarService} from './services/navbar.service';
 import {AlertMessageService} from './services/alert-message.service';
+import {HeaderService} from './services/header.service';
 
 let openfactServiceFactory = (config: RestConfig, http: Http) => {
     return new OpenfactService(config.url, http);
@@ -82,7 +83,8 @@ export let SunatServiceProvider = provide(SunatService, {
         OrganizationProviderService,
 
         NavbarService,
-        AlertMessageService
+        AlertMessageService,
+        HeaderService
     ],
     bootstrap: [AppComponent],
 })

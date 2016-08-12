@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ROUTER_DIRECTIVES } from '@angular/router';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { DataService } from '../../services/data.service';
 
 import { NavbarUtilityComponent } from '../navbar-utility';
@@ -8,6 +8,7 @@ import { NavbarUtilityComponent } from '../navbar-utility';
 import { OrganizationModel } from '../../services/models/organization-model';
 import { AlertMessageService } from '../../services/alert-message.service';
 import { Alert } from '../../services/alert';
+import { HeaderService } from '../../services/header.service';
 
 @Component({
   moduleId: module.id,
@@ -15,28 +16,43 @@ import { Alert } from '../../services/alert';
   templateUrl: 'project-header.component.html',
   styleUrls: ['project-header.component.css'],
   directives: [ROUTER_DIRECTIVES, NavbarUtilityComponent]
+  //providers: [HeaderService]
 })
 export class ProjectHeaderComponent implements OnInit {
 
   organizations: Array<OrganizationModel> = [];
+  private selectOrganization: OrganizationModel;
 
   constructor(
     private router: Router,
-    private dataService: DataService) {
+    private dataService: DataService,
+    private route: ActivatedRoute,
+    private headerService: HeaderService) {
+
   }
 
   ngOnInit() {
     this.loadProjects();
   }
 
-  editOrganization(organizationName: string) {
-    let link = ['/organizations/edit-organization', organizationName];
+  changeOrganization(organization: OrganizationModel) {
+    this.selectOrganization = organization;
+    //console.log("new: " + organization.name+new Date());
+    console.log(this.router.url);
+    //let link = [this.router.url, organization.name];
+    let link = ['/organizations/edit-organization', organization.name];
+    this.headerService.setOrganization(organization);
+
+    console.log("after : " + link);
     this.router.navigate(link);
   }
 
   loadProjects() {
     this.dataService.organizations().getAll().subscribe(organizations => { this.organizations = organizations });
+    this.selectOrganization = this.headerService.getOrganization();
+    // if (this.selectOrganization)
+      //console.log("creando... " + this.selectOrganization.name+new Date());
+    //else
+      //console.log("sin instancia de organizations.");
   }
-
-
 }

@@ -14,6 +14,7 @@ import {OrganizationModel} from '../../../services/models/organization-model';
 /*Services import*/
 import {AlertMessageService} from '../../../services/alert-message.service';
 import {DataService} from '../../../services/data.service';
+import { HeaderService } from '../../../services/header.service';
 
 @Component({
   moduleId: module.id,
@@ -35,7 +36,8 @@ export class ListOrganizationComponent implements OnInit {
   constructor(
     private router: Router,
     private alertMessageService: AlertMessageService,
-    private dataService: DataService) {
+    private dataService: DataService,
+    private headerService:HeaderService) {
     this.organizations = [];
     this.alerts = [];
   }
@@ -70,6 +72,7 @@ export class ListOrganizationComponent implements OnInit {
   }
 
   editOrganization(organization: OrganizationModel) {
+     this.headerService.setOrganization(organization);
     let link = ['/organizations/edit-organization', organization.name];
     this.router.navigate(link);
   }

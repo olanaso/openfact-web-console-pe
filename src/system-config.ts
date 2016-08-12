@@ -11,7 +11,8 @@
 const map: any = {
   'underscore': 'vendor/underscore/underscore.js',
   'moment': 'vendor/moment/moment.js',
-  'ng2-bootstrap': 'vendor/ng2-bootstrap'
+  'ng2-bootstrap': 'vendor/ng2-bootstrap',
+  'ng2-file-upload': 'vendor/ng2-file-upload'
 };
 
 /** User packages configuration. */
@@ -26,6 +27,11 @@ const packages: any = {
     format: 'cjs',
     defaultExtension: 'js',
     main: 'ng2-bootstrap.js'
+  },
+  'ng2-file-upload': {
+    format: 'cjs',
+    defaultExtension: 'js',
+    main: 'ng2-file-upload.js'
   }
 };
 
@@ -65,7 +71,7 @@ const barrels: string[] = [
 
   'app/components/about',
   'app/components/error',
-  
+
   'app/components/organizations/create-organization',
   'app/components/organizations/list-organization',
   'app/components/organizations/edit-organization/overview',
@@ -74,6 +80,7 @@ const barrels: string[] = [
   'app/components/organizations/edit-organization/settings/general-information',
   'app/components/organizations/edit-organization/settings/certified',
   'app/components/organizations/invoices',
+  'app/components/organizations/invoices/list-invoice',
   /** @cli-barrel */
 ];
 

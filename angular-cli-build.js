@@ -19,6 +19,7 @@ module.exports = function(defaults) {
       'underscore/underscore.js',
       'moment/moment.js',
       'ng2-bootstrap/**/*.js',
+      'ng2-file-upload/**/*.js',
       'patternfly/**/*.*'
     ]
   });

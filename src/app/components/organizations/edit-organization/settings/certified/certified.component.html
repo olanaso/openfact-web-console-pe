@@ -1,7 +1,126 @@
-<div>
+<style>
+  .my-drop-zone {
+    border: dotted 3px lightgray;
+  }
 
-  <h3>Angular 2 File Upload - Example (ng2FileDrop - ng2FileSelect) </h3>
+  .another-file-over-class {
+    border: dotted 3px green;
+  }
+</style>
+
+<alerts [alerts]="alerts"></alerts>
 
 
+<form [formGroup]="form" (ngSubmit)="save(form.value)" class="form-horizontal" novalidate>
+
+  <fieldset>
+    <div class="form-group" [ngClass]="{ 'has-error' : !form.controls.alias.valid && submitted }">
+      <label class="col-sm-2 control-label">Name
+        <a tooltip="Alias of the certified" tooltipPlacement="right"><span class="fa fa-info-circle"></span></a>
+      </label>
+      <div class="col-sm-3">
+        <input formControlName="alias" type="text" class="form-control" autofocus/>
+        <div *ngIf="!form.controls.alias.valid && submitted">
+          <span class="help-block">Type a correct alias</span>
+        </div>
+      </div>
+    </div>
+    <div class="form-group" [ngClass]="{ 'has-error' : !form.controls.password.valid && submitted }">
+      <label class="col-sm-2 control-label">Password
+        <a tooltip="Password of the certified" tooltipPlacement="right"><span class="fa fa-info-circle"></span></a>
+      </label>
+      <div class="col-sm-3">
+        <input formControlName="password" type="text" class="form-control"/>
+        <div *ngIf="!form.controls.password.valid && submitted">
+          <span class="help-block">Type a correct password</span>
+        </div>
+      </div>
+    </div>
+    <div class="form-group" [ngClass]="{ 'has-error' : !form.controls.passwordConfirmation.valid && submitted }">
+      <label class="col-sm-2 control-label">Confirm Password
+        <a tooltip="Confirm password of the certified" tooltipPlacement="right"><span
+          class="fa fa-info-circle"></span></a>
+      </label>
+      <div class="col-sm-3">
+        <input formControlName="passwordConfirmation" type="text" class="form-control"/>
+        <div *ngIf="!form.controls.passwordConfirmation.valid && submitted">
+          <span class="help-block">Type a correct password</span>
+        </div>
+      </div>
+    </div>
+    <div class="form-group" [ngClass]="{ 'has-error' : !form.controls.validity.valid && submitted }">
+      <label class="col-sm-2 control-label">Validity Date
+        <a tooltip="validity date of the certified" tooltipPlacement="right"><span
+          class="fa fa-info-circle"></span></a>
+      </label>
+      <div class="col-sm-3">
+        <input formControlName="validity" type="text" class="form-control"/>
+        <div *ngIf="!form.controls.validity.valid && submitted">
+          <span class="help-block">Type a correct validity date</span>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <button-save [form]="form" [working]="working" [alerts]="alerts"
+                     (onClick)="setSubmitted($event)"></button-save>
+        <button-cancel [working]="working" (onClick)="cancel($event)"></button-cancel>
+      </div>
+    </div>
+  </fieldset>
+</form>
+
+
+<div class="col-sm-12">
+  <div ng2FileDrop
+       [ngClass]="{'another-file-over-class': hasBaseDropZoneOver}"
+       (fileOver)="fileOverBase($event)"
+       [uploader]="uploader"
+       class="well my-drop-zone">
+    Drag your certificate here
+  </div>
 </div>
+
+
+<table class="table">
+  <thead>
+  <tr>
+    <th width="50%">Name</th>
+    <th>Size</th>
+    <th>Progress</th>
+    <th>Status</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let item of uploader.queue">
+    <td><strong>{{ item?.file?.name }}</strong></td>
+    <td *ngIf="uploader.isHTML5" nowrap>{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>
+    <td *ngIf="uploader.isHTML5">
+      <div class="progress" style="margin-bottom: 0;">
+        <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': item.progress + '%' }"></div>
+      </div>
+    </td>
+    <td class="text-center">
+      <span *ngIf="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
+      <span *ngIf="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
+      <span *ngIf="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
+    </td>
+    <td nowrap>
+      <button type="button" class="btn btn-success btn-xs"
+              (click)="item.upload()" [disabled]="item.isReady || item.isUploading || item.isSuccess">
+        <span class="glyphicon glyphicon-upload"></span> Upload
+      </button>
+      <button type="button" class="btn btn-warning btn-xs"
+              (click)="item.cancel()" [disabled]="!item.isUploading">
+        <span class="glyphicon glyphicon-ban-circle"></span> Cancel
+      </button>
+      <button type="button" class="btn btn-danger btn-xs"
+              (click)="item.remove()">
+        <span class="glyphicon glyphicon-trash"></span> Remove
+      </button>
+    </td>
+  </tr>
+  </tbody>
+</table>
 

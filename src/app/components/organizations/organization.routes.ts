@@ -8,6 +8,7 @@ import { ListInvoiceComponent} from './invoices/list-invoice';
 import { InvoicesComponent} from './invoices';
 import { GeneralInformationComponent } from './edit-organization/settings/general-information';
 import { AddressComponent } from './edit-organization/settings/address';
+import {CertifiedComponent} from  './edit-organization/settings/certified'
 
 import { OrganizationResolve } from '../../services/resolvers/organization-resolve';
 
@@ -56,6 +57,10 @@ const organizationsRoutes: Routes = [
           {
             path: 'address',
             component: AddressComponent
+          },
+          {
+            path: 'certified',
+            component: CertifiedComponent
           },
         ]
       },

@@ -21,7 +21,8 @@
       <div class="col-md-3">
         <select formControlName="additionalAccountId" class="form-control">
             <option></option>
-            <option *ngFor="let i of additionalAccountIds">{{i}}</option>
+            <option value="DNI">DNI</option>
+            <option value="RUC">RUC</option>
         </select>
         <div *ngIf="!form.controls.additionalAccountId.valid && submitted">
           <span class="help-block">Type a correct additional account id</span>

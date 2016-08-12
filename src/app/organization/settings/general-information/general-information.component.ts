@@ -15,7 +15,6 @@ import {Alert, AlertMessageService} from '../../../shared';
 export class GeneralInformationComponent implements OnInit {
 
   organization: OrganizationModel;
-  additionalAccountIds: string[] = ['DNI', 'RUC'];
 
   form: FormGroup;
   working: boolean = false;

@@ -3,7 +3,7 @@ import {Router, ActivatedRoute} from '@angular/router';
 import {Validators, CORE_DIRECTIVES} from '@angular/common';
 import {FormGroup, FormControl, FormBuilder} from '@angular/forms';
 
-import {OrganizationModel, PostalAddress, TasksSchedule, DataService} from '../../../services';
+import {OrganizationModel, PostalAddress, TasksSchedule, TimeUnit, DataService} from '../../../services';
 import {Alert, AlertMessageService} from '../../../shared';
 
 @Component({
@@ -38,17 +38,6 @@ export class TasksScheduleComponent implements OnInit {
     this.loadData();
   }
 
-  loadData() {
-    let tasksSchedule = <TasksSchedule>(this.organization.tasksSchedule || {});
-    (<FormControl>this.form.controls['attempNumber']).setValue(tasksSchedule.attempNumber);
-    (<FormControl>this.form.controls['lapseTime']).setValue(tasksSchedule.lapseTime);
-    (<FormControl>this.form.controls['onErrorAttempNumber']).setValue(tasksSchedule.onErrorAttempNumber);
-    (<FormControl>this.form.controls['onErrorLapseTime']).setValue(tasksSchedule.onErrorLapseTime);
-    (<FormControl>this.form.controls['delayTime']).setValue(tasksSchedule.delayTime);
-    (<FormControl>this.form.controls['submitTime']).setValue(tasksSchedule.submitTime);
-    (<FormControl>this.form.controls['submitDays']).setValue(tasksSchedule.submitDays);
-  }
-
   loadAlerts() {
     this.alertMessageService.getAlerts().forEach(alert => {
       this.alerts.push(alert);
@@ -58,25 +47,51 @@ export class TasksScheduleComponent implements OnInit {
 
   buildForm() {
     this.form = this.formBuilder.group({
-      attempNumber: ['', []],
-      lapseTime: ['', []],
-      onErrorAttempNumber: ['', []],
-      onErrorLapseTime: ['', []],
-      delayTime: ['', []],
-      submitTime: ['', []],
-      submitDays: ['', []]
+      attempNumber: [''],
+      lapseTime: this.formBuilder.group({
+        time: [''],
+        unit: ['']
+      }),
+      onErrorAttempNumber: [''],
+      onErrorLapseTime: this.formBuilder.group({
+        time: [''],
+        unit: ['']
+      }),
+      delayTime: this.formBuilder.group({
+        time: [''],
+        unit: ['']
+      }),
+      submitTime: [''],
+      submitDays: ['']
     });
+  }
+
+  loadData() {
+    let tasksSchedule = <TasksSchedule>(this.organization.tasksSchedule || {});
+    (<FormControl>this.form.controls['attempNumber']).setValue(tasksSchedule.attempNumber);
+    (<FormControl>this.form.controls['lapseTime']).setValue(new TimeUnit(tasksSchedule.lapseTime));
+    (<FormControl>this.form.controls['onErrorAttempNumber']).setValue(tasksSchedule.onErrorAttempNumber);
+    (<FormControl>this.form.controls['onErrorLapseTime']).setValue(new TimeUnit(tasksSchedule.onErrorLapseTime));
+    (<FormControl>this.form.controls['delayTime']).setValue(new TimeUnit(tasksSchedule.delayTime));
+    (<FormControl>this.form.controls['submitTime']).setValue(tasksSchedule.submitTime);
+    (<FormControl>this.form.controls['submitDays']).setValue(tasksSchedule.submitDays);
   }
 
   setSubmitted(submitted: boolean) {
     this.submitted = submitted;
   }
 
-  save(address: PostalAddress) {
-    /*Disable button*/
+  save() {
     this.working = true;
 
-    Object.assign(this.organization.postalAddress, address);
+    let value = <FormControl>this.form.value;
+    this.organization.tasksSchedule.attempNumber = value['attempNumber'];
+    this.organization.tasksSchedule.lapseTime = TimeUnit.toSeconds(value['lapseTime']['time'], value['lapseTime']['unit']);
+    this.organization.tasksSchedule.onErrorAttempNumber = value['onErrorAttempNumber'];
+    this.organization.tasksSchedule.onErrorLapseTime = TimeUnit.toSeconds(value['onErrorLapseTime']['time'], value['onErrorLapseTime']['unit']);
+    this.organization.tasksSchedule.delayTime = TimeUnit.toSeconds(value['delayTime']['time'], value['delayTime']['unit']);
+    this.organization.tasksSchedule.submitTime = value['submitTime'];
+    this.organization.tasksSchedule.submitDays = value['submitDays'];
 
     this.organization.save().subscribe(
       result => {
@@ -99,7 +114,7 @@ export class TasksScheduleComponent implements OnInit {
   }
 
   reset() {
-    this.loadData(); 
+    this.loadData();
   }
 
 }

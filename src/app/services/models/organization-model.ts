@@ -44,12 +44,12 @@ export interface PostalAddress {
 }
 
 export interface TasksSchedule {
-    attempNumber: string;
-    lapseTime: string;
-    onErrorAttempNumber: string;
-    onErrorLapseTime: string;
+    attempNumber: number;
+    lapseTime: number;
+    onErrorAttempNumber: number;
+    onErrorLapseTime: number;
 
-    delayTime: string;
-    submitTime: string;
+    delayTime: number;
+    submitTime: Date;
     submitDays: number[];
 }

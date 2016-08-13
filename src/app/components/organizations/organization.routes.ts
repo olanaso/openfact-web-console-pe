@@ -67,16 +67,11 @@ const organizationsRoutes: Routes = [
       },
       {
         path: 'invoices',
-<<<<<<< HEAD
         component: InvoicesComponent
       },
       {
         path: 'invoice-create.component',
         component: CreateInvoiceComponent
-=======
-        //component:InvoicesComponent
-        component: ListInvoiceComponent
->>>>>>> dbd50413b945b8713219e7682ed508c00e7666b6
       }
     ]
   }

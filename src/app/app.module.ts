@@ -6,7 +6,7 @@ import {HTTP_PROVIDERS, Http} from '@angular/http';
 
 import {AppComponent} from './app.component';
 import {PipeModule} from './pipes';
-import {SharedModule} from './shared';
+import {SharedModule, AlertMessageService} from './shared';
 import {OrganizationModule} from './organization';
 
 import {routing, appRoutingProviders} from './app.routes';
@@ -65,7 +65,9 @@ import {OrganizationResolve} from './services';
         DataService,
         OrganizationResolve,
         InvoiceProviderService,
-        OrganizationProviderService
+        OrganizationProviderService,
+
+        AlertMessageService
     ],
     bootstrap: [AppComponent],
 })

@@ -1,16 +1,13 @@
-/**
- * Created by AHREN on 11/08/2016.
- */
-/*
+/* tslint:disable:no-unused-variable */
+
 import { By }           from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 import { addProviders, async, inject } from '@angular/core/testing';
-import { CertifiedComponent } from './certified.component';
+import { EditInvoiceComponent } from './edit-invoice.component';
 
-describe('Component: Certified', () => {
+describe('Component: EditInvoice', () => {
   it('should create an instance', () => {
-    let component = new CertifiedComponent();
+    let component = new EditInvoiceComponent();
     expect(component).toBeTruthy();
   });
 });
-*/

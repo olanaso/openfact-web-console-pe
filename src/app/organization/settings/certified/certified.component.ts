@@ -4,20 +4,12 @@
 
 import { Component, OnInit } from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
-import {Validators,CORE_DIRECTIVES, FORM_DIRECTIVES, NgClass, NgStyle} from '@angular/common';
+import {Validators, CORE_DIRECTIVES, FORM_DIRECTIVES, NgClass, NgStyle} from '@angular/common';
 import {REACTIVE_FORM_DIRECTIVES, FormGroup, FormControl, FormBuilder} from '@angular/forms';
 import {FILE_UPLOAD_DIRECTIVES, FileUploader} from 'ng2-file-upload';
 
-/*Directives import*/
-import {AlertsComponent} from '../../../../../shared/alerts';
-import {ButtonSaveComponent} from '../../../../../shared/button-save';
-import {ButtonCancelComponent} from '../../../../../shared/button-cancel';
-
-import {DataService} from '../../../../../services/data.service';
-import {AlertMessageService} from '../../../../../services/alert-message.service';
-
-import {Alert} from '../../../../../services/alert';
-import {CertifiedModel} from '../../../../../services/models/certified-model';
+import {CertifiedModel, DataService} from '../../../services';
+import {Alert, AlertMessageService} from '../../../shared';
 
 const URL = 'https://evening-anchorage-3159.herokuapp.com/api/';
 
@@ -25,23 +17,12 @@ const URL = 'https://evening-anchorage-3159.herokuapp.com/api/';
   moduleId: module.id,
   selector: 'app-certified',
   templateUrl: 'certified.component.html',
-  styleUrls: ['certified.component.css'],
-  directives: [
-    REACTIVE_FORM_DIRECTIVES,
-    AlertsComponent,
-    ButtonSaveComponent,
-    ButtonCancelComponent,
-    FILE_UPLOAD_DIRECTIVES,
-    NgClass,
-    NgStyle,
-    CORE_DIRECTIVES,
-    FORM_DIRECTIVES  ],
-  providers: [FormBuilder]
+  styleUrls: ['certified.component.css']
 })
 
 export class CertifiedComponent implements OnInit {
 
-  certified:CertifiedModel;
+  certified: CertifiedModel;
   form: FormGroup;
   working: boolean = false;
   submitted: boolean = false;
@@ -55,15 +36,15 @@ export class CertifiedComponent implements OnInit {
     this.certified = this.activatedRoute.parent.snapshot.data['certified'];
   }
 
-  public uploader:FileUploader = new FileUploader({url: URL});
-  public hasBaseDropZoneOver:boolean = false;
-  public hasAnotherDropZoneOver:boolean = false;
+  public uploader: FileUploader = new FileUploader({ url: URL });
+  public hasBaseDropZoneOver: boolean = false;
+  public hasAnotherDropZoneOver: boolean = false;
 
-  public fileOverBase(e:any):void {
+  public fileOverBase(e: any): void {
     this.hasBaseDropZoneOver = e;
   }
 
-  public fileOverAnother(e:any):void {
+  public fileOverAnother(e: any): void {
     this.hasAnotherDropZoneOver = e;
   }
 

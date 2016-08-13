@@ -3,6 +3,7 @@ import {Routes, RouterModule} from '@angular/router';
 import {OrganizationResolve} from '../services';
 
 import {OverviewComponent} from './overview';
+import {CreateInvoiceComponent, ListInvoiceComponent} from './invoices';
 import {SettingsComponent, GeneralInformationComponent, AddressComponent, TasksScheduleComponent} from './settings';
 
 const organizationRoutes: Routes = [
@@ -17,6 +18,20 @@ const organizationRoutes: Routes = [
     resolve: {
       organization: OrganizationResolve
     },
+  },
+  {
+    path: 'invoices',
+    component: ListInvoiceComponent,
+    resolve: {
+      organization: OrganizationResolve
+    }
+  },
+  {
+    path: 'create-invoice',
+    component: CreateInvoiceComponent,
+    resolve: {
+      organization: OrganizationResolve
+    }
   },
   {
     path: 'settings',

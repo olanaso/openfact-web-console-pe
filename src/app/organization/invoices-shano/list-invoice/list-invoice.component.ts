@@ -1,24 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-
-import {InvoiceModel} from '../../../../services/models/invoice-model';
-import {OrganizationModel} from '../../../../services/models/organization-model';
 import {Router} from '@angular/router';
 
-import {DataService} from '../../../../services/data.service';
-import {Alert} from '../../../../services/alert';
-import {AlertMessageService} from '../../../../services/alert-message.service';
-import { OrganizationProviderService } from '../../../../services/providers/organization-provider.service';
-
-import {AlertsComponent} from '../../../../shared/alerts';
+import {OrganizationModel, InvoiceModel, OrganizationProviderService, DataService} from '../../../services';
+import {Alert, AlertMessageService} from '../../../shared';
 
 @Component({
   moduleId: module.id,
   selector: 'app-list-invoice',
   templateUrl: 'list-invoice.component.html',
-  styleUrls: ['list-invoice.component.css'],
-  directives: [
-    AlertsComponent
-  ]
+  styleUrls: ['list-invoice.component.css']
 })
 export class ListInvoiceComponent implements OnInit {
   invoices: Array<InvoiceModel>;

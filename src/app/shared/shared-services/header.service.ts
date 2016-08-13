@@ -3,34 +3,27 @@ import {Alert} from './alert';
 
 import { OrganizationModel } from '../../services';
 
-// interface AlertMap {
-//   name: string;
-//   data: Alert;
-// };
-
 @Injectable()
 export class HeaderService {
     private organization: OrganizationModel;
+    private beforeOrganizacion: OrganizationModel;
     constructor() {
-        //this.organization = {};
+        //console.log("Creando el servicio hreaderService");        
     }
 
     setOrganization(organization: OrganizationModel) {
+
         this.organization = organization;
+        this.beforeOrganizacion = this.organization;//.clone();
+        //console.log("cargando el objeto en el servicio");        
     }
-    // addShortAlert(type: string, message: string) {
-    //     this.alerts.push({
-    //         name: '',
-    //         data: {
-    //             type: type,
-    //             message: message
-    //         }
-    //     });
-    // }
+
     getOrganization() {
         return this.organization;
     }
-    // clearAlerts() {
-    //     this.alerts = [];
-    // }
+
+    getBeforeOrganization() {
+        return this.beforeOrganizacion;
+    }
+
 }

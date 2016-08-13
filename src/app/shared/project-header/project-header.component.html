@@ -6,16 +6,16 @@
     </button>
   </div>
   <div class="navbar-header">
-    <div class="form-group" style="margin: 0;">
-      <select class="combobox form-control" (change)="editOrganization($event.target.value)" style="height: 58px; width: 300px; font-size: 16px;">
-         <option *ngFor="let organization of organizations" [value]="organization.name">{{organization.name}}</option>
+    <div class="form-group styled" style="margin: 0;margin-top:10px;" >
+      <select class="form-control"  [(ngModel)]="selectOrganization" (ngModelChange)="changeOrganization($event)" >
+         <option *ngFor="let organization of organizations" [ngValue]="organization">{{organization.name}}</option>
       </select>
     </div>
-
   </div>
-  <!--<div class="col-md-2"> <select class="form-control">
-         <option *ngFor="let o of refData" [value]="o.value">{{o.name}}</option>
-      </select></div>-->
-
+  <!--<div class="col-md-2"> <select class="form-control">style="height: 58px; width: 300px; font-size: 16px;"
+         <option *ngFor="let o of refData" [value]="o.value">{{o.name}}</option>$event.target.value  [(ngModel)]="selectOrganization" 
+      [ngModel]="selectOrganization" </select></div>
+      change)="onChange($event.target.value)"
+      -->  
   <navbar-utility></navbar-utility>
-</nav>
+</nav>  

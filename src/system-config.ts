@@ -11,7 +11,8 @@
 const map: any = {
   'underscore': 'vendor/underscore/underscore.js',
   'moment': 'vendor/moment/moment.js',
-  'ng2-bootstrap': 'vendor/ng2-bootstrap'
+  'ng2-bootstrap': 'vendor/ng2-bootstrap',
+  'ng2-file-upload': 'vendor/ng2-file-upload'
 };
 
 /** User packages configuration. */
@@ -26,6 +27,11 @@ const packages: any = {
     format: 'cjs',
     defaultExtension: 'js',
     main: 'ng2-bootstrap.js'
+  },
+  'ng2-file-upload': {
+    format: 'cjs',
+    defaultExtension: 'js',
+    main: 'ng2-file-upload.js'
   }
 };
 

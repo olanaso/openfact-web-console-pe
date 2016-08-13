@@ -23,5 +23,7 @@ export class CertifiedModel implements Model {
     delete copy['restangular'];
     return copy;
   }
-
+  public save() {
+    return this.restangular.put(this.clone());
+  }
 }

@@ -3,11 +3,12 @@
 /*import { By }           from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 import { addProviders, async, inject } from '@angular/core/testing';
-import { ListInvoiceComponent } from './list-invoice.component';
+import { CertificateComponent } from './certificate.component';
 
-describe('Component: ListInvoice', () => {
+describe('Component: Certificate', () => {
   it('should create an instance', () => {
-    let component = new ListInvoiceComponent();
+    let component = new CertificateComponent();
     expect(component).toBeTruthy();
   });
-});*/
+});
+*/

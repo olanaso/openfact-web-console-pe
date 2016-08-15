@@ -11,6 +11,10 @@ export class SunatService extends Restangular {
     super(http, domainUrl);
   }
 
+  public base(path: string): Restangular {
+    return new SunatService(path, this.http);
+  }
+
   public one(path: string, id: string): Restangular {
     let copy = new SunatService(this.path + (path ? '/' + path : '') + '/' + id, this.http);
     return copy;

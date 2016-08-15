@@ -11,6 +11,10 @@ export class OpenfactService extends Restangular {
     super(http, domainUrl);
   }
 
+  public base(path: string): Restangular {
+    return new OpenfactService(path, this.http);
+  }
+
   public one(path: string, id: string): Restangular {
     let copy = new OpenfactService(this.path + (path ? '/' + path : '') + '/' + id, this.http);
     return copy;

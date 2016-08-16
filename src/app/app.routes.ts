@@ -4,6 +4,11 @@ import {AboutComponent, ErrorComponent, ListOrganizationComponent, CreateOrganiz
 const appRoutes: Routes = [
   {
     path: '',
+    redirectTo: '/organizations',
+    pathMatch: 'full'
+  },
+  {
+    path: 'organizations',
     component: ListOrganizationComponent
   },
   {
@@ -12,7 +17,7 @@ const appRoutes: Routes = [
   },
   {
     path: 'organization/:organization',
-    loadChildren: './app/organization/organization.module#OrganizationModule'
+    loadChildren: 'app/organization/organization.module#OrganizationModule'
   },
   {
     path: 'about',
@@ -21,7 +26,7 @@ const appRoutes: Routes = [
   {
     path: 'error',
     component: ErrorComponent
-  },
+  }
 ];
 
 export const appRoutingProviders: any[] = [

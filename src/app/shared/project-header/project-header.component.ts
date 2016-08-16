@@ -21,6 +21,7 @@ export class ProjectHeaderComponent implements OnInit {
     private dataService: DataService,
     private route: ActivatedRoute,
     private headerService: HeaderService) {
+      
   }
 
   ngOnInit() {

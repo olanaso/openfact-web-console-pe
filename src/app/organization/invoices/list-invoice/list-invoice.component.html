@@ -1,7 +1,4 @@
-<project-header></project-header>
-<project-page>
-
-  <h1>Invoices</h1>
+<h1>Invoices</h1>
 
   <div class="dataTables_wrapper no-footer">
     <div class="dataTables_header">
@@ -32,7 +29,7 @@
           <tr *ngFor="let invoice of invoices; let i = index" class="odd">
             <td>{{i}}</td>
             <td>{{invoice.issueDate}}</td>
-            <td>{{invoice.invoiceSeries}}-{{invoices.invoiceNumber}}</td>
+            <td>{{invoice.invoiceSeries}}-{{invoice.invoiceNumber}}</td>
             <td>{{invoice.customer.registrationName}}</td>            
           </tr>
         </tbody>
@@ -52,5 +49,3 @@
       </div>
     </div>
   </div>
-
-</project-page>

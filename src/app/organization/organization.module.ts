@@ -6,8 +6,9 @@ import {SharedModule} from '../shared';
 
 import {organizationRouting} from './organization.routes';
 
+import {OrganizationComponent} from './organization.component';
 import {OverviewComponent} from './overview';
-import {CreateInvoiceComponent, ListInvoiceComponent} from './invoices';
+import {InvoicesComponent, CreateInvoiceComponent, ListInvoiceComponent} from './invoices';
 import {SettingsComponent, GeneralInformationComponent, AddressComponent, CertificateComponent, TasksScheduleComponent} from './settings';
 
 @NgModule({
@@ -21,9 +22,12 @@ import {SettingsComponent, GeneralInformationComponent, AddressComponent, Certif
     declarations: [
         OverviewComponent,
 
+        OrganizationComponent,
+
+        InvoicesComponent,
         CreateInvoiceComponent,
         ListInvoiceComponent,
-
+       
         SettingsComponent,
         GeneralInformationComponent,
         AddressComponent,

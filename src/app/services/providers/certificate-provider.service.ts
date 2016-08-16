@@ -3,7 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import { Http, Response } from '@angular/http';
 
 import { Provider } from './provider';
-import { CertifiedModel } from '../models';
+import { CertificateModel } from '../models';
 
 import { Restangular } from '../restangular';
 import { OpenfactService } from '../restangular-impl';
@@ -12,7 +12,7 @@ export const ID: string = 'name';
 export const PATH: string = 'organizations';
 
 @Injectable()
-export class CertifiedProviderService implements Provider {
+export class CertificateProviderService implements Provider {
 
   public path: string = PATH;
 
@@ -23,8 +23,8 @@ export class CertifiedProviderService implements Provider {
     this.restangular = restangular;
   }
 
-  build(): CertifiedModel {
-    let model: CertifiedModel = new CertifiedModel(this.restangular);
+  build(): CertificateModel {
+    let model: CertificateModel = new CertificateModel(this.restangular);
     return model;
   }
 

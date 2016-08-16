@@ -25,15 +25,12 @@ export class ListInvoiceComponent implements OnInit {
     private formBuilder: FormBuilder,
     private dataService: DataService,
     private alertMessageService: AlertMessageService) {
-    this.activatedRoute.data.subscribe(result => {
-      this.organization = <OrganizationModel>result['organization'];
-      this.invoices = [];
-    });
+    this.organization = this.activatedRoute.snapshot.parent.parent.data['organization']; 
   }
 
   ngOnInit() {
     this.loadAlerts();
-    //this.loadInvoices();
+    this.loadInvoices();
   }
 
   loadAlerts() {

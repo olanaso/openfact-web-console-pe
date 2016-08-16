@@ -5,7 +5,7 @@ import {OrganizationResolve} from '../services';
 import {OrganizationComponent} from './organization.component';
 import {OverviewComponent} from './overview';
 import {InvoicesComponent, CreateInvoiceComponent, ListInvoiceComponent} from './invoices';
-import {SettingsComponent, GeneralInformationComponent, AddressComponent, CertificateComponent, TasksScheduleComponent} from './settings';
+import {SettingsComponent, GeneralInformationComponent, AddressComponent, CertificateComponent, TasksScheduleComponent, TaxTypesComponent} from './settings';
 
 const organizationRoutes: Routes = [
   {
@@ -60,6 +60,10 @@ const organizationRoutes: Routes = [
           {
             path: 'tasks-schedule',
             component: TasksScheduleComponent
+          },
+          {
+            path: 'tax-types',
+            component: TaxTypesComponent
           }
         ]
       }

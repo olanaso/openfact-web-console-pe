@@ -9,7 +9,7 @@ import {organizationRouting} from './organization.routes';
 import {OrganizationComponent} from './organization.component';
 import {OverviewComponent} from './overview';
 import {InvoicesComponent, CreateInvoiceComponent, ListInvoiceComponent} from './invoices';
-import {SettingsComponent, GeneralInformationComponent, AddressComponent, CertificateComponent, TasksScheduleComponent} from './settings';
+import {SettingsComponent, GeneralInformationComponent, AddressComponent, CertificateComponent, TasksScheduleComponent, TaxTypesComponent} from './settings';
 
 @NgModule({
     imports: [
@@ -32,7 +32,8 @@ import {SettingsComponent, GeneralInformationComponent, AddressComponent, Certif
         GeneralInformationComponent,
         AddressComponent,
         CertificateComponent,
-        TasksScheduleComponent
+        TasksScheduleComponent,
+        TaxTypesComponent
     ],
     providers: []
 })

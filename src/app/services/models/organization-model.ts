@@ -9,6 +9,7 @@ export class OrganizationModel implements Model {
     /*Attributes*/
     public id: string;
     public name: string;
+    public description: string;
     public supplierName: string;
     public registrationName: string;
     public additionalAccountId: string;

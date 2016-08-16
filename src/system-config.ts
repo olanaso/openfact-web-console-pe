@@ -94,12 +94,13 @@ const barrels: string[] = [
   'app/organization/settings/general-information',  
   'app/organization/settings/tasks-schedule',
   'app/organization/settings/certificate',
+  'app/organization/settings/tax-types',
   
   'app/organization',
   'app/organization/invoices',
   'app/organization/invoices/create-invoice',
   'app/organization/invoices/list-invoice',
-  'app/organization/invoices/edit-invoice'  
+  'app/organization/invoices/edit-invoice',  
   /** @cli-barrel */
 ];
 

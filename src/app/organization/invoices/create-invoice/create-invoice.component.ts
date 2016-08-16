@@ -31,11 +31,9 @@ export class CreateInvoiceComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
     private dataService: DataService,
-    private alertMessageService: AlertMessageService) {
-    this.activatedRoute.data.subscribe(result => {
-      this.organization = <OrganizationModel>result['organization'];
-      this.invoice = this.dataService.invoices().build();
-    });
+    private alertMessageService: AlertMessageService) {  
+    this.organization = this.activatedRoute.snapshot.parent.parent.data['organization'];
+    this.invoice = this.dataService.invoices().build();
   }
 
   ngOnInit() {
@@ -96,7 +94,7 @@ export class CreateInvoiceComponent implements OnInit {
     this.invoice.totalTaxed = 0;
 
     this.dataService.invoices().create(this.organization, this.invoice).subscribe(
-      result => {
+      result => {      
         this.alerts.push({
           type: 'success',
           message: 'Success',

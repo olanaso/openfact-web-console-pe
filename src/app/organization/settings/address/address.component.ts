@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
-import {Validators, CORE_DIRECTIVES} from '@angular/common';
+import {Validators} from '@angular/common';
 import {FormGroup, FormControl, FormBuilder} from '@angular/forms';
 
 import {OrganizationModel, PostalAddress, DataService} from '../../../services';
@@ -38,16 +38,6 @@ export class AddressComponent implements OnInit {
     this.loadData();
   }
 
-  loadData() {
-    let address = <PostalAddress>(this.organization.postalAddress || {});
-    (<FormControl>this.form.controls['streetName']).setValue(address.streetName);
-    (<FormControl>this.form.controls['citySubdivisionName']).setValue(address.citySubdivisionName);
-    (<FormControl>this.form.controls['cityName']).setValue(address.cityName);
-    (<FormControl>this.form.controls['countrySubentity']).setValue(address.countrySubentity);
-    (<FormControl>this.form.controls['district']).setValue(address.district);
-    (<FormControl>this.form.controls['countryIdentificationCode']).setValue(address.countryIdentificationCode);
-  }
-
   loadAlerts() {
     this.alertMessageService.getAlerts().forEach(alert => {
       this.alerts.push(alert);
@@ -66,6 +56,16 @@ export class AddressComponent implements OnInit {
     });
   }
 
+  loadData() {
+    let address = <PostalAddress>(this.organization.postalAddress || {});
+    (<FormControl>this.form.controls['streetName']).setValue(address.streetName);
+    (<FormControl>this.form.controls['citySubdivisionName']).setValue(address.citySubdivisionName);
+    (<FormControl>this.form.controls['cityName']).setValue(address.cityName);
+    (<FormControl>this.form.controls['countrySubentity']).setValue(address.countrySubentity);
+    (<FormControl>this.form.controls['district']).setValue(address.district);
+    (<FormControl>this.form.controls['countryIdentificationCode']).setValue(address.countryIdentificationCode);
+  }  
+  
   setSubmitted(submitted: boolean) {
     this.submitted = submitted;
   }

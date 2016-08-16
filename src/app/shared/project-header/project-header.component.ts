@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
+import {Router, ActivatedRoute} from '@angular/router';
 
-import {Alert, AlertMessageService} from '../shared-services';
+import {Alert, AlertMessageService, HeaderService} from '../shared-services';
 import {OrganizationModel, DataService} from '../../services';
 
 @Component({
@@ -29,7 +29,7 @@ export class ProjectHeaderComponent implements OnInit {
 
   changeOrganization(organization: OrganizationModel) {
     this.selectOrganization = organization;
-    console.log("new: " + JSON.stringify(this.headerService.getBeforeOrganization()));
+    //console.log("new: " + JSON.stringify(this.headerService.getBeforeOrganization()));
     this.beforeOrganization = this.headerService.getBeforeOrganization();
     //console.log(this.router.url);
     if (!this.beforeOrganization) {
@@ -45,7 +45,7 @@ export class ProjectHeaderComponent implements OnInit {
     let link = [lin];
     this.headerService.setOrganization(organization);
 
-    console.log("after : " + JSON.stringify(lin));
+    //console.log("after : " + JSON.stringify(lin));
     this.router.navigate(link);
   }
 

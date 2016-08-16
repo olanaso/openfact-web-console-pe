@@ -6,10 +6,10 @@
         <span class="list-group-item-value">Overview</span>
       </a>
     </li>
-     <li class="list-group-item" routerLinkActive="active">
-      <a href="#">
-        <span class="fa fa-android"></span>
-        <span class="list-group-item-value">Documents</span>
+    <li class="list-group-item" routerLinkActive="active">
+      <a [routerLink]="['../invoices']">
+        <span class="fa fa-server"></span>
+        <span class="list-group-item-value">Invoices</span>
       </a>
     </li>
     <li class="list-group-item" routerLinkActive="active">
@@ -17,13 +17,6 @@
         <span class="fa pficon-settings"></span>
         <span class="list-group-item-value">Settings</span>
       </a>
-    </li>
-    <li class="list-group-item" routerLinkActive="active">
-      <a [routerLink]="['../invoices']" >
-        <span class="fa fa-server"></span>
-        <span class="list-group-item-value">Factura</span>
-      </a>
-    </li>
+    </li>    
   </ul>
 </div>
-

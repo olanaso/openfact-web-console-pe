@@ -6,7 +6,7 @@ import 'rxjs/add/operator/catch';
 export abstract class Restangular {
 
   protected http: Http;
-  protected path: string;
+  public path: string;
 
   public constructor(http: Http, path: string) {
     this.http = http;
@@ -14,6 +14,7 @@ export abstract class Restangular {
   }
 
   /*path builder*/
+  public abstract base(path: string): Restangular;
   public abstract one(path: string, id: any): Restangular;
   public abstract all(path: string): Restangular;
 

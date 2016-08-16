@@ -21,7 +21,7 @@ import {ButtonDeleteComponent} from './button-delete';
 import {ToggleButtonComponent} from './toggle-button';
 
 import {NavbarService} from './shared-services/navbar.service';
-import {AlertMessageService} from './shared-services/alert-message.service';
+import {HeaderService} from './shared-services/header.service';
 
 @NgModule({
     imports: [
@@ -67,7 +67,7 @@ import {AlertMessageService} from './shared-services/alert-message.service';
     ],
     providers: [
         NavbarService,
-        AlertMessageService
+        HeaderService
     ]
 })
 

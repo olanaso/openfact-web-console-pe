@@ -7,7 +7,8 @@ import {SharedModule} from '../shared';
 import {organizationRouting} from './organization.routes';
 
 import {OverviewComponent} from './overview';
-import {SettingsComponent, GeneralInformationComponent, AddressComponent, TasksScheduleComponent} from './settings';
+import {CreateInvoiceComponent, ListInvoiceComponent} from './invoices';
+import {SettingsComponent, GeneralInformationComponent, AddressComponent, CertificateComponent, TasksScheduleComponent} from './settings';
 
 @NgModule({
     imports: [
@@ -19,9 +20,14 @@ import {SettingsComponent, GeneralInformationComponent, AddressComponent, TasksS
     ],
     declarations: [
         OverviewComponent,
+
+        CreateInvoiceComponent,
+        ListInvoiceComponent,
+
         SettingsComponent,
         GeneralInformationComponent,
         AddressComponent,
+        CertificateComponent,
         TasksScheduleComponent
     ],
     providers: []

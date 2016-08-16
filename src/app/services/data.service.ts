@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { OrganizationProviderService, InvoiceProviderService } from './providers';
 
+
 @Injectable()
 export class DataService {
 
@@ -14,6 +15,7 @@ export class DataService {
   }
 
   public invoices(): InvoiceProviderService {
+    //this.invoiceProvider.build().restangular.one("organization","master");
     return this.invoiceProvider;
   }
 

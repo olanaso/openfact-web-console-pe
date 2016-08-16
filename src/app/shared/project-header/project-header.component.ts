@@ -30,7 +30,7 @@ export class ProjectHeaderComponent implements OnInit {
 
   changeOrganization(organization: OrganizationModel) {
     this.selectOrganization = organization;
-    console.log("new: " + JSON.stringify(this.headerService.getBeforeOrganization()));
+    //console.log("new: " + JSON.stringify(this.headerService.getBeforeOrganization()));
     this.beforeOrganization = this.headerService.getBeforeOrganization();
     //console.log(this.router.url);
     if (!this.beforeOrganization) {
@@ -46,7 +46,7 @@ export class ProjectHeaderComponent implements OnInit {
     let link = [lin];
     this.headerService.setOrganization(organization);
 
-    console.log("after : " + JSON.stringify(lin));
+    //console.log("after : " + JSON.stringify(lin));
     this.router.navigate(link);
   }
 

@@ -2,64 +2,66 @@ import {Routes, RouterModule} from '@angular/router';
 
 import {OrganizationResolve} from '../services';
 
+import {OrganizationComponent} from './organization.component';
 import {OverviewComponent} from './overview';
-import {CreateInvoiceComponent, ListInvoiceComponent} from './invoices';
+import {InvoicesComponent, CreateInvoiceComponent, ListInvoiceComponent} from './invoices';
 import {SettingsComponent, GeneralInformationComponent, AddressComponent, CertificateComponent, TasksScheduleComponent} from './settings';
 
 const organizationRoutes: Routes = [
   {
-    path: 'organization/:organization',
-    redirectTo: 'organization/:organization/overview',
-    pathMatch: 'prefix'
-  },
-  {
-    path: 'overview',
-    component: OverviewComponent,
-    resolve: {
-      organization: OrganizationResolve
-    },
-  },
-  {
-    path: 'invoices',
-    component: ListInvoiceComponent,
-    resolve: {
-      organization: OrganizationResolve
-    }
-  },
-  {
-    path: 'create-invoice',
-    component: CreateInvoiceComponent,
-    resolve: {
-      organization: OrganizationResolve
-    }
-  },
-  {
-    path: 'settings',
-    component: SettingsComponent,
+    path: '',
+    component: OrganizationComponent,
     resolve: {
       organization: OrganizationResolve
     },
     children: [
       {
         path: '',
-        redirectTo: 'general-information',
-        pathMatch: 'prefix'
+        redirectTo: 'overview'
       },
       {
-        path: 'general-information',
-        component: GeneralInformationComponent
+        path: 'overview',
+        component: OverviewComponent
       },
       {
-        path: 'address',
-        component: AddressComponent
-      },
+        path: 'invoices',
+        component: InvoicesComponent,
+        children: [
+          {
+            path: '',
+            component: ListInvoiceComponent
+          },
+          {
+            path: 'create-invoice',
+            component: CreateInvoiceComponent
+          }
+        ]
+      },    
       {
-        path: 'certificate',
-        component: CertificateComponent
-      },
-      {
-        path: 'tasks-schedule',
-        component: TasksScheduleComponent
+        path: 'settings',
+        component: SettingsComponent,
+        children: [
+          {
+            path: '',
+            redirectTo: 'general-information'
+          },
+          {
+            path: 'general-information',
+            component: GeneralInformationComponent
+          },
+          {
+            path: 'address',
+            component: AddressComponent
+          },
+          {
+            path: 'certificate',
+            component: CertificateComponent
+          },
+          {
+            path: 'tasks-schedule',
+            component: TasksScheduleComponent
+          }
+        ]
       }
     ]
   }

@@ -33,7 +33,7 @@ export class ListInvoiceComponent implements OnInit {
 
   ngOnInit() {
     this.loadAlerts();
-    this.loadInvoices();
+    //this.loadInvoices();
   }
 
   loadAlerts() {

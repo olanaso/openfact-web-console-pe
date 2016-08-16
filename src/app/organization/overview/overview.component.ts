@@ -14,16 +14,13 @@ export class OverviewComponent implements OnInit {
 
   organization: OrganizationModel;
 
-  alerts: Array<Alert>;
+  alerts: Array<Alert> = [];
 
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private alertMessageService: AlertMessageService) {
-    this.activatedRoute.data.subscribe(result => {
-      this.organization = <OrganizationModel>result;
-    });
-    this.alerts = [];
+    this.organization = this.activatedRoute.snapshot.parent.data['organization']  
   }
 
   ngOnInit() {

@@ -1,199 +1,51 @@
-<project-header></project-header>
-<project-page>
+<h1>Invoices</h1>
 
-  <h1>Invoices</h1>
-
-  <button type="button" [routerLink]="['../create-invoice']">Nuevo</button>
-  <hr style="margin-top: 0px; margin-bottom: 0px; border: 0; border-top: 1px solid #d1d1d1;">
-
-  <div class="container-fluid">
-    <div class="row toolbar-pf">
-      <div class="col-sm-12">
-        <form class="toolbar-pf-actions">
-          <div class="form-group toolbar-pf-filter">
-            <label class="sr-only" for="filter">Name</label>
-            <div class="input-group">
-              <div class="input-group-btn">
-                <button type="button" class="btn btn-default dropdown-toggle">Name <span class="caret"></span></button>
-                <ul class="dropdown-menu">
-                  <li><a href="#">Action</a></li>
-                  <li><a href="#">Another action</a></li>
-                  <li><a href="#">Something else here</a></li>
-                  <li role="separator" class="divider"></li>
-                  <li><a href="#">Separated link</a></li>
-                </ul>
-              </div>
-              <!-- /btn-group -->
-              <input type="text" class="form-control" id="filter" placeholder="Filter By Name...">
-            </div>
-            <!-- /input-group -->
-          </div>
-          <div class="form-group">
-            <div class="dropdown btn-group">
-              <button type="button" class="btn btn-default dropdown-toggle">Name <span class="caret"></span></button>
-              <ul class="dropdown-menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li role="separator" class="divider"></li>
-                <li><a href="#">Separated link</a></li>
-              </ul>
-            </div>
-            <button class="btn btn-link" type="button">
-                  <span class="fa fa-sort-alpha-asc"></span>
-                </button>
-          </div>
-          <div class="form-group">
-            <button class="btn btn-default" type="button">Action</button>
-            <button class="btn btn-default" type="button">Action</button>
-            <div class="dropdown btn-group  dropdown-kebab-pf">
-              <button class="btn btn-link dropdown-toggle" type="button">
-                <span class="fa fa-ellipsis-v"></span>
-              </button>
-              <ul class="dropdown-menu " aria-labelledby="dropdownKebab">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li role="separator" class="divider"></li>
-                <li><a href="#">Separated link</a></li>
-              </ul>
-            </div>
-          </div>
-          <div class="toolbar-pf-action-right">
-            <div class="form-group toolbar-pf-find">
-              <button class="btn btn-link btn-find" type="button"><span class="fa fa-search"></span></button>
-              <div class="find-pf-dropdown-container">
-                <input type="text" class="form-control" id="find" placeholder="Find By Keyword...">
-                <div class="find-pf-buttons">
-                  <span class="find-pf-nums">1 of 3</span>
-                  <button class="btn btn-link" type="button"><span class="fa fa-angle-up"></span></button>
-                  <button class="btn btn-link" type="button"><span class="fa fa-angle-down"></span></button>
-                  <button class="btn btn-link btn-find-close" type="button"><span class="pficon pficon-close"></span></button>
-                </div>
-              </div>
-            </div>
-            <div class="form-group toolbar-pf-view-selector">
-              <ul class="list-inline">
-                <li><a href="#"><i class="fa fa-th"></i></a></li>
-                <li class="active"><a href="#"><i class="fa fa-th-large"></i></a></li>
-                <li><a href="#"><i class="fa fa-th-list"></i></a></li>
-              </ul>
-            </div>
-          </div>
-        </form>
-        <!-- /row -->
+  <div class="dataTables_wrapper no-footer">
+    <div class="dataTables_header">
+      <div class="dataTables_filter">
+        <label><input type="search"></label>
       </div>
-      <!-- /col -->
-    </div>
-    <!-- /row -->
-  </div>
-
-
-  <div class="container-fluid">
-
-    <div class="dataTables_wrapper no-footer">
-      <div class="dataTables_header">
-        <div class="dataTables_filter">
-          <label><input type="search"></label>
-        </div>
-        <div class="dataTables_info">Showing <b>1</b> to <b>20</b> of <b>57</b> Items</div>
-      </div>
-      <div class="dataTables_header">
-        <div class="dataTables_filter">
-          <label><input type="search"></label>
-        </div>
-        <div class="dataTables_info">Showing <b>1</b> to <b>20</b> of <b>57</b> Items</div>
-      </div>
-
-      <div class="row toolbar-pf-results">
-        <div class="col-sm-12">
-          <h5>40 Results</h5>
-          <p>Active filters:</p>
-          <ul class="list-inline">
-            <li>
-              <span class="label label-info">
-                      Name: nameofthething
-                      <a href="#"><span class="pficon pficon-close"></span></a>
-              </span>
-            </li>
-            <li>
-              <span class="label label-info">
-                      Name: nameofthething
-                      <a href="#"><span class="pficon pficon-close"></span></a>
-              </span>
-            </li>
-            <li>
-              <span class="label label-info">
-                      Name: nameofthething
-                      <a href="#"><span class="pficon pficon-close"></span></a>
-              </span>
-            </li>
-          </ul>
-          <p><a href="#">Clear All Filters</a></p>
-        </div>
-        <!-- /col -->
-      </div>
-
-
-
-      <div class="table-responsive">
-        <table class="datatable table table-striped table-bordered dataTable no-footer">
-          <thead>
-            <tr role="row">
-              <th class="sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Rendering engine</th>
-              <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending">Browser</th>
-              <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Platform(s)</th>
-              <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending">Engine version</th>
-              <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending">CSS grade</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr role="row" class="odd">
-              <td class="sorting_1">Gecko</td>
-              <td>Mozilla 1.7</td>
-              <td>Win 98+ / OSX.1+</td>
-              <td>1.7</td>
-              <td>A</td>
-            </tr>
-            <tr role="row" class="even">
-              <td class="sorting_1">Gecko</td>
-              <td>Mozilla 1.8</td>
-              <td>Win 98+ / OSX.1+</td>
-              <td>1.8</td>
-              <td>A</td>
-            </tr>
-            <tr role="row" class="odd">
-              <td class="sorting_1">Gecko</td>
-              <td>Seamonkey 1.1</td>
-              <td>Win 98+ / OSX.2+</td>
-              <td>1.8</td>
-              <td>A</td>
-            </tr>
-            <tr role="row" class="even">
-              <td class="sorting_1">Gecko</td>
-              <td>Epiphany 2.20</td>
-              <td>Gnome</td>
-              <td>1.8</td>
-              <td>A</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="dataTables_footer">
-        <div class="dataTables_paginate paging_bootstrap_input" id="DataTables_Table_0_paginate">
-          <ul class="pagination">
-            <li class="first disabled"><span class="i fa fa-angle-double-left"></span></li>
-            <li class="prev disabled"><span class="i fa fa-angle-left"></span></li>
-          </ul>
-          <div class="pagination-input"> <input type="text" class="paginate_input"> <span class="paginate_of">of <b>3</b></span></div>
-          <ul class="pagination">
-            <li class="next"><span class="i fa fa-angle-right"></span></li>
-            <li class="last"><span class="i fa fa-angle-double-right"></span></li>
-          </ul>
+      <div class="dataTables_info">&nbsp;</div>
+      <div class="ColVis">
+        <div class="form-group">
+          <button class="btn btn-default" [routerLink]="['../create-invoice']" type="button">Create</button>
         </div>
       </div>
     </div>
-
+    <div class="dataTables_header">
+      <div class="dataTables_info">Showing <b>1</b> to <b>20</b> of <b>57</b> Items</div>
+    </div>
+    <div class="table-responsive">
+      <table class="datatable table table-striped table-bordered dataTable no-footer">
+        <thead>
+          <tr>
+            <th class="sorting">#</th>
+            <th class="sorting">Issue date</th>
+            <th class="sorting">Series-number</th>            
+            <th class="sorting">Customer</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let invoice of invoices; let i = index" class="odd">
+            <td>{{i}}</td>
+            <td>{{invoice.issueDate}}</td>
+            <td>{{invoice.invoiceSeries}}-{{invoice.invoiceNumber}}</td>
+            <td>{{invoice.customer.registrationName}}</td>            
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="dataTables_footer">
+      <div class="dataTables_paginate paging_bootstrap_input" id="DataTables_Table_0_paginate">
+        <ul class="pagination">
+          <li class="first disabled"><span class="i fa fa-angle-double-left"></span></li>
+          <li class="prev disabled"><span class="i fa fa-angle-left"></span></li>
+        </ul>
+        <div class="pagination-input"> <input type="text" class="paginate_input"> <span class="paginate_of">of <b>3</b></span></div>
+        <ul class="pagination">
+          <li class="next"><span class="i fa fa-angle-right"></span></li>
+          <li class="last"><span class="i fa fa-angle-double-right"></span></li>
+        </ul>
+      </div>
+    </div>
   </div>
-
-</project-page>

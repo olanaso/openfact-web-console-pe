@@ -23,10 +23,10 @@ import {OrganizationResolve} from './services';
         BrowserModule,
         FormsModule,
         ReactiveFormsModule,
+        routing,
         PipeModule,
         SharedModule,
-        OrganizationModule,
-        routing        
+        OrganizationModule    
     ],
     declarations: [
         AppComponent,
@@ -35,7 +35,6 @@ import {OrganizationResolve} from './services';
         CreateOrganizationComponent,
         ListOrganizationComponent
     ],
-    
     providers: [
         /*router providers*/
         appRoutingProviders,

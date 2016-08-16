@@ -28,7 +28,7 @@ export class GeneralInformationComponent implements OnInit {
     private formBuilder: FormBuilder,
     private dataService: DataService,
     private alertMessageService: AlertMessageService) {
-    this.organization = this.activatedRoute.parent.snapshot.data['organization'];
+    this.organization = this.activatedRoute.parent.parent.snapshot.data['organization']; 
   }
 
   ngOnInit() {

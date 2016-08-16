@@ -14,9 +14,7 @@ export class SettingsComponent implements OnInit {
   organization: OrganizationModel;
 
   constructor(private activatedRoute: ActivatedRoute) {
-    this.activatedRoute.data.subscribe(result => {
-      this.organization = <OrganizationModel>result['organization'];
-    });
+    this.organization = this.activatedRoute.snapshot.parent.data['organization']; 
   }
 
   ngOnInit() {

@@ -7,7 +7,7 @@ import { OrganizationModel, InvoiceModel } from '../models';
 
 import { Restangular } from '../restangular';
 import { OpenfactService } from '../restangular-impl';
-import {OrganizationModel} from '../../services';
+
 
 export const INVOICE_ID: string = 'name';
 export const INVOICE_PATH: string = 'invoices';
@@ -35,7 +35,6 @@ export class InvoiceProviderService implements Provider {
       .map(model => this.extractSingleData(model, restangular, false));
   }
 
-<<<<<<< HEAD
   public getAll(organizationModel:OrganizationModel): Observable<InvoiceModel[]> {
     //this.restangular.
     return organizationModel.restangular.all(INVOICE_PATH).get()
@@ -43,6 +42,10 @@ export class InvoiceProviderService implements Provider {
       .map(models => this.extractMultipleData(models, this.restangular));
 
     /*let restangular = this.restangular.all(this.path);
+=======
+  public getAll(organization: OrganizationModel): Observable<InvoiceModel[]> {
+    let restangular = this.restangular.base(organization.restangular.path).all(this.path);
+>>>>>>> 822e6f5eb00cd3d352541dd8566d90117687a70a
 =======
   public getAll(organization: OrganizationModel): Observable<InvoiceModel[]> {
     let restangular = this.restangular.base(organization.restangular.path).all(this.path);

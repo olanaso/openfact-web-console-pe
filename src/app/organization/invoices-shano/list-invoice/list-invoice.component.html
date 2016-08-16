@@ -1,0 +1,49 @@
+<div class="visible-xs-block">
+  <navbar-utility-mobile></navbar-utility-mobile>
+</div>
+
+<div class="container">
+  <alerts></alerts>
+</div>
+
+<project-header></project-header>
+<project-page>
+  <div class="container-fluid container-cards-pf">
+    <div class="row row-cards-pf">
+      <div class="col-md-10 col-md-offset-1">
+
+        <h1 style="margin: 10px 0px 20px; display: inline-block;">Invoices</h1>
+        <!--<a style="margin-top: 10px;" [routerLink]="['../create-organization']" class="btn btn-lg btn-primary pull-right">Create organization</a>-->
+
+        <alerts [alerts]="alerts"></alerts>
+
+        <div *ngFor="let invoice of invoices" class="card-pf">
+          <div class="card-pf-heading">
+            <!--<button-delete [model]="invoice" [type]="'Invoice'" [alerts]="alerts" [buttonOnly]="true" (success)="loadOrganizations($event)"-->
+              <!--class="card-pf-heading-details">-->
+            <!--</button-delete>-->
+            <h2 class="card-pf-title">
+              <!--<a href="javascript:void(0)" (click)="editOrganization(invoice)">{{invoice.name}}</a>-->
+              <a href="javascript:void(0)">{{invoice.totalAmmount}}</a>
+            </h2>
+            <div style="margin-bottom: 10px;">
+              <span>{{invoice.totalAmmount}}</span>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="!invoices.length">
+          <div class="blank-slate-pf">
+            <p>
+              There are no invoices to show you.
+            </p>
+            <p>
+              Learn more about this problem <a href="#">on the documentation</a>.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</project-page>

@@ -12,3 +12,4 @@ export * from './shared-services';
 export * from './shared.module';
 export * from './sidebar';
 export * from './toggle-button';
+export * from './equals-validator';

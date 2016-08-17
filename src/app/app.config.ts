@@ -30,7 +30,7 @@ export const DEFAULT_CONFIG: AppConfig = {
     loggingURL: "",
     api: {
         openfact: {
-            host: "http://192.168.1.41:8081",
+            host: "http://localhost:8080",
             prefix: "/admin"
         },
         sunat: {

@@ -6,7 +6,7 @@
 
 var Angular2App = require('angular-cli/lib/broccoli/angular2-app');
 
-module.exports = function(defaults) {
+module.exports = function (defaults) {
   return new Angular2App(defaults, {
     vendorNpmFiles: [
       'systemjs/dist/system-polyfills.js',
@@ -21,6 +21,11 @@ module.exports = function(defaults) {
       'ng2-bootstrap/**/*.js',
       'ng2-file-upload/**/*.js',
       'patternfly/**/*.*'
-    ]
+    ],
+    lessCompiler: {
+      includePaths: [
+        'src/styles'
+      ],
+    }
   });
 };

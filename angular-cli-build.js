@@ -22,10 +22,15 @@ module.exports = function (defaults) {
       'ng2-file-upload/**/*.js',
       'patternfly/**/*.*'
     ],
-    lessCompiler: {
-      includePaths: [
-        'src/styles'
-      ],
-    }
+    includePaths: [
+      'src/styles/',
+      'src/app/'
+    ]
+    //  lessCompiler: {
+    //   includePaths: [
+    //     'src/styles/',
+    //     'src/app/'
+    //   ]
+    // }
   });
 };

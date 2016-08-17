@@ -8,23 +8,25 @@ import {Validators, CORE_DIRECTIVES, FORM_DIRECTIVES, NgClass, NgStyle} from '@a
 import {REACTIVE_FORM_DIRECTIVES, FormGroup, FormControl, FormBuilder} from '@angular/forms';
 import {FILE_UPLOAD_DIRECTIVES, FileUploader} from 'ng2-file-upload';
 
-import {CertificateModel, DataService} from '../../../services';
-import {Alert, AlertMessageService} from '../../../shared';
+import {OrganizationModel, Certificate, DataService} from '../../../services';
+import {Alert, EqualValidator, AlertMessageService} from '../../../shared';
 
 
-const URL = 'https://evening-anchorage-3159.herokuapp.com/api/';
+const URL = 'http://localhost:8080/admin/organizations/master/certifieds/upload';
 
 @Component({
   moduleId: module.id,
   selector: 'app-certificate',
   templateUrl: 'certificate.component.html',
   styleUrls: ['certificate.component.css'],
-  directives: [FILE_UPLOAD_DIRECTIVES, NgClass, NgStyle, CORE_DIRECTIVES, FORM_DIRECTIVES]
+  directives: [FILE_UPLOAD_DIRECTIVES, NgClass, NgStyle, CORE_DIRECTIVES, FORM_DIRECTIVES, EqualValidator]
 })
 
 export class CertificateComponent implements OnInit {
 
-  certificate: CertificateModel;
+  organization: OrganizationModel;
+  uploader: FileUploader;
+  hasBaseDropZoneOver: boolean = false;
   form: FormGroup;
   working: boolean = false;
   submitted: boolean = false;
@@ -35,21 +37,12 @@ export class CertificateComponent implements OnInit {
               private formBuilder: FormBuilder,
               private dataService: DataService,
               private alertMessageService: AlertMessageService) {
-    this.certificate = this.activatedRoute.parent.snapshot.data['certificate'];
+    this.organization = this.activatedRoute.parent.parent.snapshot.data['organization'];
   }
 
-  public uploader: FileUploader = new FileUploader({url: URL});
-  public hasBaseDropZoneOver: boolean = false;
-  public hasAnotherDropZoneOver: boolean = false;
-
-  public fileOverBase(e: any): void {
+  fileOverBase(e: any): void {
     this.hasBaseDropZoneOver = e;
   }
-
-  public fileOverAnother(e: any): void {
-    this.hasAnotherDropZoneOver = e;
-  }
-
 
   ngOnInit() {
     this.loadAlerts();
@@ -58,10 +51,12 @@ export class CertificateComponent implements OnInit {
   }
 
   loadData() {
-    (<FormControl>this.form.controls['alias']).updateValue(this.certificate.alias);
-    (<FormControl>this.form.controls['password']).updateValue(this.certificate.password);
-    (<FormControl>this.form.controls['passwordConfirmation']).updateValue(this.certificate.passwordConfirmation);
-    (<FormControl>this.form.controls['validity']).updateValue(this.certificate.validity);
+    this.uploader = new FileUploader({url: URL});
+    let certificate = <Certificate>(this.organization.certificate || {});
+    (<FormControl>this.form.controls['alias']).updateValue(certificate.alias);
+    (<FormControl>this.form.controls['password']).updateValue(certificate.password);
+    (<FormControl>this.form.controls['passwordConfirmation']).updateValue(certificate.passwordConfirmation);
+    (<FormControl>this.form.controls['validity']).updateValue(certificate.validity);
     /*     (<FormControl>this.form.controls['assignedIdentificationId']).updateValue(this.certificate.assignedIdentificationId);  */
   }
 
@@ -74,45 +69,51 @@ export class CertificateComponent implements OnInit {
 
   buildForm() {
     this.form = this.formBuilder.group({
-      alias: ['', []],
-      certificate: ['', []],
-      password: ['', []],
-      passwordConfirmation: ['', []],
-      validity: ['', []]
+      alias: ['', Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(100)])],
+      /*certificate: ['', Validators.required],*/
+      password: ['', Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(100)])],
+      passwordConfirmation: ['', Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(100)])],
+      validity: ['', Validators.required]
     });
   }
 
+
   setSubmitted(submitted: boolean) {
     this.submitted = submitted;
+
   }
 
-  save(certificate: CertificateModel) {
+  save(certificate: Certificate) {
     /*Disable button*/
     this.working = true;
+   /* Object.assign(this.organization, certificate);*/
 
-    this.certificate = Object.assign(this.certificate, certificate);
 
-    this.certificate.save().subscribe(
+    this.organization.saveCertificate(certificate).subscribe(
       result => {
+        this.uploader.uploadAll();
         this.alerts.push({
           type: 'success',
-          message: 'certificate ' + certificate.alias + ' updated.'
+          message: 'Success',
+          details: 'Your changes have been saved to the organization.'
         });
+        this.working = false;
       },
       error => {
         this.working = false;
         this.alerts.push({
           type: 'error',
-          message: 'certificate could not be create.',
-          details: error
+          message: 'Error',
+          details: 'Your changes could not saved to the organization.'
         });
       }
     );
   }
 
-  cancel() {
-    let link = ['./overview'];
-    this.router.navigate(link);
+  reset() {
+    this.loadData();
+    this.uploader.cancelAll();
+    this.uploader.clearQueue();
   }
 
 

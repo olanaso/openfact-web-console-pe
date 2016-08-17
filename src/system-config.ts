@@ -53,7 +53,7 @@ const barrels: string[] = [
   // Thirdparty barrels.
   'rxjs',
 
-  // App specific barrels.  
+  // App specific barrels.
   'app',
 
   'app/pipes',
@@ -62,7 +62,7 @@ const barrels: string[] = [
   'app/pages/about',
   'app/pages/error',
   'app/pages/list-organization',
-  'app/pages/create-organization',  
+  'app/pages/create-organization',
 
   'app/services',
   'app/services/models',
@@ -72,7 +72,7 @@ const barrels: string[] = [
   'app/services/restangular-impl',
 
   'app/shared',
-  'app/shared/shared-services',  
+  'app/shared/shared-services',
   'app/shared/navbar-utility',
   'app/shared/navbar-utility-mobile',
   'app/shared/default-header',
@@ -86,20 +86,21 @@ const barrels: string[] = [
   'app/shared/button-cancel',
   'app/shared/button-delete',
   'app/shared/toggle-button',
-  
+  'app/shared/equals-validator',
+
   'app/organization',
   'app/organization/overview',
   'app/organization/settings',
   'app/organization/settings/address',
-  'app/organization/settings/general-information',  
+  'app/organization/settings/general-information',
   'app/organization/settings/tasks-schedule',
   'app/organization/settings/certificate',
-  
+
   'app/organization',
   'app/organization/invoices',
   'app/organization/invoices/create-invoice',
   'app/organization/invoices/list-invoice',
-  'app/organization/invoices/edit-invoice'  
+  'app/organization/invoices/edit-invoice'
   /** @cli-barrel */
 ];
 

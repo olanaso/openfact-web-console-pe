@@ -8,126 +8,136 @@
 
 <div class="row">
   <div class="col-sm-5">
-    <form [formGroup]="form" (ngSubmit)="save(form.value)" class="form-horizontal" novalidate>
+    <fieldset>
+      <legend>Important data of certificate</legend>
+      <form [formGroup]="form" (ngSubmit)="save(form.value)" class="form-horizontal" novalidate>
 
-      <fieldset>
-        <div class="form-group" [ngClass]="{ 'has-error' : !form.controls.alias.valid && submitted }">
-          <label class="col-sm-3 control-label">Name
-            <a tooltip="Alias of the certified" tooltipPlacement="right"><span class="fa fa-info-circle"></span></a>
-          </label>
-          <div class="col-sm-8">
-            <input formControlName="alias" type="text" class="form-control" autofocus/>
-            <div *ngIf="!form.controls.alias.valid && submitted">
-              <span class="help-block">Type a correct alias</span>
-            </div>
-          </div>
-        </div>
-        <div class="form-group" [ngClass]="{ 'has-error' : !form.controls.password.valid && submitted }">
-          <label class="col-sm-3 control-label">Password
-            <a tooltip="Password of the certified" tooltipPlacement="right"><span class="fa fa-info-circle"></span></a>
-          </label>
-          <div class="col-sm-8">
-            <input formControlName="password" type="password" class="form-control" required
-                   validateEqual=”passwordConfirmation” reverse=”true”/>
-            <div *ngIf="!form.controls.password.valid && submitted">
-              <span class="help-block">Password is required</span>
-            </div>
-          </div>
-        </div>
-        <div class="form-group" [ngClass]="{ 'has-error' : !form.controls.passwordConfirmation.valid && submitted }">
-          <label class="col-sm-3 control-label">Confirm Password
-            <a tooltip="Confirm password of the certified" tooltipPlacement="right"><span
-              class="fa fa-info-circle"></span></a>
-          </label>
-          <div class="col-sm-8">
-            <input formControlName="passwordConfirmation" type="password" class="form-control" required
-                   validateEqual=”password”/>
-            <div *ngIf="!form.controls.passwordConfirmation.valid && submitted">
-              <span class="help-block">Password mismatch</span>
-            </div>
-          </div>
-        </div>
-        <div class="form-group" [ngClass]="{ 'has-error' : !form.controls.validity.valid && submitted }">
-          <label class="col-sm-3 control-label">Validity Date
-            <a tooltip="validity date of the certified" tooltipPlacement="right"><span
-              class="fa fa-info-circle"></span></a>
-          </label>
-          <div class="col-sm-8">
-            <input formControlName="validity" type="date" class="form-control"/>
-            <div *ngIf="!form.controls.validity.valid && submitted">
-              <span class="help-block">Type a correct validity date</span>
-            </div>
-          </div>
-        </div>
-        <div class="form-group">
-          <div class="col-sm-offset-2 col-sm-10">
-            <button-save [form]="form" [working]="working" [alerts]="alerts"
-                         (onClick)="setSubmitted($event)"></button-save>
-            <button-cancel [working]="working" (onClick)="reset($event)"></button-cancel>
-          </div>
-        </div>
-      </fieldset>
-    </form>
-
-  </div>
-  <div class="col-sm-4">
-
-    <div class="col-sm-12" style="margin-top: 20px">
-      <div ng2FileDrop
-           [ngClass]="{'my-drop-zone': hasBaseDropZoneOver}"
-           (fileOver)="fileOverBase($event)"
-           [uploader]="uploader"
-           class="well my-drop-zone">
-        Drag your certificate here
-      </div>
-    </div>
-
-    <div class="col-md-12">
-      <div class="table-responsive">
-        <table class="datatable table table-striped table-bordered dataTable no-footer">
-          <thead>
-          <tr>
-            <th class="sorting" width="40%">Name</th>
-            <th class="sorting" width="20%">Size</th>
-            <th class="sorting" width="20%">Progress</th>
-            <th class="sorting" width="10%">Status</th>
-            <th class="sorting" width="10%">Action</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr *ngFor="let item of uploader.queue">
-            <td><strong>{{ item.file.name }}</strong></td>
-            <td>{{ item.file.size/1024/1024 | number:'.2' }} MB</td>
-            <td>
-              <div class="progress" style="margin-bottom: 0;">
-                <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
+        <fieldset>
+          <div class="form-group" [ngClass]="{ 'has-error' : !form.controls.alias.valid && submitted }">
+            <label class="col-sm-3 control-label">Name
+              <a tooltip="Alias of the certified" tooltipPlacement="right"><span class="fa fa-info-circle"></span></a>
+            </label>
+            <div class="col-sm-8">
+              <input formControlName="alias" type="text" class="form-control" autofocus/>
+              <div *ngIf="!form.controls.alias.valid && submitted">
+                <span class="help-block">Type a correct alias</span>
               </div>
-            </td>
-            <td class="text-center">
-              <span *ngIf="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
-              <span *ngIf="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
-              <span *ngIf="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
-            </td>
-            <td nowrap>
-              <button type="button" class="btn btn-success btn-xs"
-                      (click)="item.upload()" [disabled]="item.isReady || item.isUploading || item.isSuccess">
-                <span class="glyphicon glyphicon-upload"></span> Upload
-              </button>
-              <button type="button" class="btn btn-danger btn-xs"
-                      (click)="item.remove()">
-                <span class="glyphicon glyphicon-trash"></span>
-              </button>
-            </td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="dataTables_footer">
-      </div>
-    </div>
-
+            </div>
+          </div>
+          <div class="form-group" [ngClass]="{ 'has-error' : !form.controls.password.valid && submitted }">
+            <label class="col-sm-3 control-label">Password
+              <a tooltip="Password of the certified" tooltipPlacement="right"><span
+                class="fa fa-info-circle"></span></a>
+            </label>
+            <div class="col-sm-8">
+              <input formControlName="password" type="password" class="form-control" required
+                     validateEqual=”passwordConfirmation” reverse=”true”/>
+              <div *ngIf="!form.controls.password.valid && submitted">
+                <span class="help-block">Password is required</span>
+              </div>
+            </div>
+          </div>
+          <div class="form-group" [ngClass]="{ 'has-error' : !form.controls.passwordConfirmation.valid && submitted }">
+            <label class="col-sm-3 control-label">Confirm Password
+              <a tooltip="Confirm password of the certified" tooltipPlacement="right"><span
+                class="fa fa-info-circle"></span></a>
+            </label>
+            <div class="col-sm-8">
+              <input formControlName="passwordConfirmation" type="password" class="form-control" required
+                     validateEqual=”password”/>
+              <div *ngIf="!form.controls.passwordConfirmation.valid && submitted">
+                <span class="help-block">Password mismatch</span>
+              </div>
+            </div>
+          </div>
+          <div class="form-group" [ngClass]="{ 'has-error' : !form.controls.validity.valid && submitted }">
+            <label class="col-sm-3 control-label">Validity Date
+              <a tooltip="validity date of the certified" tooltipPlacement="right"><span
+                class="fa fa-info-circle"></span></a>
+            </label>
+            <div class="col-sm-8">
+              <input formControlName="validity" type="date" class="form-control"/>
+              <div *ngIf="!form.controls.validity.valid && submitted">
+                <span class="help-block">Type a correct validity date</span>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <button-save [form]="form" [working]="working" [alerts]="alerts"
+                           (onClick)="setSubmitted($event)"></button-save>
+              <button-cancel [working]="working" (onClick)="reset($event)"></button-cancel>
+            </div>
+          </div>
+        </fieldset>
+      </form>
+    </fieldset>
   </div>
-  <div class="col-sm-3"></div>
+  <div class="col-sm-5">
+    <fieldset>
+      <legend>Upload certificate</legend>
+
+      <div class="col-sm-12" style="margin-top: 20px">
+        <div ng2FileDrop
+             [ngClass]="{'my-drop-zone': hasBaseDropZoneOver}"
+             (fileOver)="fileOverBase($event)"
+             [uploader]="uploader"
+             class="well my-drop-zone">
+          Drag your certificate here
+        </div>
+      </div>
+
+      <div class="col-md-12">
+        <div class="table-responsive">
+          <table class="datatable table table-striped table-bordered dataTable no-footer">
+            <thead>
+            <tr>
+              <th class="sorting" width="40%">Name</th>
+              <th class="sorting" width="20%">Size</th>
+              <th class="sorting" width="20%">Progress</th>
+              <th class="sorting" width="10%">Status</th>
+              <th class="sorting" width="10%">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let item of uploader.queue">
+              <td><strong>{{ item.file.name }}</strong></td>
+              <td>{{ item.file.size/1024/1024 | number:'.2' }} MB</td>
+              <td>
+                <div class="progress" style="margin-bottom: 0;">
+                  <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
+                </div>
+              </td>
+              <td class="text-center">
+                <span *ngIf="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
+                <span *ngIf="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
+                <span *ngIf="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
+              </td>
+              <td nowrap>
+                <button type="button" class="btn btn-success btn-xs"
+                        (click)="item.upload()" [disabled]="item.isReady || item.isUploading || item.isSuccess">
+                  <span class="glyphicon glyphicon-upload"></span>
+                </button>
+                <button type="button" class="btn btn-warning btn-xs"
+                        (click)="item.cancel()" [disabled]="!item.isUploading">
+                  <span class="glyphicon glyphicon-ban-circle"></span>
+                </button>
+                <button type="button" class="btn btn-danger btn-xs"
+                        (click)="item.remove()">
+                  <span class="glyphicon glyphicon-trash"></span>
+                </button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="dataTables_footer">
+        </div>
+      </div>
+    </fieldset>
+  </div>
+  <div class="col-sm-2"></div>
+
 </div>
 
 

@@ -91,7 +91,7 @@ export class CertificateComponent implements OnInit {
 
     this.organization.saveCertificate(certificate).subscribe(
       result => {
-        this.uploader.uploadAll();
+        /*this.uploader.uploadAll();*/
         this.alerts.push({
           type: 'success',
           message: 'Success',
@@ -112,8 +112,8 @@ export class CertificateComponent implements OnInit {
 
   reset() {
     this.loadData();
-    this.uploader.cancelAll();
-    this.uploader.clearQueue();
+   /* this.uploader.cancelAll();
+    this.uploader.clearQueue();*/
   }
 
 

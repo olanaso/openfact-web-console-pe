@@ -1,0 +1,37 @@
+<form class="form-horizontal" novalidate>
+
+  <div class="dataTables_wrapper no-footer">
+    <div class="dataTables_header">
+      <div class="dataTables_filter">
+        <label>
+          <input type="search">        
+        </label>
+      </div>
+      <div class="dataTables_info">&nbsp;</div>
+      <div class="ColVis">
+        <button type="button" [routerLink]="['../create-tax-type']" class="btn btn-default">Create</button>
+      </div>
+    </div>
+    <div class="table-responsive">
+      <table class="datatable table table-striped table-bordered dataTable no-footer">
+        <thead>          
+          <tr>
+            <th>Name</th>
+            <th>Code</th>
+            <th>Value</th>
+            <th colspan="2" class="w-25">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let taxType of taxTypes; let i = index">
+            <td>{{taxType.name}}</td>
+            <td>{{taxType.code}}</td>
+            <td>{{taxType.value}}</td>
+            <td class="of-action-cell" (click)="removeTaxType(i)">Delete</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</form>

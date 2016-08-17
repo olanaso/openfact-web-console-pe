@@ -5,7 +5,8 @@ import {OrganizationResolve} from '../services';
 import {OrganizationComponent} from './organization.component';
 import {OverviewComponent} from './overview';
 import {InvoicesComponent, CreateInvoiceComponent, ListInvoiceComponent} from './invoices';
-import {SettingsComponent, GeneralInformationComponent, AddressComponent, CertificateComponent, TasksScheduleComponent, TaxTypesComponent} from './settings';
+import {SettingsComponent, GeneralInformationComponent, AddressComponent, CertificateComponent, TasksScheduleComponent} from './settings';
+import {TaxTypesComponent, ListTaxTypesComponent, CreateTaxTypeComponent, EditTaxTypeComponent} from './settings';
 
 const organizationRoutes: Routes = [
   {
@@ -36,7 +37,7 @@ const organizationRoutes: Routes = [
             component: CreateInvoiceComponent
           }
         ]
-      },    
+      },
       {
         path: 'settings',
         component: SettingsComponent,
@@ -63,7 +64,17 @@ const organizationRoutes: Routes = [
           },
           {
             path: 'tax-types',
-            component: TaxTypesComponent
+            component: TaxTypesComponent,
+            children: [
+              {
+                path: '',
+                component: ListTaxTypesComponent
+              },
+              {
+                path: 'create-tax-type',
+                component: CreateTaxTypeComponent
+              }
+            ]
           }
         ]
       }

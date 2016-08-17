@@ -1,0 +1,14 @@
+/* tslint:disable:no-unused-variable */
+
+/*import { By }           from '@angular/platform-browser';
+import { DebugElement } from '@angular/core';
+import { addProviders, async, inject } from '@angular/core/testing';
+import { CreateTaxTypeComponent } from './create-tax-type.component';
+
+describe('Component: CreateTaxType', () => {
+  it('should create an instance', () => {
+    let component = new CreateTaxTypeComponent();
+    expect(component).toBeTruthy();
+  });
+});
+*/

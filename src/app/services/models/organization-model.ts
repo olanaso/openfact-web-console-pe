@@ -3,48 +3,47 @@ import {Restangular} from '../restangular';
 
 export class OrganizationModel implements Model {
 
-    /*Restangular*/
-    public restangular: Restangular;
+    restangular: Restangular;
 
-    /*Attributes*/
-    public id: string;
-    public name: string;
-    public description: string;
-    public supplierName: string;
-    public registrationName: string;
-    public additionalAccountId: string;
-    public assignedIdentificationId: string;
-    public enabled: boolean;
+    id: string;
+    name: string;
+    description: string;
+    supplierName: string;
+    registrationName: string;
+    additionalAccountId: string;
+    assignedIdentificationId: string;
+    enabled: boolean;
 
-    public postalAddress: PostalAddress;
-    public tasksSchedule: TasksSchedule;
+    postalAddress: PostalAddress;
+    tasksSchedule: TasksSchedule;
 
-    /*Constructor*/
     constructor(restangular: Restangular) {
         this.restangular = restangular;
     }
 
-    public clone(): OrganizationModel {
+    clone(): OrganizationModel {
         let copy = Object.assign({}, this);
         delete copy['restangular'];
         return copy;
     }
 
-    public save() {
+    save() {
         return this.restangular.put(this.clone());
     }
 }
 
-export interface PostalAddress {
+export class PostalAddress {
     streetName: string;
     citySubdivisionName: string;
     cityName: string;
     countrySubentity: string;
     district: string;
     countryIdentificationCode: string;
+
+    constructor() {}
 }
 
-export interface TasksSchedule {
+export class TasksSchedule {
     attempNumber: number;
     lapseTime: number;
     onErrorAttempNumber: number;
@@ -53,4 +52,15 @@ export interface TasksSchedule {
     delayTime: number;
     submitTime: Date;
     submitDays: number[];
+
+    constructor() {}
+}
+
+export class TaxType {
+    id: string;
+    name: string;
+    code: string;
+    value: number;
+
+    constructor() {}
 }

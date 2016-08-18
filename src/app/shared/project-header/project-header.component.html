@@ -6,22 +6,34 @@
     </button>
   </div>
   <div class="navbar-header">
-<div class="btn-group bootstrap-select form-control"><button data-toggle="dropdown" class="btn dropdown-toggle btn-default" type="button" data-id="boostrapSelect" title="default" aria-expanded="false"><span class="filter-option pull-left">default</span>&nbsp;<span class="caret"></span></button><div class="dropdown-menu open" style="max-height: 564px; overflow: hidden; min-height: 89px;"><ul role="menu" class="dropdown-menu inner" style="max-height: 552px; overflow-y: auto; min-height: 77px;"><li data-original-index="0" class="selected"><a data-tokens="null" style="" class="" tabindex="0"><span class="text">default</span><span class="fa fa-check check-mark"></span></a></li><li data-original-index="1"><a data-tokens="null" style="" class="" tabindex="0"><span class="text">openshift</span><span class="fa fa-check check-mark"></span></a></li><li data-original-index="2"><a data-tokens="null" style="" class="" tabindex="0"><span class="text">OpenShift sample project</span><span class="fa fa-check check-mark"></span></a></li><li data-original-index="3"><a data-tokens="null" style="" class="" tabindex="0"><span class="text">openshift-infra</span><span class="fa fa-check check-mark"></span></a></li><li data-original-index="4" class="divider"></li><li data-original-index="5"><a data-tokens="null" style="" class="" tabindex="0"><span class="text">View all projects</span><span class="fa fa-check check-mark"></span></a></li></ul></div></div>
+    <div class="btn-group bootstrap-select form-control"><button data-toggle="dropdown" class="btn dropdown-toggle btn-default" type="button" data-id="boostrapSelect" title="default"
+        aria-expanded="false"><span class="filter-option pull-left">default</span>&nbsp;<span class="caret"></span></button>
+      <div class="dropdown-menu open" style="max-height: 564px; overflow: hidden; min-height: 89px;">
+        <ul role="menu" class="dropdown-menu inner" style="max-height: 552px; overflow-y: auto; min-height: 77px;">
+          <li data-original-index="0" class="selected"><a data-tokens="null" style="" class="" tabindex="0"><span class="text">default</span><span class="fa fa-check check-mark"></span></a></li>
+          <li data-original-index="1"><a data-tokens="null" style="" class="" tabindex="0"><span class="text">openshift</span><span class="fa fa-check check-mark"></span></a></li>
+          <li data-original-index="2"><a data-tokens="null" style="" class="" tabindex="0"><span class="text">OpenShift sample project</span><span class="fa fa-check check-mark"></span></a></li>
+          <li data-original-index="3"><a data-tokens="null" style="" class="" tabindex="0"><span class="text">openshift-infra</span><span class="fa fa-check check-mark"></span></a></li>
+          <li data-original-index="4" class="divider"></li>
+          <li data-original-index="5"><a data-tokens="null" style="" class="" tabindex="0"><span class="text">View all projects</span><span class="fa fa-check check-mark"></span></a></li>
+        </ul>
+      </div>
+    </div>
   </div>
 
-  <div class="navbar-header">
-    <div class="form-group styled" style="margin: 0;margin-top:10px;" >
-      <select class="btn-group bootstrap-select form-control"  [(ngModel)]="selectOrganization" (ngModelChange)="changeOrganization($event)" >
+  <!--<div class="navbar-header">
+    <div class="form-group styled" style="margin: 0;margin-top:10px;">
+      <select class="btn-group bootstrap-select form-control" [(ngModel)]="selectOrganization" (ngModelChange)="changeOrganization($event)">
          <option *ngFor="let organization of organizations" [ngValue]="organization">{{organization.name}}</option>
       </select>
     </div>
-  </div>
+  </div>-->
 
 
   <!--<div class="col-md-2"> <select class="form-control">style="height: 58px; width: 300px; font-size: 16px;"
          <option *ngFor="let o of refData" [value]="o.value">{{o.name}}</option>$event.target.value  [(ngModel)]="selectOrganization" 
       [ngModel]="selectOrganization" </select></div>
       change)="onChange($event.target.value)"
-      -->  
+      -->
   <navbar-utility></navbar-utility>
-</nav>  
+</nav>

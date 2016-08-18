@@ -44,9 +44,15 @@ export class CreateOrganizationComponent implements OnInit {
     this.submitted = submitted;
   }
 
+  preSave(): OrganizationModel {
+    return Object.assign(this.organization, this.form.value);
+  }
+
   save() {
     this.working = true;
-    this.dataService.organizations().create(this.organization).subscribe(
+    let organization = this.preSave();
+
+    this.dataService.organizations().create(organization).subscribe(
       result => {
         this.alertService.pop('success', 'Success', 'Success! The organization has been created.');
         this.router.navigate(['/organization', this.organization.name]);

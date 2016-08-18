@@ -17,7 +17,7 @@
               <i class="fa fa-question-circle text-muted" tooltip="Name of the organization" tooltipPlacement="right" tooltipTrigger="mouseover mouseout"></i>
             </label>
             <div class="col-sm-3">
-              <input formControlName="name" [(ngModel)]="organization.name" type="text" class="form-control" autofocus/>
+              <input formControlName="name" type="text" class="form-control" autofocus/>
               <div *ngIf="!form.controls.name.valid && submitted">
                 <span *ngIf="form.controls.name.errors.required" class="help-block">This field is required</span>
                 <span *ngIf="form.controls.name.errors.maxlength" class="help-block">Max length {{form.controls.name.errors.maxlength.requiredLength}}</span>
@@ -29,7 +29,7 @@
               <i class="fa fa-question-circle text-muted" tooltip="Description of the organization" tooltipPlacement="right" tooltipTrigger="mouseover mouseout"></i>
             </label>
             <div class="col-sm-3">
-              <textarea formControlName="description" [(ngModel)]="organization.description" type="text" class="form-control"></textarea>
+              <textarea formControlName="description" type="text" class="form-control"></textarea>
               <div *ngIf="!form.controls.description.valid && submitted">
                 <span *ngIf="form.controls.description.errors.maxlength" class="help-block">Max length {{form.controls.description.errors.maxlength.requiredLength}}</span>
               </div>

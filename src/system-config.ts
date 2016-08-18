@@ -87,7 +87,7 @@ const barrels: string[] = [
   'app/shared/button-reset',
   'app/shared/button-cancel',
   'app/shared/button-delete',
-  'app/shared/toggle-button',
+  'app/shared/button-switch',
   
   'app/organization',
   'app/organization/overview',

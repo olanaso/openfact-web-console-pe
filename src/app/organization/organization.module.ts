@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule} from '@angular/router';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {ReactiveFormsModule} from '@angular/forms';
 import {CommonModule}   from '@angular/common';
 import {SharedModule} from '../shared';
 
@@ -15,7 +15,6 @@ import {TaxTypesComponent, ListTaxTypesComponent, CreateTaxTypeComponent, EditTa
 @NgModule({
     imports: [
         CommonModule,
-        FormsModule,
         ReactiveFormsModule,
         SharedModule,
         organizationRouting

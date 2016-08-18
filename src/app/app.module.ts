@@ -1,6 +1,6 @@
 import {NgModule, provide} from '@angular/core';
 import {BrowserModule } from '@angular/platform-browser';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {ReactiveFormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 import {HTTP_PROVIDERS, Http} from '@angular/http';
 
@@ -21,7 +21,6 @@ import {OrganizationResolve} from './services';
 @NgModule({
     imports: [
         BrowserModule,
-        FormsModule,
         ReactiveFormsModule,
         routing,
         PipeModule,

@@ -4,7 +4,7 @@ import {Validators} from '@angular/common';
 import {FormGroup, FormControl, FormBuilder} from '@angular/forms';
 
 import {OrganizationModel, PostalAddress, DataService} from '../../../services';
-import {Alert, AlertService} from '../../../shared';
+import {AlertService} from '../../../shared';
 
 @Component({
   moduleId: module.id,
@@ -15,20 +15,17 @@ import {Alert, AlertService} from '../../../shared';
 export class AddressComponent implements OnInit {
 
   organization: OrganizationModel;
-  additionalAccountIds: string[] = ['DNI', 'RUC'];
 
   form: FormGroup;
   working: boolean = false;
   submitted: boolean = false;
-
-  alerts: Array<Alert> = [];
 
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
     private dataService: DataService,
-    private alertMessageService: AlertService) {
+    private alertService: AlertService) {
     this.organization = this.activatedRoute.parent.parent.snapshot.data['organization'];
   }
 
@@ -39,57 +36,51 @@ export class AddressComponent implements OnInit {
 
   buildForm() {
     this.form = this.formBuilder.group({
-      streetName: ['', []],
-      citySubdivisionName: ['', []],
-      cityName: ['', []],
-      countrySubentity: ['', []],
-      district: ['', []],
-      countryIdentificationCode: ['', []]
+      countryIdentificationCode: ['', [<any>Validators.maxLength(30)]],
+      countrySubentity: ['', [<any>Validators.maxLength(100)]],
+      citySubdivisionName: ['', [<any>Validators.maxLength(100)]],
+      cityName: ['', [<any>Validators.maxLength(100)]],
+      district: ['', [<any>Validators.maxLength(200)]],
+      streetName: ['', [<any>Validators.maxLength(200)]]
     });
   }
 
   loadData() {
-    let address = <PostalAddress>(this.organization.postalAddress || {});
-    (<FormControl>this.form.controls['streetName']).setValue(address.streetName);
-    (<FormControl>this.form.controls['citySubdivisionName']).setValue(address.citySubdivisionName);
-    (<FormControl>this.form.controls['cityName']).setValue(address.cityName);
-    (<FormControl>this.form.controls['countrySubentity']).setValue(address.countrySubentity);
-    (<FormControl>this.form.controls['district']).setValue(address.district);
-    (<FormControl>this.form.controls['countryIdentificationCode']).setValue(address.countryIdentificationCode);
-  }  
-  
+    let postalAddress = <PostalAddress>(this.organization.postalAddress || {});
+    (<FormControl>this.form.controls['countryIdentificationCode']).setValue(postalAddress.countryIdentificationCode);
+    (<FormControl>this.form.controls['countrySubentity']).setValue(postalAddress.countrySubentity);
+    (<FormControl>this.form.controls['citySubdivisionName']).setValue(postalAddress.citySubdivisionName);
+    (<FormControl>this.form.controls['cityName']).setValue(postalAddress.cityName);
+    (<FormControl>this.form.controls['district']).setValue(postalAddress.district);
+    (<FormControl>this.form.controls['streetName']).setValue(postalAddress.streetName);
+  }
+
   setSubmitted(submitted: boolean) {
     this.submitted = submitted;
   }
 
-  save(address: PostalAddress) {
-    /*Disable button*/
+  preSave(): OrganizationModel {
+    return Object.assign(this.organization, { postalAddress: this.form.value });
+  }
+
+  save() {
     this.working = true;
+    let organization = this.preSave();
 
-    Object.assign(this.organization.postalAddress, address);
-
-    this.organization.save().subscribe(
+    organization.save().subscribe(
       result => {
-        this.alerts.push({
-          type: 'success',
-          message: 'Success',
-          details: 'Your changes have been saved to the organization.'
-        });
         this.working = false;
+        this.alertService.pop('success', 'Success', 'Your changes have been saved to the organization.');
       },
       error => {
         this.working = false;
-        this.alerts.push({
-          type: 'error',
-          message: 'Error',
-          details: 'Your changes could not saved to the organization.'
-        });
+        this.alertService.pop('error', 'Error', 'Your changes could not saved to the organization.');
       }
     );
   }
 
-  reset() {
-    this.loadData(); 
+  reset() {  
+    this.loadData();
   }
 
 }

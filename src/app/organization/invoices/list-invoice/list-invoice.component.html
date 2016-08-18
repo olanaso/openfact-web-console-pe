@@ -1,44 +1,47 @@
-<h1>Invoices</h1>
+<div class="middle-header">
+  <div class="container-fluid">
+    <div class="page-header page-header-bleed-right page-header-bleed-left">
+      <h1>Add Invoices</h1>
+    </div>
+    <!--<alerts alerts="alerts" class="ng-isolate-scope">
+      
+    </alerts>-->
+  </div>
+</div>
 
 <div class="dataTables_wrapper no-footer">
-  <div class="dataTables_header">
-    <div class="dataTables_filter">
-      <label>
-        <!--<input type="search" placeholder="Filter by Keyboard">-->
-        <input type="search" placeholder="Filter by keyword" class="form-control ng-pristine ng-valid ng-touched" id="events-filter" ng-model="filter.text">
-      </label>
+  <div class="table-toolbar form-inline">
+    <div class="form-group filter-controls">
+      <label for="events-filter" class="sr-only">Filter</label>
+      <input type="search" placeholder="Filter by keyword" class="form-control ng-pristine ng-valid ng-touched" id="events-filter"
+        ng-model="filter.text">
     </div>
-    <!--<div class="vertical-divider"></div>-->
-    <div class="dataTables_info">
-      <div pf-simple-sort="" config="sortConfig" class="sort-controls ng-isolate-scope">
-        <div class="simple-sort">
-          <form class="ng-pristine ng-valid">
-            <div class="form-group">
-              <div class="dropdown btn-group">
-                <button type="button" class="btn btn-default dropdown-toggle ng-binding ng-isolate-scope" data-toggle="dropdown" aria-haspopup="true"
-                  aria-expanded="false">Reason <span class="caret"></span></button>
-                <ul class="dropdown-menu">
-                  <!-- ngRepeat: item in config.fields -->
-                  <li ng-repeat="item in config.fields" ng-class="{'selected': item === config.currentField}" class="ng-scope"><a class="sort-field ng-binding" role="menuitem" tabindex="-1" ng-click="selectField(item)">Time</a></li>
-                  <!-- end ngRepeat: item in config.fields -->
-                  <li ng-repeat="item in config.fields" ng-class="{'selected': item === config.currentField}" class="ng-scope"><a class="sort-field ng-binding" role="menuitem" tabindex="-1" ng-click="selectField(item)">Name</a></li>
-                  <!-- end ngRepeat: item in config.fields -->
-                  <li ng-repeat="item in config.fields" ng-class="{'selected': item === config.currentField}" class="ng-scope"><a class="sort-field ng-binding" role="menuitem" tabindex="-1" ng-click="selectField(item)">Kind</a></li>
-                  <!-- end ngRepeat: item in config.fields -->
-                  <li ng-repeat="item in config.fields" ng-class="{'selected': item === config.currentField}" class="ng-scope"><a class="sort-field ng-binding" role="menuitem" tabindex="-1" ng-click="selectField(item)">Severity</a></li>
-                  <!-- end ngRepeat: item in config.fields -->
-                  <li ng-repeat="item in config.fields" ng-class="{'selected': item === config.currentField}" class="ng-scope selected"><a class="sort-field ng-binding" role="menuitem" tabindex="-1" ng-click="selectField(item)">Reason</a></li>
-                  <!-- end ngRepeat: item in config.fields -->
-                  <li ng-repeat="item in config.fields" ng-class="{'selected': item === config.currentField}" class="ng-scope"><a class="sort-field ng-binding" role="menuitem" tabindex="-1" ng-click="selectField(item)">Message</a></li>
-                  <!-- end ngRepeat: item in config.fields -->
-                  <li ng-repeat="item in config.fields" ng-class="{'selected': item === config.currentField}" class="ng-scope"><a class="sort-field ng-binding" role="menuitem" tabindex="-1" ng-click="selectField(item)">Count</a></li>
-                  <!-- end ngRepeat: item in config.fields -->
-                </ul>
-              </div>
-              <button class="btn btn-link" type="button" ng-click="changeDirection()"><span class="sort-direction fa fa-sort-alpha-desc" ng-class="getSortIconClass()"></span></button>
-            </div>
-          </form>
-        </div>
+    <div class="vertical-divider"></div>
+    <div pf-simple-sort="" config="sortConfig" class="sort-controls ng-isolate-scope">
+      <div class="simple-sort">
+        <form class="ng-pristine ng-valid">
+          <div class="form-group">
+            <div class="dropdown btn-group"><button type="button" class="btn btn-default dropdown-toggle ng-binding ng-isolate-scope" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">Time <span class="caret"></span></button>
+              <ul class="dropdown-menu">
+                <!-- ngRepeat: item in config.fields -->
+                <li ng-repeat="item in config.fields" ng-class="{'selected': item === config.currentField}" class="ng-scope selected"><a class="sort-field ng-binding" role="menuitem" tabindex="-1" ng-click="selectField(item)">Time</a></li>
+                <!-- end ngRepeat: item in config.fields -->
+                <li ng-repeat="item in config.fields" ng-class="{'selected': item === config.currentField}" class="ng-scope"><a class="sort-field ng-binding" role="menuitem" tabindex="-1" ng-click="selectField(item)">Name</a></li>
+                <!-- end ngRepeat: item in config.fields -->
+                <li ng-repeat="item in config.fields" ng-class="{'selected': item === config.currentField}" class="ng-scope"><a class="sort-field ng-binding" role="menuitem" tabindex="-1" ng-click="selectField(item)">Kind</a></li>
+                <!-- end ngRepeat: item in config.fields -->
+                <li ng-repeat="item in config.fields" ng-class="{'selected': item === config.currentField}" class="ng-scope"><a class="sort-field ng-binding" role="menuitem" tabindex="-1" ng-click="selectField(item)">Severity</a></li>
+                <!-- end ngRepeat: item in config.fields -->
+                <li ng-repeat="item in config.fields" ng-class="{'selected': item === config.currentField}" class="ng-scope"><a class="sort-field ng-binding" role="menuitem" tabindex="-1" ng-click="selectField(item)">Reason</a></li>
+                <!-- end ngRepeat: item in config.fields -->
+                <li ng-repeat="item in config.fields" ng-class="{'selected': item === config.currentField}" class="ng-scope"><a class="sort-field ng-binding" role="menuitem" tabindex="-1" ng-click="selectField(item)">Message</a></li>
+                <!-- end ngRepeat: item in config.fields -->
+                <li ng-repeat="item in config.fields" ng-class="{'selected': item === config.currentField}" class="ng-scope"><a class="sort-field ng-binding" role="menuitem" tabindex="-1" ng-click="selectField(item)">Count</a></li>
+                <!-- end ngRepeat: item in config.fields -->
+              </ul>
+            </div><button class="btn btn-link" type="button" ng-click="changeDirection()"><span class="sort-direction fa fa-sort-alpha-desc" ng-class="getSortIconClass()"></span></button></div>
+        </form>
       </div>
     </div>
     <div class="ColVis">
@@ -47,9 +50,9 @@
       </div>
     </div>
   </div>
-  <div class="dataTables_header">
+  <!--<div class="dataTables_header">
     <div class="dataTables_info">Showing <b>1</b> to <b>20</b> of <b>57</b> Items</div>
-  </div>
+  </div>-->
   <div class="table-responsive">
     <table class="datatable table table-striped table-bordered dataTable no-footer table-hover table-mobile">
       <thead>

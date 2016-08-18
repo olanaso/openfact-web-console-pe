@@ -1,12 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
-import {Validators, CORE_DIRECTIVES} from '@angular/common';
-import {FormGroup, FormBuilder} from '@angular/forms';
-
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Validators } from '@angular/common';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import 'rxjs/Rx';
 
-import {OrganizationModel, DataService} from '../../services';
-import {Alert, AlertService} from '../../shared';
+import { OrganizationModel, DataService } from '../../services';
+import { AlertService } from '../../shared';
 
 @Component({
   moduleId: module.id,
@@ -22,13 +21,11 @@ export class CreateOrganizationComponent implements OnInit {
   working: boolean = false;
   submitted: boolean = false;
 
-  alerts: Array<Alert> = [];
-
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
     private dataService: DataService,
-    private alertMessageService: AlertService) {
+    private alertService: AlertService) {
     this.organization = this.dataService.organizations().build();
   }
 
@@ -47,32 +44,16 @@ export class CreateOrganizationComponent implements OnInit {
     this.submitted = submitted;
   }
 
-  save(organization: OrganizationModel) {
-    /*Disable button*/
+  save() {
     this.working = true;
-
-    /*Create the object to be send*/
-    Object.assign(this.organization, organization);
-
-    /*Call to the service*/
     this.dataService.organizations().create(this.organization).subscribe(
       result => {
-        /*this.alertMessageService.addAlert({
-          type: 'success',
-          message: 'Success',
-          details: 'Success! The organization has been created.'
-        }); */       
-
-        let link = ['/organization', organization.name];
-        this.router.navigate(link);
+        this.alertService.pop('success', 'Success', 'Success! The organization has been created.');
+        this.router.navigate(['/organization', this.organization.name]);
       },
       error => {
         this.working = false;
-        this.alerts.push({
-          type: 'error',
-          message: 'Error',
-          details: 'Organization could not be created.'
-        });
+        this.alertService.pop('error', 'Error', 'Organization could not be created.');
       }
     );
   }

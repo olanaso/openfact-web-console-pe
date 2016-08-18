@@ -12,7 +12,7 @@ import {EventsSidebarComponent} from './events-sidebar';
 import {ProjectPageComponent} from './project-page';
 import {SidebarComponent} from './sidebar';
 
-import {AlertsComponent} from './alerts';
+import {AlertsComponent, AlertComponent} from './alerts';
 
 import {ButtonSaveComponent} from './button-save';
 import {ButtonResetComponent} from './button-reset';
@@ -40,7 +40,7 @@ import {HeaderService} from './shared-services/header.service';
         ProjectPageComponent,
         SidebarComponent,
 
-        AlertsComponent,
+        AlertsComponent, AlertComponent,
 
         ButtonSaveComponent,
         ButtonResetComponent,

@@ -1,4 +1,6 @@
-.alert-top-aligner {
+/*********** Feedback ***********/
+
+.feedback-center {
     position: fixed;
     top: 65px;
     text-align: center;
@@ -7,7 +9,7 @@
     z-index: 10000;
 }
 
-.alert-top-aligner .alert {
+.feedback-center .alert {
     border-radius: 2px;
     border-width: 1px;
     display: inline-block;

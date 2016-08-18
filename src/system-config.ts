@@ -81,6 +81,8 @@ const barrels: string[] = [
   'app/shared/sidebar',
   'app/shared/events-sidebar',
   'app/shared/alerts',
+  'app/shared/alerts/alert',
+  'app/shared/alerts/services',
   'app/shared/button-save',
   'app/shared/button-reset',
   'app/shared/button-cancel',

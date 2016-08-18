@@ -9,7 +9,7 @@ import {REACTIVE_FORM_DIRECTIVES, FormGroup, FormControl, FormBuilder} from '@an
 import {FILE_UPLOAD_DIRECTIVES, FileUploader} from 'ng2-file-upload';
 
 import {CertificateModel, DataService} from '../../../services';
-import {Alert, AlertMessageService} from '../../../shared';
+import {Alert, AlertService} from '../../../shared';
 
 
 const URL = 'https://evening-anchorage-3159.herokuapp.com/api/';
@@ -34,7 +34,7 @@ export class CertificateComponent implements OnInit {
               private activatedRoute: ActivatedRoute,
               private formBuilder: FormBuilder,
               private dataService: DataService,
-              private alertMessageService: AlertMessageService) {
+              private alertMessageService: AlertService) {
     this.certificate = this.activatedRoute.parent.snapshot.data['certificate'];
   }
 
@@ -52,7 +52,6 @@ export class CertificateComponent implements OnInit {
 
 
   ngOnInit() {
-    this.loadAlerts();
     this.buildForm();
     this.loadData();
   }
@@ -63,13 +62,6 @@ export class CertificateComponent implements OnInit {
     (<FormControl>this.form.controls['passwordConfirmation']).updateValue(this.certificate.passwordConfirmation);
     (<FormControl>this.form.controls['validity']).updateValue(this.certificate.validity);
     /*     (<FormControl>this.form.controls['assignedIdentificationId']).updateValue(this.certificate.assignedIdentificationId);  */
-  }
-
-  loadAlerts() {
-    this.alertMessageService.getAlerts().forEach(alert => {
-      this.alerts.push(alert);
-    });
-    this.alertMessageService.clearAlerts();
   }
 
   buildForm() {

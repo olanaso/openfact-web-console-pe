@@ -4,7 +4,7 @@ import {Validators, CORE_DIRECTIVES} from '@angular/common';
 import {FormGroup, FormControl, FormBuilder} from '@angular/forms';
 
 import {OrganizationModel, TaxType, DataService} from '../../../../services';
-import {Alert, AlertMessageService} from '../../../../shared';
+import {Alert, AlertService} from '../../../../shared';
 
 @Component({
   moduleId: module.id,
@@ -29,21 +29,13 @@ export class ListTaxTypesComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
     private dataService: DataService,
-    private alertMessageService: AlertMessageService) {
+    private alertMessageService: AlertService) {
     this.organization = this.activatedRoute.parent.parent.snapshot.data['organization'];
   }
 
   ngOnInit() {
-    this.loadAlerts();
     this.buildForm();
     this.loadData();
-  }
-
-  loadAlerts() {
-    this.alertMessageService.getAlerts().forEach(alert => {
-      this.alerts.push(alert);
-    });
-    this.alertMessageService.clearAlerts();
   }
 
   buildForm() {

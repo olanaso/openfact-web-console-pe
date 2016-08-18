@@ -4,7 +4,7 @@ import {Validators, CORE_DIRECTIVES} from '@angular/common';
 import {FormGroup, FormControl, FormBuilder} from '@angular/forms';
 
 import {OrganizationModel, DataService} from '../../../services';
-import {Alert, AlertMessageService} from '../../../shared';
+import {Alert, AlertService} from '../../../shared';
 
 @Component({
   moduleId: module.id,
@@ -27,12 +27,11 @@ export class GeneralInformationComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
     private dataService: DataService,
-    private alertMessageService: AlertMessageService) {
+    private alertMessageService: AlertService) {
     this.organization = this.activatedRoute.parent.parent.snapshot.data['organization']; 
   }
 
   ngOnInit() {
-    this.loadAlerts();
     this.buildForm();
     this.loadData();
   }
@@ -44,13 +43,6 @@ export class GeneralInformationComponent implements OnInit {
     (<FormControl>this.form.controls['supplierName']).setValue(this.organization.supplierName);
     (<FormControl>this.form.controls['registrationName']).setValue(this.organization.registrationName);
     (<FormControl>this.form.controls['enabled']).setValue(this.organization.enabled);
-  }
-
-  loadAlerts() {
-    this.alertMessageService.getAlerts().forEach(alert => {
-      this.alerts.push(alert);
-    });
-    this.alertMessageService.clearAlerts();
   }
 
   buildForm() {

@@ -1,4 +1,4 @@
-<div class="nav-pf-vertical nav-pf-vertical-with-secondary-nav">
+<!--<div class="nav-pf-vertical nav-pf-vertical-with-secondary-nav">
   <ul class="list-group">
     <li class="list-group-item" routerLinkActive="active">
       <a [routerLink]="['./overview']">
@@ -17,6 +17,66 @@
         <span class="fa pficon-settings"></span>
         <span class="list-group-item-value">Settings</span>
       </a>
-    </li>    
+    </li>
+  </ul>
+</div>-->
+<div class="navbar nav-pf-vertical nav-pf-vertical-with-secondary-nav" style="z-index:0 !important;">
+  <ul class="list-group">
+    <li class="list-group-item" routerLinkActive="active">
+      <a [routerLink]="['./overview']">
+        <span class="fa fa-dashboard"></span>
+        <span class="list-group-item-value">Overview</span>
+      </a>
+    </li>
+    <li class="list-group-item" routerLinkActive="active">
+      <a [routerLink]="['./invoices']">
+        <span class="fa fa-server"></span>
+        <span class="list-group-item-value">Invoices</span>
+      </a>
+    </li>
+    <li class="list-group-item" routerLinkActive="active">
+      <a [routerLink]="['./settings']">
+        <span class="fa pficon-settings"></span>
+        <span class="list-group-item-value">Settings</span>
+      </a>
+    </li>
   </ul>
 </div>
+
+<!--
+<nav class="navbar navbar-sidebar">
+  <ul class="nav nav-sidenav-primary">
+    <li>
+      <a>
+        <span class="{{primaryItem.iconClass}}"></span> 435345345
+      </a>
+      <a data-toggle="dropdown" class="dropdown-toggle">
+        <span class="{{primaryItem.iconClass}}"></span> gggg <span class="fa fa-angle-right"></span>
+      </a>
+      <div class="hover-nav dropdown-menu hidden-xs">
+        <ul class="nav nav-sidenav-secondary">
+          <li class="dropdown-header">
+            hhhhh
+          </li>
+          <li>
+            <a>holaaaa</a>
+          </li>
+          <li ng-repeat-end style="display:none;"></li>
+        </ul>
+      </div>
+      <div class="hover-nav visible-xs-block">
+        <ul class="nav nav-sidenav-secondary">
+          <li class="dropdown-header">
+           dfdfdf
+          </li>
+          <li>
+            <a>fffff</a>
+          </li>
+          <li ng-repeat-end style="display:none;"></li>
+        </ul>
+      </div>
+    </li>
+  </ul>
+ 
+  <navbar-utility-mobile></navbar-utility-mobile>
+</nav>-->

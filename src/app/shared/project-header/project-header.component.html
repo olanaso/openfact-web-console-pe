@@ -1,25 +1,63 @@
 <nav class="navbar navbar-pf-vertical">
-  <div class="navbar-header">
+  <!--<div class="navbar-header hidden-xs">
     <button type="button" class="navbar-toggle" [routerLink]="['/']" style="margin: 0px; color: #A8A9AA;">
       <span class="fa-3x pficon pficon-home"></span> 
       <span class="visible-xlg-inline-block" style="font-size: 15px;vertical-align: super;font-weight: 600; margin-right: 39px;"> Organizations</span>
     </button>
+  </div>-->
+  <div row flex class="navbar-header hidden-xs">
+    <button type="button" class="navbar-toggle" [routerLink]="['/']" style="margin: 0px; color: #A8A9AA;">
+    <!--<a class="navbar-home">-->
+      <span class="fa-3x pficon pficon-home" aria-hidden="true"></span>
+      <span class="visible-xlg-inline-block" style="font-size: 15px;vertical-align: super;font-weight: 600; margin-right: 39px;"> Organizations</span>
+    <!--</a>-->
+   </button>
   </div>
-  <div class="navbar-header">
-    <div class="btn-group bootstrap-select form-control"><button data-toggle="dropdown" class="btn dropdown-toggle btn-default" type="button" data-id="boostrapSelect" title="default"
-        aria-expanded="false"><span class="filter-option pull-left">default</span>&nbsp;<span class="caret"></span></button>
-      <div class="dropdown-menu open" style="max-height: 564px; overflow: hidden; min-height: 89px;">
-        <ul role="menu" class="dropdown-menu inner" style="max-height: 552px; overflow-y: auto; min-height: 77px;">
-          <li data-original-index="0" class="selected"><a data-tokens="null" style="" class="" tabindex="0"><span class="text">default</span><span class="fa fa-check check-mark"></span></a></li>
-          <li data-original-index="1"><a data-tokens="null" style="" class="" tabindex="0"><span class="text">openshift</span><span class="fa fa-check check-mark"></span></a></li>
-          <li data-original-index="2"><a data-tokens="null" style="" class="" tabindex="0"><span class="text">OpenShift sample project</span><span class="fa fa-check check-mark"></span></a></li>
-          <li data-original-index="3"><a data-tokens="null" style="" class="" tabindex="0"><span class="text">openshift-infra</span><span class="fa fa-check check-mark"></span></a></li>
-          <li data-original-index="4" class="divider"></li>
-          <li data-original-index="5"><a data-tokens="null" style="" class="" tabindex="0"><span class="text">View all projects</span><span class="fa fa-check check-mark"></span></a></li>
-        </ul>
+
+  <div class="nav navbar-project-menu">
+    <div row>
+      <div row flex class="navbar-flex-btn toggle-menu">
+        <button type="button" class="navbar-toggle project-action-btn ng-isolate-scope" data-toggle="collapse" data-target=".navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
       </div>
+      <div flex="" class="form-group">
+
+
+        <select class="selectpicker form-control bs-select-hidden" data-selected-text-format="count>3" id="boostrapSelect" title=""><option value="default" selected="selected">default</option><option value="openshift">openshift</option><option value="sample-project">OpenShift sample project</option><option value="openshift-infra">openshift-infra</option><option data-divider="true"></option><option value="">View all projects</option></select>
+        <div class="btn-group bootstrap-select form-control"><button type="button" class="btn dropdown-toggle btn-default" data-toggle="dropdown" data-id="boostrapSelect" title="default"><span class="filter-option pull-left">default</span>&nbsp;<span class="caret"></span></button>
+          <div class="dropdown-menu open">
+            <ul class="dropdown-menu inner" role="menu">
+
+              <li data-original-index="0" class="selected"><a tabindex="0" class="" style="" data-tokens="null"><span class="text">default</span><span class="fa fa-check check-mark"></span></a></li>
+              <li data-original-index="1"><a tabindex="0" class="" style="" data-tokens="null"><span class="text">openshift</span><span class="fa fa-check check-mark"></span></a></li>
+              <li data-original-index="2"><a tabindex="0" class="" style="" data-tokens="null"><span class="text">OpenShift sample project</span><span class="fa fa-check check-mark"></span></a></li>
+              <li data-original-index="3"><a tabindex="0" class="" style="" data-tokens="null"><span class="text">openshift-infra</span><span class="fa fa-check check-mark"></span></a></li>
+              <li class="divider" data-original-index="4"></li>
+              <li data-original-index="5"><a tabindex="0" class="" style="" data-tokens="null"><span class="text">View all projects</span><span class="fa fa-check check-mark"></span></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+
+
+      <!--<div row="" flex="" class="navbar-flex-btn project-action">
+        <a row="" class="project-action-btn" href="project/default/create" ng-disabled="project.status.phase != 'Active'" title="Add to project">
+          <i class="fa fa-plus visible-xs-inline-block"></i><span class="hidden-xs">Add to project</span>
+        </a>
+      </div>-->
+
+
+
+
+
     </div>
   </div>
+  <div row extension-point extension-name="nav-system-status-mobile" extension-types="dom" class="navbar-flex-btn hide-if-empty"></div>
 
   <!--<div class="navbar-header">
     <div class="form-group styled" style="margin: 0;margin-top:10px;">
@@ -30,6 +68,7 @@
   </div>-->
 
 
+
   <!--<div class="col-md-2"> <select class="form-control">style="height: 58px; width: 300px; font-size: 16px;"
          <option *ngFor="let o of refData" [value]="o.value">{{o.name}}</option>$event.target.value  [(ngModel)]="selectOrganization" 
       [ngModel]="selectOrganization" </select></div>
@@ -37,3 +76,54 @@
       -->
   <navbar-utility></navbar-utility>
 </nav>
+
+
+<!--
+<nav class="navbar navbar-pf-alt" role="navigation">
+  <div row flex class="navbar-header hidden-xs">
+    <a class="navbar-home" href="./"><span class="fa-fw pficon pficon-home" aria-hidden="true"></span> 
+    <span class="visible-xlg-inline-block"> Projects</span></a>
+  </div>
+  <div class="nav navbar-project-menu">
+    <div row>
+      
+      <div row flex class="navbar-flex-btn toggle-menu">
+        <button type="button" class="navbar-toggle project-action-btn ng-isolate-scope" data-toggle="collapse" data-target=".navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <div flex="" class="form-group">
+
+
+        <select class="selectpicker form-control bs-select-hidden" data-selected-text-format="count>3" id="boostrapSelect" title=""><option value="default" selected="selected">default</option><option value="openshift">openshift</option><option value="sample-project">OpenShift sample project</option><option value="openshift-infra">openshift-infra</option><option data-divider="true"></option><option value="">View all projects</option></select>
+        <div class="btn-group bootstrap-select form-control"><button type="button" class="btn dropdown-toggle btn-default" data-toggle="dropdown" data-id="boostrapSelect" title="default"><span class="filter-option pull-left">default</span>&nbsp;<span class="caret"></span></button>
+          <div class="dropdown-menu open">
+            <ul class="dropdown-menu inner" role="menu">
+              <li data-original-index="0" class="selected"><a tabindex="0" class="" style="" data-tokens="null"><span class="text">default</span><span class="fa fa-check check-mark"></span></a></li>
+              <li data-original-index="1"><a tabindex="0" class="" style="" data-tokens="null"><span class="text">openshift</span><span class="fa fa-check check-mark"></span></a></li>
+              <li data-original-index="2"><a tabindex="0" class="" style="" data-tokens="null"><span class="text">OpenShift sample project</span><span class="fa fa-check check-mark"></span></a></li>
+              <li data-original-index="3"><a tabindex="0" class="" style="" data-tokens="null"><span class="text">openshift-infra</span><span class="fa fa-check check-mark"></span></a></li>
+              <li class="divider" data-original-index="4"></li>
+              <li data-original-index="5"><a tabindex="0" class="" style="" data-tokens="null"><span class="text">View all projects</span><span class="fa fa-check check-mark"></span></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <div row flex class="navbar-flex-btn project-action" ng-if="project.metadata.name | canIAddToProject">
+        <a row class="project-action-btn" href="project/{{project.metadata.name}}/create" ng-disabled="project.status.phase != 'Active'"
+          title="Add to project">
+          <i class="fa fa-plus visible-xs-inline-block"></i><span class="hidden-xs">Add to project</span>
+        </a>
+      </div>
+
+      <div row extension-point extension-name="nav-system-status-mobile" extension-types="dom" class="navbar-flex-btn hide-if-empty"></div>
+
+    </div>
+  </div>
+  
+  <navbar-utility class="hidden-xs"></navbar-utility>
+</nav>-->

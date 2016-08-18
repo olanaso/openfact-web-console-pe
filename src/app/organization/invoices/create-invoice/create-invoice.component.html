@@ -85,6 +85,7 @@
               <td>IGV</td>
               <td>Ammount</td>
               <td>Extension ammount</td>
+              <td>.</td>
             </tr>
           </thead>
           <tbody>
@@ -106,11 +107,12 @@
               <td class="text-right">{{ (line.price * defaultIgv) | number }}</td>
               <td class="text-right">{{ (line.price + line.price * defaultIgv) | number }}</td>
               <td class="text-right">{{ ((line.price + line.price * defaultIgv) * line.quantity) | number }}</td>
+              <td><span class="pficon pficon-delete"></span></td>
             </tr>
           </tbody>
           <tfoot>
             <tr>
-              <td colspan="8" class="text-right">
+              <td colspan="9" class="text-right">
                 <button type="button" (click)="addLine()" class="btn btn-default">Add line</button>
               </td>
             </tr>

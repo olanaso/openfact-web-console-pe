@@ -1,51 +1,90 @@
-<!--<h1>Invoices</h1>
-
-  <div class="dataTables_wrapper no-footer">
-    <div class="dataTables_header">
-      <div class="dataTables_filter">
-        <label><input type="search"></label>
+<div class="middle-header">
+  <div class="container-fluid">
+    <div class="page-header page-header-bleed-right page-header-bleed-left">
+      <div class="pull-right">
+        <button class="btn btn-default" [routerLink]="['../create-invoice']" type="button">Create</button>
       </div>
-      <div class="dataTables_info">&nbsp;</div>
-      <div class="ColVis">
-        <div class="form-group">
-          <button class="btn btn-default" [routerLink]="['../create-invoice']" type="button">Create</button>
-        </div>
-      </div>
+      <h1>Add Invoices</h1>      
     </div>
-    <div class="dataTables_header">
-      <div class="dataTables_info">Showing <b>1</b> to <b>20</b> of <b>57</b> Items</div>
+    <!--<alerts alerts="alerts" class="ng-isolate-scope">      
+    </alerts>-->
+  </div>
+</div>
+<div class="dataTables_wrapper no-footer">
+  <div class="table-toolbar form-inline">
+    <div class="form-group filter-controls">
+      <label for="events-filter" class="sr-only">Filter</label>
+      <input type="search" placeholder="Filter by keyword" class="form-control ng-pristine ng-valid ng-touched" id="events-filter"
+        ng-model="filter.text">
     </div>
-    <div class="table-responsive">
-      <table class="datatable table table-striped table-bordered dataTable no-footer">
-        <thead>
-          <tr>
-            <th class="sorting">#</th>
-            <th class="sorting">Issue date</th>
-            <th class="sorting">Series-number</th>            
-            <th class="sorting">Customer</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let invoice of invoices; let i = index" class="odd">
-            <td>{{i}}</td>
-            <td>{{invoice.issueDate}}</td>
-            <td>{{invoice.invoiceSeries}}-{{invoice.invoiceNumber}}</td>
-            <td>{{invoice.customer.registrationName}}</td>            
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="dataTables_footer">
-      <div class="dataTables_paginate paging_bootstrap_input" id="DataTables_Table_0_paginate">
-        <ul class="pagination">
-          <li class="first disabled"><span class="i fa fa-angle-double-left"></span></li>
-          <li class="prev disabled"><span class="i fa fa-angle-left"></span></li>
-        </ul>
-        <div class="pagination-input"> <input type="text" class="paginate_input"> <span class="paginate_of">of <b>3</b></span></div>
-        <ul class="pagination">
-          <li class="next"><span class="i fa fa-angle-right"></span></li>
-          <li class="last"><span class="i fa fa-angle-double-right"></span></li>
-        </ul>
+    <div class="vertical-divider"></div>
+    <div pf-simple-sort="" config="sortConfig" class="sort-controls ng-isolate-scope">
+      <div class="simple-sort">
+        <form class="ng-pristine ng-valid">
+          <div class="form-group">
+            <div class="dropdown btn-group"><button type="button" class="btn btn-default dropdown-toggle ng-binding ng-isolate-scope" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">Time <span class="caret"></span></button>
+              <ul class="dropdown-menu">
+                <!-- ngRepeat: item in config.fields -->
+                <li ng-repeat="item in config.fields" ng-class="{'selected': item === config.currentField}" class="ng-scope selected"><a class="sort-field ng-binding" role="menuitem" tabindex="-1" (click)="selectField(item)" ng-click="selectField(item)">Time</a></li>
+                <!-- end ngRepeat: item in config.fields -->
+                <li ng-repeat="item in config.fields" ng-class="{'selected': item === config.currentField}" class="ng-scope"><a class="sort-field ng-binding" role="menuitem" tabindex="-1" (click)="selectField(item)">Name</a></li>
+                <!-- end ngRepeat: item in config.fields -->
+                <li ng-repeat="item in config.fields" ng-class="{'selected': item === config.currentField}" class="ng-scope"><a class="sort-field ng-binding" role="menuitem" tabindex="-1" (click)="selectField(item)">Kind</a></li>
+                <!-- end ngRepeat: item in config.fields -->
+                <li ng-repeat="item in config.fields" ng-class="{'selected': item === config.currentField}" class="ng-scope"><a class="sort-field ng-binding" role="menuitem" tabindex="-1" (click)="selectField(item)">Severity</a></li>
+                <!-- end ngRepeat: item in config.fields -->
+                <li ng-repeat="item in config.fields" ng-class="{'selected': item === config.currentField}" class="ng-scope"><a class="sort-field ng-binding" role="menuitem" tabindex="-1" (click)="selectField(item)">Reason</a></li>
+                <!-- end ngRepeat: item in config.fields -->
+                <li ng-repeat="item in config.fields" ng-class="{'selected': item === config.currentField}" class="ng-scope"><a class="sort-field ng-binding" role="menuitem" tabindex="-1" (click)="selectField(item)">Message</a></li>
+                <!-- end ngRepeat: item in config.fields -->
+                <li ng-repeat="item in config.fields" ng-class="{'selected': item === config.currentField}" class="ng-scope"><a class="sort-field ng-binding" role="menuitem" tabindex="-1" (click)="selectField(item)">Count</a></li>
+                <!-- end ngRepeat: item in config.fields -->
+              </ul>
+            </div><button class="btn btn-link" type="button" ng-click="changeDirection()"><span class="sort-direction fa fa-sort-alpha-desc" ng-class="getSortIconClass()"></span></button></div>
+        </form>
       </div>
     </div>
-  </div>-->
+  </div>
+  <div class="table-responsive">
+    <table class="datatable table table-striped table-bordered dataTable no-footer table-hover table-mobile">
+      <thead>
+        <tr>
+          <th class="sorting">#</th>
+          <th class="sorting">Issue date</th>
+          <th class="sorting">Type</th>
+          <th class="sorting">Series-number</th>
+          <th class="sorting">Customer</th>
+          <th class="sorting">Currency Code</th>
+          <th class="sorting">Total Ammount</th>
+          <th class="sorting">OP</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let invoice of invoices; let i = index" class="odd">
+          <td>{{i}}</td>
+          <td>{{invoice.issueDate}}</td>
+          <td>{{invoice.type}}</td>
+          <td> <a href="javascript:void(0)" [routerLink]="['../create-invoice']">{{invoice.invoiceSeries}}-{{invoice.invoiceNumber}}</a></td>
+          <td>{{invoice.customer.registrationName}}</td>
+          <td>{{invoice.currencyCode}}</td>
+          <td>{{invoice.totalAmmount|number:'1.2-2'}}</td>
+          <td><span class="pficon pficon-edit"></span>&nbsp;&nbsp;<span class="pficon pficon-delete"></span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="dataTables_footer">
+    <div class="dataTables_paginate paging_bootstrap_input" id="DataTables_Table_0_paginate">
+      <ul class="pagination">
+        <li class="first disabled"><span class="i fa fa-angle-double-left"></span></li>
+        <li class="prev disabled"><span class="i fa fa-angle-left"></span></li>
+      </ul>
+      <div class="pagination-input"> <input type="text" class="paginate_input"> <span class="paginate_of">of <b>3</b></span></div>
+      <ul class="pagination">
+        <li class="next"><span class="i fa fa-angle-right"></span></li>
+        <li class="last"><span class="i fa fa-angle-double-right"></span></li>
+      </ul>
+    </div>
+  </div>
+</div>

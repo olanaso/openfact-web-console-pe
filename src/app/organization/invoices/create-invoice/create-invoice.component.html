@@ -1,145 +1,180 @@
-<!--<h1>Add invoice</h1>
+<h1>Add invoice</h1>
 
-  <form [formGroup]="form" (ngSubmit)="save(form.value)" novalidate>
-    <fieldset>
-      <legend>General information</legend>
-      <div class="row">
-        <div class="col-xs-12 col-sm-3 col-md-2">
-          <div class="form-group">
-            <label>Type</label>
-            <select formControlName="type" [(ngModel)]="invoice.type" class="form-control">
+<form [formGroup]="form" (ngSubmit)="save(form.value)" novalidate>
+  <fieldset>
+    <legend>General information</legend>
+    <div class="row">
+      <div class="col-xs-12 col-sm-3 col-md-3">
+        <div class="form-group">
+          <span>Type</span>
+          <select formControlName="type" [(ngModel)]="invoice.type" class="form-control">
                 <option>BOLETA</option>
                 <option>FACTURA</option>
             </select>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-4 col-md-4">
+        <div class="form-group">
+          <span>Invoice id</span>
+          <div class="openfact-group">
+            <input type="text" formControlName="invoiceSeries" [(ngModel)]="invoice.invoiceSeries" class="form-control openfact-group-col-4"
+              placeholder="F|B-####" />
+            <input type="text" formControlName="invoiceNumber" [(ngModel)]="invoice.invoiceNumber" class="form-control openfact-group-col-8"
+              placeholder="####" />
           </div>
         </div>
-        <div class="col-xs-12 col-sm-3 col-md-2">
-          <div class="form-group">
-            <label>Invoice id</label>
-            <div class="openfact-group">
-              <input type="text" formControlName="invoiceSeries" [(ngModel)]="invoice.invoiceSeries" class="form-control openfact-group-col-4"
-                placeholder="F|B-####" />
-              <input type="text" formControlName="invoiceNumber" [(ngModel)]="invoice.invoiceNumber" class="form-control openfact-group-col-8"
-                placeholder="####" />
-            </div>
-          </div>
+      </div>
+      <div class="col-xs-4 col-sm-3 col-md-3">
+        <div class="form-group">
+          <span>Issue date</span>
+          <input type="date" formControlName="issueDate" [(ngModel)]="invoice.issueDate" class="form-control" />
         </div>
-        <div class="col-xs-4 col-sm-4 col-md-2">
-          <div class="form-group">
-            <label>Issue date</label>
-            <input type="date" formControlName="issueDate" [(ngModel)]="invoice.issueDate" class="form-control" />
-          </div>
-        </div>
-        <div class="col-xs-4 col-sm-4 col-md-2">
-          <div class="form-group">
-            <label>Currency</label>
-            <div>
-              <div class="btn-group">
-                <button type="button" class="btn btn-default">S/.</button>
-                <button type="button" class="btn btn-default">$</button>
-                <button type="button" class="btn btn-default">e</button>
-              </div>
+      </div>
+      <div class="col-xs-4 col-sm-2 col-md-2">
+        <div class="form-group">
+          <span>Currency</span>
+          <div>
+            <div class="btn-group">
+              <button type="button" class="btn btn-default">S/.</button>
+              <button type="button" class="btn btn-default">$</button>
+              <button type="button" class="btn btn-default">e</button>
             </div>
           </div>
         </div>
       </div>
-      <div formGroupName="customer" class="row">
-        <div class="col-xs-12 col-sm-3 col-md-2">
-          <div class="form-group">
-            <label>Customer id</label>
-            <div class="openfact-group">
-              <select formControlName="additionalAccountId" [(ngModel)]="invoice.customer.additionalAccountId" class="form-control openfact-group-col-4">
+    </div>
+    <div formGroupName="customer" class="row">
+      <div class="col-xs-12 col-sm-3 col-md-3">
+        <div class="form-group">
+          <span>Customer id</span>
+          <div class="openfact-group">
+            <select formControlName="additionalAccountId" [(ngModel)]="invoice.customer.additionalAccountId" class="form-control openfact-group-col-4">
                 <option>DNI</option>
                 <option>RUC</option>
               </select>
-              <input type="text" formControlName="assignedIdentificationId" [(ngModel)]="invoice.customer.assignedIdentificationId" class="form-control openfact-group-col-8"
-                placeholder="Assigned identification id" />
-            </div>
-          </div>
-        </div>
-        <div class="col-xs-12 col-sm-9 col-md-10">
-          <div class="form-group">
-            <label>Customer</label>
-            <div class="openfact-group">
-              <input type="text" formControlName="registrationName" [(ngModel)]="invoice.customer.registrationName" class="form-control openfact-group-col-7"
-                placeholder="Registration name" />
-              <input type="text" formControlName="email" [(ngModel)]="invoice.customer.email" class="form-control openfact-group-col-5"
-                placeholder="email" />
-            </div>
+            <input type="text" formControlName="assignedIdentificationId" [(ngModel)]="invoice.customer.assignedIdentificationId" class="form-control openfact-group-col-8"
+              placeholder="Assigned identification id" />
           </div>
         </div>
       </div>
-    </fieldset>
-    <fieldset>
-      <legend>Lines</legend>
-      <div class="row">
-        <div class="col-sm-8">
-          <table class="table table-bordered table-condensed">
-            <thead>
-              <tr>
-                <td>#</td>
-                <td>Quantity</td>
-                <td>Unit code</td>
-                <td>Item description</td>
-                <td>Price</td>
-                <td>IGV</td>
-                <td>Ammount</td>
-                <td>Extension ammount</td>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let line of invoice.lines">
-                <td>1</td>
-                <td>
-                  <input type="number" [(ngModel)]="line.quantity" [ngModelOptions]="{standalone: true}" class="form-control text-right" />
-                </td>
-                <td>
-                  <input type="text" [(ngModel)]="line.unitCode" [ngModelOptions]="{standalone: true}" class="form-control text-right" />
-                </td>
-                <td>
-                  <input type="text" [(ngModel)]="line.itemDescription" [ngModelOptions]="{standalone: true}" class="form-control text-right"
-                  />
-                </td>
-                <td>
-                  <input type="number" [(ngModel)]="line.price" [ngModelOptions]="{standalone: true}" class="form-control text-right" />
-                </td>
-                <td class="text-right">{{ (line.price * defaultIgv) | number }}</td>
-                <td class="text-right">{{ (line.price + line.price * defaultIgv) | number }}</td>
-                <td class="text-right">{{ ((line.price + line.price * defaultIgv) * line.quantity) | number }}</td>
-              </tr>
-            </tbody>
-            <tfoot>
-              <tr>
-                <td colspan="8" class="text-right">
-                  <button type="button" (click)="addLine()" class="btn btn-default">Add line</button>
-                </td>
-              </tr>
-            </tfoot>
+      <div class="col-xs-12 col-sm-7 col-md-7">
+        <div class="form-group">
+          <span>Customer</span>
+          <div class="openfact-group">
+            <input type="text" formControlName="registrationName" [(ngModel)]="invoice.customer.registrationName" class="form-control openfact-group-col-7"
+              placeholder="Registration name" />
+            <input type="text" formControlName="email" [(ngModel)]="invoice.customer.email" class="form-control openfact-group-col-5"
+              placeholder="email" />
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-2 col-md-2">
+        <div class="form-group">
+          <span>Venta Gratuita?</span>
+          <div class="openfact-group">
+            <toggle-button [(value)]="state" (onChange)="onChangeToogle($event)"></toggle-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </fieldset>
+  <fieldset>
+    <legend>Lines</legend>
+    <div class="row">
+      <div class="col-sm-9">
+        <table class="table table-bordered table-condensed table-hover table-mobile">
+          <thead>
+            <tr>
+              <td>#</td>
+              <td>Quantity</td>
+              <td>Unit code</td>
+              <td>Item description</td>
+              <td>Price</td>
+              <td>IGV</td>
+              <td>Ammount</td>
+              <td>Extension ammount</td>
+              <td>.</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let line of invoice.lines">
+              <td>1</td>
+              <td>
+                <input type="number" [(ngModel)]="line.quantity" [ngModelOptions]="{standalone: true}" (change)="onchange($event)" class="form-control text-right"
+                />
+              </td>
+              <td>
+                <input type="text" [(ngModel)]="line.unitCode" [ngModelOptions]="{standalone: true}" class="form-control text-right" />
+              </td>
+              <td>
+                <input type="text" [(ngModel)]="line.itemDescription" [ngModelOptions]="{standalone: true}" class="form-control text-right"
+                />
+              </td>
+              <td class="text-right">{{ line.ammount - (line.ammount * defaultIgv) | number:'1.2-2' }}
+                <!--<input type="number" [(ngModel)]="line.price" [ngModelOptions]="{standalone: true}" class="form-control text-right" />-->
+              </td>
+              <td class="text-right">{{ (line.ammount * defaultIgv) | number:'1.2-2' }}</td>
+              <!--<td class="text-right">{{ (line.price + line.price * defaultIgv) | number }}</td>-->
+              <td>
+                <input type="number" [(ngModel)]="line.ammount" [ngModelOptions]="{standalone: true}" (change)="onchange($event)" class="form-control text-right"
+                />
+              </td>
+              <td class="text-right">{{ (line.ammount * line.quantity) | number:'1.2-2' }}</td>
+              <td><a (click)="deleteLine(line)"><span class="pficon pficon-delete"></span></a>
+              </td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="9" class="text-right">
+                <button type="button" (click)="addLine()" class="btn btn-default">Add line</button>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+      <div class="col-sm-3">
+        <div class="panel panel-default">
+          <div class="panel-heading">Panel heading</div>
+          <!-- Table -->
+          <table class="table">           
+            <tr>
+              <td>Total Unaffected</td>
+              <td class="text-right boldText">{{invoice.totalUnaffected| number:'1.2-2'}}</td>
+            </tr>
+            <tr>
+              <td>Total Exonereted</td>
+              <td class="text-right boldText">{{invoice.totalExonerated| number:'1.2-2'}}</td>
+            </tr>
+            <tr>
+              <td>Total By Free</td>
+              <td class="text-right boldText">{{invoice.totalByFree| number:'1.2-2'}}</td>
+            </tr>
+             <tr>
+              <td>Total Taxed</td>
+              <td class="text-right boldText">{{invoice.totalTaxed| number:'1.2-2'}}</td>
+            </tr>
+            <tr>
+              <td>Total Igv Tax</td>
+              <td class="text-right boldText">{{invoice.totalIgvTax| number:'1.2-2'}}</td>
+            </tr>
+            <tr>
+              <td>Total Ammount</td>
+              <td class="text-right boldText">{{invoice.totalAmmount| number:'1.2-2'}}</td>
+            </tr>
+            <tr>
+              <td>Total Discounted</td>
+              <td class="text-right boldText">{{invoice.totalDiscounted| number:'1.2-2'}}</td>
+            </tr>
           </table>
         </div>
-        <div class="col-sm-4">
-          <div class="panel panel-default">
-            <div class="panel-heading">Panel heading</div>
-            
-            <table class="table">
-             <tr>
-               <td>Exonerado</td>
-               <td>123456</td>
-             </tr>
-             <tr>
-               <td>Exonerado</td>
-               <td>123456</td>
-             </tr>
-             <tr>
-               <td>Exonerado</td>
-               <td>123456</td>
-             </tr>
-            </table>
-          </div>
-        </div>
       </div>
-    </fieldset>
-
+    </div>
+  </fieldset>
+  <fieldset class="text-right">
+    <legend> </legend>
     <button-save [form]="form" [working]="working" [alerts]="alerts" (onClick)="setSubmitted($event)"></button-save>
     <button-reset [form]="form" [working]="working" (onClick)="reset($event)"></button-reset>
-  </form>-->
+  </fieldset>
+
+</form>

@@ -4,7 +4,7 @@ import {Validators} from '@angular/common';
 import {FormGroup, FormControl, FormBuilder} from '@angular/forms';
 
 import {OrganizationModel, InvoiceModel, LineModel, DataService} from '../../../services';
-import {Alert, AlertService} from '../../../shared';
+import {Alert, AlertMessageService} from '../../../shared';
 
 @Component({
   moduleId: module.id,
@@ -13,6 +13,9 @@ import {Alert, AlertService} from '../../../shared';
   styleUrls: ['create-invoice.component.css']
 })
 export class CreateInvoiceComponent implements OnInit {
+
+  private state: boolean = false;
+  private disable: boolean = false;
 
   private defaultIgv: number = 0.18;
   private defaultCUrrency: string = "PEN";
@@ -31,14 +34,22 @@ export class CreateInvoiceComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
     private dataService: DataService,
-    private alertMessageService: AlertService) {  
+    private alertMessageService: AlertMessageService) {
     this.organization = this.activatedRoute.snapshot.parent.parent.data['organization'];
     this.invoice = this.dataService.invoices().build();
   }
 
   ngOnInit() {
+    this.loadAlerts();
     this.buildForm();
     this.loadData();
+  }
+
+  loadAlerts() {
+    this.alertMessageService.getAlerts().forEach(alert => {
+      this.alerts.push(alert);
+    });
+    this.alertMessageService.clearAlerts();
   }
 
   buildForm() {
@@ -64,6 +75,7 @@ export class CreateInvoiceComponent implements OnInit {
     (<FormControl>this.form.controls['countrySubentity']).setValue(address.countrySubentity);
     (<FormControl>this.form.controls['district']).setValue(address.district);
     (<FormControl>this.form.controls['countryIdentificationCode']).setValue(address.countryIdentificationCode);*/
+    //this.calculateTotal();
   }
 
   setSubmitted(submitted: boolean) {
@@ -72,6 +84,7 @@ export class CreateInvoiceComponent implements OnInit {
 
   addLine() {
     this.invoice.lines.push(new LineModel());
+    this.calculateTotal();
   }
 
   save() {
@@ -86,7 +99,7 @@ export class CreateInvoiceComponent implements OnInit {
     this.invoice.totalTaxed = 0;
 
     this.dataService.invoices().create(this.organization, this.invoice).subscribe(
-      result => {      
+      result => {
         this.alerts.push({
           type: 'success',
           message: 'Success',
@@ -107,8 +120,43 @@ export class CreateInvoiceComponent implements OnInit {
     );
   }
 
+  calculateTotal() {
+    this.invoice.totalAmmount = 0;
+    this.invoice.lines.forEach(line => {
+      this.invoice.totalAmmount += (line.ammount * line.quantity);
+      //console.log(line.ammount);
+    });
+    this.invoice.totalIgvTax = this.invoice.totalAmmount * this.defaultIgv;
+    this.invoice.totalTaxed = this.invoice.totalAmmount - this.invoice.totalIgvTax;
+    //this.invoice.lines
+  }
   reset() {
     this.loadData();
   }
-
+  deleteLine(line: LineModel) {
+    let index = this.invoice.lines.indexOf(line, 0);
+    //console.log("Delete object: " + JSON.stringify(line));
+    if (index > -1) {
+      this.invoice.lines.splice(index, 1);
+    }
+    this.calculateTotal();
+  }
+  onchange() {
+    this.calculateTotal();
+  }
+  onChangeToogle(arg) {
+    if (arg) {
+      this.invoice.totalByFree = this.invoice.totalAmmount;
+      this.invoice.totalAmmount = 0;
+      this.invoice.totalTaxed = 0;
+      this.invoice.totalUnaffected = 0;
+      this.invoice.totalExonerated = 0;
+      this.invoice.totalIgvTax = 0;
+      this.invoice.totalDiscounted = 0;
+    } else {
+      this.invoice.totalByFree = 0;
+      this.calculateTotal();
+    }
+    //console.log(arg);
+  }
 }

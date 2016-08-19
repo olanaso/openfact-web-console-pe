@@ -1,12 +1,30 @@
-<div>
-  <sidebar></sidebar>
+<div class="cards-pf">
+  <!--<div class="nav-pf-vertical nav-pf-vertical-with-sub-menus nav-pf-persistent-secondary secondary-visible-pf">-->
+  <div>
+    <sidebar></sidebar>
+  </div>
+
+  <div class="container-fluid container-cards-pf container-pf-nav-pf-vertical container-pf-nav-pf-vertical-with-secondary">
+    <ng-content></ng-content>
+  </div>
+  <!--<div class="sidebar-right sidebar-pf sidebar-pf-right">
+    <div class="right-section">
+      <events-sidebar></events-sidebar>
+    </div>
+  </div>-->
 </div>
 
-<div class="container-fluid container-cards-pf container-pf-nav-pf-vertical container-pf-nav-pf-vertical-with-secondary">
-  <ng-content></ng-content>
-</div>
-<div class="sidebar-right sidebar-pf sidebar-pf-right">
-  <div class="right-section">    
-    <events-sidebar></events-sidebar>
-  </div>  
-</div>
+<!--
+<div ng-class="{'show-sidebar-right': renderOptions.showEventsSidebar}" class="wrap">
+  <div class="sidebar-left collapse navbar-collapse navbar-collapse-1">
+    <sidebar></sidebar>
+  </div>
+  <div id="container-main" class="middle">
+    <div ng-transclude>
+      <ng-content></ng-content>
+    </div>
+  </div>
+  <div ng-if="renderOptions.showEventsSidebar && !renderOptions.collapseEventsSidebar" class="sidebar-right sidebar-pf sidebar-pf-right">
+    <div class="right-section">
+      <events-sidebar ng-if="projectContext" project-context="projectContext" collapsed="renderOptions.collapseEventsSidebar"></events-sidebar>
+    </div>-->

@@ -5,6 +5,7 @@ import {Model} from './model';
 import {DocumentModel} from './document-model';
 
 import {Restangular} from '../restangular';
+import {FileUploader} from "ng2-file-upload";
 import {Buildable, ObjectBuilder, ResponseToModel} from '../utils';
 
 export class OrganizationModel extends Model implements Buildable {
@@ -26,6 +27,13 @@ export class OrganizationModel extends Model implements Buildable {
         super();
         this.restangular = restangular;
     }
+  public postalAddress: PostalAddress;
+  public tasksSchedule: TasksSchedule;
+  public certificate: Certificate;
+  /*Constructor*/
+  constructor(restangular: Restangular) {
+    this.restangular = restangular;
+  }
 
     getDocuments(type: string): Observable<DocumentModel[]> {
         let restangular = this.restangular.all('documents');
@@ -37,6 +45,16 @@ export class OrganizationModel extends Model implements Buildable {
             .map(result => ResponseToModel.toModels<DocumentModel>(result, restangular, new ObjectBuilder<DocumentModel>(DocumentModel), true));
     }
 
+  public save() {
+    return this.restangular.put(this.clone());
+  }
+  public  saveCertificate(certificate:Certificate){
+    return this.restangular.all('certifieds').post(certificate);
+  }
+
+  public  uploadCertificate(){
+    return this.restangular.all('certifieds').all("upload").post("");
+  }
 }
 
 export class PostalAddress {
@@ -70,4 +88,11 @@ export class TaxType {
     value: number;
 
     constructor() { }
+}
+export  interface  Certificate {
+  alias: string;
+  certificate: any;
+  password: string;
+  passwordConfirmation: string;
+  validity: Date;
 }

@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import {Validators} from '@angular/common';
 import {FormGroup, FormControl, FormBuilder} from '@angular/forms';
+import {DATEPICKER_DIRECTIVES} from 'ng2-bootstrap';
+import {CORE_DIRECTIVES} from '@angular/common';
+import {FORM_DIRECTIVES} from '@angular/forms';
+import * as moment from 'moment';
 
 import {OrganizationModel, InvoiceModel, LineModel, DataService} from '../../../services';
 import {Alert, AlertMessageService} from '../../../shared';
@@ -10,7 +14,8 @@ import {Alert, AlertMessageService} from '../../../shared';
   moduleId: module.id,
   selector: 'app-create-invoice',
   templateUrl: 'create-invoice.component.html',
-  styleUrls: ['create-invoice.component.css']
+  styleUrls: ['create-invoice.component.css'],
+  directives: [DATEPICKER_DIRECTIVES, CORE_DIRECTIVES, FORM_DIRECTIVES]
 })
 export class CreateInvoiceComponent implements OnInit {
 
@@ -26,6 +31,8 @@ export class CreateInvoiceComponent implements OnInit {
   form: FormGroup;
   working: boolean = false;
   submitted: boolean = false;
+
+  public dt: Date = new Date();
 
   alerts: Array<Alert> = [];
 
@@ -158,5 +165,8 @@ export class CreateInvoiceComponent implements OnInit {
       this.calculateTotal();
     }
     //console.log(arg);
+  }
+  onSelectCurrency(currency: string) {
+    this.invoice.currencyCode = currency;
   }
 }

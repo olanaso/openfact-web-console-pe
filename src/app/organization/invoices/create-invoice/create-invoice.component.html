@@ -28,6 +28,7 @@
         <div class="form-group">
           <span>Issue date</span>
           <input type="date" formControlName="issueDate" [(ngModel)]="invoice.issueDate" class="form-control" />
+            <!--<datepicker [(ngModel)]="invoice.issueDate" ></datepicker>-->
         </div>
       </div>
       <div class="col-xs-4 col-sm-2 col-md-2">
@@ -35,9 +36,9 @@
           <span>Currency</span>
           <div>
             <div class="btn-group">
-              <button type="button" class="btn btn-default">S/.</button>
-              <button type="button" class="btn btn-default">$</button>
-              <button type="button" class="btn btn-default">e</button>
+              <button type="button" class="btn btn-default" (click)="onSelectCurrency('PEN')">S/.</button>
+              <button type="button" class="btn btn-default" (click)="onSelectCurrency('USD')">$</button>
+              <button type="button" class="btn btn-default" (click)="onSelectCurrency('EUR')">€</button>
             </div>
           </div>
         </div>
@@ -139,32 +140,32 @@
           <!-- Table -->
           <table class="table">           
             <tr>
-              <td>Total Unaffected</td>
-              <td class="text-right boldText">{{invoice.totalUnaffected| number:'1.2-2'}}</td>
+              <td>Total Unaffected ({{this.invoice.currencyCode}})</td>
+              <td class="text-right boldText">  {{invoice.totalUnaffected| number:'1.2-2'}}</td>
             </tr>
             <tr>
-              <td>Total Exonereted</td>
-              <td class="text-right boldText">{{invoice.totalExonerated| number:'1.2-2'}}</td>
+              <td>Total Exonereted ({{this.invoice.currencyCode}})</td>
+              <td class="text-right boldText">  {{invoice.totalExonerated| number:'1.2-2'}}</td>
             </tr>
             <tr>
-              <td>Total By Free</td>
-              <td class="text-right boldText">{{invoice.totalByFree| number:'1.2-2'}}</td>
+              <td>Total By Free ({{this.invoice.currencyCode}} )</td>
+              <td class="text-right boldText"> {{invoice.totalByFree| number:'1.2-2'}}</td>
             </tr>
              <tr>
-              <td>Total Taxed</td>
-              <td class="text-right boldText">{{invoice.totalTaxed| number:'1.2-2'}}</td>
+              <td>Total Taxed ({{this.invoice.currencyCode}})</td>
+              <td class="text-right boldText">  {{invoice.totalTaxed| number:'1.2-2'}}</td>
             </tr>
             <tr>
-              <td>Total Igv Tax</td>
-              <td class="text-right boldText">{{invoice.totalIgvTax| number:'1.2-2'}}</td>
+              <td>Total Igv Tax ({{this.invoice.currencyCode}})</td>
+              <td class="text-right boldText">  {{invoice.totalIgvTax| number:'1.2-2'}}</td>
             </tr>
             <tr>
-              <td>Total Ammount</td>
-              <td class="text-right boldText">{{invoice.totalAmmount| number:'1.2-2'}}</td>
+              <td>Total Ammount ({{this.invoice.currencyCode}})</td>
+              <td class="text-right boldText">  {{invoice.totalAmmount| number:'1.2-2'}}</td>
             </tr>
             <tr>
-              <td>Total Discounted</td>
-              <td class="text-right boldText">{{invoice.totalDiscounted| number:'1.2-2'}}</td>
+              <td>Total Discounted ({{this.invoice.currencyCode}})</td>
+              <td class="text-right boldText">  {{invoice.totalDiscounted| number:'1.2-2'}}</td>
             </tr>
           </table>
         </div>

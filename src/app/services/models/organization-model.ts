@@ -2,6 +2,7 @@ import {Model} from './model'
 import {Restangular} from '../restangular';
 import {FileUploader} from "ng2-file-upload";
 
+
 export class OrganizationModel implements Model {
 
   /*Restangular*/
@@ -33,12 +34,25 @@ export class OrganizationModel implements Model {
   public save() {
     return this.restangular.put(this.clone());
   }
-  public  saveCertificate(certificate:Certificate){
+
+  public  saveCertificate(certificate: Certificate) {
     return this.restangular.all('certifieds').post(certificate);
   }
 
-  public  uploadCertificate(){
-    return this.restangular.all('certifieds').all("upload").post("");
+  public uploadCertificate(): FileUploader {
+    let URL = this.restangular.all('certifieds').all("upload").path;
+    return new FileUploader({url: URL, queueLimit: 1});
+  }
+
+  public  getCertificate() {
+    let restangular = this.restangular.all('certifieds').all("searchEnabled");
+    return restangular.get().map(result => result.json());
+
+  }
+
+  public  getCetificateFile() {
+    let restangular = this.restangular.all('certifieds').all("searchCertificate");
+    return restangular.get().map(result => result.blob());
   }
 }
 
@@ -64,7 +78,11 @@ export interface TasksSchedule {
 export  interface  Certificate {
   alias: string;
   certificate: any;
+  urlcertificate: string;
+  FileName: string;
+  FileType: string;
   password: string;
   passwordConfirmation: string;
   validity: Date;
+  hasCertificate: boolean;
 }

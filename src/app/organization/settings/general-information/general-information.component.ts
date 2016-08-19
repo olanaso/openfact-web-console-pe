@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
-import {Validators} from '@angular/common';
+import {Validators, CORE_DIRECTIVES} from '@angular/common';
 import {FormGroup, FormControl, FormBuilder} from '@angular/forms';
 
-import {OrganizationModel, DocumentModel, ADDITIONAL_IDENTIFICATION_ID, DataService} from '../../../services';
-import {AlertService} from '../../../shared';
+import {OrganizationModel, DataService} from '../../../services';
+import {Alert, AlertMessageService} from '../../../shared';
 
 @Component({
   moduleId: module.id,
@@ -15,36 +15,26 @@ import {AlertService} from '../../../shared';
 export class GeneralInformationComponent implements OnInit {
 
   organization: OrganizationModel;
-  additionalAccountIds: Array<DocumentModel> = [];
 
   form: FormGroup;
   working: boolean = false;
   submitted: boolean = false;
+
+  alerts: Array<Alert> = [];
 
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
     private dataService: DataService,
-    private alertService: AlertService) {
-    this.organization = this.activatedRoute.parent.parent.snapshot.data['organization'];
+    private alertMessageService: AlertMessageService) {
+    this.organization = this.activatedRoute.parent.parent.snapshot.data['organization']; 
   }
 
   ngOnInit() {
+    this.loadAlerts();
     this.buildForm();
     this.loadData();
-    this.loadAdditionalAccountIds();
-  }
-
-  buildForm() {
-    this.form = this.formBuilder.group({
-      name: ['', [<any>Validators.required, <any>Validators.maxLength(60)]],
-      supplierName: ['', [<any>Validators.maxLength(150)]],
-      registrationName: ['', [<any>Validators.maxLength(150)]],
-      additionalAccountId: ['', [<any>Validators.maxLength(120)]],
-      assignedIdentificationId: ['', [<any>Validators.maxLength(20)]],
-      enabled: ['', [<any>Validators.required]]
-    });
   }
 
   loadData() {
@@ -56,9 +46,21 @@ export class GeneralInformationComponent implements OnInit {
     (<FormControl>this.form.controls['enabled']).setValue(this.organization.enabled);
   }
 
-  loadAdditionalAccountIds() {
-    this.organization.getDocuments(ADDITIONAL_IDENTIFICATION_ID).subscribe(result => {
-      this.additionalAccountIds = result;
+  loadAlerts() {
+    this.alertMessageService.getAlerts().forEach(alert => {
+      this.alerts.push(alert);
+    });
+    this.alertMessageService.clearAlerts();
+  }
+
+  buildForm() {
+    this.form = this.formBuilder.group({
+      name: ['', []],
+      supplierName: ['', []],
+      registrationName: ['', []],
+      additionalAccountId: ['', []],
+      assignedIdentificationId: ['', []],
+      enabled: ['', []]
     });
   }
 
@@ -66,31 +68,33 @@ export class GeneralInformationComponent implements OnInit {
     this.submitted = submitted;
   }
 
-  chagenEnabled(enabled: boolean) {
-    (<FormControl>this.form.controls['enabled']).setValue(enabled);
-  }
-
-  preSave(): OrganizationModel {
-    return Object.assign(this.organization, this.form.value);
-  }
-
-  save() {
+  save(organization: OrganizationModel) {
+    /*Disable button*/
     this.working = true;
-    let organization = this.preSave();
 
-    organization.save().subscribe(
+    Object.assign(this.organization, organization);
+
+    this.organization.save().subscribe(
       result => {
+        this.alerts.push({
+          type: 'success',
+          message: 'Success',
+          details: 'Your changes have been saved to the organization.'
+        });
         this.working = false;
-        this.alertService.pop('success', 'Success', 'Your changes have been saved to the organization.');
       },
       error => {
         this.working = false;
-        this.alertService.pop('error', 'Error', 'Your changes could not saved to the organization.');
+        this.alerts.push({
+          type: 'error',
+          message: 'Error',
+          details: 'Your changes could not saved to the organization.'
+        });
       }
-    );
+    );;
   }
 
-  reset() {
+  reset() {    
     this.loadData();
   }
 

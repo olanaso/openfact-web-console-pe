@@ -1,12 +1,12 @@
 import {NgModule, provide} from '@angular/core';
 import {BrowserModule } from '@angular/platform-browser';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 import {HTTP_PROVIDERS, Http} from '@angular/http';
 
 import {AppComponent} from './app.component';
 import {PipeModule} from './pipes';
-import {SharedModule, AlertService} from './shared';
+import {SharedModule, AlertMessageService} from './shared';
 import {OrganizationModule} from './organization';
 
 import {routing, appRoutingProviders} from './app.routes';
@@ -21,6 +21,7 @@ import {OrganizationResolve} from './services';
 @NgModule({
     imports: [
         BrowserModule,
+        FormsModule,
         ReactiveFormsModule,
         routing,
         PipeModule,
@@ -65,7 +66,7 @@ import {OrganizationResolve} from './services';
         InvoiceProviderService,
         OrganizationProviderService,
 
-        AlertService
+        AlertMessageService
     ],
     bootstrap: [AppComponent],
 })

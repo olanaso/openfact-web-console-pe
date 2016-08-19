@@ -6,9 +6,7 @@ import { Provider } from './provider';
 import { OrganizationModel } from '../models';
 
 import { Restangular } from '../restangular';
-import { OpenfactService } from '../restangular-impl'
-
-import { ResponseToModel, ObjectBuilder } from '../utils';
+import { OpenfactService } from '../restangular-impl';
 
 export const ORGANIZATION_ID: string = 'name';
 export const ORGANIZATION_PATH: string = 'organizations';
@@ -32,19 +30,51 @@ export class OrganizationProviderService implements Provider {
   public findById(id: string): Observable<OrganizationModel> {
     let restangular = this.restangular.one(this.path, id);
     return restangular.get()
-      .map(result => ResponseToModel.toModel<OrganizationModel>(result, restangular, new ObjectBuilder<OrganizationModel>(OrganizationModel)));
+      .map(result => this.extractObject(result, restangular))
+      .map(model => this.extractSingleData(model, restangular, false));
   }
 
   public getAll(): Observable<OrganizationModel[]> {
     let restangular = this.restangular.all(this.path);
     return restangular.get()
-      .map(result => ResponseToModel.toModels<OrganizationModel>(result, restangular, new ObjectBuilder<OrganizationModel>(OrganizationModel), true));
+      .map(result => result.json())
+      .map(models => this.extractMultipleData(models, restangular));
   }
 
   public create(organization: OrganizationModel): Observable<OrganizationModel> {
+    let copy = organization.clone();
+
     let restangular = this.restangular.all(this.path);
-    return restangular.post(organization.copy())
-      .map(result => ResponseToModel.toModel<OrganizationModel>(result, restangular, new ObjectBuilder<OrganizationModel>(OrganizationModel), true));
+    return restangular.post(copy)
+      .map(result => this.extractObject(result, restangular))
+      .map(model => this.extractSingleData(model, restangular, true));
+  }
+
+  protected extractObject(res: Response, restangular: Restangular) {
+    let obj = new OrganizationModel(restangular);
+    if (res.status === 201) {
+      return obj;
+    } else {
+      let response = <OrganizationModel>res.json();
+      return Object.assign(obj, response);
+    }
+  }
+
+  /*Extract data*/
+  protected extractSingleData(organization: OrganizationModel, restangular: Restangular, requireOne: boolean) {
+    if (requireOne) {
+      organization.restangular = restangular.one('', organization[this.id]);
+    }
+    return organization;
+  }
+
+  protected extractMultipleData(organizations: OrganizationModel[], restangular: Restangular) {
+    for (let i = 0; i < organizations.length; i++) {
+      let obj = new OrganizationModel(restangular);
+      organizations[i] = Object.assign(obj, organizations[i]);
+      this.extractSingleData(organizations[i], restangular, true)
+    }
+    return organizations;
   }
 
 }

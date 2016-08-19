@@ -6,7 +6,6 @@ import {OrganizationComponent} from './organization.component';
 import {OverviewComponent} from './overview';
 import {InvoicesComponent, CreateInvoiceComponent, ListInvoiceComponent} from './invoices';
 import {SettingsComponent, GeneralInformationComponent, AddressComponent, CertificateComponent, TasksScheduleComponent} from './settings';
-import {TaxTypesComponent, ListTaxTypesComponent, CreateTaxTypeComponent, EditTaxTypeComponent} from './settings';
 
 const organizationRoutes: Routes = [
   {
@@ -37,7 +36,7 @@ const organizationRoutes: Routes = [
             component: CreateInvoiceComponent
           }
         ]
-      },
+      },    
       {
         path: 'settings',
         component: SettingsComponent,
@@ -54,27 +53,13 @@ const organizationRoutes: Routes = [
             path: 'address',
             component: AddressComponent
           },
-          /*{
+          {
             path: 'certificate',
             component: CertificateComponent
-          },*/
+          },
           {
             path: 'tasks-schedule',
             component: TasksScheduleComponent
-          },
-          {
-            path: 'tax-types',
-            component: TaxTypesComponent,
-            children: [
-              {
-                path: '',
-                component: ListTaxTypesComponent
-              },
-              {
-                path: 'create-tax-type',
-                component: CreateTaxTypeComponent
-              }
-            ]
           }
         ]
       }

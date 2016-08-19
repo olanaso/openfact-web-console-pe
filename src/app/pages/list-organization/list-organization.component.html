@@ -8,7 +8,9 @@
         <div class="col-md-10 col-md-offset-1">
 
             <h1 style="margin: 10px 0px 20px; display: inline-block;">Organizations</h1>
-            <a style="margin-top: 10px;" [routerLink]="['../create-organization']" class="btn btn-lg btn-primary pull-right">Create organization</a>      
+            <a style="margin-top: 10px;" [routerLink]="['../create-organization']" class="btn btn-lg btn-primary pull-right">Create organization</a>
+
+            <alerts [alerts]="alerts"></alerts>
             
             <div *ngFor="let organization of organizations" class="card-pf">
                 <div class="card-pf-heading">

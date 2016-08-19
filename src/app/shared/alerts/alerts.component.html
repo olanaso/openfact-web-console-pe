@@ -1,6 +1,33 @@
-<div class="feedback-center">
-  <div *ngFor="let alert of alerts">
-    <alert [alert]="alert" (click)="click(toast)" (clickEvent)="childClick($event)" (mouseover)="stopTimer(alert)" (mouseout)="restartTimer">
-    </alert>
+<div [ngClass]="{'alert-top-aligner': floating}">
+  <div *ngFor="let alert of (alerts | filterCollection : filter)" (ngModelChange)="onChange($event)">
+    <div *ngIf="!alert.hidden">
+      <div class="alert alert-dismissable" [ngClass]="{
+      'alert-danger': alert.type === 'error',
+      'alert-warning': alert.type === 'warning',
+      'alert-success': alert.type === 'success',
+      'alert-info': !alert.type || alert.type === 'info',
+      'toast-pf toast-pf-max-width toast-pf-top-right': toast
+    }">
+        <button ng-if="!hideCloseButton" (click)="close(alert)" type="button" class="close">
+          <span class="pficon pficon-close"></span>
+          <span class="sr-only">Close</span>
+        </button>
+        <span class="pficon" [ngClass]="{
+        'pficon-error-circle-o': alert.type === 'error',
+        'pficon-warning-triangle-o': alert.type === 'warning',
+        'pficon-ok': alert.type === 'success',
+        'pficon-info': !alert.type || alert.type === 'info'
+      }"></span>
+        <span class="sr-only">{{alert.type}}</span>
+
+        <strong *ngIf="alert.message">{{alert.message}}</strong>
+        <span *ngIf="alert.details">{{alert.details}}</span>
+        <span *ngFor="let link of alert.links; let $last=last;">
+        <a *ngIf="!link.href" href="" (click)="onClick(alert, link)">{{link.label}}</a>
+        <a *ngIf="link.href" href="{{link.href}}" (click)="onClick(alert, link)">{{link.label}}</a>
+        <span *ngIf="!$last" class="action-divider">|</span>
+        </span>
+      </div>
+    </div>
   </div>
 </div>

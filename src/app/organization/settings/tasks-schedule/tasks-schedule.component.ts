@@ -4,7 +4,7 @@ import {Validators, CORE_DIRECTIVES} from '@angular/common';
 import {FormGroup, FormControl, FormBuilder} from '@angular/forms';
 
 import {OrganizationModel, PostalAddress, TasksSchedule, TimeUnit, DataService} from '../../../services';
-import {Alert, AlertService} from '../../../shared';
+import {Alert, AlertMessageService} from '../../../shared';
 
 @Component({
   moduleId: module.id,
@@ -15,43 +15,54 @@ import {Alert, AlertService} from '../../../shared';
 export class TasksScheduleComponent implements OnInit {
 
   organization: OrganizationModel;
+  additionalAccountIds: string[] = ['DNI', 'RUC'];
 
   form: FormGroup;
   working: boolean = false;
   submitted: boolean = false;
+
+  alerts: Array<Alert> = [];
 
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
     private dataService: DataService,
-    private alertService: AlertService) {
+    private alertMessageService: AlertMessageService) {
     this.organization = this.activatedRoute.parent.parent.snapshot.data['organization'];
   }
 
   ngOnInit() {
+    this.loadAlerts();
     this.buildForm();
     this.loadData();
   }
 
+  loadAlerts() {
+    this.alertMessageService.getAlerts().forEach(alert => {
+      this.alerts.push(alert);
+    });
+    this.alertMessageService.clearAlerts();
+  }
+
   buildForm() {
     this.form = this.formBuilder.group({
-      attempNumber: ['', [<any>Validators.required]],
+      attempNumber: [''],
       lapseTime: this.formBuilder.group({
-        time: ['', [<any>Validators.required]],
-        unit: ['', [<any>Validators.required]]
+        time: [''],
+        unit: ['']
       }),
-      onErrorAttempNumber: ['', [<any>Validators.required]],
+      onErrorAttempNumber: [''],
       onErrorLapseTime: this.formBuilder.group({
-        time: ['', [<any>Validators.required]],
-        unit: ['', [<any>Validators.required]]
+        time: [''],
+        unit: ['']
       }),
       delayTime: this.formBuilder.group({
-        time: ['', [<any>Validators.required]],
-        unit: ['', [<any>Validators.required]]
+        time: [''],
+        unit: ['']
       }),
-      submitTime: ['', [<any>Validators.required]],
-      submitDays: ['', [<any>Validators.required]]
+      submitTime: [''],
+      submitDays: ['']
     });
   }
 
@@ -70,10 +81,11 @@ export class TasksScheduleComponent implements OnInit {
     this.submitted = submitted;
   }
 
-  preSave(): OrganizationModel {
+  save() {
+    this.working = true;
+
     let value = <FormControl>this.form.value;
     this.organization.tasksSchedule.attempNumber = value['attempNumber'];
-
     this.organization.tasksSchedule.lapseTime = TimeUnit.toSeconds(value['lapseTime']['time'], value['lapseTime']['unit']);
     this.organization.tasksSchedule.onErrorAttempNumber = value['onErrorAttempNumber'];
     this.organization.tasksSchedule.onErrorLapseTime = TimeUnit.toSeconds(value['onErrorLapseTime']['time'], value['onErrorLapseTime']['unit']);
@@ -81,21 +93,22 @@ export class TasksScheduleComponent implements OnInit {
     this.organization.tasksSchedule.submitTime = value['submitTime'];
     this.organization.tasksSchedule.submitDays = value['submitDays'];
 
-    return this.organization;
-  }
-
-  save() {
-    this.working = true;
-    let organization = this.preSave();
-
-    organization.save().subscribe(
+    this.organization.save().subscribe(
       result => {
+        this.alerts.push({
+          type: 'success',
+          message: 'Success',
+          details: 'Your changes have been saved to the organization.'
+        });
         this.working = false;
-        this.alertService.pop('success', 'Success', 'Your changes have been saved to the organization.');
       },
       error => {
         this.working = false;
-        this.alertService.pop('error', 'Error', 'Your changes could not saved to the organization.');
+        this.alerts.push({
+          type: 'error',
+          message: 'Error',
+          details: 'Your changes could not saved to the organization.'
+        });
       }
     );
   }

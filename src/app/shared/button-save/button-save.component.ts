@@ -1,7 +1,7 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {FormGroup, AbstractControl} from '@angular/forms';
 
-import {Alert, AlertService} from '../alerts';
+import {Alert, AlertMessageService} from '../shared-services';
 
 @Component({
   moduleId: module.id,
@@ -16,7 +16,7 @@ export class ButtonSaveComponent implements OnInit {
   @Input() alerts: Array<Alert>;
   @Output() onClick: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  constructor(private alertMessageService: AlertService) { }
+  constructor(private alertMessageService: AlertMessageService) { }
 
   ngOnInit() {    
   }

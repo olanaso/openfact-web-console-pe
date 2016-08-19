@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 
-import {HeaderService} from '../shared-services';
-import {Alert, AlertService} from '../alerts';
+import {Alert, AlertMessageService, HeaderService} from '../shared-services';
 import {OrganizationModel, DataService} from '../../services';
 
 @Component({

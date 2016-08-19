@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
-import {Http, Response, RequestOptionsArgs, URLSearchParams} from '@angular/http';
+import {Http, Response} from '@angular/http';
 import 'rxjs/add/operator/catch';
 
 export abstract class Restangular {
@@ -21,9 +21,8 @@ export abstract class Restangular {
   public abstract clone(): Restangular;
 
   /*http methods*/
-  public get(queryParams?: URLSearchParams): Observable<Response> {
-    let options = { search: queryParams };
-    return this.http.get(this.path, options).catch(this.handleError);
+  public get(): Observable<Response> {
+    return this.http.get(this.path).catch(this.handleError);
   }
 
   public post(obj: any): Observable<Response> {

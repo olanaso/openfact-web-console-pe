@@ -2,7 +2,7 @@ import {Component, OnInit, Input} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 
 import {OrganizationModel} from '../../services';
-import {Alert, AlertService} from '../../shared';
+import {Alert, AlertMessageService} from '../../shared';
 
 @Component({
   moduleId: module.id,
@@ -19,11 +19,19 @@ export class OverviewComponent implements OnInit {
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private alertMessageService: AlertService) {
+    private alertMessageService: AlertMessageService) {
     this.organization = this.activatedRoute.snapshot.parent.data['organization']  
   }
 
   ngOnInit() {
+    this.loadAlerts();
+  }
+
+  loadAlerts() {
+    this.alertMessageService.getAlerts().forEach(alert => {
+      this.alerts.push(alert);
+    });
+    this.alertMessageService.clearAlerts();
   }
 
 }

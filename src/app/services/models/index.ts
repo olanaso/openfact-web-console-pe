@@ -1,5 +1,5 @@
 export * from './model';
 export * from './organization-model';
+export * from './document-model';
 export * from './invoice-model';
 export * from './certificate-model';
-export * from './time-unit';

@@ -1,11 +1,15 @@
-import {Model} from './model'
+import {Observable} from 'rxjs/Observable';
+
+import {Model} from './model';
+import {DocumentModel} from './document-model';
+
 import {Restangular} from '../restangular';
+import {Buildable, ObjectBuilder, ResponseToModel} from '../utils';
 
-export class OrganizationModel implements Model {
-
-    restangular: Restangular;
+export class OrganizationModel extends Model implements Buildable {
 
     id: string;
+
     name: string;
     description: string;
     supplierName: string;
@@ -17,19 +21,18 @@ export class OrganizationModel implements Model {
     postalAddress: PostalAddress;
     tasksSchedule: TasksSchedule;
 
-    constructor(restangular: Restangular) {
+    constructor(restangular?: Restangular) {
+        super();
         this.restangular = restangular;
     }
 
-    clone(): OrganizationModel {
-        let copy = Object.assign({}, this);
-        delete copy['restangular'];
-        return copy;
+    getDocuments(type: string): Observable<DocumentModel[]> {
+        let restangular = this.restangular.all('documents');
+        return restangular.get().map(
+            result => ResponseToModel.toModels<DocumentModel>(result, restangular, new ObjectBuilder<DocumentModel>(DocumentModel), true)
+        );
     }
 
-    save() {
-        return this.restangular.put(this.clone());
-    }
 }
 
 export class PostalAddress {
@@ -40,7 +43,7 @@ export class PostalAddress {
     district: string;
     countryIdentificationCode: string;
 
-    constructor() {}
+    constructor() { }
 }
 
 export class TasksSchedule {
@@ -53,7 +56,7 @@ export class TasksSchedule {
     submitTime: Date;
     submitDays: number[];
 
-    constructor() {}
+    constructor() { }
 }
 
 export class TaxType {
@@ -62,5 +65,5 @@ export class TaxType {
     code: string;
     value: number;
 
-    constructor() {}
+    constructor() { }
 }

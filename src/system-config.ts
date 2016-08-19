@@ -70,6 +70,7 @@ const barrels: string[] = [
   'app/services/resolvers',
   'app/services/restangular',
   'app/services/restangular-impl',
+  'app/services/utils',
 
   'app/shared',
   'app/shared/shared-services',  

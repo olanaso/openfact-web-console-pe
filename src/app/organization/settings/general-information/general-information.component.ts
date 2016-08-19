@@ -3,7 +3,7 @@ import {Router, ActivatedRoute} from '@angular/router';
 import {Validators} from '@angular/common';
 import {FormGroup, FormControl, FormBuilder} from '@angular/forms';
 
-import {OrganizationModel, DataService} from '../../../services';
+import {OrganizationModel, DocumentModel, ADDITIONAL_IDENTIFICATION_ID, DataService} from '../../../services';
 import {AlertService} from '../../../shared';
 
 @Component({
@@ -15,6 +15,7 @@ import {AlertService} from '../../../shared';
 export class GeneralInformationComponent implements OnInit {
 
   organization: OrganizationModel;
+  additionalAccountIds: Array<DocumentModel> = [];
 
   form: FormGroup;
   working: boolean = false;
@@ -32,6 +33,7 @@ export class GeneralInformationComponent implements OnInit {
   ngOnInit() {
     this.buildForm();
     this.loadData();
+    this.loadAdditionalAccountIds();
   }
 
   buildForm() {
@@ -52,6 +54,12 @@ export class GeneralInformationComponent implements OnInit {
     (<FormControl>this.form.controls['supplierName']).setValue(this.organization.supplierName);
     (<FormControl>this.form.controls['registrationName']).setValue(this.organization.registrationName);
     (<FormControl>this.form.controls['enabled']).setValue(this.organization.enabled);
+  }
+
+  loadAdditionalAccountIds() {
+    this.organization.getDocuments(ADDITIONAL_IDENTIFICATION_ID).subscribe(result => {
+      console.log(result);      
+    });
   }
 
   setSubmitted(submitted: boolean) {

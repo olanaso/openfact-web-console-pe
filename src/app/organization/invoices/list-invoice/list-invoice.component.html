@@ -6,12 +6,10 @@
       </div>
       <h1>Add Invoices</h1>      
     </div>
-    <!--<alerts alerts="alerts" class="ng-isolate-scope">
-      
+    <!--<alerts alerts="alerts" class="ng-isolate-scope">      
     </alerts>-->
   </div>
 </div>
-
 <div class="dataTables_wrapper no-footer">
   <div class="table-toolbar form-inline">
     <div class="form-group filter-controls">
@@ -70,7 +68,7 @@
           <td> <a href="javascript:void(0)" [routerLink]="['../create-invoice']">{{invoice.invoiceSeries}}-{{invoice.invoiceNumber}}</a></td>
           <td>{{invoice.customer.registrationName}}</td>
           <td>{{invoice.currencyCode}}</td>
-          <td>{{invoice.totalAmmount}}</td>
+          <td>{{invoice.totalAmmount|number:'1.2-2'}}</td>
           <td><span class="pficon pficon-edit"></span>&nbsp;&nbsp;<span class="pficon pficon-delete"></span></td>
         </tr>
       </tbody>

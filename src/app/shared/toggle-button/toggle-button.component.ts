@@ -9,7 +9,7 @@ import {ControlValueAccessor} from '@angular/forms';
 })
 export class ToggleButtonComponent implements OnInit, ControlValueAccessor {
 
-  @Input() value: boolean;
+  @Input() value: boolean = true;
   @Output() onChange: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Input() disable: boolean = false;
 

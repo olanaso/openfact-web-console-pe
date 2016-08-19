@@ -70,7 +70,6 @@ const barrels: string[] = [
   'app/services/resolvers',
   'app/services/restangular',
   'app/services/restangular-impl',
-  'app/services/utils',
 
   'app/shared',
   'app/shared/shared-services',
@@ -82,8 +81,6 @@ const barrels: string[] = [
   'app/shared/sidebar',
   'app/shared/events-sidebar',
   'app/shared/alerts',
-  'app/shared/alerts/alert',
-  'app/shared/alerts/services',
   'app/shared/button-save',
   'app/shared/button-reset',
   'app/shared/button-cancel',
@@ -91,8 +88,6 @@ const barrels: string[] = [
   'app/shared/toggle-button',
   'app/shared/equals-validator',
 
-  'app/shared/button-switch',
-  
   'app/organization',
   'app/organization/overview',
   'app/organization/settings',
@@ -101,17 +96,11 @@ const barrels: string[] = [
   'app/organization/settings/tasks-schedule',
   'app/organization/settings/certificate',
 
-  'app/organization/settings/tax-types',
-  'app/organization/settings/tax-types/edit-tax-type',
-  'app/organization/settings/tax-types/create-tax-type',
-  'app/organization/settings/tax-types/list-tax-type',
-  
   'app/organization',
   'app/organization/invoices',
   'app/organization/invoices/create-invoice',
   'app/organization/invoices/list-invoice',
   'app/organization/invoices/edit-invoice'
-  'app/organization/invoices/edit-invoice',
   /** @cli-barrel */
 ];
 

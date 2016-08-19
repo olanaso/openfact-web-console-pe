@@ -1,32 +1,21 @@
-import {URLSearchParams} from '@angular/http';
-import {Observable} from 'rxjs/Observable';
-
-import {Model} from './model';
-import {DocumentModel} from './document-model';
-
+import {Model} from './model'
 import {Restangular} from '../restangular';
 import {FileUploader} from "ng2-file-upload";
-import {Buildable, ObjectBuilder, ResponseToModel} from '../utils';
 
-export class OrganizationModel extends Model implements Buildable {
+export class OrganizationModel implements Model {
 
-    id: string;
+  /*Restangular*/
+  public restangular: Restangular;
 
-    name: string;
-    description: string;
-    supplierName: string;
-    registrationName: string;
-    additionalAccountId: string;
-    assignedIdentificationId: string;
-    enabled: boolean;
+  /*Attributes*/
+  public id: string;
+  public name: string;
+  public supplierName: string;
+  public registrationName: string;
+  public additionalAccountId: string;
+  public assignedIdentificationId: string;
+  public enabled: boolean;
 
-    postalAddress: PostalAddress;
-    tasksSchedule: TasksSchedule;
-
-    constructor(restangular?: Restangular) {
-        super();
-        this.restangular = restangular;
-    }
   public postalAddress: PostalAddress;
   public tasksSchedule: TasksSchedule;
   public certificate: Certificate;
@@ -35,15 +24,11 @@ export class OrganizationModel extends Model implements Buildable {
     this.restangular = restangular;
   }
 
-    getDocuments(type: string): Observable<DocumentModel[]> {
-        let restangular = this.restangular.all('documents');
-        
-        let queryParams = new URLSearchParams();
-        queryParams.append("type", type);       
-
-        return restangular.get(queryParams)
-            .map(result => ResponseToModel.toModels<DocumentModel>(result, restangular, new ObjectBuilder<DocumentModel>(DocumentModel), true));
-    }
+  public clone(): OrganizationModel {
+    let copy = Object.assign({}, this);
+    delete copy['restangular'];
+    return copy;
+  }
 
   public save() {
     return this.restangular.put(this.clone());
@@ -57,37 +42,24 @@ export class OrganizationModel extends Model implements Buildable {
   }
 }
 
-export class PostalAddress {
-    streetName: string;
-    citySubdivisionName: string;
-    cityName: string;
-    countrySubentity: string;
-    district: string;
-    countryIdentificationCode: string;
-
-    constructor() { }
+export interface PostalAddress {
+  streetName: string;
+  citySubdivisionName: string;
+  cityName: string;
+  countrySubentity: string;
+  district: string;
+  countryIdentificationCode: string;
 }
 
-export class TasksSchedule {
-    attempNumber: number;
-    lapseTime: number;
-    onErrorAttempNumber: number;
-    onErrorLapseTime: number;
+export interface TasksSchedule {
+  attempNumber: number;
+  lapseTime: number;
+  onErrorAttempNumber: number;
+  onErrorLapseTime: number;
 
-    delayTime: number;
-    submitTime: Date;
-    submitDays: number[];
-
-    constructor() { }
-}
-
-export class TaxType {
-    id: string;
-    name: string;
-    code: string;
-    value: number;
-
-    constructor() { }
+  delayTime: number;
+  submitTime: Date;
+  submitDays: number[];
 }
 export  interface  Certificate {
   alias: string;

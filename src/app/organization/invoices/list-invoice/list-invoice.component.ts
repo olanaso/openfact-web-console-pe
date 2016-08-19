@@ -25,7 +25,7 @@ export class ListInvoiceComponent implements OnInit {
     private formBuilder: FormBuilder,
     private dataService: DataService,
     private alertMessageService: AlertMessageService) {
-    this.organization = this.activatedRoute.snapshot.parent.parent.data['organization']; 
+    this.organization = this.activatedRoute.snapshot.parent.parent.data['organization'];
   }
 
   ngOnInit() {
@@ -54,5 +54,11 @@ export class ListInvoiceComponent implements OnInit {
       }
     );
   }
-
+  editInvoice(invoice: InvoiceModel) {
+    let link = ['/edit-invoice', invoice.id];
+    console.log("Url actual: "+this.router.url);
+    
+    this.router.navigate(link);
+    //alert(JSON.stringify(invoice));
+  }
 }

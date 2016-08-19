@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import {Validators} from '@angular/common';
 import {FormGroup, FormControl, FormBuilder} from '@angular/forms';
-import {DATEPICKER_DIRECTIVES} from 'ng2-bootstrap';
-import {CORE_DIRECTIVES} from '@angular/common';
-import {FORM_DIRECTIVES} from '@angular/forms';
-import * as moment from 'moment';
+// import {DATEPICKER_DIRECTIVES} from 'ng2-bootstrap';
+// import {CORE_DIRECTIVES} from '@angular/common';
+// import {FORM_DIRECTIVES} from '@angular/forms';
+// import * as moment from 'moment';
 
 import {OrganizationModel, InvoiceModel, LineModel, DataService} from '../../../services';
 import {Alert, AlertMessageService} from '../../../shared';
@@ -14,8 +14,8 @@ import {Alert, AlertMessageService} from '../../../shared';
   moduleId: module.id,
   selector: 'app-create-invoice',
   templateUrl: 'create-invoice.component.html',
-  styleUrls: ['create-invoice.component.css'],
-  directives: [DATEPICKER_DIRECTIVES, CORE_DIRECTIVES, FORM_DIRECTIVES]
+  styleUrls: ['create-invoice.component.css']
+  //directives: [DATEPICKER_DIRECTIVES, CORE_DIRECTIVES, FORM_DIRECTIVES]
 })
 export class CreateInvoiceComponent implements OnInit {
 
@@ -95,15 +95,15 @@ export class CreateInvoiceComponent implements OnInit {
   }
 
   save() {
-    this.invoice.totalDiscounted = 0;
-    this.invoice.totalAmmount = 0;
-    this.invoice.totalUnaffected = 0;
-    this.invoice.totalExonerated = 0;
-    this.invoice.totalByFree = 0;
+    // this.invoice.totalDiscounted = 0;
+    // this.invoice.totalAmmount = 0;
+    // this.invoice.totalUnaffected = 0;
+    // this.invoice.totalExonerated = 0;
+    // this.invoice.totalByFree = 0;
 
-    this.invoice.totalIgvTax = 0;
-    this.invoice.currencyCode = "PEN";
-    this.invoice.totalTaxed = 0;
+    // this.invoice.totalIgvTax = 0;
+    // this.invoice.currencyCode = "PEN";
+    // this.invoice.totalTaxed = 0;
 
     this.dataService.invoices().create(this.organization, this.invoice).subscribe(
       result => {
@@ -114,6 +114,7 @@ export class CreateInvoiceComponent implements OnInit {
         });
         this.working = false;
         let link = ['../invoices'];
+        console.log(this.router.url);
         this.router.navigate(link);
       },
       error => {

@@ -17,10 +17,10 @@ const map: any = {
 
 /** User packages configuration. */
 const packages: any = {
-  'underscore':{
+  'underscore': {
     format: 'cjs',
   },
-  'moment':{
+  'moment': {
     format: 'cjs'
   },
   'ng2-bootstrap': {
@@ -70,6 +70,7 @@ const barrels: string[] = [
   'app/services/resolvers',
   'app/services/restangular',
   'app/services/restangular-impl',
+  'app/services/utils',
 
   'app/shared',
   'app/shared/shared-services',
@@ -81,20 +82,26 @@ const barrels: string[] = [
   'app/shared/sidebar',
   'app/shared/events-sidebar',
   'app/shared/alerts',
+  'app/shared/alerts/alert',
+  'app/shared/alerts/services',
   'app/shared/button-save',
   'app/shared/button-reset',
   'app/shared/button-cancel',
   'app/shared/button-delete',
-  'app/shared/toggle-button',
+  'app/shared/button-switch',
   'app/shared/equals-validator',
 
   'app/organization',
   'app/organization/overview',
   'app/organization/settings',
   'app/organization/settings/address',
-  'app/organization/settings/general-information',
+  'app/organization/settings/general-information',  
   'app/organization/settings/tasks-schedule',
   'app/organization/settings/certificate',
+  'app/organization/settings/tax-types',
+  'app/organization/settings/tax-types/edit-tax-type',
+  'app/organization/settings/tax-types/create-tax-type',
+  'app/organization/settings/tax-types/list-tax-type',
 
   'app/organization',
   'app/organization/invoices',

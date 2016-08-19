@@ -12,13 +12,13 @@ import {EventsSidebarComponent} from './events-sidebar';
 import {ProjectPageComponent} from './project-page';
 import {SidebarComponent} from './sidebar';
 
-import {AlertsComponent} from './alerts';
+import {AlertsComponent, AlertComponent} from './alerts';
 
 import {ButtonSaveComponent} from './button-save';
 import {ButtonResetComponent} from './button-reset';
 import {ButtonCancelComponent} from './button-cancel';
 import {ButtonDeleteComponent} from './button-delete';
-import {ToggleButtonComponent} from './toggle-button';
+import {ButtonSwitchComponent} from './button-switch';
 
 import {NavbarService} from './shared-services/navbar.service';
 import {HeaderService} from './shared-services/header.service';
@@ -40,13 +40,13 @@ import {HeaderService} from './shared-services/header.service';
         ProjectPageComponent,
         SidebarComponent,
 
-        AlertsComponent,
+        AlertsComponent, AlertComponent,
 
         ButtonSaveComponent,
         ButtonResetComponent,
         ButtonCancelComponent,
         ButtonDeleteComponent,
-        ToggleButtonComponent
+        ButtonSwitchComponent
     ],
     exports: [
         DefaultHeaderComponent,
@@ -63,7 +63,7 @@ import {HeaderService} from './shared-services/header.service';
         ButtonResetComponent,
         ButtonCancelComponent,
         ButtonDeleteComponent,
-        ToggleButtonComponent
+        ButtonSwitchComponent
     ],
     providers: [
         NavbarService,

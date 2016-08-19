@@ -1,84 +1,88 @@
-<alerts [alerts]="alerts"></alerts>
 
 <form [formGroup]="form" (ngSubmit)="save(form.value)" class="form-horizontal" novalidate>
   <fieldset>
     <div class="form-group" [ngClass]="{ 'has-error' : !form.controls.name.valid && submitted }">
-      <label class="col-md-2 control-label">Name
-        <a tooltip="Name of the organization" tooltipPlacement="right"><span class="fa fa-info-circle"></span></a>
+      <label class="col-md-2 control-label"><span class="required">*</span> Name
+        <i class="fa fa-question-circle text-muted" tooltip="Name of the organization" tooltipPlacement="right" tooltipTrigger="mouseover mouseout"></i>
       </label>
       <div class="col-md-3">
         <input formControlName="name" type="text" class="form-control" disabled/>
         <div *ngIf="!form.controls.name.valid && submitted">
-          <span class="help-block">Type a correct name</span>
+          <span *ngIf="form.controls.name.errors.required" class="help-block">This field is required</span>
+          <span *ngIf="form.controls.name.errors.maxlength" class="help-block">Max length {{form.controls.name.errors.maxlength.requiredLength}}</span>
         </div>
       </div>
     </div>
 
     <div class="form-group" [ngClass]="{ 'has-error' : !form.controls.additionalAccountId.valid && submitted }">
       <label class="col-md-2 control-label">Additional account id
-        <a tooltip="Document type used on your location" tooltipPlacement="right"><span class="fa fa-info-circle"></span></a>
+        <i class="fa fa-question-circle text-muted" tooltip="Additional account id" tooltipPlacement="right" tooltipTrigger="mouseover mouseout"></i>
       </label>
       <div class="col-md-3">
         <select formControlName="additionalAccountId" class="form-control">
             <option></option>
-            <option value="DNI">DNI</option>
-            <option value="RUC">RUC</option>
+            <option *ngFor="let item of additionalAccountIds" [value]="item.name">
+              {{item.name}}
+            </option>            
         </select>
         <div *ngIf="!form.controls.additionalAccountId.valid && submitted">
-          <span class="help-block">Type a correct additional account id</span>
+          <span *ngIf="form.controls.additionalAccountId.errors.required" class="help-block">This field is required</span>
+          <span *ngIf="form.controls.additionalAccountId.errors.maxlength" class="help-block">Max length {{form.controls.additionalAccountId.errors.maxlength.requiredLength}}</span>
         </div>
       </div>
     </div>
     <div class="form-group" [ngClass]="{ 'has-error' : !form.controls.assignedIdentificationId.valid && submitted }">
       <label class="col-md-2 control-label">Assigned identification id
-        <a tooltip="Number of the document asigned to you" tooltipPlacement="right"><span class="fa fa-info-circle"></span></a>
+        <i class="fa fa-question-circle text-muted" tooltip="ASsigned identification id" tooltipPlacement="right" tooltipTrigger="mouseover mouseout"></i>
       </label>
       <div class="col-md-2">
         <input formControlName="assignedIdentificationId" type="text" class="form-control" />
         <div *ngIf="!form.controls.assignedIdentificationId.valid && submitted">
-          <span class="help-block">Type a correct assigned identification id</span>
+          <span *ngIf="form.controls.assignedIdentificationId.errors.required" class="help-block">This field is required</span>
+          <span *ngIf="form.controls.assignedIdentificationId.errors.maxlength" class="help-block">Max length {{form.controls.assignedIdentificationId.errors.maxlength.requiredLength}}</span>
         </div>
       </div>
     </div>
 
     <div class="form-group" [ngClass]="{ 'has-error' : !form.controls.supplierName.valid && submitted }">
       <label class="col-md-2 control-label">Supplier name
-        <a tooltip="Supplier name" tooltipPlacement="right"><span class="fa fa-info-circle"></span></a>
+        <i class="fa fa-question-circle text-muted" tooltip="Supplier name" tooltipPlacement="right" tooltipTrigger="mouseover mouseout"></i>
       </label>
       <div class="col-md-5">
         <input formControlName="supplierName" type="text" class="form-control" />
         <div *ngIf="!form.controls.supplierName.valid && submitted">
-          <span class="help-block">Type a correct supplier name</span>
+          <span *ngIf="form.controls.supplierName.errors.required" class="help-block">This field is required</span>
+          <span *ngIf="form.controls.supplierName.errors.maxlength" class="help-block">Max length {{form.controls.supplierName.errors.maxlength.requiredLength}}</span>
         </div>
       </div>
     </div>
     <div class="form-group" [ngClass]="{ 'has-error' : !form.controls.registrationName.valid && submitted }">
       <label class="col-md-2 control-label">Registration name
-        <a tooltip="Registration name" tooltipPlacement="right"><span class="fa fa-info-circle"></span></a>
+        <i class="fa fa-question-circle text-muted" tooltip="Registration name" tooltipPlacement="right" tooltipTrigger="mouseover mouseout"></i>
       </label>
       <div class="col-md-5">
         <input formControlName="registrationName" type="text" class="form-control" />
         <div *ngIf="!form.controls.registrationName.valid && submitted">
-          <span class="help-block">Type a correct registration name</span>
+          <span *ngIf="form.controls.registrationName.errors.required" class="help-block">This field is required</span>
+          <span *ngIf="form.controls.registrationName.errors.maxlength" class="help-block">Max length {{form.controls.registrationName.errors.maxlength.requiredLength}}</span>
         </div>
       </div>
     </div>
     <div class="form-group" [ngClass]="{ 'has-error' : !form.controls.enabled.valid && submitted }">
       <label class="col-md-2 control-label">Enabled
-        <a tooltip="Name of the organization" tooltipPlacement="right"><span class="fa fa-info-circle"></span></a>
+        <i class="fa fa-question-circle text-muted" tooltip="Enabled" tooltipPlacement="right" tooltipTrigger="mouseover mouseout"></i>
       </label>
       <div class="col-md-2">
-        <toggle-button [value]="organization.enabled"></toggle-button>
+        <button-switch [value]="organization.enabled" (onChange)="chagenEnabled($event)"></button-switch>
         <div *ngIf="!form.controls.enabled.valid && submitted">
-          <span class="help-block">Type a correct enabled</span>
+          <span *ngIf="form.controls.enabled.errors.required" class="help-block">This field is required</span>
         </div>
       </div>
     </div>
     
-
     <div class="form-group">
       <div class="col-sm-offset-2 col-sm-10">
-        <button-save [form]="form" [working]="working" [alerts]="alerts" (onClick)="setSubmitted($event)"></button-save>
+        <button-save [form]="form" [working]="working" (onClick)="setSubmitted($event)"></button-save>
         <button-reset [form]="form" [working]="working" (onClick)="reset($event)"></button-reset>
       </div>
     </div>

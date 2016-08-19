@@ -2,9 +2,7 @@
   .my-drop-zone {
     border: dotted 3px green;
   }
-
 </style>
-<alerts [alerts]="alerts"></alerts>
 
 <div class="row">
   <div class="col-sm-5">
@@ -67,8 +65,8 @@
                 class="fa fa-info-circle"></span></a>
             </label>
             <div class="col-md-8">
-              <toggle-button
-                [value]="hasCertificate"></toggle-button>
+              <button-switch
+                [value]="hasCertificate"></button-switch>
               <div *ngIf="!form.controls.hasCertificate.valid && submitted">
                 <span class="help-block"></span>
               </div>
@@ -151,8 +149,3 @@
   <div class="col-sm-2"></div>
 
 </div>
-
-
-
-
-

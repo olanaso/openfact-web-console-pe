@@ -8,14 +8,14 @@ import {FormGroup, FormControl, FormBuilder} from '@angular/forms';
 // import * as moment from 'moment';
 
 import {OrganizationModel, InvoiceModel, LineModel, DataService} from '../../../services';
-import {Alert, AlertMessageService} from '../../../shared';
+import {Alert, AlertService} from '../../../shared';
 
 @Component({
   moduleId: module.id,
   selector: 'app-create-invoice',
   templateUrl: 'create-invoice.component.html',
   styleUrls: ['create-invoice.component.css']
-  //directives: [DATEPICKER_DIRECTIVES, CORE_DIRECTIVES, FORM_DIRECTIVES]
+
 })
 export class CreateInvoiceComponent implements OnInit {
 
@@ -41,22 +41,14 @@ export class CreateInvoiceComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
     private dataService: DataService,
-    private alertMessageService: AlertMessageService) {
+    private alertMessageService: AlertService) {
     this.organization = this.activatedRoute.snapshot.parent.parent.data['organization'];
     this.invoice = this.dataService.invoices().build();
   }
 
   ngOnInit() {
-    this.loadAlerts();
     this.buildForm();
     this.loadData();
-  }
-
-  loadAlerts() {
-    this.alertMessageService.getAlerts().forEach(alert => {
-      this.alerts.push(alert);
-    });
-    this.alertMessageService.clearAlerts();
   }
 
   buildForm() {

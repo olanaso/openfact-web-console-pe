@@ -1,7 +1,19 @@
 import {Restangular} from '../restangular';
 
-export interface Model {
+export abstract class Model {
+
   restangular: Restangular;
 
-  clone(): Model;
+  constructor() { }
+
+  save() {
+    return this.restangular.put(this.copy());
+  }
+
+  copy() {
+    let copy = Object.assign({}, this);
+    delete copy['restangular'];
+    return copy;
+  }
+
 }

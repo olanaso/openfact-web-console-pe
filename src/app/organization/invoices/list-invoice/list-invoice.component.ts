@@ -4,7 +4,7 @@ import {Validators} from '@angular/common';
 import {FormGroup, FormControl, FormBuilder} from '@angular/forms';
 
 import {OrganizationModel, InvoiceModel, LineModel, DataService} from '../../../services';
-import {Alert, AlertMessageService} from '../../../shared';
+import {Alert, AlertService} from '../../../shared';
 
 @Component({
   moduleId: module.id,
@@ -24,20 +24,13 @@ export class ListInvoiceComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
     private dataService: DataService,
-    private alertMessageService: AlertMessageService) {
-    this.organization = this.activatedRoute.snapshot.parent.parent.data['organization'];
+    private alertService: AlertService) {
+    this.organization = this.activatedRoute.snapshot.parent.parent.data['organization']; 
+
   }
 
   ngOnInit() {
-    this.loadAlerts();
     this.loadInvoices();
-  }
-
-  loadAlerts() {
-    this.alertMessageService.getAlerts().forEach(alert => {
-      this.alerts.push(alert);
-    });
-    this.alertMessageService.clearAlerts();
   }
 
   loadInvoices() {

@@ -65,23 +65,23 @@ export class CertificateComponent implements OnInit {
   loadUpload() {
     this.uploader = this.organization.uploadCertificate();
     /*this.uploader.onSuccessItem = function (fileItem, response, status, headers) {
-      console.info('onSuccessItem', fileItem, response, status, headers);
-      this.alerts.push({
-        type: 'success',
-        message: 'Success',
-        details: 'Your certificate has upload been saved to the organization.'
-      });
-      this.working = false;
-    };
-    this.uploader.onErrorItem = function (fileItem, response, status, headers) {
-      console.info('onErrorItem', fileItem, response, status, headers);
-      this.alerts.push({
-        type: 'error',
-        message: 'Error',
-        details: response
-      });
-    };
-*/
+     console.info('onSuccessItem', fileItem, response, status, headers);
+     this.alerts.push({
+     type: 'success',
+     message: 'Success',
+     details: 'Your certificate has upload been saved to the organization.'
+     });
+     this.working = false;
+     };
+     this.uploader.onErrorItem = function (fileItem, response, status, headers) {
+     console.info('onErrorItem', fileItem, response, status, headers);
+     this.alerts.push({
+     type: 'error',
+     message: 'Error',
+     details: response
+     });
+     };
+     */
   }
 
   loadData() {
@@ -96,25 +96,25 @@ export class CertificateComponent implements OnInit {
         (<FormControl>this.form.controls['validity']).updateValue(certificate.validity);
         (<FormControl>this.form.controls['hasCertificate']).updateValue(certificate.hasCertificate);
 
-        /*console.log("1.0 " + certificate.certificate);
-        let mimetype = certificate.certificate.type;
-        console.log("2.0 " + mimetype);
-        let file = new File([certificate.certificate], certificate.urlcertificate, {type: mimetype});
-        console.log("3.0 " + file);
-        this.uploader.queue.push({
-          file: file,
-          isUploaded: true,
-          isSuccess: true,
-          progress: 100
-        });*/
-
+        if (certificate.hasCertificate) {
+          console.log("1.0 " + certificate.certificate);
+          let mimetype = certificate.fileType;
+          console.log("2.0 " + mimetype);
+          let file = new File([certificate.certificate], certificate.fileName, {type: mimetype});
+          console.log("3.0 " + JSON.stringify(file));
+          this.uploader.queue.push({
+            file: file,
+            isUploaded: true,
+            isSuccess: true,
+            progress: 100
+          });
+        }
       },
       error => {
         console.log("Imposible recuperar datos de Certificado")
       }
     );
   }
-
 
 
   loadAlerts() {

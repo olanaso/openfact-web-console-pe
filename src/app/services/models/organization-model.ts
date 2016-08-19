@@ -79,8 +79,8 @@ export  interface  Certificate {
   alias: string;
   certificate: any;
   urlcertificate: string;
-  FileName: string;
-  FileType: string;
+  fileName: string;
+  fileType: string;
   password: string;
   passwordConfirmation: string;
   validity: Date;

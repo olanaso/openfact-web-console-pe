@@ -1,5 +1,5 @@
 
-<form [formGroup]="form" (ngSubmit)="save(form.value)" class="form-horizontal" novalidate>
+<form [formGroup]="form" (ngSubmit)="save()" class="form-horizontal" novalidate>
   <fieldset>
 
     <!--<div class="form-group" [ngClass]="{ 'has-error' : !form.controls.submitDays.valid && submitted }">
@@ -23,7 +23,7 @@
     </div>-->
     <div class="form-group" [ngClass]="{ 'has-error' : !form.controls.submitTime.valid && submitted }">
       <label class="col-md-2 control-label">Submit time
-        <a tooltip="Submit time" tooltipPlacement="right"><span class="fa fa-info-circle"></span></a>
+        <i class="fa fa-question-circle text-muted" tooltip="Submit time" tooltipPlacement="right" tooltipTrigger="mouseover mouseout"></i>
       </label>
       <div class="col-md-3 time-selector">
         <input formControlName="submitTime" type="time" class="form-control" />
@@ -31,20 +31,20 @@
     </div>
     <div formGroupName="delayTime" class="form-group" [ngClass]="{ 'has-error' : !form.controls.delayTime.controls.time.valid && submitted }">
       <label class="col-md-2 control-label">Delay time
-        <a tooltip="Delay time" tooltipPlacement="right"><span class="fa fa-info-circle"></span></a>
+        <i class="fa fa-question-circle text-muted" tooltip="Delay time" tooltipPlacement="right" tooltipTrigger="mouseover mouseout"></i>
       </label>
       <div class="col-md-6 time-selector">
         <input formControlName="time" type="number" class="form-control" />
         <select formControlName="unit" class="form-control">
-          <option value="0">Seconds</option>
-          <option value="1">Minutes</option>
+          <option value="Seconds">Seconds</option>
+          <option value="Minutes">Minutes</option>
         </select>
       </div>
     </div>
 
     <div class="form-group" [ngClass]="{ 'has-error' : !form.controls.attempNumber.valid && submitted }">
       <label class="col-md-2 control-label">Attemp number
-        <a tooltip="Attemp number" tooltipPlacement="right"><span class="fa fa-info-circle"></span></a>
+        <i class="fa fa-question-circle text-muted" tooltip="Attemp number" tooltipPlacement="right" tooltipTrigger="mouseover mouseout"></i>
       </label>
       <div class="col-md-6 time-selector">
         <input formControlName="attempNumber" type="number" class="form-control" />
@@ -52,22 +52,22 @@
     </div>
     <div formGroupName="lapseTime" class="form-group" [ngClass]="{ 'has-error' : !form.controls.lapseTime.controls.time.valid && submitted }">
       <label class="col-md-2 control-label">Lapse time
-        <a tooltip="Lapse time" tooltipPlacement="right"><span class="fa fa-info-circle"></span></a>
+       <i class="fa fa-question-circle text-muted" tooltip="Lapse time" tooltipPlacement="right" tooltipTrigger="mouseover mouseout"></i>
       </label>
       <div class="col-md-6 time-selector">
         <input formControlName="time" type="number" class="form-control" />
         <select formControlName="unit" class="form-control">
-          <option value="0">Seconds</option>
-          <option value="1">Minutes</option>
-          <option value="2">Hours</option>
-          <option value="3">Days</option>
+          <option value="Seconds">Seconds</option>
+          <option value="Minutes">Minutes</option>
+          <option value="Hours">Hours</option>
+          <option value="Days">Days</option>
         </select>
       </div>
     </div>
 
     <div class="form-group" [ngClass]="{ 'has-error' : !form.controls.onErrorAttempNumber.valid && submitted }">
       <label class="col-md-2 control-label">On error attemp number
-        <a tooltip="On error attemp number" tooltipPlacement="right"><span class="fa fa-info-circle"></span></a>
+        <i class="fa fa-question-circle text-muted" tooltip="On error attemp number" tooltipPlacement="right" tooltipTrigger="mouseover mouseout"></i>
       </label>
       <div class="col-md-6 time-selector">
         <input formControlName="onErrorAttempNumber" type="number" class="form-control" />
@@ -75,15 +75,15 @@
     </div>
     <div formGroupName="onErrorLapseTime" class="form-group" [ngClass]="{ 'has-error' : !form.controls.onErrorLapseTime.controls.time.valid && submitted }">
       <label class="col-md-2 control-label">On error lapse time
-        <a tooltip="On error lapse time" tooltipPlacement="right"><span class="fa fa-info-circle"></span></a>
+        <i class="fa fa-question-circle text-muted" tooltip="On error lapse time" tooltipPlacement="right" tooltipTrigger="mouseover mouseout"></i>
       </label>
       <div class="col-md-6 time-selector">
         <input formControlName="time" type="number" class="form-control" />
         <select formControlName="unit" class="form-control">
-          <option value="0">Seconds</option>
-          <option value="1">Minutes</option>
-          <option value="2">Hours</option>
-          <option value="3">Days</option>
+          <option value="Seconds">Seconds</option>
+          <option value="Minutes">Minutes</option>
+          <option value="Hours">Hours</option>
+          <option value="Days">Days</option>
         </select>
       </div>
     </div>  

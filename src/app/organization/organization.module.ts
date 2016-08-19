@@ -31,7 +31,7 @@ import {TaxTypesComponent, ListTaxTypesComponent, CreateTaxTypeComponent, EditTa
         SettingsComponent, 
         GeneralInformationComponent, 
         AddressComponent, 
-        CertificateComponent, 
+        //CertificateComponent, 
         TasksScheduleComponent,
         TaxTypesComponent, ListTaxTypesComponent, CreateTaxTypeComponent, EditTaxTypeComponent
     ],

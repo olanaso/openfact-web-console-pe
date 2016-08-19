@@ -7,7 +7,7 @@ export abstract class Model {
   constructor() { }
 
   save() {
-    return this.restangular.put(this);
+    return this.restangular.put(this.copy());
   }
 
   copy() {

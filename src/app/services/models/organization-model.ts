@@ -1,3 +1,4 @@
+import {URLSearchParams} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 
 import {Model} from './model';
@@ -28,9 +29,12 @@ export class OrganizationModel extends Model implements Buildable {
 
     getDocuments(type: string): Observable<DocumentModel[]> {
         let restangular = this.restangular.all('documents');
-        return restangular.get().map(
-            result => ResponseToModel.toModels<DocumentModel>(result, restangular, new ObjectBuilder<DocumentModel>(DocumentModel), true)
-        );
+        
+        let queryParams = new URLSearchParams();
+        queryParams.append("type", type);       
+
+        return restangular.get(queryParams)
+            .map(result => ResponseToModel.toModels<DocumentModel>(result, restangular, new ObjectBuilder<DocumentModel>(DocumentModel), true));
     }
 
 }

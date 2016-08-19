@@ -58,7 +58,7 @@ export class GeneralInformationComponent implements OnInit {
 
   loadAdditionalAccountIds() {
     this.organization.getDocuments(ADDITIONAL_IDENTIFICATION_ID).subscribe(result => {
-      console.log(result);      
+      this.additionalAccountIds = result;
     });
   }
 
@@ -66,7 +66,7 @@ export class GeneralInformationComponent implements OnInit {
     this.submitted = submitted;
   }
 
-  chagenEnabled(enabled: boolean) {    
+  chagenEnabled(enabled: boolean) {
     (<FormControl>this.form.controls['enabled']).setValue(enabled);
   }
 

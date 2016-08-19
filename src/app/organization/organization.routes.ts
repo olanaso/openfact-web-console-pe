@@ -54,10 +54,10 @@ const organizationRoutes: Routes = [
             path: 'address',
             component: AddressComponent
           },
-          {
+          /*{
             path: 'certificate',
             component: CertificateComponent
-          },
+          },*/
           {
             path: 'tasks-schedule',
             component: TasksScheduleComponent

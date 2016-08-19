@@ -21,8 +21,9 @@
       <div class="col-md-3">
         <select formControlName="additionalAccountId" class="form-control">
             <option></option>
-            <option value="DNI">DNI</option>
-            <option value="RUC">RUC</option>
+            <option *ngFor="let item of additionalAccountIds" [value]="item.name">
+              {{item.name}}
+            </option>            
         </select>
         <div *ngIf="!form.controls.additionalAccountId.valid && submitted">
           <span *ngIf="form.controls.additionalAccountId.errors.required" class="help-block">This field is required</span>

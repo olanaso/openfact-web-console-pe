@@ -20,18 +20,17 @@ import {SettingsComponent, GeneralInformationComponent, AddressComponent, Certif
         organizationRouting
     ],
     declarations: [
-        OverviewComponent,
-
         OrganizationComponent,
+        OverviewComponent,        
 
         InvoicesComponent,
-        CreateInvoiceComponent,
+        //CreateInvoiceComponent,
         ListInvoiceComponent,
        
-        SettingsComponent,
+        SettingsComponent, 
         GeneralInformationComponent,
-        AddressComponent,
-        CertificateComponent,
+        AddressComponent, 
+        CertificateComponent, 
         TasksScheduleComponent
     ],
     providers: []

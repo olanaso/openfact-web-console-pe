@@ -2,7 +2,7 @@ import {Component, OnInit, Input} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 
 import {OrganizationModel} from '../../services';
-import {Alert, AlertMessageService} from '../../shared';
+import {Alert, AlertService} from '../../shared';
 
 @Component({
   moduleId: module.id,
@@ -14,24 +14,15 @@ export class OverviewComponent implements OnInit {
 
   organization: OrganizationModel;
 
-  alerts: Array<Alert> = [];
-
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private alertMessageService: AlertMessageService) {
-    this.organization = this.activatedRoute.snapshot.parent.data['organization']  
+    private alertService: AlertService) {
+    this.organization = this.activatedRoute.snapshot.parent.data['organization']
   }
 
   ngOnInit() {
-    this.loadAlerts();
-  }
 
-  loadAlerts() {
-    this.alertMessageService.getAlerts().forEach(alert => {
-      this.alerts.push(alert);
-    });
-    this.alertMessageService.clearAlerts();
   }
 
 }

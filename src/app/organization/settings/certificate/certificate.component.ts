@@ -1,14 +1,10 @@
-/**
- * Created by AHREN on 10/08/2016.
- */
-
 import {Component, OnInit} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 import {Validators, CORE_DIRECTIVES, FORM_DIRECTIVES, NgClass, NgStyle} from '@angular/common';
 import {REACTIVE_FORM_DIRECTIVES, FormGroup, FormControl, FormBuilder} from '@angular/forms';
 import {FILE_UPLOAD_DIRECTIVES, FileUploader} from 'ng2-file-upload';
 import {OrganizationModel, Certificate, DataService} from '../../../services';
-import {Alert, EqualValidator, AlertMessageService} from '../../../shared';
+import {Alert, EqualValidator, AlertService} from '../../../shared';
 
 @Component({
   moduleId: module.id,
@@ -33,12 +29,11 @@ export class CertificateComponent implements OnInit {
               private activatedRoute: ActivatedRoute,
               private formBuilder: FormBuilder,
               private dataService: DataService,
-              private alertMessageService: AlertMessageService) {
+              private alertMessageService: AlertService) {
     this.organization = this.activatedRoute.parent.parent.snapshot.data['organization'];
   }
 
   ngOnInit() {
-    this.loadAlerts();
     this.buildForm();
     this.loadData();
     this.loadUpload();
@@ -65,23 +60,23 @@ export class CertificateComponent implements OnInit {
   loadUpload() {
     this.uploader = this.organization.uploadCertificate();
     /*this.uploader.onSuccessItem = function (fileItem, response, status, headers) {
-      console.info('onSuccessItem', fileItem, response, status, headers);
-      this.alerts.push({
-        type: 'success',
-        message: 'Success',
-        details: 'Your certificate has upload been saved to the organization.'
-      });
-      this.working = false;
-    };
-    this.uploader.onErrorItem = function (fileItem, response, status, headers) {
-      console.info('onErrorItem', fileItem, response, status, headers);
-      this.alerts.push({
-        type: 'error',
-        message: 'Error',
-        details: response
-      });
-    };
-*/
+     console.info('onSuccessItem', fileItem, response, status, headers);
+     this.alerts.push({
+     type: 'success',
+     message: 'Success',
+     details: 'Your certificate has upload been saved to the organization.'
+     });
+     this.working = false;
+     };
+     this.uploader.onErrorItem = function (fileItem, response, status, headers) {
+     console.info('onErrorItem', fileItem, response, status, headers);
+     this.alerts.push({
+     type: 'error',
+     message: 'Error',
+     details: response
+     });
+     };
+     */
   }
 
   loadData() {
@@ -96,32 +91,24 @@ export class CertificateComponent implements OnInit {
         (<FormControl>this.form.controls['validity']).updateValue(certificate.validity);
         (<FormControl>this.form.controls['hasCertificate']).updateValue(certificate.hasCertificate);
 
-        /*console.log("1.0 " + certificate.certificate);
-        let mimetype = certificate.certificate.type;
-        console.log("2.0 " + mimetype);
-        let file = new File([certificate.certificate], certificate.urlcertificate, {type: mimetype});
-        console.log("3.0 " + file);
-        this.uploader.queue.push({
-          file: file,
-          isUploaded: true,
-          isSuccess: true,
-          progress: 100
-        });*/
-
+        if (certificate.hasCertificate) {
+          console.log("1.0 " + certificate.certificate);
+          let mimetype = certificate.fileType;
+          console.log("2.0 " + mimetype);
+          let file = new File([certificate.certificate], certificate.fileName, {type: mimetype});
+          console.log("3.0 " + JSON.stringify(file));
+          this.uploader.queue.push({
+            file: file,
+            isUploaded: true,
+            isSuccess: true,
+            progress: 100
+          });
+        }
       },
       error => {
         console.log("Imposible recuperar datos de Certificado")
       }
     );
-  }
-
-
-
-  loadAlerts() {
-    this.alertMessageService.getAlerts().forEach(alert => {
-      this.alerts.push(alert);
-    });
-    this.alertMessageService.clearAlerts();
   }
 
   buildForm() {

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 
-import {Alert, AlertMessageService} from '../../shared';
+import {Alert, AlertService} from '../../shared';
 import {OrganizationModel, DataService} from '../../services';
 
 @Component({
@@ -17,22 +17,14 @@ export class ListOrganizationComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private alertMessageService: AlertMessageService,
+    private alertService: AlertService,
     private dataService: DataService) {
     this.organizations = [];
     this.alerts = [];
   }
 
   ngOnInit() {
-    this.loadAlerts();
     this.loadOrganizations();
-  }
-
-  loadAlerts() {
-    this.alertMessageService.getAlerts().forEach(alert => {
-      this.alerts.push(alert);
-    });
-    this.alertMessageService.clearAlerts();
   }
 
   loadOrganizations() {

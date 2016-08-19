@@ -2,7 +2,7 @@ import {Component, ViewChild, OnInit, Input, Output, EventEmitter} from '@angula
 import {Router} from '@angular/router';
 
 import {Model} from '../../services';
-import {Alert, AlertMessageService} from '../shared-services';
+import {Alert, AlertService} from '../alerts';
 
 @Component({
   moduleId: module.id,
@@ -45,8 +45,7 @@ export class ButtonDeleteComponent implements OnInit {
   @Input() redirectUrl: string;
 
   constructor(
-    private router: Router,
-    private alertMessageService: AlertMessageService) { }
+    private router: Router) { }
 
   ngOnInit() {
   }
@@ -89,7 +88,7 @@ export class ButtonDeleteComponent implements OnInit {
     if (this.stayOnCurrentPage && this.alerts != null) {
       this.alerts.push(alert);
     } else {
-      this.alertMessageService.addAlert(alert);
+      //this.alertMessageService.addAlert(alert);
     }
   }
 

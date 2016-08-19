@@ -4,7 +4,7 @@ import {Validators, CORE_DIRECTIVES} from '@angular/common';
 import {FormGroup, FormControl, FormBuilder} from '@angular/forms';
 
 import {OrganizationModel, PostalAddress, TasksSchedule, TimeUnit, DataService} from '../../../services';
-import {Alert, AlertMessageService} from '../../../shared';
+import {Alert, AlertService} from '../../../shared';
 
 @Component({
   moduleId: module.id,
@@ -15,54 +15,43 @@ import {Alert, AlertMessageService} from '../../../shared';
 export class TasksScheduleComponent implements OnInit {
 
   organization: OrganizationModel;
-  additionalAccountIds: string[] = ['DNI', 'RUC'];
 
   form: FormGroup;
   working: boolean = false;
   submitted: boolean = false;
-
-  alerts: Array<Alert> = [];
 
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
     private dataService: DataService,
-    private alertMessageService: AlertMessageService) {
+    private alertService: AlertService) {
     this.organization = this.activatedRoute.parent.parent.snapshot.data['organization'];
   }
 
   ngOnInit() {
-    this.loadAlerts();
     this.buildForm();
     this.loadData();
   }
 
-  loadAlerts() {
-    this.alertMessageService.getAlerts().forEach(alert => {
-      this.alerts.push(alert);
-    });
-    this.alertMessageService.clearAlerts();
-  }
-
   buildForm() {
     this.form = this.formBuilder.group({
-      attempNumber: [''],
+      attempNumber: ['', [<any>Validators.required]],
       lapseTime: this.formBuilder.group({
-        time: [''],
-        unit: ['']
+        time: ['', [<any>Validators.required]],
+        unit: ['', [<any>Validators.required]]
       }),
-      onErrorAttempNumber: [''],
+      onErrorAttempNumber: ['', [<any>Validators.required]],
       onErrorLapseTime: this.formBuilder.group({
-        time: [''],
-        unit: ['']
+        time: ['', [<any>Validators.required]],
+        unit: ['', [<any>Validators.required]]
       }),
       delayTime: this.formBuilder.group({
-        time: [''],
-        unit: ['']
+        time: ['', [<any>Validators.required]],
+        unit: ['', [<any>Validators.required]]
       }),
-      submitTime: [''],
-      submitDays: ['']
+      submitTime: ['', [<any>Validators.required]],
+      submitDays: ['', [<any>Validators.required]]
     });
   }
 
@@ -81,11 +70,10 @@ export class TasksScheduleComponent implements OnInit {
     this.submitted = submitted;
   }
 
-  save() {
-    this.working = true;
-
+  preSave(): OrganizationModel {
     let value = <FormControl>this.form.value;
     this.organization.tasksSchedule.attempNumber = value['attempNumber'];
+
     this.organization.tasksSchedule.lapseTime = TimeUnit.toSeconds(value['lapseTime']['time'], value['lapseTime']['unit']);
     this.organization.tasksSchedule.onErrorAttempNumber = value['onErrorAttempNumber'];
     this.organization.tasksSchedule.onErrorLapseTime = TimeUnit.toSeconds(value['onErrorLapseTime']['time'], value['onErrorLapseTime']['unit']);
@@ -93,22 +81,21 @@ export class TasksScheduleComponent implements OnInit {
     this.organization.tasksSchedule.submitTime = value['submitTime'];
     this.organization.tasksSchedule.submitDays = value['submitDays'];
 
-    this.organization.save().subscribe(
+    return this.organization;
+  }
+
+  save() {
+    this.working = true;
+    let organization = this.preSave();
+
+    organization.save().subscribe(
       result => {
-        this.alerts.push({
-          type: 'success',
-          message: 'Success',
-          details: 'Your changes have been saved to the organization.'
-        });
         this.working = false;
+        this.alertService.pop('success', 'Success', 'Your changes have been saved to the organization.');
       },
       error => {
         this.working = false;
-        this.alerts.push({
-          type: 'error',
-          message: 'Error',
-          details: 'Your changes could not saved to the organization.'
-        });
+        this.alertService.pop('error', 'Error', 'Your changes could not saved to the organization.');
       }
     );
   }

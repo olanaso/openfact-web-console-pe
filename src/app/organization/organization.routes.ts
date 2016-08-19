@@ -36,7 +36,7 @@ const organizationRoutes: Routes = [
             component: CreateInvoiceComponent
           }
         ]
-      },    
+      },
       {
         path: 'settings',
         component: SettingsComponent,

@@ -1,5 +1,4 @@
 import {Injectable} from '@angular/core';
-import {Alert} from './alert';
 
 import { OrganizationModel } from '../../services';
 

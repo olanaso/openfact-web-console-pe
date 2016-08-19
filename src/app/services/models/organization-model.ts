@@ -1,86 +1,104 @@
-import {Model} from './model'
-import {Restangular} from '../restangular';
+import {URLSearchParams} from '@angular/http';
+import {Observable} from 'rxjs/Observable';
 import {FileUploader} from "ng2-file-upload";
 
+import {Model} from './model';
+import {DocumentModel} from './document-model';
 
-export class OrganizationModel implements Model {
+import {Restangular} from '../restangular';
+import {Buildable, ObjectBuilder, ResponseToModel} from '../utils';
 
-  /*Restangular*/
-  public restangular: Restangular;
+export class OrganizationModel extends Model implements Buildable {
 
-  /*Attributes*/
-  public id: string;
-  public name: string;
-  public supplierName: string;
-  public registrationName: string;
-  public additionalAccountId: string;
-  public assignedIdentificationId: string;
-  public enabled: boolean;
+    id: string;
 
-  public postalAddress: PostalAddress;
-  public tasksSchedule: TasksSchedule;
-  public certificate: Certificate;
-  /*Constructor*/
-  constructor(restangular: Restangular) {
-    this.restangular = restangular;
-  }
+    name: string;
+    description: string;
+    supplierName: string;
+    registrationName: string;
+    additionalAccountId: string;
+    assignedIdentificationId: string;
+    enabled: boolean;
 
-  public clone(): OrganizationModel {
-    let copy = Object.assign({}, this);
-    delete copy['restangular'];
-    return copy;
-  }
+    postalAddress: PostalAddress;
+    tasksSchedule: TasksSchedule;
 
-  public save() {
-    return this.restangular.put(this.clone());
-  }
+    constructor(restangular?: Restangular) {
+        super();
+        this.restangular = restangular;
+    }
 
-  public  saveCertificate(certificate: Certificate) {
-    return this.restangular.all('certifieds').post(certificate);
-  }
+    getDocuments(type: string): Observable<DocumentModel[]> {
+        let restangular = this.restangular.all('documents');
 
-  public uploadCertificate(): FileUploader {
-    let URL = this.restangular.all('certifieds').all("upload").path;
-    return new FileUploader({url: URL, queueLimit: 1});
-  }
+        let queryParams = new URLSearchParams();
+        queryParams.append("type", type);
 
-  public  getCertificate() {
-    let restangular = this.restangular.all('certifieds').all("searchEnabled");
-    return restangular.get().map(result => result.json());
+        return restangular.get(queryParams)
+            .map(result => ResponseToModel.toModels<DocumentModel>(result, restangular, new ObjectBuilder<DocumentModel>(DocumentModel), true));
+    }
 
-  }
+    public saveCertificate(certificate: Certificate) {
+        return this.restangular.all('certifieds').post(certificate);
+    }
 
-  public  getCetificateFile() {
-    let restangular = this.restangular.all('certifieds').all("searchCertificate");
-    return restangular.get().map(result => result.blob());
-  }
+    public uploadCertificate(): FileUploader {
+        let URL = this.restangular.all('certifieds').all("upload").path;
+        return new FileUploader({ url: URL, queueLimit: 1 });
+    }
+
+    public getCertificate() {
+        let restangular = this.restangular.all('certifieds').all("searchEnabled");
+        return restangular.get().map(result => result.json());
+
+    }
+
+    public getCetificateFile() {
+        let restangular = this.restangular.all('certifieds').all("searchCertificate");
+        return restangular.get().map(result => result.blob());
+    }
+
 }
 
-export interface PostalAddress {
-  streetName: string;
-  citySubdivisionName: string;
-  cityName: string;
-  countrySubentity: string;
-  district: string;
-  countryIdentificationCode: string;
+export class PostalAddress {
+    streetName: string;
+    citySubdivisionName: string;
+    cityName: string;
+    countrySubentity: string;
+    district: string;
+    countryIdentificationCode: string;
+
+    constructor() { }
 }
 
-export interface TasksSchedule {
-  attempNumber: number;
-  lapseTime: number;
-  onErrorAttempNumber: number;
-  onErrorLapseTime: number;
+export class TasksSchedule {
+    attempNumber: number;
+    lapseTime: number;
+    onErrorAttempNumber: number;
+    onErrorLapseTime: number;
 
-  delayTime: number;
-  submitTime: Date;
-  submitDays: number[];
+    delayTime: number;
+    submitTime: Date;
+    submitDays: number[];
+
+    constructor() { }
 }
+
+export class TaxType {
+    id: string;
+    name: string;
+    code: string;
+    value: number;
+
+    constructor() { }
+}
+
 export  interface  Certificate {
   alias: string;
   certificate: any;
   urlcertificate: string;
-  FileName: string;
-  FileType: string;
+  fileName: string;
+  fileType: string;
   password: string;
   passwordConfirmation: string;
   validity: Date;

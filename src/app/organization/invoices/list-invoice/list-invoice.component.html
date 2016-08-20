@@ -4,7 +4,7 @@
       <div class="pull-right">
         <button class="btn btn-default" [routerLink]="['../create-invoice']" type="button">Create</button>
       </div>
-      <h1>Add Invoices</h1>      
+      <h1>Add Invoices</h1>
     </div>
     <!--<alerts alerts="alerts" class="ng-isolate-scope">      
     </alerts>-->
@@ -69,7 +69,10 @@
           <td>{{invoice.customer.registrationName}}</td>
           <td>{{invoice.currencyCode}}</td>
           <td>{{invoice.totalAmmount|number:'1.2-2'}}</td>
-          <td><span class="pficon pficon-edit"></span>&nbsp;&nbsp;<span class="pficon pficon-delete"></span></td>
+          <td>
+            <a href="javascript:void(0)" (click)="editInvoice(invoice)"><span class="pficon pficon-edit"></span></a> &nbsp;&nbsp;
+            <a href="javascript:void(0)" (click)="deleteInvoice(invoice)"><span class="pficon pficon-delete"></span></a>
+          </td>
         </tr>
       </tbody>
     </table>

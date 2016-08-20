@@ -1,0 +1,8 @@
+{
+  "realm": "openfact_security",
+  "realm-public-key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwhX/8UiNvjYWvQd7hHfFqEzZC5tfdjcPGkZOT5QorDt2P5RvhwAfMD1rMoCWVdFo8H9vqb2xO14nSvmjPwZCZjT7wb+VmX/Piz4ngB5sbYM60AkLRo+h3hGy/hYx000Ur46d8hGT2F+EQsArPBMNLJ6XLDv/BAWUpRs9Tb8sYI3F3ZN0hLVnWvtPfgmUrrPcmihfYANqWihCFV6W9L/Pp5UQLPgZwhaUqBnPJ3HDY7IE0u18iiYlKWK2hKyDCOlnm13pbQ8iWsdK6y2JXITeT1RUXsid9G9jF4vOEwP6qPVFs9kRaYQcKAZEKcBsOjU54RzofKC6MZPOm5ABB6TT8wIDAQAB",
+  "auth-server-url": "http://192.168.1.5:7070/auth",
+  "ssl-required": "external",
+  "resource": "openfact-web-console",
+  "public-client": true
+}

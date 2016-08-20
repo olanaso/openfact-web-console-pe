@@ -9,11 +9,11 @@ if (environment.production) {
 }
 
 
-KeycloakService.init().then(
-    o=>{
+// KeycloakService.init().then(
+//     o=>{
         platformBrowserDynamic().bootstrapModule(AppModule);
-    },
-    x=>{
-        window.location.reload();
-    }
-);
+//     },
+//     x=>{
+//         window.location.reload();
+//     }
+// );

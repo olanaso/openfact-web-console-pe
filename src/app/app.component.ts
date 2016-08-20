@@ -9,25 +9,6 @@ import {KeycloakService} from './keycloak';
   moduleId: module.id,
   selector: 'app-root',
   templateUrl: 'app.component.html',
-//   template:`
-// <div id="content-area" class="col-md-9" role="main">
-//     <div id="content">
-//         <h1>Angular2 Product (Beta)</h1>
-//         <h2><span>Products</span></h2>
-       
-//         <button type="button" (click)="logout()">Sign Out</button>
-//         <button type="button" (click)="reloadData()">Reload</button>
-//         <table class="table" [hidden]="!products.length">
-//             <thead>
-//             <tr>
-//                 <th>Product Listing</th>
-//             </tr>
-//             </thead>
-           
-//         </table>
-//     </div>
-// </div>
-// `,
   styleUrls: ['app.component.css']
 })
 export class AppComponent {

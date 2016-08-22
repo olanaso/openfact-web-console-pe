@@ -4,11 +4,16 @@ import {Router, ActivatedRoute} from '@angular/router';
 import {HeaderService} from '../shared-services';
 import {OrganizationModel, DataService} from '../../services';
 
+import {CORE_DIRECTIVES} from '@angular/common';
+import {DROPDOWN_DIRECTIVES} from 'ng2-bootstrap';
+
+
 @Component({
   moduleId: module.id,
   selector: 'project-header',
   templateUrl: 'project-header.component.html',
-  styleUrls: ['project-header.component.css']
+  styleUrls: ['project-header.component.css'],
+  directives:[DROPDOWN_DIRECTIVES, CORE_DIRECTIVES]
 })
 export class ProjectHeaderComponent implements OnInit {
 
@@ -29,34 +34,16 @@ export class ProjectHeaderComponent implements OnInit {
   }
 
   changeOrganization(organization: OrganizationModel) {
-    this.selectOrganization = organization;
-    //console.log("new: " + JSON.stringify(this.headerService.getBeforeOrganization()));
-    this.beforeOrganization = this.headerService.getBeforeOrganization();
-    //console.log(this.router.url);
-    if (!this.beforeOrganization) {
-      this.beforeOrganization = organization;
-    }
-    // if(this.selectOrganization){
-    //   this.sele
-    // }
-    //let link = [this.router.url, organization.name];
-    //let link = ['/organizations/edit-organization', organization.name];
-    let url = String(this.route.url);
-    let lin = url.split(this.beforeOrganization.name).join(this.selectOrganization.name);
-    let link = [lin];
-    this.headerService.setOrganization(organization);
+   
+   let link = ['/organization', organization.name];
 
-    //console.log("after : " + JSON.stringify(lin));
-    this.router.navigate(link);
+   
+   this.router.navigate(link);
   }
 
   loadProjects() {
     this.dataService.organizations().getAll().subscribe(organizations => { this.organizations = organizations });
-    this.selectOrganization = this.headerService.getOrganization();
-    // if (this.selectOrganization)
-    //console.log("creando... " + this.selectOrganization.name+new Date());
-    //else
-    //console.log("sin instancia de organizations.");
+
   }
 
 

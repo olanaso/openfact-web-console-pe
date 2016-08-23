@@ -1,4 +1,5 @@
-import {Model} from './model'
+import {Model} from './model';
+import {Observable} from 'rxjs/Observable';
 
 import {Restangular} from '../restangular';
 import {Buildable, ObjectBuilder, ResponseToModel} from '../utils';
@@ -26,6 +27,11 @@ export class InvoiceModel extends Model implements Buildable {
     this.restangular = restangular;
   }
 
+  getLines(): Observable<LineModel[]> {
+    let restangular = this.restangular.all('lines');
+    return restangular.get()
+      .map(result => ResponseToModel.toModels<LineModel>(result, restangular, new ObjectBuilder<LineModel>(LineModel), true));
+  }
 }
 
 export class CustomerModel {
@@ -38,7 +44,7 @@ export class CustomerModel {
   constructor() { }
 }
 
-export class LineModel {
+export class LineModel extends Model implements Buildable {
 
   id: number;
   orderNumber: number;
@@ -53,7 +59,10 @@ export class LineModel {
   othertaxs: number;
   allowanceCharge: number;
 
-  constructor() { }
+  constructor(restangular?: Restangular) {
+    super();
+    this.restangular = restangular;
+  }
 
   getExtensionAmmount(): number {
     return this.quantity * this.ammount;

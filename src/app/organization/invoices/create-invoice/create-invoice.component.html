@@ -5,30 +5,30 @@
     <legend>General information</legend>
     <div class="row">
       <div class="col-xs-12 col-sm-3 col-md-3">
-        <div class="form-group">
-          <span>Type</span>
+        <div [ngClass]="!(form.controls.type.errors && submitted)?'form-group':'form-group has-error'">
+          <span>Type : </span><label [hidden]="!(submitted && form.controls.type.errors)" class="control-label" style="color:red;" for="inputError1">campo requerido.</label>
           <select formControlName="type" [(ngModel)]="invoice.type" class="form-control">
                 <option>BOLETA</option>
                 <option>FACTURA</option>
-            </select>
+            </select>          
         </div>
       </div>
       <div class="col-xs-12 col-sm-4 col-md-4">
-        <div class="form-group">
-          <span>Invoice id</span>
+        <div [ngClass]="!(form.controls.invoiceSeries.errors && submitted)?'form-group':'form-group has-error'">
+          <span>Invoice id</span>  <label [hidden]="!(submitted && form.controls.invoiceSeries.errors)" class="control-label" style="color:red;" for="inputError1"> campo requerido.</label>
           <div class="openfact-group">
             <input type="text" formControlName="invoiceSeries" [(ngModel)]="invoice.invoiceSeries" class="form-control openfact-group-col-4"
               placeholder="F|B-####" />
             <input type="text" formControlName="invoiceNumber" [(ngModel)]="invoice.invoiceNumber" class="form-control openfact-group-col-8"
               placeholder="####" />
-          </div>
+          </div>         
         </div>
       </div>
       <div class="col-xs-4 col-sm-3 col-md-3">
-        <div class="form-group">
-          <span>Issue date</span>
+        <div [ngClass]="!(form.controls.issueDate.errors && submitted)?'form-group':'form-group has-error'">
+          <span>Issue date</span> <label [hidden]="!(submitted && form.controls.issueDate.errors)" class="control-label" style="color:red;" for="inputError1">campo requerido.</label>
           <input type="date" formControlName="issueDate" [(ngModel)]="invoice.issueDate" class="form-control" />
-           <!--<datepicker [(ngModel)]="invoice.issueDate" ></datepicker>--> 
+          
         </div>
       </div>
       <div class="col-xs-4 col-sm-2 col-md-2">
@@ -101,7 +101,7 @@
             <tr *ngFor="let line of invoice.lines">
               <td>1</td>
               <td>
-                <input type="number" [(ngModel)]="line.quantity" [ngModelOptions]="{standalone: true}" (change)="onchange($event)" class="form-control text-right"
+                <input type="number" [(ngModel)]="line.quantity" [ngModelOptions]="{standalone: true}" (keyup)="eventHandler($event)" class="form-control text-right"
                 />
               </td>
               <td>
@@ -117,7 +117,7 @@
               <td class="text-right">{{ (line.ammount * defaultIgv) | number:'1.2-2' }}</td>
               <!--<td class="text-right">{{ (line.price + line.price * defaultIgv) | number }}</td>-->
               <td>
-                <input type="number" [(ngModel)]="line.ammount" [ngModelOptions]="{standalone: true}" (change)="onchange($event)" class="form-control text-right"
+                <input type="number" [(ngModel)]="line.ammount" [ngModelOptions]="{standalone: true}" (keyup)="eventHandler($event)" class="form-control text-right"
                 />
               </td>
               <td class="text-right">{{ (line.ammount * line.quantity) | number:'1.2-2' }}</td>
@@ -136,36 +136,36 @@
       </div>
       <div class="col-sm-3">
         <div class="panel panel-default">
-          <div class="panel-heading">Panel heading</div>
+          <div class="panel-heading">Resumen</div>
           <!-- Table -->
-          <table class="table">           
+          <table class="table">
             <tr>
               <td>Total Unaffected ({{this.invoice.currencyCode}})</td>
-              <td class="text-right boldText">  {{invoice.totalUnaffected| number:'1.2-2'}}</td>
+              <td class="text-right boldText"> {{invoice.totalUnaffected| number:'1.2-2'}}</td>
             </tr>
             <tr>
               <td>Total Exonereted ({{this.invoice.currencyCode}})</td>
-              <td class="text-right boldText">  {{invoice.totalExonerated| number:'1.2-2'}}</td>
+              <td class="text-right boldText"> {{invoice.totalExonerated| number:'1.2-2'}}</td>
             </tr>
             <tr>
               <td>Total By Free ({{this.invoice.currencyCode}} )</td>
               <td class="text-right boldText"> {{invoice.totalByFree| number:'1.2-2'}}</td>
             </tr>
-             <tr>
+            <tr>
               <td>Total Taxed ({{this.invoice.currencyCode}})</td>
-              <td class="text-right boldText">  {{invoice.totalTaxed| number:'1.2-2'}}</td>
+              <td class="text-right boldText"> {{invoice.totalTaxed| number:'1.2-2'}}</td>
             </tr>
             <tr>
               <td>Total Igv Tax ({{this.invoice.currencyCode}})</td>
-              <td class="text-right boldText">  {{invoice.totalIgvTax| number:'1.2-2'}}</td>
+              <td class="text-right boldText"> {{invoice.totalIgvTax| number:'1.2-2'}}</td>
             </tr>
             <tr>
               <td>Total Ammount ({{this.invoice.currencyCode}})</td>
-              <td class="text-right boldText">  {{invoice.totalAmmount| number:'1.2-2'}}</td>
+              <td class="text-right boldText"> {{invoice.totalAmmount| number:'1.2-2'}}</td>
             </tr>
             <tr>
               <td>Total Discounted ({{this.invoice.currencyCode}})</td>
-              <td class="text-right boldText">  {{invoice.totalDiscounted| number:'1.2-2'}}</td>
+              <td class="text-right boldText"> {{invoice.totalDiscounted| number:'1.2-2'}}</td>
             </tr>
           </table>
         </div>

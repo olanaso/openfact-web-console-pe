@@ -43,7 +43,7 @@ export class InvoiceProviderService implements Provider {
 
   public create(organization: OrganizationModel, invoice: InvoiceModel): Observable<InvoiceModel> {
     let restangular = this.restangular.base(organization.restangular.path).all(this.path);
-    return restangular.post(organization.copy())
+    return restangular.post(invoice.copy())
       .map(result => ResponseToModel.toModel<InvoiceModel>(result, restangular, new ObjectBuilder<InvoiceModel>(InvoiceModel), true));
   }
 

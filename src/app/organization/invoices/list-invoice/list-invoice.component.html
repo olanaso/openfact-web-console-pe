@@ -70,7 +70,7 @@
           <td>{{invoice.currencyCode}}</td>
           <td>{{invoice.totalAmmount|number:'1.2-2'}}</td>
           <td>
-            <a href="javascript:void(0)" (click)="editInvoice(invoice)"><span class="pficon pficon-edit"></span></a> &nbsp;&nbsp;
+            <a href="javascript:void(0)" [routerLink]="['../edit-invoice',invoice.id]"><span class="pficon pficon-edit"></span></a>            &nbsp;&nbsp;
             <a href="javascript:void(0)" (click)="deleteInvoice(invoice)"><span class="pficon pficon-delete"></span></a>
           </td>
         </tr>

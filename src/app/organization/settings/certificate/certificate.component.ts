@@ -92,7 +92,7 @@ export class CertificateComponent implements OnInit {
         (<FormControl>this.form.controls['hasCertificate']).updateValue(certificate.hasCertificate);
 
         if (certificate.hasCertificate) {
-          console.log("1.0 " + certificate.certificate);
+   /*       console.log("1.0 " + certificate.certificate);
           let mimetype = certificate.fileType;
           console.log("2.0 " + mimetype);
           let file = new File([certificate.certificate], certificate.fileName, {type: mimetype});
@@ -102,7 +102,7 @@ export class CertificateComponent implements OnInit {
             isUploaded: true,
             isSuccess: true,
             progress: 100
-          });
+          });*/
         }
       },
       error => {

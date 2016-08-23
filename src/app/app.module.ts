@@ -18,6 +18,10 @@ import {AboutComponent, ErrorComponent, CreateOrganizationComponent, ListOrganiz
 import {OrganizationProviderService, InvoiceProviderService} from './services';
 import {OrganizationResolve} from './services';
 
+import {KeycloakService} from './keycloak';
+import {HTTP_BINDINGS} from '@angular/http';
+
+
 @NgModule({
     imports: [
         BrowserModule,
@@ -40,6 +44,8 @@ import {OrganizationResolve} from './services';
 
         /**/
         HTTP_PROVIDERS,
+        HTTP_BINDINGS,
+        KeycloakService,
 
         /*openfact services*/
         provide(APP_CONFIG, { useValue: DEFAULT_CONFIG }),

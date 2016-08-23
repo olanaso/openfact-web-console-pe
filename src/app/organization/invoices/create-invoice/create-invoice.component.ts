@@ -3,12 +3,11 @@ import { Router, ActivatedRoute } from '@angular/router';
 import {Validators} from '@angular/common';
 import {FormGroup, FormControl, FormBuilder} from '@angular/forms';
 
-import {OrganizationModel, InvoiceModel, LineModel, DataService} from '../../../services';
+import {OrganizationModel, InvoiceModel, INVOICE_TYPE, ADDITIONAL_IDENTIFICATION_ID, TOTAL_TAX, TAX_REASON, DocumentModel, LineModel, DataService} from '../../../services';
 import {Alert, AlertService} from '../../../shared';
 import {CORE_DIRECTIVES} from '@angular/common';
 import {FORM_DIRECTIVES} from '@angular/forms';
 import {TOOLTIP_DIRECTIVES} from 'ng2-bootstrap';
-
 
 @Component({
   moduleId: module.id,
@@ -35,9 +34,9 @@ export class CreateInvoiceComponent implements OnInit {
 
   public dt: Date = new Date();
   alerts: Array<Alert> = [];
-
-  public dynamicTooltip:string = 'Hello, World!';
-  public dynamicTooltipText:string = 'dynamic';
+  InvoicesTypes: Array<DocumentModel> = [];
+  additionalAccountIds: Array<DocumentModel> = [];
+  totalTaxes: Array<DocumentModel> = [];
 
   constructor(
     private router: Router,
@@ -51,7 +50,10 @@ export class CreateInvoiceComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
+    this.loadAdditionalAccountIds();
+    this.loadInvoicesType();
     this.loadData();
+    this.loadTotalTax();
   }
 
   buildForm() {
@@ -78,6 +80,25 @@ export class CreateInvoiceComponent implements OnInit {
     (<FormControl>this.form.controls['district']).setValue(address.district);
     (<FormControl>this.form.controls['countryIdentificationCode']).setValue(address.countryIdentificationCode);*/
     //this.calculateTotal();
+  }
+
+  loadTotalTax() {
+    this.organization.getDocuments(TAX_REASON).subscribe(result => {
+      this.totalTaxes = result;
+      console.log(JSON.stringify(this.totalTaxes));
+
+    });
+  }
+
+  loadInvoicesType() {
+    this.organization.getDocuments(INVOICE_TYPE).subscribe(result => {
+      this.InvoicesTypes = result;
+    });
+  }
+  loadAdditionalAccountIds() {
+    this.organization.getDocuments(ADDITIONAL_IDENTIFICATION_ID).subscribe(result => {
+      this.additionalAccountIds = result;
+    });
   }
 
   setSubmitted(submitted: boolean) {

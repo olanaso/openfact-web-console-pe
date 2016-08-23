@@ -22,6 +22,9 @@ export class InvoiceModel extends Model implements Buildable {
   customer: CustomerModel = new CustomerModel();//CLIENTE 
   lines: Array<LineModel> = [];
 
+  additionalInformation: AdditionalInformation = new AdditionalInformation();
+  totalTaxs: TotalTaxs = new TotalTaxs();
+
   constructor(restangular?: Restangular) {
     super();
     this.restangular = restangular;
@@ -40,7 +43,6 @@ export class CustomerModel {
   additionalAccountId: string //TIPO DE DOCUMENTO -- RUC O DNI
   registrationName: string // RAZON SOCIAL DE LA EMPRESA
   email: string;//CORREO ELECTRONICO DEL CLIENTE
-
   constructor() { }
 }
 
@@ -58,14 +60,24 @@ export class LineModel extends Model implements Buildable {
   isc: number;
   othertaxs: number;
   allowanceCharge: number;
-
   constructor(restangular?: Restangular) {
     super();
     this.restangular = restangular;
   }
-
   getExtensionAmmount(): number {
     return this.quantity * this.ammount;
   }
+}
 
+export class AdditionalInformation {
+  name: string;
+  amount: number;
+  constructor() { }
+}
+
+export class TotalTaxs {
+  name: string;
+  value: number;
+  amount: number;
+  constructor() { }
 }

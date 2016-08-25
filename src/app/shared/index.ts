@@ -12,4 +12,4 @@ export * from './navbar-utility-mobile';
 export * from './project-header';
 export * from './shared-services';
 export * from './shared.module';
-export * from './sidebar';
+export * from './sidebar';export * from './sidebar-utility-mobile';

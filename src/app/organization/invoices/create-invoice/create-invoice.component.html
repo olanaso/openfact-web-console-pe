@@ -74,7 +74,7 @@
         <div class="form-group">
           <span>Envio Automatico?</span>
           <div class="openfact-group">
-            <button-switch [(value)]="state" (onChange)="onChangeToogle($event)"></button-switch>
+            <button-switch [(value)]="state"></button-switch>
           </div>
         </div>
       </div>
@@ -90,9 +90,9 @@
               <td>#</td>
               <td width="10%">Quantity</td>
               <td width="10%">Unit code</td>
-              <td width="20%">Item description</td>
-              <td width="10%">Price</td>
+              <td width="20%">Item description</td>         
               <td width="15%">Type IGV</td>
+              <td width="10%">Price</td>
               <td width="10%">IGV</td>
               <td width="10%">Ammount</td>
               <td width="10%">Extension ammount</td>
@@ -104,7 +104,7 @@
               <td>1</td>
               <td>
                 <input type="number" [(ngModel)]="line.quantity" [ngModelOptions]="{standalone: true}" (keyup)="eventHandler($event,line)"
-                  class="form-control text-right" />
+                  class="form-control text-right" value="1" />
               </td>
               <td>
                 <input type="text" [(ngModel)]="line.unitCode" [ngModelOptions]="{standalone: true}" class="form-control" />
@@ -112,12 +112,13 @@
               <td>
                 <input type="text" [(ngModel)]="line.itemDescription" [ngModelOptions]="{standalone: true}" class="form-control" />
               </td>
-              <td class="text-right">{{ line.price | number:'1.2-2' }}
-              </td>
+             
               <td class="text-right">
                 <select class="form-control openfact-group-col-4" (change)="onChangeTypeIgv($event.target.value,line)"> 
                   <option *ngFor="let item of listTypeIgv" [value]="item.documentId" >{{item.name}}</option>                    
                 </select>
+              </td>
+               <td class="text-right">{{ line.price | number:'1.2-2' }}
               </td>
               <td class="text-right">{{ line.totalTaxs[0].amount | number:'1.2-2' }}</td>
               <td>

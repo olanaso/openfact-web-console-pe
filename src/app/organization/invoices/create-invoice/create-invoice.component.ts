@@ -142,6 +142,7 @@ export class CreateInvoiceComponent implements OnInit {
     totalTax.checked = this.typeIgvSelect.checked;
     let line = new LineModel();
     line.totalTaxs.push(totalTax);
+    line.quantity = 1;
     this.invoice.lines.push(line);
     this.calculateTotal();
     //console.log(JSON.stringify(line.totalTaxs));
@@ -178,6 +179,10 @@ export class CreateInvoiceComponent implements OnInit {
 
   calculateTotal() {
     //console.log(JSON.stringify(this.invoice));
+    this.invoice.additionalInformation.forEach(element => {
+      element.amount = 0;
+    });
+
     this.invoice.lines.forEach(element => {
       console.log("lines...");
       element.totalTaxs.forEach(child => {

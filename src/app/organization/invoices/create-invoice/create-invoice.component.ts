@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import {Validators} from '@angular/common';
 import {FormGroup, FormControl, FormBuilder} from '@angular/forms';
 
-import {OrganizationModel, InvoiceModel, INVOICE_TYPE, ADDITIONAL_IDENTIFICATION_ID, TOTAL_TAX, TAX_REASON, DocumentModel, LineModel, DataService} from '../../../services';
+import {OrganizationModel, InvoiceModel, TotalTaxModel, AdditionalInformationModel, TypeIgv, INVOICE_TYPE, ADDITIONAL_IDENTIFICATION_ID, ADDITIONAL_INFORMATION, TOTAL_TAX, TAX_REASON, DocumentModel, LineModel, DataService} from '../../../services';
 import {Alert, AlertService} from '../../../shared';
 import {CORE_DIRECTIVES} from '@angular/common';
 import {FORM_DIRECTIVES} from '@angular/forms';
@@ -36,7 +36,10 @@ export class CreateInvoiceComponent implements OnInit {
   alerts: Array<Alert> = [];
   InvoicesTypes: Array<DocumentModel> = [];
   additionalAccountIds: Array<DocumentModel> = [];
-  totalTaxes: Array<DocumentModel> = [];
+  listTypeIgv: Array<DocumentModel> = [];
+  typeIgvSelect: DocumentModel;
+  aditionalInformations: Array<DocumentModel> = [];
+
 
   constructor(
     private router: Router,
@@ -46,6 +49,7 @@ export class CreateInvoiceComponent implements OnInit {
     private alertService: AlertService) {
     this.organization = this.activatedRoute.snapshot.parent.parent.data['organization'];
     this.invoice = this.dataService.invoices().build();
+
   }
 
   ngOnInit() {
@@ -83,11 +87,35 @@ export class CreateInvoiceComponent implements OnInit {
   }
 
   loadTotalTax() {
-    this.organization.getDocuments(TAX_REASON).subscribe(result => {
-      this.totalTaxes = result;
-      console.log(JSON.stringify(this.totalTaxes));
-
+    this.organization.getDocuments(ADDITIONAL_INFORMATION).subscribe(result => {
+      //this.aditionalInformations = result;
+      result.forEach(element => {
+        element.childrens.forEach(child => {
+          child.documentIdSuper = element.name
+          this.listTypeIgv.push(child);
+        });
+        let aditionalInformation = new AdditionalInformationModel();
+        aditionalInformation.name = element.name;
+        aditionalInformation.amount = 0;
+        this.invoice.additionalInformation.push(aditionalInformation);
+      });
+      //this.typeIgvSelect = this.listTypeIgv[0];
+      //console.log(JSON.stringify(result));
     });
+  }
+  onChangeTypeIgv(selectIgv, line: LineModel) {
+    console.log("En el onselect: " + selectIgv);
+    this.listTypeIgv.forEach(element => {
+      if (element.documentId == selectIgv) {
+        this.typeIgvSelect = element;
+        line.totalTaxs[0].document = element.documentId;
+        line.totalTaxs[0].reason = element.name;
+        //line.totalTaxs[0].amount=element.document;
+        line.totalTaxs[0].checked = element.checked;
+      }
+    });
+    this.calculateLine(line);
+    this.calculateTotal();
   }
 
   loadInvoicesType() {
@@ -106,8 +134,17 @@ export class CreateInvoiceComponent implements OnInit {
   }
 
   addLine() {
-    this.invoice.lines.push(new LineModel());
+    this.typeIgvSelect = this.listTypeIgv[0];
+    let totalTax = new TotalTaxModel();
+    totalTax.document = this.typeIgvSelect.documentId;
+    totalTax.reason = this.typeIgvSelect.name;
+    totalTax.amount = 0;
+    totalTax.checked = this.typeIgvSelect.checked;
+    let line = new LineModel();
+    line.totalTaxs.push(totalTax);
+    this.invoice.lines.push(line);
     this.calculateTotal();
+    //console.log(JSON.stringify(line.totalTaxs));
   }
 
   save() {
@@ -140,29 +177,39 @@ export class CreateInvoiceComponent implements OnInit {
   }
 
   calculateTotal() {
-    if (this.state) {
-      this.invoice.totalByFree = 0;
-      this.invoice.lines.forEach(line => {
-        this.invoice.totalByFree += (line.ammount * line.quantity);
-        //console.log(line.ammount);
+    //console.log(JSON.stringify(this.invoice));
+    this.invoice.lines.forEach(element => {
+      console.log("lines...");
+      element.totalTaxs.forEach(child => {
+        console.log("childerns");
+        let typeIgvFind: DocumentModel;
+        this.listTypeIgv.forEach(typeIgv => {
+          if (child.document == typeIgv.documentId) {
+            typeIgvFind = typeIgv
+          }
+        });
+        this.invoice.additionalInformation.forEach(addInfo => {
+          //console.log("find totaltaxs for sum :" + JSON.stringify(addInfo) + " = " + typeIgvFind.documentIdSuper);
+          if (addInfo.name == typeIgvFind.documentIdSuper) {
+            addInfo.amount = addInfo.amount + child.amount;
+            console.log("sumando : " + addInfo.amount + " + " + child.amount);
+          }
+        });
+        //this.invoice.totalTaxs
       });
-      this.invoice.totalAmmount = 0;
-      this.invoice.totalTaxed = 0;
-      this.invoice.totalUnaffected = 0;
-      this.invoice.totalExonerated = 0;
-      this.invoice.totalIgvTax = 0;
-      this.invoice.totalDiscounted = 0;
-    } else {
-      this.invoice.totalAmmount = 0;
-      this.invoice.lines.forEach(line => {
-        this.invoice.totalAmmount += (line.ammount * line.quantity);
-        //console.log(line.ammount);
-      });
-      this.invoice.totalIgvTax = this.invoice.totalAmmount * this.defaultIgv;
-      this.invoice.totalTaxed = this.invoice.totalAmmount - this.invoice.totalIgvTax;
-
-      this.invoice.totalByFree = 0;
-    }
+    });
+    console.log("sumando....");
+    // if (this.state) {
+    //   this.invoice.totalAmmount = 0;
+    // } else {
+    //   this.invoice.totalAmmount = 0;
+    //   this.invoice.lines.forEach(line => {
+    //     this.invoice.totalAmmount += (line.ammount * line.quantity);
+    //   });
+    //   this.invoice.totalIgvTax = this.invoice.totalAmmount * this.defaultIgv;
+    //   //this.invoice.totalTaxed = this.invoice.totalAmmount - this.invoice.totalIgvTax;
+    //   //this.invoice.totalByFree = 0;
+    // }
   }
   reset() {
     this.loadData();
@@ -174,28 +221,19 @@ export class CreateInvoiceComponent implements OnInit {
     }
     this.calculateTotal();
   }
-
-  onChangeToogle(arg) {
-    if (arg) {
-      this.invoice.totalByFree = this.invoice.totalAmmount;
-      this.invoice.totalAmmount = 0;
-      this.invoice.totalTaxed = 0;
-      this.invoice.totalUnaffected = 0;
-      this.invoice.totalExonerated = 0;
-      this.invoice.totalIgvTax = 0;
-      this.invoice.totalDiscounted = 0;
-    } else {
-      this.invoice.totalByFree = 0;
-      this.calculateTotal();
-    }
-    this.state = arg;
-  }
   onSelectCurrency(currency: string) {
     this.invoice.currencyCode = currency;
-
   }
-  eventHandler(event) {
+  eventHandler(event, line: LineModel) {
+    //console.log("Event Handler : " + JSON.stringify(line));
+    this.calculateLine(line);
     this.calculateTotal();
+  }
+  calculateLine(line: LineModel) {
+    //console.log("calculando line for line " + JSON.stringify(line));
+    line.totalTaxs[0].amount = line.ammount * (line.totalTaxs[0].checked ? this.defaultIgv : 0);
+    line.price = line.ammount - (line.ammount * (line.totalTaxs[0].checked ? this.defaultIgv : 0))
+    line.ammountExtension = line.ammount * line.quantity;
   }
   deleteInvoice(invoice: InvoiceModel) {
     console.log("Tratando de eliminar facturas.");

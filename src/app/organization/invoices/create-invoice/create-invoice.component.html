@@ -4,7 +4,7 @@
   <fieldset>
     <legend>General information</legend>
     <div class="row">
-      <div class="col-xs-12 col-sm-3 col-md-3">
+      <div class="col-xs-12 col-sm-3 col-md-4">
         <div [ngClass]="!(form.controls.type.errors && submitted)?'form-group':'form-group has-error'">
           <span>Type : </span><label [hidden]="!(submitted && form.controls.type.errors)" class="control-label" style="color:red;"
             for="inputError1">campo requerido.</label>
@@ -47,7 +47,7 @@
       </div>
     </div>
     <div formGroupName="customer" class="row">
-      <div class="col-xs-12 col-sm-3 col-md-3">
+      <div class="col-xs-12 col-sm-3 col-md-4">
         <div class="form-group">
           <span>Customer id</span>
           <div class="openfact-group">
@@ -59,7 +59,7 @@
           </div>
         </div>
       </div>
-      <div class="col-xs-12 col-sm-7 col-md-7">
+      <div class="col-xs-12 col-sm-7 col-md-6">
         <div class="form-group">
           <span>Customer</span>
           <div class="openfact-group">
@@ -72,7 +72,7 @@
       </div>
       <div class="col-xs-12 col-sm-2 col-md-2">
         <div class="form-group">
-          <span>Venta Gratuita?</span>
+          <span>Envio Automatico?</span>
           <div class="openfact-group">
             <button-switch [(value)]="state" (onChange)="onChangeToogle($event)"></button-switch>
           </div>
@@ -83,63 +83,72 @@
   <fieldset>
     <legend>Lines</legend>
     <div class="row">
-      <div class="col-sm-9">
+      <div class="col-sm-12">
         <table class="table table-bordered table-condensed table-hover table-mobile">
           <thead>
             <tr>
               <td>#</td>
-              <td>Quantity</td>
-              <td>Unit code</td>
-              <td>Item description</td>
-              <td>Price</td>
-              <td>IGV</td>
-              <td>Ammount</td>
-              <td>Extension ammount</td>
-              <td>.</td>
+              <td width="10%">Quantity</td>
+              <td width="10%">Unit code</td>
+              <td width="20%">Item description</td>
+              <td width="10%">Price</td>
+              <td width="15%">Type IGV</td>
+              <td width="10%">IGV</td>
+              <td width="10%">Ammount</td>
+              <td width="10%">Extension ammount</td>
+              <td width="5%">.</td>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let line of invoice.lines">
               <td>1</td>
               <td>
-                <input type="number" [(ngModel)]="line.quantity" [ngModelOptions]="{standalone: true}" (keyup)="eventHandler($event)" class="form-control text-right"
-                />
+                <input type="number" [(ngModel)]="line.quantity" [ngModelOptions]="{standalone: true}" (keyup)="eventHandler($event,line)"
+                  class="form-control text-right" />
               </td>
               <td>
-                <input type="text" [(ngModel)]="line.unitCode" [ngModelOptions]="{standalone: true}" class="form-control text-right" />
+                <input type="text" [(ngModel)]="line.unitCode" [ngModelOptions]="{standalone: true}" class="form-control" />
               </td>
               <td>
-                <input type="text" [(ngModel)]="line.itemDescription" [ngModelOptions]="{standalone: true}" class="form-control text-right"
-                />
+                <input type="text" [(ngModel)]="line.itemDescription" [ngModelOptions]="{standalone: true}" class="form-control" />
               </td>
-              <td class="text-right">{{ line.ammount - (line.ammount * defaultIgv) | number:'1.2-2' }}
-                <!--<input type="number" [(ngModel)]="line.price" [ngModelOptions]="{standalone: true}" class="form-control text-right" />-->
+              <td class="text-right">{{ line.price | number:'1.2-2' }}
               </td>
-              <td class="text-right">{{ (line.ammount * defaultIgv) | number:'1.2-2' }}</td>
-              <!--<td class="text-right">{{ (line.price + line.price * defaultIgv) | number }}</td>-->
+              <td class="text-right">
+                <select class="form-control openfact-group-col-4" (change)="onChangeTypeIgv($event.target.value,line)"> 
+                  <option *ngFor="let item of listTypeIgv" [value]="item.documentId" >{{item.name}}</option>                    
+                </select>
+              </td>
+              <td class="text-right">{{ line.totalTaxs[0].amount | number:'1.2-2' }}</td>
               <td>
-                <input type="number" [(ngModel)]="line.ammount" [ngModelOptions]="{standalone: true}" (keyup)="eventHandler($event)" class="form-control text-right"
-                />
+                <input type="number" [(ngModel)]="line.ammount" [ngModelOptions]="{standalone: true}" (keyup)="eventHandler($event,line)"
+                  class="form-control text-right" />
               </td>
-              <td class="text-right">{{ (line.ammount * line.quantity) | number:'1.2-2' }}</td>
+              <td class="text-right">{{ line.ammountExtension | number:'1.2-2' }}</td>
               <td><a (click)="deleteLine(line)"><span class="pficon pficon-delete"></span></a>
               </td>
             </tr>
           </tbody>
           <tfoot>
             <tr>
-              <td colspan="9" class="text-right">
+              <td colspan="10" class="text-right">
                 <button type="button" (click)="addLine()" class="btn btn-default">Add line</button>
               </td>
             </tr>
           </tfoot>
         </table>
       </div>
+    </div>
+    <div class="row">
       <div class="col-sm-3">
         <div class="panel panel-default">
           <div class="panel-heading">Resumen</div>
           <!-- Table -->
           <table class="table">
+            <tr *ngFor="let item of invoice.additionalInformation">
+              <td>{{item.name}}</td>
+              <td>{{item.ammount}}</td>
+            </tr>
             <tr>
               <td>Total Unaffected ({{this.invoice.currencyCode}})</td>
               <td class="text-right boldText"> {{invoice.totalUnaffected| number:'1.2-2'}}</td>

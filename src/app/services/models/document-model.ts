@@ -15,6 +15,10 @@ export class DocumentModel extends Model implements Buildable {
     description: string;
     code: string;
     value: number;
+    documentId:string;
+    documentIdSuper:string;
+    childrens: Array<DocumentModel>;
+    checked:boolean;
 
     constructor(restangular?: Restangular) {
         super();

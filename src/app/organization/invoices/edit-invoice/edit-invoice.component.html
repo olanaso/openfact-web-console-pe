@@ -28,7 +28,7 @@
         <div class="form-group">
           <span>Issue date</span>
           <input type="date" formControlName="issueDate" [(ngModel)]="invoice.issueDate" class="form-control" />
-           <!--<datepicker [(ngModel)]="invoice.issueDate" ></datepicker>--> 
+          <!--<datepicker [(ngModel)]="invoice.issueDate" ></datepicker>-->
         </div>
       </div>
       <div class="col-xs-4 col-sm-2 col-md-2">
@@ -73,7 +73,7 @@
         <div class="form-group">
           <span>Venta Gratuita?</span>
           <div class="openfact-group">
-            <button-switch [(value)]="state" (onChange)="onChangeToogle($event)"></button-switch>
+            <button-switch [(value)]="state"></button-switch>
           </div>
         </div>
       </div>
@@ -138,34 +138,34 @@
         <div class="panel panel-default">
           <div class="panel-heading">Panel heading</div>
           <!-- Table -->
-          <table class="table">           
+          <table class="table">
             <tr>
               <td>Total Unaffected ({{this.invoice.currencyCode}})</td>
-              <td class="text-right boldText">  {{invoice.totalUnaffected| number:'1.2-2'}}</td>
+              <td class="text-right boldText"> {{invoice.totalUnaffected| number:'1.2-2'}}</td>
             </tr>
             <tr>
               <td>Total Exonereted ({{this.invoice.currencyCode}})</td>
-              <td class="text-right boldText">  {{invoice.totalExonerated| number:'1.2-2'}}</td>
+              <td class="text-right boldText"> {{invoice.totalExonerated| number:'1.2-2'}}</td>
             </tr>
             <tr>
               <td>Total By Free ({{this.invoice.currencyCode}} )</td>
               <td class="text-right boldText"> {{invoice.totalByFree| number:'1.2-2'}}</td>
             </tr>
-             <tr>
+            <tr>
               <td>Total Taxed ({{this.invoice.currencyCode}})</td>
-              <td class="text-right boldText">  {{invoice.totalTaxed| number:'1.2-2'}}</td>
+              <td class="text-right boldText"> {{invoice.totalTaxed| number:'1.2-2'}}</td>
             </tr>
             <tr>
               <td>Total Igv Tax ({{this.invoice.currencyCode}})</td>
-              <td class="text-right boldText">  {{invoice.totalIgvTax| number:'1.2-2'}}</td>
+              <td class="text-right boldText"> {{invoice.totalIgvTax| number:'1.2-2'}}</td>
             </tr>
             <tr>
               <td>Total Ammount ({{this.invoice.currencyCode}})</td>
-              <td class="text-right boldText">  {{invoice.totalAmmount| number:'1.2-2'}}</td>
+              <td class="text-right boldText"> {{invoice.totalAmmount| number:'1.2-2'}}</td>
             </tr>
             <tr>
               <td>Total Discounted ({{this.invoice.currencyCode}})</td>
-              <td class="text-right boldText">  {{invoice.totalDiscounted| number:'1.2-2'}}</td>
+              <td class="text-right boldText"> {{invoice.totalDiscounted| number:'1.2-2'}}</td>
             </tr>
           </table>
         </div>

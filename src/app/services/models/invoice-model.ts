@@ -9,21 +9,21 @@ export class InvoiceModel extends Model implements Buildable {
   id: string; // id del documento
   type: string;//tipo de documente -- BOLETA o FACTURA   
   totalDiscounted: number;//total descuento
-  totalUnaffected: number;//total inafecto
-  totalExonerated: number;//total exonerado
+  //totalUnaffected: number;//total inafecto
+  //totalExonerated: number;//total exonerado
   totalAmmount: number;//IMPORTE TOTAL
   invoiceNumber: number;//NUMERO DE FACTURA
   invoiceSet: number;// SERIE DE LA FACTURA
   currencyCode: string;//MONEDA -- PEN USD
   issueDate: Date;//fecha de la factura
-  totalByFree: number;//total CUANDO ES gratis
+  //totalByFree: number;//total CUANDO ES gratis
   totalIgvTax: number;
-  totalTaxed: number;//TOTAL GRAVADO
+  //totalTaxed: number;//TOTAL GRAVADO
   customer: CustomerModel = new CustomerModel();//CLIENTE 
   lines: Array<LineModel> = [];
 
-  additionalInformation: AdditionalInformation = new AdditionalInformation();
-  totalTaxs: TotalTaxs = new TotalTaxs();
+  additionalInformation:Array<AdditionalInformationModel> = [];
+  totalTaxs: Array<TotalTaxModel> = [];
 
   constructor(restangular?: Restangular) {
     super();
@@ -56,10 +56,12 @@ export class LineModel extends Model implements Buildable {
   itemIdentification: string;
   price: number = 0;
   ammount: number = 0;
-  igv: number = 0;
-  isc: number;
-  othertaxs: number;
+  // igv: number = 0;
+  // isc: number;
+  // othertaxs: number;
   allowanceCharge: number;
+  ammountExtension: number;
+  totalTaxs: Array<TotalTaxModel> = [];
   constructor(restangular?: Restangular) {
     super();
     this.restangular = restangular;
@@ -69,15 +71,30 @@ export class LineModel extends Model implements Buildable {
   }
 }
 
-export class AdditionalInformation {
+export class AdditionalInformationModel {
   name: string;
   amount: number;
+  //childrens: Array<TotalTaxs>;
   constructor() { }
 }
 
-export class TotalTaxs {
-  name: string;
-  value: number;
+export class TotalTaxModel {
+  //for invoices.
+  //name: string;
+  //value: number;
+
+  //for lines.
+  document: string;
+  reason: string;
   amount: number;
+  //auxiliar
+  checked: boolean;
   constructor() { }
+}
+
+export class TypeIgv {
+  document: string;
+  name: string;
+  value: string;
+  checked: boolean;
 }

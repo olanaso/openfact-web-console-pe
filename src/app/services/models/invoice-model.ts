@@ -40,7 +40,8 @@ export class InvoiceModel extends Model implements Buildable {
 export class CustomerModel {
   id: string
   assignedIdentificationId: string // NUMERO DE DOCUMENTO.
-  additionalAccountId: string //TIPO DE DOCUMENTO -- RUC O DNI
+  //additionalAccountId: string //TIPO DE DOCUMENTO -- RUC O DNI
+  additionalIdentificationId:string;
   registrationName: string // RAZON SOCIAL DE LA EMPRESA
   email: string;//CORREO ELECTRONICO DEL CLIENTE
   constructor() { }
@@ -55,7 +56,7 @@ export class LineModel extends Model implements Buildable {
   itemDescription: string;
   itemIdentification: string;
   price: number = 0;
-  ammount: number = 0;
+  amount: number = 0;
   // igv: number = 0;
   // isc: number;
   // othertaxs: number;
@@ -67,23 +68,17 @@ export class LineModel extends Model implements Buildable {
     this.restangular = restangular;
   }
   getExtensionAmmount(): number {
-    return this.quantity * this.ammount;
+    return this.quantity * this.amount;
   }
 }
 
 export class AdditionalInformationModel {
   name: string;
   amount: number;
-  //childrens: Array<TotalTaxs>;
   constructor() { }
 }
 
 export class TotalTaxModel {
-  //for invoices.
-  //name: string;
-  //value: number;
-
-  //for lines.
   document: string;
   reason: string;
   amount: number;

@@ -63,8 +63,8 @@ export class CreateInvoiceComponent implements OnInit {
   buildForm() {
     this.form = this.formBuilder.group({
       type: ['', [Validators.required]],
-      invoiceSeries: ['', [Validators.required]],
-      invoiceNumber: ['', []],
+      //invoiceSeries: ['', [Validators.required]],
+      //invoiceNumber: ['', []],
       issueDate: ['', [Validators.required]],
       customer: this.formBuilder.group({
         assignedIdentificationId: ['', Validators.minLength(3)],
@@ -94,6 +94,7 @@ export class CreateInvoiceComponent implements OnInit {
           child.documentIdSuper = element.name
           this.listTypeIgv.push(child);
         });
+        this.listTypeIgv = this.listTypeIgv.sort();
         let aditionalInformation = new AdditionalInformationModel();
         aditionalInformation.name = element.name;
         aditionalInformation.amount = 0;
@@ -145,10 +146,11 @@ export class CreateInvoiceComponent implements OnInit {
     line.quantity = 1;
     this.invoice.lines.push(line);
     this.calculateTotal();
-    //console.log(JSON.stringify(line.totalTaxs));
+    console.log(JSON.stringify(this.typeIgvSelect));
   }
 
   save() {
+    let obj =
     if (this.invoice.lines.length > 0) {
       this.dataService.invoices().create(this.organization, this.invoice).subscribe(
         result => {
@@ -178,43 +180,27 @@ export class CreateInvoiceComponent implements OnInit {
   }
 
   calculateTotal() {
-    //console.log(JSON.stringify(this.invoice));
-    this.invoice.additionalInformation.forEach(element => {
-      element.amount = 0;
-    });
-
-    this.invoice.lines.forEach(element => {
-      console.log("lines...");
-      element.totalTaxs.forEach(child => {
-        console.log("childerns");
+    this.invoice.additionalInformation.forEach(element => { element.amount = 0; });
+    this.invoice.totalIgvTax = 0;
+    this.invoice.totalAmmount = 0;
+    this.invoice.lines.forEach(element => {      
+      element.totalTaxs.forEach(child => {       
         let typeIgvFind: DocumentModel;
         this.listTypeIgv.forEach(typeIgv => {
-          if (child.document == typeIgv.documentId) {
-            typeIgvFind = typeIgv
-          }
+          if (child.document == typeIgv.documentId) 
+            typeIgvFind = typeIgv          
         });
+        //console.log(JSON.stringify(child));
+        this.invoice.totalIgvTax = this.invoice.totalIgvTax + child.amount;
+        this.invoice.totalAmmount = this.invoice.totalAmmount + (element.price * element.quantity);
         this.invoice.additionalInformation.forEach(addInfo => {
-          //console.log("find totaltaxs for sum :" + JSON.stringify(addInfo) + " = " + typeIgvFind.documentIdSuper);
           if (addInfo.name == typeIgvFind.documentIdSuper) {
-            addInfo.amount = addInfo.amount + child.amount;
-            console.log("sumando : " + addInfo.amount + " + " + child.amount);
+            addInfo.amount = addInfo.amount + element.price;
           }
         });
-        //this.invoice.totalTaxs
       });
     });
-    console.log("sumando....");
-    // if (this.state) {
-    //   this.invoice.totalAmmount = 0;
-    // } else {
-    //   this.invoice.totalAmmount = 0;
-    //   this.invoice.lines.forEach(line => {
-    //     this.invoice.totalAmmount += (line.ammount * line.quantity);
-    //   });
-    //   this.invoice.totalIgvTax = this.invoice.totalAmmount * this.defaultIgv;
-    //   //this.invoice.totalTaxed = this.invoice.totalAmmount - this.invoice.totalIgvTax;
-    //   //this.invoice.totalByFree = 0;
-    // }
+    //console.log("sumando...." + JSON.stringify(this.invoice.additionalInformation));
   }
   reset() {
     this.loadData();
@@ -236,9 +222,9 @@ export class CreateInvoiceComponent implements OnInit {
   }
   calculateLine(line: LineModel) {
     //console.log("calculando line for line " + JSON.stringify(line));
-    line.totalTaxs[0].amount = line.ammount * (line.totalTaxs[0].checked ? this.defaultIgv : 0);
-    line.price = line.ammount - (line.ammount * (line.totalTaxs[0].checked ? this.defaultIgv : 0))
-    line.ammountExtension = line.ammount * line.quantity;
+    line.totalTaxs[0].amount = line.amount * (line.totalTaxs[0].checked ? this.defaultIgv : 0);
+    line.price = line.amount - (line.amount * (line.totalTaxs[0].checked ? this.defaultIgv : 0))
+    line.ammountExtension = line.amount * line.quantity;
   }
   deleteInvoice(invoice: InvoiceModel) {
     console.log("Tratando de eliminar facturas.");

@@ -51,10 +51,10 @@
         <div class="form-group">
           <span>Customer id</span>
           <div class="openfact-group">
-            <select formControlName="additionalAccountId" [(ngModel)]="invoice.customer.additionalAccountId" class="form-control openfact-group-col-4">
+            <select formControlName="additionalAccountId" [(ngModel)]="invoice.customer.assignedIdentificationId" class="form-control openfact-group-col-4">
                 <option *ngFor="let item of additionalAccountIds" value="item.name" >{{item.name}}</option>                
               </select>
-            <input type="text" formControlName="assignedIdentificationId" [(ngModel)]="invoice.customer.assignedIdentificationId" class="form-control openfact-group-col-8"
+            <input type="text" formControlName="assignedIdentificationId" [(ngModel)]="invoice.customer.additionalIdentificationId" class="form-control openfact-group-col-8"
               placeholder="Assigned identification id" />
           </div>
         </div>
@@ -90,7 +90,7 @@
               <td>#</td>
               <td width="10%">Quantity</td>
               <td width="10%">Unit code</td>
-              <td width="20%">Item description</td>         
+              <td width="20%">Item description</td>
               <td width="15%">Type IGV</td>
               <td width="10%">Price</td>
               <td width="10%">IGV</td>
@@ -112,17 +112,17 @@
               <td>
                 <input type="text" [(ngModel)]="line.itemDescription" [ngModelOptions]="{standalone: true}" class="form-control" />
               </td>
-             
+
               <td class="text-right">
                 <select class="form-control openfact-group-col-4" (change)="onChangeTypeIgv($event.target.value,line)"> 
                   <option *ngFor="let item of listTypeIgv" [value]="item.documentId" >{{item.name}}</option>                    
                 </select>
               </td>
-               <td class="text-right">{{ line.price | number:'1.2-2' }}
+              <td class="text-right">{{ line.price | number:'1.2-2' }}
               </td>
               <td class="text-right">{{ line.totalTaxs[0].amount | number:'1.2-2' }}</td>
               <td>
-                <input type="number" [(ngModel)]="line.ammount" [ngModelOptions]="{standalone: true}" (keyup)="eventHandler($event,line)"
+                <input type="number" [(ngModel)]="line.amount" [ngModelOptions]="{standalone: true}" (keyup)="eventHandler($event,line)"
                   class="form-control text-right" />
               </td>
               <td class="text-right">{{ line.ammountExtension | number:'1.2-2' }}</td>
@@ -148,23 +148,7 @@
           <table class="table">
             <tr *ngFor="let item of invoice.additionalInformation">
               <td>{{item.name}}</td>
-              <td>{{item.ammount}}</td>
-            </tr>
-            <tr>
-              <td>Total Unaffected ({{this.invoice.currencyCode}})</td>
-              <td class="text-right boldText"> {{invoice.totalUnaffected| number:'1.2-2'}}</td>
-            </tr>
-            <tr>
-              <td>Total Exonereted ({{this.invoice.currencyCode}})</td>
-              <td class="text-right boldText"> {{invoice.totalExonerated| number:'1.2-2'}}</td>
-            </tr>
-            <tr>
-              <td>Total By Free ({{this.invoice.currencyCode}} )</td>
-              <td class="text-right boldText"> {{invoice.totalByFree| number:'1.2-2'}}</td>
-            </tr>
-            <tr>
-              <td>Total Taxed ({{this.invoice.currencyCode}})</td>
-              <td class="text-right boldText"> {{invoice.totalTaxed| number:'1.2-2'}}</td>
+              <td class="text-right boldText">{{item.amount |number:'1.2-2'}}</td>
             </tr>
             <tr>
               <td>Total Igv Tax ({{this.invoice.currencyCode}})</td>

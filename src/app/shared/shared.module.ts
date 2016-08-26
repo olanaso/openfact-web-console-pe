@@ -8,6 +8,7 @@ import {DefaultHeaderComponent} from './default-header';
 import {ProjectHeaderComponent} from './project-header';
 import {NavbarUtilityComponent} from './navbar-utility';
 import {NavbarUtilityMobileComponent} from './navbar-utility-mobile';
+import {SidebarUtilityMobileComponent} from './sidebar-utility-mobile';
 import {EventsSidebarComponent} from './events-sidebar';
 import {ProjectPageComponent} from './project-page';
 import {SidebarComponent} from './sidebar';
@@ -36,6 +37,7 @@ import {HeaderService} from './shared-services/header.service';
         ProjectHeaderComponent,
         NavbarUtilityComponent,
         NavbarUtilityMobileComponent,
+        SidebarUtilityMobileComponent,
         EventsSidebarComponent,
         ProjectPageComponent,
         SidebarComponent,
@@ -53,6 +55,7 @@ import {HeaderService} from './shared-services/header.service';
         ProjectHeaderComponent,
         NavbarUtilityComponent,
         NavbarUtilityMobileComponent,
+        SidebarUtilityMobileComponent,
         EventsSidebarComponent,
         ProjectPageComponent,
         SidebarComponent,

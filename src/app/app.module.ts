@@ -21,7 +21,9 @@ import {OrganizationResolve} from './services';
 import {KeycloakService} from './keycloak';
 import {HTTP_BINDINGS} from '@angular/http';
 
-
+import {HttpModule} from '@angular/http';
+import {TranslateModule} from 'ng2-translate/ng2-translate';
+import {TranslateService, TranslateLoader, TranslateStaticLoader} from 'ng2-translate/ng2-translate';
 @NgModule({
     imports: [
         BrowserModule,
@@ -29,8 +31,16 @@ import {HTTP_BINDINGS} from '@angular/http';
         routing,
         PipeModule,
         SharedModule,
-        OrganizationModule    
-    ],
+        OrganizationModule,
+        HttpModule,
+        TranslateModule.forRoot(
+        //     {
+        //     provide: TranslateLoader,
+        //   useFactory: (http: Http) => new TranslateStaticLoader(http, 'app/assets/i18n', '.json'),
+        //   deps: [Http]}
+          )
+        ],
+    exports: [BrowserModule, HttpModule, TranslateModule],
     declarations: [
         AppComponent,
         AboutComponent,

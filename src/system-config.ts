@@ -12,7 +12,8 @@ const map: any = {
   'underscore': 'vendor/underscore/underscore.js',
   'moment': 'vendor/moment/moment.js',
   'ng2-bootstrap': 'vendor/ng2-bootstrap',
-  'ng2-file-upload': 'vendor/ng2-file-upload'
+  'ng2-file-upload': 'vendor/ng2-file-upload',
+  'ng2-translate': 'vendor/ng2-translate'
 };
 
 /** User packages configuration. */
@@ -32,6 +33,11 @@ const packages: any = {
     format: 'cjs',
     defaultExtension: 'js',
     main: 'ng2-file-upload.js'
+  },
+  'ng2-translate': {
+    format: 'cjs',
+    defaultExtension: 'js',
+    main: 'ng2-translate.js'
   }
 };
 
@@ -95,7 +101,7 @@ const barrels: string[] = [
   'app/organization/overview',
   'app/organization/settings',
   'app/organization/settings/address',
-  'app/organization/settings/general-information',  
+  'app/organization/settings/general-information',
   'app/organization/settings/tasks-schedule',
   'app/organization/settings/certificate',
   'app/organization/settings/tax-types',
@@ -124,6 +130,7 @@ declare var System: any;
 System.config({
   map: {
     '@angular': 'vendor/@angular',
+    //'ng2-translate': 'vendor/ng2-translate',
     'rxjs': 'vendor/rxjs',
     'main': 'main.js'
   },

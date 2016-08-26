@@ -6,8 +6,14 @@
 <div class="container-fluid container-cards-pf">
     <div class="row row-cards-pf">
         <div class="col-md-10 col-md-offset-1">
-
-            <h1 style="margin: 10px 0px 20px; display: inline-block;">Organizations</h1>
+<div>
+    <h4>{{ 'HOME.TITLE' | translate }}</h4>
+    <label>
+        {{ 'HOME.SELECT' | translate }}
+       
+      </label>
+</div>
+            <h1 style="margin: 10px 0px 20px; display: inline-block;">{{ 'HOME.ORGANIZATION' | translate }}</h1>
             <a style="margin-top: 10px;" [routerLink]="['../create-organization']" class="btn btn-lg btn-primary pull-right">Create organization</a>      
             
             <div *ngFor="let organization of organizations" class="card-pf">

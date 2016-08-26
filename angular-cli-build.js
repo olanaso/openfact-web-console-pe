@@ -20,6 +20,7 @@ module.exports = function (defaults) {
       'moment/moment.js',
       'ng2-bootstrap/**/*.js',
       'ng2-file-upload/**/*.js',
+      'ng2-translate/**/*.js',
       'patternfly/**/*.*'
     ],
     includePaths: [

@@ -39,6 +39,7 @@ export class CreateInvoiceComponent implements OnInit {
   listTypeIgv: Array<DocumentModel> = [];
   typeIgvSelect: DocumentModel;
   aditionalInformations: Array<DocumentModel> = [];
+  totalTaxs: Array<DocumentModel> = [];
 
 
   constructor(
@@ -58,6 +59,7 @@ export class CreateInvoiceComponent implements OnInit {
     this.loadInvoicesType();
     this.loadData();
     this.loadTotalTax();
+    this.loadAditionalInformation();
   }
 
   buildForm() {
@@ -87,6 +89,25 @@ export class CreateInvoiceComponent implements OnInit {
   }
 
   loadTotalTax() {
+    this.organization.getDocuments(TOTAL_TAX).subscribe(result => {
+      this.totalTaxs = result;
+      // result.forEach(element => {
+      //   element.childrens.forEach(child => {
+      //     child.documentIdSuper = element.name
+      //     this.listTypeIgv.push(child);
+      //   });
+      //   this.listTypeIgv = this.listTypeIgv.sort();
+      //   let aditionalInformation = new AdditionalInformationModel();
+      //   aditionalInformation.name = element.name;
+      //   aditionalInformation.amount = 0;
+      //   this.invoice.additionalInformation.push(aditionalInformation);
+      // });
+      //this.typeIgvSelect = this.listTypeIgv[0];
+      console.log(JSON.stringify(result));
+    });
+  }
+
+  loadAditionalInformation() {
     this.organization.getDocuments(ADDITIONAL_INFORMATION).subscribe(result => {
       //this.aditionalInformations = result;
       result.forEach(element => {
@@ -150,7 +171,14 @@ export class CreateInvoiceComponent implements OnInit {
   }
 
   save() {
-    let obj =
+    this.working = true;
+    this.invoice.lines.forEach(element => {
+      element.totalTaxs.forEach(child => {
+        delete child.checked;
+      });
+      delete element.ammountExtension;
+    });
+
     if (this.invoice.lines.length > 0) {
       this.dataService.invoices().create(this.organization, this.invoice).subscribe(
         result => {
@@ -181,18 +209,17 @@ export class CreateInvoiceComponent implements OnInit {
 
   calculateTotal() {
     this.invoice.additionalInformation.forEach(element => { element.amount = 0; });
-    this.invoice.totalIgvTax = 0;
-    this.invoice.totalAmmount = 0;
-    this.invoice.lines.forEach(element => {      
-      element.totalTaxs.forEach(child => {       
+    //this.invoice.totalIgvTax = 0;
+    this.invoice.payableAmount = 0;
+    this.invoice.lines.forEach(element => {
+      element.totalTaxs.forEach(child => {
         let typeIgvFind: DocumentModel;
         this.listTypeIgv.forEach(typeIgv => {
-          if (child.document == typeIgv.documentId) 
-            typeIgvFind = typeIgv          
+          if (child.document == typeIgv.documentId)
+            typeIgvFind = typeIgv
         });
-        //console.log(JSON.stringify(child));
-        this.invoice.totalIgvTax = this.invoice.totalIgvTax + child.amount;
-        this.invoice.totalAmmount = this.invoice.totalAmmount + (element.price * element.quantity);
+        //  this.invoice.totalIgvTax = this.invoice.totalIgvTax + child.amount;
+        this.invoice.payableAmount = this.invoice.payableAmount + (element.price * element.quantity);
         this.invoice.additionalInformation.forEach(addInfo => {
           if (addInfo.name == typeIgvFind.documentIdSuper) {
             addInfo.amount = addInfo.amount + element.price;
@@ -200,7 +227,6 @@ export class CreateInvoiceComponent implements OnInit {
         });
       });
     });
-    //console.log("sumando...." + JSON.stringify(this.invoice.additionalInformation));
   }
   reset() {
     this.loadData();

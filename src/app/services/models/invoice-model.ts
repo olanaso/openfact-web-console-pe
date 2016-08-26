@@ -11,19 +11,19 @@ export class InvoiceModel extends Model implements Buildable {
   totalDiscounted: number;//total descuento
   //totalUnaffected: number;//total inafecto
   //totalExonerated: number;//total exonerado
-  totalAmmount: number;//IMPORTE TOTAL
+  payableAmount: number;//IMPORTE TOTAL
   invoiceNumber: number;//NUMERO DE FACTURA
   invoiceSet: number;// SERIE DE LA FACTURA
   currencyCode: string;//MONEDA -- PEN USD
   issueDate: Date;//fecha de la factura
   //totalByFree: number;//total CUANDO ES gratis
-  totalIgvTax: number;
+  //totalIgvTax: number;
   //totalTaxed: number;//TOTAL GRAVADO
   customer: CustomerModel = new CustomerModel();//CLIENTE 
   lines: Array<LineModel> = [];
 
-  additionalInformation:Array<AdditionalInformationModel> = [];
-  totalTaxs: Array<TotalTaxModel> = [];
+  additionalInformation: Array<AdditionalInformationModel> = [];
+  totalTaxs: Array<TotalTaxInvoice> = [];
 
   constructor(restangular?: Restangular) {
     super();
@@ -41,7 +41,7 @@ export class CustomerModel {
   id: string
   assignedIdentificationId: string // NUMERO DE DOCUMENTO.
   //additionalAccountId: string //TIPO DE DOCUMENTO -- RUC O DNI
-  additionalIdentificationId:string;
+  additionalIdentificationId: string;
   registrationName: string // RAZON SOCIAL DE LA EMPRESA
   email: string;//CORREO ELECTRONICO DEL CLIENTE
   constructor() { }
@@ -84,6 +84,13 @@ export class TotalTaxModel {
   amount: number;
   //auxiliar
   checked: boolean;
+  constructor() { }
+}
+
+export class TotalTaxInvoice {
+  name: string;
+  value: number;
+  amount: number;
   constructor() { }
 }
 

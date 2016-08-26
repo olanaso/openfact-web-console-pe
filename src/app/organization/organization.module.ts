@@ -11,14 +11,22 @@ import {OverviewComponent} from './overview';
 import {InvoicesComponent, CreateInvoiceComponent, ListInvoiceComponent} from './invoices';
 import {SettingsComponent, GeneralInformationComponent, AddressComponent, CertificateComponent, TasksScheduleComponent} from './settings';
 
+
+import {HttpModule} from '@angular/http';
+import {TranslateModule} from 'ng2-translate/ng2-translate';
+import {TranslateService, TranslateLoader, TranslateStaticLoader} from 'ng2-translate/ng2-translate';
+
 @NgModule({
     imports: [
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
         SharedModule,
-        organizationRouting
+        organizationRouting,
+        HttpModule,
+        TranslateModule.forRoot()
     ],
+    exports: [ HttpModule, TranslateModule],
     declarations: [
         OrganizationComponent,
         OverviewComponent,        

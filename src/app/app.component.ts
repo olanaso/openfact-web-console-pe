@@ -1,9 +1,11 @@
 import {Component, ViewContainerRef} from '@angular/core';
 
 import {Http, Headers,
-RequestOptions, Response} from '@angular/http';
+  RequestOptions, Response} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import {KeycloakService} from './keycloak';
+
+import {TranslateService} from 'ng2-translate/ng2-translate';
 
 @Component({
   moduleId: module.id,
@@ -12,8 +14,20 @@ import {KeycloakService} from './keycloak';
   styleUrls: ['app.component.css']
 })
 export class AppComponent {
+ 
+  constructor(
+    private viewContainerRef: ViewContainerRef,
+    private _kc: KeycloakService,
+    private http: Http,
+    private translate: TranslateService
+  ) {
+    translate.addLangs(["en", "es"]);
+    translate.setDefaultLang('en');
 
-  constructor(private viewContainerRef: ViewContainerRef,private _kc: KeycloakService, private http: Http) { }
+    let browserLang = translate.getBrowserLang();
+    translate.use(browserLang.match(/en|es/) ? browserLang : 'en');
+
+  }
 
   products: string[] = [];
 

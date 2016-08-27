@@ -2,9 +2,9 @@
   <div class="container-fluid">
     <div class="page-header page-header-bleed-right page-header-bleed-left">
       <div class="pull-right">
-        <button class="btn btn-default" [routerLink]="['../create-invoice']" type="button">Create</button>
+        <button class="btn btn-default" [routerLink]="['../create-invoice']" type="button">{{ 'HOME.CREATE' | translate }}</button>
       </div>
-      <h1>Add Invoices</h1>
+      <h1>{{ 'HOME.ADD_INVOICES' | translate }}</h1>
     </div>
     <!--<alerts alerts="alerts" class="ng-isolate-scope">      
     </alerts>-->
@@ -51,13 +51,13 @@
       <thead>
         <tr>
           <th class="sorting">#</th>
-          <th class="sorting">Issue date</th>
-          <th class="sorting">Type</th>
-          <th class="sorting">Series-number</th>
-          <th class="sorting">Customer</th>
-          <th class="sorting">Currency Code</th>
-          <th class="sorting">Total Ammount</th>
-          <th class="sorting">OP</th>
+          <th class="sorting">{{ 'HOME.ISSUE_DATE' | translate }}</th>
+          <th class="sorting">{{ 'HOME.TYPE' | translate }}</th>
+          <th class="sorting">{{ 'HOME.SERIES_NUMBER' | translate }}</th>
+          <th class="sorting">{{ 'HOME.CUSTOMER' | translate }}</th>
+          <th class="sorting">{{ 'HOME.CURRENCY_CODE' | translate }}</th>
+          <th class="sorting">{{ 'HOME.TOTAL_AMOUNT' | translate }}</th>
+          <th class="sorting">{{ 'HOME.OP' | translate }}</th>
         </tr>
       </thead>
       <tbody>

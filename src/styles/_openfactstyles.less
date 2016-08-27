@@ -1,6 +1,6 @@
 /*etiqueta <a>  genenral modificado el color*/
 @color-pf-blue-400:              #0099d3;
-@width-min-device:767px;
+@width-min-device:770px;
 
 /*para la seperacion correcta del siderbar header project */
 .card-pf-heading-details-openfact{
@@ -31,11 +31,15 @@ margin:0px 0 0px;
 // .btn::before{
 //     content:"Organization" !important;
 // }
-.navbar-project-menu .bootstrap-select.btn-group .btn .span{
-color: red;
+// .navbar-project-menu .bootstrap-select.btn-group .btn .span{
+// color: red;
 
+// }
+.navbar-project-menu{
+@media(min-width: 768px){
+max-width: 305px !important;
+ }
 }
-
 
 .reduce-siderbar{
     @media(max-width: 900px){
@@ -58,19 +62,19 @@ color: red;
     
  }}
 
-.vermenu{
-    @media(max-width: @width-min-device){
-      // display: block;
+// .vermenu{
+//     @media(max-width: @width-min-device){
+//       // display: block;
     
     
- }}
-.vermenu2{
-    @media(max-width: @width-min-device){
-      // display: block;
-      // position: static;
+//  }}
+// .vermenu2{
+//     @media(max-width: @width-min-device){
+//       // display: block;
+//       // position: static;
     
     
- }}
+//  }}
 
  .sololinea{
     @media(min-width: @width-min-device){

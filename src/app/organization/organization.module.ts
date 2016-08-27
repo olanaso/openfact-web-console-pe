@@ -38,7 +38,7 @@ import {TranslateService, TranslateLoader, TranslateStaticLoader} from 'ng2-tran
         SettingsComponent, 
         GeneralInformationComponent,
         AddressComponent, 
-        CertificateComponent, 
+        //CertificateComponent, 
         TasksScheduleComponent
     ],
     providers: []

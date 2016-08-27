@@ -51,10 +51,10 @@
         <div class="form-group">
           <span>Customer id</span>
           <div class="openfact-group">
-            <select formControlName="assignedIdentificationId" [(ngModel)]="invoice.customer.assignedIdentificationId" class="form-control openfact-group-col-4">
-                <option *ngFor="let item of additionalAccountIds" value="item.name" >{{item.name}}</option>                
+            <select formControlName="additionalIdentificationId" [(ngModel)]="invoice.customer.additionalIdentificationId" class="form-control openfact-group-col-4">
+                <option *ngFor="let item of additionalAccountIds" [value]="item.name" >{{item.name}}</option>                
               </select>
-            <input type="text" formControlName="additionalIdentificationId" [(ngModel)]="invoice.customer.additionalIdentificationId"
+            <input type="text" formControlName="assignedIdentificationId" [(ngModel)]="invoice.customer.assignedIdentificationId"
               class="form-control openfact-group-col-8" placeholder="Assigned identification id" />
           </div>
         </div>

@@ -1,7 +1,7 @@
 <form [formGroup]="form" (ngSubmit)="save()" class="form-horizontal" novalidate>
   <fieldset>
     <div class="form-group" [ngClass]="{ 'has-error' : !form.controls.countryIdentificationCode.valid && submitted }">
-      <label class="col-md-2 control-label">Country identification code        
+      <label class="col-md-2 control-label">{{ 'HOME.COUNTRY_IDENTIFICATION_CODE' | translate }}        
         <i class="fa fa-question-circle text-muted" tooltip="Country identification code" tooltipPlacement="right" tooltipTrigger="mouseover mouseout"></i>
       </label>
       <div class="col-md-2">
@@ -13,7 +13,7 @@
       </div>
     </div>
     <div class="form-group" [ngClass]="{ 'has-error' : !form.controls.countrySubentity.valid && submitted }">
-      <label class="col-md-2 control-label">Country subentity
+      <label class="col-md-2 control-label">{{ 'HOME.COUNTRY_SUBENTITY' | translate }}
         <i class="fa fa-question-circle text-muted" tooltip="Country subentity" tooltipPlacement="right" tooltipTrigger="mouseover mouseout"></i>
       </label>
       <div class="col-md-5">
@@ -25,7 +25,7 @@
       </div>
     </div>
     <div class="form-group" [ngClass]="{ 'has-error' : !form.controls.citySubdivisionName.valid && submitted }">
-      <label class="col-md-2 control-label">City subdivision name
+      <label class="col-md-2 control-label">{{ 'HOME.CITY_SUBDIVISION_NAME' | translate }}
         <i class="fa fa-question-circle text-muted" tooltip="City sub division name" tooltipPlacement="right" tooltipTrigger="mouseover mouseout"></i>
       </label>
       <div class="col-md-3">
@@ -37,7 +37,7 @@
       </div>
     </div>
     <div class="form-group" [ngClass]="{ 'has-error' : !form.controls.cityName.valid && submitted }">
-      <label class="col-md-2 control-label">City name
+      <label class="col-md-2 control-label">{{ 'HOME.CITY_NAME' | translate }}
         <i class="fa fa-question-circle text-muted" tooltip="City name" tooltipPlacement="right" tooltipTrigger="mouseover mouseout"></i>
       </label>
       <div class="col-md-2">
@@ -49,7 +49,7 @@
       </div>
     </div>
     <div class="form-group" [ngClass]="{ 'has-error' : !form.controls.district.valid && submitted }">
-      <label class="col-md-2 control-label">District
+      <label class="col-md-2 control-label">{{ 'HOME.DISTRIC' | translate }}
         <i class="fa fa-question-circle text-muted" tooltip="District" tooltipPlacement="right" tooltipTrigger="mouseover mouseout"></i>
       </label>
       <div class="col-md-5">
@@ -61,7 +61,7 @@
       </div>
     </div>
     <div class="form-group" [ngClass]="{ 'has-error' : !form.controls.streetName.valid && submitted }">
-      <label class="col-md-2 control-label">Street name
+      <label class="col-md-2 control-label">{{ 'HOME.STREET_NAME' | translate }}
         <i class="fa fa-question-circle text-muted" tooltip="Street name" tooltipPlacement="right" tooltipTrigger="mouseover mouseout"></i>
       </label>
       <div class="col-md-3">

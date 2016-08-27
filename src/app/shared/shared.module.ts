@@ -24,13 +24,18 @@ import {ButtonSwitchComponent} from './button-switch';
 import {NavbarService} from './shared-services/navbar.service';
 import {HeaderService} from './shared-services/header.service';
 
+import {HttpModule} from '@angular/http';
+import {TranslateModule} from 'ng2-translate/ng2-translate';
+
 @NgModule({
     imports: [
         RouterModule,
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
-        PipeModule
+        PipeModule,
+        HttpModule,
+        TranslateModule.forRoot()
     ],
     declarations: [
         DefaultHeaderComponent,
@@ -59,7 +64,8 @@ import {HeaderService} from './shared-services/header.service';
         EventsSidebarComponent,
         ProjectPageComponent,
         SidebarComponent,
-
+        HttpModule,
+        TranslateModule,
         AlertsComponent,
 
         ButtonSaveComponent,

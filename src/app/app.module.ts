@@ -23,7 +23,7 @@ import {HTTP_BINDINGS} from '@angular/http';
 
 import {HttpModule} from '@angular/http';
 import {TranslateModule} from 'ng2-translate/ng2-translate';
-import {TranslateService, TranslateLoader, TranslateStaticLoader} from 'ng2-translate/ng2-translate';
+//import {TranslateService, TranslateLoader, TranslateStaticLoader} from 'ng2-translate/ng2-translate';
 @NgModule({
     imports: [
         BrowserModule,
@@ -33,12 +33,7 @@ import {TranslateService, TranslateLoader, TranslateStaticLoader} from 'ng2-tran
         SharedModule,
         OrganizationModule,
         HttpModule,
-        TranslateModule.forRoot(
-        //     {
-        //     provide: TranslateLoader,
-        //   useFactory: (http: Http) => new TranslateStaticLoader(http, 'app/assets/i18n', '.json'),
-        //   deps: [Http]}
-          )
+        TranslateModule.forRoot()
         ],
     exports: [BrowserModule, HttpModule, TranslateModule],
     declarations: [

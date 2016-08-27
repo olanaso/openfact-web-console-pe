@@ -1,8 +1,17 @@
 {
   "HOME": {
+    "LANGUAJE": "es-Es",
     "TITLE": "SISTEMA EN VERSION ESPAÑOL!",
     "SELECT": "V. ESPAÑOL",
     "PSETINNG": "Configuraciones del Proyecto",
-    "ORGANIZATION": "Organizaciones"
+    "ORGANIZATION": "Organizaciones",
+    "SIDEBAR":"------------------------------------------",
+    "OVERVIEW": "Nosotros",
+    "INVOICES": "Facturas",
+    "SETTINGS": "Configuracion",
+    "DEFAULT": "Por Defecto",
+     "---":"------------------------------------------",
+    "ADD_INVOICES":"Lista de facturas",
+    "CREATE":"Crear"
   }
 }

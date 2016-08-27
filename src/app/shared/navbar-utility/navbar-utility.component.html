@@ -1,22 +1,10 @@
 <nav class="collapse navbar-collapse">
     <ul class="nav navbar-nav navbar-right navbar-iconic">
-        <!--        
         <li class="dropdown" dropdown>
             <a class="dropdown-toggle nav-item-iconic" dropdownToggle>
-                <span title="Helpa" class="fa pficon-help"></span>
-                <span class="sr-only">Help</span>
-                <span class="caret"></span>
-            </a>
-            <ul class="dropdown-menu" dropdownMenu>
-               <li *ngFor="let lang of translate.getLangs()" class="selected" [value]="lang" role="menuitem"><a class="dropdown-item">{{lang}}</a></li>
-       
-            </ul>
-
-          </li>-->
-        <li class="dropdown" dropdown>
-            <a class="dropdown-toggle nav-item-iconic" dropdownToggle>
-                <span title="Help" class="fa pficon-flag"></span>
-                <span class="sr-only">Help</span>
+                <span class="username truncate">   {{ 'HOME.LANGUAJE' | translate }}</span>
+                <span title="Languajes" class="fa pficon-flag"></span>
+                <span class="sr-only">Languajes</span>
                 <span class="caret"></span>
             </a>
             <ul class="dropdown-menu" dropdownMenu>

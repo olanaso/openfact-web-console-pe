@@ -1,8 +1,17 @@
 {
   "HOME": {
+    "LANGUAJE": "en-En",
     "TITLE": "SYSTEM IN VERSION ENGLISH!",
     "SELECT": "V. ENGLISH",
-     "PSETINNG":"Project Settings",
-    "ORGANIZATION":"Organizations"
+    "PSETINNG": "Project Settings",
+    "ORGANIZATION": "Organizations",
+    "SIDEBAR":"------------------------------------------",
+    "OVERVIEW": "Overview",
+    "INVOICES": "Invoices",
+    "SETTINGS": "Settings",
+    "DEFAULT": "Default",
+    "---":"------------------------------------------",
+    "ADD_INVOICES":"Lits Invoices",
+    "CREATE":"Create"
   }
 }

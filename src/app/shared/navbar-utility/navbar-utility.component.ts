@@ -8,18 +8,19 @@ import {TranslateService} from 'ng2-translate/ng2-translate';
   templateUrl: 'navbar-utility.component.html',
   styleUrls: ['navbar-utility.component.css']
 })
-export class NavbarUtilityComponent implements OnInit {  
+export class NavbarUtilityComponent implements OnInit {
 
-  constructor(    private http: Http,private translate: TranslateService) {
+  constructor(private http: Http, private translate: TranslateService) {
 
-     translate.addLangs(["en", "es"]);
+    translate.addLangs(["en", "es"]);
     translate.setDefaultLang('en');
 
     let browserLang = translate.getBrowserLang();
     translate.use(browserLang.match(/en|es/) ? browserLang : 'en');
-   }
+  }
 
   ngOnInit() {
+    
   }
 
 }

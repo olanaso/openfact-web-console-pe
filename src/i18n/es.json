@@ -5,13 +5,21 @@
     "SELECT": "V. ESPAÑOL",
     "PSETINNG": "Configuraciones del Proyecto",
     "ORGANIZATION": "Organizaciones",
-    "SIDEBAR":"------------------------------------------",
+    "SIDEBAR": "------------------------------------------",
     "OVERVIEW": "Nosotros",
     "INVOICES": "Facturas",
     "SETTINGS": "Configuracion",
     "DEFAULT": "Por Defecto",
-     "---":"------------------------------------------",
-    "ADD_INVOICES":"Lista de facturas",
-    "CREATE":"Crear"
+    "-": "------------------------------------------",
+    "ADD_INVOICES": "Lista de facturas",
+    "CREATE": "Crear",
+    "--": "------------------------------------------",
+    "ISSUE_DATE": "Fecha Emision",
+    "TYPE": "Tipo",
+    "SERIES_NUMBER": "Serie",
+    "CUSTOMER": "Cliente",
+    "CURRENCY_CODE": "Moneda",
+    "TOTAL_AMOUNT": "Monto Total",
+    "OP": "OP"
   }
 }

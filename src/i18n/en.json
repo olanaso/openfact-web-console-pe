@@ -5,13 +5,21 @@
     "SELECT": "V. ENGLISH",
     "PSETINNG": "Project Settings",
     "ORGANIZATION": "Organizations",
-    "SIDEBAR":"------------------------------------------",
+    "SIDEBAR": "------------------------------------------",
     "OVERVIEW": "Overview",
     "INVOICES": "Invoices",
     "SETTINGS": "Settings",
     "DEFAULT": "Default",
-    "---":"------------------------------------------",
-    "ADD_INVOICES":"Lits Invoices",
-    "CREATE":"Create"
+    "-": "------------------------------------------",
+    "ADD_INVOICES": "Lits Invoices",
+    "CREATE": "Create",
+    "--": "------------------------------------------",
+    "ISSUE_DATE": "Issue date",
+    "TYPE": "Type",
+    "SERIES_NUMBER": "Series-number",
+    "CUSTOMER": "Customer",
+    "CURRENCY_CODE": "Currency Code",
+    "TOTAL_AMOUNT": "Total Ammount",
+    "OP": "OP"
   }
 }

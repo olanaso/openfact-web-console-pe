@@ -51,11 +51,11 @@
         <div class="form-group">
           <span>Customer id</span>
           <div class="openfact-group">
-            <select formControlName="additionalAccountId" [(ngModel)]="invoice.customer.assignedIdentificationId" class="form-control openfact-group-col-4">
-                <option *ngFor="let item of additionalAccountIds" value="item.name" >{{item.name}}</option>                
+            <select formControlName="additionalIdentificationId" [(ngModel)]="invoice.customer.additionalIdentificationId" class="form-control openfact-group-col-4">
+                <option *ngFor="let item of additionalAccountIds" [value]="item.name" >{{item.name}}</option>                
               </select>
-            <input type="text" formControlName="assignedIdentificationId" [(ngModel)]="invoice.customer.additionalIdentificationId" class="form-control openfact-group-col-8"
-              placeholder="Assigned identification id" />
+            <input type="text" formControlName="assignedIdentificationId" [(ngModel)]="invoice.customer.assignedIdentificationId"
+              class="form-control openfact-group-col-8" placeholder="Assigned identification id" />
           </div>
         </div>
       </div>
@@ -150,12 +150,12 @@
               <td>{{item.name}}</td>
               <td class="text-right boldText">{{item.amount |number:'1.2-2'}}</td>
             </tr>
-            <tr>
-              <td>Total Igv Tax ({{this.invoice.currencyCode}})</td>
-              <td class="text-right boldText"> {{invoice.totalIgvTax| number:'1.2-2'}}</td>
+            <tr *ngFor="let item of invoice.totalTaxs">
+              <td>{{item.name}}</td>
+              <td class="text-right boldText">{{item.amount |number:'1.2-2'}}</td>
             </tr>
             <tr>
-              <td>Total Ammount ({{this.invoice.currencyCode}})</td>
+              <td>Payable Amount ({{this.invoice.currencyCode}})</td>
               <td class="text-right boldText"> {{invoice.payableAmount| number:'1.2-2'}}</td>
             </tr>
             <tr>

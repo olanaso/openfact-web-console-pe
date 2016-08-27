@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import {Validators} from '@angular/common';
 import {FormGroup, FormControl, FormBuilder} from '@angular/forms';
 
-import {OrganizationModel, InvoiceModel, TotalTaxModel, AdditionalInformationModel, TypeIgv, INVOICE_TYPE, ADDITIONAL_IDENTIFICATION_ID, ADDITIONAL_INFORMATION, TOTAL_TAX, TAX_REASON, DocumentModel, LineModel, DataService} from '../../../services';
+import {OrganizationModel, InvoiceModel, TotalTaxModel, TotalTaxInvoice, AdditionalInformationModel, TypeIgv, INVOICE_TYPE, ADDITIONAL_IDENTIFICATION_ID, ADDITIONAL_INFORMATION, TOTAL_TAX, TAX_REASON, DocumentModel, LineModel, DataService} from '../../../services';
 import {Alert, AlertService} from '../../../shared';
 import {CORE_DIRECTIVES} from '@angular/common';
 import {FORM_DIRECTIVES} from '@angular/forms';
@@ -39,7 +39,7 @@ export class CreateInvoiceComponent implements OnInit {
   listTypeIgv: Array<DocumentModel> = [];
   typeIgvSelect: DocumentModel;
   aditionalInformations: Array<DocumentModel> = [];
-  totalTaxs: Array<DocumentModel> = [];
+  //totalTaxs: Array<DocumentModel> = [];
 
 
   constructor(
@@ -50,7 +50,10 @@ export class CreateInvoiceComponent implements OnInit {
     private alertService: AlertService) {
     this.organization = this.activatedRoute.snapshot.parent.parent.data['organization'];
     this.invoice = this.dataService.invoices().build();
-
+    //console.log(JSON.stringify(this.organization));
+    console.log(this.organization);
+    console.log(this.activatedRoute);
+        
   }
 
   ngOnInit() {
@@ -70,7 +73,7 @@ export class CreateInvoiceComponent implements OnInit {
       issueDate: ['', [Validators.required]],
       customer: this.formBuilder.group({
         assignedIdentificationId: ['', Validators.minLength(3)],
-        additionalAccountId: [''],
+        additionalIdentificationId: [''],
         registrationName: [''],
         email: ['']
       })
@@ -90,20 +93,16 @@ export class CreateInvoiceComponent implements OnInit {
 
   loadTotalTax() {
     this.organization.getDocuments(TOTAL_TAX).subscribe(result => {
-      this.totalTaxs = result;
-      // result.forEach(element => {
-      //   element.childrens.forEach(child => {
-      //     child.documentIdSuper = element.name
-      //     this.listTypeIgv.push(child);
-      //   });
-      //   this.listTypeIgv = this.listTypeIgv.sort();
-      //   let aditionalInformation = new AdditionalInformationModel();
-      //   aditionalInformation.name = element.name;
-      //   aditionalInformation.amount = 0;
-      //   this.invoice.additionalInformation.push(aditionalInformation);
-      // });
+      //this.invoice.totalTaxs = result;
+      result.forEach(element => {
+        let totalTax = new TotalTaxInvoice();
+        totalTax.name = element.name;
+        totalTax.value = element.value;
+        totalTax.amount = 0;
+        this.invoice.totalTaxs.push(totalTax);
+      });
       //this.typeIgvSelect = this.listTypeIgv[0];
-      console.log(JSON.stringify(result));
+      //console.log(JSON.stringify(result));
     });
   }
 
@@ -126,7 +125,7 @@ export class CreateInvoiceComponent implements OnInit {
     });
   }
   onChangeTypeIgv(selectIgv, line: LineModel) {
-    console.log("En el onselect: " + selectIgv);
+    //console.log("En el onselect: " + selectIgv);
     this.listTypeIgv.forEach(element => {
       if (element.documentId == selectIgv) {
         this.typeIgvSelect = element;
@@ -226,6 +225,15 @@ export class CreateInvoiceComponent implements OnInit {
           }
         });
       });
+    });
+    this.invoice.totalTaxs.forEach(element => {
+      this.invoice.lines.forEach(lines => {
+        lines.totalTaxs.forEach(taxs => {
+          if (taxs.checked)
+            element.amount = element.amount + (taxs.amount * element.value);
+        });
+      });
+
     });
   }
   reset() {

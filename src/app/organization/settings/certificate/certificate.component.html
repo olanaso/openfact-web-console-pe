@@ -11,7 +11,7 @@
       <div style="margin-top: 40px">
         <form [formGroup]="form" (ngSubmit)="save(form.value)" class="form-horizontal" novalidate>
           <div class="form-group" [ngClass]="{ 'has-error' : !form.controls.alias.valid && submitted }">
-            <label class="col-sm-3 control-label">Name
+            <label class="col-sm-3 control-label">{{ 'HOME.NAME' | translate }}
               <a tooltip="Alias of the certified" tooltipPlacement="right"><span class="fa fa-info-circle"></span></a>
             </label>
             <div class="col-sm-8">
@@ -22,7 +22,7 @@
             </div>
           </div>
           <div class="form-group" [ngClass]="{ 'has-error' : !form.controls.password.valid && submitted }">
-            <label class="col-sm-3 control-label">Password
+            <label class="col-sm-3 control-label">{{ 'HOME.PASSWORD' | translate }}
               <a tooltip="Password of the certified" tooltipPlacement="right"><span
                 class="fa fa-info-circle"></span></a>
             </label>
@@ -35,7 +35,7 @@
             </div>
           </div>
           <div class="form-group" [ngClass]="{ 'has-error' : !form.controls.passwordConfirmation.valid && submitted }">
-            <label class="col-sm-3 control-label">Confirm Password
+            <label class="col-sm-3 control-label">{{ 'HOME.CONFIRM_PASSWORD' | translate }}
               <a tooltip="Confirm password of the certified" tooltipPlacement="right"><span
                 class="fa fa-info-circle"></span></a>
             </label>
@@ -48,7 +48,7 @@
             </div>
           </div>
           <div class="form-group" [ngClass]="{ 'has-error' : !form.controls.validity.valid && submitted }">
-            <label class="col-sm-3 control-label">Validity Date
+            <label class="col-sm-3 control-label">{{ 'HOME.VALIDITY_DATE' | translate }}
               <a tooltip="validity date of the certified" tooltipPlacement="right"><span
                 class="fa fa-info-circle"></span></a>
             </label>

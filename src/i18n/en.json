@@ -20,6 +20,34 @@
     "CUSTOMER": "Customer",
     "CURRENCY_CODE": "Currency Code",
     "TOTAL_AMOUNT": "Total Ammount",
-    "OP": "OP"
+    "OP": "OP",
+    "---": "------------------------------------------",
+    "GENERAL_INFORMATION": "General information",
+    "ADDRESS": "Address",
+    "CERTIFICATE": "Certificate",
+    "TASKS_SCHEDULE": "Tasks schedule",
+    "----": "------------------------------------------",
+    "NAME": "Name",
+    "ADDITIONAL_ACCOUNT_ID": "Additional account id",
+    "ASSIGNED_IDENTIFICATION": "Assigned identification id",
+    "SUPPLIER_NAME": "Supplier name",
+    "REGISTRATION_NAME": "Registration name",
+    "ENABLED": "Enabled",
+    "SAVE": "Save",
+    "CANCEL": "Cancel",
+    "-----":"-----------------------------------------",
+    "COUNTRY_IDENTIFICATION_CODE":"Country identification code",
+    "COUNTRY_SUBENTITY":"Country subentity",
+    "CITY_SUBDIVISION_NAME":"City subdivision name",
+    "CITY_NAME":"City name",
+    "DISTRIC":"District",
+    "STREET_NAME":"Street name",
+    "------":"-----------------------------------------",
+    "PASSWORD":"Password",
+    "CONFIRM_PASSWORD":"Confirm Password",
+    "VALIDITY_DATE": "Validity Date",
+    "LOGOUT":"Logout"
+    
+
   }
 }

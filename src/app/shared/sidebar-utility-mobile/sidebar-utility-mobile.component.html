@@ -1,23 +1,30 @@
- <nav class="navbar-collapse collapse navbar-inverse" [ngClass]="{in: isCollapsed}">
-      <ul class="nav navbar-nav">
-        <li>
-          <a href="https://docs.openshift.com/enterprise/latest/welcome/index.html">
-            <span class="fa fa-book fa-fw" aria-hidden="true"></span> Documentation
-          </a>
-        </li>
-        <li>
-          
-                    <a href="about">
-            <span class="pficon pficon-info fa-fw" aria-hidden="true"></span> About
-          </a>
-        </li>
-        <li>
-          <a href="logout">
-            <span class="pficon pficon-user fa-fw" aria-hidden="true"></span> Log out <span class="username">openshift-dev</span>
-          </a>
-        </li>
-      </ul>
-    </nav>
+<nav class="navbar-collapse collapse navbar-inverse" [ngClass]="{in: isCollapsed}">
+  <ul class="nav navbar-nav">
+    <li>
+      <a [routerLink]="['./overview']">
+        <span class="fa fa-dashboard" aria-hidden="true"></span> {{ 'HOME.OVERVIEW' | translate }}
+      </a>
+    </li>
+    <li>
+
+      <a [routerLink]="['./invoices']">
+        <span class="fa fa-server" aria-hidden="true"></span> {{ 'HOME.INVOICES' | translate }}
+      </a>
+    </li>
+     <li>
+
+      <a [routerLink]="['./invoices']">
+        <span class="fa pficon-settings" aria-hidden="true"></span> {{ 'HOME.SETTINGS' | translate }}
+      </a>
+    </li>
+    <li>
+      <a [routerLink]="['./settings']">
+        <span class="pficon pficon-user fa-fw" aria-hidden="true"></span> {{ 'HOME.LOGOUT' | translate }}
+      </a>
+    </li>
+
+  </ul>
+</nav>
 <!--<nav _ngcontent-jhm-7="" class="navbar-collapse collapse navbar-inverse in" ng-reflect-initial-classes="navbar-collapse collapse navbar-inverse>
   <ul _ngcontent-jhm-7="" class="nav navbar-nav">
     <li _ngcontent-jhm-7="">
@@ -37,4 +44,3 @@
     </li>
   </ul>
 </nav>-->
-

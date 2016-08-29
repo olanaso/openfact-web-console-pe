@@ -45,6 +45,7 @@
     "------": "-----------------------------------------",
     "PASSWORD": "Contraseña",
     "CONFIRM_PASSWORD": "Confirmar contraseña",
-    "VALIDITY_DATE": "Fecha Validez"
+    "VALIDITY_DATE": "Fecha Validez",
+    "LOGOUT":"Salir"
   }
 }

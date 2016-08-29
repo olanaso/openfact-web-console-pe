@@ -51,8 +51,8 @@ export class CreateInvoiceComponent implements OnInit {
     this.organization = this.activatedRoute.snapshot.parent.parent.data['organization'];
     this.invoice = this.dataService.invoices().build();
     //console.log(JSON.stringify(this.organization));
-    console.log(this.organization);
-    console.log(this.activatedRoute);
+    //console.log(this.organization);
+    //console.log(this.activatedRoute);
         
   }
 
@@ -125,15 +125,15 @@ export class CreateInvoiceComponent implements OnInit {
     });
   }
   onChangeTypeIgv(selectIgv, line: LineModel) {
-    //console.log("En el onselect: " + selectIgv);
+    console.log("En el onselect: " + JSON.stringify(this.listTypeIgv));
     this.listTypeIgv.forEach(element => {
       if (element.documentId == selectIgv) {
-        this.typeIgvSelect = element;
-        line.totalTaxs[0].document = element.documentId;
-        line.totalTaxs[0].reason = element.name;
-        //line.totalTaxs[0].amount=element.document;
+        this.typeIgvSelect = element;   
+        line.totalTaxs[0].document = element.documentIdSuper;
+        line.totalTaxs[0].reason = element.name;        
         line.totalTaxs[0].checked = element.checked;
       }
+      // console.log("entre aqui"+selectIgv);
     });
     this.calculateLine(line);
     this.calculateTotal();
@@ -157,7 +157,7 @@ export class CreateInvoiceComponent implements OnInit {
   addLine() {
     this.typeIgvSelect = this.listTypeIgv[0];
     let totalTax = new TotalTaxModel();
-    totalTax.document = this.typeIgvSelect.documentId;
+    totalTax.document = this.typeIgvSelect.documentIdSuper;
     totalTax.reason = this.typeIgvSelect.name;
     totalTax.amount = 0;
     totalTax.checked = this.typeIgvSelect.checked;
@@ -214,7 +214,7 @@ export class CreateInvoiceComponent implements OnInit {
       element.totalTaxs.forEach(child => {
         let typeIgvFind: DocumentModel;
         this.listTypeIgv.forEach(typeIgv => {
-          if (child.document == typeIgv.documentId)
+          if (child.document == typeIgv.documentIdSuper)
             typeIgvFind = typeIgv
         });
         //  this.invoice.totalIgvTax = this.invoice.totalIgvTax + child.amount;

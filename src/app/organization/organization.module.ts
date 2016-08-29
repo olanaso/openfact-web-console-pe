@@ -30,7 +30,7 @@ import {TranslateService, TranslateLoader, TranslateStaticLoader} from 'ng2-tran
     declarations: [
         OrganizationComponent,
         OverviewComponent,        
-
+   
         InvoicesComponent,
         //CreateInvoiceComponent,
         ListInvoiceComponent,

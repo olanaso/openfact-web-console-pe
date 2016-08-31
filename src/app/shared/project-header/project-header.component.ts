@@ -5,7 +5,7 @@ import {HeaderService} from '../shared-services';
 import {OrganizationModel, DataService} from '../../services';
 
 import {CORE_DIRECTIVES} from '@angular/common';
-import {DROPDOWN_DIRECTIVES} from 'ng2-bootstrap';
+// import {DROPDOWN_DIRECTIVES} from 'ng2-bootstrap';
 
 import {NavbarService} from '../shared-services';
 import {Subscription} from 'rxjs/Subscription';
@@ -15,7 +15,7 @@ import {Subscription} from 'rxjs/Subscription';
   selector: 'project-header',
   templateUrl: 'project-header.component.html',
   styleUrls: ['project-header.component.css'],
-  directives: [DROPDOWN_DIRECTIVES, CORE_DIRECTIVES]
+  directives: [ CORE_DIRECTIVES]//DROPDOWN_DIRECTIVES
 })
 export class ProjectHeaderComponent implements OnInit,OnDestroy {
 

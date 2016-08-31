@@ -18,7 +18,8 @@ module.exports = function (defaults) {
       '@angular/**/*.+(js|js.map)',
       'underscore/underscore.js',
       'moment/moment.js',
-      'ng2-bootstrap/**/*.js',
+      '@ng-bootstrap/**/*.js',
+     // 'ng-bootstrap/**/*.js',
       'ng2-file-upload/**/*.js',
       'ng2-translate/**/*.js',
       'patternfly/**/*.*'

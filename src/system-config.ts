@@ -11,9 +11,10 @@
 const map: any = {
   'underscore': 'vendor/underscore/underscore.js',
   'moment': 'vendor/moment/moment.js',
-  'ng2-bootstrap': 'vendor/ng2-bootstrap',
+  '@ng-bootstrap':'vendor/@ng-bootstrap',
   'ng2-file-upload': 'vendor/ng2-file-upload',
   'ng2-translate': 'vendor/ng2-translate'
+
 };
 
 /** User packages configuration. */
@@ -24,10 +25,10 @@ const packages: any = {
   'moment': {
     format: 'cjs'
   },
-  'ng2-bootstrap': {
+  '@ng-bootstrap/ng-bootstrap': {
     format: 'cjs',
     defaultExtension: 'js',
-    main: 'ng2-bootstrap.js'
+    main: 'index.js'
   },
   'ng2-file-upload': {
     format: 'cjs',
@@ -130,7 +131,7 @@ declare var System: any;
 System.config({
   map: {
     '@angular': 'vendor/@angular',
-    //'ng2-translate': 'vendor/ng2-translate',
+    //'@ng-bootstrap': 'vendor/@ng-bootstrap',
     'rxjs': 'vendor/rxjs',
     'main': 'main.js'
   },

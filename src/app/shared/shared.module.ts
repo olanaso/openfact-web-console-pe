@@ -27,6 +27,8 @@ import {HeaderService} from './shared-services/header.service';
 import {HttpModule} from '@angular/http';
 import {TranslateModule} from 'ng2-translate/ng2-translate';
 
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
 @NgModule({
     imports: [
         RouterModule,
@@ -35,7 +37,8 @@ import {TranslateModule} from 'ng2-translate/ng2-translate';
         ReactiveFormsModule,
         PipeModule,
         HttpModule,
-        TranslateModule.forRoot()
+        TranslateModule.forRoot(),
+        NgbModule
     ],
     declarations: [
         DefaultHeaderComponent,

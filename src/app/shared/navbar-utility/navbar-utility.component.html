@@ -1,7 +1,7 @@
 <nav class="collapse navbar-collapse">
     <ul class="nav navbar-nav navbar-right navbar-iconic">
-        <li class="dropdown" dropdown>
-            <a class="dropdown-toggle nav-item-iconic" dropdownToggle>
+        <li class="dropdown" ngbDropdown>
+            <a class="dropdown-toggle nav-item-iconic" ngbDropdownToggle>
                 <span class="username truncate">   {{ 'HOME.LANGUAJE' | translate }}</span>
                 <span title="Languajes" class="fa pficon-flag"></span>
                 <span class="sr-only">Languajes</span>
@@ -12,8 +12,8 @@
             </ul>
         </li>
 
-        <li class="dropdown" dropdown>
-            <a class="dropdown-toggle nav-item-iconic" dropdownToggle>
+        <li class="dropdown" ngbDropdown>
+            <a class="dropdown-toggle nav-item-iconic" ngbDropdownToggle>
                 <span title="Help" class="fa pficon-help"></span>
                 <span class="sr-only">Help</span>
                 <span class="caret"></span>
@@ -23,14 +23,14 @@
                 <li><a [routerLink]="['/about']">About</a></li>
             </ul>
         </li>
-        <li class="dropdown" dropdown>
-            <a class="dropdown-toggle nav-item-iconic" dropdownToggle>
+        <li class="dropdown" ngbDropdown>
+            <a class="dropdown-toggle nav-item-iconic" ngbDropdownToggle>
                 <span title="Username" class="fa pficon-user"></span>
-                <span class="username truncate">User full name</span>
+                <span class="username truncate">{{user_name}}</span>
                 <span class="caret"></span>
             </a>
             <ul class="dropdown-menu" dropdownMenu>
-                <li><a href="#">Logout</a></li>
+                <li><a (click)="logout()">Logout</a></li>
             </ul>
         </li>
     </ul>

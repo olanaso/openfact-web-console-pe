@@ -1,4 +1,5 @@
 import {NgModule} from '@angular/core';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {RouterModule} from '@angular/router';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CommonModule}   from '@angular/common';
@@ -24,9 +25,11 @@ import {TranslateService, TranslateLoader, TranslateStaticLoader} from 'ng2-tran
         SharedModule,
         organizationRouting,
         HttpModule,
-        TranslateModule.forRoot()
+        TranslateModule.forRoot(),
+        NgbModule
+
     ],
-    exports: [ HttpModule, TranslateModule],
+    exports: [ HttpModule, TranslateModule,NgbModule],
     declarations: [
         OrganizationComponent,
         OverviewComponent,        

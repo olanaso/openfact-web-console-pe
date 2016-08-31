@@ -21,8 +21,11 @@ import {OrganizationResolve} from './services';
 import {KeycloakService} from './keycloak';
 import {HTTP_BINDINGS} from '@angular/http';
 
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
 import {HttpModule} from '@angular/http';
 import {TranslateModule} from 'ng2-translate/ng2-translate';
+
 //import {TranslateService, TranslateLoader, TranslateStaticLoader} from 'ng2-translate/ng2-translate';
 @NgModule({
     imports: [
@@ -33,9 +36,10 @@ import {TranslateModule} from 'ng2-translate/ng2-translate';
         SharedModule,
         OrganizationModule,
         HttpModule,
-        TranslateModule.forRoot()
-        ],
-    exports: [BrowserModule, HttpModule, TranslateModule],
+        TranslateModule.forRoot(),
+        NgbModule
+    ],
+    exports: [BrowserModule, HttpModule, TranslateModule,NgbModule],
     declarations: [
         AppComponent,
         AboutComponent,

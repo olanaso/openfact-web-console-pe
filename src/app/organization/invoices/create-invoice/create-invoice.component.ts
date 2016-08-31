@@ -7,14 +7,14 @@ import {OrganizationModel, InvoiceModel, TotalTaxModel, TotalTaxInvoice, Additio
 import {Alert, AlertService} from '../../../shared';
 import {CORE_DIRECTIVES} from '@angular/common';
 import {FORM_DIRECTIVES} from '@angular/forms';
-import {TOOLTIP_DIRECTIVES} from 'ng2-bootstrap';
+// import {TOOLTIP_DIRECTIVES} from 'ng2-bootstrap';
 
 @Component({
   moduleId: module.id,
   selector: 'app-create-invoice',
   templateUrl: 'create-invoice.component.html',
   styleUrls: ['create-invoice.component.css'],
-  directives: [TOOLTIP_DIRECTIVES, CORE_DIRECTIVES, FORM_DIRECTIVES],
+  directives: [CORE_DIRECTIVES, FORM_DIRECTIVES],//TOOLTIP_DIRECTIVES
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CreateInvoiceComponent implements OnInit {

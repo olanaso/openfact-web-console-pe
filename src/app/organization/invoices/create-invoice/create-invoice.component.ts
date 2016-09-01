@@ -211,8 +211,7 @@ export class CreateInvoiceComponent implements OnInit {
   calculateTotal() {
     //console.log(JSON.stringify(this.listTypeIgv));
     this.invoice.additionalInformation.forEach(element => { element.amount = 0; });
-    //this.invoice.lines.forEach(element => { element.totalTaxs.forEach(child => { child.amount = 0; }); });
-
+    this.invoice.totalTaxs.forEach(element => { element.amount = 0; });
     this.invoice.payableAmount = 0;
     this.invoice.lines.forEach(element => {
       let typeIgvFind: DocumentModel;
@@ -236,7 +235,7 @@ export class CreateInvoiceComponent implements OnInit {
         //console.log(JSON.stringify(lines));
         lines.totalTaxs.forEach(taxs => {
           if (element.name == taxs.document) {
-           // console.log(element.amount + "+" + taxs.amount);
+            // console.log(element.amount + "+" + taxs.amount);
             element.amount = element.amount + taxs.amount;
           }
         });
@@ -262,13 +261,14 @@ export class CreateInvoiceComponent implements OnInit {
     this.calculateTotal();
   }
   calculateLine(line: LineModel) {
+    line.totalTaxs.forEach(element => { element.amount = 0; });
     this.invoice.totalTaxs.forEach(element => {
       line.totalTaxs.forEach(taxsChild => {
         if (taxsChild.document == element.name) {
           taxsChild.amount = line.amount * (taxsChild.checked ? element.value : 0);
         }
       });
-      line.price = line.amount - (line.amount * (line.totalTaxs[0].checked ? this.defaultIgv : 0))
+      line.price = line.amount - (line.amount * (line.totalTaxs[0].checked ? this.defaultIgv : 0));
       line.ammountExtension = line.amount * line.quantity;
     });
     //console.log("calculando line for line " + JSON.stringify(line));

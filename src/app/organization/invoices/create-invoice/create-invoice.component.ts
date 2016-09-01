@@ -40,7 +40,12 @@ export class CreateInvoiceComponent implements OnInit {
   typeIgvSelect: DocumentModel;
   aditionalInformations: Array<DocumentModel> = [];
   //totalTaxs: Array<DocumentModel> = [];
+  tabIds = ['foo', 'bar'];
+  selectedId = this.tabIds[0];
 
+  public toggleSelected() {
+    this.selectedId = this.tabIds[(this.tabIds.indexOf(this.selectedId) + 1) % 2];
+  }
 
   constructor(
     private router: Router,
@@ -72,7 +77,7 @@ export class CreateInvoiceComponent implements OnInit {
       //invoiceNumber: ['', []],
       issueDate: ['', [Validators.required]],
       customer: this.formBuilder.group({
-        assignedIdentificationId: ['', Validators.minLength(3)],
+        assignedIdentificationId: ['', [Validators.minLength(3), Validators.required]],
         additionalIdentificationId: [''],
         registrationName: [''],
         email: ['']
@@ -183,13 +188,9 @@ export class CreateInvoiceComponent implements OnInit {
     if (this.invoice.lines.length > 0) {
       this.dataService.invoices().create(this.organization, this.invoice).subscribe(
         result => {
-          this.alerts.push({
-            type: 'success',
-            message: 'Success',
-            details: 'Success! The invoice has been created.'
-          });
+          this.alertService.pop('success', 'Success', 'Success! The invoice has been created.');       
           this.working = false;
-          let link = ['../invoices'];
+          let link = ['../Invoices'];
           console.log(this.router.url);
           this.router.navigate(link);
         },
@@ -205,7 +206,6 @@ export class CreateInvoiceComponent implements OnInit {
     } else {
       this.alertService.pop('warning', 'Detalla de factura', 'Este comprobante de pago debe contener por lo menos un detalle.');
     }
-
   }
 
   calculateTotal() {
@@ -262,14 +262,19 @@ export class CreateInvoiceComponent implements OnInit {
   }
   calculateLine(line: LineModel) {
     line.totalTaxs.forEach(element => { element.amount = 0; });
+    line.ammountExtension = line.amount * line.quantity;
+    line.price = line.amount * line.quantity;
     this.invoice.totalTaxs.forEach(element => {
       line.totalTaxs.forEach(taxsChild => {
         if (taxsChild.document == element.name) {
-          taxsChild.amount = line.amount * (taxsChild.checked ? element.value : 0);
+          taxsChild.amount = line.ammountExtension * (taxsChild.checked ? element.value : 0);
         }
       });
-      line.price = line.amount - (line.amount * (line.totalTaxs[0].checked ? this.defaultIgv : 0));
-      line.ammountExtension = line.amount * line.quantity;
+      //line.price = line.price - (line.ammountExtension - (line.ammountExtension * (taxsChild.checked ? element.value : 0)));
+      //line.price = line.ammountExtension - (line.ammountExtension * (line.totalTaxs[0].checked ? this.defaultIgv : 0));
+    });
+    line.totalTaxs.forEach(taxsChild => {
+      line.price = line.price - taxsChild.amount;
     });
     //console.log("calculando line for line " + JSON.stringify(line));
   }

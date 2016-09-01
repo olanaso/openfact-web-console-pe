@@ -71,6 +71,7 @@ export class GeneralInformationComponent implements OnInit {
   }
 
   preSave(): OrganizationModel {
+    console.log(this.organization);
     return Object.assign(this.organization, this.form.value);
   }
 

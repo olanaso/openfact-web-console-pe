@@ -1,5 +1,8 @@
 import {Routes, RouterModule} from '@angular/router';
 import {AboutComponent, ErrorComponent, ListOrganizationComponent, CreateOrganizationComponent} from './pages';
+import { AuthGuard } from './services/authguard/index';
+
+import { authProviders }  from './services/authguard/login.routing';
 
 const appRoutes: Routes = [
   {
@@ -9,11 +12,16 @@ const appRoutes: Routes = [
   },
   {
     path: 'organizations',
-    component: ListOrganizationComponent
+    component: ListOrganizationComponent,
+
   },
   {
     path: 'create-organization',
-    component: CreateOrganizationComponent
+    component: CreateOrganizationComponent,
+    canActivate: [AuthGuard],
+    data: {
+      roles: ['ver-inmvoice']
+    }
   },
   {
     path: 'organization/:organization',
@@ -26,10 +34,13 @@ const appRoutes: Routes = [
   {
     path: 'error',
     component: ErrorComponent
-  }
+  },
+
+
 ];
 
 export const appRoutingProviders: any[] = [
+  authProviders,
 
 ];
 

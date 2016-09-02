@@ -15,16 +15,15 @@ import {Subscription} from 'rxjs/Subscription';
   selector: 'project-header',
   templateUrl: 'project-header.component.html',
   styleUrls: ['project-header.component.css'],
-  directives: [CORE_DIRECTIVES]//DROPDOWN_DIRECTIVES
+  directives: [ CORE_DIRECTIVES]//DROPDOWN_DIRECTIVES
 })
-export class ProjectHeaderComponent implements OnInit, OnDestroy {
+export class ProjectHeaderComponent implements OnInit,OnDestroy {
 
   organizations: Array<OrganizationModel> = [];
   private selectOrganization: OrganizationModel;
   private beforeOrganization: OrganizationModel;
   isCollapsed: boolean;
   subscription: Subscription;
-  NameOrganizartion;
 
   constructor(
     private router: Router,
@@ -37,22 +36,21 @@ export class ProjectHeaderComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.loadProjects();
-
   }
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
 
   changeCollapsed() {
-
+   
     this.navbarService.changeCollapsed();
-    // alert(this.isCollapsed);
+   // alert(this.isCollapsed);
   }
   changeOrganization(organization: OrganizationModel) {
 
     let link = ['/organization', organization.name];
-    this.NameOrganizartion = organization.name;
-    console.log(this.NameOrganizartion);
+
+
     this.router.navigate(link);
   }
 

@@ -1,190 +1,219 @@
-<h1>Add invoice</h1>
+<!--<h1>Add invoice</h1>-->
 
 <form [formGroup]="form" (ngSubmit)="save(form.value)" novalidate>
-  <fieldset>
-    <legend>General information</legend>
-    <div class="row">
-      <div class="col-xs-12 col-sm-3 col-md-4">
-        <div [ngClass]="!(form.controls.type.errors && submitted)?'form-group':'form-group has-error'">
-          <span>Type : </span><label [hidden]="!(submitted && form.controls.type.errors)" class="control-label" style="color:red;"
-            for="inputError1">campo requerido.</label>
-          <select formControlName="type" [(ngModel)]="invoice.type" class="form-control">
+  <ngb-tabset [activeId]="selectedId">
+    <ngb-tab title="Add Invoice" id="foo">
+      <template ngbTabContent>
+
+        <fieldset>
+          <legend>General information</legend>
+          <div class="row">
+            <div class="col-xs-12 col-sm-3 col-md-4">
+              <div [ngClass]="!(form.controls.type.errors && submitted)?'form-group':'form-group has-error'">
+                <span>Type : </span><label [hidden]="!(submitted && form.controls.type.errors)" class="control-label" style="color:red;"
+                  for="inputError1">campo requerido.</label>
+                <select formControlName="type" [(ngModel)]="invoice.type" class="form-control">
                 <option *ngFor="let item of InvoicesTypes" [value]="item.name" >{{item.name}}</option>
                 <!--<option>FACTURA</option>-->
             </select>
-        </div>
-      </div>
-      <!--<div class="col-xs-12 col-sm-4 col-md-4">
-        <div [ngClass]="!(form.controls.invoiceSeries.errors && submitted)?'form-group':'form-group has-error'">
-          <span>Invoice id</span> <label [hidden]="!(submitted && form.controls.invoiceSeries.errors)" class="control-label"
-            style="color:red;" for="inputError1"> campo requerido.</label>
-          <div class="openfact-group">
-            <input type="text" formControlName="invoiceSeries" [(ngModel)]="invoice.invoiceSeries" class="form-control openfact-group-col-4"
-              placeholder="F|B-####" />
-            <input type="text" formControlName="invoiceNumber" [(ngModel)]="invoice.invoiceNumber" class="form-control openfact-group-col-8"
-              placeholder="####" />
-          </div>
-        </div>
-      </div>-->
-      <div class="col-xs-4 col-sm-3 col-md-3">
-        <div [ngClass]="!(form.controls.issueDate.errors && submitted)?'form-group':'form-group has-error'">
-          <span>Issue date</span> <label [hidden]="!(submitted && form.controls.issueDate.errors)" class="control-label"
-            style="color:red;" for="inputError1">campo requerido.</label>
-          <input type="date" formControlName="issueDate" [(ngModel)]="invoice.issueDate" class="form-control" />
+              </div>
+            </div>
+            <!--<div class="col-xs-12 col-sm-4 col-md-4">
+              <div [ngClass]="!(form.controls.invoiceSeries.errors && submitted)?'form-group':'form-group has-error'">
+                <span>Invoice id</span> <label [hidden]="!(submitted && form.controls.invoiceSeries.errors)" class="control-label"
+                  style="color:red;" for="inputError1"> campo requerido.</label>
+                <div class="openfact-group">
+                  <input type="text" formControlName="invoiceSeries" [(ngModel)]="invoice.invoiceSeries" class="form-control openfact-group-col-4"
+                    placeholder="F|B-####" />
+                  <input type="text" formControlName="invoiceNumber" [(ngModel)]="invoice.invoiceNumber" class="form-control openfact-group-col-8"
+                    placeholder="####" />
+                </div>
+              </div>
+            </div>-->
+            <div class="col-xs-4 col-sm-3 col-md-3">
+              <div [ngClass]="!(form.controls.issueDate.errors && submitted)?'form-group':'form-group has-error'">
+                <span>Issue date</span> <label [hidden]="!(submitted && form.controls.issueDate.errors)" class="control-label"
+                  style="color:red;" for="inputError1">campo requerido.</label>
+                <input type="date" formControlName="issueDate" [(ngModel)]="invoice.issueDate" class="form-control" />
 
-        </div>
-      </div>
-      <div class="col-xs-4 col-sm-2 col-md-2">
-        <div class="form-group">
-          <span>Currency</span>
-          <div>
-            <div class="btn-group">
-              <input type="button" *ngFor="let item of organization.currencies" class="btn btn-default" (click)="onSelectCurrency(item.code)"
-                value="{{item.code}}">
+              </div>
+            </div>
+            <div class="col-xs-4 col-sm-2 col-md-2">
+              <div class="form-group">
+                <span>Currency</span>
+                <div>
+                  <div class="btn-group" ngbRadioGroup>
+                    <label class="btn btn-primary" *ngFor="let item of organization.currencies">
+                  <input type="radio"  (click)="onSelectCurrency(item.code)" value="{{item.code}}">{{item.code}}
+              </label>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-    <div formGroupName="customer" class="row">
-      <div class="col-xs-12 col-sm-3 col-md-4">
-        <div class="form-group">
-          <span>Customer id</span>
-          <div class="openfact-group">
-            <select formControlName="additionalIdentificationId" [(ngModel)]="invoice.customer.additionalIdentificationId" class="form-control openfact-group-col-4">
+          <div formGroupName="customer" class="row">
+            <div class="col-xs-12 col-sm-3 col-md-4">
+              <div class="form-group">
+                <span>Customer id</span>
+                <div class="openfact-group">
+                  <select formControlName="additionalIdentificationId" [(ngModel)]="invoice.customer.additionalIdentificationId" class="form-control openfact-group-col-4">
                 <option *ngFor="let item of additionalAccountIds" [value]="item.name" >{{item.name}}</option>                
               </select>
-            <input type="text" formControlName="assignedIdentificationId" [(ngModel)]="invoice.customer.assignedIdentificationId" class="form-control openfact-group-col-8"
-              placeholder="Assigned identification id" />
+                  <input type="text" formControlName="assignedIdentificationId" [(ngModel)]="invoice.customer.assignedIdentificationId" class="form-control openfact-group-col-8"
+                    placeholder="Assigned identification id" />
+                  <div *ngIf="!assignedIdentificationId && submitted">
+                    <span *ngIf="assignedIdentificationId" class="help-block">This field is required</span>
+                    <span *ngIf="assignedIdentificationId" class="help-block">Max length {{form.controls.additionalAccountId.errors.maxlength.requiredLength}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-7 col-md-6">
+              <div class="form-group">
+                <span>Customer</span>
+                <div class="openfact-group">
+                  <input type="text" formControlName="registrationName" [(ngModel)]="invoice.customer.registrationName" class="form-control openfact-group-col-7"
+                    placeholder="Registration name" />
+                  <input type="text" formControlName="email" [(ngModel)]="invoice.customer.email" class="form-control openfact-group-col-5"
+                    placeholder="email" />
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-2 col-md-2">
+              <div class="form-group">
+                <span>Envio Automatico?</span>
+                <div class="openfact-group">
+                  <button-switch [(value)]="state"></button-switch>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-      <div class="col-xs-12 col-sm-7 col-md-6">
-        <div class="form-group">
-          <span>Customer</span>
-          <div class="openfact-group">
-            <input type="text" formControlName="registrationName" [(ngModel)]="invoice.customer.registrationName" class="form-control openfact-group-col-7"
-              placeholder="Registration name" />
-            <input type="text" formControlName="email" [(ngModel)]="invoice.customer.email" class="form-control openfact-group-col-5"
-              placeholder="email" />
-          </div>
-        </div>
-      </div>
-      <div class="col-xs-12 col-sm-2 col-md-2">
-        <div class="form-group">
-          <span>Envio Automatico?</span>
-          <div class="openfact-group">
-            <button-switch [(value)]="state"></button-switch>
-          </div>
-        </div>
-      </div>
-    </div>
-  </fieldset>
-  <fieldset>
-    <legend>Lines</legend>
-    <div class="row">
-      <div class="col-sm-12">
-        <table class="table table-bordered table-condensed table-hover table-mobile">
-          <thead>
-            <tr>
-              <td>#</td>
-              <td width="10%">Quantity</td>
-              <td width="10%">Unit code</td>
-              <td width="20%">Item description</td>
-              <td width="15%">Type IGV</td>
-              <td width="10%">Price</td>
-              <td width="10%">IGV</td>
-              <td width="10%">Ammount</td>
-              <td width="10%">Extension ammount</td>
-              <td width="5%">.</td>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let line of invoice.lines">
-              <td>1</td>
-              <td>
-                <input type="number" [(ngModel)]="line.quantity" [ngModelOptions]="{standalone: true}" (keyup)="eventHandler($event,line)"
-                  class="form-control text-right" value="1" />
-              </td>
-              <td>
-                <input type="text" [(ngModel)]="line.unitCode" [ngModelOptions]="{standalone: true}" class="form-control" />
-              </td>
-              <td>
-                <input type="text" [(ngModel)]="line.itemDescription" [ngModelOptions]="{standalone: true}" class="form-control" />
-              </td>
+        </fieldset>
+        <fieldset>
+          <legend>Lines</legend>
+          <div class="row">
+            <div class="col-sm-12">
+              <table class="table table-bordered table-condensed table-hover table-mobile">
+                <thead>
+                  <tr>
+                    <td>#</td>
+                    <td width="10%">Quantity</td>
+                    <td width="10%">Unit code</td>
+                    <td width="20%">Item description</td>
+                    <td width="15%">Type IGV</td>
+                    <td width="10%">Price</td>
+                    <td width="10%">IGV</td>
+                    <td width="10%">Ammount</td>
+                    <td width="10%">Extension ammount</td>
+                    <td width="5%">.</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let line of invoice.lines">
+                    <td>1</td>
+                    <td>
+                      <input type="number" [(ngModel)]="line.quantity" [ngModelOptions]="{standalone: true}" (keyup)="eventHandler($event,line)"
+                        class="form-control text-right" value="1" />
+                    </td>
+                    <td>
+                      <input type="text" [(ngModel)]="line.unitCode" [ngModelOptions]="{standalone: true}" class="form-control" />
+                    </td>
+                    <td>
+                      <input type="text" [(ngModel)]="line.itemDescription" [ngModelOptions]="{standalone: true}" class="form-control" />
+                    </td>
 
-              <td class="text-right">
-                <select class="form-control openfact-group-col-4" (change)="onChangeTypeIgv($event.target.value,line)"> 
+                    <td class="text-right">
+                      <select class="form-control openfact-group-col-4" (change)="onChangeTypeIgv($event.target.value,line)"> 
                   <option *ngFor="let item of listTypeIgv" [value]="item.documentId" >{{item.name}}</option>                    
                 </select>
-              </td>
-              <td class="text-right">{{ line.price | number:'1.2-2' }}
-              </td>
-              <td class="text-right">{{ line.totalTaxs[0].amount | number:'1.2-2' }}</td>
-              <td>
-                <input type="number" [(ngModel)]="line.amount" [ngModelOptions]="{standalone: true}" (keyup)="eventHandler($event,line)"
-                  class="form-control text-right" />
-              </td>
-              <td class="text-right">{{ line.ammountExtension | number:'1.2-2' }}</td>
-              <td><a (click)="deleteLine(line)"><span class="pficon pficon-delete"></span></a>
-              </td>
-            </tr>
-          </tbody>
-          <tfoot>
-            <tr>
-              <td colspan="10" class="text-right">
-                <button type="button" (click)="addLine()" class="btn btn-default">Add line</button>
-              </td>
-            </tr>
-          </tfoot>
-        </table>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-sm-3">
-        <div class="panel panel-default">
-          <div class="panel-heading">Aditional Information</div>
-          <!-- Table -->
-          <table class="table">
-            <tr *ngFor="let item of invoice.additionalInformation">
-              <td>{{item.name}}</td>
-              <td class="text-right boldText">{{item.amount |number:'1.2-2'}}</td>
-            </tr>         
-          </table>
-        </div>
-      </div>
-      <div class="col-sm-3">
-        <div class="panel panel-default">
-          <div class="panel-heading">Total Taxs</div>
-          <table class="table">           
-            <tr *ngFor="let item of invoice.totalTaxs">
-              <td>{{item.name}}</td>
-              <td class="text-right boldText">{{item.amount |number:'1.2-2'}}</td>
-            </tr>           
-          </table>
-        </div>
-      </div>
-      <div class="col-sm-3">
-        <div class="panel panel-default">
-          <div class="panel-heading">Total Invoice</div>
-          <table class="table">       
-            <tr>
-              <td>Payable Amount ({{this.invoice.currencyCode}})</td>
-              <td class="text-right boldText"> {{invoice.payableAmount| number:'1.2-2'}}</td>
-            </tr>
-            <tr>
-              <td>Total Discounted ({{this.invoice.currencyCode}})</td>
-              <td class="text-right boldText"> {{invoice.totalDiscounted| number:'1.2-2'}}</td>
-            </tr>
-          </table>
-        </div>
-      </div>
-    </div>
-  </fieldset>
-  <fieldset class="text-right">
-    <legend> </legend>
-    <button-save [form]="form" [working]="working" (onClick)="setSubmitted($event)"></button-save>
-    <button-reset [form]="form" [working]="working" (onClick)="reset($event)"></button-reset>
-  </fieldset>
+                    </td>
+                    <td class="text-right">{{ line.price | number:'1.2-2' }}
+                    </td>
+                    <td class="text-right">{{ line.totalTaxs[0].amount | number:'1.2-2' }}</td>
+                    <td>
+                      <input type="number" [(ngModel)]="line.amount" [ngModelOptions]="{standalone: true}" (keyup)="eventHandler($event,line)"
+                        class="form-control text-right" />
+                    </td>
+                    <td class="text-right">{{ line.ammountExtension | number:'1.2-2' }}</td>
+                    <td><a (click)="deleteLine(line)"><span class="pficon pficon-delete"></span></a>
+                    </td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td colspan="10" class="text-right">
+                      <button type="button" (click)="addLine()" class="btn btn-default">Add line</button>
+                    </td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-3">
+              <div class="panel panel-default">
+                <div class="panel-heading">Aditional Information</div>
+                <!-- Table -->
+                <table class="table">
+                  <tr *ngFor="let item of invoice.additionalInformation">
+                    <td>{{item.name}}</td>
+                    <td class="text-right boldText">{{item.amount |number:'1.2-2'}}</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="panel panel-default">
+                <div class="panel-heading">Total Taxs</div>
+                <table class="table">
+                  <tr *ngFor="let item of invoice.totalTaxs">
+                    <td>{{item.name}}</td>
+                    <td class="text-right boldText">{{item.amount |number:'1.2-2'}}</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="panel panel-default">
+                <div class="panel-heading">Total Invoice</div>
+                <table class="table">
+                  <tr>
+                    <td>Payable Amount ({{this.invoice.currencyCode}})</td>
+                    <td class="text-right boldText"> {{invoice.payableAmount| number:'1.2-2'}}</td>
+                  </tr>
+                  <tr>
+                    <td>Total Discounted ({{this.invoice.currencyCode}})</td>
+                    <td class="text-right boldText"> {{invoice.totalDiscounted| number:'1.2-2'}}</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+        <fieldset class="text-right">
+          <legend> </legend>
+          <input type="button" class="btn btn-outline-primary" (click)="toggleSelected()" value="Preview">          
+        </fieldset>
+      </template>
+    </ngb-tab>
+    <ngb-tab id="bar">
+      <template ngbTabTitle>Preview Invoice</template>
+      <template ngbTabContent>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid.
+        <p>Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table
+          craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl
+          cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS salvia
+          yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson 8-bit, sustainable jean
+          shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester stumptown, tumblr butcher vero
+          sint qui sapiente accusamus tattooed echo park.</p>
+
+          <button-save [form]="form" [working]="working" (onClick)="setSubmitted($event)"></button-save>
+          <button-reset [form]="form" [working]="working" (onClick)="reset($event)"></button-reset>
+      </template>
+    </ngb-tab>
+  </ngb-tabset>
+
+    
+    <!--<button class="btn btn-outline-primary" (click)="toggleSelected()">Toogle selected tab</button>-->
+
 
 </form>

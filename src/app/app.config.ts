@@ -28,7 +28,7 @@ export interface AppVersion {
 
 export const DEFAULT_CONFIG: AppConfig = {
     loggingURL: "",
-    api: {
+    api: { 
         openfact: {
             host: "http://localhost:8081/openfact",
             prefix: "/admin"

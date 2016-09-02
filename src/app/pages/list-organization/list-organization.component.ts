@@ -31,7 +31,6 @@ export class ListOrganizationComponent implements OnInit {
   loadOrganizations() {
     this.dataService.organizations().getAll().subscribe(
       result => {
-        //console.log(result);
         this.organizations = result;
       }, error => {
         this.alerts.push({

@@ -71,7 +71,6 @@ export class GeneralInformationComponent implements OnInit {
   }
 
   preSave(): OrganizationModel {
-  //  console.log(this.organization);
     return Object.assign(this.organization, this.form.value);
   }
 
@@ -83,14 +82,12 @@ export class GeneralInformationComponent implements OnInit {
       result => {
         this.working = false;
         this.alertService.pop('success', 'Success', 'Your changes have been saved to the organization.');
-        
       },
       error => {
         this.working = false;
         this.alertService.pop('error', 'Error', 'Your changes could not saved to the organization.');
       }
     );
-
   }
 
   reset() {

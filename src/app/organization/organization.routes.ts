@@ -7,6 +7,8 @@ import {OverviewComponent} from './overview';
 import {InvoicesComponent, CreateInvoiceComponent, ListInvoiceComponent, EditInvoiceComponent} from './invoices';
 import {SettingsComponent, GeneralInformationComponent, AddressComponent, CertificateComponent, TasksScheduleComponent} from './settings';
 
+
+
 const organizationRoutes: Routes = [
   {
     path: '',
@@ -34,6 +36,11 @@ const organizationRoutes: Routes = [
           {
             path: 'create-invoice',
             component: CreateInvoiceComponent
+            
+            // data: {
+            //  permitidos roles: ['uno, 'dos'],
+            //  no permitidis: 
+            // }
           },
           {
             path: 'edit-invoice/:id',

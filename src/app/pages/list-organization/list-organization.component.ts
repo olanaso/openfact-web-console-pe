@@ -9,6 +9,7 @@ import {OrganizationModel, DataService} from '../../services';
   selector: 'organization-list',
   templateUrl: 'list-organization.component.html',
   styleUrls: ['list-organization.component.css']
+
 })
 export class ListOrganizationComponent implements OnInit {
 

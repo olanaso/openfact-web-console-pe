@@ -3,7 +3,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 import {Validators} from '@angular/common';
 import {FormGroup, FormControl, FormBuilder} from '@angular/forms';
 
-import {OrganizationModel, InvoiceModel, TotalTaxModel, TotalTaxInvoice, AdditionalInformationModel, TypeIgv, INVOICE_TYPE, ADDITIONAL_IDENTIFICATION_ID, ADDITIONAL_INFORMATION, TOTAL_TAX, TAX_REASON, DocumentModel, LineModel, DataService} from '../../../services';
+import {OrganizationModel, InvoiceModel, TotalTaxModel, TotalTaxInvoice, AdditionalInformationModel, CustomerModel,
+  TypeIgv, INVOICE_TYPE, ADDITIONAL_IDENTIFICATION_ID, ADDITIONAL_INFORMATION, TOTAL_TAX, TAX_REASON, 
+  DocumentModel, LineModel, DataService} from '../../../services';
 import {Alert, AlertService} from '../../../shared';
 import {CORE_DIRECTIVES} from '@angular/common';
 import {FORM_DIRECTIVES} from '@angular/forms';
@@ -16,6 +18,7 @@ import {FORM_DIRECTIVES} from '@angular/forms';
   styleUrls: ['create-invoice.component.css'],
   directives: [CORE_DIRECTIVES, FORM_DIRECTIVES],//TOOLTIP_DIRECTIVES
   changeDetection: ChangeDetectionStrategy.OnPush
+
 })
 export class CreateInvoiceComponent implements OnInit {
 
@@ -55,6 +58,7 @@ export class CreateInvoiceComponent implements OnInit {
     private alertService: AlertService) {
     this.organization = this.activatedRoute.snapshot.parent.parent.data['organization'];
     this.invoice = this.dataService.invoices().build();
+    this.invoice.customer = new CustomerModel();
     //console.log(JSON.stringify(this.organization));
     //console.log(this.organization);
     //console.log(this.activatedRoute);

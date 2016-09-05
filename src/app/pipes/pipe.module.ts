@@ -3,6 +3,7 @@ import {CommonModule} from '@angular/common';
 
 import {FilterCollectionPipe} from './filter-collection.pipe';
 import {YesNoPipe} from './yes-no.pipe';
+import {NumberToWordsPipe} from './number-to-words.pipe';
 
 @NgModule({
     imports: [
@@ -10,11 +11,13 @@ import {YesNoPipe} from './yes-no.pipe';
     ],
     declarations: [
         FilterCollectionPipe,
-        YesNoPipe
+        YesNoPipe,
+        NumberToWordsPipe
     ],
     exports: [
         FilterCollectionPipe,
-        YesNoPipe
+        YesNoPipe,
+        NumberToWordsPipe
     ],
     providers: []
 })

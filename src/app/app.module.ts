@@ -6,6 +6,7 @@ import {HTTP_PROVIDERS, Http} from '@angular/http';
 
 import {AppComponent} from './app.component';
 import {PipeModule} from './pipes';
+
 import {SharedModule, AlertService} from './shared';
 import {OrganizationModule} from './organization';
 
@@ -39,7 +40,7 @@ import {TranslateModule} from 'ng2-translate/ng2-translate';
         TranslateModule.forRoot(),
         NgbModule
     ],
-    exports: [BrowserModule, HttpModule, TranslateModule,NgbModule],
+    exports: [BrowserModule, HttpModule, TranslateModule, NgbModule, PipeModule],
     declarations: [
         AppComponent,
         AboutComponent,

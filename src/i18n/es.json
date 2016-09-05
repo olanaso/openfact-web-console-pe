@@ -46,6 +46,37 @@
     "PASSWORD": "Contraseña",
     "CONFIRM_PASSWORD": "Confirmar contraseña",
     "VALIDITY_DATE": "Fecha Validez",
-    "LOGOUT":"Salir"
+    "LOGOUT": "Salir",
+    "-------": "-----------------------------------------",
+    "NUMBERS": {
+      "": "",
+      "ONE": "Uno",
+      "TWO": "Dos",
+      "THREE": "Tres",
+      "FOUR": "Cuatro",
+      "FIVE": "Cinco",
+      "SIX": "Seis",
+      "SEVEN": "Siete",
+      "EIGHT": "Ocho",
+      "NINE": "Nueve",
+      "TEN": "Diez",
+      "ELEVEN": "Once",
+      "TWELVE": "Doce",
+      "THIRTEEN": "Trece",
+      "FOURTEEN": "Catorce",
+      "FIFTEEN": "Quince",
+      "SIXTEEN": "Diesiseis",
+      "SEVENTEEN": "Diesisiete",
+      "EIGHTEEN": "Diesiocho",
+      "NINETEEN": "Diesinueve",
+      "TWENTY": "Veinte",
+      "THIRTY": "Treinta",
+      "FORTY": "Cuarenta",
+      "FIFTY": "Cincuenta",
+      "SIXTY": "Sesenta",
+      "SEVENTY": "Setenta",
+      "EIGHTY": "Ochenta",
+      "NINETY": "Noventa"
+    }
   }
 }

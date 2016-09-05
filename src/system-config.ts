@@ -116,6 +116,10 @@ const barrels: string[] = [
   'app/organization/invoices/list-invoice',
   'app/organization/invoices/edit-invoice',
   'app/shared/sidebar-utility-mobile',
+  'app/organization/credit-notes',
+  
+  'app/organization/credit-notes/list-credit-notes',
+  'app/organization/credit-notes/create-credit-note',
   /** @cli-barrel */
 ];
 

@@ -10,6 +10,7 @@ import {organizationRouting} from './organization.routes';
 import {OrganizationComponent} from './organization.component';
 import {OverviewComponent} from './overview';
 import {InvoicesComponent, CreateInvoiceComponent, ListInvoiceComponent} from './invoices';
+import {CreditNotesComponent, ListCreditNotesComponent,CreateCreditNoteComponent} from './credit-notes';
 import {SettingsComponent, GeneralInformationComponent, AddressComponent, CertificateComponent, TasksScheduleComponent} from './settings';
 
 
@@ -29,18 +30,20 @@ import {TranslateService, TranslateLoader, TranslateStaticLoader} from 'ng2-tran
         NgbModule
 
     ],
-    exports: [ HttpModule, TranslateModule,NgbModule],
+    exports: [HttpModule, TranslateModule, NgbModule],
     declarations: [
         OrganizationComponent,
-        OverviewComponent,        
-   
+        OverviewComponent,
+
         InvoicesComponent,
+        CreditNotesComponent,
         //CreateInvoiceComponent,
         ListInvoiceComponent,
-       
-        SettingsComponent, 
+        ListCreditNotesComponent,
+        CreateCreditNoteComponent,
+        SettingsComponent,
         GeneralInformationComponent,
-        AddressComponent, 
+        AddressComponent,
         //CertificateComponent, 
         TasksScheduleComponent
     ],

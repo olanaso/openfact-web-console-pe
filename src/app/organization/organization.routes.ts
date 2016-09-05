@@ -5,6 +5,7 @@ import {OrganizationResolve} from '../services';
 import {OrganizationComponent} from './organization.component';
 import {OverviewComponent} from './overview';
 import {InvoicesComponent, CreateInvoiceComponent, ListInvoiceComponent, EditInvoiceComponent} from './invoices';
+import {CreditNotesComponent, ListCreditNotesComponent, CreateCreditNoteComponent} from './credit-notes';
 import {SettingsComponent, GeneralInformationComponent, AddressComponent, CertificateComponent, TasksScheduleComponent} from './settings';
 
 
@@ -36,7 +37,7 @@ const organizationRoutes: Routes = [
           {
             path: 'create-invoice',
             component: CreateInvoiceComponent
-            
+
             // data: {
             //  permitidos roles: ['uno, 'dos'],
             //  no permitidis: 
@@ -46,6 +47,29 @@ const organizationRoutes: Routes = [
             path: 'edit-invoice/:id',
             component: EditInvoiceComponent
           }
+        ]
+      },
+      {
+        path: 'credit-notes',
+        component: CreditNotesComponent,
+        children: [
+          {
+            path: '',
+            component: ListCreditNotesComponent
+          },
+          {
+            path: 'create-credit-note',
+            component: CreateCreditNoteComponent
+
+            // data: {
+            //  permitidos roles: ['uno, 'dos'],
+            //  no permitidis: 
+            // }
+          }
+          //   {
+          //     path: 'edit-invoice/:id',
+          //     component: EditInvoiceComponent
+          //   }
         ]
       },
       {

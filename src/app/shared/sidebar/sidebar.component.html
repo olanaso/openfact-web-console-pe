@@ -13,6 +13,12 @@
       </a>
     </li>
     <li class="list-group-item" routerLinkActive="active">
+      <a [routerLink]="['./credit-note']">
+        <span class="fa fa-server"></span>
+        <span class="list-group-item-value list-group-item-value-openfact">{{ 'HOME.CREDIT-NOTE' | translate }}</span>
+      </a>
+    </li>
+    <li class="list-group-item" routerLinkActive="active">
       <a [routerLink]="['./settings']">
         <span class="fa pficon-settings"></span>
         <span class="list-group-item-value list-group-item-value-openfact">{{ 'HOME.SETTINGS' | translate }}</span>

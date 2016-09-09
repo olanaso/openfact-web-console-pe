@@ -11,7 +11,7 @@
     "SETTINGS": "Configuracion",
     "DEFAULT": "Por Defecto",
     "-": "------------------------------------------",
-    "ADD_INVOICES": "Lista de facturas",
+    "LIST_INVOICES": "Lista de facturas",
     "CREATE": "Crear",
     "--": "------------------------------------------",
     "ISSUE_DATE": "Fecha Emision",
@@ -77,6 +77,9 @@
       "SEVENTY": "Setenta",
       "EIGHTY": "Ochenta",
       "NINETY": "Noventa"
-    }
+    },
+    "---------": "-----------------------------------------",
+    "CREDIT-NOTES": "Notas de Credito",
+    "LIST-CREDIT-NOTE": "Lits de Notas de Credito"
   }
 }

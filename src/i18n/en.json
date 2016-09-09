@@ -11,7 +11,7 @@
     "SETTINGS": "Settings",
     "DEFAULT": "Default",
     "-": "------------------------------------------",
-    "ADD_INVOICES": "Lits Invoices",
+    "LIST_INVOICES": "Lits Invoices",
     "CREATE": "Create",
     "--": "------------------------------------------",
     "ISSUE_DATE": "Issue date",
@@ -77,6 +77,10 @@
       "SEVENTY": "Seventy",
       "EIGHTY": "Eighty",
       "NINETY": "Ninety"
-    }
+
+    },
+    "---------":"-----------------------------------------",
+    "CREDIT-NOTES":"Credit Notes",
+    "LIST-CREDIT-NOTE": "Lits Credit Note"
   }
 }

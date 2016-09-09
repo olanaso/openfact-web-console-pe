@@ -11,6 +11,7 @@ import {PipeModule} from '../pipes';
 import {OrganizationComponent} from './organization.component';
 import {OverviewComponent} from './overview';
 import {InvoicesComponent, CreateInvoiceComponent, ListInvoiceComponent} from './invoices';
+import {CreditNotesComponent, ListCreditNotesComponent,CreateCreditNoteComponent} from './credit-notes';
 import {SettingsComponent, GeneralInformationComponent, AddressComponent, CertificateComponent, TasksScheduleComponent} from './settings';
 
 
@@ -33,11 +34,17 @@ import {TranslateService, TranslateLoader, TranslateStaticLoader} from 'ng2-tran
     exports: [HttpModule, TranslateModule, NgbModule],
     declarations: [
         OrganizationComponent,
+
         OverviewComponent,        
+
+        OverviewComponent,
+
         InvoicesComponent,
+        CreditNotesComponent,
         //CreateInvoiceComponent,
         ListInvoiceComponent,
-
+        ListCreditNotesComponent,
+        CreateCreditNoteComponent,
         SettingsComponent,
         GeneralInformationComponent,
         AddressComponent,

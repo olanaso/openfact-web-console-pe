@@ -73,7 +73,6 @@ max-width: 255px !important;
        
  }
 
-
  .aer{
   @media(max-width: @width-min-device){
     //display: inline-block !important;;
@@ -95,5 +94,15 @@ z-index: 1030 !important;
 
     }
    
+ }
+
+ .card-pf{
+        &:hover, &:focus {
+        -webkit-box-shadow: 2px 2px 5px 2px rgba(189,189,189,0.53);
+        -moz-box-shadow: 2px 2px 5px 2px rgba(189,189,189,0.53);
+        box-shadow: 2px 2px 5px 2px rgba(189,189,189,0.53);
+        transition: box-shadow 0.2s ease-in-out
+        }
+
  }
 

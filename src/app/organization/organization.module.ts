@@ -6,6 +6,7 @@ import {CommonModule}   from '@angular/common';
 import {SharedModule} from '../shared';
 
 import {organizationRouting} from './organization.routes';
+import {PipeModule} from '../pipes';
 
 import {OrganizationComponent} from './organization.component';
 import {OverviewComponent} from './overview';
@@ -26,21 +27,20 @@ import {TranslateService, TranslateLoader, TranslateStaticLoader} from 'ng2-tran
         organizationRouting,
         HttpModule,
         TranslateModule.forRoot(),
-        NgbModule
-
+        NgbModule,
+        PipeModule
     ],
-    exports: [ HttpModule, TranslateModule,NgbModule],
+    exports: [HttpModule, TranslateModule, NgbModule],
     declarations: [
         OrganizationComponent,
         OverviewComponent,        
-   
         InvoicesComponent,
         //CreateInvoiceComponent,
         ListInvoiceComponent,
-       
-        SettingsComponent, 
+
+        SettingsComponent,
         GeneralInformationComponent,
-        AddressComponent, 
+        AddressComponent,
         //CertificateComponent, 
         TasksScheduleComponent
     ],

@@ -33,19 +33,20 @@ import {TranslateModule} from 'ng2-translate/ng2-translate';
         BrowserModule,
         ReactiveFormsModule,
         routing,
-        PipeModule,
+        //PipeModule,
         SharedModule,
         OrganizationModule,
         HttpModule,
         TranslateModule.forRoot(),
-        NgbModule
+        NgbModule,
+        PipeModule
     ],
-    exports: [BrowserModule, HttpModule, TranslateModule, NgbModule, PipeModule],
+    exports: [BrowserModule, HttpModule, TranslateModule, NgbModule,PipeModule],
     declarations: [
         AppComponent,
         AboutComponent,
-        ErrorComponent,
-        CreateOrganizationComponent,
+        ErrorComponent,       
+        CreateOrganizationComponent,       
         ListOrganizationComponent
     ],
     providers: [

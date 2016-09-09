@@ -293,7 +293,7 @@
                   <td>1</td>
                   <td class="text-right"> {{line.quantity}} </td>
                   <td> {{line.unitCode}} </td>
-                  <td> {{line.itemDescription}} </td> 
+                  <td> {{line.itemDescription}} </td>
                   <td class="text-right">{{ line.price | number:'1.2-2' }} </td>
                   <td class="text-right">{{ line.totalTaxs[0].amount | number:'1.2-2' }}</td>
                   <td class="text-right"> {{line.amount}} </td>
@@ -318,7 +318,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-sm-12">{{invoice.payableAmount}}</div>
+          <div class="col-sm-12">{{invoice.payableAmount|numberToWords:('HOME.LANGUAJE' | translate)}}  -- {{ 'HOME.LANGUAJE' | translate }}</div>
         </div>
         <fieldset class="text-right">
           <legend> </legend>

@@ -7,7 +7,7 @@ import { ItemModel } from './item-model';
 import { CodeTypeModel } from './code-type-model';
 import { TaxTotalModel} from './tax-total-model';
 import {LegalMonetaryTotalModel} from './legal-monetary-total-model'
-import {QuantityModel} from './invoice-quantity-model'
+import {QuantityModel} from './quantity-model'
 import {PriceModel,AlternativePriceModel} from './price-model'
 export class InvoiceModel {
     issueDate: Date;//fecha emision de la factura
@@ -22,15 +22,7 @@ export class InvoiceModel {
     taxTotal: Array<TaxTotalModel> = [];
     legalMonetaryTotal: LegalMonetaryTotalModel = new LegalMonetaryTotalModel();
     documentoCurrencyCode: CodeTypeModel = new CodeTypeModel();
-    //  id: string; // id del documento
-    //   type: string;//tipo de documente -- BOLETA o FACTURA   
-    //   totalDiscounted: number;//total descuento
-    //   //totalUnaffected: number;//total inafecto
-    //   //totalExonerated: number;//total exonerado
-    //   payableAmount: number;//IMPORTE TOTAL
-    //   invoiceNumber: number;//NUMERO DE FACTURA
-    //   invoiceSet: number;// SERIE DE LA FACTURA
-    //   currencyCode: string;//MONEDA -- PEN USD
+ 
 }
 
 

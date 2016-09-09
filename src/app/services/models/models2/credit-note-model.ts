@@ -6,7 +6,7 @@ import { TaxTotalModel} from './tax-total-model';
 import { LegalMonetaryTotalModel} from './legal-monetary-total-model';
 import { QuantityModel } from './quantity-model';
 import { ItemModel} from './item-model';
-import { PriceModel,AlternativePriceModel} from './price-model';
+import { PriceModel, AlternativePriceModel} from './price-model';
 export class CreditNoteModel {
     issueDate: Date;//fecha emision de la nota de credito
     signature: SignatureModel = new SignatureModel();//firma digital
@@ -15,19 +15,10 @@ export class CreditNoteModel {
     ID: String;//serie y numero de nota de credit
     accountingCustomerParty: CustomerPartyModel = new CustomerPartyModel();//datos del cliente 
     creditNoteLine: CreditNoteLine = new CreditNoteLine();//detalle de documento
-
-    // taxTotal: Array<TaxTotalModel> = [];
-    // legalMonetaryTotal: LegalMonetaryTotalModel = new LegalMonetaryTotalModel();
-    // documentoCurrencyCode: CodeTypeModel = new CodeTypeModel();
-    //  id: string; // id del documento
-    //   type: string;//tipo de documente -- BOLETA o FACTURA   
-    //   totalDiscounted: number;//total descuento
-    //   //totalUnaffected: number;//total inafecto
-    //   //totalExonerated: number;//total exonerado
-    //   payableAmount: number;//IMPORTE TOTAL
-    //   invoiceNumber: number;//NUMERO DE FACTURA
-    //   invoiceSet: number;// SERIE DE LA FACTURA
-    //   currencyCode: string;//MONEDA -- PEN USD
+    taxTotal: Array<TaxTotalModel> = [];
+    legalMonetaryTotal: LegalMonetaryTotalModel = new LegalMonetaryTotalModel();
+    documentoCurrencyCode: CodeTypeModel = new CodeTypeModel();
+  
 }
 export class CreditNoteLine {
 
@@ -38,7 +29,7 @@ export class CreditNoteLine {
     alternativePriceModel: AlternativePriceModel = new AlternativePriceModel();
     taxTotal: Array<TaxTotalModel> = [];
     lineExtensionAmount: number; // valor de venta por item sin deducir impuestos
-    // id: String;
+    ID: String;
 
 
 }
@@ -49,3 +40,12 @@ export class DiscrepancyResponseModel {
     description: String;//motivo o sustento de credito
 
 }
+
+export class BillingReference {
+    ID: String; //serie y numero de doc que modifica
+    DocumentTypeCode: String;//tipo de documento que modifica
+
+
+}
+
+

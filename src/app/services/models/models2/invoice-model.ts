@@ -8,21 +8,26 @@ import { CodeTypeModel } from './code-type-model';
 import { TaxTotalModel} from './tax-total-model';
 import {LegalMonetaryTotalModel} from './legal-monetary-total-model'
 import {QuantityModel} from './quantity-model'
-import {PriceModel,AlternativePriceModel} from './price-model'
-export class InvoiceModel {
+import {PriceModel, AlternativePriceModel} from './price-model'
+import {Model} from '../model';
+import {Restangular} from '../../restangular';
+import {Buildable, ObjectBuilder, ResponseToModel} from '../../utils';
+
+export class InvoiceModel extends Model implements Buildable {
+    id: String; // numero y serie de documento
     issueDate: Date;//fecha emision de la factura
     issueTime: Date;// fecha 
     dueDate: Date;//fecha de vencimiento
     signature: SignatureModel = new SignatureModel();//firma digital
     accountingSupplierParty: SupplierPartyModel = new SupplierPartyModel();//datos del emisor 
     invoiceTypeCode: CodeTypeModel = new CodeTypeModel();//tipo de documento 
-    id: String; // numero y serie de documento
+
     accountingCustomerParty: CustomerPartyModel = new CustomerPartyModel();//datos del cliente 
-    invoiceLine: InvoiceLineModel = new InvoiceLineModel();//detalle de documento
+    invoiceLine: Array<InvoiceLineModel> = [];//detalle de documento
     taxTotal: Array<TaxTotalModel> = [];
     legalMonetaryTotal: LegalMonetaryTotalModel = new LegalMonetaryTotalModel();
-    documentoCurrencyCode: CodeTypeModel = new CodeTypeModel();
- 
+    documentCurrencyCode: CodeTypeModel = new CodeTypeModel();
+
 }
 
 

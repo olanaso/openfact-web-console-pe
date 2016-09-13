@@ -57,9 +57,7 @@ export class LineModel extends Model implements Buildable {
   itemIdentification: string;
   price: number = 0;
   amount: number = 0;
-  // igv: number = 0;
-  // isc: number;
-  // othertaxs: number;
+
   allowanceCharge: number;
   ammountExtension: number;
   totalTaxs: Array<TotalTaxModel> = [];

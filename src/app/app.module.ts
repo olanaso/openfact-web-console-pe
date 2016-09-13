@@ -26,6 +26,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import {HttpModule} from '@angular/http';
 import {TranslateModule} from 'ng2-translate/ng2-translate';
+//import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
 //import {TranslateService, TranslateLoader, TranslateStaticLoader} from 'ng2-translate/ng2-translate';
 @NgModule({
@@ -40,6 +41,7 @@ import {TranslateModule} from 'ng2-translate/ng2-translate';
         TranslateModule.forRoot(),
         NgbModule,
         PipeModule
+        //NgbModal     
     ],
     exports: [BrowserModule, HttpModule, TranslateModule, NgbModule,PipeModule],
     declarations: [

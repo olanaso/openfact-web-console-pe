@@ -56,10 +56,10 @@
               <div class="form-group">
                 <span>Customer id</span>
                 <div class="openfact-group">
-                  <select formControlName="additionalIdentificationId" [(ngModel)]="invoice.customer.additionalIdentificationId" class="form-control openfact-group-col-4">
+                  <select formControlName="additionalIdentificationId" [(ngModel)]="invoice.accountingCustomerParty.additionalIdentificationId" class="form-control openfact-group-col-4">
                 <option *ngFor="let item of additionalAccountIds" [value]="item.name" >{{item.name}}</option>                
               </select>
-                  <input type="text" formControlName="assignedIdentificationId" [(ngModel)]="invoice.customer.assignedIdentificationId" class="form-control openfact-group-col-8"
+                  <input type="text" formControlName="assignedIdentificationId" [(ngModel)]="invoice.accountingCustomerParty.assignedIdentificationId" class="form-control openfact-group-col-8"
                     placeholder="Assigned identification id" />
                   <div *ngIf="!assignedIdentificationId && submitted">
                     <span *ngIf="assignedIdentificationId" class="help-block">This field is required</span>
@@ -72,9 +72,9 @@
               <div class="form-group">
                 <span>Customer</span>
                 <div class="openfact-group">
-                  <input type="text" formControlName="registrationName" [(ngModel)]="invoice.customer.registrationName" class="form-control openfact-group-col-7"
+                  <input type="text" formControlName="registrationName" [(ngModel)]="invoice.accountingCustomerParty.registrationName" class="form-control openfact-group-col-7"
                     placeholder="Registration name" />
-                  <input type="text" formControlName="email" [(ngModel)]="invoice.customer.email" class="form-control openfact-group-col-5"
+                  <input type="text" formControlName="email" [(ngModel)]="invoice.accountingCustomerParty.email" class="form-control openfact-group-col-5"
                     placeholder="email" />
                 </div>
               </div>
@@ -102,17 +102,17 @@
                     <td width="20%">Item description</td>
                     <td width="15%">Type IGV</td>
                     <td width="10%">Price</td>
-                    <td width="10%">IGV</td>
+                    <!--<td width="10%">IGV</td>-->
                     <td width="10%">Ammount</td>
                     <td width="10%">Extension ammount</td>
                     <td width="5%">.</td>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let line of invoice.lines">
+                  <tr *ngFor="let line of invoice.invoiceLine">
                     <td>1</td>
                     <td>
-                      <input type="number" [(ngModel)]="line.quantity" [ngModelOptions]="{standalone: true}" (keyup)="eventHandler($event,line)"
+                      <input type="number" [(ngModel)]="line.invoiceQuantityModel.value" [ngModelOptions]="{standalone: true}" (keyup)="eventHandler($event,line)"
                         class="form-control text-right" value="1" />
                     </td>
                     <td>
@@ -129,12 +129,12 @@
                     </td>
                     <td class="text-right">{{ line.price | number:'1.2-2' }}
                     </td>
-                    <td class="text-right">{{ line.totalTaxs[0].amount | number:'1.2-2' }}</td>
+                    <!--<td class="text-right">{{ line.taxTotal[0].taxAmount | number:'1.2-2' }}</td>-->
                     <td>
                       <input type="number" [(ngModel)]="line.amount" [ngModelOptions]="{standalone: true}" (keyup)="eventHandler($event,line)"
                         class="form-control text-right" />
                     </td>
-                    <td class="text-right">{{ line.ammountExtension | number:'1.2-2' }}</td>
+                    <td class="text-right">{{ line.lineExtensionAmount | number:'1.2-2' }}</td>
                     <td><a (click)="deleteLine(line)"><span class="pficon pficon-delete"></span></a>
                     </td>
                   </tr>
@@ -334,3 +334,23 @@
 
 
 </form>
+
+<template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <h4 class="modal-title">Modal title</h4>
+  </div>
+  <div class="modal-body">
+    <p>One fine body&hellip;</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
+  </div>
+</template>
+
+<button class="btn btn-lg btn-outline-primary" (click)="open(content)">Launch demo modal</button>
+<hr>
+
+<pre>{{closeResult}}</pre>

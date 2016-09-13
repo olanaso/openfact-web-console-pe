@@ -28,18 +28,15 @@ export class InvoiceModel extends Model implements Buildable {
     taxTotal: Array<TaxTotalModel> = [];
     legalMonetaryTotal: LegalMonetaryTotalModel = new LegalMonetaryTotalModel();
     documentCurrencyCode: CodeTypeModel = new CodeTypeModel();
-
     constructor(restangular?: Restangular) {
         super();
         this.restangular = restangular;
     }
-
     getLines(): Observable<InvoiceLineModel[]> {
         let restangular = this.restangular.all('lines');
         return restangular.get()
             .map(result => ResponseToModel.toModels<InvoiceLineModel>(result, restangular, new ObjectBuilder<InvoiceLineModel>(InvoiceLineModel), true));
     }
-
 }
 
 
@@ -51,28 +48,8 @@ export class InvoiceLineModel extends Model implements Buildable {
     taxTotal: Array<TaxTotalModel> = [];
     lineExtensionAmount: number; // valor de venta por item sin deducir impuestos
     id: String;
-
     constructor(restangular?: Restangular) {
         super();
         this.restangular = restangular;
     }
-    // getExtensionAmmount(): number {
-    //     return this.quantity * this.amount;
-    // }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-// export class CustomerPartyModel {
-
-// }

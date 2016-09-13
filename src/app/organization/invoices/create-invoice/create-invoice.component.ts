@@ -7,7 +7,9 @@ import {OrganizationModel, InvoiceModel, INVOICE_TYPE, ADDITIONAL_IDENTIFICATION
   DocumentModel, InvoiceLineModel, DataService, TaxTotalModel} from '../../../services';
 import {Alert, AlertService} from '../../../shared';
 import {CORE_DIRECTIVES} from '@angular/common';
-import {FORM_DIRECTIVES} from '@angular/forms';
+import {FORM_DIRECTIVES } from '@angular/forms';
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 // import {TOOLTIP_DIRECTIVES} from 'ng2-bootstrap';
 
 @Component({
@@ -44,6 +46,8 @@ export class CreateInvoiceComponent implements OnInit {
   tabIds = ['foo', 'bar'];
   selectedId = this.tabIds[0];
 
+  closeResult: string;
+
   public toggleSelected() {
     this.selectedId = this.tabIds[(this.tabIds.indexOf(this.selectedId) + 1) % 2];
   }
@@ -53,7 +57,8 @@ export class CreateInvoiceComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
     private dataService: DataService,
-    private alertService: AlertService) {
+    private alertService: AlertService,
+    private modalService: NgbModal) {
     this.organization = this.activatedRoute.snapshot.parent.parent.data['organization'];
     this.invoice = this.dataService.invoices().build();
     //console.log(JSON.stringify(this.organization));
@@ -69,6 +74,24 @@ export class CreateInvoiceComponent implements OnInit {
     this.loadData();
     this.loadTotalTax();
     this.loadAditionalInformation();
+  }
+
+  open(content) {
+    this.modalService.open(content).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
   }
 
   buildForm() {
@@ -155,8 +178,8 @@ export class CreateInvoiceComponent implements OnInit {
   }
 
   addLine() {
-    // this.typeIgvSelect = this.listTypeIgv[0];
-    // let line = new InvoiceLineModel();
+    //this.typeIgvSelect = this.listTypeIgv[0];
+    let line = new InvoiceLineModel();
     // this.invoice.taxTotal.forEach(element => {
     //   let totalTax = new TaxTotalModel();
     //   totalTax.document = element.name;
@@ -165,9 +188,9 @@ export class CreateInvoiceComponent implements OnInit {
     //   totalTax.checked = this.typeIgvSelect.checked;
     //   line.totalTaxs.push(totalTax);
     // });
-    // line.quantity = 1;
-    // this.invoice.lines.push(line);
-    // this.calculateTotal();    
+    line.invoiceQuantityModel.value = 1;
+    this.invoice.invoiceLine.push(line);
+    this.calculateTotal();
   }
 
   save() {

@@ -19,6 +19,7 @@ import {HttpModule} from '@angular/http';
 import {TranslateModule} from 'ng2-translate/ng2-translate';
 import {TranslateService, TranslateLoader, TranslateStaticLoader} from 'ng2-translate/ng2-translate';
 
+
 @NgModule({
     imports: [
         CommonModule,

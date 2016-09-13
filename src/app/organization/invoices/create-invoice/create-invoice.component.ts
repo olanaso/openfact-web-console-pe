@@ -3,7 +3,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import {Validators} from '@angular/common';
 import {FormGroup, FormControl, FormBuilder} from '@angular/forms';
 
-import {OrganizationModel, InvoiceModel, TotalTaxModel, TotalTaxInvoice, AdditionalInformationModel, TypeIgv, INVOICE_TYPE, ADDITIONAL_IDENTIFICATION_ID, ADDITIONAL_INFORMATION, TOTAL_TAX, TAX_REASON, DocumentModel, LineModel, DataService} from '../../../services';
+import {OrganizationModel, InvoiceModel, INVOICE_TYPE, ADDITIONAL_IDENTIFICATION_ID, ADDITIONAL_INFORMATION, TOTAL_TAX, TAX_REASON,
+  DocumentModel, InvoiceLineModel, DataService, TaxTotalModel} from '../../../services';
 import {Alert, AlertService} from '../../../shared';
 import {CORE_DIRECTIVES} from '@angular/common';
 import {FORM_DIRECTIVES} from '@angular/forms';
@@ -97,49 +98,43 @@ export class CreateInvoiceComponent implements OnInit {
   }
 
   loadTotalTax() {
-    this.organization.getDocuments(TOTAL_TAX).subscribe(result => {
-      //this.invoice.totalTaxs = result;
-      result.forEach(element => {
-        let totalTax = new TotalTaxInvoice();
-        totalTax.name = element.name;
-        totalTax.value = element.value;
-        totalTax.amount = 0;
-        this.invoice.totalTaxs.push(totalTax);
-      });
-      //this.typeIgvSelect = this.listTypeIgv[0];
-      //console.log(JSON.stringify(result));
-    });
+    // this.organization.getDocuments(TOTAL_TAX).subscribe(result => {
+
+    //   result.forEach(element => {
+    //     let totalTax = new TotalTaxInvoice();
+    //     totalTax.name = element.name;
+    //     totalTax.value = element.value;
+    //     totalTax.amount = 0;
+    //     this.invoice.totalTaxs.push(totalTax);
+    //   });      
+    // });
   }
 
   loadAditionalInformation() {
-    this.organization.getDocuments(ADDITIONAL_INFORMATION).subscribe(result => {
-      //this.aditionalInformations = result;
-      result.forEach(element => {
-        element.childrens.forEach(child => {
-          child.documentIdSuper = element.name
-          this.listTypeIgv.push(child);
-        });
-        this.listTypeIgv = this.listTypeIgv.sort();
-        let aditionalInformation = new AdditionalInformationModel();
-        aditionalInformation.name = element.name;
-        aditionalInformation.amount = 0;
-        this.invoice.additionalInformation.push(aditionalInformation);
-      });
-      //this.typeIgvSelect = this.listTypeIgv[0];
-      //console.log(JSON.stringify(this.listTypeIgv));
-    });
+    // this.organization.getDocuments(ADDITIONAL_INFORMATION).subscribe(result => {
+    //   result.forEach(element => {
+    //     element.childrens.forEach(child => {
+    //       child.documentIdSuper = element.name
+    //       this.listTypeIgv.push(child);
+    //     });
+    //     this.listTypeIgv = this.listTypeIgv.sort();
+    //     let aditionalInformation = new AdditionalInformationModel();
+    //     aditionalInformation.name = element.name;
+    //     aditionalInformation.amount = 0;
+    //     this.invoice.additionalInformation.push(aditionalInformation);
+    //   });
+    // });
   }
-  onChangeTypeIgv(selectIgv, line: LineModel) {
-    //console.log("En el onselect: " + JSON.stringify(this.listTypeIgv));
-    this.listTypeIgv.forEach(element => {
-      if (element.documentId == selectIgv) {
-        this.typeIgvSelect = element;
-        line.totalTaxs.forEach(totalTax => {
-          totalTax.reason = element.name;
-          totalTax.checked = element.checked;
-        });
-      }
-    });
+  onChangeTypeIgv(selectIgv, line: InvoiceLineModel) {
+    // this.listTypeIgv.forEach(element => {
+    //   if (element.documentId == selectIgv) {
+    //     this.typeIgvSelect = element;
+    //     line.taxTotal.forEach(totalTax => {
+    //       totalTax.reason = element.name;
+    //       totalTax.checked = element.checked;
+    //     });
+    //   }
+    // });
     this.calculateLine(line);
     this.calculateTotal();
   }
@@ -160,35 +155,34 @@ export class CreateInvoiceComponent implements OnInit {
   }
 
   addLine() {
-    this.typeIgvSelect = this.listTypeIgv[0];
-    let line = new LineModel();
-    this.invoice.totalTaxs.forEach(element => {
-      let totalTax = new TotalTaxModel();
-      totalTax.document = element.name;
-      totalTax.reason = this.typeIgvSelect.name;
-      totalTax.amount = 0;
-      totalTax.checked = this.typeIgvSelect.checked;
-      line.totalTaxs.push(totalTax);
-    });
-    line.quantity = 1;
-    this.invoice.lines.push(line);
-    this.calculateTotal();
-    //console.log(JSON.stringify(this.typeIgvSelect));
+    // this.typeIgvSelect = this.listTypeIgv[0];
+    // let line = new InvoiceLineModel();
+    // this.invoice.taxTotal.forEach(element => {
+    //   let totalTax = new TaxTotalModel();
+    //   totalTax.document = element.name;
+    //   totalTax.reason = this.typeIgvSelect.name;
+    //   totalTax.amount = 0;
+    //   totalTax.checked = this.typeIgvSelect.checked;
+    //   line.totalTaxs.push(totalTax);
+    // });
+    // line.quantity = 1;
+    // this.invoice.lines.push(line);
+    // this.calculateTotal();    
   }
 
   save() {
     this.working = true;
-    this.invoice.lines.forEach(element => {
-      element.totalTaxs.forEach(child => {
-        delete child.checked;
-      });
-      delete element.ammountExtension;
-    });
+    // this.invoice.invoiceLine.forEach(element => {
+    //   element.taxTotal.forEach(child => {
+    //     delete child.checked;
+    //   });
+    //   delete element.ammountExtension;
+    // });
 
-    if (this.invoice.lines.length > 0) {
+    if (this.invoice.invoiceLine.length > 0) {
       this.dataService.invoices().create(this.organization, this.invoice).subscribe(
         result => {
-          this.alertService.pop('success', 'Success', 'Success! The invoice has been created.');       
+          this.alertService.pop('success', 'Success', 'Success! The invoice has been created.');
           this.working = false;
           let link = ['../Invoices'];
           console.log(this.router.url);
@@ -210,73 +204,70 @@ export class CreateInvoiceComponent implements OnInit {
 
   calculateTotal() {
     //console.log(JSON.stringify(this.listTypeIgv));
-    this.invoice.additionalInformation.forEach(element => { element.amount = 0; });
-    this.invoice.totalTaxs.forEach(element => { element.amount = 0; });
-    this.invoice.payableAmount = 0;
-    this.invoice.lines.forEach(element => {
-      let typeIgvFind: DocumentModel;
-      element.totalTaxs.forEach(child => {
-        //console.log("reason :" + child.reason);
-        this.listTypeIgv.forEach(typeIgv => {
-          if (child.reason == typeIgv.name)
-            typeIgvFind = typeIgv
-        });
-      });
-      this.invoice.additionalInformation.forEach(addInfo => {
-        if (addInfo.name == typeIgvFind.documentIdSuper) {
-          addInfo.amount = addInfo.amount + element.price;
-        }
-      });
+    // this.invoice.additionalInformation.forEach(element => { element.amount = 0; });
+    // this.invoice.totalTaxs.forEach(element => { element.amount = 0; });
+    // this.invoice.payableAmount = 0;
+    // this.invoice.lines.forEach(element => {
+    //   let typeIgvFind: DocumentModel;
+    //   element.totalTaxs.forEach(child => {
+    //     //console.log("reason :" + child.reason);
+    //     this.listTypeIgv.forEach(typeIgv => {
+    //       if (child.reason == typeIgv.name)
+    //         typeIgvFind = typeIgv
+    //     });
+    //   });
+    //   this.invoice.additionalInformation.forEach(addInfo => {
+    //     if (addInfo.name == typeIgvFind.documentIdSuper) {
+    //       addInfo.amount = addInfo.amount + element.price;
+    //     }
+    //   });
 
-      this.invoice.payableAmount = this.invoice.payableAmount + (element.amount * element.quantity);
-    });
-    this.invoice.totalTaxs.forEach(element => {
-      this.invoice.lines.forEach(lines => {
-        //console.log(JSON.stringify(lines));
-        lines.totalTaxs.forEach(taxs => {
-          if (element.name == taxs.document) {
-            // console.log(element.amount + "+" + taxs.amount);
-            element.amount = element.amount + taxs.amount;
-          }
-        });
-      });
-    });
+    //   this.invoice.payableAmount = this.invoice.payableAmount + (element.amount * element.quantity);
+    // });
+    // this.invoice.totalTaxs.forEach(element => {
+    //   this.invoice.lines.forEach(lines => {
+    //     //console.log(JSON.stringify(lines));
+    //     lines.totalTaxs.forEach(taxs => {
+    //       if (element.name == taxs.document) {
+    //         // console.log(element.amount + "+" + taxs.amount);
+    //         element.amount = element.amount + taxs.amount;
+    //       }
+    //     });
+    //   });
+    // });
   }
   reset() {
     this.loadData();
   }
-  deleteLine(line: LineModel) {
-    let index = this.invoice.lines.indexOf(line, 0);
-    if (index > -1) {
-      this.invoice.lines.splice(index, 1);
-    }
-    this.calculateTotal();
+  deleteLine(line: InvoiceLineModel) {
+    // let index = this.invoice.lines.indexOf(line, 0);
+    // if (index > -1) {
+    //   this.invoice.lines.splice(index, 1);
+    // }
+    // this.calculateTotal();
   }
   onSelectCurrency(currency: string) {
-    this.invoice.currencyCode = currency;
+    //this.invoice.currencyCode = currency;
   }
-  eventHandler(event, line: LineModel) {
+  eventHandler(event, line: InvoiceLineModel) {
     //console.log("Event Handler : " + JSON.stringify(line));
     this.calculateLine(line);
     this.calculateTotal();
   }
-  calculateLine(line: LineModel) {
-    line.totalTaxs.forEach(element => { element.amount = 0; });
-    line.ammountExtension = line.amount * line.quantity;
-    line.price = line.amount * line.quantity;
-    this.invoice.totalTaxs.forEach(element => {
-      line.totalTaxs.forEach(taxsChild => {
-        if (taxsChild.document == element.name) {
-          taxsChild.amount = line.ammountExtension * (taxsChild.checked ? element.value : 0);
-        }
-      });
-      //line.price = line.price - (line.ammountExtension - (line.ammountExtension * (taxsChild.checked ? element.value : 0)));
-      //line.price = line.ammountExtension - (line.ammountExtension * (line.totalTaxs[0].checked ? this.defaultIgv : 0));
-    });
-    line.totalTaxs.forEach(taxsChild => {
-      line.price = line.price - taxsChild.amount;
-    });
-    //console.log("calculando line for line " + JSON.stringify(line));
+  calculateLine(line: InvoiceLineModel) {
+    // line.totalTaxs.forEach(element => { element.amount = 0; });
+    // line.ammountExtension = line.amount * line.quantity;
+    // line.price = line.amount * line.quantity;
+    // this.invoice.totalTaxs.forEach(element => {
+    //   line.totalTaxs.forEach(taxsChild => {
+    //     if (taxsChild.document == element.name) {
+    //       taxsChild.amount = line.ammountExtension * (taxsChild.checked ? element.value : 0);
+    //     }
+    //   });    
+    // });
+    // line.totalTaxs.forEach(taxsChild => {
+    //   line.price = line.price - taxsChild.amount;
+    // });    
   }
   deleteInvoice(invoice: InvoiceModel) {
     console.log("Tratando de eliminar facturas.");

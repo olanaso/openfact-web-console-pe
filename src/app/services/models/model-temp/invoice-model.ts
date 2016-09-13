@@ -1,8 +1,8 @@
-import {Model} from './model';
+import {Model} from '../model';
 import {Observable} from 'rxjs/Observable';
 
-import {Restangular} from '../restangular';
-import {Buildable, ObjectBuilder, ResponseToModel} from '../utils';
+import {Restangular} from '../../restangular';
+import {Buildable, ObjectBuilder, ResponseToModel} from '../../utils';
 
 export class InvoiceModel extends Model implements Buildable {
 

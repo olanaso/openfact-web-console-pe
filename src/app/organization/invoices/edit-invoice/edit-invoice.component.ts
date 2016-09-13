@@ -3,8 +3,8 @@ import {Router, ActivatedRoute } from '@angular/router';
 import {FormGroup, FormControl, FormBuilder} from '@angular/forms';
 import {Validators} from '@angular/common';
 
-import {OrganizationModel, InvoiceModel, LineModel, INVOICE_TYPE, ADDITIONAL_IDENTIFICATION_ID, ADDITIONAL_INFORMATION
-  , AdditionalInformationModel, DataService, DocumentModel} from '../../../services';
+import {OrganizationModel, InvoiceModel, InvoiceLineModel, INVOICE_TYPE, ADDITIONAL_IDENTIFICATION_ID, ADDITIONAL_INFORMATION
+  , DataService, DocumentModel} from '../../../services';
 import {Alert, AlertService} from '../../../shared';
 
 @Component({
@@ -72,7 +72,7 @@ export class EditInvoiceComponent implements OnInit {
         this.invoice = result;
         this.invoice.getLines().subscribe(
           result =>
-            this.invoice.lines = (result || [])
+            this.invoice.invoiceLine = (result || [])
         );
       },
       error => {
@@ -97,7 +97,7 @@ export class EditInvoiceComponent implements OnInit {
     });
   }
   onSelectCurrency(currency: string) {
-    this.invoice.currencyCode = currency;
+    //this.invoice.currencyCode = currency;
   }
   loadInvoicesType() {
     this.organization.getDocuments(INVOICE_TYPE).subscribe(result => {
@@ -116,14 +116,14 @@ export class EditInvoiceComponent implements OnInit {
     console.log("antes de grabar...");
 
     this.working = true;
-    this.invoice.lines.forEach(element => {
-      element.totalTaxs.forEach(child => {
-        delete child.checked;
-      });
-      delete element.ammountExtension;
-    });
+    // this.invoice.lines.forEach(element => {
+    //   element.totalTaxs.forEach(child => {
+    //     delete child.checked;
+    //   });
+    //   delete element.ammountExtension;
+    // });
 
-    if (this.invoice.lines.length > 0) {
+    if (this.invoice.invoiceLine.length > 0) {
       this.dataService.invoices().create(this.organization, this.invoice).subscribe(
         result => {
           this.alerts.push({

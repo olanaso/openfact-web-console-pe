@@ -9,7 +9,7 @@ import { TaxTotalModel} from './tax-total-model';
 import { LegalMonetaryTotalModel} from './legal-monetary-total-model';
 import { CodeTypeModel } from './code-type-model';
 import { BillingReferenceModel } from './billing-reference-model';
-export class CreditNoteModel {
+export class DebitNoteModel {
     issueDate: Date;//fecha emision de la nota de debito
     signature: SignatureModel = new SignatureModel();//firma digital
     accountingSupplierParty: SupplierPartyModel = new SupplierPartyModel();//datos del emisor 

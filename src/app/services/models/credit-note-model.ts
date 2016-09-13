@@ -7,7 +7,7 @@ import { LegalMonetaryTotalModel} from './legal-monetary-total-model';
 import { QuantityModel } from './quantity-model';
 import { ItemModel} from './item-model';
 import { PriceModel, AlternativePriceModel} from './price-model';
-import {DiscrepancyResponseModel} from './discrepancy-responde-model';
+import {DiscrepancyResponseModel} from './discrepancy-response-model';
 import { BillingReferenceModel } from './billing-reference-model';
 export class CreditNoteModel {
     issueDate: Date;//fecha emision de la nota de credito
@@ -24,8 +24,6 @@ export class CreditNoteModel {
 
 }
 export class CreditNoteLineModel {
-
-
     creditedQuantityModel: QuantityModel = new QuantityModel();
     item: ItemModel = new ItemModel();//denominacion del item
     price: PriceModel = new PriceModel();

@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import {Validators} from '@angular/common';
 import {FormGroup, FormControl, FormBuilder} from '@angular/forms';
 
-import {OrganizationModel, InvoiceModel, LineModel, DataService} from '../../../services';
+import {OrganizationModel, InvoiceModel, InvoiceLineModel, DataService} from '../../../services';
 import {Alert, AlertService} from '../../../shared';
 
 @Component({
@@ -25,7 +25,7 @@ export class ListInvoiceComponent implements OnInit {
     private formBuilder: FormBuilder,
     private dataService: DataService,
     private alertService: AlertService) {
-    this.organization = this.activatedRoute.snapshot.parent.parent.data['organization']; 
+    this.organization = this.activatedRoute.snapshot.parent.parent.data['organization'];
 
   }
 
@@ -50,7 +50,7 @@ export class ListInvoiceComponent implements OnInit {
   editInvoice(invoice: InvoiceModel) {
     //let link = ['../edit-invoice', invoice.id];
     //console.log("Url actual: "+JSON.stringify(this.router.navigate(link)));   
-    this.router.navigate(['../edit-invoice',invoice.id]);
+    this.router.navigate(['../edit-invoice', invoice.id]);
     //this.router.navigate(link);
     //alert(JSON.stringify(invoice));
   }

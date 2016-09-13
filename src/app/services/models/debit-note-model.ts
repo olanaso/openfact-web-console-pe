@@ -1,6 +1,6 @@
 import { SignatureModel} from './signature-model';
 import { SupplierPartyModel} from './supplier-party-model';
-import {DiscrepancyResponseModel} from './discrepancy-responde-model';
+import {DiscrepancyResponseModel} from './discrepancy-response-model';
 import { CustomerPartyModel } from './customer-party-model';
 import { QuantityModel } from './quantity-model';
 import { ItemModel} from './item-model';

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { OrganizationRoutingModule } from './organization-routing.module';
 
+import { OrganizationComponent } from './organization.component';
 import { DashboardComponent } from './dashboard';
 import { SettingsComponent } from './settings';
 
@@ -12,6 +13,7 @@ import { SettingsComponent } from './settings';
         OrganizationRoutingModule
     ],
     declarations: [
+        OrganizationComponent,
         SettingsComponent,
         DashboardComponent,
     ]

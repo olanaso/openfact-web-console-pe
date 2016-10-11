@@ -4,16 +4,21 @@ import { FormsModule } from '@angular/forms';
 
 import { AdminRoutingModule } from './admin-routing.module';
 
+import { SharedModule} from '../shared';
+
 import { CreateOrganizationComponent } from './create-organization';
+import { OrganizationsComponent } from './organizations/organizations.component';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    AdminRoutingModule
+    AdminRoutingModule,
+    SharedModule
   ],
   declarations: [
-    CreateOrganizationComponent
+    CreateOrganizationComponent,
+    OrganizationsComponent
   ],
   providers: [
 

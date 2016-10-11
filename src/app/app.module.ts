@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AdminModule } from './admin';
+import { SharedModule } from './shared';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { AdminModule } from './admin';
     FormsModule,
     HttpModule,
     AdminModule,
+    SharedModule,
     AppRoutingModule
   ],
   providers: [],

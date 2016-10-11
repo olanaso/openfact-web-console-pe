@@ -15,7 +15,9 @@
       "prefix": "app",
       "mobile": false,
       "styles": [
-        "styles.sass"
+        "styles.scss",
+        "../node_modules/patternfly/dist/css/patternfly.css",
+        "../node_modules/patternfly/dist/css/patternfly-additions.css"
       ],
       "scripts": [],
       "environments": {
@@ -38,7 +40,7 @@
     }
   },
   "defaults": {
-    "styleExt": "sass",
+    "styleExt": "scss",
     "prefixInterfaces": false
   }
 }

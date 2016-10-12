@@ -5,7 +5,9 @@ import { Invoice } from './ubl/Invoice';
 import { CreditNote } from './ubl/CreditNote';
 import { DebitNote } from './ubl/DebitNote';
 
-export class Organization {
+import { Model } from './model';
+
+export class Organization extends Model {
     id: String;
     organization: String;
     description: String;

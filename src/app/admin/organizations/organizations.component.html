@@ -1,5 +1,129 @@
 <default-header></default-header>
-<p>
-  list of organizations
-  <a routerLink="../create-organization" routerLinkActive="active">New Organization</a>
-</p>
+
+<div class="container-fluid">
+	<div class="row toolbar-pf">
+		<div class="col-sm-12">
+
+			<form (ngSubmit)="loadOrganizations()" class="toolbar-pf-actions">
+				<div class="form-group toolbar-pf-filter">
+					<label class="sr-only">Name</label>
+					<div class="input-group">
+						<div class="input-group-btn" ngbDropdown>
+							<button type="button" class="btn btn-default" ngbDropdownToggle>{{filterOptions.filter.selected.shortName}} <span class="caret"></span></button>
+							<ul class="dropdown-menu">
+								<li *ngFor="let item of filterOptions.filter.options">
+									<a href="javascript:void(0);" (click)="changeFilter(item)">{{item.name}}</a>
+								</li>
+							</ul>
+						</div>
+						<input type="text" class="form-control" placeholder="Filter By {{filterOptions.filter.selected.name}}..." autofocus>
+					</div>
+				</div>
+				<!-- /filter -->
+
+				<div class="form-group">
+					<div class="btn-group" ngbDropdown>
+						<button type="button" class="btn btn-default" ngbDropdownToggle>{{filterOptions.sorter.selected.shortName}} <span class="caret"></span></button>
+						<ul class="dropdown-menu">
+							<li *ngFor="let item of filterOptions.sorter.options">
+								<a href="javascript:void(0);" (click)="changeSorter(item)">{{item.name}}</a>
+							</li>
+						</ul>
+					</div>
+					<button class="btn btn-link" type="button">
+            			<span class="fa fa-sort-alpha-asc"></span>
+          			</button>
+				</div>
+				<!-- /sorter -->
+
+				<div class="form-group">
+					<button class="btn btn-primary" type="button" routerLink="../create-organization">New organization</button>
+				</div>
+				<!--/actions-->
+
+				<div class="toolbar-pf-action-right">
+					<div class="form-group toolbar-pf-find">
+						<button class="btn btn-link btn-find" type="submit">
+              				<span class="fa fa-search"></span>
+            			</button>
+						<div class="find-pf-dropdown-container">
+							<input type="text" class="form-control" id="find" placeholder="Find By Keyword...">
+							<div class="find-pf-buttons">
+								<span class="find-pf-nums">1 of 3</span>
+								<button class="btn btn-link" type="button">
+                    				<span class="fa fa-angle-up"></span>
+                				</button>
+								<button class="btn btn-link" type="button">
+                    				<span class="fa fa-angle-down"></span>
+                				</button>
+								<button class="btn btn-link btn-find-close" type="button">
+                    				<span class="pficon pficon-close"></span>
+                				</button>
+							</div>
+						</div>
+					</div>
+					<div class="form-group toolbar-pf-view-selector">
+						<button class="btn btn-link"><i class="fa fa-th"></i></button>
+						<button class="btn btn-link active"><i class="fa fa-th-large"></i></button>
+						<button class="btn btn-link"><i class="fa fa-th-list"></i></button>
+					</div>
+				</div>
+				<!-- /viewer -->
+			</form>
+
+			<div class="row toolbar-pf-results">
+				<div class="col-sm-12">
+					<h5>40 Results</h5>
+				</div>
+			</div>
+			<!-- /results -->
+
+		</div>
+		<!-- /col -->
+	</div>
+	<!-- /row -->
+</div>
+<!-- /container -->
+
+<div class="container-fluid container-cards-pf">
+	<div class="row row-cards-pf">
+		<div *ngFor="let item of organizations" class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+			<div class="card-pf card-pf-view card-pf-view-select card-pf-view-single-select">
+				<div class="card-pf-body">
+					<div class="card-pf-heading-kebab">
+						<div class="pull-right dropdown-kebab-pf">
+							<button class="btn btn-link" type="button">
+								<span class="fa fa-trash-o"></span>
+							</button>
+						</div>
+					</div>
+					<div class="card-pf-top-element">
+						<span class="pficon pficon-enterprise card-pf-icon-circle"></span>
+					</div>
+					<h2 class="card-pf-title text-center">{{item.organization}}</h2>
+					<div class="card-pf-items text-center">
+						<div class="card-pf-item">
+							<span class="pficon pficon-flag"></span>
+							<span class="card-pf-item-text" *ngIf="item.defaultLocale">{{item.defaultLocale}}</span>
+							<span class="card-pf-item-text text-muted" *ngIf="!item.defaultLocale">Na</span>
+						</div>
+						<div class="card-pf-item">
+							<span class="fa fa-{{item.enabled ? 'check' : 'ban'}}" [ngClass]="{ 'fa-check' : item.enabled }"></span>
+						</div>
+					</div>
+					<p class="card-pf-info text-center">
+						<strong>Created On</strong>&nbsp;
+						<span *ngIf="item.createdTimestamp">{{item.createdTimestamp | date: 'dd/MM/yyyy'}}</span>
+						<span *ngIf="!item.createdTimestamp" class="text-muted">Unknow</span>
+						<br/>
+						<span *ngIf="item.description">{{item.description}}</span>
+						<span *ngIf="!item.description" class="text-muted">No description setted.</span>
+					</p>
+				</div>
+				<div class="card-pf-view-checkbox">
+					<input type="checkbox">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

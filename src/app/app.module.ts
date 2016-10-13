@@ -6,6 +6,8 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 import { AdminModule } from './admin';
 import { SharedModule } from './shared';
 
@@ -17,6 +19,7 @@ import { SharedModule } from './shared';
     BrowserModule,
     FormsModule,
     HttpModule,
+    NgbModule.forRoot(),
     AdminModule,
     SharedModule,
     AppRoutingModule

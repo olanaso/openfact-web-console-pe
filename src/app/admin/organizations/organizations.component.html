@@ -65,7 +65,8 @@
 				<div class="col-sm-12">
 					<h5>Showing {{organizations.items.length}} of {{organizations.totalSize}} Results</h5>
 					<div *ngIf="organizations.totalSize > form.controls.paging.controls.size.value" class="pull-right" style="margin-top: 5px;">
-						<ngb-pagination (pageChange)="changePagination($event)" [collectionSize]="organizations.totalSize" [(page)]="form.controls.paging.controls.page.value" [(pageSize)]="form.controls.paging.controls.size.value"></ngb-pagination>
+						<ngb-pagination (pageChange)="changePagination($event)" [collectionSize]="organizations.totalSize" [(page)]="form.controls.paging.controls.page.value"
+							[(pageSize)]="form.controls.paging.controls.size.value"></ngb-pagination>
 					</div>
 				</div>
 			</div>
@@ -85,9 +86,13 @@
 				<div class="card-pf-body">
 					<div class="card-pf-heading-kebab">
 						<div class="pull-right dropdown-kebab-pf">
-							<button class="btn btn-link" type="button">
-								<span class="fa fa-trash-o"></span>
-							</button>
+							<button-delete 
+								[model]="item"
+								[kind]="'Organization'" 
+								[resourceName]="item.organization" 
+								[typeNameToConfirm]="true"
+								[buttonOnly]="true"
+								(success)="search()"></button-delete>
 						</div>
 					</div>
 					<div class="card-pf-top-element">

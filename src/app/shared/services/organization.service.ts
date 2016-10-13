@@ -5,7 +5,7 @@ import { RestangularOpenfact } from './restangular-openfact';
 import { Organization } from '../models';
 import { SearchResults, SearchCriteria } from '../models';
 
-export const ORGANIZATION_ID_NAME: string = 'name';
+export const ORGANIZATION_ID_NAME: string = 'organization';
 export const ORGANIZATION_BASE_PATH: string = 'organizations';
 
 @Injectable()
@@ -28,14 +28,14 @@ export class OrganizationService {
         result = Object.assign(result, json);
         return result;
       });
-  }  
+  }
 
   public create(organization: Organization): Observable<Organization> {
     return this.restangular
       .all(ORGANIZATION_BASE_PATH)
       .post(organization)
       .map(response => {
-        if (response.status === 201) {
+        if (response.status === 201 || 204) {
           return undefined;
         }
         let json = <Organization>response.json();
@@ -70,12 +70,12 @@ export class OrganizationService {
       .post(criteria)
       .map(response => {
         let json = <SearchResults<Organization>>response.json();
-        let result = new SearchResults<Organization>();        
+        let result = new SearchResults<Organization>();
         let items = new Array<Organization>();
-              
+
         json.items.forEach(element => {
           let organization = new Organization();
-          organization.restangular = this.restangular.one('', element[ORGANIZATION_ID_NAME]);
+          organization.restangular = this.restangular.one(ORGANIZATION_BASE_PATH, element[ORGANIZATION_ID_NAME]);
           organization = Object.assign(organization, element);
           items.push(organization);
         });

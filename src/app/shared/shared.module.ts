@@ -1,19 +1,26 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { Restangular, RestangularOpenfact } from './services';
 import { DataService, OrganizationService } from './services';
 
 import { DefaultHeaderComponent } from './components';
-import { ButtonCancelComponent, ButtonSaveComponent } from './components';
+import { ButtonCancelComponent, ButtonSaveComponent, ButtonDeleteComponent } from './components';
 import { AlertsComponent, AlertComponent, AlertService } from './components';
 import { CapitalizePipe } from './pipes';
 
 @NgModule({
     imports: [
         CommonModule,
-        HttpModule
+        RouterModule,
+        FormsModule,
+        HttpModule,
+        NgbModule.forRoot()
     ],
     declarations: [
         DefaultHeaderComponent,
@@ -21,12 +28,14 @@ import { CapitalizePipe } from './pipes';
         ButtonSaveComponent,
         AlertComponent,
         AlertsComponent,
-        CapitalizePipe
+        CapitalizePipe,
+        ButtonDeleteComponent
     ],
     exports: [
         DefaultHeaderComponent,
         ButtonCancelComponent,
         ButtonSaveComponent,
+        ButtonDeleteComponent,
         AlertsComponent,
         CapitalizePipe
     ],

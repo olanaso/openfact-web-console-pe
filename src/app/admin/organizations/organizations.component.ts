@@ -42,7 +42,7 @@ export class OrganizationsComponent implements OnInit {
       ascending: [true, Validators.required],
       paging: this.formBuilder.group({
         page: [1, Validators.required],
-        size: [10, Validators.required]
+        size: [8, Validators.required]
       })
     });
   }

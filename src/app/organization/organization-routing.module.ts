@@ -5,6 +5,8 @@ import { OrganizationComponent } from './organization.component';
 import { DashboardComponent } from './dashboard';
 import { SettingsComponent } from './settings';
 
+import { OrganizationResolver } from './utils';
+
 @NgModule({
   imports: [
     RouterModule.forChild([
@@ -16,7 +18,8 @@ import { SettingsComponent } from './settings';
             path: '',
             children: [
               { path: 'settings', component: SettingsComponent },
-              { path: '', component: DashboardComponent }
+              { path: 'dashboard', component: DashboardComponent },
+              { path: '', redirectTo: 'dashboard' }
             ]
           }
         ]

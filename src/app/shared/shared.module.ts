@@ -9,7 +9,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Restangular, RestangularOpenfact } from './services';
 import { DataService, OrganizationService } from './services';
 
-import { DefaultHeaderComponent } from './components';
+import { DefaultHeaderComponent, OrganizationHeaderComponent, SidebarComponent } from './components';
 import { ButtonCancelComponent, ButtonSaveComponent, ButtonDeleteComponent } from './components';
 import { AlertsComponent, AlertComponent, AlertService } from './components';
 import { CapitalizePipe } from './pipes';
@@ -24,15 +24,19 @@ import { CapitalizePipe } from './pipes';
     ],
     declarations: [
         DefaultHeaderComponent,
+        OrganizationHeaderComponent,
+        SidebarComponent,
         ButtonCancelComponent,
         ButtonSaveComponent,
         AlertComponent,
         AlertsComponent,
         CapitalizePipe,
-        ButtonDeleteComponent
+        ButtonDeleteComponent       
     ],
     exports: [
         DefaultHeaderComponent,
+        OrganizationHeaderComponent,
+        SidebarComponent,
         ButtonCancelComponent,
         ButtonSaveComponent,
         ButtonDeleteComponent,

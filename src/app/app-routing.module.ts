@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
     imports: [
         RouterModule.forRoot([
             {
-                path: 'organization',
+                path: 'organization/:organization',
                 loadChildren: 'app/organization/organization.module#OrganizationModule'
             }
         ])

@@ -28,7 +28,7 @@ export class CreateOrganizationComponent implements OnInit {
   buildForm(): void {
     this.form = this.formBuilder.group({
       organization: [null, Validators.compose([Validators.required, Validators.maxLength(60)])],
-      description: [null, Validators.maxLength(300)]
+      description: [null, Validators.maxLength(250)]
     });
   }
 

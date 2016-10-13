@@ -1,4 +1,10 @@
 export class OrderBy {
     ascending: boolean;
-    name: String;
+    name: string;
+
+    constructor(name: string, ascending?: boolean) {
+        this.name = name;
+        this.ascending = ascending || true;
+    }
+
 }

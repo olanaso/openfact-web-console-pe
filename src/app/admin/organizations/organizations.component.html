@@ -4,29 +4,19 @@
 	<div class="row toolbar-pf">
 		<div class="col-sm-12">
 
-			<form (ngSubmit)="loadOrganizations()" class="toolbar-pf-actions">
-				<div class="form-group toolbar-pf-filter">
+			<form [formGroup]="form" (ngSubmit)="search()" class="toolbar-pf-actions">
+				<div class="form-group toolbar-pf-filter" [ngClass]="{ 'has-error' : !form.controls.filterText.valid && form.controls.filterText.dirty }">
 					<label class="sr-only">Name</label>
-					<div class="input-group">
-						<div class="input-group-btn" ngbDropdown>
-							<button type="button" class="btn btn-default" ngbDropdownToggle>{{filterOptions.filter.selected.shortName}} <span class="caret"></span></button>
-							<ul class="dropdown-menu">
-								<li *ngFor="let item of filterOptions.filter.options">
-									<a href="javascript:void(0);" (click)="changeFilter(item)">{{item.name}}</a>
-								</li>
-							</ul>
-						</div>
-						<input type="text" class="form-control" placeholder="Filter By {{filterOptions.filter.selected.name}}..." autofocus>
-					</div>
+					<input type="text" [formControl]="form.controls.filterText" class="form-control" placeholder="Filter By Name..." autofocus>
 				</div>
 				<!-- /filter -->
 
 				<div class="form-group">
 					<div class="btn-group" ngbDropdown>
-						<button type="button" class="btn btn-default" ngbDropdownToggle>{{filterOptions.sorter.selected.shortName}} <span class="caret"></span></button>
+						<button type="button" class="btn btn-default" ngbDropdownToggle>{{combo.selected.orderBy.shortName}} <span class="caret"></span></button>
 						<ul class="dropdown-menu">
-							<li *ngFor="let item of filterOptions.sorter.options">
-								<a href="javascript:void(0);" (click)="changeSorter(item)">{{item.name}}</a>
+							<li *ngFor="let item of combo.orderBy">
+								<a href="javascript:void(0);" (click)="changeOrderBy(item)">{{item.name}}</a>
 							</li>
 						</ul>
 					</div>
@@ -73,7 +63,10 @@
 
 			<div class="row toolbar-pf-results">
 				<div class="col-sm-12">
-					<h5>40 Results</h5>
+					<h5>Showing {{organizations.items.length}} of {{organizations.totalSize}} Results</h5>
+					<div *ngIf="organizations.totalSize > form.controls.paging.controls.size.value" class="pull-right" style="margin-top: 5px;">
+						<ngb-pagination (pageChange)="changePagination($event)" [collectionSize]="organizations.totalSize" [(page)]="form.controls.paging.controls.page.value" [(pageSize)]="form.controls.paging.controls.size.value"></ngb-pagination>
+					</div>
 				</div>
 			</div>
 			<!-- /results -->
@@ -87,7 +80,7 @@
 
 <div class="container-fluid container-cards-pf">
 	<div class="row row-cards-pf">
-		<div *ngFor="let item of organizations" class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+		<div *ngFor="let item of organizations.items" class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 			<div class="card-pf card-pf-view card-pf-view-select card-pf-view-single-select">
 				<div class="card-pf-body">
 					<div class="card-pf-heading-kebab">

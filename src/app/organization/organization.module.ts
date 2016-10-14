@@ -11,6 +11,8 @@ import { OrganizationComponent } from './organization.component';
 import { DashboardComponent } from './dashboard';
 import { SettingsComponent } from './settings';
 
+import { OrganizationResolver } from './utils';
+
 @NgModule({
     imports: [
         CommonModule,
@@ -24,6 +26,9 @@ import { SettingsComponent } from './settings';
         OrganizationComponent,
         SettingsComponent,
         DashboardComponent
+    ],
+    providers: [
+        OrganizationResolver
     ]
 })
 export class OrganizationModule { }

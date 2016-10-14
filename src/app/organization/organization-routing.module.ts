@@ -13,6 +13,9 @@ import { OrganizationResolver } from './utils';
       {
         path: '',
         component: OrganizationComponent,
+        resolve: {
+          organization: OrganizationResolver
+        },
         children: [
           {
             path: '',

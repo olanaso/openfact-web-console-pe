@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { OrganizationComponent } from './organization.component';
 import { DashboardComponent } from './dashboard';
 import { SettingsComponent } from './settings';
+import { InvoicesComponent, CreateInvoiceComponent, SearchInvoiceComponent } from './invoices';
 
 import { OrganizationResolver } from './utils';
 
@@ -17,14 +18,18 @@ import { OrganizationResolver } from './utils';
           organization: OrganizationResolver
         },
         children: [
+          { path: 'dashboard', component: DashboardComponent },
           {
-            path: '',
+            path: 'invoices',
+            component: InvoicesComponent,
             children: [
-              { path: 'settings', component: SettingsComponent },
-              { path: 'dashboard', component: DashboardComponent },
-              { path: '', redirectTo: 'dashboard' }
+              { path: 'create', component: CreateInvoiceComponent },
+              { path: 'search', component: SearchInvoiceComponent },
+              { path: '', redirectTo: 'search' }
             ]
-          }
+          },
+          { path: 'settings', component: SettingsComponent },
+          { path: '', redirectTo: 'dashboard' }
         ]
       }
     ])

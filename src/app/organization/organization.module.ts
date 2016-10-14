@@ -10,8 +10,10 @@ import { SharedModule } from '../shared';
 import { OrganizationComponent } from './organization.component';
 import { DashboardComponent } from './dashboard';
 import { SettingsComponent } from './settings';
+import { InvoicesComponent, CreateInvoiceComponent, SearchInvoiceComponent } from './invoices';
 
 import { OrganizationResolver } from './utils';
+
 
 @NgModule({
     imports: [
@@ -25,7 +27,10 @@ import { OrganizationResolver } from './utils';
     declarations: [
         OrganizationComponent,
         SettingsComponent,
-        DashboardComponent
+        DashboardComponent,
+        InvoicesComponent,
+        CreateInvoiceComponent,
+        SearchInvoiceComponent
     ],
     providers: [
         OrganizationResolver

@@ -9,7 +9,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class SettingsComponent implements OnInit {
 
   constructor(private activatedRoute: ActivatedRoute) {
-    console.log(this.activatedRoute.snapshot.parent.parent.data['organization']);
+    console.log(this.activatedRoute.snapshot.parent.data['organization']);
   }
 
   ngOnInit() {

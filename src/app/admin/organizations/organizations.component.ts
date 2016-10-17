@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+import * as Collections from 'typescript-collections';
 
 import { Organization, DataService, AlertService } from '../../shared';
 import { SearchCriteria, SearchCriteriaFilter, SearchCriteriaFilterOperator, SearchResults, Paging, OrderBy } from '../../shared';
@@ -11,68 +12,92 @@ import { SearchCriteria, SearchCriteriaFilter, SearchCriteriaFilterOperator, Sea
 })
 export class OrganizationsComponent implements OnInit {
 
-  private form: FormGroup;
-  private organizations: SearchResults<Organization> = new SearchResults<Organization>();
-  private combo: any = {
+  private searchResult: SearchResults<Organization> = new SearchResults<Organization>();
+
+  private filters = {
+    filterText: undefined,
+    selected: new Collections.Dictionary<String, any>()
+  };
+  private sorter = {
+    selected: undefined,
+    ascending: true
+  };
+  private paging = {
+    page: 1,
+    size: 8
+  };
+
+  private combo = {
     orderBy: [
-      { name: 'Name', shortName: 'Name', value: 'name' },
-      { name: 'Supplier Name', shortName: 'S.Name', value: 'supplierName' },
-      { name: 'Registration Name', shortName: 'R.Name', value: 'registrationName' }
-    ],
-    selected: {
-      orderBy: { name: 'Name', shortName: 'Name', value: 'name' }
-    }
+      { name: 'Name', value: 'name' },
+      { name: 'Supplier Name', value: 'supplierName' },
+      { name: 'Registration Name', value: 'registrationName' }
+    ]
   };
 
   constructor(
-    private formBuilder: FormBuilder,
     private dataService: DataService,
     private alertService: AlertService) {
-    this.buildForm();
+    this.loadSorter();
     this.search();
   }
 
   ngOnInit() {
   }
 
-  buildForm(): void {
-    this.form = this.formBuilder.group({
-      filterText: [null, Validators.compose([Validators.maxLength(150)])],
-      orderBy: ['name', Validators.required],
-      ascending: [true, Validators.required],
-      paging: this.formBuilder.group({
-        page: [1, Validators.required],
-        size: [8, Validators.required]
-      })
-    });
+  loadSorter(): void {
+    this.sorter.selected = { name: 'Name', value: 'name' };
   }
 
-  changeOrderBy(orderBy: any): void {
-    this.combo.selected.orderBy = orderBy;
-    this.form.patchValue({ orderBy: orderBy.value });
+  changeSorter(sorter: any): void {
+    this.sorter.selected = sorter;
     this.search();
   }
 
   changePagination(page: number): void {
-    this.form.patchValue({
-      paging: {
-        page: page
-      }
-    });
+    this.paging.page = page;
+    this.search();
+  }
+
+  changeAscending(): void {
+    this.sorter.ascending = !this.sorter.ascending;
+    this.search();
+  }
+
+  clearFilters(): void {
+    this.filters.selected.clear();
     this.search();
   }
 
   search() {
     let criteria = new SearchCriteria();
-    criteria.filterText = this.form.value.filterText;
+    criteria.filterText = this.filters.filterText;
+
+    // Put filters
+    criteria.filters = [];
+    let filterAttributes = ['issueDate', 'payableAmount'];
+    filterAttributes.forEach(attributeName => {
+      if (this.filters.selected.containsKey(attributeName)) {
+        let filter = this.filters.selected.getValue(attributeName);
+        if (filter.criterias) {
+          filter.criterias.forEach(element => {
+            criteria.filters.push(element);
+          });
+        }
+      }
+    });
+
+    // Put OrderBy
     criteria.orders = [
-      new OrderBy(this.form.value.orderBy, this.form.value.ascending)
+      new OrderBy(this.sorter.selected.value, this.sorter.ascending)
     ];
-    criteria.paging = new Paging(this.form.value.paging.page, this.form.value.paging.size);
+
+    // Put Paging
+    criteria.paging = new Paging(this.paging.page, this.paging.size);
 
     this.dataService.organizations().search(criteria).subscribe(
       result => {
-        this.organizations = result;
+        this.searchResult = result;
       }, error => {
         this.alertService.pop('error', 'Error', 'Error loading projects.');
       });

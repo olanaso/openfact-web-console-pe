@@ -4,24 +4,26 @@
 	<div class="row toolbar-pf">
 		<div class="col-sm-12">
 
-			<form [formGroup]="form" (ngSubmit)="search()" class="toolbar-pf-actions">
-				<div class="form-group toolbar-pf-filter" [ngClass]="{ 'has-error' : !form.controls.filterText.valid && form.controls.filterText.dirty }">
+			<form #searchForm="ngForm" (ngSubmit)="search()" class="toolbar-pf-actions">
+				<div class="form-group toolbar-pf-filter">
 					<label class="sr-only">Name</label>
-					<input type="text" [formControl]="form.controls.filterText" class="form-control" placeholder="Filter By Name..." autofocus>
+					<input type="text" id="filterText" [(ngModel)]="filters.filterText" name="filterText" #filterText="ngModel" class="form-control"
+						placeholder="Filter By Name..." autofocus>
 				</div>
 				<!-- /filter -->
 
 				<div class="form-group">
 					<div class="btn-group" ngbDropdown>
-						<button type="button" class="btn btn-default" ngbDropdownToggle>{{combo.selected.orderBy.shortName}} <span class="caret"></span></button>
+						<button type="button" class="btn btn-default dropdown-toggle" ngbDropdownToggle>{{sorter.selected.name}} <span class="caret"></span></button>
 						<ul class="dropdown-menu">
-							<li *ngFor="let item of combo.orderBy">
-								<a href="javascript:void(0);" (click)="changeOrderBy(item)">{{item.name}}</a>
-							</li>
+							<template ngFor let-item [ngForOf]="combo.orderBy" let-i="index">
+								<li *ngIf="item.divider" class="divider"></li>
+								<li><a (click)="changeSorter(item)" href="javascript:void(0);">{{item.name}}</a></li>
+							</template>
 						</ul>
 					</div>
-					<button class="btn btn-link" type="button">
-            			<span class="fa fa-sort-alpha-asc"></span>
+					<button class="btn btn-link" type="button" (click)="changeAscending()">
+              			<span class="fa fa-sort-alpha-{{sorter.ascending ? 'asc' : 'desc'}}"></span>
           			</button>
 				</div>
 				<!-- /sorter -->
@@ -63,10 +65,10 @@
 
 			<div class="row toolbar-pf-results">
 				<div class="col-sm-12">
-					<h5>Showing {{organizations.items.length}} of {{organizations.totalSize}} Results</h5>
-					<div *ngIf="organizations.totalSize > form.controls.paging.controls.size.value" class="pull-right" style="margin-top: 5px;">
-						<ngb-pagination (pageChange)="changePagination($event)" [collectionSize]="organizations.totalSize" [(page)]="form.controls.paging.controls.page.value"
-							[(pageSize)]="form.controls.paging.controls.size.value"></ngb-pagination>
+					<h5>Showing {{searchResult.items.length}} of {{searchResult.totalSize}} Results</h5>
+					<div *ngIf="searchResult.totalSize > paging.size" class="pull-right" style="margin-top: 5px;">
+						<ngb-pagination (pageChange)="changePagination($event)" [collectionSize]="searchResult.totalSize" [(page)]="paging.page"
+							[(pageSize)]="paging.size"></ngb-pagination>
 					</div>
 				</div>
 			</div>
@@ -81,17 +83,12 @@
 
 <div class="container-fluid container-cards-pf">
 	<div class="row row-cards-pf">
-		<div *ngFor="let item of organizations.items" class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+		<div *ngFor="let item of searchResult.items" class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 			<div [routerLink]="['/organization', item.organization]" class="card-pf card-pf-view card-pf-view-select card-pf-view-single-select">
 				<div class="card-pf-body">
 					<div class="card-pf-heading-kebab">
 						<div class="pull-right dropdown-kebab-pf">
-							<button-delete 
-								[model]="item"
-								[kind]="'Organization'" 
-								[resourceName]="item.organization" 
-								[typeNameToConfirm]="true"
-								[buttonOnly]="true"
+							<button-delete [model]="item" [kind]="'Organization'" [resourceName]="item.organization" [typeNameToConfirm]="true" [buttonOnly]="true"
 								(success)="search()"></button-delete>
 						</div>
 					</div>
@@ -111,7 +108,7 @@
 					</div>
 					<p class="card-pf-info text-center">
 						<strong>Created On</strong>&nbsp;
-						<span *ngIf="item.createdTimestamp">{{item.createdTimestamp | date: 'dd/MM/yyyy'}}</span>
+						<span *ngIf="item.createdTimestamp">{{item.createdTimestamp}}</span>
 						<span *ngIf="!item.createdTimestamp" class="text-muted">Unknow</span>
 						<br/>
 						<span *ngIf="item.description">{{item.description}}</span>

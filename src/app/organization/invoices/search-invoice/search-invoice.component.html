@@ -22,10 +22,11 @@
 						</ul>
 					</div>
 					<input type="text" id="filterText" [(ngModel)]="filters.filterText" name="filterText" #filterText="ngModel" class="form-control"
-						placeholder="Filter By Name...">
-				</div>
-				<!-- /input-group -->
+						placeholder="Filter By Name..." autofocus>
+				</div>				
 			</div>
+			<!-- /filter -->
+
 			<div class="form-group">
 				<div class="btn-group" ngbDropdown>
 					<button type="button" class="btn btn-default dropdown-toggle" ngbDropdownToggle>{{sorter.selected.name}} <span class="caret"></span></button>
@@ -40,6 +41,8 @@
               		<span class="fa fa-sort-alpha-{{sorter.ascending ? 'asc' : 'desc'}}"></span>
           		</button>
 			</div>
+			<!-- /sorter -->
+			
 			<div class="toolbar-pf-action-right">
 				<div class="form-group toolbar-pf-find">
 					<button class="btn btn-link btn-find" type="button">

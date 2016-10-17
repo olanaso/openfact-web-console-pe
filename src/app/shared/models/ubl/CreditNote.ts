@@ -14,7 +14,9 @@ import { TaxTotal } from './common/TaxTotal';
 import { MonetaryTotal } from './common/MonetaryTotal';
 import { CreditNoteLine } from './common/CreditNoteLine';
 
-export class CreditNote {
+import { Model } from '../model';
+
+export class CreditNote extends Model {
     ublExtensions: UBLExtensions;
     ublVersionID: String;
     customizationID: String;

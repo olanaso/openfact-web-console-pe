@@ -8,70 +8,56 @@
 
 <div class="row toolbar-pf">
 	<div class="col-sm-12">
-		<form class="toolbar-pf-actions">
+		<form #searchForm="ngForm" (ngSubmit)="search()" class="toolbar-pf-actions">
 			<div class="form-group toolbar-pf-filter">
-				<label class="sr-only" for="filter">Name</label>
+				<label class="sr-only">Name</label>
 				<div class="input-group">
-					<div class="input-group-btn">
-						<button type="button" class="btn btn-default dropdown-toggle">Name <span class="caret"></span></button>
+					<div class="input-group-btn" ngbDropdown>
+						<button type="button" class="btn btn-default" ngbDropdownToggle>Filters<span class="caret"></span></button>
 						<ul class="dropdown-menu">
-							<li class="selected"><a href="#">Name</a></li>
-							<li><a href="#">Type</a></li>
-							<li><a href="#">Color</a></li>
+							<template ngFor let-item [ngForOf]="combo.issueDate" let-i="index">
+								<li *ngIf="item.divider" class="divider"></li>
+								<li><a (click)="changeIssueDateFilter(item)" href="javascript:void(0);">{{item.name}}</a></li>
+							</template>
 						</ul>
 					</div>
-					<!-- /btn-group -->
-					<input type="text" class="form-control" id="filter" placeholder="Filter By Name...">
+					<input type="text" id="filterText" [(ngModel)]="filters.filterText" name="filterText" #filterText="ngModel" class="form-control"
+						placeholder="Filter By Name...">
 				</div>
 				<!-- /input-group -->
 			</div>
 			<div class="form-group">
-				<div class="dropdown btn-group">
-					<button type="button" class="btn btn-default dropdown-toggle">Name <span class="caret"></span></button>
+				<div class="btn-group" ngbDropdown>
+					<button type="button" class="btn btn-default dropdown-toggle" ngbDropdownToggle>{{sorter.selected.name}} <span class="caret"></span></button>
 					<ul class="dropdown-menu">
-						<li class="selected"><a href="#">Name</a></li>
-						<li><a href="#">Type</a></li>
-						<li><a href="#">Last Modified</a></li>
+						<template ngFor let-item [ngForOf]="combo.orderBy" let-i="index">
+							<li *ngIf="item.divider" class="divider"></li>
+							<li><a (click)="changeSorter(item)" href="javascript:void(0);">{{item.name}}</a></li>
+						</template>
 					</ul>
 				</div>
-				<button class="btn btn-link" type="button">
-              <span class="fa fa-sort-alpha-asc"></span>
-          </button>
-			</div>
-			<div class="form-group">
-				<button class="btn btn-default" type="button">Action</button>
-				<button class="btn btn-default" type="button">Action</button>
-				<div class="dropdown btn-group  dropdown-kebab-pf">
-					<button class="btn btn-link dropdown-toggle" type="button">
-              <span class="fa fa-ellipsis-v"></span>
-            </button>
-					<ul class="dropdown-menu " aria-labelledby="dropdownKebab">
-						<li><a href="#">Action</a></li>
-						<li><a href="#">Another action</a></li>
-						<li><a href="#">Something else here</a></li>
-						<li role="separator" class="divider"></li>
-						<li><a href="#">Separated link</a></li>
-					</ul>
-				</div>
+				<button class="btn btn-link" type="button" (click)="changeAscending()">
+              		<span class="fa fa-sort-alpha-{{sorter.ascending ? 'asc' : 'desc'}}"></span>
+          		</button>
 			</div>
 			<div class="toolbar-pf-action-right">
 				<div class="form-group toolbar-pf-find">
 					<button class="btn btn-link btn-find" type="button">
-                <span class="fa fa-search"></span>
-            </button>
+						<span class="fa fa-search"></span>
+					</button>
 					<div class="find-pf-dropdown-container">
 						<input type="text" class="form-control" id="find" placeholder="Find By Keyword...">
 						<div class="find-pf-buttons">
 							<span class="find-pf-nums">1 of 3</span>
 							<button class="btn btn-link" type="button">
-                  <span class="fa fa-angle-up"></span>
-                </button>
+								<span class="fa fa-angle-up"></span>
+							</button>
 							<button class="btn btn-link" type="button">
-                  <span class="fa fa-angle-down"></span>
-                </button>
+								<span class="fa fa-angle-down"></span>
+							</button>
 							<button class="btn btn-link btn-find-close" type="button">
-                  <span class="pficon pficon-close"></span>
-                </button>
+								<span class="pficon pficon-close"></span>
+							</button>
 						</div>
 					</div>
 				</div>
@@ -84,23 +70,19 @@
 		</form>
 		<div class="row toolbar-pf-results">
 			<div class="col-sm-12">
-				<h5>40 Results</h5>
-				<p *ngIf="false">Active filters:</p>
-				<ul *ngIf="false" class="list-inline">
-					<li>
-						<span class="label label-info">Name: nameofthething<a href="#"><span class="pficon pficon-close"></span></a>
-						</span>
-					</li>
-					<li>
-						<span class="label label-info">Name: nameofthething<a href="#"><span class="pficon pficon-close"></span></a>
-						</span>
-					</li>
-					<li>
-						<span class="label label-info">Name: nameofthething<a href="#"><span class="pficon pficon-close"></span></a>
+				<h5>{{searchResult.totalSize}} Results</h5>
+				<p *ngIf="filters.selected.keys().length > 0">Active filters:</p>
+				<p *ngIf="filters.selected.keys().length == 0" class="text-muted">No Active filters</p>
+				<ul *ngIf="filters.selected.keys().length > 0" class="list-inline">
+					<li *ngFor="let item of filters.selected.keys()">
+						<span class="label label-info">{{filters.selected.getValue(item).filter.name}}
+							<a href="#"><span class="pficon pficon-close"></span></a>
 						</span>
 					</li>
 				</ul>
-				<p *ngIf="false"><a href="#">Clear All Filters</a></p>
+				<p *ngIf="filters.selected.keys().length > 0">
+					<a (click)="clearFilters()" href="javascript:void(0);">Clear All Filters</a>
+				</p>
 			</div>
 			<!-- /col -->
 		</div>
@@ -123,36 +105,36 @@
 			</div>
 			<div class="page-header-bleed-right page-header-bleed-left">
 				<div class="table-responsive">
-					<table class="datatable table table-striped table-bordered dataTable no-footer table-hover table-mobile">
+					<table class="datatable table table-striped table-bordered dataTable no-footer table-mobile">
 						<thead>
 							<tr>
-								<th class="sorting">#</th>
-								<th class="sorting">Issue date</th>
-								<th class="sorting">Invoice code</th>
-								<th class="sorting">ID</th>
-								<th class="sorting">Customer</th>
-								<th class="sorting">Currency code</th>
-								<th class="sorting">Payable amount</th>
-								<th class="sorting">Actions</th>
+								<th>#</th>
+								<th>ID</th>
+								<th>Issue Date</th>
+								<th>Type Code</th>
+								<th>Currency Code</th>
+								<th>Payable Ammount</th>
+								<th>Customer ID</th>
+								<th colspan="2">Actions</th>
 							</tr>
 						</thead>
 						<tbody>
-
+							<tr *ngFor="let item of searchResult.items; let i = index;">
+								<td>{{i+1}}</td>
+								<td>{{item.idUbl}}</td>
+								<td>{{item.issueDate | date}}</td>
+								<td>{{item.invoiceTypeCode}}</td>
+								<td class="text-right">{{item.documentCurrencyCode}}</td>
+								<td class="text-right">{{item.legalMonetaryTotal.payableAmount | number:'1.2-3'}}</td>
+								<td>{{item.accountingCustomerParty.customerAssignedAccountID}}</td>
+								<td class="kc-action-cell">Edit</td>
+							</tr>
 						</tbody>
 					</table>
 				</div>
-				<div class="dataTables_footer">
-					<div class="dataTables_paginate paging_bootstrap_input" id="DataTables_Table_0_paginate">
-						<ul class="pagination">
-							<li class="first disabled"><span class="i fa fa-angle-double-left"></span></li>
-							<li class="prev disabled"><span class="i fa fa-angle-left"></span></li>
-						</ul>
-						<div class="pagination-input"> <input type="text" class="paginate_input"> <span class="paginate_of">of <b>3</b></span></div>
-						<ul class="pagination">
-							<li class="next"><span class="i fa fa-angle-right"></span></li>
-							<li class="last"><span class="i fa fa-angle-double-right"></span></li>
-						</ul>
-					</div>
+				<div class="dataTables_footer" *ngIf="searchResult.totalSize > paging.size">
+					<ngb-pagination (pageChange)="changePagination($event)" [collectionSize]="searchResult.totalSize" [(page)]="paging.page"
+						[(pageSize)]="paging.size"></ngb-pagination>
 				</div>
 			</div>
 		</div>

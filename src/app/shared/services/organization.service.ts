@@ -24,7 +24,7 @@ export class OrganizationService {
       .map(response => {
         let json = <Organization>response.json();
         let result = new Organization();
-        result.restangular = this.restangular.one('', json[ORGANIZATION_ID_NAME]);
+        result.restangular = this.restangular.one(ORGANIZATION_BASE_PATH, json[ORGANIZATION_ID_NAME]);
         result = Object.assign(result, json);
         return result;
       });
@@ -40,7 +40,7 @@ export class OrganizationService {
         }
         let json = <Organization>response.json();
         let result = new Organization();
-        result.restangular = this.restangular.one('', json[ORGANIZATION_ID_NAME]);
+        result.restangular = this.restangular.one(ORGANIZATION_BASE_PATH, json[ORGANIZATION_ID_NAME]);
         result = Object.assign(result, json);
         return result;
       });
@@ -55,7 +55,7 @@ export class OrganizationService {
         let result = new Array<Organization>();
         json.forEach(element => {
           let organization = new Organization();
-          organization.restangular = this.restangular.one('', element[ORGANIZATION_ID_NAME]);
+          organization.restangular = this.restangular.one(ORGANIZATION_BASE_PATH, element[ORGANIZATION_ID_NAME]);
           organization = Object.assign(organization, element);
           result.push(organization);
         });

@@ -19,7 +19,9 @@ import { TaxTotal } from './common/TaxTotal';
 import { MonetaryTotal } from './common/MonetaryTotal';
 import { InvoiceLine } from './common/InvoiceLine';
 
-export class Invoice {
+import { Model } from '../model';
+
+export class Invoice extends Model {
     ublExtensions: UBLExtensions;
     ublVersionID: String;
     customizationID: String;

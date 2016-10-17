@@ -10,11 +10,11 @@ import { SharedModule } from '../shared';
 import { OrganizationComponent } from './organization.component';
 import { DashboardComponent } from './dashboard';
 import { SettingsComponent } from './settings';
-import { InvoicesComponent, CreateInvoiceComponent, SearchInvoiceComponent } from './invoices';
+import { InvoicesComponent, CreateInvoiceComponent, SearchInvoiceComponent, OverviewInvoiceComponent, SummaryInvoiceComponent } from './invoices';
 import { CreditnotesComponent, CreateCreditnoteComponent, SearchCreditnoteComponent } from './creditnotes';
 import { DebitnotesComponent, CreateDebitnoteComponent, SearchDebitnoteComponent } from './debitnotes';
 
-import { OrganizationResolver } from './utils';
+import { OrganizationResolver, InvoiceResolver } from './utils';
 
 
 @NgModule({
@@ -33,15 +33,18 @@ import { OrganizationResolver } from './utils';
         InvoicesComponent,
         CreateInvoiceComponent,
         SearchInvoiceComponent,
+        OverviewInvoiceComponent,
         CreditnotesComponent,
         CreateCreditnoteComponent,
         SearchCreditnoteComponent,
         DebitnotesComponent,
         CreateDebitnoteComponent,
         SearchDebitnoteComponent,
+        SummaryInvoiceComponent,
     ],
     providers: [
-        OrganizationResolver
+        OrganizationResolver,
+        InvoiceResolver
     ]
 })
 export class OrganizationModule { }

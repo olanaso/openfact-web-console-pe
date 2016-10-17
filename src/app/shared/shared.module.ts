@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { MomentModule } from 'angular2-moment';
 
 import { Restangular, RestangularOpenfact } from './services';
 import { DataService, OrganizationService, InvoiceService, CreditnoteService, DebitnoteService } from './services';
@@ -12,6 +13,8 @@ import { DataService, OrganizationService, InvoiceService, CreditnoteService, De
 import { DefaultHeaderComponent, OrganizationHeaderComponent, SidebarComponent } from './components';
 import { ButtonCancelComponent, ButtonSaveComponent, ButtonDeleteComponent } from './components';
 import { AlertsComponent, AlertComponent, AlertService } from './components';
+import { LabelsComponent } from './components';
+import { RelativeTimestampComponent } from './components';
 import { CapitalizePipe } from './pipes';
 
 @NgModule({
@@ -20,7 +23,8 @@ import { CapitalizePipe } from './pipes';
         RouterModule,
         FormsModule,
         HttpModule,
-        NgbModule.forRoot()
+        NgbModule.forRoot(),
+        MomentModule
     ],
     declarations: [
         DefaultHeaderComponent,
@@ -31,7 +35,9 @@ import { CapitalizePipe } from './pipes';
         AlertComponent,
         AlertsComponent,
         CapitalizePipe,
-        ButtonDeleteComponent       
+        ButtonDeleteComponent,
+        RelativeTimestampComponent,
+        LabelsComponent
     ],
     exports: [
         DefaultHeaderComponent,
@@ -41,7 +47,9 @@ import { CapitalizePipe } from './pipes';
         ButtonSaveComponent,
         ButtonDeleteComponent,
         AlertsComponent,
-        CapitalizePipe
+        CapitalizePipe,
+        RelativeTimestampComponent,
+        LabelsComponent
     ],
     providers: [
         Restangular,

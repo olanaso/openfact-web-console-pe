@@ -1,7 +1,7 @@
 <div class="page-header page-header-bleed-right page-header-bleed-left" style="border-bottom: 1px solid #d1d1d1; margin-top: 0; margin-bottom: 0; padding-left: 20px">
 	<div class="row">
 		<div class="col-md-12">
-			<h1 style="margin-top: 0px;">Invoices</h1>
+			<h1>Invoices</h1>
 		</div>
 	</div>
 </div>
@@ -130,7 +130,7 @@
 								<td class="text-right">{{item.documentCurrencyCode}}</td>
 								<td class="text-right">{{item.legalMonetaryTotal.payableAmount | number:'1.2-3'}}</td>
 								<td class="text-right">{{item.accountingCustomerParty.customerAssignedAccountID}}</td>
-								<td class="kc-action-cell">Edit</td>
+								<td class="kc-action-cell" [routerLink]="['../overview', item.id]">Overview</td>
 							</tr>
 						</tbody>
 					</table>

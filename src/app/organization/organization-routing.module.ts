@@ -4,11 +4,11 @@ import { RouterModule } from '@angular/router';
 import { OrganizationComponent } from './organization.component';
 import { DashboardComponent } from './dashboard';
 import { SettingsComponent } from './settings';
-import { InvoicesComponent, CreateInvoiceComponent, SearchInvoiceComponent } from './invoices';
+import { InvoicesComponent, CreateInvoiceComponent, SearchInvoiceComponent, OverviewInvoiceComponent, SummaryInvoiceComponent } from './invoices';
 import { CreditnotesComponent, CreateCreditnoteComponent, SearchCreditnoteComponent } from './creditnotes';
 import { DebitnotesComponent, CreateDebitnoteComponent, SearchDebitnoteComponent } from './debitnotes';
 
-import { OrganizationResolver } from './utils';
+import { OrganizationResolver, InvoiceResolver } from './utils';
 
 @NgModule({
   imports: [
@@ -25,6 +25,17 @@ import { OrganizationResolver } from './utils';
             path: 'invoices',
             component: InvoicesComponent,
             children: [
+              {
+                path: 'overview/:invoice',
+                component: OverviewInvoiceComponent,
+                resolve: {
+                  invoice: InvoiceResolver
+                },
+                children: [
+                  { path: 'summary', component: SummaryInvoiceComponent },
+                  { path: '', redirectTo: 'summary' }
+                ]
+              },
               { path: 'create', component: CreateInvoiceComponent },
               { path: 'search', component: SearchInvoiceComponent },
               { path: '', redirectTo: 'search' }

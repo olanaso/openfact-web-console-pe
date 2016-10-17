@@ -17,6 +17,12 @@ export class OrganizationService {
     this.restangular = restangular;
   }
 
+  public build(id?: string): Organization {
+    let organization = new Organization();
+    organization.restangular = this.restangular.one(ORGANIZATION_BASE_PATH, id);
+    return organization;
+  }
+
   public findById(id: string): Observable<Organization> {
     return this.restangular
       .one(ORGANIZATION_BASE_PATH, id)

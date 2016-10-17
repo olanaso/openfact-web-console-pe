@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
+import { Organization } from '../../shared';
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -8,8 +10,10 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class DashboardComponent implements OnInit {
 
+  private organization: Organization;
+
   constructor(private activatedRoute: ActivatedRoute) {
-    console.log(this.activatedRoute.snapshot.parent.data['organization']);
+    this.organization = this.activatedRoute.snapshot.parent.data['organization'];
   }
 
   ngOnInit() {

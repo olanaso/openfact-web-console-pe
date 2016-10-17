@@ -11,6 +11,8 @@ import { OrganizationComponent } from './organization.component';
 import { DashboardComponent } from './dashboard';
 import { SettingsComponent } from './settings';
 import { InvoicesComponent, CreateInvoiceComponent, SearchInvoiceComponent } from './invoices';
+import { CreditnotesComponent, CreateCreditnoteComponent, SearchCreditnoteComponent } from './creditnotes';
+import { DebitnotesComponent, CreateDebitnoteComponent, SearchDebitnoteComponent } from './debitnotes';
 
 import { OrganizationResolver } from './utils';
 
@@ -30,7 +32,13 @@ import { OrganizationResolver } from './utils';
         DashboardComponent,
         InvoicesComponent,
         CreateInvoiceComponent,
-        SearchInvoiceComponent
+        SearchInvoiceComponent,
+        CreditnotesComponent,
+        CreateCreditnoteComponent,
+        SearchCreditnoteComponent,
+        DebitnotesComponent,
+        CreateDebitnoteComponent,
+        SearchDebitnoteComponent,
     ],
     providers: [
         OrganizationResolver

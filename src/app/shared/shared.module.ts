@@ -7,7 +7,7 @@ import { HttpModule } from '@angular/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { Restangular, RestangularOpenfact } from './services';
-import { DataService, OrganizationService, InvoiceService } from './services';
+import { DataService, OrganizationService, InvoiceService, CreditnoteService, DebitnoteService } from './services';
 
 import { DefaultHeaderComponent, OrganizationHeaderComponent, SidebarComponent } from './components';
 import { ButtonCancelComponent, ButtonSaveComponent, ButtonDeleteComponent } from './components';
@@ -49,7 +49,9 @@ import { CapitalizePipe } from './pipes';
         AlertService,
         DataService,
         OrganizationService,
-        InvoiceService
+        InvoiceService,
+        CreditnoteService,
+        DebitnoteService
     ]
 })
 export class SharedModule { }

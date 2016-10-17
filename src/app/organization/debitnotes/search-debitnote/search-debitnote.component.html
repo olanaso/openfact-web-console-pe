@@ -1,7 +1,7 @@
 <div class="page-header page-header-bleed-right page-header-bleed-left" style="border-bottom: 1px solid #d1d1d1; margin-top: 0; margin-bottom: 0; padding-left: 20px">
 	<div class="row">
 		<div class="col-md-12">
-			<h1 style="margin-top: 0px;">Invoices</h1>
+			<h1 style="margin-top: 0px;">Debit Notes</h1>
 		</div>
 	</div>
 </div>
@@ -23,7 +23,7 @@
 					</div>
 					<input type="text" id="filterText" [(ngModel)]="filters.filterText" name="filterText" #filterText="ngModel" class="form-control"
 						placeholder="Filter By Name..." autofocus>
-				</div>				
+				</div>
 			</div>
 			<!-- /filter -->
 
@@ -42,7 +42,7 @@
           		</button>
 			</div>
 			<!-- /sorter -->
-			
+
 			<div class="toolbar-pf-action-right">
 				<div class="form-group toolbar-pf-find">
 					<button class="btn btn-link btn-find" type="button">
@@ -99,11 +99,11 @@
 		<div class="col-md-12">
 			<div class="page-header-bleed-right page-header-bleed-left">
 				<div class="hidden-xs pull-right">
-					<a href="" class="btn btn-default">New Invoice</a>
+					<a href="" class="btn btn-default">New Debit Note</a>
 				</div>
 				<h2>Search Results</h2>
 				<div class="visible-xs-block">
-					<a class="btn btn-default" href="">New Invoice</a>
+					<a class="btn btn-default" href="">New Debit Note</a>
 				</div>
 			</div>
 			<div class="page-header-bleed-right page-header-bleed-left">
@@ -114,7 +114,7 @@
 								<th>#</th>
 								<th>ID</th>
 								<th>Issue Date</th>
-								<th>Type Code</th>
+								<th>Discrepancy Response</th>
 								<th class="text-right">Currency Code</th>
 								<th class="text-right">Payable Ammount</th>
 								<th class="text-right">Customer ID</th>
@@ -126,7 +126,11 @@
 								<td>{{i+1}}</td>
 								<td>{{item.idUbl}}</td>
 								<td>{{item.issueDateTime | date}}</td>
-								<td>{{item.invoiceTypeCode}}</td>
+								<td>									
+									<template ngFor let-subitem [ngForOf]="item.discrepancyResponse" let-i="index">
+										<span>{{subitem.referenceID}}</span>&nbsp;										
+									</template>
+								</td>
 								<td class="text-right">{{item.documentCurrencyCode}}</td>
 								<td class="text-right">{{item.legalMonetaryTotal.payableAmount | number:'1.2-3'}}</td>
 								<td class="text-right">{{item.accountingCustomerParty.customerAssignedAccountID}}</td>

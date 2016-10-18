@@ -7,3 +7,4 @@ export * from './button-delete/button-delete.component';
 export * from './alerts';
 export * from './labels/labels.component';
 export * from './relative-timestamp/relative-timestamp.component';
+export * from './xml-viewer/xml-viewer.component';

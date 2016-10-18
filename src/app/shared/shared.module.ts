@@ -15,6 +15,7 @@ import { ButtonCancelComponent, ButtonSaveComponent, ButtonDeleteComponent } fro
 import { AlertsComponent, AlertComponent, AlertService } from './components';
 import { LabelsComponent } from './components';
 import { RelativeTimestampComponent } from './components';
+import { XmlViewerComponent } from './components';
 import { CapitalizePipe } from './pipes';
 
 @NgModule({
@@ -37,7 +38,8 @@ import { CapitalizePipe } from './pipes';
         CapitalizePipe,
         ButtonDeleteComponent,
         RelativeTimestampComponent,
-        LabelsComponent
+        LabelsComponent,
+        XmlViewerComponent
     ],
     exports: [
         DefaultHeaderComponent,
@@ -49,7 +51,8 @@ import { CapitalizePipe } from './pipes';
         AlertsComponent,
         CapitalizePipe,
         RelativeTimestampComponent,
-        LabelsComponent
+        LabelsComponent,
+        XmlViewerComponent
     ],
     providers: [
         Restangular,

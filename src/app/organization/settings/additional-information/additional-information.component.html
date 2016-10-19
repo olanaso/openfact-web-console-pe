@@ -1,0 +1,131 @@
+<div class="container-fluid container-cards-pf">
+	<div class="row row-cards-pf">
+		<div class="col-md-12">
+			<form [formGroup]="form" (ngSubmit)="save()" class="form-horizontal">
+				<p class="fields-status-pf">The fields marked with <span class="required-pf">*</span> are required.</p>
+				<div class="form-group" [ngClass]="{ 'has-error' : !form.controls.assignedIdentificationId.valid && form.controls.assignedIdentificationId.dirty }">
+					<label class="col-md-2 control-label required-pf">Assigned Identification Id
+						<i class="fa fa-question-circle text-muted" ngbTooltip="organization of the assignedIdentificationId" placement="right"></i>
+          </label>
+					<div class="col-md-3">
+						<input [formControl]="form.controls.assignedIdentificationId" type="text" class="form-control" />
+						<div *ngIf="!form.controls.assignedIdentificationId.valid && form.controls.assignedIdentificationId.dirty">
+							<span *ngIf="form.controls.assignedIdentificationId.errors.required" class="help-block">This field is required</span>
+							<span *ngIf="form.controls.assignedIdentificationId.errors.maxlength" class="help-block">Max length allowed: {{form.controls.assignedIdentificationId.errors.maxlength.requiredLength}}</span>
+						</div>
+					</div>
+				</div>
+				<div class="form-group" [ngClass]="{ 'has-error' : !form.controls.additionalAccountId.valid && form.controls.additionalAccountId.dirty }">
+					<label class="col-md-2 control-label required-pf">Additional Account Id
+						<i class="fa fa-question-circle text-muted" ngbTooltip="additionalAccountId of the organization" placement="right"></i>
+          </label>
+					<div class="col-md-3">
+						<input [formControl]="form.controls.additionalAccountId" type="text" class="form-control" />
+						<div *ngIf="!form.controls.additionalAccountId.valid && form.controls.additionalAccountId.dirty">
+							<span *ngIf="form.controls.additionalAccountId.errors.required" class="help-block">This field is required</span>
+							<span *ngIf="form.controls.additionalAccountId.errors.maxlength" class="help-block">Max length allowed: {{form.controls.additionalAccountId.errors.maxlength.requiredLength}}</span>
+						</div>
+					</div>
+				</div>
+				<div class="form-group" [ngClass]="{ 'has-error' : !form.controls.supplierName.valid && form.controls.supplierName.dirty }">
+					<label class="col-md-2 control-label required-pf">Supplier Name
+						<i class="fa fa-question-circle text-muted" ngbTooltip="supplierName of the organization" placement="right"></i>
+          </label>
+					<div class="col-md-4">
+						<input [formControl]="form.controls.supplierName" type="text" class="form-control" />
+						<div *ngIf="!form.controls.supplierName.valid && form.controls.supplierName.dirty">
+							<span *ngIf="form.controls.supplierName.errors.required" class="help-block">This field is required</span>
+							<span *ngIf="form.controls.supplierName.errors.maxlength" class="help-block">Max length allowed: {{form.controls.supplierName.errors.maxlength.requiredLength}}</span>
+						</div>
+					</div>
+				</div>
+				<div class="form-group" [ngClass]="{ 'has-error' : !form.controls.registrationName.valid && form.controls.registrationName.dirty }">
+					<label class="col-md-2 control-label required-pf">Registration Name
+						<i class="fa fa-question-circle text-muted" ngbTooltip="registrationName of the organization" placement="right"></i>
+          </label>
+					<div class="col-md-4">
+						<input [formControl]="form.controls.registrationName" type="text" class="form-control" />
+						<div *ngIf="!form.controls.registrationName.valid && form.controls.registrationName.dirty">
+							<span *ngIf="form.controls.registrationName.errors.required" class="help-block">This field is required</span>
+							<span *ngIf="form.controls.registrationName.errors.maxlength" class="help-block">Max length allowed: {{form.controls.registrationName.errors.maxlength.requiredLength}}</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group" [ngClass]="{ 'has-error' : !form.controls.postalAddress.controls.cityName.valid && form.controls.postalAddress.controls.cityName.dirty }">
+					<label class="col-md-2 control-label">City Name
+						<i class="fa fa-question-circle text-muted" ngbTooltip="registrationName of the organization" placement="right"></i>
+          </label>
+					<div class="col-md-4">
+						<input [formControl]="form.controls.postalAddress.controls.cityName" type="text" class="form-control" />
+						<div *ngIf="!form.controls.postalAddress.controls.cityName.valid && form.controls.postalAddress.controls.cityName.dirty">
+							<span *ngIf="form.controls.postalAddress.controls.cityName.errors.maxlength" class="help-block">Max length allowed: {{form.controls.postalAddress.controls.cityName.errors.maxlength.requiredLength}}</span>
+						</div>
+					</div>
+				</div>
+				<div class="form-group" [ngClass]="{ 'has-error' : !form.controls.postalAddress.controls.citySubdivisionName.valid && form.controls.postalAddress.controls.citySubdivisionName.dirty }">
+					<label class="col-md-2 control-label">City Subdivision Name
+						<i class="fa fa-question-circle text-muted" ngbTooltip="registrationName of the organization" placement="right"></i>
+          </label>
+					<div class="col-md-4">
+						<input [formControl]="form.controls.postalAddress.controls.citySubdivisionName" type="text" class="form-control" />
+						<div *ngIf="!form.controls.postalAddress.controls.citySubdivisionName.valid && form.controls.postalAddress.controls.citySubdivisionName.dirty">
+							<span *ngIf="form.controls.postalAddress.controls.citySubdivisionName.errors.maxlength" class="help-block">Max length allowed: {{form.controls.postalAddress.controls.citySubdivisionName.errors.maxlength.requiredLength}}</span>
+						</div>
+					</div>
+				</div>
+				<div class="form-group" [ngClass]="{ 'has-error' : !form.controls.postalAddress.controls.countryIdentificationCode.valid && form.controls.postalAddress.controls.countryIdentificationCode.dirty }">
+					<label class="col-md-2 control-label">Country Identification Code
+						<i class="fa fa-question-circle text-muted" ngbTooltip="registrationName of the organization" placement="right"></i>
+          </label>
+					<div class="col-md-2">
+						<input [formControl]="form.controls.postalAddress.controls.countryIdentificationCode" type="text" class="form-control" />
+						<div *ngIf="!form.controls.postalAddress.controls.countryIdentificationCode.valid && form.controls.postalAddress.controls.countryIdentificationCode.dirty">
+							<span *ngIf="form.controls.postalAddress.controls.countryIdentificationCode.errors.maxlength" class="help-block">Max length allowed: {{form.controls.postalAddress.controls.countryIdentificationCode.errors.maxlength.requiredLength}}</span>
+						</div>
+					</div>
+				</div>
+				<div class="form-group" [ngClass]="{ 'has-error' : !form.controls.postalAddress.controls.countrySubentity.valid && form.controls.postalAddress.controls.countrySubentity.dirty }">
+					<label class="col-md-2 control-label">Country Sub Entity
+						<i class="fa fa-question-circle text-muted" ngbTooltip="registrationName of the organization" placement="right"></i>
+          </label>
+					<div class="col-md-4">
+						<input [formControl]="form.controls.postalAddress.controls.countrySubentity" type="text" class="form-control" />
+						<div *ngIf="!form.controls.postalAddress.controls.countrySubentity.valid && form.controls.postalAddress.controls.countrySubentity.dirty">
+							<span *ngIf="form.controls.postalAddress.controls.countrySubentity.errors.maxlength" class="help-block">Max length allowed: {{form.controls.postalAddress.controls.countrySubentity.errors.maxlength.requiredLength}}</span>
+						</div>
+					</div>
+				</div>
+				<div class="form-group" [ngClass]="{ 'has-error' : !form.controls.postalAddress.controls.district.valid && form.controls.postalAddress.controls.district.dirty }">
+					<label class="col-md-2 control-label">District
+						<i class="fa fa-question-circle text-muted" ngbTooltip="registrationName of the organization" placement="right"></i>
+          </label>
+					<div class="col-md-4">
+						<input [formControl]="form.controls.postalAddress.controls.district" type="text" class="form-control" />
+						<div *ngIf="!form.controls.postalAddress.controls.district.valid && form.controls.postalAddress.controls.district.dirty">
+							<span *ngIf="form.controls.postalAddress.controls.district.errors.maxlength" class="help-block">Max length allowed: {{form.controls.postalAddress.controls.district.errors.maxlength.requiredLength}}</span>
+						</div>
+					</div>
+				</div>
+				<div class="form-group" [ngClass]="{ 'has-error' : !form.controls.postalAddress.controls.streetName.valid && form.controls.postalAddress.controls.streetName.dirty }">
+					<label class="col-md-2 control-label">Country Sub Entity
+						<i class="fa fa-question-circle text-muted" ngbTooltip="registrationName of the organization" placement="right"></i>
+          </label>
+					<div class="col-md-4">
+						<input [formControl]="form.controls.postalAddress.controls.streetName" type="text" class="form-control" />
+						<div *ngIf="!form.controls.postalAddress.controls.streetName.valid && form.controls.postalAddress.controls.streetName.dirty">
+							<span *ngIf="form.controls.postalAddress.controls.streetName.errors.maxlength" class="help-block">Max length allowed: {{form.controls.postalAddress.controls.streetName.errors.maxlength.requiredLength}}</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-md-offset-2 col-lg-offset-2">
+						<button-save [form]="form" [working]="working"></button-save>
+						<button type="button" (click)="buildForm()" class="btn btn-default" [disabled]="!form.dirty">Cancel</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

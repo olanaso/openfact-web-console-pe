@@ -39,7 +39,9 @@ export class Restangular {
     }
 
     public put(obj: any): Observable<Response> {
-        return this.http.put(this.path, obj).catch(this.handleError);
+        let clone = Object.assign({}, obj);
+        delete clone['restangular'];
+        return this.http.put(this.path, clone).catch(this.handleError);
     }
 
     public delete(): Observable<Response> {

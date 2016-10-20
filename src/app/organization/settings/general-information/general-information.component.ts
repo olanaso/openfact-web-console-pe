@@ -24,28 +24,29 @@ export class GeneralInformationComponent implements OnInit {
     private alertService: AlertService) {
     this.organization = this.activatedRoute.snapshot.parent.parent.data['organization'];
     this.buildForm();
+    this.loadData();
   }
 
   ngOnInit() {
   }
 
-  buildForm() {    
+  buildForm() {
     this.form = this.formBuilder.group({
-      organization: [this.organization.organization, Validators.compose([Validators.required, Validators.maxLength(60)])],
-      description: [this.organization.description, Validators.maxLength(250)],
-      enabled: [this.organization.enabled, Validators.required],
-    });
+      organization: [undefined, Validators.compose([Validators.required, Validators.maxLength(60)])],
+      description: [undefined, Validators.maxLength(250)],
+      enabled: [false, Validators.required],
+    });    
   }
 
-  changeEnabled(enabled: boolean) {
-    this.form.controls['enabled'].setValue(enabled);
-    this.form.markAsDirty();
+  loadData() {
+    this.form.patchValue(this.organization);
+    this.form.markAsPristine();
   }
 
-  preSave(): void {    
-    this.organization.organization = this.form.value['organization'];
-    this.organization.description = this.form.value['description'];
-    this.organization.enabled = this.form.value['enabled'];
+  preSave(): void {
+    this.organization.organization = this.form.get('organization').value;
+    this.organization.description = this.form.get('description').value;
+    this.organization.enabled = this.form.get('enabled').value;
   }
 
   save() {
@@ -55,6 +56,7 @@ export class GeneralInformationComponent implements OnInit {
     this.organization.save().subscribe(
       result => {
         this.working = false;
+        this.form.markAsPristine();
         this.alertService.pop('success', 'Success', 'Your changes have been saved to the organization.');
       },
       error => {

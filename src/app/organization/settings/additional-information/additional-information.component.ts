@@ -24,6 +24,7 @@ export class AdditionalInformationComponent implements OnInit {
     private alertService: AlertService) {
     this.organization = this.activatedRoute.snapshot.parent.parent.data['organization'];
     this.buildForm();
+    this.loadData();
   }
 
   ngOnInit() {
@@ -31,26 +32,37 @@ export class AdditionalInformationComponent implements OnInit {
 
   buildForm() {
     this.form = this.formBuilder.group({
-      assignedIdentificationId: [this.organization.assignedIdentificationId, Validators.compose([Validators.required, Validators.maxLength(20)])],
-      additionalAccountId: [this.organization.additionalAccountId, Validators.compose([Validators.required, Validators.maxLength(60)])],
-      supplierName: [this.organization.supplierName, Validators.compose([Validators.required, Validators.maxLength(150)])],
-      registrationName: [this.organization.registrationName, Validators.compose([Validators.required, Validators.maxLength(150)])],
+      assignedIdentificationId: [undefined, Validators.compose([Validators.required, Validators.maxLength(20)])],
+      additionalAccountId: [undefined, Validators.compose([Validators.required, Validators.maxLength(60)])],
+      supplierName: [undefined, Validators.compose([Validators.required, Validators.maxLength(150)])],
+      registrationName: [undefined, Validators.compose([Validators.required, Validators.maxLength(150)])],
       postalAddress: this.formBuilder.group({
-        cityName: [this.organization.postalAddress.cityName, Validators.compose([Validators.maxLength(150)])],
-        citySubdivisionName: [this.organization.postalAddress.citySubdivisionName, Validators.compose([Validators.maxLength(150)])],
-        countryIdentificationCode: [this.organization.postalAddress.countryIdentificationCode, Validators.compose([Validators.maxLength(150)])],
-        countrySubentity: [this.organization.postalAddress.countrySubentity, Validators.compose([Validators.maxLength(150)])],
-        district: [this.organization.postalAddress.district, Validators.compose([Validators.maxLength(150)])],
-        streetName: [this.organization.postalAddress.streetName, Validators.compose([Validators.maxLength(150)])],
+        cityName: [undefined, Validators.compose([Validators.maxLength(150)])],
+        citySubdivisionName: [undefined, Validators.compose([Validators.maxLength(150)])],
+        countryIdentificationCode: [undefined, Validators.compose([Validators.maxLength(150)])],
+        countrySubentity: [undefined, Validators.compose([Validators.maxLength(150)])],
+        district: [undefined, Validators.compose([Validators.maxLength(150)])],
+        streetName: [undefined, Validators.compose([Validators.maxLength(150)])],
       })
     });
   }
 
+  loadData() {
+    this.form.patchValue(this.organization);
+    this.form.markAsPristine();
+  }
+
   preSave(): void {
-    this.organization.assignedIdentificationId = this.form.value['assignedIdentificationId'];
-    this.organization.additionalAccountId = this.form.value['additionalAccountId'];
-    this.organization.supplierName = this.form.value['supplierName'];
-    this.organization.registrationName = this.form.value['registrationName'];
+    this.organization.assignedIdentificationId = this.form.get('assignedIdentificationId').value;
+    this.organization.additionalAccountId = this.form.get('additionalAccountId').value;
+    this.organization.supplierName = this.form.get('supplierName').value;
+    this.organization.registrationName = this.form.get('registrationName').value;
+    this.organization.postalAddress.cityName = this.form.get('postalAddress').get('cityName').value;
+    this.organization.postalAddress.citySubdivisionName = this.form.get('postalAddress').get('citySubdivisionName').value;
+    this.organization.postalAddress.countryIdentificationCode = this.form.get('postalAddress').get('countryIdentificationCode').value;
+    this.organization.postalAddress.countrySubentity = this.form.get('postalAddress').get('countrySubentity').value;
+    this.organization.postalAddress.district = this.form.get('postalAddress').get('district').value;
+    this.organization.postalAddress.streetName = this.form.get('postalAddress').get('streetName').value;
   }
 
   save() {
@@ -60,6 +72,7 @@ export class AdditionalInformationComponent implements OnInit {
     this.organization.save().subscribe(
       result => {
         this.working = false;
+        this.form.markAsPristine();
         this.alertService.pop('success', 'Success', 'Your changes have been saved to the organization.');
       },
       error => {

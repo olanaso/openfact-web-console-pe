@@ -1,5 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
 
+/**Override patternfly*/
+label.required-pf:after {
+    content: none !important;
+}
+
+label.required-pf:before {
+    color: #cc0000;
+    content: "* ";
+    margin-left: 3px;
+}
+
 /* Action cell */
 .kc-action-cell {
     background-color: #eeeeee;

@@ -42,7 +42,7 @@
 					<label class="col-md-2 control-label">Private Key
 					<i class="fa fa-question-circle text-muted" ngbTooltip="organization of the organization" placement="right"></i>
           		</label>
-					<div class="col-md-10">
+					<div class="col-md-4">
 						<button-upload-file (complete)="privateKeyUpload($event)"></button-upload-file>
 					</div>
 				</div>
@@ -63,7 +63,7 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<div class="col-md-4 col-md-offset-2">
+					<div class="col-md-10 col-md-offset-2">
 						<button (click)="import(contentImport)" [disabled]="!((privateKeyUploadContent && publicKeyUploadContent) || certificateUploadContent)"
 							class="btn btn-primary" type="button">Upload Keys</button>
 						<button (click)="clearImport()" [disabled]="!privateKeyUploadContent && !publicKeyUploadContent && !certificateUploadContent"

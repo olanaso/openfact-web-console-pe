@@ -52,24 +52,10 @@ export class AdditionalInformationComponent implements OnInit {
     this.form.markAsPristine();
   }
 
-  preSave(): void {
-    this.organization.assignedIdentificationId = this.form.get('assignedIdentificationId').value;
-    this.organization.additionalAccountId = this.form.get('additionalAccountId').value;
-    this.organization.supplierName = this.form.get('supplierName').value;
-    this.organization.registrationName = this.form.get('registrationName').value;
-    this.organization.postalAddress.cityName = this.form.get('postalAddress').get('cityName').value;
-    this.organization.postalAddress.citySubdivisionName = this.form.get('postalAddress').get('citySubdivisionName').value;
-    this.organization.postalAddress.countryIdentificationCode = this.form.get('postalAddress').get('countryIdentificationCode').value;
-    this.organization.postalAddress.countrySubentity = this.form.get('postalAddress').get('countrySubentity').value;
-    this.organization.postalAddress.district = this.form.get('postalAddress').get('district').value;
-    this.organization.postalAddress.streetName = this.form.get('postalAddress').get('streetName').value;
-  }
-
-  save() {
+  save(value: any) {
     this.working = true;
-    this.preSave();
 
-    this.organization.save().subscribe(
+    this.organization.save(value).subscribe(
       result => {
         this.working = false;
         this.form.markAsPristine();

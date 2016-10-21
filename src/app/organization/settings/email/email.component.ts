@@ -44,21 +44,14 @@ export class EmailComponent implements OnInit {
   }
 
   loadData() {
-    console.log(this.form);
-    
     this.form.patchValue(this.organization.smtpServer || {});
     this.form.markAsPristine();
   }
 
-  preSave(): void {
-    this.organization.smtpServer = this.form.value;
-  }
-
-  save() {
+  save(value: any) {
     this.working = true;
-    this.preSave();
 
-    this.organization.save().subscribe(
+    this.organization.save(value).subscribe(
       result => {
         this.working = false;
         this.form.markAsPristine();

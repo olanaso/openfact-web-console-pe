@@ -15,7 +15,7 @@ import { CreditnotesComponent, CreateCreditnoteComponent, SearchCreditnoteCompon
 import { DebitnotesComponent, CreateDebitnoteComponent, SearchDebitnoteComponent } from './debitnotes';
 
 import { OrganizationResolver, InvoiceResolver } from './utils';
-import { GeneralInformationComponent, AdditionalInformationComponent, EmailComponent } from './settings';
+import { GeneralInformationComponent, AdditionalInformationComponent, EmailComponent, OrganizationKeysComponent } from './settings';
 
 @NgModule({
     imports: [
@@ -44,6 +44,7 @@ import { GeneralInformationComponent, AdditionalInformationComponent, EmailCompo
         GeneralInformationComponent,
         EmailComponent,
         AdditionalInformationComponent,
+        OrganizationKeysComponent,
     ],
     providers: [
         OrganizationResolver,

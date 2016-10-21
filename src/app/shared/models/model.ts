@@ -6,8 +6,12 @@ export abstract class Model {
 
   constructor() { }
 
-  save() {
-    return this.restangular.put(this);
+  save(obj?: any) {
+    if (obj) {
+      return this.restangular.put(obj);
+    } else {
+      return this.restangular.put(this);
+    }
   }
 
 }

@@ -3,7 +3,7 @@ import { RouterModule } from '@angular/router';
 
 import { OrganizationComponent } from './organization.component';
 import { DashboardComponent } from './dashboard';
-import { SettingsComponent, GeneralInformationComponent, AdditionalInformationComponent, EmailComponent } from './settings';
+import { SettingsComponent, GeneralInformationComponent, AdditionalInformationComponent, EmailComponent, OrganizationKeysComponent } from './settings';
 import { InvoicesComponent, CreateInvoiceComponent, SearchInvoiceComponent, OverviewInvoiceComponent, SummaryInvoiceComponent } from './invoices';
 import { CreditnotesComponent, CreateCreditnoteComponent, SearchCreditnoteComponent } from './creditnotes';
 import { DebitnotesComponent, CreateDebitnoteComponent, SearchDebitnoteComponent } from './debitnotes';
@@ -65,7 +65,8 @@ import { OrganizationResolver, InvoiceResolver } from './utils';
             children: [
               { path: 'general-information', component: GeneralInformationComponent },
               { path: 'additional-information', component: AdditionalInformationComponent },
-              { path: 'email', component: EmailComponent },
+              { path: 'email-settings', component: EmailComponent },
+              { path: 'organization-keys', component: OrganizationKeysComponent },
               { path: '', redirectTo: 'general-information' }
             ]
           },

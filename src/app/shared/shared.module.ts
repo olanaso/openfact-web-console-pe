@@ -11,7 +11,7 @@ import { Restangular, RestangularOpenfact } from './services';
 import { DataService, OrganizationService, InvoiceService, CreditnoteService, DebitnoteService } from './services';
 
 import { DefaultHeaderComponent, OrganizationHeaderComponent, SidebarComponent } from './components';
-import { ButtonCancelComponent, ButtonSaveComponent, ButtonDeleteComponent, ButtonSwitchComponent } from './components';
+import { ButtonCancelComponent, ButtonSaveComponent, ButtonDeleteComponent, ButtonSwitchComponent, ButtonUploadFileComponent } from './components';
 import { AlertsComponent, AlertComponent, AlertService } from './components';
 import { LabelsComponent } from './components';
 import { RelativeTimestampComponent } from './components';
@@ -35,12 +35,13 @@ import { CapitalizePipe } from './pipes';
         ButtonSaveComponent,
         ButtonDeleteComponent,
         ButtonSwitchComponent,
+        ButtonUploadFileComponent,
         AlertComponent,
         AlertsComponent,
         CapitalizePipe,
         RelativeTimestampComponent,
         LabelsComponent,
-        XmlViewerComponent,        
+        XmlViewerComponent,
     ],
     exports: [
         DefaultHeaderComponent,
@@ -50,6 +51,7 @@ import { CapitalizePipe } from './pipes';
         ButtonSaveComponent,
         ButtonDeleteComponent,
         ButtonSwitchComponent,
+        ButtonUploadFileComponent,
         AlertsComponent,
         CapitalizePipe,
         RelativeTimestampComponent,

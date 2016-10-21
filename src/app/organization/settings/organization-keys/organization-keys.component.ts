@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
@@ -16,34 +15,45 @@ export class OrganizationKeysComponent implements OnInit {
 
   private organization: Organization;
 
-  private form: FormGroup;
   private working: boolean = false;
+
+  private privateKeyUploadName: string;
+  private privateKeyUploadContent: any;
+
+  private publicKeyUploadName: string;
+  private publicKeyUploadContent: any;
+
+  private certificateUploadName: string;
+  private certificateUploadContent: any;
 
   constructor(private router: Router,
     private activatedRoute: ActivatedRoute,
-    private formBuilder: FormBuilder,
     private dataService: DataService,
     private alertService: AlertService,
     private modalService: NgbModal) {
     this.organization = this.activatedRoute.snapshot.parent.parent.data['organization'];
-    this.buildForm();
-    this.loadData();
   }
 
   ngOnInit() {
   }
 
-  buildForm() {
-    /*this.form = this.formBuilder.group({
-      organization: [undefined, Validators.compose([Validators.required, Validators.maxLength(60)])],
-      description: [undefined, Validators.maxLength(250)],
-      enabled: [false, Validators.required],
-    });*/
+  privateKeyUpload(file: any): void {
+    this.privateKeyUploadName = file.fileName;
+    this.privateKeyUploadContent = file.data;
   }
 
-  loadData() {
-    /*this.form.patchValue(this.organization);
-    this.form.markAsPristine();*/
+  publicKeyUpload(file: any): void {
+    this.publicKeyUploadName = file.fileName;
+    this.publicKeyUploadContent = file.data;
+  }
+
+  certificateUpload(file: any): void {
+    this.certificateUploadName = file.fileName;
+    this.certificateUploadContent = file.data;
+  }
+
+  clearImport() {
+    location.reload();
   }
 
   generateKeys(content) {
@@ -62,20 +72,34 @@ export class OrganizationKeysComponent implements OnInit {
     });
   }
 
-  save() {
-    this.working = true;
+  import(content) {
+    this.modalService.open(content).result.then((result) => {
+      let upload: any = {
+        organization: this.organization.organization
+      };
 
-    this.organization.save().subscribe(
-      result => {
-        this.working = false;
-        this.form.markAsPristine();
-        this.alertService.pop('success', 'Success', 'Your changes have been saved to the organization.');
-      },
-      error => {
-        this.working = false;
-        this.alertService.pop('error', 'Error', 'Your changes could not saved to the organization.');
+      if (this.privateKeyUploadContent && this.publicKeyUploadContent) {
+        upload.privateKey = this.privateKeyUploadContent;
+        upload.publicKey = this.publicKeyUploadContent;
       }
-    );
-  }
+
+      if (this.certificateUploadContent) {
+        upload.certificate = this.certificateUploadContent;
+      }
+
+      this.working = true;
+      this.organization.save(upload).subscribe(
+        result => {
+          this.working = false;
+          this.alertService.pop('success', 'Success', 'Keys imported for organization.');
+        },
+        error => {
+          this.working = false;
+          this.alertService.pop('error', 'Error', 'Your changes could not saved to the organization.');
+        }
+      );
+    }, (reason) => {
+    });
+  };
 
 }

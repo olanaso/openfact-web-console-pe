@@ -1,0 +1,17 @@
+<div class="container-fluid container-cards-pf">
+	<div class="row row-cards-pf">
+		<div class="col-md-12">
+			<form [formGroup]="form" (ngSubmit)="save(form.value)" class="form-horizontal">
+				<p class="fields-status-pf">The fields marked with <span class="required-pf">*</span> are required.</p>
+				
+
+				<div class="form-group">
+					<div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-md-offset-2 col-lg-offset-2">
+						<button-save [form]="form" [working]="working"></button-save>
+						<button type="button" (click)="loadData()" class="btn btn-default" [disabled]="!form.dirty">Cancel</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

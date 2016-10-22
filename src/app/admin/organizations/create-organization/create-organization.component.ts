@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { Organization, DataService, AlertService } from '../../shared';
+import { Organization, DataService, AlertService } from '../../../shared';
 
 @Component({
   selector: 'create-organization',

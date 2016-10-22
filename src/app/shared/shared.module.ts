@@ -8,7 +8,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MomentModule } from 'angular2-moment';
 
 import { Restangular, RestangularOpenfact } from './services';
-import { DataService, OrganizationService, InvoiceService, CreditnoteService, DebitnoteService } from './services';
+import { DataService, OrganizationService, InvoiceService, CreditnoteService, DebitnoteService, ServerInfoService } from './services';
 
 import { DefaultHeaderComponent, OrganizationHeaderComponent, SidebarComponent } from './components';
 import { ButtonCancelComponent, ButtonSaveComponent, ButtonDeleteComponent, ButtonSwitchComponent, ButtonUploadFileComponent } from './components';
@@ -56,7 +56,7 @@ import { CapitalizePipe } from './pipes';
         CapitalizePipe,
         RelativeTimestampComponent,
         LabelsComponent,
-        XmlViewerComponent
+        XmlViewerComponent,
     ],
     providers: [
         Restangular,
@@ -66,7 +66,8 @@ import { CapitalizePipe } from './pipes';
         OrganizationService,
         InvoiceService,
         CreditnoteService,
-        DebitnoteService
+        DebitnoteService,
+        ServerInfoService
     ]
 })
 export class SharedModule { }

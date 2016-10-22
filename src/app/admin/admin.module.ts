@@ -7,8 +7,16 @@ import { AdminRoutingModule } from './admin-routing.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SharedModule } from '../shared';
 
-import { CreateOrganizationComponent } from './create-organization';
+import { AboutComponent } from './about/about.component';
+
 import { OrganizationsComponent } from './organizations/organizations.component';
+import { CreateOrganizationComponent } from './organizations/create-organization/create-organization.component';
+import { SearchOrganizationComponent } from './organizations/search-organization/search-organization.component';
+
+import { ServerInfoComponent } from './server-info/server-info.component';
+import { ServerInfoGeneralComponent } from './server-info/server-info-general/server-info-general.component';
+import { ServerInfoProvidersComponent } from './server-info/server-info-providers/server-info-providers.component';
+
 
 @NgModule({
     imports: [
@@ -20,8 +28,13 @@ import { OrganizationsComponent } from './organizations/organizations.component'
         SharedModule
     ],
     declarations: [
+        OrganizationsComponent,
+        AboutComponent,
         CreateOrganizationComponent,
-        OrganizationsComponent
+        SearchOrganizationComponent,
+        ServerInfoComponent,
+        ServerInfoGeneralComponent,
+        ServerInfoProvidersComponent,
     ],
     providers: [
 

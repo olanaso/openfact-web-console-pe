@@ -4,6 +4,7 @@ import { OrganizationService } from './organization.service';
 import { InvoiceService } from './invoice.service';
 import { CreditnoteService } from './creditnote.service';
 import { DebitnoteService } from './debitnote.service';
+import { ServerInfoService } from './server-info.service';
 
 @Injectable()
 export class DataService {
@@ -12,7 +13,8 @@ export class DataService {
     private organization: OrganizationService,
     private invoice: InvoiceService,
     private creditnote: CreditnoteService,
-    private debitnote: DebitnoteService) {
+    private debitnote: DebitnoteService,
+    private serverinfo: ServerInfoService) {
   }
 
   public organizations(): OrganizationService {
@@ -29,6 +31,10 @@ export class DataService {
 
   public debitnotes(): DebitnoteService {
     return this.debitnote;
+  }
+
+  public serverInfo(): ServerInfoService {
+    return this.serverinfo;
   }
 
 }

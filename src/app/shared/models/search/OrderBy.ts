@@ -4,7 +4,7 @@ export class OrderBy {
 
     constructor(name: string, ascending?: boolean) {
         this.name = name;
-        this.ascending = ascending || true;
+        this.ascending = ascending !== undefined ? ascending : true;
     }
 
 }

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import * as Collections from 'typescript-collections';
+
 import { DataService, AlertService } from '../../../shared';
 
 @Component({
@@ -9,16 +11,14 @@ import { DataService, AlertService } from '../../../shared';
 })
 export class ServerInfoProvidersComponent implements OnInit {
 
-  private serverInfo: any = {
-    systemInfo: {},
-    memoryInfo: {}
-  };
+  private filterText: string;
+  private spis = new Collections.Dictionary<String, any>();
 
   constructor(
     private dataService: DataService,
     private alertService: AlertService
   ) {
-    this.loadData();
+    this.loadData(); this.spis.getValue
   }
 
   ngOnInit() { }
@@ -26,7 +26,11 @@ export class ServerInfoProvidersComponent implements OnInit {
   loadData() {
     this.dataService.serverInfo().get().subscribe(
       result => {
-        this.serverInfo = result;
+        let map = new Collections.Dictionary<String, any>()
+        for (let key in result['providers']) {
+          map.setValue(key, result['providers'][key]);
+        }
+        this.spis = map;
       }, error => {
         this.alertService.pop('error', 'Error', 'Error loading projects.');
       });

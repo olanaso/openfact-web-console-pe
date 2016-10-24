@@ -32,16 +32,10 @@ export class CreateOrganizationComponent implements OnInit {
     });
   }
 
-  generateModel(form: FormGroup): Organization {
-    let organization = new Organization();
-    return Object.assign(organization, form.value);
-  }
-
   save(form: any): void {
     this.working = true;
-    let organization = this.generateModel(this.form);
 
-    this.dataService.organizations().create(organization).subscribe(
+    this.dataService.organizations().create(form).subscribe(
       result => {
         this.alertService.pop('success', 'Success', 'Success! The organization has been created.');
         this.router.navigate(['/organizations']);

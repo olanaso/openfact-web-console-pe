@@ -16,7 +16,7 @@ import { AlertsComponent, AlertComponent, AlertService } from './components';
 import { LabelsComponent } from './components';
 import { RelativeTimestampComponent } from './components';
 import { XmlViewerComponent } from './components';
-import { CapitalizePipe } from './pipes';
+import { CapitalizePipe, KeysPipe, YesNoPipe, FilterCollectionPipe } from './pipes';
 
 @NgModule({
     imports: [
@@ -39,6 +39,9 @@ import { CapitalizePipe } from './pipes';
         AlertComponent,
         AlertsComponent,
         CapitalizePipe,
+        KeysPipe,
+        YesNoPipe,
+        FilterCollectionPipe,
         RelativeTimestampComponent,
         LabelsComponent,
         XmlViewerComponent,
@@ -54,6 +57,9 @@ import { CapitalizePipe } from './pipes';
         ButtonUploadFileComponent,
         AlertsComponent,
         CapitalizePipe,
+        KeysPipe,
+        YesNoPipe,
+        FilterCollectionPipe,
         RelativeTimestampComponent,
         LabelsComponent,
         XmlViewerComponent,

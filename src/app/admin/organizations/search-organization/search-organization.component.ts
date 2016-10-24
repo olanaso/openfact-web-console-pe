@@ -86,7 +86,7 @@ export class SearchOrganizationComponent implements OnInit {
         }
       }
     });
-
+    
     // Put OrderBy
     criteria.orders = [
       new OrderBy(this.sorter.selected.value, this.sorter.ascending)

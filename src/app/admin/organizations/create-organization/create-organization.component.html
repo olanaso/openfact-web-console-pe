@@ -5,7 +5,7 @@
 	<div class="row row-cards-pf">
 		<div class="col-xs-12 col-sm-12 col-md-10 col-lg-6 col-lg-offset-1 col-md-offset-1">
 			<h3>Create Organization</h3>
-			<form [formGroup]="form" (ngSubmit)="save()" class="form-horizontal">
+			<form [formGroup]="form" (ngSubmit)="save(form.value)" class="form-horizontal">
 				<p class="fields-status-pf">The fields marked with <span class="required-pf">*</span> are required.</p>
 				<div class="form-group" [ngClass]="{ 'has-error' : !form.controls.organization.valid && form.controls.organization.dirty }">
 					<label class="col-md-2 control-label required-pf">Name

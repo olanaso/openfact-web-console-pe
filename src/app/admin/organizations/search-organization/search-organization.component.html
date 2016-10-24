@@ -8,7 +8,7 @@
 			<form #searchForm="ngForm" (ngSubmit)="search()" class="toolbar-pf-actions">
 				<div class="form-group toolbar-pf-filter">
 					<label class="sr-only">Name</label>
-					<input type="text" id="filterText" [(ngModel)]="filters.filterText" name="filterText" #filterText="ngModel" class="form-control"
+					<input type="text" [(ngModel)]="filters.filterText" name="filterText" #filterText="ngModel" class="form-control"
 						placeholder="Filter By Name..." autofocus>
 				</div>
 				<!-- /filter -->
@@ -30,7 +30,7 @@
 				<!-- /sorter -->
 
 				<div class="form-group">
-					<button class="btn btn-primary" type="button" routerLink="../create-organization">New organization</button>
+					<button class="btn btn-primary" type="button" routerLink="../create">New organization</button>
 				</div>
 				<!--/actions-->
 

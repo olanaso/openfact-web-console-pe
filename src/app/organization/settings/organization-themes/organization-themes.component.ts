@@ -33,8 +33,7 @@ export class OrganizationThemesComponent implements OnInit {
   }
 
   buildForm() {
-    this.form = this.formBuilder.group({
-      adminTheme: [undefined, Validators.compose([Validators.maxLength(60)])],
+    this.form = this.formBuilder.group({      
       emailTheme: [undefined, Validators.compose([Validators.maxLength(60)])],
       internationalizationEnabled: [false, Validators.compose([Validators.required, Validators.maxLength(60)])],
       supportedLocales: [undefined],

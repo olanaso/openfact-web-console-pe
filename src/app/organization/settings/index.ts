@@ -6,3 +6,4 @@ export * from './organization-keys/organization-keys.component';
 export * from './organization-themes/organization-themes.component';
 export * from './organization-smtp-server/organization-smtp-server.component';
 export * from './organization-ubl-server/organization-ubl-server.component';
+export * from './organization-tasks/organization-tasks.component';

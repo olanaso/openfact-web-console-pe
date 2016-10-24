@@ -24,6 +24,10 @@ export class Organization extends Model {
     postalAddress: PostalAddress;
     tasksSchedule: TasksSchedule;
 
+    taskFirstTime: Date;
+    taskDelay: number;
+    tasksEnabled: boolean;
+
     emailTheme: String;
     supportedLocales: Array<String>;
     defaultLocale: String;

@@ -17,9 +17,20 @@ import { CreditnotesComponent, CreateCreditnoteComponent, SearchCreditnoteCompon
 import { DebitnotesComponent, CreateDebitnoteComponent, SearchDebitnoteComponent } from './debitnotes';
 
 import { OrganizationSettingsResolver } from './settings';
-import { SettingsComponent, GeneralInformationComponent, AdditionalInformationComponent, OrganizationSmtpServerComponent, OrganizationUblServerComponent, OrganizationKeysComponent, OrganizationThemesComponent } from './settings';
+import { SettingsComponent } from './settings';
+import { GeneralInformationComponent } from './settings';
+import { AdditionalInformationComponent } from './settings';
+import { OrganizationSmtpServerComponent } from './settings';
+import { OrganizationUblServerComponent } from './settings';
+import { OrganizationKeysComponent } from './settings';
+import { OrganizationThemesComponent } from './settings';
 
 import { InvoiceResolver } from './utils';
+import { OrganizationTasksComponent } from './settings/organization-tasks/organization-tasks.component';
+
+import { EventsComponent } from './events/events.component';
+import { EventsConfigComponent } from './events/events-config/events-config.component';
+import { AdminEventsComponent } from './events/admin-events/admin-events.component';
 
 @NgModule({
     imports: [
@@ -51,6 +62,10 @@ import { InvoiceResolver } from './utils';
         OrganizationThemesComponent,
         OrganizationUblServerComponent,
         OrganizationSmtpServerComponent,
+        OrganizationTasksComponent,
+        EventsComponent,
+        EventsConfigComponent,
+        AdminEventsComponent,
     ],
     providers: [
         OrganizationResolver,

@@ -5,11 +5,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Organization, DataService, AlertService } from '../../../shared';
 
 @Component({
-  selector: 'create-organization',
-  templateUrl: './create-organization.component.html',
-  styleUrls: ['./create-organization.component.scss']
+  selector: 'app-create-organization',
+  templateUrl: './organization-create.component.html',
+  styleUrls: ['./organization-create.component.scss']
 })
-export class CreateOrganizationComponent implements OnInit {
+export class OrganizationCreateComponent implements OnInit {
 
   private form: FormGroup;
   private working: boolean = false;

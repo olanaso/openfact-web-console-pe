@@ -10,8 +10,8 @@ import { SharedModule } from '../shared';
 import { AboutComponent } from './about/about.component';
 
 import { OrganizationsComponent } from './organizations/organizations.component';
-import { CreateOrganizationComponent } from './organizations/create-organization/create-organization.component';
-import { SearchOrganizationComponent } from './organizations/search-organization/search-organization.component';
+import { OrganizationCreateComponent } from './organizations/organization-create/organization-create.component';
+import { OrganizationSearchComponent } from './organizations/organization-search/organization-search.component';
 
 import { ServerInfoComponent } from './server-info/server-info.component';
 import { ServerInfoGeneralComponent } from './server-info/server-info-general/server-info-general.component';
@@ -30,8 +30,8 @@ import { ServerInfoProvidersComponent } from './server-info/server-info-provider
     declarations: [
         OrganizationsComponent,
         AboutComponent,
-        CreateOrganizationComponent,
-        SearchOrganizationComponent,
+        OrganizationCreateComponent,
+        OrganizationSearchComponent,
         ServerInfoComponent,
         ServerInfoGeneralComponent,
         ServerInfoProvidersComponent,

@@ -6,11 +6,11 @@ import { Organization, DataService, AlertService } from '../../../shared';
 import { SearchCriteria, SearchCriteriaFilter, SearchCriteriaFilterOperator, SearchResults, Paging, OrderBy } from '../../../shared';
 
 @Component({
-  selector: 'app-search-organization',
-  templateUrl: './search-organization.component.html',
-  styleUrls: ['./search-organization.component.scss']
+  selector: 'app-organization-search',
+  templateUrl: './organization-search.component.html',
+  styleUrls: ['./organization-search.component.scss']
 })
-export class SearchOrganizationComponent implements OnInit {
+export class OrganizationSearchComponent implements OnInit {
 
   private searchResult: SearchResults<Organization> = new SearchResults<Organization>();
 

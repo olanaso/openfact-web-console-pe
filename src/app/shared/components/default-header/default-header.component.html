@@ -13,7 +13,16 @@
 	<div class="collapse navbar-collapse navbar-collapse-11">
 		<ul class="nav navbar-nav navbar-utility">
 			<li class="dropdown" ngbDropdown>
-				<a class="dropdown-toggle" href="javascript:void(0);" ngbDropdownToggle>
+				<a class="dropdown-toggle nav-item-iconic" href="javascript:void(0);" ngbDropdownToggle>
+					<span title="Help" class="fa pficon-help"></span>
+					<span class="caret"></span>
+				</a>
+				<ul class="dropdown-menu">
+					<li><a routerLink="/about">About</a></li>
+				</ul>
+			</li>
+			<li class="dropdown" ngbDropdown>
+				<a class="dropdown-toggle nav-item-iconic" href="javascript:void(0);" ngbDropdownToggle>
 					<span class="pficon pficon-user"></span> Brian Johnson <b class="caret"></b>
 				</a>
 				<ul class="dropdown-menu">

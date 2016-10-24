@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { OrganizationsComponent } from './organizations/organizations.component';
-import { CreateOrganizationComponent } from './organizations/create-organization/create-organization.component';
-import { SearchOrganizationComponent } from './organizations/search-organization/search-organization.component';
+import { OrganizationCreateComponent } from './organizations/organization-create/organization-create.component';
+import { OrganizationSearchComponent } from './organizations/organization-search/organization-search.component';
 
 import { ServerInfoComponent } from './server-info/server-info.component';
 import { ServerInfoGeneralComponent } from './server-info/server-info-general/server-info-general.component';
@@ -23,8 +23,8 @@ import { AboutComponent } from './about/about.component';
         path: 'organizations',
         component: OrganizationsComponent,
         children: [
-          { path: 'search', component: SearchOrganizationComponent },
-          { path: 'create', component: CreateOrganizationComponent },
+          { path: 'search', component: OrganizationSearchComponent },
+          { path: 'create', component: OrganizationCreateComponent },
           { path: '', redirectTo: 'search' }
         ]
       },

@@ -22,7 +22,9 @@ export class EmailComponent implements OnInit {
     private formBuilder: FormBuilder,
     private dataService: DataService,
     private alertService: AlertService) {
-    this.organization = this.activatedRoute.snapshot.parent.parent.data['organization'];
+    this.activatedRoute.data.subscribe(result => {
+      this.organization = <Organization>result['organization'];
+    });
     this.buildForm();
     this.loadData();
   }
@@ -51,7 +53,7 @@ export class EmailComponent implements OnInit {
   save(value: any) {
     this.working = true;
 
-    this.organization.save(value).subscribe(
+    this.organization.save({ organization: this.organization.organization, smtpServer: value }).subscribe(
       result => {
         this.working = false;
         this.form.markAsPristine();

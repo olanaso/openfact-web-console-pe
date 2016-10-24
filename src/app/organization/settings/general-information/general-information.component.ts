@@ -22,7 +22,9 @@ export class GeneralInformationComponent implements OnInit {
     private formBuilder: FormBuilder,
     private dataService: DataService,
     private alertService: AlertService) {
-    this.organization = this.activatedRoute.snapshot.parent.parent.data['organization'];
+    this.activatedRoute.data.subscribe(result => {
+      this.organization = <Organization>result['organization'];
+    });
     this.buildForm();
     this.loadData();
   }

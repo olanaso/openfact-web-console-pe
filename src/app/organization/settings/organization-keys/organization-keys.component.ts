@@ -31,7 +31,9 @@ export class OrganizationKeysComponent implements OnInit {
     private dataService: DataService,
     private alertService: AlertService,
     private modalService: NgbModal) {
-    this.organization = this.activatedRoute.snapshot.parent.parent.data['organization'];
+    this.activatedRoute.data.subscribe(result => {
+      this.organization = <Organization>result['organization'];
+    });
   }
 
   ngOnInit() {

@@ -7,15 +7,19 @@ import { OrganizationRoutingModule } from './organization-routing.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SharedModule } from '../shared';
 
+import { OrganizationResolver } from './organization-resolver';
 import { OrganizationComponent } from './organization.component';
+
 import { DashboardComponent } from './dashboard';
-import { SettingsComponent } from './settings';
+
 import { InvoicesComponent, CreateInvoiceComponent, SearchInvoiceComponent, OverviewInvoiceComponent, SummaryInvoiceComponent } from './invoices';
 import { CreditnotesComponent, CreateCreditnoteComponent, SearchCreditnoteComponent } from './creditnotes';
 import { DebitnotesComponent, CreateDebitnoteComponent, SearchDebitnoteComponent } from './debitnotes';
 
-import { OrganizationResolver, InvoiceResolver } from './utils';
-import { GeneralInformationComponent, AdditionalInformationComponent, EmailComponent, OrganizationKeysComponent, OrganizationThemesComponent } from './settings';
+import { OrganizationSettingsResolver } from './settings';
+import { SettingsComponent, GeneralInformationComponent, AdditionalInformationComponent, EmailComponent, OrganizationKeysComponent, OrganizationThemesComponent } from './settings';
+
+import { InvoiceResolver } from './utils';
 
 @NgModule({
     imports: [
@@ -49,6 +53,7 @@ import { GeneralInformationComponent, AdditionalInformationComponent, EmailCompo
     ],
     providers: [
         OrganizationResolver,
+        OrganizationSettingsResolver,
         InvoiceResolver
     ]
 })

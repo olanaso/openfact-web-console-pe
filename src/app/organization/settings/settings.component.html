@@ -5,29 +5,11 @@
 	</ol>
 	<div>
 		<h3>{{organization.organization}}
-			<div class="pull-right">
-				<div class="dropdown" ngbDropdown>
-					<button class="btn btn-default" type="button">Send</button>
-					<button class="btn btn-default" type="button" ngbDropdownToggle>
-						Dropdown
-						<span class="caret"></span>
-					</button>
-					<ul class="dropdown-menu">
-						<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
-						<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
-						<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
-						<li role="presentation" class="divider"></li>
-						<li role="presentation" class="disabled"><a role="menuitem" tabindex="-1" href="#">Disabled link</a></li>
-						<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>
-					</ul>
-				</div>
-			</div>
 			<small>created 
 			<relative-timestamp [timestamp]="organization.createdTimestamp">			
 			</relative-timestamp>
 		</small>
 		</h3>
-		<labels></labels>
 	</div>
 </div>
 

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, RouterStateSnapshot, Resolve } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 
-import { Organization, DataService } from '../../shared';
+import { Organization, DataService } from '../shared';
 
 @Injectable()
 export class OrganizationResolver implements Resolve<Organization>{

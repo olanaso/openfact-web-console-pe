@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { Organization } from '../shared';
+import { Organization, DataService, AlertService } from '../shared';
 
 @Component({
   selector: 'organization',
@@ -11,12 +11,30 @@ import { Organization } from '../shared';
 export class OrganizationComponent implements OnInit {
 
   private organization: Organization;
+  private organizations: Array<Organization>;
 
-  constructor(private activatedRoute: ActivatedRoute) {
-    this.organization = this.activatedRoute.snapshot.data['organization'];
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private dataService: DataService,
+    private alertService: AlertService) {
+    this.activatedRoute.data.subscribe(result => {
+      this.organization = <Organization>result['organization'];
+    });
+    this.loadData();
   }
 
   ngOnInit() {
+  }
+
+  loadData() {
+    this.dataService.organizations().getAll().subscribe(
+      result => {
+        this.organizations = result;
+      },
+      error => {
+        this.alertService.pop('error', 'Error', 'Could not loaded organizations.');
+      }
+    );
   }
 
 }

@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+
+import { Organization } from '../../models';
 
 @Component({
   selector: 'organization-header',
@@ -6,6 +8,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./organization-header.component.scss']
 })
 export class OrganizationHeaderComponent implements OnInit {
+
+  @Input()
+  private currentOrganization: Organization;
+
+  @Input()
+  private organizations: Array<Organization>;
 
   constructor() { }
 

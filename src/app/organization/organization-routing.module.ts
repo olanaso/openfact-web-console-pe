@@ -1,14 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { OrganizationComponent } from './organization.component';
 import { DashboardComponent } from './dashboard';
+
+import { OrganizationResolver } from './organization-resolver';
+import { OrganizationComponent } from './organization.component';
+
+import { OrganizationSettingsResolver } from './settings';
 import { SettingsComponent, GeneralInformationComponent, AdditionalInformationComponent, EmailComponent, OrganizationKeysComponent, OrganizationThemesComponent } from './settings';
+
 import { InvoicesComponent, CreateInvoiceComponent, SearchInvoiceComponent, OverviewInvoiceComponent, SummaryInvoiceComponent } from './invoices';
 import { CreditnotesComponent, CreateCreditnoteComponent, SearchCreditnoteComponent } from './creditnotes';
 import { DebitnotesComponent, CreateDebitnoteComponent, SearchDebitnoteComponent } from './debitnotes';
 
-import { OrganizationResolver, InvoiceResolver } from './utils';
+import { InvoiceResolver } from './utils';
 
 @NgModule({
   imports: [
@@ -63,12 +68,45 @@ import { OrganizationResolver, InvoiceResolver } from './utils';
             path: 'settings',
             component: SettingsComponent,
             children: [
-              { path: 'general-information-settings', component: GeneralInformationComponent },
-              { path: 'additional-information-settings', component: AdditionalInformationComponent },
-              { path: 'email-settings', component: EmailComponent },
-              { path: 'key-settings', component: OrganizationKeysComponent },
-              { path: 'themes-settings', component: OrganizationThemesComponent },              
-              { path: '', redirectTo: 'general-information-settings' }
+              {
+                path: 'general-information-settings',
+                component: GeneralInformationComponent,
+                resolve: {
+                  organization: OrganizationSettingsResolver
+                }
+              },
+              {
+                path: 'additional-information-settings',
+                component: AdditionalInformationComponent,
+                resolve: {
+                  organization: OrganizationSettingsResolver
+                }
+              },
+              {
+                path: 'email-settings',
+                component: EmailComponent,
+                resolve: {
+                  organization: OrganizationSettingsResolver
+                }
+              },
+              {
+                path: 'key-settings',
+                component: OrganizationKeysComponent,
+                resolve: {
+                  organization: OrganizationSettingsResolver
+                }
+              },
+              {
+                path: 'themes-settings',
+                component: OrganizationThemesComponent,
+                resolve: {
+                  organization: OrganizationSettingsResolver
+                }
+              },
+              {
+                path: '',
+                redirectTo: 'general-information-settings'
+              }
             ]
           },
           { path: '', redirectTo: 'dashboard' }

@@ -6,11 +6,11 @@ import { Organization } from '../../../shared';
 import { DataService, AlertService } from '../../../shared';
 
 @Component({
-  selector: 'app-email',
-  templateUrl: './email.component.html',
-  styleUrls: ['./email.component.scss']
+  selector: 'app-organization-smtp-server',
+  templateUrl: './organization-smtp-server.component.html',
+  styleUrls: ['./organization-smtp-server.component.scss']
 })
-export class EmailComponent implements OnInit {
+export class OrganizationSmtpServerComponent implements OnInit {
 
   private organization: Organization;
 

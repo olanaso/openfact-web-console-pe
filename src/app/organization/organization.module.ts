@@ -17,7 +17,7 @@ import { CreditnotesComponent, CreateCreditnoteComponent, SearchCreditnoteCompon
 import { DebitnotesComponent, CreateDebitnoteComponent, SearchDebitnoteComponent } from './debitnotes';
 
 import { OrganizationSettingsResolver } from './settings';
-import { SettingsComponent, GeneralInformationComponent, AdditionalInformationComponent, EmailComponent, OrganizationKeysComponent, OrganizationThemesComponent } from './settings';
+import { SettingsComponent, GeneralInformationComponent, AdditionalInformationComponent, OrganizationSmtpServerComponent, OrganizationUblServerComponent, OrganizationKeysComponent, OrganizationThemesComponent } from './settings';
 
 import { InvoiceResolver } from './utils';
 
@@ -46,10 +46,11 @@ import { InvoiceResolver } from './utils';
         SearchDebitnoteComponent,
         SummaryInvoiceComponent,
         GeneralInformationComponent,
-        EmailComponent,
         AdditionalInformationComponent,
         OrganizationKeysComponent,
         OrganizationThemesComponent,
+        OrganizationUblServerComponent,
+        OrganizationSmtpServerComponent,
     ],
     providers: [
         OrganizationResolver,

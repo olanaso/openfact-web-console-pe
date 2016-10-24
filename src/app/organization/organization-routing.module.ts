@@ -7,7 +7,15 @@ import { OrganizationResolver } from './organization-resolver';
 import { OrganizationComponent } from './organization.component';
 
 import { OrganizationSettingsResolver } from './settings';
-import { SettingsComponent, GeneralInformationComponent, AdditionalInformationComponent, EmailComponent, OrganizationKeysComponent, OrganizationThemesComponent } from './settings';
+import {
+  SettingsComponent,
+  GeneralInformationComponent,
+  AdditionalInformationComponent,
+  OrganizationSmtpServerComponent,
+  OrganizationUblServerComponent,
+  OrganizationKeysComponent,
+  OrganizationThemesComponent
+} from './settings';
 
 import { InvoicesComponent, CreateInvoiceComponent, SearchInvoiceComponent, OverviewInvoiceComponent, SummaryInvoiceComponent } from './invoices';
 import { CreditnotesComponent, CreateCreditnoteComponent, SearchCreditnoteComponent } from './creditnotes';
@@ -84,7 +92,14 @@ import { InvoiceResolver } from './utils';
               },
               {
                 path: 'email-settings',
-                component: EmailComponent,
+                component: OrganizationSmtpServerComponent,
+                resolve: {
+                  organization: OrganizationSettingsResolver
+                }
+              },
+              {
+                path: 'ublserver-settings',
+                component: OrganizationUblServerComponent,
                 resolve: {
                   organization: OrganizationSettingsResolver
                 }

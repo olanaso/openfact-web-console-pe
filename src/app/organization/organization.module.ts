@@ -12,7 +12,14 @@ import { OrganizationComponent } from './organization.component';
 
 import { DashboardComponent } from './dashboard';
 
-import { InvoicesComponent, CreateInvoiceComponent, SearchInvoiceComponent, OverviewInvoiceComponent, SummaryInvoiceComponent } from './invoices';
+import { InvoicesComponent } from './invoices';
+import { CreateInvoiceComponent } from './invoices';
+import { SearchInvoiceComponent } from './invoices';
+import { OverviewInvoiceComponent } from './invoices';
+import { SummaryInvoiceComponent } from './invoices';
+import { CreateInvoiceDefaultComponent } from './invoices/create-invoice/create-invoice-default/create-invoice-default.component';
+import { CreateInvoicePeComponent } from './invoices/create-invoice/create-invoice-pe/create-invoice-pe.component';
+
 import { CreditnotesComponent, CreateCreditnoteComponent, SearchCreditnoteComponent } from './creditnotes';
 import { DebitnotesComponent, CreateDebitnoteComponent, SearchDebitnoteComponent } from './debitnotes';
 
@@ -31,6 +38,7 @@ import { OrganizationTasksComponent } from './settings/organization-tasks/organi
 import { EventsComponent } from './events/events.component';
 import { EventsConfigComponent } from './events/events-config/events-config.component';
 import { AdminEventsComponent } from './events/admin-events/admin-events.component';
+
 
 @NgModule({
     imports: [
@@ -66,6 +74,8 @@ import { AdminEventsComponent } from './events/admin-events/admin-events.compone
         EventsComponent,
         EventsConfigComponent,
         AdminEventsComponent,
+        CreateInvoicePeComponent,
+        CreateInvoiceDefaultComponent,
     ],
     providers: [
         OrganizationResolver,

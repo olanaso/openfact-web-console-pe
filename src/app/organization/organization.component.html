@@ -1,4 +1,10 @@
-<project-header class="top-header"></project-header>
-<project-page class="project-overview-page">
-  <router-outlet></router-outlet>
-</project-page>
+<alerts></alerts>
+
+<organization-header [currentOrganization]="organization" [organizations]="organizations"></organization-header>
+
+<sidebar></sidebar>
+<div class="container-fluid container-pf-nav-pf-vertical">
+	<router-outlet></router-outlet>
+</div>
+
+<template ngbModalContainer></template>

@@ -1,4 +1,6 @@
-export class RepeidWebConsolePage {
+import { browser, element, by } from 'protractor';
+
+export class OpenfactWebConsolePage {
   navigateTo() {
     return browser.get('/');
   }

@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  moduleId: module.id,
   selector: 'app-invoices',
-  templateUrl: 'invoices.component.html',
-  styleUrls: ['invoices.component.css']
+  templateUrl: './invoices.component.html',
+  styleUrls: ['./invoices.component.scss']
 })
 export class InvoicesComponent implements OnInit {
 

@@ -1,60 +1,76 @@
-import {NgModule} from '@angular/core';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import {RouterModule} from '@angular/router';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {CommonModule}   from '@angular/common';
-import {SharedModule} from '../shared';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import {organizationRouting} from './organization.routes';
-import {PipeModule} from '../pipes';
+import { OrganizationRoutingModule } from './organization-routing.module';
 
-import {OrganizationComponent} from './organization.component';
-import {OverviewComponent} from './overview';
-import {InvoicesComponent, CreateInvoiceComponent, ListInvoiceComponent} from './invoices';
-import {CreditNotesComponent, ListCreditNotesComponent,CreateCreditNoteComponent} from './credit-notes';
-import {SettingsComponent, GeneralInformationComponent, AddressComponent, CertificateComponent, TasksScheduleComponent} from './settings';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { SharedModule } from '../shared';
 
+import { OrganizationResolver } from './organization-resolver';
+import { OrganizationComponent } from './organization.component';
 
-import {HttpModule} from '@angular/http';
-import {TranslateModule} from 'ng2-translate/ng2-translate';
-import {TranslateService, TranslateLoader, TranslateStaticLoader} from 'ng2-translate/ng2-translate';
+import { DashboardComponent } from './dashboard';
 
+import { InvoicesComponent, CreateInvoiceComponent, SearchInvoiceComponent, OverviewInvoiceComponent, SummaryInvoiceComponent } from './invoices';
+import { CreditnotesComponent, CreateCreditnoteComponent, SearchCreditnoteComponent } from './creditnotes';
+import { DebitnotesComponent, CreateDebitnoteComponent, SearchDebitnoteComponent } from './debitnotes';
+
+import { OrganizationSettingsResolver } from './settings';
+import { SettingsComponent } from './settings';
+import { GeneralInformationComponent } from './settings';
+import { AdditionalInformationComponent } from './settings';
+import { OrganizationSmtpServerComponent } from './settings';
+import { OrganizationUblServerComponent } from './settings';
+import { OrganizationKeysComponent } from './settings';
+import { OrganizationThemesComponent } from './settings';
+
+import { InvoiceResolver } from './utils';
+import { OrganizationTasksComponent } from './settings/organization-tasks/organization-tasks.component';
+
+import { EventsComponent } from './events/events.component';
+import { EventsConfigComponent } from './events/events-config/events-config.component';
+import { AdminEventsComponent } from './events/admin-events/admin-events.component';
 
 @NgModule({
     imports: [
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
-        SharedModule,
-        organizationRouting,
-        HttpModule,
-        TranslateModule.forRoot(),
-        NgbModule,
-        PipeModule
+        OrganizationRoutingModule,
+        NgbModule.forRoot(),
+        SharedModule
     ],
-    exports: [HttpModule, TranslateModule, NgbModule],
     declarations: [
         OrganizationComponent,
-
-        OverviewComponent,        
-
-        OverviewComponent,
-
-        InvoicesComponent,
-        CreditNotesComponent,
-        //CreateInvoiceComponent,
-        ListInvoiceComponent,
-        ListCreditNotesComponent,
-        CreateCreditNoteComponent,
         SettingsComponent,
+        DashboardComponent,
+        InvoicesComponent,
+        CreateInvoiceComponent,
+        SearchInvoiceComponent,
+        OverviewInvoiceComponent,
+        CreditnotesComponent,
+        CreateCreditnoteComponent,
+        SearchCreditnoteComponent,
+        DebitnotesComponent,
+        CreateDebitnoteComponent,
+        SearchDebitnoteComponent,
+        SummaryInvoiceComponent,
         GeneralInformationComponent,
-        AddressComponent,
-        //CertificateComponent, 
-        TasksScheduleComponent
+        AdditionalInformationComponent,
+        OrganizationKeysComponent,
+        OrganizationThemesComponent,
+        OrganizationUblServerComponent,
+        OrganizationSmtpServerComponent,
+        OrganizationTasksComponent,
+        EventsComponent,
+        EventsConfigComponent,
+        AdminEventsComponent,
     ],
-    providers: []
+    providers: [
+        OrganizationResolver,
+        OrganizationSettingsResolver,
+        InvoiceResolver
+    ]
 })
-
-export class OrganizationModule {
-
-}
+export class OrganizationModule { }

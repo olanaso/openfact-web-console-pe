@@ -1,15 +1,38 @@
-<div>
-  <h1>
-    {{organization.name}}
-    <button-delete [model]="organization" [type]="'Organization'" [resourceName]="organization.name" [buttonOnly]="true" [redirectUrl]="'/organizations'">
-    </button-delete>
-  </h1>
-  <ul class="nav nav-tabs">
-    <li routerLinkActive="active"><a [routerLink]="['./general-information']">{{ 'HOME.GENERAL_INFORMATION' | translate }}</a></li>
-    <li routerLinkActive="active"><a [routerLink]="['./address']">{{ 'HOME.ADDRESS' | translate }}</a></li>
-    <li routerLinkActive="active"><a [routerLink]="['./certificate']">{{ 'HOME.CERTIFICATE' | translate }}</a></li>
-    <li routerLinkActive="active"><a [routerLink]="['./tasks-schedule']">{{ 'HOME.TASKS_SCHEDULE' | translate }}</a></li>
-  </ul>
+<div class="container-fluid">
+	<ol class="breadcrumb">
+		<li><a href="#">Settings</a></li>
+		<li class="active"> {{organization.organization}}</li>
+	</ol>
+	<div>
+		<h3>{{organization.organization}}
+			<small>created 
+			<relative-timestamp [timestamp]="organization.createdTimestamp">			
+			</relative-timestamp>
+		</small>
+		</h3>
+	</div>
 </div>
 
-<router-outlet></router-outlet>
+<br>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="tab-container">
+				<ul class="nav nav-tabs">
+					<li routerLinkActive="active"><a routerLink="./general-information-settings">General</a></li>
+					<li routerLinkActive="active"><a routerLink="./additional-information-settings">Additional</a></li>
+					<li routerLinkActive="active"><a routerLink="./key-settings">Keys</a></li>
+					<li routerLinkActive="active"><a routerLink="./email-settings">Email</a></li>
+					<li routerLinkActive="active"><a routerLink="./ublserver-settings">Ubl Server</a></li>
+					<li routerLinkActive="active"><a routerLink="./themes-settings">Themes</a></li>
+					<li routerLinkActive="active"><a routerLink="./tasks-settings">Tasks</a></li>
+				</ul>
+				<div class="tab-pane">
+					<div>
+						<router-outlet></router-outlet>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

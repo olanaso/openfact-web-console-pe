@@ -1,0 +1,42 @@
+import { Quantity } from './Quantity';
+import { Response } from './Response';
+import { LineReference } from './LineReference';
+import { OrderLineReference } from './OrderLineReference';
+import { BillingReference } from './BillingReference';
+import { DocumentReference } from './DocumentReference';
+import { PricingReference } from './PricingReference';
+import { Party } from './Party';
+import { Delivery } from './Delivery';
+import { PaymentTerms } from './PaymentTerms';
+import { AllowanceCharge } from './AllowanceCharge';
+import { TaxTotal } from './TaxTotal';
+import { Item } from './Item';
+import { Price } from './Price';
+import { DeliveryTerms } from './DeliveryTerms';
+
+export class InvoiceLine {
+    idUbl: String;
+    UUID: String;
+    note: String;
+    invoicedQuantity: Quantity;
+    lineExtensionAmount: number;
+    taxPointDate: Date;
+    accountingCostCode: String;
+    accountingCost: String;
+    freeOfChargeIndicator: boolean;
+    orderLineReference: Array<OrderLineReference>;
+    despatchLineReference: Array<LineReference>;
+    receiptLineReference: Array<LineReference>;
+    billingReference: Array<BillingReference>;
+    documentReference: Array<DocumentReference>;
+    pricingReference: PricingReference;
+    originatorParty: Party;
+    delivery: Array<Delivery>;
+    paymentTerms: Array<PaymentTerms>;
+    allowanceCharge: Array<AllowanceCharge>;
+    taxTotal: Array<TaxTotal>;
+    item: Item;
+    price: Price;
+    deliveryTerms: DeliveryTerms;
+    id: String;
+}

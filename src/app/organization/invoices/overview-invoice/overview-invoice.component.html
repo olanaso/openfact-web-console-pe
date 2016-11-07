@@ -1,0 +1,51 @@
+<div class="container-fluid">
+	<ol class="breadcrumb">
+		<li><a href="#">Invoices</a></li>
+		<li class="active"> {{invoice.idUbl}}</li>
+	</ol>
+	<div>
+		<h3>{{invoice.idUbl}}
+			<div class="pull-right">
+				<div class="dropdown" ngbDropdown>
+					<button class="btn btn-default" type="button">Send</button>
+					<button class="btn btn-default" type="button" ngbDropdownToggle>
+						Dropdown
+						<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu">
+						<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
+						<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
+						<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
+						<li role="presentation" class="divider"></li>
+						<li role="presentation" class="disabled"><a role="menuitem" tabindex="-1" href="#">Disabled link</a></li>
+						<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>
+					</ul>
+				</div>
+			</div>
+			<small>created 
+			<relative-timestamp [timestamp]="invoice.issueDateTime">			
+			</relative-timestamp>
+		</small>
+		</h3>
+		<labels></labels>
+	</div>
+</div>
+
+<br>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="tab-container">
+				<ul class="nav nav-tabs">
+					<li routerLinkActive="active"><a routerLink="./summary">Summary</a></li>
+					<li routerLinkActive="active"><a routerLink="./events">Events</a></li>
+				</ul>
+				<div class="tab-pane">
+					<div>
+						<router-outlet></router-outlet>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

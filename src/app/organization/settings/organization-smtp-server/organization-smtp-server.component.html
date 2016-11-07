@@ -1,0 +1,102 @@
+<div class="container-fluid container-cards-pf">
+	<div class="row row-cards-pf">
+		<div class="col-md-12">
+			<form [formGroup]="form" (ngSubmit)="save(form.value)" class="form-horizontal">
+				<p class="fields-status-pf">The fields marked with <span class="required-pf">*</span> are required.</p>
+				<div class="form-group" [ngClass]="{ 'has-error' : !form.get('host').valid && form.get('host').dirty }">
+					<label class="col-md-2 control-label required-pf">Host
+						<i class="fa fa-question-circle text-muted" ngbTooltip="organization of the host" placement="right"></i>
+          			</label>
+					<div class="col-md-3">
+						<input formControlName="host" type="text" class="form-control" placeholder="SMTP Host" />
+						<div *ngIf="!form.get('host').valid && form.get('host').dirty">
+							<span *ngIf="form.get('host').hasError('required')" class="help-block">This field is required</span>
+							<span *ngIf="form.get('host').hasError('maxlength')" class="help-block">Max length allowed: {{form.get('host').errors.maxlength.requiredLength}}</span>
+						</div>
+					</div>
+				</div>
+				<div class="form-group" [ngClass]="{ 'has-error' : !form.get('host').valid && form.get('port').dirty }">
+					<label class="col-md-2 control-label">Port
+						<i class="fa fa-question-circle text-muted" ngbTooltip="host of the organization" placement="right"></i>
+          			</label>
+					<div class="col-md-3">
+						<input formControlName="port" type="text" class="form-control" placeholder="SMTP Port(defaults to 25)" />
+						<div *ngIf="!form.get('port').valid && form.get('port').dirty">
+							<span *ngIf="form.get('port').hasError('required')" class="help-block">This field is required</span>
+							<span *ngIf="form.get('port').hasError('maxlength')" class="help-block">Max length allowed: {{form.get('port').errors.maxlength.requiredLength}}</span>
+						</div>
+					</div>
+				</div>
+				<div class="form-group" [ngClass]="{ 'has-error' : !form.get('host').valid && form.get('from').dirty }">
+					<label class="col-md-2 control-label required-pf">From
+						<i class="fa fa-question-circle text-muted" ngbTooltip="host of the organization" placement="right"></i>
+          			</label>
+					<div class="col-md-4">
+						<input formControlName="from" type="text" class="form-control" placeholder="Sender Email Address" />
+						<div *ngIf="!form.get('from').valid && form.get('from').dirty">
+							<span *ngIf="form.get('from').hasError('required')" class="help-block">This field is required</span>
+							<span *ngIf="form.get('from').hasError('maxlength')" class="help-block">Max length allowed: {{form.get('from').errors.maxlength.requiredLength}}</span>
+						</div>
+					</div>
+				</div>
+				<div class="form-group" [ngClass]="{ 'has-error' : !form.get('ssl').valid && form.get('ssl').dirty }">
+					<label class="col-md-2 control-label">Enable SSL
+						<i class="fa fa-question-circle text-muted" ngbTooltip="ssl of the organization" placement="right"></i>
+          			</label>
+					<div class="col-md-4">
+						<button-switch formControlName="ssl"></button-switch>
+						<div *ngIf="!form.get('ssl').valid && form.get('ssl').dirty">
+							<span *ngIf="form.get('ssl').errors.required" class="help-block">This field is required</span>
+						</div>
+					</div>
+				</div>
+				<div class="form-group" [ngClass]="{ 'has-error' : !form.get('starttls').valid && form.get('starttls').dirty }">
+					<label class="col-md-2 control-label">Enable StartTLS
+						<i class="fa fa-question-circle text-muted" ngbTooltip="starttls of the organization" placement="right"></i>
+          			</label>
+					<div class="col-md-4">
+						<button-switch formControlName="starttls"></button-switch>
+						<div *ngIf="!form.get('starttls').valid && form.get('starttls').dirty">
+							<span *ngIf="form.get('starttls').errors.required" class="help-block">This field is required</span>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-2 control-label">Enable Authentication
+						<i class="fa fa-question-circle text-muted" ngbTooltip="starttls of the organization" placement="right"></i>
+          			</label>
+					<div class="col-md-4">
+						<div class="checkbox">
+							<label>
+								<input formControlName="auth" type="checkbox"> Check for enable Authentication
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="form-group" [hidden]="!form.get('auth').value">
+					<label class="col-md-2 control-label"></label>
+					<div class="col-md-4">
+						<div class="row" style="margin-left: 0; margin-right: 0;">
+							<div class="col-md-12">
+								<div class="form-group" class="form-group" [ngClass]="{ 'has-error' : !form.get('smtpUsername').valid && form.get('smtpUsername').dirty }">
+									<label class="control-label required-pf">Username</label>
+									<input formControlName="smtpUsername" type="text" class="form-control" placeholder="Login Username">
+								</div>
+								<div class="form-group" class="form-group" [ngClass]="{ 'has-error' : !form.get('smtpPassword').valid && form.get('smtpPassword').dirty }">
+									<label class="control-label required-pf">Password</label>
+									<input formControlName="smtpPassword" type="password" class="form-control" placeholder="Login Password">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-md-offset-2 col-lg-offset-2">
+						<button-save [form]="form" [working]="working"></button-save>
+						<button type="button" (click)="loadData()" class="btn btn-default" [disabled]="!form.dirty">Cancel</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

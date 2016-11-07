@@ -1,86 +1,57 @@
-import {Component, OnInit} from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
-import {Validators} from '@angular/common';
-import {FormGroup, FormControl, FormBuilder} from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 
-import {OrganizationModel, DocumentModel, ADDITIONAL_IDENTIFICATION_ID, DataService} from '../../../services';
-import {AlertService} from '../../../shared';
+import { Organization } from '../../../shared';
+import { DataService, AlertService } from '../../../shared';
 
 @Component({
-  moduleId: module.id,
-  selector: 'general-information',
-  templateUrl: 'general-information.component.html',
-  styleUrls: ['general-information.component.css']
+  selector: 'app-general-information',
+  templateUrl: './general-information.component.html',
+  styleUrls: ['./general-information.component.scss']
 })
 export class GeneralInformationComponent implements OnInit {
 
-  organization: OrganizationModel;
-  additionalAccountIds: Array<DocumentModel> = [];
+  private organization: Organization;
 
-  form: FormGroup;
-  working: boolean = false;
-  submitted: boolean = false;
+  private form: FormGroup;
+  private working: boolean = false;
 
-  constructor(
-    private router: Router,
+  constructor(private router: Router,
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
     private dataService: DataService,
     private alertService: AlertService) {
-    this.organization = this.activatedRoute.parent.parent.snapshot.data['organization'];
+    this.activatedRoute.data.subscribe(result => {
+      this.organization = <Organization>result['organization'];
+    });
+    this.buildForm();
+    this.loadData();
   }
 
   ngOnInit() {
-    this.buildForm();
-    this.loadData();
-    this.loadAdditionalAccountIds();
   }
 
   buildForm() {
     this.form = this.formBuilder.group({
-      name: ['', [<any>Validators.required, <any>Validators.maxLength(60)]],
-      supplierName: ['', [<any>Validators.maxLength(150)]],
-      registrationName: ['', [<any>Validators.maxLength(150)]],
-      additionalAccountId: ['', [<any>Validators.maxLength(120)]],
-      assignedIdentificationId: ['', [<any>Validators.maxLength(20)]],
-      enabled: ['', [<any>Validators.required]]
-    });
+      organization: [undefined, Validators.compose([Validators.required, Validators.maxLength(60)])],
+      description: [undefined, Validators.maxLength(250)],
+      enabled: [false, Validators.required],
+    });    
   }
 
   loadData() {
-    (<FormControl>this.form.controls['name']).setValue(this.organization.name);
-    (<FormControl>this.form.controls['additionalAccountId']).setValue(this.organization.additionalAccountId);
-    (<FormControl>this.form.controls['assignedIdentificationId']).setValue(this.organization.assignedIdentificationId);
-    (<FormControl>this.form.controls['supplierName']).setValue(this.organization.supplierName);
-    (<FormControl>this.form.controls['registrationName']).setValue(this.organization.registrationName);
-    (<FormControl>this.form.controls['enabled']).setValue(this.organization.enabled);
+    this.form.patchValue(this.organization);
+    this.form.markAsPristine();
   }
 
-  loadAdditionalAccountIds() {
-    this.organization.getDocuments(ADDITIONAL_IDENTIFICATION_ID).subscribe(result => {
-      this.additionalAccountIds = result;
-    });
-  }
-
-  setSubmitted(submitted: boolean) {
-    this.submitted = submitted;
-  }
-
-  chagenEnabled(enabled: boolean) {
-    (<FormControl>this.form.controls['enabled']).setValue(enabled);
-  }
-
-  preSave(): OrganizationModel {
-    return Object.assign(this.organization, this.form.value);
-  }
-
-  save() {
+  save(value: any) {
     this.working = true;
-    let organization = this.preSave();
 
-    organization.save().subscribe(
+    this.organization.save(value).subscribe(
       result => {
         this.working = false;
+        this.form.markAsPristine();
         this.alertService.pop('success', 'Success', 'Your changes have been saved to the organization.');
       },
       error => {
@@ -88,10 +59,6 @@ export class GeneralInformationComponent implements OnInit {
         this.alertService.pop('error', 'Error', 'Your changes could not saved to the organization.');
       }
     );
-  }
-
-  reset() {
-    this.loadData();
   }
 
 }

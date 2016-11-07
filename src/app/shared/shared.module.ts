@@ -1,88 +1,79 @@
-import {NgModule} from '@angular/core';
-import {RouterModule} from '@angular/router';
-import {CommonModule} from '@angular/common';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {PipeModule} from '../pipes';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
 
-import {DefaultHeaderComponent} from './default-header';
-import {ProjectHeaderComponent} from './project-header';
-import {NavbarUtilityComponent} from './navbar-utility';
-import {NavbarUtilityMobileComponent} from './navbar-utility-mobile';
-import {SidebarUtilityMobileComponent} from './sidebar-utility-mobile';
-import {EventsSidebarComponent} from './events-sidebar';
-import {ProjectPageComponent} from './project-page';
-import {SidebarComponent} from './sidebar';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { MomentModule } from 'angular2-moment';
 
-import {AlertsComponent, AlertComponent} from './alerts';
+import { Restangular, RestangularOpenfact } from './services';
+import { DataService, OrganizationService, InvoiceService, CreditnoteService, DebitnoteService, ServerInfoService } from './services';
 
-import {ButtonSaveComponent} from './button-save';
-import {ButtonResetComponent} from './button-reset';
-import {ButtonCancelComponent} from './button-cancel';
-import {ButtonDeleteComponent} from './button-delete';
-import {ButtonSwitchComponent} from './button-switch';
-
-import {NavbarService} from './shared-services/navbar.service';
-import {HeaderService} from './shared-services/header.service';
-
-import {HttpModule} from '@angular/http';
-import {TranslateModule} from 'ng2-translate/ng2-translate';
-
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { DefaultHeaderComponent, OrganizationHeaderComponent, SidebarComponent } from './components';
+import { ButtonCancelComponent, ButtonSaveComponent, ButtonDeleteComponent, ButtonSwitchComponent, ButtonUploadFileComponent } from './components';
+import { AlertsComponent, AlertComponent, AlertService } from './components';
+import { LabelsComponent } from './components';
+import { RelativeTimestampComponent } from './components';
+import { XmlViewerComponent } from './components';
+import { CapitalizePipe, KeysPipe, YesNoPipe, FilterCollectionPipe } from './pipes';
 
 @NgModule({
     imports: [
-        RouterModule,
         CommonModule,
+        RouterModule,
         FormsModule,
-        ReactiveFormsModule,
-        PipeModule,
         HttpModule,
-        TranslateModule.forRoot(),
-        NgbModule
+        NgbModule.forRoot(),
+        MomentModule
     ],
     declarations: [
         DefaultHeaderComponent,
-        ProjectHeaderComponent,
-        NavbarUtilityComponent,
-        NavbarUtilityMobileComponent,
-        SidebarUtilityMobileComponent,
-        EventsSidebarComponent,
-        ProjectPageComponent,
+        OrganizationHeaderComponent,
         SidebarComponent,
-
-        AlertsComponent, AlertComponent,
-
-        ButtonSaveComponent,
-        ButtonResetComponent,
         ButtonCancelComponent,
+        ButtonSaveComponent,
         ButtonDeleteComponent,
-        ButtonSwitchComponent
+        ButtonSwitchComponent,
+        ButtonUploadFileComponent,
+        AlertComponent,
+        AlertsComponent,
+        CapitalizePipe,
+        KeysPipe,
+        YesNoPipe,
+        FilterCollectionPipe,
+        RelativeTimestampComponent,
+        LabelsComponent,
+        XmlViewerComponent,
     ],
     exports: [
         DefaultHeaderComponent,
-        ProjectHeaderComponent,
-        NavbarUtilityComponent,
-        NavbarUtilityMobileComponent,
-        SidebarUtilityMobileComponent,
-        EventsSidebarComponent,
-        ProjectPageComponent,
+        OrganizationHeaderComponent,
         SidebarComponent,
-        HttpModule,
-        TranslateModule,
-        AlertsComponent,
-
-        ButtonSaveComponent,
-        ButtonResetComponent,
         ButtonCancelComponent,
+        ButtonSaveComponent,
         ButtonDeleteComponent,
-        ButtonSwitchComponent
+        ButtonSwitchComponent,
+        ButtonUploadFileComponent,
+        AlertsComponent,
+        CapitalizePipe,
+        KeysPipe,
+        YesNoPipe,
+        FilterCollectionPipe,
+        RelativeTimestampComponent,
+        LabelsComponent,
+        XmlViewerComponent,
     ],
     providers: [
-        NavbarService,
-        HeaderService
+        Restangular,
+        RestangularOpenfact,
+        AlertService,
+        DataService,
+        OrganizationService,
+        InvoiceService,
+        CreditnoteService,
+        DebitnoteService,
+        ServerInfoService
     ]
 })
-
-export class SharedModule {
-
-}
+export class SharedModule { }

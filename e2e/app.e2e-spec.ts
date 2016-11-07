@@ -1,10 +1,10 @@
-import { RepeidWebConsolePage } from './app.po';
+import { OpenfactWebConsolePage } from './app.po';
 
-describe('repeid-web-console App', function() {
-  let page: RepeidWebConsolePage;
+describe('openfact-web-console App', function() {
+  let page: OpenfactWebConsolePage;
 
   beforeEach(() => {
-    page = new RepeidWebConsolePage();
+    page = new OpenfactWebConsolePage();
   });
 
   it('should display message saying app works', () => {

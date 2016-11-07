@@ -1,20 +1,19 @@
-import {Component, OnInit} from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 
-import {OrganizationModel} from '../../services';
+import { Organization } from '../../shared';
 
 @Component({
-  moduleId: module.id,
   selector: 'app-settings',
-  templateUrl: 'settings.component.html',
-  styleUrls: ['settings.component.css']
+  templateUrl: './settings.component.html',
+  styleUrls: ['./settings.component.scss']
 })
 export class SettingsComponent implements OnInit {
 
-  organization: OrganizationModel;
+  private organization: Organization;
 
   constructor(private activatedRoute: ActivatedRoute) {
-    this.organization = this.activatedRoute.snapshot.parent.data['organization']; 
+    this.organization = this.activatedRoute.snapshot.parent.data['organization'];
   }
 
   ngOnInit() {

@@ -1,20 +1,12 @@
-import { bootstrap } from '@angular/platform-browser-dynamic';
-import { enableProdMode } from '@angular/core';
-import { environment, AppModule } from './app/';
+import './polyfills.ts';
 
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-import {KeycloakService} from './app/keycloak';
+import { enableProdMode } from '@angular/core';
+import { environment } from './environments/environment';
+import { AppModule } from './app/';
+
 if (environment.production) {
   enableProdMode();
 }
 
-
-KeycloakService.init().then(
-    o=>{
-        platformBrowserDynamic().bootstrapModule(AppModule);
-    },
-    x=>{
-        window.location.reload();
-    }
-    
-);
+platformBrowserDynamic().bootstrapModule(AppModule);

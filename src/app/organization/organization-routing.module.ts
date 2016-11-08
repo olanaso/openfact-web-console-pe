@@ -17,6 +17,9 @@ import { OrganizationThemesComponent } from './settings';
 import { OrganizationTasksComponent } from './settings';
 
 import { InvoicesComponent, CreateInvoiceComponent, SearchInvoiceComponent, OverviewInvoiceComponent, SummaryInvoiceComponent } from './invoices';
+import { CreateInvoiceDefaultComponent } from './invoices/create-invoice/create-invoice-default/create-invoice-default.component';
+import { CreateInvoicePeComponent } from './invoices/create-invoice/create-invoice-pe/create-invoice-pe.component';
+
 import { CreditnotesComponent, CreateCreditnoteComponent, SearchCreditnoteComponent } from './creditnotes';
 import { DebitnotesComponent, CreateDebitnoteComponent, SearchDebitnoteComponent } from './debitnotes';
 
@@ -52,9 +55,23 @@ import { AdminEventsComponent } from './events/admin-events/admin-events.compone
                   { path: '', redirectTo: 'summary' }
                 ]
               },
-              { path: 'create', component: CreateInvoiceComponent },
-              { path: 'search', component: SearchInvoiceComponent },
-              { path: '', redirectTo: 'search' }
+              {
+                path: 'create',
+                component: CreateInvoiceComponent,
+                children: [
+                  { path: 'default', component: CreateInvoiceDefaultComponent },
+                  { path: 'pe', component: CreateInvoicePeComponent },
+                  { path: '', redirectTo: 'default' }
+                ]
+              },
+              {
+                path: 'search',
+                component: SearchInvoiceComponent
+              },
+              {
+                path: '',
+                redirectTo: 'search'
+              }
             ]
           },
           {

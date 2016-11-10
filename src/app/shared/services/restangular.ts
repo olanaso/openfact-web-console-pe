@@ -30,7 +30,10 @@ export class Restangular {
 
     /*http methods*/
     public get(queryParams?: URLSearchParams): Observable<Response> {
-        let options = { search: queryParams };
+        let options;
+        if (queryParams) {
+            options = { search: queryParams };
+        }
         return this.http.get(this.path, options).catch(this.handleError);
     }
 

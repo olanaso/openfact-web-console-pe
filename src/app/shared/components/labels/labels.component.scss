@@ -1,0 +1,57 @@
+.k8s-label {
+    margin-right:5px;margin-top:3px;
+}
+
+.k8s-label:before {
+    content:' ';
+    white-space:normal;
+}
+
+.k8s-label .label-pair{
+    margin-bottom:2px;
+}
+
+.k8s-label .label-pair .label:first-child {
+    border-radius:2px 0 0 2px;
+}
+
+.k8s-label .label-pair .label:last-child {
+    border-radius:0 2px 2px 0;
+}
+
+.k8s-label .label-pair .label-key {
+    background-color:#bee1f4;
+    color:#00659c;
+    padding-top:4px;
+    padding-bottom:4px;
+    margin-left:0;
+    font-size:12px;
+}
+
+.k8s-label .label-pair a.label-key:active,.k8s-label .label-pair a.label-key:focus,.k8s-label .label-pair a.label-key:hover {
+    background-color:#00659c;
+    color:#FFF;
+}
+
+.k8s-label .label-pair .label-value {
+    background-color:#7dc3e8;
+    color:#FFF;
+    margin-left:0;
+    padding-top:4px;
+    padding-bottom:4px;
+    font-size:12px;
+}
+
+.k8s-label .label-pair a.label-value:active,.k8s-label .label-pair a.label-value:focus,.k8s-label .label-pair a.label-value:hover {
+    background-color:#00659c;
+}
+
+@media (max-width:768px){
+    .k8s-label,.k8s-label .label-pair {
+        width:100%;
+    }
+    
+    .k8s-label .label{
+        display:block;min-width:50px;
+    }
+}

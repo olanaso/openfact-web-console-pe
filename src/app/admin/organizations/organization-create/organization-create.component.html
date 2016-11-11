@@ -1,0 +1,42 @@
+<default-header></default-header>
+
+<br><br>
+<div class="container-fluid container-cards-pf">
+	<div class="row row-cards-pf">
+		<div class="col-xs-12 col-sm-12 col-md-10 col-lg-6 col-lg-offset-1 col-md-offset-1">
+			<h3>Create Organization</h3>
+			<form [formGroup]="form" (ngSubmit)="save(form.value)" class="form-horizontal">
+				<p class="fields-status-pf">The fields marked with <span class="required-pf">*</span> are required.</p>
+				<div class="form-group" [ngClass]="{ 'has-error' : !form.controls.organization.valid && form.controls.organization.dirty }">
+					<label class="col-md-2 control-label required-pf">Name
+						<i class="fa fa-question-circle text-muted" ngbTooltip="organization of the organization" placement="right"></i>
+            		</label>
+					<div class="col-md-9">
+						<input [formControl]="form.controls.organization" type="text" class="form-control" autofocus/>
+						<div *ngIf="!form.controls.organization.valid && form.controls.organization.dirty">
+							<span *ngIf="form.controls.organization.errors.required" class="help-block">This field is required</span>
+							<span *ngIf="form.controls.organization.errors.maxlength" class="help-block">Max length allowed: {{form.controls.organization.errors.maxlength.requiredLength}}</span>
+						</div>
+					</div>
+				</div>
+				<div class="form-group" [ngClass]="{ 'has-error' : !form.controls.description.valid && form.controls.description.dirty }">
+					<label class="col-md-2 control-label">Description
+						<i class="fa fa-question-circle text-muted" ngbTooltip="Description of the organization" placement="right"></i>
+            		</label>
+					<div class="col-md-9">
+						<textarea [formControl]="form.controls.description" type="text" class="form-control"></textarea>
+						<div *ngIf="!form.controls.description.valid && form.controls.description.dirty">
+							<span *ngIf="form.controls.description.errors.maxlength" class="help-block">Max length allowed: {{form.controls.description.errors.maxlength.requiredLength}}</span>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-md-offset-2 col-lg-offset-2">
+						<button-save [form]="form" [working]="working"></button-save>
+						<button type="button" (click)="cancel()" class="btn btn-default">Cancel</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

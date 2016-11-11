@@ -3,42 +3,23 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { OrganizationsComponent } from './organizations/organizations.component';
-import { OrganizationCreateComponent } from './organizations/organization-create/organization-create.component';
-import { OrganizationListComponent } from './organizations/organization-list/organization-list.component';
-
-import { ServerInfoComponent } from './server-info/server-info.component';
-import { ServerInfoGeneralComponent } from './server-info/server-info-general/server-info-general.component';
-import { ServerInfoProvidersComponent } from './server-info/server-info-providers/server-info-providers.component';
-
-import { AboutComponent } from './about/about.component';
+import { OrganizationsCreateComponent } from './organizations-create/organizations-create.component';
 
 @NgModule({
   imports: [
     RouterModule.forChild([
       {
         path: '',
-        redirectTo: '/organizations/search',
+        redirectTo: '/organizations',
         pathMatch: 'full'
       },
       {
         path: 'organizations',
-        component: OrganizationsComponent,
         children: [
-          { path: 'search', component: OrganizationListComponent },
-          { path: 'create', component: OrganizationCreateComponent },
-          { path: '', redirectTo: 'search' }
+          { path: '', component: OrganizationsComponent },
+          { path: 'create', component: OrganizationsCreateComponent }
         ]
-      },
-      {
-        path: 'server-info',
-        component: ServerInfoComponent,
-        children: [
-          { path: 'general', component: ServerInfoGeneralComponent },
-          { path: 'providers', component: ServerInfoProvidersComponent },
-          { path: '', redirectTo: 'general' }
-        ]
-      },
-      { path: 'about', component: AboutComponent }
+      }
     ])
   ],
   exports: [

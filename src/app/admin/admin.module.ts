@@ -8,13 +8,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SharedModule } from '../shared/shared.module';
 
 import { AdminComponent } from './admin.component';
-import { AboutComponent } from './about/about.component';
 import { OrganizationsComponent } from './organizations/organizations.component';
-import { OrganizationCreateComponent } from './organizations/organization-create/organization-create.component';
-import { OrganizationListComponent } from './organizations/organization-list/organization-list.component';
-import { ServerInfoComponent } from './server-info/server-info.component';
-import { ServerInfoProvidersComponent } from './server-info/server-info-providers/server-info-providers.component';
-import { ServerInfoGeneralComponent } from './server-info/server-info-general/server-info-general.component';
+import { OrganizationsCreateComponent } from './organizations-create/organizations-create.component';
 
 @NgModule({
   imports: [
@@ -27,13 +22,8 @@ import { ServerInfoGeneralComponent } from './server-info/server-info-general/se
   ],
   declarations: [
     AdminComponent,
-    AboutComponent,
     OrganizationsComponent,
-    OrganizationCreateComponent,
-    OrganizationListComponent,
-    ServerInfoComponent,
-    ServerInfoProvidersComponent,
-    ServerInfoGeneralComponent
+    OrganizationsCreateComponent
   ]
 })
 export class AdminModule { }

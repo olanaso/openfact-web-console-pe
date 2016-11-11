@@ -8,26 +8,10 @@
 			<form #searchForm="ngForm" (ngSubmit)="search()" class="toolbar-pf-actions">
 				<div class="form-group toolbar-pf-filter">
 					<label class="sr-only">Name</label>
-					<input type="text" [(ngModel)]="filters.filterText" name="filterText" #filterText="ngModel" class="form-control"
-						placeholder="Filter By Name..." autofocus>
+					<input type="text" [(ngModel)]="filters.filterText" name="filterText" #filterText="ngModel" class="form-control" placeholder="Filter By Name..."
+						autofocus>
 				</div>
 				<!-- /filter -->
-
-				<div class="form-group">
-					<div class="btn-group" ngbDropdown>
-						<button type="button" class="btn btn-default dropdown-toggle" ngbDropdownToggle>{{sorter.selected.name}} <span class="caret"></span></button>
-						<ul class="dropdown-menu">
-							<template ngFor let-item [ngForOf]="combo.orderBy" let-i="index">
-								<li *ngIf="item.divider" class="divider"></li>
-								<li><a (click)="changeSorter(item)" href="javascript:void(0);">{{item.name}}</a></li>
-							</template>
-						</ul>
-					</div>
-					<button class="btn btn-link" type="button" (click)="changeAscending()">
-              			<span class="fa fa-sort-alpha-{{sorter.ascending ? 'asc' : 'desc'}}"></span>
-          			</button>
-				</div>
-				<!-- /sorter -->
 
 				<div class="form-group">
 					<button class="btn btn-primary" type="button" routerLink="../create">New organization</button>
@@ -40,7 +24,7 @@
               				<span class="fa fa-search"></span>
             			</button>
 						<div class="find-pf-dropdown-container">
-							<input type="text" class="form-control" id="find" placeholder="Find By Keyword...">
+							<input type="text" class="form-control" placeholder="Find By Keyword...">
 							<div class="find-pf-buttons">
 								<span class="find-pf-nums">1 of 3</span>
 								<button class="btn btn-link" type="button">
@@ -66,25 +50,22 @@
 
 			<div class="row toolbar-pf-results">
 				<div class="col-sm-12">
-					<h5>Showing {{searchResult.items.length}} of {{searchResult.totalSize}} Results</h5>
-					<div *ngIf="searchResult.totalSize > paging.size" class="pull-right" style="margin-top: 5px;">
-						<ngb-pagination (pageChange)="changePagination($event)" [collectionSize]="searchResult.totalSize" [(page)]="paging.page"
-							[(pageSize)]="paging.size"></ngb-pagination>
-					</div>
+					<h5>Showing {{searchResult.length}} Results</h5>
 				</div>
 			</div>
-			<!-- /results -->
-
 		</div>
-		<!-- /col -->
+		<!-- /results -->
+
 	</div>
-	<!-- /row -->
+	<!-- /col -->
+</div>
+<!-- /row -->
 </div>
 <!-- /container -->
 
 <div class="container-fluid container-cards-pf">
 	<div class="row row-cards-pf">
-		<div *ngFor="let item of searchResult.items" class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+		<div *ngFor="let item of searchResult" class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 			<div [routerLink]="['/organization', item.organization]" class="card-pf card-pf-view card-pf-view-select card-pf-view-single-select">
 				<div class="card-pf-body">
 					<div class="card-pf-heading-kebab">

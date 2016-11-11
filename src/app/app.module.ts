@@ -8,6 +8,13 @@ import { AppComponent } from './app.component';
 import { KeycloakService } from "./keycloak.service";
 import { KeycloakHttp } from "./keycloak.http";
 
+import { AppRoutingModule } from './app-routing.module';
+
+import { AdminModule } from './admin/admin.module';
+import { SharedModule } from './shared/shared.module';
+
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 @NgModule({
   declarations: [
     AppComponent
@@ -15,7 +22,11 @@ import { KeycloakHttp } from "./keycloak.http";
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    AppRoutingModule,
+    AdminModule,
+    SharedModule,
+    NgbModule.forRoot(),
   ],
   providers: [
     KeycloakService,

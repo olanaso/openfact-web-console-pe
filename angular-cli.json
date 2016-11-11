@@ -18,9 +18,14 @@
       "prefix": "app",
       "mobile": false,
       "styles": [
-        "styles.css"
+        "styles.scss",
+        "../node_modules/patternfly/dist/css/patternfly.css",
+        "../node_modules/patternfly/dist/css/patternfly-additions.css"
       ],
-      "scripts": [],
+      "scripts": [
+        "../node_modules/keycloak-js/dist/keycloak.js",
+        "../node_modules/keycloak-js/dist/keycloak-authz.js"
+      ],
       "environments": {
         "source": "environments/environment.ts",
         "dev": "environments/environment.ts",
@@ -41,7 +46,7 @@
     }
   },
   "defaults": {
-    "styleExt": "css",
+    "styleExt": "scss",
     "prefixInterfaces": false,
     "inline": {
       "style": false,

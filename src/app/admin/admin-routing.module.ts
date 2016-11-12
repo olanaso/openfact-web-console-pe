@@ -3,7 +3,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { OrganizationsComponent } from './organizations/organizations.component';
-import { OrganizationsCreateComponent } from './organizations-create/organizations-create.component';
+import { CreateOrganizationComponent } from './create-organization/create-organization.component';
+import { ServerInfoComponent } from './server-info/server-info.component';
+import { ServerInfoProvidersComponent } from './server-info-providers/server-info-providers.component';
 
 @NgModule({
   imports: [
@@ -16,8 +18,27 @@ import { OrganizationsCreateComponent } from './organizations-create/organizatio
       {
         path: 'organizations',
         children: [
-          { path: '', component: OrganizationsComponent },
-          { path: 'create', component: OrganizationsCreateComponent }
+          {
+            path: '',
+            component: OrganizationsComponent
+          },
+          {
+            path: 'create',
+            component: CreateOrganizationComponent
+          }
+        ]
+      },
+      {
+        path: 'server-info',
+        children: [
+          {
+            path: '',
+            component: ServerInfoComponent
+          },
+          {
+            path: 'providers',
+            component: ServerInfoProvidersComponent
+          }
         ]
       }
     ])

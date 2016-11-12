@@ -11,6 +11,8 @@ import { KeycloakHttp } from "./keycloak.http";
 import { AppRoutingModule } from './app-routing.module';
 
 import { AdminModule } from './admin/admin.module';
+import { ComponentsModule } from './components/components.module';
+import { ServicesModule } from './services/services.module';
 import { SharedModule } from './shared/shared.module';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -25,6 +27,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     HttpModule,
     AppRoutingModule,
     AdminModule,
+    ComponentsModule,
+    ServicesModule,
     SharedModule,
     NgbModule.forRoot(),
   ],

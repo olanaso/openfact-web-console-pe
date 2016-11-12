@@ -16,6 +16,12 @@ export class KeycloakService {
     this.authc = {};
     this.authc.token = keycloak.token;
 
+    this.authz = keycloak;
+
+    this.accountManagement = function () {
+      keycloak.accountManagement();
+    };
+
     this.logout = function () {
       keycloak.logout();
     };

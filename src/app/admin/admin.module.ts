@@ -10,6 +10,8 @@ import { SharedModule } from '../shared/shared.module';
 import { AdminComponent } from './admin.component';
 import { OrganizationsComponent } from './organizations/organizations.component';
 import { OrganizationsCreateComponent } from './organizations-create/organizations-create.component';
+import { CreateOrganizationComponent } from './create-organization/create-organization.component';
+import { ServerInfoComponent } from './server-info/server-info.component';
 
 @NgModule({
   imports: [
@@ -23,7 +25,9 @@ import { OrganizationsCreateComponent } from './organizations-create/organizatio
   declarations: [
     AdminComponent,
     OrganizationsComponent,
-    OrganizationsCreateComponent
+    OrganizationsCreateComponent,
+    CreateOrganizationComponent,
+    ServerInfoComponent    
   ]
 })
 export class AdminModule { }

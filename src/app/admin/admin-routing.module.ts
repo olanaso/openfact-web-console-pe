@@ -1,6 +1,8 @@
-
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+
+import { CanActivateAllowedRoles } from '../shared/guards/can-activate-allowed-roles';
+import { CanActivateAllowedOrganizations } from '../shared/guards/can-activate-allowed-organizations';
 
 import { OrganizationsComponent } from './organizations/organizations.component';
 import { CreateOrganizationComponent } from './create-organization/create-organization.component';
@@ -17,6 +19,11 @@ import { ServerInfoProvidersComponent } from './server-info-providers/server-inf
       },
       {
         path: 'organizations',
+        canActivate: [CanActivateAllowedOrganizations, CanActivateAllowedRoles],
+        data: {
+          organizations: ['master'],
+          roles: ['admin']
+        },
         children: [
           {
             path: '',
@@ -30,6 +37,11 @@ import { ServerInfoProvidersComponent } from './server-info-providers/server-inf
       },
       {
         path: 'server-info',
+        canActivate: [CanActivateAllowedOrganizations, CanActivateAllowedRoles],
+        data: {
+          organizations: ['master'],
+          roles: ['admin']
+        },
         children: [
           {
             path: '',

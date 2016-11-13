@@ -9,6 +9,9 @@ import { FilterCollectionPipe } from './pipes/filter-collection.pipe';
 import { KeysPipe } from './pipes/keys.pipe';
 import { YesNoPipe } from './pipes/yes-no.pipe';
 
+import { CanActivateAllowedRoles } from './guards/can-activate-allowed-roles';
+import { CanActivateAllowedOrganizations } from './guards/can-activate-allowed-organizations';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -26,6 +29,10 @@ import { YesNoPipe } from './pipes/yes-no.pipe';
     FilterCollectionPipe,
     KeysPipe,
     YesNoPipe,
+  ],
+  providers: [
+    CanActivateAllowedRoles,
+    CanActivateAllowedOrganizations
   ]
 })
 export class SharedModule { }

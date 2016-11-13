@@ -9,7 +9,6 @@ import { ComponentsModule } from '../components/components.module';
 import { ServicesModule } from '../services/services.module';
 import { SharedModule } from '../shared/shared.module';
 
-import { AdminComponent } from './admin.component';
 import { OrganizationsComponent } from './organizations/organizations.component';
 import { CreateOrganizationComponent } from './create-organization/create-organization.component';
 import { ServerInfoComponent } from './server-info/server-info.component';
@@ -27,7 +26,6 @@ import { ServerInfoProvidersComponent } from './server-info-providers/server-inf
     SharedModule
   ],
   declarations: [
-    AdminComponent,
     OrganizationsComponent,
     CreateOrganizationComponent,
     ServerInfoComponent,

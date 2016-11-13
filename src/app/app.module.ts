@@ -12,6 +12,7 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AdminModule } from './admin/admin.module';
 import { ComponentsModule } from './components/components.module';
+import { ErrorComponentsModule } from './error-components/error-components.module';
 import { ServicesModule } from './services/services.module';
 import { SharedModule } from './shared/shared.module';
 
@@ -28,6 +29,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AppRoutingModule,
     AdminModule,
     ComponentsModule,
+    ErrorComponentsModule,
     ServicesModule,
     SharedModule,
     NgbModule.forRoot(),

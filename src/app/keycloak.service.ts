@@ -22,8 +22,8 @@ export class KeycloakService {
       keycloak.accountManagement();
     };
 
-    this.logout = function () {
-      keycloak.logout();
+    this.logout = function (options: any) {
+      keycloak.logout(options);
     };
 
     this.hasRole = function (name) {

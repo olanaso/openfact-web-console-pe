@@ -11,12 +11,7 @@ import { ServerInfoProvidersComponent } from './server-info-providers/server-inf
 
 @NgModule({
   imports: [
-    RouterModule.forChild([
-      {
-        path: '',
-        redirectTo: '/organizations',
-        pathMatch: 'full'
-      },
+    RouterModule.forChild([      
       {
         path: 'organizations',
         canActivate: [CanActivateAllowedOrganizations, CanActivateAllowedRoles],

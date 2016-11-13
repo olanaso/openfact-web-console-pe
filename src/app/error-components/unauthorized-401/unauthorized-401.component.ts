@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { RouterStateSnapshot } from '@angular/router';
+
+import { KeycloakService } from '../../keycloak.service';
 
 @Component({
   selector: 'app-unauthorized-401',
@@ -7,9 +10,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class Unauthorized401Component implements OnInit {
 
-  constructor() { }
+  constructor(routerState: RouterStateSnapshot) { }
 
   ngOnInit() {
+  }
+
+  logout() {
+    KeycloakService.auth.logout({
+      redirectUri: '/'
+    });
   }
 
 }

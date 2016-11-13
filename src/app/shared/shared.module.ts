@@ -11,6 +11,7 @@ import { YesNoPipe } from './pipes/yes-no.pipe';
 
 import { CanActivateAllowedRoles } from './guards/can-activate-allowed-roles';
 import { CanActivateAllowedOrganizations } from './guards/can-activate-allowed-organizations';
+import { CanLoadMasterOrganization } from './guards/can-load-master-organization';
 
 @NgModule({
   imports: [
@@ -32,7 +33,8 @@ import { CanActivateAllowedOrganizations } from './guards/can-activate-allowed-o
   ],
   providers: [
     CanActivateAllowedRoles,
-    CanActivateAllowedOrganizations
+    CanActivateAllowedOrganizations,
+    CanLoadMasterOrganization
   ]
 })
 export class SharedModule { }

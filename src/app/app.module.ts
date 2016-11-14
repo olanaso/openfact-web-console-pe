@@ -11,6 +11,7 @@ import { KeycloakHttp } from "./keycloak.http";
 import { AppRoutingModule } from './app-routing.module';
 
 import { AdminModule } from './admin/admin.module';
+import { OrganizationModule } from './organization/organization.module';
 import { ComponentsModule } from './components/components.module';
 import { ErrorComponentsModule } from './error-components/error-components.module';
 import { ServicesModule } from './services/services.module';
@@ -28,6 +29,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     HttpModule,
     AppRoutingModule,
     AdminModule,
+    OrganizationModule,
     ComponentsModule,
     ErrorComponentsModule,
     ServicesModule,

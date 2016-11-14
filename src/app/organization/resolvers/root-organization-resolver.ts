@@ -10,9 +10,7 @@ export class RootOrganizationResolver implements Resolve<Organization>{
 
     constructor(private dataService: DataService) { }
 
-    resolve(
-        route: ActivatedRouteSnapshot,
-        state: RouterStateSnapshot): Observable<any> | Promise<any> {
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Promise<any> {
         return this.dataService.organizations().findById(route.params['organization']);
     }
 }

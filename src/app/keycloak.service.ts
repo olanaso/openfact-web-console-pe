@@ -1,62 +1,48 @@
-import { Injectable } from "@angular/core";
+import {Injectable} from "@angular/core";
 
 declare var Keycloak: any;
-declare var KeycloakAuthorization: any;
 
 @Injectable()
 export class KeycloakService {
   static auth: any = {};
 
-  static Identity = function (keycloak) {
-    this.loggedIn = true;
-
-    this.claims = {};
-    this.claims.name = keycloak.idTokenParsed.name;
-
-    this.authc = {};
-    this.authc.token = keycloak.token;
-
-    this.authz = keycloak;
-
-    this.accountManagement = function () {
-      keycloak.accountManagement();
-    };
-
-    this.logout = function (options: any) {
-      keycloak.logout(options);
-    };
-
-    this.hasRole = function (name) {
-      if (keycloak && keycloak.hasRealmRole(name)) {
-        return true;
-      }
-      return false;
-    };
-
-    this.isAdmin = function () {
-      return this.hasRole("admin");
-    };
-
-    this.authorization = new KeycloakAuthorization(keycloak);
-  }
-
   static init(): Promise<any> {
     let keycloakAuth: any = new Keycloak('keycloak.json');
+    KeycloakService.auth.loggedIn = false;
 
-    return new Promise((resolve, reject) => {
-      keycloakAuth.init({ onLoad: 'login-required' })
-        .success(() => {
+      return new Promise((resolve, reject) => {
+        keycloakAuth.init({ onLoad: 'login-required' })
+          .success(() => {
+            KeycloakService.auth.loggedIn = true;
+            KeycloakService.auth.authz = keycloakAuth;
+            KeycloakService.auth.logoutUrl = keycloakAuth.authServerUrl + "/realms/openfact/protocol/openid-connect/logout?redirect_uri=/openfact-web-console/index.html";
+            resolve();
+          })
+          .error(() => {
+            reject();
+          });
+      });
+    }
 
-          console.log('User is now authenticated.');
+  logout() {
+    console.log('*** LOGOUT');
+    KeycloakService.auth.loggedIn = false;
+    KeycloakService.auth.authz = null;
 
-          KeycloakService.auth = new KeycloakService.Identity(keycloakAuth);
+    window.location.href = KeycloakService.auth.logoutUrl;
+  }
 
-          resolve();
-
-        })
-        .error(() => {
-          reject();
-        });
+  getToken(): Promise<string> {
+    return new Promise<string>((resolve, reject) => {
+      if (KeycloakService.auth.authz.token) {
+        KeycloakService.auth.authz.updateToken(5)
+          .success(() => {
+            resolve(<string>KeycloakService.auth.authz.token);
+          })
+          .error(() => {
+            reject('Failed to refresh token');
+          });
+      }
     });
   }
 }

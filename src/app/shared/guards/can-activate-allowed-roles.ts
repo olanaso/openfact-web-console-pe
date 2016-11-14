@@ -15,7 +15,7 @@ export class CanActivateAllowedRoles implements CanActivate {
 
         let result = true;
         allowedRoles.forEach(rol => {
-            if (!KeycloakService.auth.hasRole(rol)) {
+            if (!KeycloakService.auth.authz.hasRealmRole(rol)) {
                 result = false;
             }
         });

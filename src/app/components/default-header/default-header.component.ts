@@ -10,22 +10,22 @@ import { KeycloakService } from '../../keycloak.service';
 export class DefaultHeaderComponent implements OnInit {
 
   username: string;
-  auth: any;
+  authz: any;
 
   constructor() {
-    this.username = KeycloakService.auth.claims.name;
-    this.auth = KeycloakService.auth;
+    this.authz = KeycloakService.auth.authz;
+    this.username = this.authz.tokenParsed.username;
   }
 
   ngOnInit() {
   }
 
   accountManagement() {
-    this.auth.accountManagement();
+    this.authz.accountManagement();
   }
 
   logout() {
-    this.auth.logout();
+    this.authz.logout();
   }
 
 }

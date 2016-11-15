@@ -16,6 +16,8 @@ import { OrganizationOverviewComponent } from './organization-overview/organizat
 import { OrganizationSettingsComponent } from './organization-settings/organization-settings.component';
 import { OrganizationGeneralInformationComponent } from './organization-general-information/organization-general-information.component';
 import { OrganizationAdditionalInformationComponent } from './organization-additional-information/organization-additional-information.component';
+import { OrganizationKeySettingsComponent } from './organization-key-settings/organization-key-settings.component';
+import { OrganizationSmtpSettingsComponent } from './organization-smtp-settings/organization-smtp-settings.component';
 
 @NgModule({
     imports: [
@@ -33,7 +35,9 @@ import { OrganizationAdditionalInformationComponent } from './organization-addit
         OrganizationOverviewComponent,
         OrganizationSettingsComponent,
         OrganizationGeneralInformationComponent,
-        OrganizationAdditionalInformationComponent
+        OrganizationAdditionalInformationComponent,
+        OrganizationKeySettingsComponent,
+        OrganizationSmtpSettingsComponent
     ],
     providers: [
         RootOrganizationResolver,

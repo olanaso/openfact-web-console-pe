@@ -9,6 +9,8 @@ import { OrganizationOverviewComponent } from './organization-overview/organizat
 import { OrganizationSettingsComponent } from './organization-settings/organization-settings.component';
 import { OrganizationGeneralInformationComponent } from './organization-general-information/organization-general-information.component';
 import { OrganizationAdditionalInformationComponent } from './organization-additional-information/organization-additional-information.component';
+import { OrganizationKeySettingsComponent } from './organization-key-settings/organization-key-settings.component';
+import { OrganizationSmtpSettingsComponent } from './organization-smtp-settings/organization-smtp-settings.component';
 
 @NgModule({
     imports: [
@@ -42,6 +44,20 @@ import { OrganizationAdditionalInformationComponent } from './organization-addit
                             {
                                 path: 'additional-information',
                                 component: OrganizationAdditionalInformationComponent,
+                                resolve: {
+                                    organization: SettingsOrganizationResolver
+                                }
+                            },
+                            {
+                                path: 'key-settings',
+                                component: OrganizationKeySettingsComponent,
+                                resolve: {
+                                    organization: SettingsOrganizationResolver
+                                }
+                            },
+                            {
+                                path: 'smtp-settings',
+                                component: OrganizationSmtpSettingsComponent,
                                 resolve: {
                                     organization: SettingsOrganizationResolver
                                 }

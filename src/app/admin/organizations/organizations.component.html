@@ -70,17 +70,7 @@
                     <div class="card-pf-top-element">
                         <span class="pficon pficon-enterprise card-pf-icon-circle"></span>
                     </div>
-                    <h2 class="card-pf-title text-center">{{item.organization}}</h2>
-                    <div class="card-pf-items text-center">
-                        <div class="card-pf-item">
-                            <span class="pficon pficon-flag"></span>
-                            <span class="card-pf-item-text" *ngIf="item.defaultLocale">{{item.defaultLocale}}</span>
-                            <span class="card-pf-item-text text-muted" *ngIf="!item.defaultLocale">Na</span>
-                        </div>
-                        <div class="card-pf-item">
-                            <span class="fa fa-{{item.enabled ? 'check' : 'ban'}}" [ngClass]="{ 'fa-check' : item.enabled }"></span>
-                        </div>
-                    </div>
+                    <h2 class="card-pf-title text-center">{{item.organization}}</h2>                   
                     <p class="card-pf-info text-center">
                         <strong>Created On</strong>&nbsp;
                         <span *ngIf="item.createdTimestamp">{{item.createdTimestamp}}</span>

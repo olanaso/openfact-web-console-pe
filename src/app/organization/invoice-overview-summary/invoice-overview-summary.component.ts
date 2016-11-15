@@ -13,7 +13,7 @@ export class InvoiceOverviewSummaryComponent implements OnInit {
   private invoice: Invoice;
 
   constructor(private activatedRoute: ActivatedRoute) {
-    this.invoice = this.activatedRoute.snapshot.data['invoice'];
+    this.invoice = this.activatedRoute.parent.snapshot.data['invoice'];
   }
 
   ngOnInit() {

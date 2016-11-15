@@ -15,6 +15,7 @@ import { OrganizationSmtpSettingsComponent } from './organization-smtp-settings/
 import { InvoicesComponent } from './invoices/invoices.component';
 import { InvoiceOverviewComponent } from './invoice-overview/invoice-overview.component';
 import { InvoiceOverviewSummaryComponent } from './invoice-overview-summary/invoice-overview-summary.component';
+import { InvoiceOverviewEventsComponent } from './invoice-overview-events/invoice-overview-events.component';
 import { CreateInvoiceComponent } from './create-invoice/create-invoice.component';
 import { CreateInvoiceFormComponent } from './create-invoice-form/create-invoice-form.component';
 import { CreateInvoiceUploadComponent } from './create-invoice-upload/create-invoice-upload.component';
@@ -85,7 +86,7 @@ import { CreateDebitNoteComponent } from './create-debit-note/create-debit-note.
                                 component: InvoicesComponent
                             },
                             {
-                                path: 'overview/:invoice',
+                                path: ':invoice',
                                 component: InvoiceOverviewComponent,
                                 resolve: {
                                     invoice: InvoiceResolver
@@ -93,7 +94,15 @@ import { CreateDebitNoteComponent } from './create-debit-note/create-debit-note.
                                 children: [
                                     {
                                         path: '',
+                                        redirectTo: 'overview'
+                                    },
+                                    {
+                                        path: 'overview',
                                         component: InvoiceOverviewSummaryComponent
+                                    },
+                                    {
+                                        path: 'events',
+                                        component: InvoiceOverviewEventsComponent
                                     }
                                 ]
                             },

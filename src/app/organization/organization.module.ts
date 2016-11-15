@@ -33,6 +33,8 @@ import { DebitNotesComponent } from './debit-notes/debit-notes.component';
 import { DebitNoteOverviewComponent } from './debit-note-overview/debit-note-overview.component';
 import { CreateDebitNoteComponent } from './create-debit-note/create-debit-note.component';
 import { InvoiceOverviewSummaryComponent } from './invoice-overview-summary/invoice-overview-summary.component';
+import { InvoiceOverviewEventsComponent } from './invoice-overview-events/invoice-overview-events.component';
+import { EditInvoiceComponent } from './edit-invoice/edit-invoice.component';
 
 @NgModule({
     imports: [
@@ -66,7 +68,9 @@ import { InvoiceOverviewSummaryComponent } from './invoice-overview-summary/invo
         CreateDebitNoteComponent,
         CreateInvoiceFormComponent,
         CreateInvoiceUploadComponent,
-        InvoiceOverviewSummaryComponent
+        InvoiceOverviewSummaryComponent,
+        InvoiceOverviewEventsComponent,
+        EditInvoiceComponent
     ],
     providers: [
         RootOrganizationResolver,

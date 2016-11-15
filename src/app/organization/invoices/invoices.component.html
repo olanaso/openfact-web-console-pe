@@ -130,7 +130,7 @@
                 <td class="text-right">{{item.documentCurrencyCode}}</td>
                 <td class="text-right">{{item.legalMonetaryTotal.payableAmount | number:'1.2-3'}}</td>
                 <td class="text-right">{{item.accountingCustomerParty.customerAssignedAccountID}}</td>
-                <td class="kc-action-cell" [routerLink]="['./overview', item.id]">Overview</td>
+                <td class="kc-action-cell" [routerLink]="[item.id]">Overview</td>
               </tr>
             </tbody>
           </table>

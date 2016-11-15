@@ -11,6 +11,7 @@ import { SharedModule } from '../shared/shared.module';
 
 import { RootOrganizationResolver } from './resolvers/root-organization-resolver';
 import { SettingsOrganizationResolver } from './resolvers/settings-organization-resolver';
+import { InvoiceResolver } from './resolvers/invoice-resolver';
 
 import { OrganizationComponent } from './organization.component';
 import { OrganizationRoutingModule } from './organization-routing.module';
@@ -31,6 +32,7 @@ import { CreateCreditNoteComponent } from './create-credit-note/create-credit-no
 import { DebitNotesComponent } from './debit-notes/debit-notes.component';
 import { DebitNoteOverviewComponent } from './debit-note-overview/debit-note-overview.component';
 import { CreateDebitNoteComponent } from './create-debit-note/create-debit-note.component';
+import { InvoiceOverviewSummaryComponent } from './invoice-overview-summary/invoice-overview-summary.component';
 
 @NgModule({
     imports: [
@@ -63,11 +65,13 @@ import { CreateDebitNoteComponent } from './create-debit-note/create-debit-note.
         DebitNoteOverviewComponent,
         CreateDebitNoteComponent,
         CreateInvoiceFormComponent,
-        CreateInvoiceUploadComponent
+        CreateInvoiceUploadComponent,
+        InvoiceOverviewSummaryComponent
     ],
     providers: [
         RootOrganizationResolver,
-        SettingsOrganizationResolver
+        SettingsOrganizationResolver,
+        InvoiceResolver
     ]
 
 })

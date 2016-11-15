@@ -1,3 +1,33 @@
-<p>
-  invoice-overview works!
-</p>
+<div class="container-fluid">
+	<ol class="breadcrumb">
+		<li><a href="javascript:void(0);" routerLink="../../">Invoices</a></li>
+		<li class="active"> {{invoice.idUbl}}</li>
+	</ol>
+	<div>
+		<h3>{{invoice.idUbl}}
+			<small>created 
+			<app-relative-timestamp [timestamp]="invoice.issueDateTime">			
+			</app-relative-timestamp>
+		</small>
+		</h3>
+	</div>
+</div>
+
+<br>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="tab-container">
+				<ul class="nav nav-tabs">
+					<li routerLinkActive="active"><a routerLink="../">Summary</a></li>
+					<li routerLinkActive="active"><a routerLink="./events">Events</a></li>
+				</ul>
+				<div class="tab-pane">
+					<div>
+						<router-outlet></router-outlet>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

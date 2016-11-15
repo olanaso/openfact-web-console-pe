@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 
 import { RootOrganizationResolver } from './resolvers/root-organization-resolver';
 import { SettingsOrganizationResolver } from './resolvers/settings-organization-resolver';
+import { InvoiceResolver } from './resolvers/invoice-resolver';
 
 import { OrganizationComponent } from './organization.component';
 import { OrganizationOverviewComponent } from './organization-overview/organization-overview.component';
@@ -13,6 +14,7 @@ import { OrganizationKeySettingsComponent } from './organization-key-settings/or
 import { OrganizationSmtpSettingsComponent } from './organization-smtp-settings/organization-smtp-settings.component';
 import { InvoicesComponent } from './invoices/invoices.component';
 import { InvoiceOverviewComponent } from './invoice-overview/invoice-overview.component';
+import { InvoiceOverviewSummaryComponent } from './invoice-overview-summary/invoice-overview-summary.component';
 import { CreateInvoiceComponent } from './create-invoice/create-invoice.component';
 import { CreateInvoiceFormComponent } from './create-invoice-form/create-invoice-form.component';
 import { CreateInvoiceUploadComponent } from './create-invoice-upload/create-invoice-upload.component';
@@ -83,8 +85,17 @@ import { CreateDebitNoteComponent } from './create-debit-note/create-debit-note.
                                 component: InvoicesComponent
                             },
                             {
-                                path: 'overview',
+                                path: 'overview/:invoice',
                                 component: InvoiceOverviewComponent,
+                                resolve: {
+                                    invoice: InvoiceResolver
+                                },
+                                children: [
+                                    {
+                                        path: '',
+                                        component: InvoiceOverviewSummaryComponent
+                                    }
+                                ]
                             },
                             {
                                 path: 'create',

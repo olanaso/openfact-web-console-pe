@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 import { Organization } from '../../services/models/organization';
+import { KeycloakService } from '../../keycloak.service';
 
 @Component({
   selector: 'app-organization-header',
@@ -15,9 +16,23 @@ export class OrganizationHeaderComponent implements OnInit {
   @Input()
   private organizations: Array<Organization>;
 
-  constructor() { }
+  username: string;
+  authz: any;
+
+  constructor() {
+    this.authz = KeycloakService.auth.authz;
+    this.username = this.authz.tokenParsed.username;
+  }
 
   ngOnInit() {
+  }
+
+  accountManagement() {
+    this.authz.accountManagement();
+  }
+
+  logout() {
+    this.authz.logout();
   }
 
 }

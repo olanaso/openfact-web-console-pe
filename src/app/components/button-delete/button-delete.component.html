@@ -22,12 +22,12 @@
 	</div>
 </template>
 
-<a *ngIf="!buttonOnly" href="javascript:void(0)" (click)="openDeleteModal(content)" [ngClass]="{ 'disabled': disableDelete }">
+<a *ngIf="!buttonOnly" href="javascript:void(0);" (click)="openDeleteModal(content)" [ngClass]="{ 'disabled': disableDelete }">
 {{label || 'Delete'}}</a>
 
 <div *ngIf="buttonOnly" class="actions">
 	<!-- Avoid whitespace inside the link -->
-	<button href="javascript:void(0)" (click)="openDeleteModal(content)" class="btn btn-link" [ngClass]="{ 'disabled': disableDelete }">
+	<button type="button" (click)="openDeleteModal(content)" class="btn btn-link" [ngClass]="{ 'disabled': disableDelete }">
 		<i class="fa fa-trash-o"></i>
 		<span class="sr-only">Delete {{kind}} {{resourceName}}</span>
 	</button>

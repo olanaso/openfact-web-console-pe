@@ -1,0 +1,38 @@
+<div class="container-fluid">
+	<ol class="breadcrumb">
+		<li><a href="#">Settings</a></li>
+		<li class="active"> {{organization.organization}}</li>
+	</ol>
+	<div>
+		<h3>{{organization.organization}}
+			<small>created 
+			<app-relative-timestamp [timestamp]="organization.createdTimestamp">			
+			</app-relative-timestamp>
+		</small>
+		</h3>
+	</div>
+</div>
+
+<br>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="tab-container">
+				<ul class="nav nav-tabs">
+					<li routerLinkActive="active"><a routerLink="./general-information">General</a></li>
+					<li routerLinkActive="active"><a routerLink="./additional-information">Additional</a></li>
+					<li routerLinkActive="active"><a routerLink="./key-settings">Keys</a></li>
+					<li routerLinkActive="active"><a routerLink="./email-settings">Email</a></li>
+					<li routerLinkActive="active"><a routerLink="./ublserver-settings">Ubl Server</a></li>
+					<li routerLinkActive="active"><a routerLink="./themes-settings">Themes</a></li>
+					<li routerLinkActive="active"><a routerLink="./tasks-settings">Tasks</a></li>
+				</ul>
+				<div class="tab-pane">
+					<div>
+						<router-outlet></router-outlet>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FileUploadModule } from 'ng2-file-upload';
 import { ComponentsModule } from '../components/components.module';
 import { ServicesModule } from '../services/services.module';
 import { SharedModule } from '../shared/shared.module';
@@ -33,10 +35,12 @@ import { CreateDebitNoteComponent } from './create-debit-note/create-debit-note.
 @NgModule({
     imports: [
         CommonModule,
+        RouterModule,
         FormsModule,
         ReactiveFormsModule,
         OrganizationRoutingModule,
         NgbModule.forRoot(),
+        FileUploadModule,
         ComponentsModule,
         ServicesModule,
         SharedModule

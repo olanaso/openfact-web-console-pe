@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { FileUploader } from 'ng2-file-upload';
 
 import { RestangularOpenfact } from './restangular-openfact';
 import { Organization } from '../models/organization';
 import { Invoice } from '../models/invoice';
 import { SearchResults } from '../search/search-results';
 import { SearchCriteria } from '../search/search-criteria';
+
+import { KeycloakHttp } from '../../keycloak.http';
 
 export const INVOICE_ID_NAME: string = 'id';
 export const INVOICE_BASE_PATH: string = 'invoices';
@@ -44,6 +47,15 @@ export class InvoiceService {
         result = Object.assign(result, json);
         return result;
       });
+  }
+
+  public getFileUpload(organization: Organization): FileUploader {
+    let restangular = organization.restangular.all(INVOICE_BASE_PATH).all("xml");
+    let upload = new FileUploader({
+      url: restangular.path,
+      headers: [KeycloakHttp.getToken()]
+    });
+    return upload;
   }
 
   public getAll(organization: Organization): Observable<Invoice[]> {

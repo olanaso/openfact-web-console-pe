@@ -18,6 +18,17 @@ import { OrganizationGeneralInformationComponent } from './organization-general-
 import { OrganizationAdditionalInformationComponent } from './organization-additional-information/organization-additional-information.component';
 import { OrganizationKeySettingsComponent } from './organization-key-settings/organization-key-settings.component';
 import { OrganizationSmtpSettingsComponent } from './organization-smtp-settings/organization-smtp-settings.component';
+import { InvoicesComponent } from './invoices/invoices.component';
+import { InvoiceOverviewComponent } from './invoice-overview/invoice-overview.component';
+import { CreateInvoiceComponent } from './create-invoice/create-invoice.component';
+import { CreateInvoiceFormComponent } from './create-invoice-form/create-invoice-form.component';
+import { CreateInvoiceUploadComponent } from './create-invoice-upload/create-invoice-upload.component';
+import { CreditNotesComponent } from './credit-notes/credit-notes.component';
+import { CreditNoteOverviewComponent } from './credit-note-overview/credit-note-overview.component';
+import { CreateCreditNoteComponent } from './create-credit-note/create-credit-note.component';
+import { DebitNotesComponent } from './debit-notes/debit-notes.component';
+import { DebitNoteOverviewComponent } from './debit-note-overview/debit-note-overview.component';
+import { CreateDebitNoteComponent } from './create-debit-note/create-debit-note.component';
 
 @NgModule({
     imports: [
@@ -37,7 +48,18 @@ import { OrganizationSmtpSettingsComponent } from './organization-smtp-settings/
         OrganizationGeneralInformationComponent,
         OrganizationAdditionalInformationComponent,
         OrganizationKeySettingsComponent,
-        OrganizationSmtpSettingsComponent
+        OrganizationSmtpSettingsComponent,
+        InvoicesComponent,
+        InvoiceOverviewComponent,
+        CreateInvoiceComponent,
+        CreditNotesComponent,
+        CreditNoteOverviewComponent,
+        CreateCreditNoteComponent,
+        DebitNotesComponent,
+        DebitNoteOverviewComponent,
+        CreateDebitNoteComponent,
+        CreateInvoiceFormComponent,
+        CreateInvoiceUploadComponent
     ],
     providers: [
         RootOrganizationResolver,

@@ -10,10 +10,10 @@ import { Invoice } from '../../services/models/invoice';
 })
 export class InvoiceOverviewComponent implements OnInit {
 
-  private invoice: Invoice;
+   private invoice: Invoice;
 
   constructor(private activatedRoute: ActivatedRoute) {
-    this.invoice = this.activatedRoute.snapshot.data['invoice'];
+    this.invoice = this.activatedRoute.parent.snapshot.data['invoice'];
   }
 
   ngOnInit() {

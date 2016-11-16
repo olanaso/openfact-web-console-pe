@@ -34,7 +34,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ErrorComponentsModule,
     ServicesModule,
     SharedModule,
-    NgbModule.forRoot(),
+    NgbModule.forRoot()
   ],
   providers: [
     KeycloakService,

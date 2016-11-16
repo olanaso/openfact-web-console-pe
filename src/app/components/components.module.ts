@@ -12,7 +12,6 @@ import { ButtonDeleteComponent } from './button-delete/button-delete.component';
 import { ButtonSaveComponent } from './button-save/button-save.component';
 import { ButtonSwitchComponent } from './button-switch/button-switch.component';
 import { ButtonUploadFileComponent } from './button-upload-file/button-upload-file.component';
-import { DefaultHeaderComponent } from './default-header/default-header.component';
 import { LabelsComponent } from './labels/labels.component';
 import { OrganizationHeaderComponent } from './organization-header/organization-header.component';
 import { RelativeTimestampComponent } from './relative-timestamp/relative-timestamp.component';
@@ -36,7 +35,6 @@ import { AlertService } from './alerts/alert.service';
     ButtonSaveComponent,
     ButtonSwitchComponent,
     ButtonUploadFileComponent,
-    DefaultHeaderComponent,
     LabelsComponent,
     OrganizationHeaderComponent,
     RelativeTimestampComponent,
@@ -49,7 +47,6 @@ import { AlertService } from './alerts/alert.service';
     ButtonSaveComponent,
     ButtonSwitchComponent,
     ButtonUploadFileComponent,
-    DefaultHeaderComponent,
     LabelsComponent,
     OrganizationHeaderComponent,
     RelativeTimestampComponent,

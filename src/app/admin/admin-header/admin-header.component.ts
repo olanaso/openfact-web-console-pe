@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-
 import { KeycloakService } from '../../keycloak.service';
 
 @Component({
-  selector: 'app-default-header',
-  templateUrl: './default-header.component.html',
-  styleUrls: ['./default-header.component.scss']
+  selector: 'app-admin-header',
+  templateUrl: './admin-header.component.html',
+  styleUrls: ['./admin-header.component.scss']
 })
-export class DefaultHeaderComponent implements OnInit {
+export class AdminHeaderComponent implements OnInit {
 
   username: string;
   authz: any;

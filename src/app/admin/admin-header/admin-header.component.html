@@ -33,25 +33,25 @@
 			</li>
 		</ul>
 		<ul class="nav navbar-nav navbar-primary persistent-secondary">
-			<li routerLinkActive="active">
-				<a routerLink="/organizations">Organizations</a>
+			<li routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+				<a routerLink="./">Organizations</a>
 				<ul class="nav navbar-nav navbar-persistent">
 					<li routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
-						<a routerLink="/organizations">Search</a>
+						<a routerLink="./">Search</a>
 					</li>
-					<li routerLinkActive="active" [routerLinkActiveOptions]="{exact:false}">
-						<a routerLink="/organizations/create">Create Organization</a>
+					<li routerLinkActive="active">
+						<a routerLink="./create">Create Organization</a>
 					</li>
 				</ul>
 			</li>
 			<li routerLinkActive="active">
-				<a routerLink="/server-info">Server Info</a>
+				<a routerLink="./server-info">Server Info</a>
 				<ul class="nav navbar-nav navbar-persistent">
 					<li routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
-						<a routerLink="/server-info">General</a>
+						<a routerLink="./server-info">General</a>
 					</li>
-					<li routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
-						<a routerLink="/server-info/providers">Providers</a>
+					<li routerLinkActive="active">
+						<a routerLink="./server-info/providers">Providers</a>
 					</li>
 				</ul>
 			</li>

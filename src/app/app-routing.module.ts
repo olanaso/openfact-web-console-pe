@@ -8,19 +8,19 @@ import { CanLoadMasterOrganization } from './shared/guards/can-load-master-organ
         RouterModule.forRoot([
             {
                 path: '',
-                redirectTo: '/organizations',
+                redirectTo: '/admin',
                 pathMatch: 'full'
             },
             {
-                path: 'organizations',
+                path: 'admin',
+                loadChildren: 'app/admin/admin.module#AdminModule',
                 canLoad: [CanLoadMasterOrganization],
-                loadChildren: 'app/admin/admin.module#AdminModule'
             },
             {
-                path: 'organization/:organization',
+                path: 'console/organizations/:organization',
                 loadChildren: 'app/organization/organization.module#OrganizationModule'
             }
-        ])
+        ], { useHash: true, enableTracing: true })
     ],
     exports: [
         RouterModule

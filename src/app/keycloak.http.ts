@@ -13,6 +13,13 @@ export class KeycloakHttp extends Http {
         super(_backend, _defaultOptions);
     }
 
+    public static getToken() {
+        return {
+            name: 'Authorization',
+            value: 'Bearer ' + KeycloakService.auth.authz.token
+        }
+    }
+
     private setToken(options: RequestOptionsArgs) {
 
         if (options == null || KeycloakService.auth == null || KeycloakService.auth.authz == null || KeycloakService.auth.authz.token == null) {

@@ -1,20 +1,28 @@
+// Angular modules
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { FileUploadModule } from 'ng2-file-upload';
-import { ComponentsModule } from '../components/components.module';
-import { ServicesModule } from '../services/services.module';
-import { SharedModule } from '../shared/shared.module';
-
-import { RootOrganizationResolver } from './resolvers/root-organization-resolver';
-import { SettingsOrganizationResolver } from './resolvers/settings-organization-resolver';
-import { InvoiceResolver } from './resolvers/invoice-resolver';
-
+// Organization module
 import { OrganizationComponent } from './organization.component';
 import { OrganizationRoutingModule } from './organization-routing.module';
+
+// Third modules
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { MomentModule } from 'angular2-moment';
+import { TranslateModule } from 'ng2-translate';
+import { FileUploadModule } from 'ng2-file-upload';
+
+// Openfact modules
+import { SharedModule } from '../shared/shared.module';
+
+// Shared
+import { RootOrganizationResolver } from './shared/root-organization-resolver';
+import { SettingsOrganizationResolver } from './shared/settings-organization-resolver';
+import { InvoiceResolver } from './shared/invoice-resolver';
+
+// Components
 import { OrganizationOverviewComponent } from './organization-overview/organization-overview.component';
 import { OrganizationSettingsComponent } from './organization-settings/organization-settings.component';
 import { OrganizationGeneralInformationComponent } from './organization-general-information/organization-general-information.component';
@@ -35,21 +43,28 @@ import { DebitNotesComponent } from './debit-notes/debit-notes.component';
 import { DebitNoteOverviewComponent } from './debit-note-overview/debit-note-overview.component';
 import { CreateDebitNoteComponent } from './create-debit-note/create-debit-note.component';
 
-
 @NgModule({
     imports: [
+        // Angular modules
         CommonModule,
         RouterModule,
         FormsModule,
         ReactiveFormsModule,
+
+        // Organization module
         OrganizationRoutingModule,
+
+        // Third modules
         NgbModule.forRoot(),
+        MomentModule,
+        TranslateModule,
         FileUploadModule,
-        ComponentsModule,
-        ServicesModule,
+
+        // Openfact modules
         SharedModule
     ],
     declarations: [
+        // Components
         OrganizationComponent,
         OrganizationOverviewComponent,
         OrganizationSettingsComponent,
@@ -72,6 +87,7 @@ import { CreateDebitNoteComponent } from './create-debit-note/create-debit-note.
         EditInvoiceComponent
     ],
     providers: [
+        // Shared
         RootOrganizationResolver,
         SettingsOrganizationResolver,
         InvoiceResolver

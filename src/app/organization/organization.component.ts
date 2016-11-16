@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { Organization } from '../services/models/organization';
-import { DataService } from '../services/data/data.service';
-import { AlertService } from '../components/alerts/alert.service';
+import { DataService } from '../core/data/data.service';
+import { AlertService } from '../core/alert/alert.service';
+import { Organization } from '../core/models/organization.model';
 
 @Component({
     selector: 'app-organization',

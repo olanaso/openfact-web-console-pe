@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { Organization } from '../../services/models/organization';
-import { DataService } from '../../services/data/data.service';
-import { AlertService } from '../../components/alerts/alert.service';
+import { DataService } from '../../core/data/data.service';
+import { AlertService } from '../../core/alert/alert.service';
+import { Organization } from '../../core/models/organization.model';
 
 @Component({
-  selector: 'app-create-organization',
+  selector: 'of-create-organization',
   templateUrl: './create-organization.component.html',
   styleUrls: ['./create-organization.component.scss']
 })
@@ -40,7 +40,7 @@ export class CreateOrganizationComponent implements OnInit {
     this.dataService.organizations().create(form).subscribe(
       result => {
         this.alertService.pop('success', 'Success', 'Success! The organization has been created.');
-        this.router.navigate(['/organizations']);
+        this.router.navigate(['../']);
       },
       error => {
         this.working = false;
@@ -50,7 +50,7 @@ export class CreateOrganizationComponent implements OnInit {
   }
 
   cancel() {
-    this.router.navigate(['/organizations']);
+    this.router.navigate(['../']);
   }
 
 }

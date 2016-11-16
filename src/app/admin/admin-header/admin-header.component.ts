@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { KeycloakService } from '../../keycloak.service';
+import { KeycloakService } from '../../core/keycloak.service';
 
 @Component({
-  selector: 'app-admin-header',
+  selector: 'of-admin-header',
   templateUrl: './admin-header.component.html',
   styleUrls: ['./admin-header.component.scss']
 })

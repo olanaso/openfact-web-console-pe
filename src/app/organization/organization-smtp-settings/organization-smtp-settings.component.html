@@ -44,7 +44,7 @@
 						<i class="fa fa-question-circle text-muted" ngbTooltip="ssl of the organization" placement="right"></i>
           			</label>
           <div class="col-md-4">
-            <app-button-switch formControlName="ssl"></app-button-switch>
+            <of-button-switch formControlName="ssl"></of-button-switch>
             <div *ngIf="!form.get('ssl').valid && form.get('ssl').dirty">
               <span *ngIf="form.get('ssl').errors.required" class="help-block">This field is required</span>
             </div>
@@ -55,7 +55,7 @@
 						<i class="fa fa-question-circle text-muted" ngbTooltip="starttls of the organization" placement="right"></i>
           			</label>
           <div class="col-md-4">
-            <app-button-switch formControlName="starttls"></app-button-switch>
+            <of-button-switch formControlName="starttls"></of-button-switch>
             <div *ngIf="!form.get('starttls').valid && form.get('starttls').dirty">
               <span *ngIf="form.get('starttls').errors.required" class="help-block">This field is required</span>
             </div>
@@ -92,7 +92,7 @@
         </div>
         <div class="form-group">
           <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-md-offset-2 col-lg-offset-2">
-            <app-button-save [form]="form" [working]="working"></app-button-save>
+            <of-button-save [form]="form" [working]="working"></of-button-save>
             <button type="button" (click)="loadData()" class="btn btn-default" [disabled]="!form.dirty">Cancel</button>
           </div>
         </div>

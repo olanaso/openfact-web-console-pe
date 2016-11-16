@@ -31,7 +31,7 @@
 						<i class="fa fa-question-circle text-muted" ngbTooltip="Enabled of the organization" placement="right"></i>
           			</label>
 					<div class="col-md-4">
-						<app-button-switch formControlName="enabled"></app-button-switch>
+						<of-button-switch formControlName="enabled"></of-button-switch>
 						<div *ngIf="!form.get('enabled').valid && form.get('enabled').dirty">
 							<span *ngIf="form.get('enabled').errors.required" class="help-block">This field is required</span>
 						</div>
@@ -40,7 +40,7 @@
 
 				<div class="form-group">
 					<div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-md-offset-2 col-lg-offset-2">
-						<app-button-save [form]="form" [working]="working"></app-button-save>
+						<of-button-save [form]="form" [working]="working"></of-button-save>
 						<button type="button" (click)="loadData()" class="btn btn-default" [disabled]="!form.dirty">Cancel</button>
 					</div>
 				</div>

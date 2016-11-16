@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import * as Collections from 'typescript-collections';
 
-import { DataService } from '../../services/data/data.service';
-import { AlertService } from '../../components/alerts/alert.service';
+import { DataService } from '../../core/data/data.service';
+import { AlertService } from '../../core/alert/alert.service';
 
 @Component({
-  selector: 'app-server-info-providers',
+  selector: 'of-server-info-providers',
   templateUrl: './server-info-providers.component.html',
   styleUrls: ['./server-info-providers.component.scss']
 })

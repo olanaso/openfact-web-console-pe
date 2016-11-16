@@ -1,23 +1,24 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { CanLoadMasterOrganization } from './shared/guards/can-load-master-organization';
+import { AllowedDataOrganizations } from './core/guards/allowed-data-organizations';
 
 @NgModule({
     imports: [
         RouterModule.forRoot([
             {
                 path: '',
-                redirectTo: '/admin',
+                redirectTo: '/admin/organizations',
                 pathMatch: 'full'
             },
             {
                 path: 'admin',
                 loadChildren: 'app/admin/admin.module#AdminModule',
-                canLoad: [CanLoadMasterOrganization],
+                data: { organizations: ['master'] },
+                canLoad: [AllowedDataOrganizations],
             },
             {
-                path: 'console/organizations/:organization',
+                path: 'organizations/:organization',
                 loadChildren: 'app/organization/organization.module#OrganizationModule'
             }
         ], { useHash: true, enableTracing: true })

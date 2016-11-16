@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-create-debit-note',
+  selector: 'of-create-debit-note',
   templateUrl: './create-debit-note.component.html',
   styleUrls: ['./create-debit-note.component.scss']
 })

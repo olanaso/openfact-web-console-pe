@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { Organization } from '../../services/models/organization';
+import { Organization } from '../../core/models/organization.model';
 
 @Component({
-  selector: 'app-organization-settings',
+  selector: 'of-organization-settings',
   templateUrl: './organization-settings.component.html',
   styleUrls: ['./organization-settings.component.scss']
 })

@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { Organization } from '../../services/models/organization';
-import { DataService } from '../../services/data/data.service';
-import { AlertService } from '../../components/alerts/alert.service';
+import { DataService } from '../../core/data/data.service';
+import { AlertService } from '../../core/alert/alert.service';
+import { Organization } from '../../core/models/organization.model';
 
 @Component({
-  selector: 'app-organization-additional-information',
+  selector: 'of-organization-additional-information',
   templateUrl: './organization-additional-information.component.html',
   styleUrls: ['./organization-additional-information.component.scss']
 })

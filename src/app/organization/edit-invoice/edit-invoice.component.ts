@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { Invoice } from '../../services/models/invoice';
+import { Invoice } from '../../core/models/invoice.model';
 
 @Component({
-  selector: 'app-edit-invoice',
+  selector: 'of-edit-invoice',
   templateUrl: './edit-invoice.component.html',
   styleUrls: ['./edit-invoice.component.scss']
 })

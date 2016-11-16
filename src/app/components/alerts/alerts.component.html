@@ -1,6 +1,0 @@
-<div class="feedback-center">
-	<div *ngFor="let alert of alerts">
-		<app-alert [alert]="alert" (click)="click(toast)" (clickEvent)="childClick($event)" (mouseover)="stopTimer(alert)" (mouseout)="restartTimer">
-		</app-alert>
-	</div>
-</div>

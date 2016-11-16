@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { Organization } from '../../services/models/organization';
-import { DataService } from '../../services/data/data.service';
-import { AlertService } from '../../components/alerts/alert.service';
+import { DataService } from '../../core/data/data.service';
+import { AlertService } from '../../core/alert/alert.service';
+import { Organization } from '../../core/models/organization.model';
 
 @Component({
-  selector: 'app-organization-smtp-settings',
+  selector: 'of-organization-smtp-settings',
   templateUrl: './organization-smtp-settings.component.html',
   styleUrls: ['./organization-smtp-settings.component.scss']
 })

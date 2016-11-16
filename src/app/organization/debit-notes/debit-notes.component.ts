@@ -2,21 +2,19 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import * as Collections from 'typescript-collections';
 
-import { Organization } from '../../services/models/organization';
-import { DataService } from '../../services/data/data.service';
-import { AlertService } from '../../components/alerts/alert.service';
-
-import { DebitNote } from '../../services/models/debit-note';
-
-import { Paging } from '../../services/search/paging';
-import { OrderBy } from '../../services/search/order-by';
-import { SearchResults } from '../../services/search/search-results';
-import { SearchCriteria } from '../../services/search/search-criteria';
-import { SearchCriteriaFilter } from '../../services/search/search-criteria-filter';
-import { SearchCriteriaFilterOperator } from '../../services/search/search-criteria-filter-operator';
+import { DataService } from '../../core/data/data.service';
+import { AlertService } from '../../core/alert/alert.service';
+import { Organization } from '../../core/models/organization.model';
+import { DebitNote } from '../../core/models/debit-note.model';
+import { Paging } from '../../core/models/paging.model';
+import { OrderBy } from '../../core/models/order-by.model';
+import { SearchResults } from '../../core/models/search-results.model';
+import { SearchCriteria } from '../../core/models/search-criteria.model';
+import { SearchCriteriaFilter } from '../../core/models/search-criteria-filter.model';
+import { SearchCriteriaFilterOperator } from '../../core/models/search-criteria-filter-operator.model';
 
 @Component({
-  selector: 'app-debit-notes',
+  selector: 'of-debit-notes',
   templateUrl: './debit-notes.component.html',
   styleUrls: ['./debit-notes.component.scss']
 })

@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { RootOrganizationResolver } from './resolvers/root-organization-resolver';
-import { SettingsOrganizationResolver } from './resolvers/settings-organization-resolver';
-import { InvoiceResolver } from './resolvers/invoice-resolver';
+import { RootOrganizationResolver } from './shared/root-organization-resolver';
+import { SettingsOrganizationResolver } from './shared/settings-organization-resolver';
+import { InvoiceResolver } from './shared/invoice-resolver';
 
 import { OrganizationComponent } from './organization.component';
 import { OrganizationOverviewComponent } from './organization-overview/organization-overview.component';

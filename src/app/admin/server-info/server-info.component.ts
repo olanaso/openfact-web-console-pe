@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
-import { DataService } from '../../services/data/data.service';
-import { AlertService } from '../../components/alerts/alert.service';
+import { DataService } from '../../core/data/data.service';
+import { AlertService } from '../../core/alert/alert.service';
 
 @Component({
-  selector: 'app-server-info',
+  selector: 'of-server-info',
   templateUrl: './server-info.component.html',
   styleUrls: ['./server-info.component.scss']
 })

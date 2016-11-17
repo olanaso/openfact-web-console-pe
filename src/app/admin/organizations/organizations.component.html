@@ -57,14 +57,14 @@
 <div class="container-fluid container-cards-pf">
     <div class="row row-cards-pf">
         <div *ngFor="let item of searchResult" class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-            <div (click)="editOrganization(item.organization)" class="card-pf card-pf-view card-pf-view-select card-pf-view-single-select">
-                <div class="card-pf-body">
-                    <div class="card-pf-heading-kebab">
-                        <div class="pull-right dropdown-kebab-pf">
-                            <of-button-delete [model]="item" [kind]="'Organization'" [resourceName]="item.organization" [typeNameToConfirm]="true" [buttonOnly]="true"
-                                (success)="search()"></of-button-delete>
-                        </div>
+            <div class="card-pf card-pf-view card-pf-view-select card-pf-view-single-select">
+                <div class="card-pf-heading-kebab">
+                    <div class="pull-right dropdown-kebab-pf" style="margin-top: 5px;">
+                        <of-button-delete [model]="item" [kind]="'Organization'" [resourceName]="item.organization" [typeNameToConfirm]="true" [buttonOnly]="true"
+                            (success)="search()"></of-button-delete>
                     </div>
+                </div>
+                <div class="card-pf-body" (click)="editOrganization(item.organization)">
                     <div class="card-pf-top-element">
                         <span class="pficon pficon-enterprise card-pf-icon-circle"></span>
                     </div>
@@ -77,9 +77,6 @@
                         <span *ngIf="item.description">{{item.description}}</span>
                         <span *ngIf="!item.description" class="text-muted">No description setted.</span>
                     </p>
-                </div>
-                <div class="card-pf-view-checkbox">
-                    <input type="checkbox">
                 </div>
             </div>
         </div>

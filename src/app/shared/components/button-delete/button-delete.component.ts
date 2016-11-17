@@ -76,7 +76,7 @@ export class ButtonDeleteComponent implements OnInit {
     this.modalService.open(content).result.then((result) => {
       this.model.restangular.delete().subscribe(
         result => {
-          this.alertService.pop('success', 'Success', 'Success! The organization has been created.');
+          this.alertService.pop('success', 'Success', 'Success! The organization has been deleted.');
 
           // callback
           this.success.emit(true);
@@ -86,7 +86,7 @@ export class ButtonDeleteComponent implements OnInit {
             this.router.navigate([this.redirectUrl]);
           }
         }, error => {
-          this.alertService.pop('error', 'Error', 'Organization could not be created.');
+          this.alertService.pop('error', 'Error', 'Organization could not be deleted.');
         });
     }, (reason) => {
     });

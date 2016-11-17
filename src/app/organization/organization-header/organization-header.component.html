@@ -28,11 +28,11 @@
 					<span class="caret"></span>
 				</a>
 				<ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-					<li *ngFor="let item of organizations" routerLinkActive="active">
-						<a [routerLink]="['/organization', item.organization]">{{item.organization}}</a>
+					<li *ngFor="let item of organizations" routerLinkActive="active">						
+						<a [routerLink]="['/organizations', item.organization, 'overview']">{{item.organization}}</a>
 					</li>
 					<li class="divider"></li>
-					<li><a routerLink="/organizations">View all Organizations</a></li>
+					<li><a routerLink="/admin/organizations">View all Organizations</a></li>
 				</ul>
 			</li>
 			<li class="dropdown" ngbDropdown>

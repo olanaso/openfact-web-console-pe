@@ -15,7 +15,7 @@ import { AllowedDataOrganizations } from './core/guards/allowed-data-organizatio
                 path: 'admin',
                 loadChildren: 'app/admin/admin.module#AdminModule',
                 data: { organizations: ['master'] },
-                canLoad: [AllowedDataOrganizations],
+                canLoad: [AllowedDataOrganizations]
             },
             {
                 path: 'organizations/:organization',

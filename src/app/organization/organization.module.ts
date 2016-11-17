@@ -23,6 +23,8 @@ import { SettingsOrganizationResolver } from './shared/settings-organization-res
 import { InvoiceResolver } from './shared/invoice-resolver';
 
 // Components
+import { OrganizationHeaderComponent } from './organization-header/organization-header.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
 import { OrganizationOverviewComponent } from './organization-overview/organization-overview.component';
 import { OrganizationSettingsComponent } from './organization-settings/organization-settings.component';
 import { OrganizationGeneralInformationComponent } from './organization-general-information/organization-general-information.component';
@@ -66,6 +68,8 @@ import { CreateDebitNoteComponent } from './create-debit-note/create-debit-note.
     declarations: [
         // Components
         OrganizationComponent,
+        OrganizationHeaderComponent,
+        SidebarComponent,
         OrganizationOverviewComponent,
         OrganizationSettingsComponent,
         OrganizationGeneralInformationComponent,

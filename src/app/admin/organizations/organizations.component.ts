@@ -30,7 +30,7 @@ export class OrganizationsComponent implements OnInit {
   }
 
   editOrganization(organization: Organization) {
-    this.router.navigate(['./organizations', organization.id]);
+    this.router.navigate(['/organizations', organization.organization, 'overview']);
   }
 
   search() {

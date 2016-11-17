@@ -4,7 +4,7 @@ import { Route, Router, ActivatedRouteSnapshot, RouterStateSnapshot, CanLoad, Ca
 import { KeycloakService } from '../keycloak.service';
 
 @Injectable()
-export class AllowedDataOrganizations implements CanActivate {
+export class AllowedDataOrganizations implements CanLoad, CanActivate {
 
     constructor(private router: Router) { }
 

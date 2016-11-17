@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { URLSearchParams } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { FileUploader } from 'ng2-file-upload';
 
@@ -18,11 +19,11 @@ export class InvoiceService {
 
   constructor() { }
 
-  public findById(organization: Organization, id: string): Observable<Invoice> {
+  public findById(organization: Organization, id: string, queryParams?: URLSearchParams): Observable<Invoice> {
     let restangular = organization.restangular;
     return restangular
       .one(invoiceBasePath, id)
-      .get()
+      .get(queryParams)
       .map(response => {
         let json = <Invoice>response.json();
         let result = new Invoice();

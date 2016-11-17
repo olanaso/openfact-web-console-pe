@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, RequestOptionsArgs, URLSearchParams } from '@angular/http';
+import { Http, Response, RequestOptionsArgs, URLSearchParams, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -32,7 +32,7 @@ export class Restangular {
     public get(queryParams?: URLSearchParams): Observable<Response> {
         let options;
         if (queryParams) {
-            options = { search: queryParams };
+            options = { headers: new Headers(), search: queryParams };
         }
         return this.http.get(this.path, options).catch(this.handleError);
     }

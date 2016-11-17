@@ -30,14 +30,14 @@ import { CreateDebitNoteComponent } from './create-debit-note/create-debit-note.
     imports: [
         RouterModule.forChild([
             {
-                path: 'organization/:organization',
+                path: '',
                 component: OrganizationComponent,
                 resolve: {
                     organization: RootOrganizationResolver
                 },
                 children: [
                     {
-                        path: '',
+                        path: 'overview',
                         component: OrganizationOverviewComponent
                     },
                     {

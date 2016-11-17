@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, RouterStateSnapshot, Resolve } from '@angular/router';
+import { URLSearchParams } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
 import { Organization } from '../../core/models/organization.model';
@@ -12,7 +13,7 @@ export class SettingsOrganizationResolver implements Resolve<Organization>{
 
     resolve(
         route: ActivatedRouteSnapshot,
-        state: RouterStateSnapshot): Observable<any> | Promise<any> {
+        state: RouterStateSnapshot): Observable<any> | Promise<any> {       
         return this.dataService.organizations().findById(route.parent.parent.params['organization']);
     }
 }

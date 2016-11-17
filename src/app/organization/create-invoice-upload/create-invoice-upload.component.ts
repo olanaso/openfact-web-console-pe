@@ -29,7 +29,7 @@ export class CreateInvoiceUploadComponent implements OnInit {
   }
 
   public fileOver(event: any): void {
-    this.hasDropZoneOver = event;
+    this.hasDropZoneOver = event;    
   }
 
 }

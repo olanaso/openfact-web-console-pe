@@ -1,0 +1,17 @@
+<template #content let-c="close" let-d="dismiss">
+  <div class="modal-body">
+    <textarea [(ngModel)]="text" rows="25" style="width: 100%;"></textarea>
+  </div>
+</template>
+
+<a *ngIf="!buttonOnly" href="javascript:void(0);" (click)="openModal(content)" [ngClass]="{ 'disabled': disableComponent }">
+	{{label || 'File preview'}} <i class="fa fa-file-code-o"> </i>
+</a>
+
+<div *ngIf="buttonOnly" class="actions">
+  <!-- Avoid whitespace inside the link -->
+  <button type="button" (click)="openModal(content)" class="btn btn-link" [ngClass]="{ 'disabled': disableComponent }">
+		<i class="fa fa-file-code-o"></i>
+		<span class="sr-only">{{label || 'File preview'}}</span>
+	</button>
+</div>

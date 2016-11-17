@@ -16,6 +16,7 @@ import { ButtonSaveComponent } from './components/button-save/button-save.compon
 import { ButtonSwitchComponent } from './components/button-switch/button-switch.component';
 import { ButtonUploadFileComponent } from './components/button-upload-file/button-upload-file.component';
 import { RelativeTimestampComponent } from './components/relative-timestamp/relative-timestamp.component';
+import { ModalTextPreviewComponent } from './components/modal-text-preview/modal-text-preview.component';
 
 // Directives
 
@@ -46,6 +47,7 @@ import { YesNoPipe } from './pipes/yes-no.pipe';
     ButtonSwitchComponent,
     ButtonUploadFileComponent,
     RelativeTimestampComponent,
+    ModalTextPreviewComponent,
 
     // Directives
 
@@ -62,6 +64,7 @@ import { YesNoPipe } from './pipes/yes-no.pipe';
     ButtonSwitchComponent,
     ButtonUploadFileComponent,
     RelativeTimestampComponent,
+    ModalTextPreviewComponent,
 
     // Directives
 

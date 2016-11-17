@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
+import { DataService } from '../../core/data/data.service';
+import { AlertService } from '../../core/alert/alert.service';
+import { Organization } from '../../core/models/organization.model';
 import { Invoice } from '../../core/models/invoice.model';
 
 @Component({
@@ -10,9 +13,10 @@ import { Invoice } from '../../core/models/invoice.model';
 })
 export class InvoiceOverviewComponent implements OnInit {
 
-   private invoice: Invoice;
+  private invoice: Invoice;
 
-  constructor(private activatedRoute: ActivatedRoute) {
+  constructor(private activatedRoute: ActivatedRoute,
+    private dataService: DataService, private alertService: AlertService) {
     this.invoice = this.activatedRoute.parent.snapshot.data['invoice'];
   }
 

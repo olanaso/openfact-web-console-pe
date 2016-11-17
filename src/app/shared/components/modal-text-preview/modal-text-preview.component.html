@@ -5,7 +5,7 @@
 </template>
 
 <a *ngIf="!buttonOnly" href="javascript:void(0);" (click)="openModal(content)" [ngClass]="{ 'disabled': disableComponent }">
-	{{label || 'File preview'}} <i class="fa fa-file-code-o"> </i>
+	<i class="fa fa-file-code-o"> </i> {{label || 'File preview'}}
 </a>
 
 <div *ngIf="buttonOnly" class="actions">

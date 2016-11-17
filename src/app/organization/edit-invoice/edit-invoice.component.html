@@ -6,9 +6,39 @@
 	<div>
 		<h3>{{invoice.idUbl}}
 			<small>created 
-			<of-relative-timestamp [timestamp]="invoice.issueDateTime">			
-			</of-relative-timestamp>
-		</small>
+				<of-relative-timestamp [timestamp]="invoice.issueDateTime">			
+				</of-relative-timestamp>
+			</small>
+			<div class="pull-right">
+				<div class="btn-group">
+					<button type="button" (click)="downloadXml()" class="btn btn-default">
+					<span class="fa fa-file-code-o"></span> Xml
+				</button>
+					<button type="button" class="btn btn-default">
+					<span class="fa fa-file-pdf-o"></span> Pdf
+				</button>
+				</div>
+				<div class="btn-group">
+					<button type="button" class="btn btn-default">
+					<span class="fa fa-paper-plane"></span> Email
+				</button>
+				</div>
+				<div class="btn-group">
+					<div class="btn-group" ngbDropdown>
+						<button type="button" class="btn btn-default">Actions</button>
+						<button class="btn btn-default" ngbDropdownToggle>
+						<span class="caret"></span>
+						<span class="sr-only">Split button!</span>
+					</button>
+						<ul class="dropdown-menu" aria-labelledby="dropdownMenu2" style="right: 0; left: auto;">
+							<li role="menuitem"><a href="#">Action</a></li>
+							<li role="menuitem"><a href="#">Another action</a></li>
+							<li class="divider"></li>
+							<li role="menuitem"><a href="#">Separated link</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
 		</h3>
 	</div>
 </div>

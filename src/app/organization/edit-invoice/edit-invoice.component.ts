@@ -19,4 +19,8 @@ export class EditInvoiceComponent implements OnInit {
   ngOnInit() {
   }
 
+  downloadXml() {
+    this.invoice.downloadXml();
+  }
+
 }

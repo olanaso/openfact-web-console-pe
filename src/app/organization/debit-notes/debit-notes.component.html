@@ -99,11 +99,11 @@
 		<div class="col-md-12">
 			<div class="page-header-bleed-right page-header-bleed-left">
 				<div class="hidden-xs pull-right">
-					<a href="" class="btn btn-default">New Debit Note</a>
+					<a routerLink="../create" class="btn btn-default">New Debit Note</a>
 				</div>
 				<h2>Search Results</h2>
 				<div class="visible-xs-block">
-					<a class="btn btn-default" href="">New Debit Note</a>
+					<a class="btn btn-default" routerLink="../create">New Debit Note</a>
 				</div>
 			</div>
 			<div class="page-header-bleed-right page-header-bleed-left">
@@ -134,7 +134,7 @@
 								<td class="text-right">{{item.documentCurrencyCode}}</td>
 								<td class="text-right">{{item.legalMonetaryTotal.payableAmount | number:'1.2-3'}}</td>
 								<td class="text-right">{{item.accountingCustomerParty.customerAssignedAccountID}}</td>
-								<td class="kc-action-cell">Edit</td>
+								<td class="kc-action-cell" [routerLink]="[item.id]">Overview</td>
 							</tr>
 						</tbody>
 					</table>

@@ -1,11 +1,15 @@
 import { Injectable } from '@angular/core';
+import { URLSearchParams } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import { FileUploader } from 'ng2-file-upload';
 
 import { RestangularOpenfact } from './restangular-openfact';
 import { Organization } from '../models/organization.model';
 import { CreditNote } from '../models/credit-note.model';
 import { SearchResults } from '../models/search-results.model';
 import { SearchCriteria } from '../models/search-criteria.model';
+
+import { KeycloakHttp } from '../keycloak.http';
 
 export const creditNoteIdName: string = 'id';
 export const creditNoteBasePath: string = 'credit-notes';
@@ -15,15 +19,15 @@ export class CreditnoteService {
 
   constructor() { }
 
-  public findById(organization: Organization, id: string): Observable<CreditNote> {
+  public findById(organization: Organization, id: string, queryParams?: URLSearchParams): Observable<CreditNote> {
     let restangular = organization.restangular;
     return restangular
-      .one(creditNoteIdName, id)
-      .get()
+      .one(creditNoteBasePath, id)
+      .get(queryParams)
       .map(response => {
         let json = <CreditNote>response.json();
         let result = new CreditNote();
-        result.restangular = restangular.one(creditNoteIdName, json[creditNoteBasePath]);
+        result.restangular = restangular.one(creditNoteBasePath, json[creditNoteIdName]);
         result = Object.assign(result, json);
         return result;
       });
@@ -32,7 +36,7 @@ export class CreditnoteService {
   public create(organization: Organization, creditnote: CreditNote): Observable<CreditNote> {
     let restangular = organization.restangular;
     return restangular
-      .all(creditNoteIdName)
+      .all(creditNoteBasePath)
       .post(creditnote)
       .map(response => {
         if (response.status === 201 || 204) {
@@ -40,23 +44,32 @@ export class CreditnoteService {
         }
         let json = <CreditNote>response.json();
         let result = new CreditNote();
-        result.restangular = restangular.one(creditNoteIdName, json[creditNoteBasePath]);
+        result.restangular = restangular.one(creditNoteBasePath, json[creditNoteIdName]);
         result = Object.assign(result, json);
         return result;
       });
   }
 
+  public getFileUpload(organization: Organization): FileUploader {
+    let restangular = organization.restangular.all(creditNoteBasePath).all("xml");
+    let upload = new FileUploader({
+      url: restangular.path,
+      headers: [KeycloakHttp.getToken()]
+    });
+    return upload;
+  }
+
   public getAll(organization: Organization): Observable<CreditNote[]> {
     let restangular = organization.restangular;
     return restangular
-      .all(creditNoteIdName)
+      .all(creditNoteBasePath)
       .get()
       .map(response => {
         let json = <CreditNote[]>response.json();
         let result = new Array<CreditNote>();
         json.forEach(element => {
           let creditnote = new CreditNote();
-          creditnote.restangular = restangular.one(creditNoteIdName, element[creditNoteBasePath]);
+          creditnote.restangular = restangular.one(creditNoteBasePath, element[creditNoteIdName]);
           creditnote = Object.assign(creditnote, element);
           result.push(creditnote);
         });
@@ -67,7 +80,7 @@ export class CreditnoteService {
   public search(organization: Organization, criteria: SearchCriteria): Observable<SearchResults<CreditNote>> {
     let restangular = organization.restangular;
     return restangular
-      .all(creditNoteIdName)
+      .all(creditNoteBasePath)
       .all("search")
       .post(criteria)
       .map(response => {
@@ -77,7 +90,7 @@ export class CreditnoteService {
 
         json.items.forEach(element => {
           let creditnote = new CreditNote();
-          creditnote.restangular = restangular.one(creditNoteIdName, element[creditNoteBasePath]);
+          creditnote.restangular = restangular.one(creditNoteBasePath, element[creditNoteIdName]);
           creditnote = Object.assign(creditnote, element);
           items.push(creditnote);
         });

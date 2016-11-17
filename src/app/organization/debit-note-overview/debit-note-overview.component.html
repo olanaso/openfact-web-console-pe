@@ -1,3 +1,190 @@
-<p>
-  debit-note-overview works!
-</p>
+<br>
+<div class="row">
+	<div class="col-lg-6">
+		<fieldset>
+			<legend>
+				<h3>General Information</h3>
+			</legend>
+		</fieldset>
+		<dl class="dl-horizontal left">
+			<dt>
+				Currency Code:
+				<span title="The currency of the debitNote." class="pficon pficon-help text-muted small"></span>
+			</dt>
+			<dd>{{debitNote.documentCurrencyCode}}</dd>
+			<dt>
+				debitNote Type Code:
+				<span title="The type of the debitNote." class="pficon pficon-help text-muted small"></span>
+			</dt>
+			<dd>{{debitNote.debitNoteTypeCode}}</dd>
+			<dt>
+				Issue Date:
+				<span title="Issue Date of the debitNote." class="pficon pficon-help text-muted small"></span>
+			</dt>
+			<dd>{{debitNote.issueDateTime | date: 'short'}}</dd>
+			<dt>
+				Issue Time:
+				<span title="The time of the issue debitNote." class="pficon pficon-help text-muted small"></span>
+			</dt>
+			<dd>{{debitNote.issueDateTime | date: 'mediumTime'}}</dd>
+			<dt>
+				<span class="pficon pficon-image" aria-hidden="true"></span> Xml:
+				<span title="The time of the issue debitNote." class="pficon pficon-help text-muted small"></span>
+			</dt>
+			<dd>
+				<of-modal-text-preview [text]="debitNote.xml" [label]="'Xml preview'"></of-modal-text-preview>
+			</dd>
+			<dd>
+				<a href="">
+					<span><i class="fa fa-file-pdf-o"> </i> Pdf preview</span>
+				</a>
+			</dd>
+		</dl>
+	</div>
+	<div class="col-lg-6">
+		<fieldset>
+			<legend>
+				<h3>Legal Monetary Total</h3>
+			</legend>
+		</fieldset>
+		<dl class="dl-horizontal left">
+			<dt>
+				Payable Amount:
+				<span title="The currency of the debitNote." class="pficon pficon-help text-muted small"></span>
+			</dt>
+			<dd *ngIf="debitNote.legalMonetaryTotal.payableAmount">{{debitNote.legalMonetaryTotal.payableAmount | number:'1.2-3'}}</dd>
+			<dd *ngIf="!debitNote.legalMonetaryTotal.payableAmount"><em>0.00</em></dd>
+			<dt>
+				Charge Total Amount:
+				<span title="The currency of the debitNote." class="pficon pficon-help text-muted small"></span>
+			</dt>
+			<dd *ngIf="debitNote.legalMonetaryTotal.chargeTotalAmount">{{debitNote.legalMonetaryTotal.chargeTotalAmount | number:'1.2-3'}}</dd>
+			<dd *ngIf="!debitNote.legalMonetaryTotal.chargeTotalAmount"><em>0.00</em></dd>
+			<dt>
+				Allowance Total Amount:
+				<span title="The currency of the debitNote." class="pficon pficon-help text-muted small"></span>
+			</dt>
+			<dd *ngIf="debitNote.legalMonetaryTotal.allowanceTotalAmount">{{debitNote.legalMonetaryTotal.allowanceTotalAmount | number:'1.2-3'}}</dd>
+			<dd *ngIf="!debitNote.legalMonetaryTotal.allowanceTotalAmount"><em>0.00</em></dd>
+		</dl>
+	</div>
+	<div class="col-lg-6">
+		<fieldset>
+			<legend>
+				<h3>Total Tax</h3>
+			</legend>
+		</fieldset>
+		<dl class="dl-horizontal left">
+			<dt>
+				Tax Amount:
+				<span title="The currency of the debitNote." class="pficon pficon-help text-muted small"></span>
+			</dt>
+			<dd *ngIf="debitNote.taxTotal.taxAmount">{{debitNote.taxTotal.taxAmount | number:'1.2-3'}}</dd>
+			<dd *ngIf="!debitNote.taxTotal.taxAmount"><em>0.00</em></dd>
+		</dl>
+	</div>
+	<div class="col-lg-6">
+		<fieldset>
+			<legend>
+				<h3>Supplier Party</h3>
+			</legend>
+		</fieldset>
+		<dl class="dl-horizontal left">
+			<dt>
+				Assigned Account ID:
+				<span title="The currency of the debitNote." class="pficon pficon-help text-muted small"></span>
+			</dt>
+			<dd>{{debitNote.accountingSupplierParty.customerAssignedAccountID}}</dd>
+			<template ngIf="debitNote.accountingSupplierParty.additionalAccountID && debitNote.accountingSupplierParty.additionalAccountID.length">
+				<dt>
+					Additional Account IDs:
+					<span title="The currency of the debitNote." class="pficon pficon-help text-muted small"></span>
+				</dt>
+				<dd>
+					<ul class="list-inline" style="margin-bottom: 0px;">
+						<li *ngFor="let item of debitNote.accountingSupplierParty.additionalAccountID">{{item}}</li>
+					</ul>
+				</dd>
+			</template>
+			<template ngIf="debitNote.accountingSupplierParty.party">
+				<dt>
+					Legal Entity:
+					<span title="The currency of the debitNote." class="pficon pficon-help text-muted small"></span>
+				</dt>
+				<dd>
+					<ul class="list-unstyled" style="margin-bottom: 0px;">
+						<li *ngFor="let item of debitNote.accountingSupplierParty.party.partyLegalEntity">{{item.registrationName}}</li>
+					</ul>
+				</dd>
+			</template>
+		</dl>
+	</div>
+	<div class="col-lg-6">
+		<fieldset>
+			<legend>
+				<h3>Customer Party</h3>
+			</legend>
+		</fieldset>
+		<dl class="dl-horizontal left">
+			<dt>
+				Assigned Account ID:
+				<span title="The currency of the debitNote." class="pficon pficon-help text-muted small"></span>
+			</dt>
+			<dd *ngIf="debitNote.accountingCustomerParty.customerAssignedAccountID">{{debitNote.accountingCustomerParty.customerAssignedAccountID}}</dd>
+			<dd *ngIf="!debitNote.accountingCustomerParty.customerAssignedAccountID"><em>Not registered</em></dd>
+			<dt>
+				Additional Account IDs:
+				<span title="The currency of the debitNote." class="pficon pficon-help text-muted small"></span>
+			</dt>
+			<dd *ngIf="debitNote.accountingCustomerParty.additionalAccountID.length > 0">
+				<ul class="list-inline" style="margin-bottom: 0px;">
+					<li *ngFor="let item of debitNote.accountingCustomerParty.additionalAccountID">{{item}}</li>
+				</ul>
+			</dd>
+			<dd *ngIf="debitNote.accountingCustomerParty.additionalAccountID.length === 0"><em>Not registered</em></dd>
+			<dt>
+				Legal Entity:
+				<span title="The currency of the debitNote." class="pficon pficon-help text-muted small"></span>
+			</dt>
+			<dd *ngIf="debitNote.accountingCustomerParty.party.partyLegalEntity.length > 0">
+				<ul class="list-unstyled" style="margin-bottom: 0px;">
+					<li *ngFor="let item of debitNote.accountingCustomerParty.party.partyLegalEntity">{{item.registrationName}}</li>
+				</ul>
+			</dd>
+			<dd *ngIf="debitNote.accountingCustomerParty.party.partyLegalEntity.length === 0"><em>Not registered</em></dd>
+		</dl>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-12">
+		<div>
+			<h3>debitNote Lines</h3>
+		</div>
+		<div>
+			<div class="table-responsive">
+				<table class="datatable table table-striped table-bordered dataTable no-footer table-mobile">
+					<thead>
+						<tr>
+							<th>#</th>
+							<th class="text-right">Quantity</th>
+							<th>Item Description</th>
+							<th class="text-right">Price</th>
+							<th class="text-right">Tax Amount</th>
+							<th class="text-right">Line Extension Ammount</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr *ngFor="let item of debitNote.debitNoteLine; let i = index;">
+							<td>{{i+1}}</td>
+							<td class="text-right">{{item.debitNotedQuantity.value | number:'1.2-3'}}</td>
+							<td>{{item.item.description}}</td>
+							<td class="text-right">{{item.price.priceAmount | number:'1.2-3'}}</td>
+							<td class="text-right">{{item.taxTotal.taxAmount | number:'1.2-3'}}</td>
+							<td class="text-right">{{item.lineExtensionAmount | number:'1.2-3'}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

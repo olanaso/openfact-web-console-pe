@@ -1,3 +1,190 @@
-<p>
-  credit-note-overview works!
-</p>
+<br>
+<div class="row">
+	<div class="col-lg-6">
+		<fieldset>
+			<legend>
+				<h3>General Information</h3>
+			</legend>
+		</fieldset>
+		<dl class="dl-horizontal left">
+			<dt>
+				Currency Code:
+				<span title="The currency of the creditNote." class="pficon pficon-help text-muted small"></span>
+			</dt>
+			<dd>{{creditNote.documentCurrencyCode}}</dd>
+			<dt>
+				creditNote Type Code:
+				<span title="The type of the creditNote." class="pficon pficon-help text-muted small"></span>
+			</dt>
+			<dd>{{creditNote.creditNoteTypeCode}}</dd>
+			<dt>
+				Issue Date:
+				<span title="Issue Date of the creditNote." class="pficon pficon-help text-muted small"></span>
+			</dt>
+			<dd>{{creditNote.issueDateTime | date: 'short'}}</dd>
+			<dt>
+				Issue Time:
+				<span title="The time of the issue creditNote." class="pficon pficon-help text-muted small"></span>
+			</dt>
+			<dd>{{creditNote.issueDateTime | date: 'mediumTime'}}</dd>
+			<dt>
+				<span class="pficon pficon-image" aria-hidden="true"></span> Xml:
+				<span title="The time of the issue creditNote." class="pficon pficon-help text-muted small"></span>
+			</dt>
+			<dd>
+				<of-modal-text-preview [text]="creditNote.xml" [label]="'Xml preview'"></of-modal-text-preview>
+			</dd>
+			<dd>
+				<a href="">
+					<span><i class="fa fa-file-pdf-o"> </i> Pdf preview</span>
+				</a>
+			</dd>
+		</dl>
+	</div>
+	<div class="col-lg-6">
+		<fieldset>
+			<legend>
+				<h3>Legal Monetary Total</h3>
+			</legend>
+		</fieldset>
+		<dl class="dl-horizontal left">
+			<dt>
+				Payable Amount:
+				<span title="The currency of the creditNote." class="pficon pficon-help text-muted small"></span>
+			</dt>
+			<dd *ngIf="creditNote.legalMonetaryTotal.payableAmount">{{creditNote.legalMonetaryTotal.payableAmount | number:'1.2-3'}}</dd>
+			<dd *ngIf="!creditNote.legalMonetaryTotal.payableAmount"><em>0.00</em></dd>
+			<dt>
+				Charge Total Amount:
+				<span title="The currency of the creditNote." class="pficon pficon-help text-muted small"></span>
+			</dt>
+			<dd *ngIf="creditNote.legalMonetaryTotal.chargeTotalAmount">{{creditNote.legalMonetaryTotal.chargeTotalAmount | number:'1.2-3'}}</dd>
+			<dd *ngIf="!creditNote.legalMonetaryTotal.chargeTotalAmount"><em>0.00</em></dd>
+			<dt>
+				Allowance Total Amount:
+				<span title="The currency of the creditNote." class="pficon pficon-help text-muted small"></span>
+			</dt>
+			<dd *ngIf="creditNote.legalMonetaryTotal.allowanceTotalAmount">{{creditNote.legalMonetaryTotal.allowanceTotalAmount | number:'1.2-3'}}</dd>
+			<dd *ngIf="!creditNote.legalMonetaryTotal.allowanceTotalAmount"><em>0.00</em></dd>
+		</dl>
+	</div>
+	<div class="col-lg-6">
+		<fieldset>
+			<legend>
+				<h3>Total Tax</h3>
+			</legend>
+		</fieldset>
+		<dl class="dl-horizontal left">
+			<dt>
+				Tax Amount:
+				<span title="The currency of the creditNote." class="pficon pficon-help text-muted small"></span>
+			</dt>
+			<dd *ngIf="creditNote.taxTotal.taxAmount">{{creditNote.taxTotal.taxAmount | number:'1.2-3'}}</dd>
+			<dd *ngIf="!creditNote.taxTotal.taxAmount"><em>0.00</em></dd>
+		</dl>
+	</div>
+	<div class="col-lg-6">
+		<fieldset>
+			<legend>
+				<h3>Supplier Party</h3>
+			</legend>
+		</fieldset>
+		<dl class="dl-horizontal left">
+			<dt>
+				Assigned Account ID:
+				<span title="The currency of the creditNote." class="pficon pficon-help text-muted small"></span>
+			</dt>
+			<dd>{{creditNote.accountingSupplierParty.customerAssignedAccountID}}</dd>
+			<template ngIf="creditNote.accountingSupplierParty.additionalAccountID && creditNote.accountingSupplierParty.additionalAccountID.length">
+				<dt>
+					Additional Account IDs:
+					<span title="The currency of the creditNote." class="pficon pficon-help text-muted small"></span>
+				</dt>
+				<dd>
+					<ul class="list-inline" style="margin-bottom: 0px;">
+						<li *ngFor="let item of creditNote.accountingSupplierParty.additionalAccountID">{{item}}</li>
+					</ul>
+				</dd>
+			</template>
+			<template ngIf="creditNote.accountingSupplierParty.party">
+				<dt>
+					Legal Entity:
+					<span title="The currency of the creditNote." class="pficon pficon-help text-muted small"></span>
+				</dt>
+				<dd>
+					<ul class="list-unstyled" style="margin-bottom: 0px;">
+						<li *ngFor="let item of creditNote.accountingSupplierParty.party.partyLegalEntity">{{item.registrationName}}</li>
+					</ul>
+				</dd>
+			</template>
+		</dl>
+	</div>
+	<div class="col-lg-6">
+		<fieldset>
+			<legend>
+				<h3>Customer Party</h3>
+			</legend>
+		</fieldset>
+		<dl class="dl-horizontal left">
+			<dt>
+				Assigned Account ID:
+				<span title="The currency of the creditNote." class="pficon pficon-help text-muted small"></span>
+			</dt>
+			<dd *ngIf="creditNote.accountingCustomerParty.customerAssignedAccountID">{{creditNote.accountingCustomerParty.customerAssignedAccountID}}</dd>
+			<dd *ngIf="!creditNote.accountingCustomerParty.customerAssignedAccountID"><em>Not registered</em></dd>
+			<!--<dt>
+				Additional Account IDs:
+				<span title="The currency of the creditNote." class="pficon pficon-help text-muted small"></span>
+			</dt>
+			<dd *ngIf="creditNote.accountingCustomerParty.additionalAccountID.length > 0">
+				<ul class="list-inline" style="margin-bottom: 0px;">
+					<li *ngFor="let item of creditNote.accountingCustomerParty.additionalAccountID">{{item}}</li>
+				</ul>
+			</dd>
+			<dd *ngIf="creditNote.accountingCustomerParty.additionalAccountID.length === 0"><em>Not registered</em></dd>
+			<dt>
+				Legal Entity:
+				<span title="The currency of the creditNote." class="pficon pficon-help text-muted small"></span>
+			</dt>
+			<dd *ngIf="creditNote.accountingCustomerParty.party.partyLegalEntity.length > 0">
+				<ul class="list-unstyled" style="margin-bottom: 0px;">
+					<li *ngFor="let item of creditNote.accountingCustomerParty.party.partyLegalEntity">{{item.registrationName}}</li>
+				</ul>
+			</dd>
+			<dd *ngIf="creditNote.accountingCustomerParty.party.partyLegalEntity.length === 0"><em>Not registered</em></dd>-->
+		</dl>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-12">
+		<div>
+			<h3>creditNote Lines</h3>
+		</div>
+		<div>
+			<div class="table-responsive">
+				<table class="datatable table table-striped table-bordered dataTable no-footer table-mobile">
+					<thead>
+						<tr>
+							<th>#</th>
+							<th class="text-right">Quantity</th>
+							<th>Item Description</th>
+							<th class="text-right">Price</th>
+							<th class="text-right">Tax Amount</th>
+							<th class="text-right">Line Extension Ammount</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr *ngFor="let item of creditNote.creditNoteLine; let i = index;">
+							<td>{{i+1}}</td>
+							<td class="text-right">{{item.creditedQuantity.value | number:'1.2-3'}}</td>
+							<td>{{item.item.description}}</td>
+							<td class="text-right">{{item.price.priceAmount | number:'1.2-3'}}</td>
+							<td class="text-right">{{item.taxTotal.taxAmount | number:'1.2-3'}}</td>
+							<td class="text-right">{{item.lineExtensionAmount | number:'1.2-3'}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

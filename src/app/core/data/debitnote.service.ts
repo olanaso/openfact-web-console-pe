@@ -1,11 +1,15 @@
 import { Injectable } from '@angular/core';
+import { URLSearchParams } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import { FileUploader } from 'ng2-file-upload';
 
 import { RestangularOpenfact } from './restangular-openfact';
 import { Organization } from '../models/organization.model';
 import { DebitNote } from '../models/debit-note.model';
 import { SearchResults } from '../models/search-results.model';
 import { SearchCriteria } from '../models/search-criteria.model';
+
+import { KeycloakHttp } from '../keycloak.http';
 
 export const debitNoteIdName: string = 'id';
 export const debitNoteBasePath: string = 'debit-notes';
@@ -15,11 +19,11 @@ export class DebitnoteService {
 
   constructor() { }
 
-  public findById(organization: Organization, id: string): Observable<DebitNote> {
+  public findById(organization: Organization, id: string, queryParams?: URLSearchParams): Observable<DebitNote> {
     let restangular = organization.restangular;
     return restangular
       .one(debitNoteBasePath, id)
-      .get()
+      .get(queryParams)
       .map(response => {
         let json = <DebitNote>response.json();
         let result = new DebitNote();
@@ -44,6 +48,15 @@ export class DebitnoteService {
         result = Object.assign(result, json);
         return result;
       });
+  }
+
+  public getFileUpload(organization: Organization): FileUploader {
+    let restangular = organization.restangular.all(debitNoteBasePath).all("xml");
+    let upload = new FileUploader({
+      url: restangular.path,
+      headers: [KeycloakHttp.getToken()]
+    });
+    return upload;
   }
 
   public getAll(organization: Organization): Observable<DebitNote[]> {

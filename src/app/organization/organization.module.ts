@@ -20,6 +20,10 @@ import { SharedModule } from '../shared/shared.module';
 // Shared
 import { RootOrganizationResolver } from './shared/root-organization-resolver';
 import { SettingsOrganizationResolver } from './shared/settings-organization-resolver';
+import { OrganizationResolver } from './shared/organization-resolver';
+import { EventsConfigResolver } from './shared/events-config-resolver';
+import { ServerInfoResolver } from './shared/server-info-resolver';
+import { OrganizationKeysResolver } from './shared/organization-keys-resolver';
 
 import { InvoiceResolver } from './shared/invoice-resolver';
 import { CreditNoteResolver } from './shared/credit-note-resolver';
@@ -56,6 +60,8 @@ import { CreateDebitNoteFormComponent } from './create-debit-note-form/create-de
 import { CreateDebitNoteUploadComponent } from './create-debit-note-upload/create-debit-note-upload.component';
 import { EditDebitNoteComponent } from './edit-debit-note/edit-debit-note.component';
 import { DebitNoteOverviewComponent } from './debit-note-overview/debit-note-overview.component';
+import { AdminEventsComponent } from './admin-events/admin-events.component';
+import { EventsSettingsComponent } from './events-settings/events-settings.component';
 
 @NgModule({
     imports: [
@@ -111,11 +117,17 @@ import { DebitNoteOverviewComponent } from './debit-note-overview/debit-note-ove
         CreateDebitNoteUploadComponent,
         EditDebitNoteComponent,
         DebitNoteOverviewComponent,
+        AdminEventsComponent,
+        EventsSettingsComponent        
     ],
     providers: [
         // Shared
         RootOrganizationResolver,
         SettingsOrganizationResolver,
+        OrganizationResolver,
+        EventsConfigResolver,
+        ServerInfoResolver,
+        OrganizationKeysResolver,
         
         InvoiceResolver,
         CreditNoteResolver,

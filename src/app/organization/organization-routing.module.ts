@@ -3,6 +3,10 @@ import { RouterModule } from '@angular/router';
 
 import { RootOrganizationResolver } from './shared/root-organization-resolver';
 import { SettingsOrganizationResolver } from './shared/settings-organization-resolver';
+import { OrganizationResolver } from './shared/organization-resolver';
+import { EventsConfigResolver } from './shared/events-config-resolver';
+import { ServerInfoResolver } from './shared/server-info-resolver';
+import { OrganizationKeysResolver } from './shared/organization-keys-resolver';
 
 import { InvoiceResolver } from './shared/invoice-resolver';
 import { CreditNoteResolver } from './shared/credit-note-resolver';
@@ -38,6 +42,9 @@ import { CreateDebitNoteUploadComponent } from './create-debit-note-upload/creat
 import { EditDebitNoteComponent } from './edit-debit-note/edit-debit-note.component';
 import { DebitNoteOverviewComponent } from './debit-note-overview/debit-note-overview.component';
 
+import { AdminEventsComponent } from './admin-events/admin-events.component';
+import { EventsSettingsComponent } from './events-settings/events-settings.component';
+
 @NgModule({
     imports: [
         RouterModule.forChild([
@@ -45,69 +52,46 @@ import { DebitNoteOverviewComponent } from './debit-note-overview/debit-note-ove
                 path: '',
                 component: OrganizationComponent,
                 resolve: {
-                    organization: RootOrganizationResolver
+                    organization: OrganizationResolver
                 },
                 children: [
                     {
                         path: 'overview',
-                        component: OrganizationOverviewComponent
-                    },
-                    {
-                        path: 'settings',
-                        component: OrganizationSettingsComponent,
-                        children: [
-                            {
-                                path: '',
-                                redirectTo: 'general-information'
-                            },
-                            {
-                                path: 'general-information',
-                                component: OrganizationGeneralInformationComponent,
-                                resolve: {
-                                    organization: SettingsOrganizationResolver
-                                }
-                            },
-                            {
-                                path: 'additional-information',
-                                component: OrganizationAdditionalInformationComponent,
-                                resolve: {
-                                    organization: SettingsOrganizationResolver
-                                }
-                            },
-                            {
-                                path: 'key-settings',
-                                component: OrganizationKeySettingsComponent,
-                                resolve: {
-                                    organization: SettingsOrganizationResolver
-                                }
-                            },
-                            {
-                                path: 'smtp-settings',
-                                component: OrganizationSmtpSettingsComponent,
-                                resolve: {
-                                    organization: SettingsOrganizationResolver
-                                }
-                            }
-                        ]
+                        component: OrganizationOverviewComponent,
+                        resolve: {
+                            organization: OrganizationResolver
+                        }
                     },
                     {
                         path: 'invoices',
                         children: [
                             {
                                 path: '',
-                                component: InvoicesComponent
+                                component: InvoicesComponent,
+                                resolve: {
+                                    organization: OrganizationResolver
+                                }
                             },
                             {
                                 path: 'create',
                                 component: CreateInvoiceComponent,
+                                resolve: {
+                                    organization: OrganizationResolver
+                                },
                                 children: [
                                     {
                                         path: '',
-                                        component: CreateInvoiceFormComponent
+                                        component: CreateInvoiceFormComponent,
+                                        resolve: {
+                                            organization: OrganizationResolver
+                                        }
                                     },
                                     {
                                         path: 'upload',
-                                        component: CreateInvoiceUploadComponent
+                                        component: CreateInvoiceUploadComponent,
+                                        resolve: {
+                                            organization: OrganizationResolver
+                                        }
                                     }
                                 ]
                             },
@@ -115,20 +99,25 @@ import { DebitNoteOverviewComponent } from './debit-note-overview/debit-note-ove
                                 path: ':invoice',
                                 component: EditInvoiceComponent,
                                 resolve: {
+                                    organization: OrganizationResolver,
                                     invoice: InvoiceResolver
                                 },
                                 children: [
                                     {
                                         path: '',
-                                        redirectTo: 'overview'
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: InvoiceOverviewComponent
+                                        component: InvoiceOverviewComponent,
+                                        resolve: {
+                                            organization: OrganizationResolver,
+                                            invoice: InvoiceResolver
+                                        }
                                     },
                                     {
                                         path: 'events',
-                                        component: InvoiceOverviewEventsComponent
+                                        component: InvoiceOverviewEventsComponent,
+                                        resolve: {
+                                            organization: OrganizationResolver,
+                                            invoice: InvoiceResolver
+                                        }
                                     }
                                 ]
                             }
@@ -139,19 +128,31 @@ import { DebitNoteOverviewComponent } from './debit-note-overview/debit-note-ove
                         children: [
                             {
                                 path: '',
-                                component: CreditNotesComponent
+                                component: CreditNotesComponent,
+                                resolve: {
+                                    organization: OrganizationResolver
+                                }
                             },
                             {
                                 path: 'create',
                                 component: CreateCreditNoteComponent,
+                                resolve: {
+                                    organization: OrganizationResolver
+                                },
                                 children: [
                                     {
                                         path: '',
-                                        component: CreateCreditNoteFormComponent
+                                        component: CreateCreditNoteFormComponent,
+                                        resolve: {
+                                            organization: OrganizationResolver
+                                        }
                                     },
                                     {
                                         path: 'upload',
-                                        component: CreateCreditNoteUploadComponent
+                                        component: CreateCreditNoteUploadComponent,
+                                        resolve: {
+                                            organization: OrganizationResolver
+                                        }
                                     }
                                 ]
                             },
@@ -159,16 +160,17 @@ import { DebitNoteOverviewComponent } from './debit-note-overview/debit-note-ove
                                 path: ':creditNote',
                                 component: EditCreditNoteComponent,
                                 resolve: {
+                                    organization: OrganizationResolver,
                                     creditNote: CreditNoteResolver
                                 },
                                 children: [
                                     {
                                         path: '',
-                                        redirectTo: 'overview'
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: CreditNoteOverviewComponent
+                                        component: CreditNoteOverviewComponent,
+                                        resolve: {
+                                            organization: OrganizationResolver,
+                                            creditNote: CreditNoteResolver
+                                        }
                                     }
                                 ]
                             }
@@ -179,19 +181,31 @@ import { DebitNoteOverviewComponent } from './debit-note-overview/debit-note-ove
                         children: [
                             {
                                 path: '',
-                                component: DebitNotesComponent
+                                component: DebitNotesComponent,
+                                resolve: {
+                                    organization: OrganizationResolver
+                                }
                             },
                             {
                                 path: 'create',
                                 component: CreateDebitNoteComponent,
+                                resolve: {
+                                    organization: OrganizationResolver
+                                },
                                 children: [
                                     {
                                         path: '',
-                                        component: CreateDebitNoteFormComponent
+                                        component: CreateDebitNoteFormComponent,
+                                        resolve: {
+                                            organization: OrganizationResolver
+                                        }
                                     },
                                     {
                                         path: 'upload',
-                                        component: CreateDebitNoteUploadComponent
+                                        component: CreateDebitNoteUploadComponent,
+                                        resolve: {
+                                            organization: OrganizationResolver
+                                        }
                                     }
                                 ]
                             },
@@ -199,18 +213,80 @@ import { DebitNoteOverviewComponent } from './debit-note-overview/debit-note-ove
                                 path: ':debitNote',
                                 component: EditDebitNoteComponent,
                                 resolve: {
+                                    organization: OrganizationResolver,
                                     debitNote: DebitNoteResolver
                                 },
                                 children: [
                                     {
                                         path: '',
-                                        redirectTo: 'overview'
-                                    },
-                                    {
-                                        path: 'overview',
-                                        component: DebitNoteOverviewComponent
+                                        component: CreditNoteOverviewComponent,
+                                        resolve: {
+                                            organization: OrganizationResolver,
+                                            debitNote: DebitNoteResolver
+                                        }
                                     }
                                 ]
+                            }
+                        ]
+                    },
+                    {
+                        path: 'settings',
+                        component: OrganizationSettingsComponent,
+                        resolve: {
+                            organization: OrganizationResolver
+                        },
+                        children: [
+                            {
+                                path: '',
+                                component: OrganizationGeneralInformationComponent,
+                                resolve: {
+                                    organization: OrganizationResolver
+                                }
+                            },
+                            {
+                                path: 'additional-information',
+                                component: OrganizationAdditionalInformationComponent,
+                                resolve: {
+                                    organization: OrganizationResolver
+                                }
+                            },
+                            {
+                                path: 'key-settings',
+                                component: OrganizationKeySettingsComponent,
+                                resolve: {
+                                    organization: OrganizationResolver,
+                                    serverinfo: ServerInfoResolver,
+                                    keys: OrganizationKeysResolver
+                                }
+                            },
+                            {
+                                path: 'smtp-settings',
+                                component: OrganizationSmtpSettingsComponent,
+                                resolve: {
+                                    organization: OrganizationResolver
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        path: 'events',
+                        children: [
+                            {
+                                path: '',
+                                component: AdminEventsComponent,
+                                resolve: {
+                                    organization: OrganizationResolver,
+                                    serverinfo: ServerInfoResolver
+                                }
+                            },
+                            {
+                                path: 'events-settings',
+                                component: EventsSettingsComponent,
+                                resolve: {
+                                    organization: OrganizationResolver,
+                                    serverinfo: ServerInfoResolver,
+                                    eventsConfig: EventsConfigResolver
+                                }
                             }
                         ]
                     }

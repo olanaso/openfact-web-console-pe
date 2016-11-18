@@ -6,6 +6,8 @@ import { Observable } from 'rxjs/Observable';
 import { Invoice } from '../../core/models/invoice.model';
 import { DataService } from '../../core/data/data.service';
 
+import { findParam } from './find-param';
+
 @Injectable()
 export class InvoiceResolver implements Resolve<Invoice>{
 
@@ -14,12 +16,13 @@ export class InvoiceResolver implements Resolve<Invoice>{
     resolve(
         route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot): Observable<any> | Promise<any> {
-        let organizationId = route.parent.parent.params['organization'];
+        let organizationId = findParam('organization', route);
+        let invoiceId = findParam('invoice', route);
         let organization = this.dataService.organizations().build(organizationId);
 
         let queryParams = new URLSearchParams();
         queryParams.set("includeXml", "true")
 
-        return this.dataService.invoices().findById(organization, route.params['invoice'], queryParams);
+        return this.dataService.invoices().findById(organization, invoiceId, queryParams);
     }
 }

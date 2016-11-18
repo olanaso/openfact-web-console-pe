@@ -5,6 +5,7 @@ import { RestangularOpenfact } from './restangular-openfact';
 import { Organization } from '../models/organization.model';
 import { SearchResults } from '../models/search-results.model';
 import { SearchCriteria } from '../models/search-criteria.model';
+import { KeysMetadata } from '../models/keys-metadata.model';
 
 export const organizationIdName: string = 'organization';
 export const organizationBasePath: string = 'organizations';
@@ -89,6 +90,20 @@ export class OrganizationService {
 
         result.items = items;
         result.totalSize = json.totalSize;
+        return result;
+      });
+  }
+
+  getOrganizationKeys(organization: Organization) {
+    return this.restangular
+      .all(organizationBasePath)
+      .one('keys', organization.organization)
+      .get()
+      .map(response => {
+        let json = <KeysMetadata>response.json();
+        let result = new KeysMetadata();
+        result.restangular = this.restangular.one(organizationBasePath, '');
+        result = Object.assign(result, json);
         return result;
       });
   }

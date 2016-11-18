@@ -7,15 +7,15 @@ import { DebitNote } from './debit-note.model';
 import { Model } from './model';
 
 export class Organization extends Model {
-    id: String;
-    organization: String;
-    description: String;
+    id: string;
+    organization: string;
+    description: string;
     enabled: boolean;
 
-    assignedIdentificationId: String;
-    additionalAccountId: String;
-    supplierName: String;
-    registrationName: String;
+    assignedIdentificationId: string;
+    additionalAccountId: string;
+    supplierName: string;
+    registrationName: string;
 
     smtpServer: any;
     ublSenderServer: any;
@@ -26,30 +26,30 @@ export class Organization extends Model {
     taskDelay: number;
     tasksEnabled: boolean;
 
-    emailTheme: String;
-    supportedLocales: Array<String>;
-    defaultLocale: String;
+    emailTheme: string;
+    supportedLocales: Array<string>;
+    defaultLocale: string;
     internationalizationEnabled: boolean;
-    supportedUblLocales: Array<String>;
-    defaultUblLocale: String;
+    supportedUblLocales: Array<string>;
+    defaultUblLocale: string;
     internationalizationUblEnabled: boolean;
-    supportedCurrencies: Array<String>;
-    defaultCurrency: String;
+    supportedCurrencies: Array<string>;
+    defaultCurrency: string;
 
     eventsEnabled: boolean;
     eventsExpiration: number;
-    eventsListeners: Array<String>;
-    enabledEventTypes: Array<String>;
+    eventsListeners: Array<string>;
+    enabledEventTypes: Array<string>;
 
     adminEventsEnabled: boolean;
     adminEventsDetailsEnabled: boolean;
 
-    requiredActions: Array<String>;
+    requiredActions: Array<string>;
     attributes: any;
 
     invoices: Array<Invoice>;
     creditNotes: Array<CreditNote>;
     debitNotes: Array<DebitNote>;
 
-    openfactVersion: String;
+    openfactVersion: string;
 }

@@ -20,9 +20,6 @@ export class InvoiceResolver implements Resolve<Invoice>{
         let invoiceId = findParam('invoice', route);
         let organization = this.dataService.organizations().build(organizationId);
 
-        let queryParams = new URLSearchParams();
-        queryParams.set("includeXml", "true")
-
-        return this.dataService.invoices().findById(organization, invoiceId, queryParams);
+        return this.dataService.invoices().findById(organization, invoiceId);
     }
 }

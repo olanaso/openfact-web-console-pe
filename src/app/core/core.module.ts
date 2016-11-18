@@ -25,6 +25,15 @@ import { DebitnoteService } from './data/debitnote.service';
 import { ServerInfoService } from './data/server-info.service';
 import { EventService } from './data/event.service';
 
+// Resolvers
+import { OrganizationResolver } from './resolvers/organization-resolver';
+import { EventsConfigResolver } from './resolvers/events-config-resolver';
+import { ServerInfoResolver } from './resolvers/server-info-resolver';
+import { OrganizationKeysResolver } from './resolvers/organization-keys-resolver';
+import { InvoiceResolver } from './resolvers/invoice-resolver';
+import { CreditNoteResolver } from './resolvers/credit-note-resolver';
+import { DebitNoteResolver } from './resolvers/debit-note-resolver';
+
 // Guards
 import { AllowedDataOrganizations } from './guards/allowed-data-organizations';
 import { AllowedDataRoles } from './guards/allowed-data-roles';
@@ -66,6 +75,16 @@ import { AllowedDataRoles } from './guards/allowed-data-roles';
     DebitnoteService,
     ServerInfoService,
     EventService,
+
+    // Resolvers
+    OrganizationResolver,
+    EventsConfigResolver,
+    ServerInfoResolver,
+    OrganizationKeysResolver,
+
+    InvoiceResolver,
+    CreditNoteResolver,
+    DebitNoteResolver,
 
     //Guards
     AllowedDataOrganizations,

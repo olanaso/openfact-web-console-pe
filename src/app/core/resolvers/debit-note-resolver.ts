@@ -19,10 +19,6 @@ export class DebitNoteResolver implements Resolve<DebitNote>{
         let organizationId = findParam('organization', route);
         let debitNoteId = findParam('debitNote', route);
         let organization = this.dataService.organizations().build(organizationId);
-
-        let queryParams = new URLSearchParams();
-        queryParams.set("includeXml", "true")
-
-        return this.dataService.debitnotes().findById(organization, debitNoteId, queryParams);
+        return this.dataService.debitnotes().findById(organization, debitNoteId);
     }
 }

@@ -1,16 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { RootOrganizationResolver } from './shared/root-organization-resolver';
-import { SettingsOrganizationResolver } from './shared/settings-organization-resolver';
-import { OrganizationResolver } from './shared/organization-resolver';
-import { EventsConfigResolver } from './shared/events-config-resolver';
-import { ServerInfoResolver } from './shared/server-info-resolver';
-import { OrganizationKeysResolver } from './shared/organization-keys-resolver';
+import { OrganizationResolver } from '../core/resolvers/organization-resolver';
+import { EventsConfigResolver } from '../core/resolvers/events-config-resolver';
+import { ServerInfoResolver } from '../core/resolvers/server-info-resolver';
+import { OrganizationKeysResolver } from '../core/resolvers/organization-keys-resolver';
 
-import { InvoiceResolver } from './shared/invoice-resolver';
-import { CreditNoteResolver } from './shared/credit-note-resolver';
-import { DebitNoteResolver } from './shared/debit-note-resolver';
+import { InvoiceResolver } from '../core/resolvers/invoice-resolver';
+import { CreditNoteResolver } from '../core/resolvers/credit-note-resolver';
+import { DebitNoteResolver } from '../core/resolvers/debit-note-resolver';
 
 import { OrganizationComponent } from './organization.component';
 import { OrganizationOverviewComponent } from './organization-overview/organization-overview.component';

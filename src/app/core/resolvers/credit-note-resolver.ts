@@ -19,10 +19,6 @@ export class CreditNoteResolver implements Resolve<CreditNote>{
         let organizationId = findParam('organization', route);
         let creditNoteId = findParam('creditNote', route);
         let organization = this.dataService.organizations().build(organizationId);
-
-        let queryParams = new URLSearchParams();
-        queryParams.set("includeXml", "true")
-
-        return this.dataService.creditnotes().findById(organization, creditNoteId, queryParams);
+        return this.dataService.creditnotes().findById(organization, creditNoteId);
     }
 }

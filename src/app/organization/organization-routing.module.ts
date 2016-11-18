@@ -38,6 +38,9 @@ import { CreateDebitNoteUploadComponent } from './create-debit-note-upload/creat
 import { EditDebitNoteComponent } from './edit-debit-note/edit-debit-note.component';
 import { DebitNoteOverviewComponent } from './debit-note-overview/debit-note-overview.component';
 
+import { AdminEventsComponent } from './admin-events/admin-events.component';
+import { EventsSettingsComponent } from './events-settings/events-settings.component';
+
 @NgModule({
     imports: [
         RouterModule.forChild([
@@ -51,44 +54,6 @@ import { DebitNoteOverviewComponent } from './debit-note-overview/debit-note-ove
                     {
                         path: 'overview',
                         component: OrganizationOverviewComponent
-                    },
-                    {
-                        path: 'settings',
-                        component: OrganizationSettingsComponent,
-                        children: [
-                            {
-                                path: '',
-                                redirectTo: 'general-information'
-                            },
-                            {
-                                path: 'general-information',
-                                component: OrganizationGeneralInformationComponent,
-                                resolve: {
-                                    organization: SettingsOrganizationResolver
-                                }
-                            },
-                            {
-                                path: 'additional-information',
-                                component: OrganizationAdditionalInformationComponent,
-                                resolve: {
-                                    organization: SettingsOrganizationResolver
-                                }
-                            },
-                            {
-                                path: 'key-settings',
-                                component: OrganizationKeySettingsComponent,
-                                resolve: {
-                                    organization: SettingsOrganizationResolver
-                                }
-                            },
-                            {
-                                path: 'smtp-settings',
-                                component: OrganizationSmtpSettingsComponent,
-                                resolve: {
-                                    organization: SettingsOrganizationResolver
-                                }
-                            }
-                        ]
                     },
                     {
                         path: 'invoices',
@@ -120,10 +85,6 @@ import { DebitNoteOverviewComponent } from './debit-note-overview/debit-note-ove
                                 children: [
                                     {
                                         path: '',
-                                        redirectTo: 'overview'
-                                    },
-                                    {
-                                        path: 'overview',
                                         component: InvoiceOverviewComponent
                                     },
                                     {
@@ -164,10 +125,6 @@ import { DebitNoteOverviewComponent } from './debit-note-overview/debit-note-ove
                                 children: [
                                     {
                                         path: '',
-                                        redirectTo: 'overview'
-                                    },
-                                    {
-                                        path: 'overview',
                                         component: CreditNoteOverviewComponent
                                     }
                                 ]
@@ -204,13 +161,56 @@ import { DebitNoteOverviewComponent } from './debit-note-overview/debit-note-ove
                                 children: [
                                     {
                                         path: '',
-                                        redirectTo: 'overview'
-                                    },
-                                    {
-                                        path: 'overview',
                                         component: CreditNoteOverviewComponent
                                     }
                                 ]
+                            }
+                        ]
+                    },
+                    {
+                        path: 'settings',
+                        component: OrganizationSettingsComponent,
+                        children: [
+                            {
+                                path: '',
+                                component: OrganizationGeneralInformationComponent,
+                                resolve: {
+                                    organization: SettingsOrganizationResolver
+                                }
+                            },
+                            {
+                                path: 'additional-information',
+                                component: OrganizationAdditionalInformationComponent,
+                                resolve: {
+                                    organization: SettingsOrganizationResolver
+                                }
+                            },
+                            {
+                                path: 'key-settings',
+                                component: OrganizationKeySettingsComponent,
+                                resolve: {
+                                    organization: SettingsOrganizationResolver
+                                }
+                            },
+                            {
+                                path: 'smtp-settings',
+                                component: OrganizationSmtpSettingsComponent,
+                                resolve: {
+                                    organization: SettingsOrganizationResolver
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        path: 'events',
+                        children: [
+                            {
+                                path: '',
+                                component: AdminEventsComponent
+                            },
+                            {
+                                path: 'events-settings',
+                                component: EventsSettingsComponent
                             }
                         ]
                     }

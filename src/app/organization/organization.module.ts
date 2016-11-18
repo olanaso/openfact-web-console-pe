@@ -56,6 +56,8 @@ import { CreateDebitNoteFormComponent } from './create-debit-note-form/create-de
 import { CreateDebitNoteUploadComponent } from './create-debit-note-upload/create-debit-note-upload.component';
 import { EditDebitNoteComponent } from './edit-debit-note/edit-debit-note.component';
 import { DebitNoteOverviewComponent } from './debit-note-overview/debit-note-overview.component';
+import { AdminEventsComponent } from './admin-events/admin-events.component';
+import { EventsSettingsComponent } from './events-settings/events-settings.component';
 
 @NgModule({
     imports: [
@@ -111,6 +113,8 @@ import { DebitNoteOverviewComponent } from './debit-note-overview/debit-note-ove
         CreateDebitNoteUploadComponent,
         EditDebitNoteComponent,
         DebitNoteOverviewComponent,
+        AdminEventsComponent,
+        EventsSettingsComponent        
     ],
     providers: [
         // Shared

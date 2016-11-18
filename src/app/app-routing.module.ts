@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { RouterModule, PreloadAllModules } from '@angular/router';
 
 import { AllowedDataOrganizations } from './core/guards/allowed-data-organizations';
 
@@ -21,7 +21,7 @@ import { AllowedDataOrganizations } from './core/guards/allowed-data-organizatio
                 path: 'organizations/:organization',
                 loadChildren: 'app/organization/organization.module#OrganizationModule'
             }
-        ], { useHash: true, enableTracing: true })
+        ], { useHash: true, enableTracing: true, preloadingStrategy: PreloadAllModules })
     ],
     exports: [
         RouterModule

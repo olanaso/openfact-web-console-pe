@@ -21,6 +21,7 @@ export class OrganizationService {
 
   public build(id?: string): Organization {
     let organization = new Organization();
+    organization.organization = id;
     organization.restangular = this.restangular.one(organizationBasePath, id);
     return organization;
   }
@@ -96,8 +97,8 @@ export class OrganizationService {
 
   getOrganizationKeys(organization: Organization) {
     return this.restangular
-      .all(organizationBasePath)
-      .one('keys', organization.organization)
+      .one(organizationBasePath, organization.organization)
+      .all('keys')
       .get()
       .map(response => {
         let json = <KeysMetadata>response.json();

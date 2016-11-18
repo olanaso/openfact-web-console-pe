@@ -13,8 +13,11 @@ import { Organization } from '../../core/models/organization.model';
 })
 export class CreateOrganizationComponent implements OnInit {
 
-  private form: FormGroup;
-  private working: boolean = false;
+  form: FormGroup;
+  working: boolean = false;
+
+  organization: any;
+  importing: boolean = false;
 
   constructor(
     private router: Router,
@@ -34,10 +37,17 @@ export class CreateOrganizationComponent implements OnInit {
     });
   }
 
+  importFile(file) {
+    this.organization = Object.assign({}, JSON.parse(file.data));
+    this.form.patchValue(this.organization);
+    this.importing = true;
+  };
+
   save(form: any): void {
     this.working = true;
+    let organizationCopy = Object.assign(this.organization, form);
 
-    this.dataService.organizations().create(form).subscribe(
+    this.dataService.organizations().create(organizationCopy).subscribe(
       result => {
         this.alertService.pop('success', 'Success', 'Success! The organization has been created.');
         this.router.navigate(['../']);
@@ -47,6 +57,12 @@ export class CreateOrganizationComponent implements OnInit {
         this.alertService.pop('error', 'Error', 'Organization could not be created.');
       }
     );
+  }
+
+  reset() {
+    this.buildForm();
+    this.organization = undefined;
+    this.importing = false;
   }
 
   cancel() {

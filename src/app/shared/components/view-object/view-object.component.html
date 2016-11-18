@@ -1,0 +1,9 @@
+<template #content let-c="close" let-d="dismiss">
+  <div class="modal-body">
+    <div style="padding: 20px 20px 10px 20px">
+      <pre>{{ object | json }}</pre>
+    </div>
+  </div>
+</template>
+
+<button type="button" class="btn btn-default" (click)="open(content)">{{label || 'View details'}}</button>

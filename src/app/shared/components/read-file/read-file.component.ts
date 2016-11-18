@@ -1,13 +1,17 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'of-button-upload-file',
-  templateUrl: './button-upload-file.component.html',
-  styleUrls: ['./button-upload-file.component.scss']
+  selector: 'of-read-file',
+  templateUrl: './read-file.component.html',
+  styleUrls: ['./read-file.component.scss']
 })
-export class ButtonUploadFileComponent implements OnInit {
+export class ReadFileComponent implements OnInit {
 
-  @Output() complete: EventEmitter<any> = new EventEmitter<any>();
+  @Input()
+  showFileName: boolean = false;
+
+  @Output()
+  complete: EventEmitter<any> = new EventEmitter<any>();
 
   private file: any = {
     fileName: undefined,

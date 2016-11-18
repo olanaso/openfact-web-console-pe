@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { ButtonUploadFileComponent } from './button-upload-file.component';
+import { ReadFileComponent } from './read-file.component';
 
-describe('ButtonUploadFileComponent', () => {
-  let component: ButtonUploadFileComponent;
-  let fixture: ComponentFixture<ButtonUploadFileComponent>;
+describe('ReadFileComponent', () => {
+  let component: ReadFileComponent;
+  let fixture: ComponentFixture<ReadFileComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ButtonUploadFileComponent ]
+      declarations: [ ReadFileComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ButtonUploadFileComponent);
+    fixture = TestBed.createComponent(ReadFileComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -14,9 +14,10 @@ import { FileUploadModule } from 'ng2-file-upload';
 import { ButtonDeleteComponent } from './components/button-delete/button-delete.component';
 import { ButtonSaveComponent } from './components/button-save/button-save.component';
 import { ButtonSwitchComponent } from './components/button-switch/button-switch.component';
-import { ButtonUploadFileComponent } from './components/button-upload-file/button-upload-file.component';
 import { RelativeTimestampComponent } from './components/relative-timestamp/relative-timestamp.component';
 import { ModalTextPreviewComponent } from './components/modal-text-preview/modal-text-preview.component';
+import { ViewObjectComponent } from './components/view-object/view-object.component';
+import { ReadFileComponent } from './components/read-file/read-file.component';
 
 // Directives
 
@@ -45,9 +46,9 @@ import { YesNoPipe } from './pipes/yes-no.pipe';
     ButtonDeleteComponent,
     ButtonSaveComponent,
     ButtonSwitchComponent,
-    ButtonUploadFileComponent,
     RelativeTimestampComponent,
     ModalTextPreviewComponent,
+    ViewObjectComponent,
 
     // Directives
 
@@ -55,16 +56,18 @@ import { YesNoPipe } from './pipes/yes-no.pipe';
     CapitalizePipe,
     FilterCollectionPipe,
     KeysPipe,
-    YesNoPipe
+    YesNoPipe,
+    ReadFileComponent,
   ],
   exports: [
     // Components
     ButtonDeleteComponent,
     ButtonSaveComponent,
     ButtonSwitchComponent,
-    ButtonUploadFileComponent,
     RelativeTimestampComponent,
     ModalTextPreviewComponent,
+    ViewObjectComponent,
+    ReadFileComponent,
 
     // Directives
 

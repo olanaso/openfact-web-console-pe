@@ -220,7 +220,7 @@ import { EventsSettingsComponent } from './events-settings/events-settings.compo
                                 children: [
                                     {
                                         path: '',
-                                        component: CreditNoteOverviewComponent,
+                                        component: DebitNoteOverviewComponent,
                                         resolve: {
                                             organization: OrganizationResolver,
                                             debitNote: DebitNoteResolver

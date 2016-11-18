@@ -27,6 +27,9 @@ import { OrganizationSettingsComponent } from './organization-settings/organizat
 import { OrganizationGeneralInformationComponent } from './organization-general-information/organization-general-information.component';
 import { OrganizationAdditionalInformationComponent } from './organization-additional-information/organization-additional-information.component';
 import { OrganizationKeySettingsComponent } from './organization-key-settings/organization-key-settings.component';
+import { OrganizationKeyActiveSettingsComponent } from './organization-key-active-settings/organization-key-active-settings.component';
+import { OrganizationAllKeysSettingsComponent } from './organization-all-keys-settings/organization-all-keys-settings.component';
+import { OrganizationKeyProvidersSettingsComponent } from './organization-key-providers-settings/organization-key-providers-settings.component';
 import { OrganizationSmtpSettingsComponent } from './organization-smtp-settings/organization-smtp-settings.component';
 
 import { InvoicesComponent } from './invoices/invoices.component';
@@ -83,6 +86,9 @@ import { EventsSettingsComponent } from './events-settings/events-settings.compo
         OrganizationGeneralInformationComponent,
         OrganizationAdditionalInformationComponent,
         OrganizationKeySettingsComponent,
+        OrganizationKeyActiveSettingsComponent,
+        OrganizationAllKeysSettingsComponent,
+        OrganizationKeyProvidersSettingsComponent,
         OrganizationSmtpSettingsComponent,
 
         InvoicesComponent,
@@ -92,7 +98,6 @@ import { EventsSettingsComponent } from './events-settings/events-settings.compo
         EditInvoiceComponent,
         InvoiceOverviewComponent,
         InvoiceOverviewEventsComponent,
-
 
         CreditNotesComponent,
         CreateCreditNoteComponent,
@@ -108,7 +113,7 @@ import { EventsSettingsComponent } from './events-settings/events-settings.compo
         EditDebitNoteComponent,
         DebitNoteOverviewComponent,
         AdminEventsComponent,
-        EventsSettingsComponent
+        EventsSettingsComponent,
     ],
     providers: [
         // Shared

@@ -16,6 +16,9 @@ import { OrganizationSettingsComponent } from './organization-settings/organizat
 import { OrganizationGeneralInformationComponent } from './organization-general-information/organization-general-information.component';
 import { OrganizationAdditionalInformationComponent } from './organization-additional-information/organization-additional-information.component';
 import { OrganizationKeySettingsComponent } from './organization-key-settings/organization-key-settings.component';
+import { OrganizationKeyActiveSettingsComponent } from './organization-key-active-settings/organization-key-active-settings.component';
+import { OrganizationAllKeysSettingsComponent } from './organization-all-keys-settings/organization-all-keys-settings.component';
+import { OrganizationKeyProvidersSettingsComponent } from './organization-key-providers-settings/organization-key-providers-settings.component';
 import { OrganizationSmtpSettingsComponent } from './organization-smtp-settings/organization-smtp-settings.component';
 
 import { InvoicesComponent } from './invoices/invoices.component';
@@ -249,13 +252,36 @@ import { EventsSettingsComponent } from './events-settings/events-settings.compo
                                 }
                             },
                             {
-                                path: 'key-settings',
+                                path: 'keys',
                                 component: OrganizationKeySettingsComponent,
-                                resolve: {
-                                    organization: OrganizationResolver,
-                                    serverinfo: ServerInfoResolver,
-                                    keys: OrganizationKeysResolver
-                                }
+                                children: [
+                                    {
+                                        path: '',
+                                        component: OrganizationKeyActiveSettingsComponent,
+                                        resolve: {
+                                            organization: OrganizationResolver,
+                                            serverinfo: ServerInfoResolver,
+                                            keys: OrganizationKeysResolver
+                                        }
+                                    },
+                                    {
+                                        path: 'list',
+                                        component: OrganizationAllKeysSettingsComponent,
+                                        resolve: {
+                                            organization: OrganizationResolver,
+                                            serverinfo: ServerInfoResolver,
+                                            keys: OrganizationKeysResolver
+                                        }
+                                    },
+                                    {
+                                        path: 'providers',
+                                        component: OrganizationKeyProvidersSettingsComponent,
+                                        resolve: {
+                                            organization: OrganizationResolver,
+                                            serverinfo: ServerInfoResolver
+                                        }
+                                    }
+                                ]
                             },
                             {
                                 path: 'smtp-settings',

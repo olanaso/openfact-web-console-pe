@@ -18,6 +18,7 @@ import { RelativeTimestampComponent } from './components/relative-timestamp/rela
 import { ModalTextPreviewComponent } from './components/modal-text-preview/modal-text-preview.component';
 import { ViewObjectComponent } from './components/view-object/view-object.component';
 import { ReadFileComponent } from './components/read-file/read-file.component';
+import { ViewKeyComponent } from './components/view-key/view-key.component';
 
 // Directives
 
@@ -49,6 +50,7 @@ import { YesNoPipe } from './pipes/yes-no.pipe';
     RelativeTimestampComponent,
     ModalTextPreviewComponent,
     ViewObjectComponent,
+    ViewKeyComponent,
 
     // Directives
 
@@ -68,6 +70,7 @@ import { YesNoPipe } from './pipes/yes-no.pipe';
     ModalTextPreviewComponent,
     ViewObjectComponent,
     ReadFileComponent,
+    ViewKeyComponent,
 
     // Directives
 

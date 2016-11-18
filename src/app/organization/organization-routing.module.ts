@@ -3,6 +3,10 @@ import { RouterModule } from '@angular/router';
 
 import { RootOrganizationResolver } from './shared/root-organization-resolver';
 import { SettingsOrganizationResolver } from './shared/settings-organization-resolver';
+import { OrganizationResolver } from './shared/organization-resolver';
+import { EventsConfigResolver } from './shared/events-config-resolver';
+import { ServerInfoResolver } from './shared/server-info-resolver';
+import { OrganizationKeysResolver } from './shared/organization-keys-resolver';
 
 import { InvoiceResolver } from './shared/invoice-resolver';
 import { CreditNoteResolver } from './shared/credit-note-resolver';
@@ -48,31 +52,46 @@ import { EventsSettingsComponent } from './events-settings/events-settings.compo
                 path: '',
                 component: OrganizationComponent,
                 resolve: {
-                    organization: RootOrganizationResolver
+                    organization: OrganizationResolver
                 },
                 children: [
                     {
                         path: 'overview',
-                        component: OrganizationOverviewComponent
+                        component: OrganizationOverviewComponent,
+                        resolve: {
+                            organization: OrganizationResolver
+                        }
                     },
                     {
                         path: 'invoices',
                         children: [
                             {
                                 path: '',
-                                component: InvoicesComponent
+                                component: InvoicesComponent,
+                                resolve: {
+                                    organization: OrganizationResolver
+                                }
                             },
                             {
                                 path: 'create',
                                 component: CreateInvoiceComponent,
+                                resolve: {
+                                    organization: OrganizationResolver
+                                },
                                 children: [
                                     {
                                         path: '',
-                                        component: CreateInvoiceFormComponent
+                                        component: CreateInvoiceFormComponent,
+                                        resolve: {
+                                            organization: OrganizationResolver
+                                        }
                                     },
                                     {
                                         path: 'upload',
-                                        component: CreateInvoiceUploadComponent
+                                        component: CreateInvoiceUploadComponent,
+                                        resolve: {
+                                            organization: OrganizationResolver
+                                        }
                                     }
                                 ]
                             },
@@ -80,16 +99,25 @@ import { EventsSettingsComponent } from './events-settings/events-settings.compo
                                 path: ':invoice',
                                 component: EditInvoiceComponent,
                                 resolve: {
+                                    organization: OrganizationResolver,
                                     invoice: InvoiceResolver
                                 },
                                 children: [
                                     {
                                         path: '',
-                                        component: InvoiceOverviewComponent
+                                        component: InvoiceOverviewComponent,
+                                        resolve: {
+                                            organization: OrganizationResolver,
+                                            invoice: InvoiceResolver
+                                        }
                                     },
                                     {
                                         path: 'events',
-                                        component: InvoiceOverviewEventsComponent
+                                        component: InvoiceOverviewEventsComponent,
+                                        resolve: {
+                                            organization: OrganizationResolver,
+                                            invoice: InvoiceResolver
+                                        }
                                     }
                                 ]
                             }
@@ -100,19 +128,31 @@ import { EventsSettingsComponent } from './events-settings/events-settings.compo
                         children: [
                             {
                                 path: '',
-                                component: CreditNotesComponent
+                                component: CreditNotesComponent,
+                                resolve: {
+                                    organization: OrganizationResolver
+                                }
                             },
                             {
                                 path: 'create',
                                 component: CreateCreditNoteComponent,
+                                resolve: {
+                                    organization: OrganizationResolver
+                                },
                                 children: [
                                     {
                                         path: '',
-                                        component: CreateCreditNoteFormComponent
+                                        component: CreateCreditNoteFormComponent,
+                                        resolve: {
+                                            organization: OrganizationResolver
+                                        }
                                     },
                                     {
                                         path: 'upload',
-                                        component: CreateCreditNoteUploadComponent
+                                        component: CreateCreditNoteUploadComponent,
+                                        resolve: {
+                                            organization: OrganizationResolver
+                                        }
                                     }
                                 ]
                             },
@@ -120,12 +160,17 @@ import { EventsSettingsComponent } from './events-settings/events-settings.compo
                                 path: ':creditNote',
                                 component: EditCreditNoteComponent,
                                 resolve: {
+                                    organization: OrganizationResolver,
                                     creditNote: CreditNoteResolver
                                 },
                                 children: [
                                     {
                                         path: '',
-                                        component: CreditNoteOverviewComponent
+                                        component: CreditNoteOverviewComponent,
+                                        resolve: {
+                                            organization: OrganizationResolver,
+                                            creditNote: CreditNoteResolver
+                                        }
                                     }
                                 ]
                             }
@@ -136,19 +181,31 @@ import { EventsSettingsComponent } from './events-settings/events-settings.compo
                         children: [
                             {
                                 path: '',
-                                component: DebitNotesComponent
+                                component: DebitNotesComponent,
+                                resolve: {
+                                    organization: OrganizationResolver
+                                }
                             },
                             {
                                 path: 'create',
                                 component: CreateDebitNoteComponent,
+                                resolve: {
+                                    organization: OrganizationResolver
+                                },
                                 children: [
                                     {
                                         path: '',
-                                        component: CreateDebitNoteFormComponent
+                                        component: CreateDebitNoteFormComponent,
+                                        resolve: {
+                                            organization: OrganizationResolver
+                                        }
                                     },
                                     {
                                         path: 'upload',
-                                        component: CreateDebitNoteUploadComponent
+                                        component: CreateDebitNoteUploadComponent,
+                                        resolve: {
+                                            organization: OrganizationResolver
+                                        }
                                     }
                                 ]
                             },
@@ -156,12 +213,17 @@ import { EventsSettingsComponent } from './events-settings/events-settings.compo
                                 path: ':debitNote',
                                 component: EditDebitNoteComponent,
                                 resolve: {
+                                    organization: OrganizationResolver,
                                     debitNote: DebitNoteResolver
                                 },
                                 children: [
                                     {
                                         path: '',
-                                        component: CreditNoteOverviewComponent
+                                        component: CreditNoteOverviewComponent,
+                                        resolve: {
+                                            organization: OrganizationResolver,
+                                            debitNote: DebitNoteResolver
+                                        }
                                     }
                                 ]
                             }
@@ -170,33 +232,38 @@ import { EventsSettingsComponent } from './events-settings/events-settings.compo
                     {
                         path: 'settings',
                         component: OrganizationSettingsComponent,
+                        resolve: {
+                            organization: OrganizationResolver
+                        },
                         children: [
                             {
                                 path: '',
                                 component: OrganizationGeneralInformationComponent,
                                 resolve: {
-                                    organization: SettingsOrganizationResolver
+                                    organization: OrganizationResolver
                                 }
                             },
                             {
                                 path: 'additional-information',
                                 component: OrganizationAdditionalInformationComponent,
                                 resolve: {
-                                    organization: SettingsOrganizationResolver
+                                    organization: OrganizationResolver
                                 }
                             },
                             {
                                 path: 'key-settings',
                                 component: OrganizationKeySettingsComponent,
                                 resolve: {
-                                    organization: SettingsOrganizationResolver
+                                    organization: OrganizationResolver,
+                                    serverinfo: ServerInfoResolver,
+                                    keys: OrganizationKeysResolver
                                 }
                             },
                             {
                                 path: 'smtp-settings',
                                 component: OrganizationSmtpSettingsComponent,
                                 resolve: {
-                                    organization: SettingsOrganizationResolver
+                                    organization: OrganizationResolver
                                 }
                             }
                         ]
@@ -206,11 +273,20 @@ import { EventsSettingsComponent } from './events-settings/events-settings.compo
                         children: [
                             {
                                 path: '',
-                                component: AdminEventsComponent
+                                component: AdminEventsComponent,
+                                resolve: {
+                                    organization: OrganizationResolver,
+                                    serverinfo: ServerInfoResolver
+                                }
                             },
                             {
                                 path: 'events-settings',
-                                component: EventsSettingsComponent
+                                component: EventsSettingsComponent,
+                                resolve: {
+                                    organization: OrganizationResolver,
+                                    serverinfo: ServerInfoResolver,
+                                    eventsConfig: EventsConfigResolver
+                                }
                             }
                         ]
                     }

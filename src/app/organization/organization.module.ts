@@ -20,6 +20,10 @@ import { SharedModule } from '../shared/shared.module';
 // Shared
 import { RootOrganizationResolver } from './shared/root-organization-resolver';
 import { SettingsOrganizationResolver } from './shared/settings-organization-resolver';
+import { OrganizationResolver } from './shared/organization-resolver';
+import { EventsConfigResolver } from './shared/events-config-resolver';
+import { ServerInfoResolver } from './shared/server-info-resolver';
+import { OrganizationKeysResolver } from './shared/organization-keys-resolver';
 
 import { InvoiceResolver } from './shared/invoice-resolver';
 import { CreditNoteResolver } from './shared/credit-note-resolver';
@@ -120,6 +124,10 @@ import { EventsSettingsComponent } from './events-settings/events-settings.compo
         // Shared
         RootOrganizationResolver,
         SettingsOrganizationResolver,
+        OrganizationResolver,
+        EventsConfigResolver,
+        ServerInfoResolver,
+        OrganizationKeysResolver,
         
         InvoiceResolver,
         CreditNoteResolver,

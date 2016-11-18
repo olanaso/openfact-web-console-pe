@@ -6,6 +6,8 @@ import { Observable } from 'rxjs/Observable';
 import { CreditNote } from '../../core/models/credit-note.model';
 import { DataService } from '../../core/data/data.service';
 
+import { findParam } from './find-param';
+
 @Injectable()
 export class CreditNoteResolver implements Resolve<CreditNote>{
 
@@ -14,12 +16,13 @@ export class CreditNoteResolver implements Resolve<CreditNote>{
     resolve(
         route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot): Observable<any> | Promise<any> {
-        let organizationId = route.parent.parent.params['organization'];
+        let organizationId = findParam('organization', route);
+        let creditNoteId = findParam('creditNote', route);
         let organization = this.dataService.organizations().build(organizationId);
 
         let queryParams = new URLSearchParams();
         queryParams.set("includeXml", "true")
 
-        return this.dataService.creditnotes().findById(organization, route.params['creditNote'], queryParams);
+        return this.dataService.creditnotes().findById(organization, creditNoteId, queryParams);
     }
 }

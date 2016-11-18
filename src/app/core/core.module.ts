@@ -23,6 +23,7 @@ import { InvoiceService } from './data/invoice.service';
 import { CreditnoteService } from './data/creditnote.service';
 import { DebitnoteService } from './data/debitnote.service';
 import { ServerInfoService } from './data/server-info.service';
+import { EventService } from './data/event.service';
 
 // Guards
 import { AllowedDataOrganizations } from './guards/allowed-data-organizations';
@@ -64,6 +65,7 @@ import { AllowedDataRoles } from './guards/allowed-data-roles';
     CreditnoteService,
     DebitnoteService,
     ServerInfoService,
+    EventService,
 
     //Guards
     AllowedDataOrganizations,

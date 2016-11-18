@@ -132,7 +132,7 @@
 									</template>
 								</td>
 								<td class="text-right">{{item.documentCurrencyCode}}</td>
-								<td class="text-right">{{item.legalMonetaryTotal.payableAmount | number:'1.2-3'}}</td>
+								<td class="text-right">{{item.requestedMonetaryTotal.payableAmount | number:'1.2-3'}}</td>
 								<td class="text-right">{{item.accountingCustomerParty.customerAssignedAccountID}}</td>
 								<td class="kc-action-cell" [routerLink]="[item.id]">Overview</td>
 							</tr>

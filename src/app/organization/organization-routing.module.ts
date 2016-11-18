@@ -208,7 +208,7 @@ import { DebitNoteOverviewComponent } from './debit-note-overview/debit-note-ove
                                     },
                                     {
                                         path: 'overview',
-                                        component: CreditNoteOverviewComponent
+                                        component: DebitNoteOverviewComponent
                                     }
                                 ]
                             }

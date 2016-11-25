@@ -20,6 +20,6 @@ export class InvoiceResolver implements Resolve<Invoice>{
         let invoiceId = findParam('invoice', route);
         let organization = this.dataService.organizations().build(organizationId);
 
-        return this.dataService.invoices().findById(organization, invoiceId);
+        return this.dataService.invoices().findByIdAsJson(organization, invoiceId);
     }
 }

@@ -33,6 +33,21 @@ export class InvoiceService {
       });
   }
 
+  public findByIdAsJson(organization: Organization, id: string, queryParams?: URLSearchParams): Observable<Invoice> {
+    let restangular = organization.restangular;
+    return restangular
+      .one(invoiceBasePath, id)
+      .all("representation/json")
+      .get(queryParams)
+      .map(response => {
+        let json = <Invoice>response.json();
+        let result = new Invoice();
+        result.restangular = restangular.one(invoiceBasePath, json[invoiceIdName]);
+        result = Object.assign(result, json);
+        return result;
+      });
+  }
+
   public create(organization: Organization, invoice: Invoice): Observable<Invoice> {
     let restangular = organization.restangular;
     return restangular
@@ -51,7 +66,7 @@ export class InvoiceService {
   }
 
   public getFileUpload(organization: Organization): FileUploader {
-    let restangular = organization.restangular.all(invoiceBasePath).all("xml");
+    let restangular = organization.restangular.all(invoiceBasePath).all("upload");
     let upload = new FileUploader({
       url: restangular.path,
       headers: [KeycloakHttp.getToken()]

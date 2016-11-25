@@ -8,7 +8,7 @@ export class Invoice extends Model {
     id: String;
 
     downloadXml() {
-        let restangular = this.restangular.all("xml");
+        let restangular = this.restangular.all("representation/xml");
         let url = restangular.path;
 
         return restangular.http

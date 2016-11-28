@@ -4,7 +4,8 @@ import { CommonModule } from '@angular/common';
 import { HttpModule, Http, XHRBackend, RequestOptions } from '@angular/http';
 
 // Third modules
-
+import { RestangularModule } from 'ng2-restangular';
+import { OPENFACT, RestangularOpenfactFactory} from "./openfact-restangular";
 // Components
 import { AlertComponent } from './alert/alert.component';
 import { AlertsComponent } from './alert/alerts.component';
@@ -42,7 +43,10 @@ import { AllowedDataRoles } from './guards/allowed-data-roles';
   imports: [
     // Angular modules
     CommonModule,
-    HttpModule
+    HttpModule,
+    
+    // Third modules
+    RestangularModule.forRoot()
   ],
   declarations: [
     AlertComponent,
@@ -52,6 +56,13 @@ import { AllowedDataRoles } from './guards/allowed-data-roles';
     AlertsComponent
   ],
   providers: [
+    // Third modules
+    { 
+      provide: OPENFACT, 
+      useFactory:  RestangularOpenfactFactory, 
+      deps: [Restangular] 
+    },
+
     KeycloakService,
     {
       provide: Http,

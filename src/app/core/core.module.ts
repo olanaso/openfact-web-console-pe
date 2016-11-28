@@ -2,6 +2,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpModule, Http, XHRBackend, RequestOptions } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
 
 // Third modules
 import { RestangularModule } from 'ng2-restangular';
@@ -47,7 +48,28 @@ import { AllowedDataRoles } from './guards/allowed-data-roles';
 
     // Third modules
     RestangularModule.forRoot((RestangularProvider) => {
-      RestangularProvider.setBaseUrl('http://localhost:8081/openfact');      
+      RestangularProvider.setBaseUrl('http://localhost:8081/openfact');
+      let refreshAccesstoken = function (response) {
+        return Observable.create((observer) => {
+          KeycloakService.auth.authorization.authorize(response.headers('WWW-Authenticate')).then(function (rpt) {
+            observer.next();
+            observer.complete();
+          }, function () {
+            console.log('You can not access or perform the requested operation on this resource.');
+          }, function () {
+            console.log('Unexpected error from server.');
+          });
+        });
+      };
+      RestangularProvider.addErrorInterceptor((response, subject, responseHandler) => {
+        if (response.status === 403 || response.status == 401) {
+          refreshAccesstoken(response).switchMap(refreshAccesstokenResponse => {
+            return response.repeatRequest(response.request);
+          }).subscribe(res => responseHandler(res), err => subject.error(err));
+          return false; // error handled
+        }
+        return true; // error not handled
+      });
     })
   ],
   declarations: [

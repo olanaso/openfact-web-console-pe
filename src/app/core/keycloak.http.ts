@@ -1,15 +1,15 @@
-import {Injectable} from "@angular/core";
-import {Http, Request, ConnectionBackend, RequestOptions, RequestOptionsArgs, Response, Headers} from "@angular/http";
+import { Injectable } from "@angular/core";
+import { Http, Request, ConnectionBackend, RequestOptions, RequestOptionsArgs, Response, Headers } from "@angular/http";
 
-import {KeycloakService} from "./keycloak.service";
-import {Observable} from 'rxjs/Rx';
+import { KeycloakService } from "./keycloak.service";
+import { Observable } from 'rxjs/Rx';
 
 /**
  * This provides a wrapper over the ng2 Http class that insures tokens are refreshed on each request.
  */
 @Injectable()
 export class KeycloakHttp extends Http {
-    constructor(_backend: ConnectionBackend, _defaultOptions: RequestOptions, private _keycloakService:KeycloakService) {
+    constructor(_backend: ConnectionBackend, _defaultOptions: RequestOptions, private _keycloakService: KeycloakService) {
         super(_backend, _defaultOptions);
     }
 
@@ -21,21 +21,44 @@ export class KeycloakHttp extends Http {
     }
 
     private setToken(options: RequestOptionsArgs) {
-
         if (options == null || KeycloakService.auth == null || KeycloakService.auth.authz == null || KeycloakService.auth.authz.token == null) {
             console.log("Need a token, but no token is available, not setting bearer token.");
             return;
         }
-
-        options.headers.set('Authorization', 'Bearer ' + KeycloakService.auth.authz.token);
-        console.log(options.headers);
-        
+        if (KeycloakService.auth.authorization && KeycloakService.auth.authorization.rpt && options.url.indexOf('/authorize') == -1) {
+            options.headers.set('Authorization', 'Bearer ' + KeycloakService.auth.authorization.rpt);
+        } else {
+            options.headers.set('Authorization', 'Bearer ' + KeycloakService.auth.authz.token);
+        }
+    }
+    private setTokenOnExistedRequest(request: Request) {
+        if (request == null || KeycloakService.auth == null || KeycloakService.auth.authz == null || KeycloakService.auth.authz.token == null) {
+            console.log("Need a token, but no token is available, not setting bearer token.");
+            return;
+        }
+        if (KeycloakService.auth.authorization && KeycloakService.auth.authorization.rpt && request.url.indexOf('/authorize') == -1) {
+            request.headers.set('Authorization', 'Bearer ' + KeycloakService.auth.authorization.rpt);
+        } else {
+            request.headers.set('Authorization', 'Bearer ' + KeycloakService.auth.authz.token);
+        }
     }
 
-    private configureRequest(f:Function, url:string | Request, options:RequestOptionsArgs, body?: any):Observable<Response> {
-        let tokenPromise:Promise<string> = this._keycloakService.getToken();
-        let tokenObservable:Observable<string> = Observable.fromPromise(tokenPromise);
-        let tokenUpdateObservable:Observable<any> = Observable.create((observer) => {
+    private configureRequest(f: Function, url: string | Request, options: RequestOptionsArgs, body?: any): Observable<Response> {
+        let tokenPromise: Promise<string> = this._keycloakService.getToken();
+        let tokenObservable: Observable<string> = Observable.fromPromise(tokenPromise);
+
+        let tokenRequestUpdateObservable: Observable<any> = Observable.create((observer) => {
+            if (url instanceof Request) {
+                let request = <Request>url;
+                if (!request.headers.get('Authorization')) {
+                    this.setTokenOnExistedRequest(url);
+                }
+            }
+            observer.next();
+            observer.complete();
+        });
+
+        let tokenUpdateObservable: Observable<any> = Observable.create((observer) => {
             if (options == null) {
                 let headers = new Headers();
                 options = new RequestOptions({ headers: headers });
@@ -45,7 +68,7 @@ export class KeycloakHttp extends Http {
             observer.next();
             observer.complete();
         });
-        let requestObservable:Observable<Response> = Observable.create((observer) => {
+        let requestObservable: Observable<Response> = Observable.create((observer) => {
             let result;
             if (body) {
                 result = f.apply(this, [url, body, options]);
@@ -60,7 +83,8 @@ export class KeycloakHttp extends Http {
         });
 
         return <Observable<Response>>Observable
-            .merge(tokenObservable, tokenUpdateObservable, requestObservable, 1) // Insure no concurrency in the merged Observables
+            .merge(tokenObservable, tokenUpdateObservable, requestObservable, 1)
+            .merge(tokenRequestUpdateObservable) // Insure no concurrency in the merged Observables
             .filter((response) => response instanceof Response);
     }
 
@@ -71,10 +95,6 @@ export class KeycloakHttp extends Http {
      * of {@link BaseRequestOptions} before performing the request.
      */
     request(url: string | Request, options?: RequestOptionsArgs): Observable<Response> {
-        console.log('request');
-        
-        console.log(url);
-        
         return this.configureRequest(super.request, url, options);
     }
 

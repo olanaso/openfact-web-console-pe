@@ -1,6 +1,7 @@
-import {Injectable} from "@angular/core";
+import { Injectable } from "@angular/core";
 
 declare var Keycloak: any;
+declare var KeycloakAuthorization: any;
 
 @Injectable()
 export class KeycloakService {
@@ -8,28 +9,18 @@ export class KeycloakService {
 
   static init(): Promise<any> {
     let keycloakAuth: any = new Keycloak('keycloak.json');
-    KeycloakService.auth.loggedIn = false;
 
-      return new Promise((resolve, reject) => {
-        keycloakAuth.init({ onLoad: 'login-required' })
-          .success(() => {
-            KeycloakService.auth.loggedIn = true;
-            KeycloakService.auth.authz = keycloakAuth;
-            KeycloakService.auth.logoutUrl = keycloakAuth.authServerUrl + "/realms/openfact/protocol/openid-connect/logout?redirect_uri=/openfact-web-console/index.html";
-            resolve();
-          })
-          .error(() => {
-            reject();
-          });
-      });
-    }
-
-  logout() {
-    console.log('*** LOGOUT');
-    KeycloakService.auth.loggedIn = false;
-    KeycloakService.auth.authz = null;
-
-    window.location.href = KeycloakService.auth.logoutUrl;
+    return new Promise((resolve, reject) => {
+      keycloakAuth.init({ onLoad: 'login-required' })
+        .success(() => {
+          KeycloakService.auth.authz = keycloakAuth;
+          KeycloakService.auth.authorization = new KeycloakAuthorization(keycloakAuth);
+          resolve();
+        })
+        .error(() => {
+          reject();
+        });
+    });
   }
 
   getToken(): Promise<string> {

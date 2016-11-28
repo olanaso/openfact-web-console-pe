@@ -28,6 +28,8 @@ export class KeycloakHttp extends Http {
         }
 
         options.headers.set('Authorization', 'Bearer ' + KeycloakService.auth.authz.token);
+        console.log(options.headers);
+        
     }
 
     private configureRequest(f:Function, url:string | Request, options:RequestOptionsArgs, body?: any):Observable<Response> {
@@ -69,6 +71,10 @@ export class KeycloakHttp extends Http {
      * of {@link BaseRequestOptions} before performing the request.
      */
     request(url: string | Request, options?: RequestOptionsArgs): Observable<Response> {
+        console.log('request');
+        
+        console.log(url);
+        
         return this.configureRequest(super.request, url, options);
     }
 

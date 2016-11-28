@@ -5,7 +5,7 @@ import { HttpModule, Http, XHRBackend, RequestOptions } from '@angular/http';
 
 // Third modules
 import { RestangularModule } from 'ng2-restangular';
-import { OPENFACT, RestangularOpenfactFactory} from "./openfact-restangular";
+
 // Components
 import { AlertComponent } from './alert/alert.component';
 import { AlertsComponent } from './alert/alerts.component';
@@ -44,9 +44,11 @@ import { AllowedDataRoles } from './guards/allowed-data-roles';
     // Angular modules
     CommonModule,
     HttpModule,
-    
+
     // Third modules
-    RestangularModule.forRoot()
+    RestangularModule.forRoot((RestangularProvider) => {
+      RestangularProvider.setBaseUrl('http://localhost:8081/openfact');      
+    })
   ],
   declarations: [
     AlertComponent,
@@ -56,13 +58,6 @@ import { AllowedDataRoles } from './guards/allowed-data-roles';
     AlertsComponent
   ],
   providers: [
-    // Third modules
-    { 
-      provide: OPENFACT, 
-      useFactory:  RestangularOpenfactFactory, 
-      deps: [Restangular] 
-    },
-
     KeycloakService,
     {
       provide: Http,

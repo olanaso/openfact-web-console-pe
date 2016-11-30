@@ -9,30 +9,30 @@
 		<dl class="dl-horizontal left">
 			<dt>
 				Currency Code:
-				<span title="The currency of the invoice." class="pficon pficon-help text-muted small"></span>
+				<span title="The currency of the invoiceJson." class="pficon pficon-help text-muted small"></span>
 			</dt>
-			<dd>{{invoice.documentCurrencyCodeValue}}</dd>
+			<dd>{{invoiceJson.documentCurrencyCodeValue}}</dd>
 			<dt>
 				Invoice Type Code:
-				<span title="The type of the invoice." class="pficon pficon-help text-muted small"></span>
+				<span title="The type of the invoiceJson." class="pficon pficon-help text-muted small"></span>
 			</dt>
-			<dd>{{invoice.invoiceTypeCodeValue}}</dd>
+			<dd>{{invoiceJson.invoiceTypeCodeValue}}</dd>
 			<dt>
 				Issue Date:
-				<span title="Issue Date of the invoice." class="pficon pficon-help text-muted small"></span>
+				<span title="Issue Date of the invoiceJson." class="pficon pficon-help text-muted small"></span>
 			</dt>
-			<dd>{{invoice.issueDateValue | date: 'short'}}</dd>
+			<dd>{{invoiceJson.issueDateValue | date: 'short'}}</dd>
 			<dt>
 				Issue Time:
-				<span title="The time of the issue invoice." class="pficon pficon-help text-muted small"></span>
+				<span title="The time of the issue invoiceJson." class="pficon pficon-help text-muted small"></span>
 			</dt>
-			<dd>{{invoice.issueTimeValue | date: 'mediumTime'}}</dd>
+			<dd>{{invoiceJson.issueTimeValue | date: 'mediumTime'}}</dd>
 			<dt>
 				<span class="pficon pficon-image" aria-hidden="true"></span> Xml:
-				<span title="The time of the issue invoice." class="pficon pficon-help text-muted small"></span>
+				<span title="The time of the issue invoiceJson." class="pficon pficon-help text-muted small"></span>
 			</dt>
-			<dd>
-				<of-modal-text-preview [text]="invoice.xml" [label]="'Xml preview'"></of-modal-text-preview>
+			<dd>				
+				<of-view-xml [xml]="invoiceText" [label]="'Xml preview'" [buttonOnly]="false"></of-view-xml>
 			</dd>
 			<dd>
 				<a href="">
@@ -50,22 +50,22 @@
 		<dl class="dl-horizontal left">
 			<dt>
 				Payable Amount:
-				<span title="The currency of the invoice." class="pficon pficon-help text-muted small"></span>
+				<span title="The currency of the invoiceJson." class="pficon pficon-help text-muted small"></span>
 			</dt>
-			<dd *ngIf="invoice.legalMonetaryTotal.payableAmountValue">{{invoice.legalMonetaryTotal.payableAmountValue | number:'1.2-3'}}</dd>
-			<dd *ngIf="!invoice.legalMonetaryTotal.payableAmountValue"><em>0.00</em></dd>
+			<dd *ngIf="invoiceJson.legalMonetaryTotal.payableAmountValue">{{invoiceJson.legalMonetaryTotal.payableAmountValue | number:'1.2-3'}}</dd>
+			<dd *ngIf="!invoiceJson.legalMonetaryTotal.payableAmountValue"><em>0.00</em></dd>
 			<dt>
 				Charge Total Amount:
-				<span title="The currency of the invoice." class="pficon pficon-help text-muted small"></span>
+				<span title="The currency of the invoiceJson." class="pficon pficon-help text-muted small"></span>
 			</dt>
-			<dd *ngIf="invoice.legalMonetaryTotal.chargeTotalAmountValue">{{invoice.legalMonetaryTotal.chargeTotalAmountValue | number:'1.2-3'}}</dd>
-			<dd *ngIf="!invoice.legalMonetaryTotal.chargeTotalAmountValue"><em>0.00</em></dd>
+			<dd *ngIf="invoiceJson.legalMonetaryTotal.chargeTotalAmountValue">{{invoiceJson.legalMonetaryTotal.chargeTotalAmountValue | number:'1.2-3'}}</dd>
+			<dd *ngIf="!invoiceJson.legalMonetaryTotal.chargeTotalAmountValue"><em>0.00</em></dd>
 			<dt>
 				Allowance Total Amount:
-				<span title="The currency of the invoice." class="pficon pficon-help text-muted small"></span>
+				<span title="The currency of the invoiceJson." class="pficon pficon-help text-muted small"></span>
 			</dt>
-			<dd *ngIf="invoice.legalMonetaryTotal.allowanceTotalAmountValue">{{invoice.legalMonetaryTotal.allowanceTotalAmountValue | number:'1.2-3'}}</dd>
-			<dd *ngIf="!invoice.legalMonetaryTotal.allowanceTotalAmountValue"><em>0.00</em></dd>
+			<dd *ngIf="invoiceJson.legalMonetaryTotal.allowanceTotalAmountValue">{{invoiceJson.legalMonetaryTotal.allowanceTotalAmountValue | number:'1.2-3'}}</dd>
+			<dd *ngIf="!invoiceJson.legalMonetaryTotal.allowanceTotalAmountValue"><em>0.00</em></dd>
 		</dl>
 	</div>
 	<div class="col-lg-6">
@@ -77,12 +77,12 @@
 		<dl class="dl-horizontal left">
 			<dt>
 				Tax Amount:
-				<span title="The currency of the invoice." class="pficon pficon-help text-muted small"></span>
+				<span title="The currency of the invoiceJson." class="pficon pficon-help text-muted small"></span>
 			</dt>
-			<template ngIf="invoice.taxTotal && invoice.taxTotal.length">
+			<template ngIf="invoiceJson.taxTotal && invoiceJson.taxTotal.length">
 				<dd>
 					<ul class="list-inline" style="margin-bottom: 0px;">
-						<li *ngFor="let item of invoice.taxTotal">
+						<li *ngFor="let item of invoiceJson.taxTotal">
 							{{item.taxAmount.value | number:'1.2-3'}}
 						</li>
 					</ul>
@@ -99,28 +99,28 @@
 		<dl class="dl-horizontal left">
 			<dt>
 				Assigned Account ID:
-				<span title="The currency of the invoice." class="pficon pficon-help text-muted small"></span>
+				<span title="The currency of the invoiceJson." class="pficon pficon-help text-muted small"></span>
 			</dt>
-			<dd>{{invoice.accountingSupplierParty.customerAssignedAccountIDValue}}</dd>
-			<template ngIf="invoice.accountingSupplierParty.additionalAccountID && invoice.accountingSupplierParty.additionalAccountID.length">
+			<dd>{{invoiceJson.accountingSupplierParty.customerAssignedAccountIDValue}}</dd>
+			<template ngIf="invoiceJson.accountingSupplierParty.additionalAccountID && invoiceJson.accountingSupplierParty.additionalAccountID.length">
 				<dt>
 					Additional Account IDs:
-					<span title="The currency of the invoice." class="pficon pficon-help text-muted small"></span>
+					<span title="The currency of the invoiceJson." class="pficon pficon-help text-muted small"></span>
 				</dt>
 				<dd>
 					<ul class="list-inline" style="margin-bottom: 0px;">
-						<li *ngFor="let item of invoice.accountingSupplierParty.additionalAccountID">{{item.value}}</li>
+						<li *ngFor="let item of invoiceJson.accountingSupplierParty.additionalAccountID">{{item.value}}</li>
 					</ul>
 				</dd>
 			</template>
-			<template ngIf="invoice.accountingSupplierParty.party">
+			<template ngIf="invoiceJson.accountingSupplierParty.party">
 				<dt>
 					Legal Entity:
-					<span title="The currency of the invoice." class="pficon pficon-help text-muted small"></span>
+					<span title="The currency of the invoiceJson." class="pficon pficon-help text-muted small"></span>
 				</dt>
 				<dd>
 					<ul class="list-unstyled" style="margin-bottom: 0px;">
-						<li *ngFor="let item of invoice.accountingSupplierParty.party.partyLegalEntity">{{item.registrationNameValue}}</li>
+						<li *ngFor="let item of invoiceJson.accountingSupplierParty.party.partyLegalEntity">{{item.registrationNameValue}}</li>
 					</ul>
 				</dd>
 			</template>
@@ -135,30 +135,30 @@
 		<dl class="dl-horizontal left">
 			<dt>
 				Assigned Account ID:
-				<span title="The currency of the invoice." class="pficon pficon-help text-muted small"></span>
+				<span title="The currency of the invoiceJson." class="pficon pficon-help text-muted small"></span>
 			</dt>
-			<dd *ngIf="invoice.accountingCustomerParty.customerAssignedAccountID">{{invoice.accountingCustomerParty.customerAssignedAccountIDValue}}</dd>
-			<dd *ngIf="!invoice.accountingCustomerParty.customerAssignedAccountID"><em>Not registered</em></dd>
+			<dd *ngIf="invoiceJson.accountingCustomerParty.customerAssignedAccountID">{{invoiceJson.accountingCustomerParty.customerAssignedAccountIDValue}}</dd>
+			<dd *ngIf="!invoiceJson.accountingCustomerParty.customerAssignedAccountID"><em>Not registered</em></dd>
 			<dt>
 				Additional Account IDs:
-				<span title="The currency of the invoice." class="pficon pficon-help text-muted small"></span>
+				<span title="The currency of the invoiceJson." class="pficon pficon-help text-muted small"></span>
 			</dt>
-			<dd *ngIf="invoice.accountingCustomerParty.additionalAccountID.length > 0">
+			<dd *ngIf="invoiceJson.accountingCustomerParty.additionalAccountID.length > 0">
 				<ul class="list-inline" style="margin-bottom: 0px;">
-					<li *ngFor="let item of invoice.accountingCustomerParty.additionalAccountID">{{item.value}}</li>
+					<li *ngFor="let item of invoiceJson.accountingCustomerParty.additionalAccountID">{{item.value}}</li>
 				</ul>
 			</dd>
-			<dd *ngIf="invoice.accountingCustomerParty.additionalAccountID.length === 0"><em>Not registered</em></dd>
+			<dd *ngIf="invoiceJson.accountingCustomerParty.additionalAccountID.length === 0"><em>Not registered</em></dd>
 			<dt>
 				Legal Entity:
-				<span title="The currency of the invoice." class="pficon pficon-help text-muted small"></span>
+				<span title="The currency of the invoiceJson." class="pficon pficon-help text-muted small"></span>
 			</dt>
-			<dd *ngIf="invoice.accountingCustomerParty.party.partyLegalEntity.length > 0">
+			<dd *ngIf="invoiceJson.accountingCustomerParty.party.partyLegalEntity.length > 0">
 				<ul class="list-unstyled" style="margin-bottom: 0px;">
-					<li *ngFor="let item of invoice.accountingCustomerParty.party.partyLegalEntity">{{item.registrationNameValue}}</li>
+					<li *ngFor="let item of invoiceJson.accountingCustomerParty.party.partyLegalEntity">{{item.registrationNameValue}}</li>
 				</ul>
 			</dd>
-			<dd *ngIf="invoice.accountingCustomerParty.party.partyLegalEntity.length === 0"><em>Not registered</em></dd>
+			<dd *ngIf="invoiceJson.accountingCustomerParty.party.partyLegalEntity.length === 0"><em>Not registered</em></dd>
 		</dl>
 	</div>
 </div>
@@ -181,12 +181,20 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr *ngFor="let item of invoice.invoiceLine; let i = index;">
+						<tr *ngFor="let item of invoiceJson.invoiceLine; let i = index;">
 							<td>{{i+1}}</td>
 							<td class="text-right">{{item.invoicedQuantity.value | number:'1.2-3'}}</td>
-							<td>{{item.item.description}}</td>
+							<td>
+								<span *ngFor="let itemDescription of item.item.description">
+									&nbsp;{{itemDescription.value}}.
+								</span>
+							</td>
 							<td class="text-right">{{item.price.priceAmountValue | number:'1.2-3'}}</td>
-							<td class="text-right">{{item.taxTotal.taxAmountValue | number:'1.2-3'}}</td>
+							<td class="text-right">
+								<span *ngFor="let itemTaxTotal of item.taxTotal">
+									&nbsp;{{itemTaxTotal.taxAmountValue | number:'1.2-3'}}
+								</span>
+							</td>
 							<td class="text-right">{{item.lineExtensionAmount.value | number:'1.2-3'}}</td>
 						</tr>
 					</tbody>

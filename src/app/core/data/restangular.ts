@@ -37,7 +37,7 @@ export class Restangular {
         return this.http.get(this.path, options).catch(this.handleError);
     }
 
-    public post(obj: any): Observable<Response> {
+    public post(obj?: any): Observable<Response> {
         return this.http.post(this.path, obj).catch(this.handleError);
     }
 

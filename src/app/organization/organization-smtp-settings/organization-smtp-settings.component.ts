@@ -41,8 +41,8 @@ export class OrganizationSmtpSettingsComponent implements OnInit {
       ssl: [false, Validators.compose([Validators.required])],
       starttls: [false, Validators.compose([Validators.required])],
       auth: [false],
-      smtpUsername: [undefined, Validators.compose([Validators.maxLength(150)])],
-      smtpPassword: [undefined, Validators.compose([Validators.maxLength(150)])]
+      user: [undefined, Validators.compose([Validators.maxLength(150)])],
+      password: [undefined, Validators.compose([Validators.maxLength(150)])]
     });
   }
 

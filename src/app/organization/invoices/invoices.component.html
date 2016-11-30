@@ -124,12 +124,14 @@
             <tbody>
               <tr *ngFor="let item of searchResult.items; let i = index;">
                 <td>{{i+1}}</td>
-                <td>{{item.idUbl}}</td>
+                <td>{{item.documentId}}</td>
                 <td>{{item.issueDateTime | date}}</td>
                 <td>{{item.invoiceTypeCode}}</td>
                 <td class="text-right">{{item.documentCurrencyCode}}</td>
                 <td class="text-right">{{item.legalMonetaryTotal.payableAmount | number:'1.2-3'}}</td>
-                <td class="text-right">{{item.accountingCustomerParty.customerAssignedAccountID}}</td>
+                <td class="text-right">
+                  <span *ngFor="let partyLegalEntity of item.accountingCustomerParty.party.partyLegalEntity">&nbsp;{{partyLegalEntity.registrationName}}.</span>
+                </td>
                 <td class="kc-action-cell" [routerLink]="[item.id]">Overview</td>
               </tr>
             </tbody>

@@ -14,10 +14,14 @@ import { Invoice } from '../../core/models/invoice.model';
 export class InvoiceOverviewComponent implements OnInit {
 
   private invoice: Invoice;
+  private invoiceJson: Invoice;
+  private invoiceText: Invoice;
 
   constructor(private activatedRoute: ActivatedRoute,
     private dataService: DataService, private alertService: AlertService) {
-    this.invoice = this.activatedRoute.parent.snapshot.data['invoice'];
+    this.invoice = this.activatedRoute.snapshot.data['invoice'];
+    this.invoiceJson = this.activatedRoute.snapshot.data['invoiceJson'];
+    this.invoiceText = this.activatedRoute.snapshot.data['invoiceText'];
   }
 
   ngOnInit() {

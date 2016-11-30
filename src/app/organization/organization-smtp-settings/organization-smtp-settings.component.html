@@ -78,13 +78,13 @@
           <div class="col-md-4">
             <div class="row" style="margin-left: 0; margin-right: 0;">
               <div class="col-md-12">
-                <div class="form-group" class="form-group" [ngClass]="{ 'has-error' : !form.get('smtpUsername').valid && form.get('smtpUsername').dirty }">
+                <div class="form-group" class="form-group" [ngClass]="{ 'has-error' : !form.get('user').valid && form.get('user').dirty }">
                   <label class="control-label required-pf">Username</label>
-                  <input formControlName="smtpUsername" type="text" class="form-control" placeholder="Login Username">
+                  <input formControlName="user" type="text" class="form-control" placeholder="Login Username">
                 </div>
-                <div class="form-group" class="form-group" [ngClass]="{ 'has-error' : !form.get('smtpPassword').valid && form.get('smtpPassword').dirty }">
+                <div class="form-group" class="form-group" [ngClass]="{ 'has-error' : !form.get('password').valid && form.get('password').dirty }">
                   <label class="control-label required-pf">Password</label>
-                  <input formControlName="smtpPassword" type="password" class="form-control" placeholder="Login Password">
+                  <input formControlName="password" type="password" class="form-control" placeholder="Login Password">
                 </div>
               </div>
             </div>

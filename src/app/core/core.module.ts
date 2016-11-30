@@ -34,6 +34,8 @@ import { ServerInfoResolver } from './resolvers/server-info-resolver';
 import { OrganizationKeysResolver } from './resolvers/organization-keys-resolver';
 import { OrganizationComponentResolver } from './resolvers/organization-component-resolver';
 import { InvoiceResolver } from './resolvers/invoice-resolver';
+import { InvoiceJsonResolver } from './resolvers/invoice-json-resolver';
+import { InvoiceTextResolver } from './resolvers/invoice-text-resolver';
 import { CreditNoteResolver } from './resolvers/credit-note-resolver';
 import { DebitNoteResolver } from './resolvers/debit-note-resolver';
 
@@ -113,6 +115,8 @@ import { AllowedDataRoles } from './guards/allowed-data-roles';
     OrganizationComponentResolver,
 
     InvoiceResolver,
+    InvoiceJsonResolver,
+    InvoiceTextResolver,
     CreditNoteResolver,
     DebitNoteResolver,
 

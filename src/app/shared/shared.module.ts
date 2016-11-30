@@ -21,6 +21,7 @@ import { ViewObjectComponent } from './components/view-object/view-object.compon
 import { ReadFileComponent } from './components/read-file/read-file.component';
 import { ViewKeyComponent } from './components/view-key/view-key.component';
 import { OnOffSwitchStringComponent } from './components/on-off-switch-string/on-off-switch-string.component';
+import { ViewXmlComponent } from './components/view-xml/view-xml.component';
 
 // Directives
 
@@ -55,6 +56,7 @@ import { YesNoPipe } from './pipes/yes-no.pipe';
     ViewObjectComponent,
     ViewKeyComponent,
     OnOffSwitchStringComponent,
+    ViewXmlComponent,
 
     // Directives
 
@@ -76,6 +78,7 @@ import { YesNoPipe } from './pipes/yes-no.pipe';
     ReadFileComponent,
     ViewKeyComponent,
     OnOffSwitchStringComponent,
+    ViewXmlComponent,
 
     // Directives
 

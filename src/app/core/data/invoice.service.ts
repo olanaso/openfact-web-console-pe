@@ -33,18 +33,25 @@ export class InvoiceService {
       });
   }
 
-  public findByIdAsJson(organization: Organization, id: string, queryParams?: URLSearchParams): Observable<Invoice> {
+  public findByIdAsJson(organization: Organization, id: string, queryParams?: URLSearchParams): Observable<any> {
     let restangular = organization.restangular;
     return restangular
       .one(invoiceBasePath, id)
       .all("representation/json")
       .get(queryParams)
       .map(response => {
-        let json = <Invoice>response.json();
-        let result = new Invoice();
-        result.restangular = restangular.one(invoiceBasePath, json[invoiceIdName]);
-        result = Object.assign(result, json);
-        return result;
+        return response.json();
+      });
+  }
+
+  public findByIdAsText(organization: Organization, id: string, queryParams?: URLSearchParams): Observable<string> {
+    let restangular = organization.restangular;
+    return restangular
+      .one(invoiceBasePath, id)
+      .all("representation/text")
+      .get(queryParams)
+      .map(response => {
+        return response.text();
       });
   }
 

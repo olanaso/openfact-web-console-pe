@@ -13,6 +13,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MomentModule } from 'angular2-moment';
 import { TranslateModule } from 'ng2-translate';
 import { FileUploadModule } from 'ng2-file-upload';
+import { SelectModule } from 'ng2-select';
 
 // Openfact modules
 import { SharedModule } from '../shared/shared.module';
@@ -74,6 +75,7 @@ import { ComponentConfigComponent } from './component-config/component-config.co
         MomentModule,
         TranslateModule,
         FileUploadModule,
+        SelectModule,
 
         // Openfact modules
         SharedModule

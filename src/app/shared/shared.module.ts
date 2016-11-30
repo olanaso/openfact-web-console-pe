@@ -9,6 +9,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MomentModule } from 'angular2-moment';
 import { TranslateModule } from 'ng2-translate';
 import { FileUploadModule } from 'ng2-file-upload';
+import { SelectModule } from 'ng2-select';
 
 // Components
 import { ButtonDeleteComponent } from './components/button-delete/button-delete.component';
@@ -41,7 +42,8 @@ import { YesNoPipe } from './pipes/yes-no.pipe';
     NgbModule.forRoot(),
     MomentModule,
     TranslateModule,
-    FileUploadModule
+    FileUploadModule,
+    SelectModule
   ],
   declarations: [
     // Components

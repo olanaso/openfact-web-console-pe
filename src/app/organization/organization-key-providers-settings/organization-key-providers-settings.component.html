@@ -6,9 +6,10 @@
       <th colspan="6" class="kc-table-actions">
         <div class="pull-right">
           <div>
-            <!--<select class="form-control" ng-model="selectedProvider" ng-options="p.id for p in providers" data-ng-change="addProvider(selectedProvider); selectedProvider = null">
-                  <option value="" disabled selected>{{:: 'add-keystore.placeholder' | translate}}</option>
-            </select>-->
+            <select class="form-control" (change)="addProvider($event.target.value)">
+              <option value="" disabled selected>Add keystore...</option>
+              <option *ngFor="let item of providers" [value]="item.id" >{{item.id}}</option>
+            </select>
           </div>
         </div>
       </th>
@@ -24,11 +25,27 @@
   <tbody>
     <tr *ngFor="let instance of instances">
       <td>{{instance.name}}</td>
-      <td><a routerLink="['./edit', instance.id]" href="#/realms/{{realm.realm}}/keys/providers/{{instance.providerId}}/{{instance.id}}">{{instance.id}}</a></td>
+      <td><a [routerLink]="['./', instance.providerId, instance.id]">{{instance.id}}</a></td>
       <td>{{instance.providerId}}</td>
       <td>{{instance.config['priority'][0]}}</td>
-      <td class="kc-action-cell">Edit</td>
-      <td class="kc-action-cell">Delete</td>
+      <td (click)="editInstance(instance)" class="kc-action-cell">Edit</td>
+      <td (click)="removeInstance(instance, content)" class="kc-action-cell">Delete</td>
     </tr>
   </tbody>
 </table>
+
+<template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <button type="button" class="close" (click)="d('Cancel')">
+        <span class="pficon pficon-close"></span>
+    </button>
+    <h4 class="modal-title ng-binding">Delete Key provider</h4>
+  </div>
+  <div class="modal-body">
+    <p>Are you sure you want to permanently delete the key provider?</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-lg btn-danger" (click)="c('Delete')">Delete</button>
+    <button type="button" class="btn btn-lg btn-default" (click)="d('Cancel')">Cancel</button>
+  </div>
+</template>

@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { URLSearchParams } from '@angular/http';
 import * as Collections from 'typescript-collections';
 
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+
 import { DataService } from '../../core/data/data.service';
 import { AlertService } from '../../core/alert/alert.service';
 import { Organization } from '../../core/models/organization.model';
@@ -21,7 +23,10 @@ export class OrganizationKeyProvidersSettingsComponent implements OnInit {
   providers: any;
   instances: any;
 
-  constructor(private activatedRoute: ActivatedRoute, private router: Router,
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
+    private modalService: NgbModal,
     private dataService: DataService,
     private alertService: AlertService) {
     this.organization = this.activatedRoute.snapshot.data['organization'];
@@ -35,7 +40,7 @@ export class OrganizationKeyProvidersSettingsComponent implements OnInit {
 
   loadComponents() {
     let queryParams = new URLSearchParams();
-    queryParams.set("type", "org.keycloak.keys.KeyProvider");
+    queryParams.set("type", "org.openfact.keys.KeyProvider");
     queryParams.set("parent", this.organization.id);
 
     this.dataService.organizations().getComponents(this.organization, queryParams).subscribe(
@@ -48,20 +53,27 @@ export class OrganizationKeyProvidersSettingsComponent implements OnInit {
     );
   }
 
-  addProvider(provider) {
-    this.router.navigate(['./create']);
+  addProvider(provider) {    
+    this.router.navigate(['./', provider], { relativeTo: this.activatedRoute });
   };
 
-  removeInstance(instance) {
-    /*Dialog.confirmDelete(instance.name, 'key provider', function () {
-      Components.remove({
-        realm: realm.realm,
-        componentId: instance.id
-      }, function () {
-        $route.reload();
-        Notifications.success("The provider has been deleted.");
-      });
-    });*/
+  editInstance(instance) {
+    this.router.navigate(['./', instance.providerId, instance.id], { relativeTo: this.activatedRoute });
+  }
+
+  removeInstance(instance, content) {
+    this.modalService.open(content).result.then((result) => {
+      this.dataService.organizations().removeComponent(this.organization, instance.id).subscribe(
+        data => {
+          this.alertService.pop('success', 'Success', 'The provider has been deleted.');
+          this.loadComponents();
+        },
+        error => {
+          this.alertService.pop('error', 'Error', 'Your changes could not saved to the organization.');
+        }
+      );
+    }, (reason) => {
+    });
   };
 
 }

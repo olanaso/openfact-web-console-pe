@@ -19,6 +19,7 @@ import { ModalTextPreviewComponent } from './components/modal-text-preview/modal
 import { ViewObjectComponent } from './components/view-object/view-object.component';
 import { ReadFileComponent } from './components/read-file/read-file.component';
 import { ViewKeyComponent } from './components/view-key/view-key.component';
+import { OnOffSwitchStringComponent } from './components/on-off-switch-string/on-off-switch-string.component';
 
 // Directives
 
@@ -51,6 +52,7 @@ import { YesNoPipe } from './pipes/yes-no.pipe';
     ModalTextPreviewComponent,
     ViewObjectComponent,
     ViewKeyComponent,
+    OnOffSwitchStringComponent,
 
     // Directives
 
@@ -71,6 +73,7 @@ import { YesNoPipe } from './pipes/yes-no.pipe';
     ViewObjectComponent,
     ReadFileComponent,
     ViewKeyComponent,
+    OnOffSwitchStringComponent,
 
     // Directives
 

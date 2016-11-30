@@ -5,6 +5,7 @@ import { OrganizationResolver } from '../core/resolvers/organization-resolver';
 import { EventsConfigResolver } from '../core/resolvers/events-config-resolver';
 import { ServerInfoResolver } from '../core/resolvers/server-info-resolver';
 import { OrganizationKeysResolver } from '../core/resolvers/organization-keys-resolver';
+import { OrganizationComponentResolver } from '../core/resolvers/organization-component-resolver';
 
 import { InvoiceResolver } from '../core/resolvers/invoice-resolver';
 import { CreditNoteResolver } from '../core/resolvers/credit-note-resolver';
@@ -19,6 +20,7 @@ import { OrganizationKeySettingsComponent } from './organization-key-settings/or
 import { OrganizationKeyActiveSettingsComponent } from './organization-key-active-settings/organization-key-active-settings.component';
 import { OrganizationAllKeysSettingsComponent } from './organization-all-keys-settings/organization-all-keys-settings.component';
 import { OrganizationKeyProvidersSettingsComponent } from './organization-key-providers-settings/organization-key-providers-settings.component';
+import { OrganizationGenericKeystoreComponent } from './organization-generic-keystore/organization-generic-keystore.component';
 import { OrganizationSmtpSettingsComponent } from './organization-smtp-settings/organization-smtp-settings.component';
 
 import { InvoicesComponent } from './invoices/invoices.component';
@@ -260,7 +262,6 @@ import { EventsSettingsComponent } from './events-settings/events-settings.compo
                                         component: OrganizationKeyActiveSettingsComponent,
                                         resolve: {
                                             organization: OrganizationResolver,
-                                            serverinfo: ServerInfoResolver,
                                             keys: OrganizationKeysResolver
                                         }
                                     },
@@ -269,17 +270,38 @@ import { EventsSettingsComponent } from './events-settings/events-settings.compo
                                         component: OrganizationAllKeysSettingsComponent,
                                         resolve: {
                                             organization: OrganizationResolver,
-                                            serverinfo: ServerInfoResolver,
                                             keys: OrganizationKeysResolver
                                         }
                                     },
                                     {
                                         path: 'providers',
-                                        component: OrganizationKeyProvidersSettingsComponent,
-                                        resolve: {
-                                            organization: OrganizationResolver,
-                                            serverinfo: ServerInfoResolver
-                                        }
+                                        children: [
+                                            {
+                                                path: '',
+                                                component: OrganizationKeyProvidersSettingsComponent,
+                                                resolve: {
+                                                    organization: OrganizationResolver,
+                                                    serverinfo: ServerInfoResolver
+                                                }
+                                            },
+                                            {
+                                                path: ':provider',
+                                                component: OrganizationGenericKeystoreComponent,
+                                                resolve: {
+                                                    organization: OrganizationResolver,
+                                                    serverinfo: ServerInfoResolver
+                                                }
+                                            },
+                                            {
+                                                path: ':provider/:component',
+                                                component: OrganizationGenericKeystoreComponent,
+                                                resolve: {
+                                                    organization: OrganizationResolver,
+                                                    serverinfo: ServerInfoResolver,
+                                                    instance: OrganizationComponentResolver
+                                                }
+                                            }
+                                        ]
                                     }
                                 ]
                             },

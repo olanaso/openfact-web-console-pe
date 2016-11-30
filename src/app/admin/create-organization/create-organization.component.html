@@ -34,7 +34,7 @@
         <div class="form-group" [ngClass]="{ 'has-error' : !form.controls.description.valid && form.controls.description.dirty }">
           <label class="col-md-2 control-label">Description
 						<i class="fa fa-question-circle text-muted" ngbTooltip="Description of the organization" placement="right"></i>
-            		</label>
+          </label>
           <div class="col-md-9">
             <textarea [formControl]="form.controls.description" type="text" class="form-control"></textarea>
             <div *ngIf="!form.controls.description.valid && form.controls.description.dirty">

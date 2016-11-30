@@ -30,6 +30,7 @@ import { OrganizationKeySettingsComponent } from './organization-key-settings/or
 import { OrganizationKeyActiveSettingsComponent } from './organization-key-active-settings/organization-key-active-settings.component';
 import { OrganizationAllKeysSettingsComponent } from './organization-all-keys-settings/organization-all-keys-settings.component';
 import { OrganizationKeyProvidersSettingsComponent } from './organization-key-providers-settings/organization-key-providers-settings.component';
+import { OrganizationGenericKeystoreComponent } from './organization-generic-keystore/organization-generic-keystore.component';
 import { OrganizationSmtpSettingsComponent } from './organization-smtp-settings/organization-smtp-settings.component';
 
 import { InvoicesComponent } from './invoices/invoices.component';
@@ -55,6 +56,7 @@ import { EditDebitNoteComponent } from './edit-debit-note/edit-debit-note.compon
 import { DebitNoteOverviewComponent } from './debit-note-overview/debit-note-overview.component';
 import { AdminEventsComponent } from './admin-events/admin-events.component';
 import { EventsSettingsComponent } from './events-settings/events-settings.component';
+import { ComponentConfigComponent } from './component-config/component-config.component';
 
 @NgModule({
     imports: [
@@ -89,6 +91,7 @@ import { EventsSettingsComponent } from './events-settings/events-settings.compo
         OrganizationKeyActiveSettingsComponent,
         OrganizationAllKeysSettingsComponent,
         OrganizationKeyProvidersSettingsComponent,
+        OrganizationGenericKeystoreComponent,
         OrganizationSmtpSettingsComponent,
 
         InvoicesComponent,
@@ -114,6 +117,7 @@ import { EventsSettingsComponent } from './events-settings/events-settings.compo
         DebitNoteOverviewComponent,
         AdminEventsComponent,
         EventsSettingsComponent,
+        ComponentConfigComponent,
     ],
     providers: [
         // Shared

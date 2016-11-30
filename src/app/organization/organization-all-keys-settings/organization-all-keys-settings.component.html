@@ -6,31 +6,31 @@
       <th>Status</th>
       <th>Type</th>
       <th>Kid</th>
-      <th>Priority</th>      
+      <th>Priority</th>
       <th>Provider</th>
       <th>Public key</th>
       <th>Certificate</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let item of activeMap.keys()">
-      <td>{{activeMap.getValue(item).status}}</td>
-      <td>{{activeMap.getValue(item).type}}</td>
-      <td>{{activeMap.getValue(item).kid}}</td>
-      <td>{{activeMap.getValue(item).providerPriority}}</td>
+    <tr *ngFor="let item of keys.keys">
+      <td>{{item.status}}</td>
+      <td>{{item.type}}</td>
+      <td>{{item.kid}}</td>
+      <td>{{item.providerPriority}}</td>
       <td>
-        <a routerLink="['../providers', activeMap.getValue(item).provider.providerId]">{{activeMap.getValue(item).provider.name}}</a>
+        <a *ngIf="item.provider" [routerLink]="['../providers', item.provider.providerId, item.provider.id]">{{item.provider.name}}</a>
       </td>
 
-      <td [hidden]="!activeMap.getValue(item).publickey" class="kc-action-cell">
-        <of-view-key [key]="activeMap.getValue(item).publicKey" [label]="'View'" [isSpan]="true"></of-view-key>
+      <td *ngIf="item.publicKey" class="kc-action-cell">
+        <of-view-key [key]="item.publicKey" [label]="'View'" [isSpan]="true"></of-view-key>
       </td>
-      <td [hidden]="!activeMap.getValue(item).publicKey"></td>
+      <td *ngIf="!item.publicKey"></td>
 
-      <td [hidden]="activeMap.getValue(item).certificate" class="kc-action-cell">
-        <of-view-key [key]="activeMap.getValue(item).certificate" [label]="'View'" [isSpan]="true"></of-view-key>
+      <td *ngIf="item.certificate" class="kc-action-cell">
+        <of-view-key [key]="item.certificate" [label]="'View'" [isSpan]="true"></of-view-key>
       </td>
-      <td [hidden]="!activeMap.getValue(item).certificate"></td>
+      <td *ngIf="!item.certificate"></td>
     </tr>
   </tbody>
 </table>

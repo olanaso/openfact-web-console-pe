@@ -18,8 +18,6 @@ export class OrganizationAllKeysSettingsComponent implements OnInit {
   keys: any;
 
   active: any = {};
-  activeMap = new Collections.Dictionary<String, any>();
-
   organization: Organization;
 
   constructor(
@@ -41,28 +39,21 @@ export class OrganizationAllKeysSettingsComponent implements OnInit {
 
     this.dataService.organizations().getComponents(this.organization, queryParams).subscribe(
       data => {
-        let keys = Object.assign(this.keys);
-        for (var i = 0; i < keys.keys.length; i++) {
-          for (var j = 0; j < data.length; j++) {
-            if (keys.keys[i].providerId == data[j].id) {
-              keys.keys[i].provider = data[j];
+        for (var i = 0; i < this.keys.keys.length; i++) {
+            for (var j = 0; j < data.length; j++) {
+                if (this.keys.keys[i].providerId == data[j].id) {
+                    this.keys.keys[i].provider = data[j];
+                }
+            }
+        }
+
+        for (var t in this.keys.active) {
+          for (var i = 0; i < this.keys.keys.length; i++) {
+            if (this.keys.active[t] == this.keys.keys[i].kid) {
+              this.active[t] = this.keys.keys[i];
             }
           }
         }
-
-        for (var t in keys.active) {
-          for (var i = 0; i < keys.keys.length; i++) {
-            if (keys.active[t] == keys.keys[i].kid) {
-              this.active[t] = keys.keys[i];
-            }
-          }
-        }
-
-        let map = new Collections.Dictionary<String, any>()
-        for (let key in this.active) {
-          map.setValue(key, this.active[key]);
-        }
-        this.activeMap = map;
       },
       error => {
         this.alertService.pop('error', 'Error', 'Your changes could not saved to the organization.');

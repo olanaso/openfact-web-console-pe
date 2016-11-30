@@ -107,6 +107,17 @@ export class OrganizationService {
             });
     }
 
+    getComponent(organization: Organization, componentId, queryParams?: URLSearchParams) {
+        return this.restangular
+            .one(organizationBasePath, organization.organization)
+            .one('components', componentId)
+            .get(queryParams)
+            .map(response => {
+                let json = <any>response.json();
+                return json;
+            });
+    }
+
     getComponents(organization: Organization, queryParams?: URLSearchParams) {
         return this.restangular
             .one(organizationBasePath, organization.organization)
@@ -116,6 +127,27 @@ export class OrganizationService {
                 let json = <any>response.json();
                 return json;
             });
+    }
+
+    createComponent(organization: Organization, component: any) {
+        return this.restangular
+            .one(organizationBasePath, organization.organization)
+            .all('components')
+            .post(component);
+    }
+
+    updateComponent(organization: Organization, componentId: string, component: any) {
+        return this.restangular
+            .one(organizationBasePath, organization.organization)
+            .one('components', componentId)
+            .put(component);
+    }
+
+    removeComponent(organization: Organization, componentId: any) {
+        return this.restangular
+            .one(organizationBasePath, organization.organization)
+            .one('components', componentId)
+            .delete();
     }
 
 }

@@ -33,6 +33,7 @@ import { OrganizationAllKeysSettingsComponent } from './organization-all-keys-se
 import { OrganizationKeyProvidersSettingsComponent } from './organization-key-providers-settings/organization-key-providers-settings.component';
 import { OrganizationGenericKeystoreComponent } from './organization-generic-keystore/organization-generic-keystore.component';
 import { OrganizationSmtpSettingsComponent } from './organization-smtp-settings/organization-smtp-settings.component';
+import { ComponentConfigComponent } from './component-config/component-config.component';
 
 import { InvoicesComponent } from './invoices/invoices.component';
 import { CreateInvoiceComponent } from './create-invoice/create-invoice.component';
@@ -55,9 +56,10 @@ import { CreateDebitNoteFormComponent } from './create-debit-note-form/create-de
 import { CreateDebitNoteUploadComponent } from './create-debit-note-upload/create-debit-note-upload.component';
 import { EditDebitNoteComponent } from './edit-debit-note/edit-debit-note.component';
 import { DebitNoteOverviewComponent } from './debit-note-overview/debit-note-overview.component';
+
+import { EventsComponent } from './events/events.component';
 import { AdminEventsComponent } from './admin-events/admin-events.component';
 import { EventsSettingsComponent } from './events-settings/events-settings.component';
-import { ComponentConfigComponent } from './component-config/component-config.component';
 
 @NgModule({
     imports: [
@@ -95,6 +97,7 @@ import { ComponentConfigComponent } from './component-config/component-config.co
         OrganizationKeyProvidersSettingsComponent,
         OrganizationGenericKeystoreComponent,
         OrganizationSmtpSettingsComponent,
+        ComponentConfigComponent,
 
         InvoicesComponent,
         CreateInvoiceComponent,
@@ -117,9 +120,10 @@ import { ComponentConfigComponent } from './component-config/component-config.co
         CreateDebitNoteUploadComponent,
         EditDebitNoteComponent,
         DebitNoteOverviewComponent,
+
+        EventsComponent,
         AdminEventsComponent,
-        EventsSettingsComponent,
-        ComponentConfigComponent,
+        EventsSettingsComponent,        
     ],
     providers: [
         // Shared

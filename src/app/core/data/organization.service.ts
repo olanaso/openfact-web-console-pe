@@ -150,4 +150,40 @@ export class OrganizationService {
             .delete();
     }
 
+    getEventsConfig(organization: Organization, queryParams?: URLSearchParams) {
+        return this.restangular
+            .one(organizationBasePath, organization.organization)
+            .all('events/config')
+            .get(queryParams)
+            .map(response => {
+                let json = <any>response.json();
+                return json;
+            });
+    }
+
+    updateEventsConfig(organization: Organization, config: any) {
+        return this.restangular
+            .one(organizationBasePath, organization.organization)
+            .all('events/config')
+            .put(config);
+    }
+
+    getClearAdminEvents(organization: Organization) {
+        return this.restangular
+            .one(organizationBasePath, organization.organization)
+            .all('admin-events')
+            .delete();
+    }
+
+    getAdminEvents(organization: Organization, queryParams?: URLSearchParams) {
+        return this.restangular
+            .one(organizationBasePath, organization.organization)
+            .all('admin-events')
+            .get(queryParams)
+            .map(response => {
+                let json = <any>response.json();
+                return json;
+            });
+    }
+
 }

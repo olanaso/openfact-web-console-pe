@@ -45,6 +45,7 @@ import { CreateDebitNoteUploadComponent } from './create-debit-note-upload/creat
 import { EditDebitNoteComponent } from './edit-debit-note/edit-debit-note.component';
 import { DebitNoteOverviewComponent } from './debit-note-overview/debit-note-overview.component';
 
+import { EventsComponent } from './events/events.component';
 import { AdminEventsComponent } from './admin-events/admin-events.component';
 import { EventsSettingsComponent } from './events-settings/events-settings.component';
 
@@ -316,6 +317,7 @@ import { EventsSettingsComponent } from './events-settings/events-settings.compo
                     },
                     {
                         path: 'events',
+                        component: EventsComponent,
                         children: [
                             {
                                 path: '',

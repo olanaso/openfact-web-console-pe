@@ -3,6 +3,7 @@ import { ActivatedRouteSnapshot, RouterStateSnapshot, Resolve } from '@angular/r
 import { Observable } from 'rxjs/Observable';
 
 import { DataService } from '../../core/data/data.service';
+import { findParam } from './find-param';
 
 @Injectable()
 export class EventsConfigResolver implements Resolve<any>{
@@ -10,7 +11,10 @@ export class EventsConfigResolver implements Resolve<any>{
     constructor(private dataService: DataService) { }
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Promise<any> {
-        return this.dataService.events().getConfig();
+        let organizationId = findParam('organization', route);        
+        let organization = this.dataService.organizations().build(organizationId);
+
+        return this.dataService.organizations().getEventsConfig(organization);
     }
 
 }

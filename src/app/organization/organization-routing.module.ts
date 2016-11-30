@@ -32,6 +32,7 @@ import { CreateInvoiceUploadComponent } from './create-invoice-upload/create-inv
 import { EditInvoiceComponent } from './edit-invoice/edit-invoice.component';
 import { InvoiceOverviewComponent } from './invoice-overview/invoice-overview.component';
 import { InvoiceOverviewEventsComponent } from './invoice-overview-events/invoice-overview-events.component';
+import { InvoiceSendEventsComponent } from './invoice-send-events/invoice-send-events.component';
 
 import { CreditNotesComponent } from './credit-notes/credit-notes.component';
 import { CreateCreditNoteComponent } from './create-credit-note/create-credit-note.component';
@@ -117,6 +118,14 @@ import { EventsSettingsComponent } from './events-settings/events-settings.compo
                                             invoice: InvoiceResolver,
                                             invoiceJson: InvoiceJsonResolver,
                                             invoiceText: InvoiceTextResolver
+                                        }
+                                    },
+                                    {
+                                        path: 'send-events',
+                                        component: InvoiceSendEventsComponent,
+                                        resolve: {
+                                            organization: OrganizationResolver,
+                                            invoice: InvoiceResolver
                                         }
                                     },
                                     {

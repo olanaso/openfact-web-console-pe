@@ -19,6 +19,13 @@ export class InvoiceService {
 
   constructor() { }
 
+  public build(organization: Organization, id?: string): Invoice {
+    let invoice = new Invoice();
+    invoice.id = id;
+    invoice.restangular = organization.restangular.one(invoiceBasePath, id);
+    return invoice;
+  }
+
   public findById(organization: Organization, id: string, queryParams?: URLSearchParams): Observable<Invoice> {
     let restangular = organization.restangular;
     return restangular
@@ -121,6 +128,12 @@ export class InvoiceService {
         result.totalSize = json.totalSize;
         return result;
       });
+  }
+
+  public getSendEvents(invoice: Invoice): Observable<any> {
+    return invoice.restangular.all('send-events').get().map(response => {
+      return response.json()
+    });
   }
 
 }

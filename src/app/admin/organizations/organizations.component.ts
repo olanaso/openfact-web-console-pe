@@ -29,7 +29,7 @@ export class OrganizationsComponent implements OnInit {
   }
 
   editOrganization(organization: Organization) {
-    this.router.navigate(['/organizations', organization.organization, 'overview']);
+    this.router.navigate(['/organizations', organization.organization]);
   }
 
   search() {

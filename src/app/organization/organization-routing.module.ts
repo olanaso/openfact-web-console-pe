@@ -63,7 +63,7 @@ import { EventsSettingsComponent } from './events-settings/events-settings.compo
                 },
                 children: [
                     {
-                        path: 'overview',
+                        path: '',
                         component: OrganizationOverviewComponent,
                         resolve: {
                             organization: OrganizationResolver

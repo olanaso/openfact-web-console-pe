@@ -11,13 +11,9 @@ import { AlertService } from '../../core/alert/alert.service';
 })
 export class ServerInfoProvidersComponent implements OnInit {
 
-  private filterText: string;
   private spis = new Collections.Dictionary<String, any>();
 
-  constructor(
-    private dataService: DataService,
-    private alertService: AlertService
-  ) {
+  constructor(private dataService: DataService, private alertService: AlertService) {
     this.loadData(); this.spis.getValue
   }
 
@@ -26,13 +22,12 @@ export class ServerInfoProvidersComponent implements OnInit {
   loadData() {
     this.dataService.serverInfo().get().subscribe(
       result => {
-        let map = new Collections.Dictionary<String, any>()
+        this.spis = new Collections.Dictionary<String, any>()
         for (let key in result['providers']) {
-          map.setValue(key, result['providers'][key]);
+          this.spis.setValue(key, result['providers'][key]);
         }
-        this.spis = map;
       }, error => {
-        this.alertService.pop('error', 'Error', 'Error loading projects.');
+        this.alertService.pop('error', 'Error', 'Error loading server info providers.');
       });
   }
 

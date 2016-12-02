@@ -15,10 +15,7 @@ export class ServerInfoComponent implements OnInit {
     memoryInfo: {}
   };
 
-  constructor(
-    private dataService: DataService,
-    private alertService: AlertService
-  ) {
+  constructor(private dataService: DataService, private alertService: AlertService) {
     this.loadData();
   }
 
@@ -29,7 +26,7 @@ export class ServerInfoComponent implements OnInit {
       result => {
         this.serverInfo = result;
       }, error => {
-        this.alertService.pop('error', 'Error', 'Error loading projects.');
+        this.alertService.pop('error', 'Error', 'Error loading server info.');
       });
   }
 

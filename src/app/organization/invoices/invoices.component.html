@@ -1,9 +1,5 @@
 <div class="page-header page-header-bleed-right page-header-bleed-left" style="border-bottom: 1px solid #d1d1d1; margin-top: 0; margin-bottom: 0; padding-left: 20px">
-  <div class="row">
-    <div class="col-md-12">
-      <h1>Invoices</h1>
-    </div>
-  </div>
+  <h1>Invoices</h1>
 </div>
 
 <div class="row toolbar-pf">
@@ -38,14 +34,14 @@
           </ul>
         </div>
         <button class="btn btn-link" type="button" (click)="changeAscending()">
-              		<span class="fa fa-sort-alpha-{{sorter.ascending ? 'asc' : 'desc'}}"></span>
-          		</button>
+            <span class="fa fa-sort-alpha-{{sorter.ascending ? 'asc' : 'desc'}}"></span>
+        </button>
       </div>
       <!-- /sorter -->
 
       <div class="toolbar-pf-action-right">
         <div class="form-group toolbar-pf-find">
-          <button class="btn btn-link btn-find" type="button">
+          <button (click)="search()" class="btn btn-link btn-find" type="button">
 						<span class="fa fa-search"></span>
 					</button>
           <div class="find-pf-dropdown-container">
@@ -63,11 +59,6 @@
 							</button>
             </div>
           </div>
-        </div>
-        <div class="form-group toolbar-pf-view-selector">
-          <button class="btn btn-link"><i class="fa fa-th"></i></button>
-          <button class="btn btn-link active"><i class="fa fa-th-large"></i></button>
-          <button class="btn btn-link"><i class="fa fa-th-list"></i></button>
         </div>
       </div>
     </form>
@@ -111,7 +102,7 @@
           <table class="datatable table table-striped table-bordered dataTable no-footer table-mobile">
             <thead>
               <tr>
-                <th>#</th>
+                <th class="text-right">#</th>
                 <th>ID</th>
                 <th>Issue Date</th>
                 <th>Type Code</th>
@@ -122,8 +113,13 @@
               </tr>
             </thead>
             <tbody>
+              <tr *ngIf="!searchResult || searchResult.items == 0">
+                <td colspan="8" class="text-center text-muted">
+                  <span>No results found.</span>
+                </td>
+              </tr>
               <tr *ngFor="let item of searchResult.items; let i = index;">
-                <td>{{i+1}}</td>
+                <td class="text-right">{{i+1}}</td>
                 <td>{{item.documentId}}</td>
                 <td>{{item.issueDateTime | date}}</td>
                 <td>{{item.invoiceTypeCode}}</td>
@@ -135,11 +131,14 @@
                 <td class="kc-action-cell" [routerLink]="[item.id]">Overview</td>
               </tr>
             </tbody>
+            <tfoot *ngIf="searchResult && searchResult.totalSize > 0">
+              <tr>
+                <td class="text-right" colspan="8">
+                  <ngb-pagination (pageChange)="search($event)" [collectionSize]="searchResult.totalSize" [(page)]="paging.page" [maxSize]="paging.size" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"></ngb-pagination>
+                </td>
+              </tr>
+            </tfoot>
           </table>
-        </div>
-        <div class="dataTables_footer" *ngIf="searchResult.totalSize > paging.size">
-          <ngb-pagination (pageChange)="changePagination($event)" [collectionSize]="searchResult.totalSize" [(page)]="paging.page"
-            [(pageSize)]="paging.size"></ngb-pagination>
         </div>
       </div>
     </div>

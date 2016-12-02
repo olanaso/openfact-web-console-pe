@@ -26,6 +26,7 @@ import { CreditnoteService } from './data/creditnote.service';
 import { DebitnoteService } from './data/debitnote.service';
 import { ServerInfoService } from './data/server-info.service';
 import { EventService } from './data/event.service';
+import { StorageFileService } from './data/storage-file.service';
 
 // Resolvers
 import { OrganizationResolver } from './resolvers/organization-resolver';
@@ -106,6 +107,7 @@ import { AllowedDataRoles } from './guards/allowed-data-roles';
     DebitnoteService,
     ServerInfoService,
     EventService,
+    StorageFileService,
 
     // Resolvers
     OrganizationResolver,

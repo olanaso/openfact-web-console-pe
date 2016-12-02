@@ -6,6 +6,7 @@ import { CreditnoteService } from './creditnote.service';
 import { DebitnoteService } from './debitnote.service';
 import { ServerInfoService } from './server-info.service';
 import { EventService } from './event.service';
+import { StorageFileService } from './storage-file.service';
 
 @Injectable()
 export class DataService {
@@ -16,7 +17,8 @@ export class DataService {
         private creditnote: CreditnoteService,
         private debitnote: DebitnoteService,
         private serverinfo: ServerInfoService,
-        private event: EventService) {
+        private event: EventService,
+        private storageFile: StorageFileService) {
     }
 
     public organizations(): OrganizationService {
@@ -41,6 +43,10 @@ export class DataService {
 
     public events(): EventService {
         return this.event;
+    }
+
+    public storageFiles(): StorageFileService {
+        return this.storageFile;
     }
 
 }

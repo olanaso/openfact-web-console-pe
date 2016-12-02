@@ -41,7 +41,7 @@ export class InvoiceSendEventsComponent implements OnInit {
   }
 
   downloadFile(file) {
-
+    this.dataService.storageFiles().download(this.organization, file.id);
   }
 
 }

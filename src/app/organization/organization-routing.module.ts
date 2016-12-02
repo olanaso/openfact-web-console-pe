@@ -116,8 +116,7 @@ import { EventsSettingsComponent } from './events-settings/events-settings.compo
                                         resolve: {
                                             organization: OrganizationResolver,
                                             invoice: InvoiceResolver,
-                                            invoiceJson: InvoiceJsonResolver,
-                                            invoiceText: InvoiceTextResolver
+                                            invoiceJson: InvoiceJsonResolver
                                         }
                                     },
                                     {

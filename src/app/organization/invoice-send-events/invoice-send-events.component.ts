@@ -32,12 +32,16 @@ export class InvoiceSendEventsComponent implements OnInit {
     let invoice: Invoice = this.dataService.invoices().build(this.organization, this.invoice.id);
     this.dataService.invoices().getSendEvents(invoice).subscribe(
       result => {
-        this.events = result;        
+        this.events = result;
       },
-      error => {        
+      error => {
         this.alertService.pop('error', 'Error', 'Organization could not be created.');
       }
     );;
+  }
+
+  downloadFile(file) {
+
   }
 
 }

@@ -43,6 +43,7 @@
 				</div>-->
 			</div>
 		</h3>
+		<span *ngFor="let item of invoice.requiredActions" class="label label-warning">{{item}}</span>&nbsp;
 	</div>
 </div>
 
@@ -54,7 +55,7 @@
 				<ul class="nav nav-tabs">
 					<li routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"><a routerLink="./">Overview</a></li>
 					<li routerLinkActive="active"><a routerLink="./send-events">Send Events</a></li>
-					<li routerLinkActive="active"><a routerLink="./events">Events</a></li>
+					<!--<li routerLinkActive="active"><a routerLink="./events">Events</a></li>-->
 				</ul>
 				<div class="tab-pane">
 					<div>

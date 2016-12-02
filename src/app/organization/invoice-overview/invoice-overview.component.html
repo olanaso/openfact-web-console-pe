@@ -21,12 +21,13 @@
 				Issue Date:
 				<span title="Issue Date of the invoiceJson." class="pficon pficon-help text-muted small"></span>
 			</dt>
-			<dd>{{invoiceJson.issueDateValue | date: 'short'}}</dd>
+			<dd>{{invoiceJson.issueDateValue | date: 'shortDate'}}</dd>
 			<dt>
 				Issue Time:
 				<span title="The time of the issue invoiceJson." class="pficon pficon-help text-muted small"></span>
 			</dt>
-			<dd>{{invoiceJson.issueTimeValue | date: 'mediumTime'}}</dd>
+			<dd *ngIf="invoiceJson.issueTimeValue">{{invoiceJson.issueTimeValue | date: 'shortTime'}}</dd>
+			<dd *ngIf="!invoiceJson.issueTimeValue"><em>Not registered</em></dd>
 			<dt>
 				<span class="pficon pficon-image" aria-hidden="true"></span> Xml:
 				<span title="The time of the issue invoiceJson." class="pficon pficon-help text-muted small"></span>
@@ -53,19 +54,19 @@
 				<span title="The currency of the invoiceJson." class="pficon pficon-help text-muted small"></span>
 			</dt>
 			<dd *ngIf="invoiceJson.legalMonetaryTotal.payableAmountValue">{{invoiceJson.legalMonetaryTotal.payableAmountValue | number:'1.2-3'}}</dd>
-			<dd *ngIf="!invoiceJson.legalMonetaryTotal.payableAmountValue"><em>0.00</em></dd>
+			<dd *ngIf="!invoiceJson.legalMonetaryTotal.payableAmountValue"><em>Not registered</em></dd>
 			<dt>
 				Charge Total Amount:
 				<span title="The currency of the invoiceJson." class="pficon pficon-help text-muted small"></span>
 			</dt>
 			<dd *ngIf="invoiceJson.legalMonetaryTotal.chargeTotalAmountValue">{{invoiceJson.legalMonetaryTotal.chargeTotalAmountValue | number:'1.2-3'}}</dd>
-			<dd *ngIf="!invoiceJson.legalMonetaryTotal.chargeTotalAmountValue"><em>0.00</em></dd>
+			<dd *ngIf="!invoiceJson.legalMonetaryTotal.chargeTotalAmountValue"><em>Not registered</em></dd>
 			<dt>
 				Allowance Total Amount:
 				<span title="The currency of the invoiceJson." class="pficon pficon-help text-muted small"></span>
 			</dt>
 			<dd *ngIf="invoiceJson.legalMonetaryTotal.allowanceTotalAmountValue">{{invoiceJson.legalMonetaryTotal.allowanceTotalAmountValue | number:'1.2-3'}}</dd>
-			<dd *ngIf="!invoiceJson.legalMonetaryTotal.allowanceTotalAmountValue"><em>0.00</em></dd>
+			<dd *ngIf="!invoiceJson.legalMonetaryTotal.allowanceTotalAmountValue"><em>Not registered</em></dd>
 		</dl>
 	</div>
 	<div class="col-lg-6">
@@ -172,7 +173,7 @@
 				<table class="datatable table table-striped table-bordered dataTable no-footer table-mobile">
 					<thead>
 						<tr>
-							<th>#</th>
+							<th class="text-right">#</th>
 							<th class="text-right">Quantity</th>
 							<th>Item Description</th>
 							<th class="text-right">Price</th>
@@ -182,7 +183,7 @@
 					</thead>
 					<tbody>
 						<tr *ngFor="let item of invoiceJson.invoiceLine; let i = index;">
-							<td>{{i+1}}</td>
+							<td class="text-right">{{i+1}}</td>
 							<td class="text-right">{{item.invoicedQuantity.value | number:'1.2-3'}}</td>
 							<td>
 								<span *ngFor="let itemDescription of item.item.description">

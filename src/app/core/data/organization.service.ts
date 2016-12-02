@@ -56,10 +56,10 @@ export class OrganizationService {
             });
     }
 
-    public getAll(): Observable<Organization[]> {
+    public getAll(queryParams?: URLSearchParams): Observable<Organization[]> {
         return this.restangular
             .all(organizationBasePath)
-            .get()
+            .get(queryParams)
             .map(response => {
                 let json = <Organization[]>response.json();
                 let result = new Array<Organization>();

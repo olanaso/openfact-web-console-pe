@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import * as Collections from 'typescript-collections';
+import { URLSearchParams } from '@angular/http';
 
 import { DataService } from '../../core/data/data.service';
 import { AlertService } from '../../core/alert/alert.service';
@@ -13,9 +13,8 @@ import { Organization } from '../../core/models/organization.model';
 })
 export class OrganizationsComponent implements OnInit {
 
-  private searchResult: Array<Organization> = new Array<Organization>();
-
-  private filters = {
+  searchResult: Array<Organization> = new Array<Organization>();
+  filters = {
     filterText: undefined
   };
 

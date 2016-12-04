@@ -43,7 +43,9 @@
 				</div>-->
 			</div>
 		</h3>
-		<span *ngFor="let item of invoice.requiredActions" class="label label-warning">{{item}}</span>&nbsp;
+		<template ngFor let-item [ngForOf]="invoice.requiredActions">
+			<span class="label label-warning">{{item}}</span>&nbsp;
+		</template>		
 	</div>
 </div>
 

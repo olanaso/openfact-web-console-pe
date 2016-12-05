@@ -88,14 +88,14 @@ import { EventsSettingsComponent } from './events-settings/events-settings.compo
                                 children: [
                                     {
                                         path: '',
-                                        component: CreateInvoiceUploadComponent,
+                                        component: CreateInvoiceFormComponent,
                                         resolve: {
                                             organization: OrganizationResolver
                                         }
                                     },
                                     {
-                                        path: 'form',
-                                        component: CreateInvoiceFormComponent,
+                                        path: 'upload',
+                                        component: CreateInvoiceUploadComponent,
                                         resolve: {
                                             organization: OrganizationResolver
                                         }

@@ -12,4 +12,20 @@ export class CreateInvoiceFormComponent implements OnInit {
   ngOnInit() {
   }
 
+  backWizard() {
+    console.log("basck");
+  }
+
+  nextWizard() {
+    console.log("next");
+  }
+
+  finishWizard() {
+    console.log("finsh");
+  }
+
+  cancelWizard() {
+    console.log("cancel");
+  }
+
 }

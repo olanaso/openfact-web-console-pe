@@ -1,3 +1,32 @@
-<p>
-  create-invoice-form works!
-</p>
+<pf-wizard
+  [embedInPage]="true"
+  (backCallback)="backWizard($event)"
+  (nextCallback)="nextWizard($event)"
+  (onFinish)="finishWizard($event)"
+  (onCancel)="cancelWizard($event)">
+
+  <pf-wizard-step 
+    [stepTitle]="'First Step'"
+    [stepId]="firs" 
+    [stepPriority]="0">
+    
+    <div>
+      <form class="form-horizontal">
+        <h1>contenido1</h1>
+      </form>
+    </div>
+    
+  </pf-wizard-step>
+  <pf-wizard-step 
+    [stepTitle]="'Second Step'"
+    [stepId]="second" 
+    [stepPriority]="1">
+    
+    <div>
+      <form class="form-horizontal">
+        <h1>contenido2</h1>
+      </form>
+    </div>
+    
+  </pf-wizard-step>
+</pf-wizard>

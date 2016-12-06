@@ -22,6 +22,15 @@ import { ReadFileComponent } from './components/read-file/read-file.component';
 import { ViewKeyComponent } from './components/view-key/view-key.component';
 import { OnOffSwitchStringComponent } from './components/on-off-switch-string/on-off-switch-string.component';
 import { ViewXmlComponent } from './components/view-xml/view-xml.component';
+import { WizardComponent } from './components/wizard/wizard.component';
+import { WizardStepComponent } from './components/wizard/wizard-step.component';
+import {
+  WizardCancelButtonDirective,
+  WizardFinishButtonDirective,
+  WizardNextButtonDirective,
+  WizardPreviousButtonDirective,
+  WizardResetButtonDirective
+} from './components/wizard/wizard-buttons.directive';
 
 // Directives
 
@@ -57,6 +66,13 @@ import { YesNoPipe } from './pipes/yes-no.pipe';
     ViewKeyComponent,
     OnOffSwitchStringComponent,
     ViewXmlComponent,
+    WizardComponent,
+    WizardStepComponent,
+    WizardCancelButtonDirective,
+    WizardFinishButtonDirective,
+    WizardNextButtonDirective,
+    WizardPreviousButtonDirective,
+    WizardResetButtonDirective,
 
     // Directives
 
@@ -79,6 +95,13 @@ import { YesNoPipe } from './pipes/yes-no.pipe';
     ViewKeyComponent,
     OnOffSwitchStringComponent,
     ViewXmlComponent,
+    WizardComponent,
+    WizardStepComponent,
+    WizardCancelButtonDirective,
+    WizardFinishButtonDirective,
+    WizardNextButtonDirective,
+    WizardPreviousButtonDirective,
+    WizardResetButtonDirective,
 
     // Directives
 

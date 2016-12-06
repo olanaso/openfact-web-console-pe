@@ -8,7 +8,7 @@
       <td>Result</td>
       <td>Description</td>
       <td>Destiny</td>
-      <td>File Attatchments</td>
+      <td>Response</td>
     </tr>
   </thead>
   <tbody>
@@ -33,14 +33,45 @@
             </tr>
           </tbody>
         </table>
+        
+        <table *ngIf="item.filesAttatchment && item.filesAttatchment.length > 0">
+          <thead>
+            <tr>Attatchments</tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let file of item.filesAttatchment">
+              <td><a (click)="downloadFile(file)" href="javascript:void();">{{file.fileName}}</a></td>
+            </tr>
+          </tbody>
+        </table>
       </td>
       <td>
-        <em *ngIf="!item.fileAttatchments || item.fileAttatchments.length == 0">Not registered</em>
-        <ul *ngFor="let file of item.fileAttatchments">
-          <li>
-            <a (click)="downloadFile(file)" href="javascript:void();">{{file.fileName}}</a>
-          </li>
-        </ul>
+        <em *ngIf="!item.response || (item.response | keys).length == 0">No registered</em>
+        <table *ngIf="item.response && (item.response | keys).length > 0" class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <td>Key</td>
+              <td>Value</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let key of item.response | keys">
+              <td>{{key}}</td>
+              <td>{{item.response[key]}}</td>
+            </tr>
+          </tbody>
+        </table>
+        
+        <table *ngIf="item.responseFilesAttatchment && item.responseFilesAttatchment.length > 0">
+          <thead>
+            <tr>Attatchments</tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let file of item.responseFilesAttatchment">
+              <td><a (click)="downloadFile(file)" href="javascript:void();">{{file.fileName}}</a></td>
+            </tr>
+          </tbody>
+        </table>
       </td>
     </tr>
   </tbody>

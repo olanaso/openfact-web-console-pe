@@ -1,4 +1,6 @@
 import { Restangular } from '../data/restangular';
+import { Observable } from 'rxjs/Observable';
+import { Response, Headers, ResponseContentType } from '@angular/http';
 
 export abstract class Model {
 

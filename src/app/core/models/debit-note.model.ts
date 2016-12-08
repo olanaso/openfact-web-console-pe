@@ -1,5 +1,6 @@
 import { Model } from './model';
 import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 import { Headers, ResponseContentType } from '@angular/http';
 
 import { saveAs } from 'file-saver';

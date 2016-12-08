@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Response, URLSearchParams } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
 import { RestangularOpenfact } from './restangular-openfact';

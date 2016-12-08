@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { URLSearchParams } from '@angular/http';
+import { Subscription } from 'rxjs/Subscription';
+import { Response, URLSearchParams } from '@angular/http';
 
 import { Headers, ResponseContentType } from '@angular/http';
 import { saveAs } from 'file-saver';

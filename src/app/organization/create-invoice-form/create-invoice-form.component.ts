@@ -21,6 +21,11 @@ export class CreateInvoiceFormComponent implements OnInit {
     { nombre: 'FACTURA', valor: '02' }
   ];
 
+  tipoDocumentoEntidad = [
+    { nombre: 'DNI', valor: '01' },
+    { nombre: 'RUC', valor: '02' }
+  ];
+
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,

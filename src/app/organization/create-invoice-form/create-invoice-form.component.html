@@ -10,7 +10,7 @@
             <i class="fa fa-question-circle text-muted" ngbTooltip="organization of the organization" placement="right"></i>
           </label>
           <select class="form-control">
-            <option value="" selected> Seleccione Uno </option>
+            <option value="" disabled selected> Seleccione Uno </option>
             <option *ngFor="let item of tipoDocumento" [value]="item.valor">{{item.nombre}}</option>
           </select>
         </div>
@@ -25,7 +25,10 @@
           <label class="control-label required-pf">DNI/RUC
             <i class="fa fa-question-circle text-muted" ngbTooltip="organization of the organization" placement="right"></i>
           </label>
-          <input type="text" class="form-control" />
+          <select class="form-control">
+            <option value="" disabled selected> Seleccione Uno </option>
+            <option *ngFor="let item of tipoDocumentoEntidad" [value]="item.valor">{{item.nombre}}</option>
+          </select>
         </div>
       </div>
       <div class="col-md-3">

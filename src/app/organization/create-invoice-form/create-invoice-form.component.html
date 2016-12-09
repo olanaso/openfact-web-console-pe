@@ -1,35 +1,203 @@
+<br>
+<form>
+  <p class="fields-status-pf">The fields marked with <span class="required-pf">*</span> are required.</p>
 
-<!--
-<pf-wizard
-  [embedInPage]="true"
-  (backCallback)="backWizard($event)"
-  (nextCallback)="nextWizard($event)"
-  (onFinish)="finishWizard($event)"
-  (onCancel)="cancelWizard($event)">
+  <div>
+    <div class="row">
+      <div class="col-md-3">
+        <div class="form-group">
+          <label class="control-label required-pf">Boleta/Factura
+            <i class="fa fa-question-circle text-muted" ngbTooltip="organization of the organization" placement="right"></i>
+          </label>
+          <select class="form-control">
+            <option value="" selected> Seleccione Uno </option>
+            <option *ngFor="let item of tipoDocumento" [value]="item.valor">{{item.nombre}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <pf-wizard-step 
-    [stepTitle]="'First Step'"
-    [stepId]="firs" 
-    [stepPriority]="0">
-    
-    <div>
-      <form class="form-horizontal">
-        <h1>contenido1</h1>
-      </form>
+  <div>
+    <div class="row">
+      <div class="col-md-3">
+        <div class="form-group">
+          <label class="control-label required-pf">DNI/RUC
+            <i class="fa fa-question-circle text-muted" ngbTooltip="organization of the organization" placement="right"></i>
+          </label>
+          <input type="text" class="form-control" />
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="form-group">
+          <label class="control-label required-pf">NRO. DOCUMENTO
+            <i class="fa fa-question-circle text-muted" ngbTooltip="organization of the organization" placement="right"></i>
+          </label>
+          <input type="text" class="form-control" />
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label class="control-label required-pf">Nombre/Razon Social
+            <i class="fa fa-question-circle text-muted" ngbTooltip="organization of the organization" placement="right"></i>
+          </label>
+          <input type="text" class="form-control" />
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="form-group">
+          <label class="control-label">&nbsp;</label>
+          <button type="button" class="btn btn-default" style="margin-top: 25px;">Detallado</button>
+        </div>
+      </div>
     </div>
-    
-  </pf-wizard-step>
-  <pf-wizard-step 
-    [stepTitle]="'Second Step'"
-    [stepId]="second" 
-    [stepPriority]="1">
-    
-    <div>
-      <form class="form-horizontal">
-        <h1>contenido2</h1>
-      </form>
+  </div>
+  <!--/Customer-->
+
+  <div>
+    <div class="row">
+      <div class="col-md-2">
+        <div class="form-group">
+          <label class="control-label">Serie
+            <i class="fa fa-question-circle text-muted" ngbTooltip="organization of the organization" placement="right"></i>
+          </label>
+          <input type="text" class="form-control" />
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="form-group">
+          <label class="control-label">Numero
+            <i class="fa fa-question-circle text-muted" ngbTooltip="organization of the organization" placement="right"></i>
+          </label>
+          <input type="text" class="form-control" />
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="form-group">
+          <label class="control-label">Venta Gratuita
+            <i class="fa fa-question-circle text-muted" ngbTooltip="organization of the organization" placement="right"></i>
+          </label>
+          <input type="text" class="form-control" />
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="form-group">
+          <label class="control-label">Envio inmediato
+            <i class="fa fa-question-circle text-muted" ngbTooltip="organization of the organization" placement="right"></i>
+          </label>
+          <input type="text" class="form-control" />
+        </div>
+      </div>
     </div>
-    
-  </pf-wizard-step>
-</pf-wizard>
--->
+  </div>
+  <!--/General information-->
+
+  <div>
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <td class="text-right">#</td>
+          <td class="text-right">Producto/Servicio</td>
+          <td class="text-right">Descripcion</td>
+          <td class="text-right">Cantidad</td>
+          <td class="text-right">Tipo IGV</td>
+          <td class="text-right">Valor Unitario</td>
+          <td class="text-right">Subtotal</td>
+          <td class="text-right">Total</td>
+          <td class="text-center" colspan="2">Acciones</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="text-right">01</td>
+          <td>
+            <input type="text" class="form-control" />
+          </td>
+          <td>
+            <input type="text" class="form-control" />
+          </td>
+          <td>
+            <input type="text" class="form-control" placeholder="0" />
+          </td>
+          <td>
+            <select class="form-control">
+              <option>Gravado-Onerosa</option>
+            </select>
+          </td>
+          <td>
+            <input type="text" class="form-control" placeholder="0.00" />
+          </td>
+          <td>
+            <span>123546.00</span>
+          </td>
+          <td>
+            <span>12354456.00</span>
+          </td>
+          <td class="kc-action-cell">
+            <span class="fa fa-trash"></span>
+          </td>
+          <td class="kc-action-cell">
+            <span class="fa fa-plus"></span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <!--/Detalle-->
+
+  <div>
+    <div class="row">
+      <div class="col-md-8">
+        <div class="form-group">
+          <label>Observaciones</label>
+          <textarea rows="5" class="form-control"></textarea>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <table class="table table-bordered table-striped">
+          <tbody>
+            <tr>
+              <td>% Porcentaje Descuento</td>
+              <td><input type="text" class="form-control" /></td>
+            </tr>
+            <tr>
+              <td>Exonerada</td>
+              <td>0.00</td>
+            </tr>
+            <tr>
+              <td>Inafecta</td>
+              <td>0.00</td>
+            </tr>
+            <tr>
+              <td>Gravada</td>
+              <td>0.00</td>
+            </tr>
+            <tr>
+              <td>IGV</td>
+              <td>0.00</td>
+            </tr>
+            <tr>
+              <td>Gratuita</td>
+              <td>0.00</td>
+            </tr>
+            <tr>
+              <td>Otros Cargos</td>
+              <td><input type="text" class="form-control" /></td>
+            </tr>
+            <tr>
+              <td>Total Descuento Global</td>
+              <td>0.00</td>
+            </tr>
+            <tr>
+              <td>Total</td>
+              <td>0.00</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <!--/resumen-->
+
+  <button type="submit" class="btn btn-lg btn-primary">Crear Documento</button>
+</form>

@@ -10,6 +10,7 @@ import { MomentModule } from 'angular2-moment';
 import { TranslateModule } from 'ng2-translate';
 import { FileUploadModule } from 'ng2-file-upload';
 import { SelectModule } from 'ng2-select';
+import { TextMaskModule } from 'angular2-text-mask';
 
 // Components
 import { ButtonDeleteComponent } from './components/button-delete/button-delete.component';
@@ -53,7 +54,8 @@ import { YesNoPipe } from './pipes/yes-no.pipe';
     MomentModule,
     TranslateModule,
     FileUploadModule,
-    SelectModule
+    SelectModule,
+    TextMaskModule
   ],
   declarations: [
     // Components

@@ -1,115 +1,235 @@
 <br>
-<form>
+<form [formGroup]="form" (ngSubmit)="save(form.value)">
   <p class="fields-status-pf">The fields marked with <span class="required-pf">*</span> are required.</p>
 
   <div>
     <div class="row">
-      <div class="col-md-3">
-        <div class="form-group">
+      <div class="col-md-2">
+        <div class="form-group" [ngClass]="{ 'has-error' : !form.get('tipo').valid && form.get('tipo').dirty }">
           <label class="control-label required-pf">Boleta/Factura
             <i class="fa fa-question-circle text-muted" ngbTooltip="organization of the organization" placement="right"></i>
           </label>
-          <select class="form-control">
+          <select formControlName="tipo" class="form-control" autofocus>
             <option value="" disabled selected> Seleccione Uno </option>
             <option *ngFor="let item of tipoDocumento" [value]="item.valor">{{item.nombre}}</option>
           </select>
+          <div *ngIf="!form.get('tipo').valid && form.get('tipo').dirty">
+            <span *ngIf="form.get('tipo').hasError('required')" class="help-block">This field is required</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="form-group" [ngClass]="{ 'has-error' : !form.get('moneda').valid && form.get('moneda').dirty }">
+          <label class="control-label required-pf">Moneda
+            <i class="fa fa-question-circle text-muted" ngbTooltip="organization of the organization" placement="right"></i>
+          </label>
+          <div formControlName="moneda" ngbRadioGroup style="display: block;">
+            <label class="btn btn-default">
+              <input type="radio" [value]="'PEN'"> PEN
+            </label>
+            <label class="btn btn-default">
+              <input type="radio" [value]="'USD'"> USD
+            </label>
+          </div>
+          <div *ngIf="!form.get('moneda').valid && form.get('moneda').dirty">
+            <span *ngIf="form.get('moneda').hasError('required')" class="help-block">This field is required</span>
+            <span *ngIf="form.get('moneda').hasError('maxlength')" class="help-block">Max length allowed: {{form.get('moneda').errors.maxlength.requiredLength}}</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-2" *ngIf="form.get('moneda').value !== 'PEN'">
+        <div class="form-group" [ngClass]="{ 'has-error' : !form.get('tipoCambio').valid && form.get('tipoCambio').dirty }">
+          <label class="control-label">Tipo Cambio
+            <i class="fa fa-question-circle text-muted" ngbTooltip="organization of the organization" placement="right"></i>
+          </label>
+          <input formControlName="tipoCambio" [textMask]="{ mask: numberMask }" type="text" class="form-control text-right" placeholder="0.00"
+          />
+          <div *ngIf="!form.get('tipoCambio').valid && form.get('tipoCambio').dirty">
+            <span *ngIf="form.get('tipoCambio').hasError('required')" class="help-block">This field is required</span>
+            <span *ngIf="form.get('tipoCambio').hasError('maxlength')" class="help-block">Max length allowed: {{form.get('tipoCambio').errors.maxlength.requiredLength}}</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="form-group" [ngClass]="{ 'has-error' : !form.get('igv').valid && form.get('igv').dirty }">
+          <label class="control-label">IGV (%)
+            <i class="fa fa-question-circle text-muted" ngbTooltip="organization of the organization" placement="right"></i>
+          </label>
+          <input formControlName="igv" [textMask]="{ mask: percentMask }" type="text" class="form-control text-right" placeholder="0.00 %"
+          />
+          <div *ngIf="!form.get('igv').valid && form.get('igv').dirty">
+            <span *ngIf="form.get('igv').hasError('required')" class="help-block">This field is required</span>
+            <span *ngIf="form.get('igv').hasError('maxlength')" class="help-block">Max length allowed: {{form.get('igv').errors.maxlength.requiredLength}}</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="form-group" [ngClass]="{ 'has-error' : !form.get('operacionGratuita').valid && form.get('operacionGratuita').dirty }">
+          <label class="control-label required-pf">Op.Gratuita
+						<i class="fa fa-question-circle text-muted" ngbTooltip="Enabled of the organization" placement="right"></i>
+          </label>
+          <of-button-switch formControlName="operacionGratuita" [onText]="'SI'" [offText]="'NO'"></of-button-switch>
+          <div *ngIf="!form.get('operacionGratuita').valid && form.get('operacionGratuita').dirty">
+            <span *ngIf="form.get('operacionGratuita').errors.required" class="help-block">This field is required</span>
+          </div>
         </div>
       </div>
     </div>
   </div>
+  <!--/tipo-->
 
-  <div>
+  <div formGroupName="entidad">
     <div class="row">
       <div class="col-md-2">
-        <div class="form-group">
+        <div class="form-group" [ngClass]="{ 'has-error' : !form.get('entidad').get('entidadTipoDeDocumento').valid && form.get('entidad').get('entidadTipoDeDocumento').dirty }">
           <label class="control-label required-pf">DNI/RUC
             <i class="fa fa-question-circle text-muted" ngbTooltip="organization of the organization" placement="right"></i>
           </label>
-          <select class="form-control">
+          <select formControlName="entidadTipoDeDocumento" class="form-control">
             <option value="" disabled selected> Seleccione Uno </option>
             <option *ngFor="let item of tipoDocumentoEntidad" [value]="item.valor">{{item.nombre}}</option>
           </select>
+          <div *ngIf="!form.get('entidad').get('entidadTipoDeDocumento').valid && form.get('entidad').get('entidadTipoDeDocumento').dirty">
+            <span *ngIf="form.get('entidad').get('entidadTipoDeDocumento').hasError('required')" class="help-block">This field is required</span>
+          </div>
         </div>
       </div>
       <div class="col-md-2">
-        <div class="form-group">
-          <label class="control-label required-pf">NRO. DOCUMENTO
+        <div class="form-group" [ngClass]="{ 'has-error' : !form.get('entidad').get('entidadNumeroDeDocumento').valid && form.get('entidad').get('entidadNumeroDeDocumento').dirty }">
+          <label class="control-label required-pf">Nro. Documento
             <i class="fa fa-question-circle text-muted" ngbTooltip="organization of the organization" placement="right"></i>
           </label>
-          <input type="text" class="form-control" />
+          <input formControlName="entidadNumeroDeDocumento" type="text" class="form-control" placeholder="00000000" />
+          <div *ngIf="!form.get('entidad').get('entidadNumeroDeDocumento').valid && form.get('entidad').get('entidadNumeroDeDocumento').dirty">
+            <span *ngIf="form.get('entidad').get('entidadNumeroDeDocumento').hasError('required')" class="help-block">This field is required</span>
+            <span *ngIf="form.get('entidad').get('entidadNumeroDeDocumento').hasError('maxlength')" class="help-block">Max length allowed: {{form.get('entidad').get('entidadNumeroDeDocumento').errors.maxlength.requiredLength}}</span>
+          </div>
         </div>
       </div>
-      <div class="col-md-4">
-        <div class="form-group">
+      <div class="col-md-2">
+        <div class="form-group" [ngClass]="{ 'has-error' : !form.get('entidad').get('entidadDenominacion').valid && form.get('entidad').get('entidadDenominacion').dirty }">
           <label class="control-label required-pf">Nombre/Razon Social
             <i class="fa fa-question-circle text-muted" ngbTooltip="organization of the organization" placement="right"></i>
           </label>
-          <input type="text" class="form-control" />
+          <input formControlName="entidadDenominacion" type="text" class="form-control" placeholder="My entity name" />
+          <div *ngIf="!form.get('entidad').get('entidadDenominacion').valid && form.get('entidad').get('entidadDenominacion').dirty">
+            <span *ngIf="form.get('entidad').get('entidadDenominacion').hasError('required')" class="help-block">This field is required</span>
+            <span *ngIf="form.get('entidad').get('entidadDenominacion').hasError('maxlength')" class="help-block">Max length allowed: {{form.get('entidad').get('entidadDenominacion').errors.maxlength.requiredLength}}</span>
+          </div>
         </div>
       </div>
-      <div class="col-md-3">
-        <div class="form-group">
+      <div class="col-md-2">
+        <div class="form-group" [ngClass]="{ 'has-error' : !form.get('entidad').get('entidadEmail').valid && form.get('entidad').get('entidadEmail').dirty }">
           <label class="control-label required-pf">Email
             <i class="fa fa-question-circle text-muted" ngbTooltip="organization of the organization" placement="right"></i>
           </label>
-          <input type="text" class="form-control" />
+          <input formControlName="entidadEmail" type="email" class="form-control" placeholder="email@domain.com" />
+          <div *ngIf="!form.get('entidad').get('entidadEmail').valid && form.get('entidad').get('entidadEmail').dirty">
+            <span *ngIf="form.get('entidad').get('entidadEmail').hasError('required')" class="help-block">This field is required</span>
+            <span *ngIf="form.get('entidad').get('entidadEmail').hasError('maxlength')" class="help-block">Max length allowed: {{form.get('entidad').get('entidadEmail').errors.maxlength.requiredLength}}</span>
+          </div>
         </div>
       </div>
       <div class="col-md-1">
-        <div class="form-group">
+        <!--<div class="form-group">
           <label class="control-label">&nbsp;</label>
-          <button type="button" class="btn btn-default" style="margin-top: 25px;">Detallado</button>
-        </div>
+          <button (click)="openClienteModal(clienteModal)" type="button" class="btn btn-default" style="margin-top: 25px;">Detallado</button>
+        </div>-->
       </div>
     </div>
   </div>
-  <!--/Customer-->
+  <!--/Entidad-->
 
   <div>
     <div class="row">
       <div class="col-md-2">
-        <div class="form-group">
+        <div class="form-group" [ngClass]="{ 'has-error' : !form.get('serie').valid && form.get('serie').dirty }">
           <label class="control-label">Serie
             <i class="fa fa-question-circle text-muted" ngbTooltip="organization of the organization" placement="right"></i>
           </label>
-          <input type="text" class="form-control" />
+          <input formControlName="serie" type="text" class="form-control" />
+          <div *ngIf="!form.get('serie').valid && form.get('serie').dirty">
+            <span *ngIf="form.get('serie').hasError('required')" class="help-block">This field is required</span>
+            <span *ngIf="form.get('serie').hasError('maxlength')" class="help-block">Max length allowed: {{form.get('serie').errors.maxlength.requiredLength}}</span>
+          </div>
         </div>
       </div>
       <div class="col-md-2">
-        <div class="form-group">
+        <div class="form-group" [ngClass]="{ 'has-error' : !form.get('numero').valid && form.get('numero').dirty }">
           <label class="control-label">Numero
             <i class="fa fa-question-circle text-muted" ngbTooltip="organization of the organization" placement="right"></i>
           </label>
-          <input type="text" class="form-control" />
+          <input formControlName="numero" type="text" class="form-control" />
+          <div *ngIf="!form.get('numero').valid && form.get('numero').dirty">
+            <span *ngIf="form.get('numero').hasError('required')" class="help-block">This field is required</span>
+            <span *ngIf="form.get('numero').hasError('maxlength')" class="help-block">Max length allowed: {{form.get('numero').errors.maxlength.requiredLength}}</span>
+          </div>
         </div>
       </div>
-      <div class="col-md-3">
-        <div class="form-group">
-          <label class="control-label">Venta Gratuita
+      <div class="col-md-2">
+        <div class="form-group" [ngClass]="{ 'has-error' : !form.get('fechaDeEmision').valid && form.get('fechaDeEmision').dirty }">
+          <label class="control-label">F. Emision
             <i class="fa fa-question-circle text-muted" ngbTooltip="organization of the organization" placement="right"></i>
           </label>
-          <input type="text" class="form-control" />
+          <div class="input-group">
+            <input formControlName="fechaDeEmision" ngbDatepicker #e="ngbDatepicker" class="form-control" placeholder="yyyy-mm-dd">
+            <div class="input-group-addon" (click)="e.toggle()">
+              <span class="glyphicon glyphicon-calendar"></span>
+            </div>
+          </div>
+          <div *ngIf="!form.get('fechaDeEmision').valid && form.get('fechaDeEmision').dirty">
+            <span *ngIf="form.get('fechaDeEmision').hasError('required')" class="help-block">This field is required</span>
+          </div>
         </div>
       </div>
-      <div class="col-md-3">
-        <div class="form-group">
-          <label class="control-label">Envio inmediato
+      <div class="col-md-2">
+        <div class="form-group" [ngClass]="{ 'has-error' : !form.get('fechaDeVencimiento').valid && form.get('fechaDeVencimiento').dirty }">
+          <label class="control-label">F. Vencimiento
             <i class="fa fa-question-circle text-muted" ngbTooltip="organization of the organization" placement="right"></i>
           </label>
-          <input type="text" class="form-control" />
+          <div class="input-group">
+            <input formControlName="fechaDeVencimiento" ngbDatepicker #v="ngbDatepicker" class="form-control" placeholder="yyyy-mm-dd">
+            <div class="input-group-addon" (click)="v.toggle()">
+              <span class="glyphicon glyphicon-calendar"></span>
+            </div>
+          </div>
+          <div *ngIf="!form.get('fechaDeVencimiento').valid && form.get('fechaDeVencimiento').dirty">
+            <span *ngIf="form.get('fechaDeVencimiento').hasError('required')" class="help-block">This field is required</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="form-group" [ngClass]="{ 'has-error' : !form.get('enviarAutomaticamenteASunat').valid && form.get('enviarAutomaticamenteASunat').dirty }">
+          <label class="control-label required-pf">Enviar Sunat
+						<i class="fa fa-question-circle text-muted" ngbTooltip="Enabled of the organization" placement="right"></i>
+          </label>
+          <of-button-switch formControlName="enviarAutomaticamenteASunat" [onText]="'SI'" [offText]="'NO'"></of-button-switch>
+          <div *ngIf="!form.get('enviarAutomaticamenteASunat').valid && form.get('enviarAutomaticamenteASunat').dirty">
+            <span *ngIf="form.get('enviarAutomaticamenteASunat').errors.required" class="help-block">This field is required</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="form-group" [ngClass]="{ 'has-error' : !form.get('enviarAutomaticamenteAlCliente').valid && form.get('enviarAutomaticamenteAlCliente').dirty }">
+          <label class="control-label required-pf">Enviar Cliente
+						<i class="fa fa-question-circle text-muted" ngbTooltip="Enabled of the organization" placement="right"></i>
+          </label>
+          <of-button-switch formControlName="enviarAutomaticamenteAlCliente" [onText]="'SI'" [offText]="'NO'"></of-button-switch>
+          <div *ngIf="!form.get('enviarAutomaticamenteAlCliente').valid && form.get('enviarAutomaticamenteAlCliente').dirty">
+            <span *ngIf="form.get('enviarAutomaticamenteAlCliente').errors.required" class="help-block">This field is required</span>
+          </div>
         </div>
       </div>
     </div>
   </div>
   <!--/General information-->
 
-  <div>
+  <div formArrayName="lines">
     <table class="table table-bordered table-striped">
       <thead>
         <tr>
           <td class="text-right">#</td>
           <td class="text-right">Producto/Servicio</td>
-          <td class="text-right">Descripcion</td>
           <td class="text-right">Cantidad</td>
           <td class="text-right">Tipo IGV</td>
           <td class="text-right">Valor Unitario</td>
@@ -119,39 +239,47 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td class="text-right">01</td>
+        <tr *ngFor="let item of lines.controls; let i = index;" [formGroupName]="i">
+          <td class="text-right">{{i+1}}</td>
           <td>
-            <input type="text" class="form-control" />
+            <input formControlName="descripcion" type="text" class="form-control" placeholder="Descripcion" />
           </td>
           <td>
-            <input type="text" class="form-control" />
+            <input formControlName="cantidad" [textMask]="{ mask: numberMask }" type="text" class="form-control text-right" placeholder="0.00"
+            />
           </td>
           <td>
-            <input type="text" class="form-control" placeholder="0" />
-          </td>
-          <td>
-            <select class="form-control">
-              <option>Gravado-Onerosa</option>
+            <select formControlName="tipoDeIgv" class="form-control">
+              <option value="" disabled selected> Seleccione Uno </option>
+              <option *ngFor="let igv of tipoIgv" [value]="igv.valor">{{igv.nombre}}</option>
             </select>
           </td>
           <td>
-            <input type="text" class="form-control" placeholder="0.00" />
+            <input formControlName="valorUnitario" [textMask]="{ mask: numberMask }" type="text" class="form-control text-right" placeholder="0.00"
+            />
           </td>
           <td>
-            <span>123546.00</span>
+            <input formControlName="subtotal" [textMask]="{ mask: numberMask }" type="text" class="form-control text-right" placeholder="0.00"
+            />
           </td>
           <td>
-            <span>12354456.00</span>
+            <input formControlName="total" [textMask]="{ mask: numberMask }" type="text" class="form-control text-right" placeholder="0.00"
+            />
           </td>
-          <td class="kc-action-cell">
+          <td class="kc-action-cell" (click)="removeLine(i)">
             <span class="fa fa-trash"></span>
-          </td>
-          <td class="kc-action-cell">
-            <span class="fa fa-plus"></span>
           </td>
         </tr>
       </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="8" class="text-right">
+            <button (click)="addLine()" type="button" class="btn btn-lg btn-default">Agregar Item
+              <span class="fa fa-plus"></span>
+            </button>
+          </td>
+        </tr>
+      </tfoot>
     </table>
   </div>
   <!--/Detalle-->
@@ -211,4 +339,5 @@
   <!--/resumen-->
 
   <button type="submit" class="btn btn-lg btn-primary">Crear Documento</button>
+
 </form>

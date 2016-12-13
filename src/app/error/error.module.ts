@@ -12,6 +12,7 @@ import { MomentModule } from 'angular2-moment';
 import { TranslateModule } from 'ng2-translate';
 import { FileUploadModule } from 'ng2-file-upload';
 import { SelectModule } from 'ng2-select';
+import { TextMaskModule } from 'angular2-text-mask';
 
 // Components
 import { ErrorHeaderComponent } from './error-header/error-header.component';
@@ -32,7 +33,8 @@ import { Unauthorized401Component } from './unauthorized-401/unauthorized-401.co
     MomentModule,
     TranslateModule,
     FileUploadModule,
-    SelectModule
+    SelectModule,
+    TextMaskModule
   ],
   declarations: [
     // Components

@@ -14,6 +14,7 @@ import { MomentModule } from 'angular2-moment';
 import { TranslateModule } from 'ng2-translate';
 import { FileUploadModule } from 'ng2-file-upload';
 import { SelectModule } from 'ng2-select';
+import { TextMaskModule } from 'angular2-text-mask';
 
 // Openfact modules
 import { SharedModule } from '../shared/shared.module';
@@ -79,6 +80,7 @@ import { EventsSettingsComponent } from './events-settings/events-settings.compo
         TranslateModule,
         FileUploadModule,
         SelectModule,
+        TextMaskModule,
 
         // Openfact modules
         SharedModule

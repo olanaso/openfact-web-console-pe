@@ -15,6 +15,12 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 })
 export class ButtonSwitchComponent implements ControlValueAccessor, OnInit {
 
+  @Input()
+  onText;
+  
+  @Input()
+  offText;
+
   _value: boolean = false;
 
   propagateChange = (_: any) => { };

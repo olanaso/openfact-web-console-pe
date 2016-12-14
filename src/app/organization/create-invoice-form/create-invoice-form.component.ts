@@ -1,19 +1,24 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
-import { Observable } from 'rxjs/Observable';
+import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
+import { FormBuilder, FormGroup, FormControl, FormArray, Validators } from "@angular/forms";
+import { Observable } from "rxjs/Observable";
 
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import createNumberMask from 'text-mask-addons/dist/createNumberMask.js';
+import { NgbModal, ModalDismissReasons } from "@ng-bootstrap/ng-bootstrap";
+import createNumberMask from "text-mask-addons/dist/createNumberMask.js";
 
-import { DataService } from '../../core/data/data.service';
-import { AlertService } from '../../core/alert/alert.service';
-import { Organization } from '../../core/models/organization.model';
+import { DataService } from "../../core/data/data.service";
+import { AlertService } from "../../core/alert/alert.service";
+import { Organization } from "../../core/models/organization.model";
+
+const gravado = "GRAVADO";
+const exonerado = "EXONERADO";
+const inafecto = "INAFECTO";
+const igv = 0.18;
 
 @Component({
-  selector: 'of-create-invoice-form',
-  templateUrl: './create-invoice-form.component.html',
-  styleUrls: ['./create-invoice-form.component.scss']
+  selector: "of-create-invoice-form",
+  templateUrl: "./create-invoice-form.component.html",
+  styleUrls: ["./create-invoice-form.component.scss"]
 })
 export class CreateInvoiceFormComponent implements OnInit {
 
@@ -21,53 +26,68 @@ export class CreateInvoiceFormComponent implements OnInit {
   working: boolean = false;
 
   tipoDocumento = [
-    { nombre: 'BOLETA', valor: '01' },
-    { nombre: 'FACTURA', valor: '02' }
+    { denominacion: "BOLETA", valor: "01" },
+    { denominacion: "FACTURA", valor: "02" }
   ];
 
   tipoDocumentoEntidad = [
-    { nombre: 'DNI', valor: '01' },
-    { nombre: 'RUC', valor: '02' }
+    { abreviatura: "DNI", denominacion: "DOC.NACIONAL DE IDENTIDAD", valor: "1" },
+    { abreviatura: "RUC", denominacion: "REGISTRO UNICO DE CONTRIBUYENTE", valor: "6" },
+    { abreviatura: "VARIOS", denominacion: "VARIOS-VENTAS MENORES A S/.700.00 Y OTROS", valor: "-" },
+    { abreviatura: "C.EXTRANJERIA", denominacion: "CARNET DE EXTRANJERIA", valor: "4" },
+    { abreviatura: "PASS.", denominacion: "PASAPORT", valor: "7" },
+    { abreviatura: "CED.DIPLOMATICA", denominacion: "CEDULA DIPLOMATICA DE IDENTIDAD", valor: "A" },
+    { abreviatura: "NO DOMICILIADO", denominacion: "NO DOMICILIADO, SIN RUC(EXPORTACION)", valor: "0" }
   ];
 
-  tipoIgv = [
-    { nombre: 'Gravado - Operación Onerosa', valor: '1' },
-    { nombre: 'Gravado - Retiro por premio', valor: '2' },
-    { nombre: 'Gravado - Retiro por donación', valor: '3' },
-    { nombre: 'Gravado - Retiro', valor: '4' },
-    { nombre: 'Gravado - Retiro por publicidad', valor: '5' },
-    { nombre: 'Gravado - Bonificaciones', valor: '6' },
-    { nombre: 'Gravado – Retiro por entrega a trabajadores', valor: '7' },
-    { nombre: 'Exonerado - Operación Onerosa', valor: '8' },
-    { nombre: 'Inafecto - Operación Onerosa', valor: '9' },
-    { nombre: 'Inafecto - Retiro por Bonificación', valor: '10' },
-    { nombre: 'Inafecto - Retiro', valor: '11' },
-    { nombre: 'Inafecto - Retiro por Muestras Médicas', valor: '12' },
-    { nombre: 'Inafecto - Retiro por Convenio Colectivo', valor: '13' },
-    { nombre: 'Inafecto - Retiro por premio', valor: '14' },
-    { nombre: 'Inafecto - Retiro por publicidad', valor: '15' },
-    { nombre: 'Exportacion', valor: '16' }
+  tipoDeIgv = [
+    { denominacion: "Gravado - Operación Onerosa", afectaIgv: true, grupo: gravado, valor: "1" },
+    { denominacion: "Gravado - Retiro por premio", afectaIgv: true, grupo: gravado, valor: "2" },
+    { denominacion: "Gravado - Retiro por donación", afectaIgv: true, grupo: gravado, valor: "3" },
+    { denominacion: "Gravado - Retiro", afectaIgv: true, grupo: gravado, valor: "4" },
+    { denominacion: "Gravado - Retiro por publicidad", afectaIgv: true, grupo: gravado, valor: "5" },
+    { denominacion: "Gravado - Bonificaciones", afectaIgv: true, grupo: gravado, valor: "6" },
+    { denominacion: "Gravado – Retiro por entrega a trabajadores", afectaIgv: true, grupo: gravado, valor: "7" },
+    { denominacion: "Exonerado - Operación Onerosa", afectaIgv: false, grupo: exonerado, valor: "8" },
+    { denominacion: "Inafecto - Operación Onerosa", afectaIgv: false, grupo: inafecto, valor: "9" },
+    { denominacion: "Inafecto - Retiro por Bonificación", afectaIgv: false, grupo: inafecto, valor: "10" },
+    { denominacion: "Inafecto - Retiro", afectaIgv: false, grupo: inafecto, valor: "11" },
+    { denominacion: "Inafecto - Retiro por Muestras Médicas", afectaIgv: false, grupo: inafecto, valor: "12" },
+    { denominacion: "Inafecto - Retiro por Convenio Colectivo", afectaIgv: false, grupo: inafecto, valor: "13" },
+    { denominacion: "Inafecto - Retiro por premio", afectaIgv: false, grupo: inafecto, valor: "14" },
+    { denominacion: "Inafecto - Retiro por publicidad", afectaIgv: false, grupo: inafecto, valor: "15" },
+    { denominacion: "Exportacion", afectaIgv: false, grupo: inafecto, valor: "16" }
+  ];
+
+  monedas = [
+    { denominacion: "Nuevos Soles", valor: "PEN" }, // el primero sera usado por defecto
+    { denominacion: "Dolares Americanos", valor: "USD" }
   ];
 
   numberMask = createNumberMask({
-    prefix: '',
-    suffix: '',
+    prefix: "",
+    suffix: "",
     allowDecimal: true
   });
-
-  percentMask = createNumberMask({
-    prefix: '',
-    suffix: '',
+  quantityMask = createNumberMask({
+    prefix: "",
+    suffix: "",
     allowDecimal: true,
-    thousandsSeparatorSymbol: ''
+    decimalLimit: 3
+  });
+  percentMask = createNumberMask({
+    prefix: "",
+    suffix: "",
+    allowDecimal: true,
+    thousandsSeparatorSymbol: ""
   });
 
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
+    private modalService: NgbModal,
     private dataService: DataService,
-    private alertService: AlertService,
-    private modalService: NgbModal, ) {
+    private alertService: AlertService) {
     this.buildForm();
   }
 
@@ -76,106 +96,180 @@ export class CreateInvoiceFormComponent implements OnInit {
 
   buildForm(): void {
     this.form = this.formBuilder.group({
-      tipo: ["", Validators.compose([Validators.required])],
-      igv: [18.00, Validators.compose([Validators.required, Validators.maxLength(6)])],
+      tipo: [null, Validators.compose([Validators.required])],
+      igv: [0, Validators.compose([Validators.required])],
 
-      entidad: this.formBuilder.group({
-        entidadTipoDeDocumento: ["", Validators.compose([Validators.required, Validators.maxLength(12)])],
-        entidadNumeroDeDocumento: [null, Validators.compose([Validators.required, Validators.maxLength(20)])],
-        entidadDenominacion: [null, Validators.compose([Validators.required, Validators.maxLength(120)])],
-        entidadEmail: [null, Validators.compose([Validators.maxLength(120)])],
-        entidadDireccion: [null, Validators.compose([Validators.maxLength(150)])],
-      }),
+      entidadTipoDeDocumento: [null, Validators.compose([Validators.required])],
+      entidadNumeroDeDocumento: [null, Validators.compose([Validators.required, Validators.maxLength(20)])],
+      entidadDenominacion: [null, Validators.compose([Validators.required, Validators.maxLength(150)])],
+      entidadEmail: [null, Validators.compose([Validators.maxLength(150)])],
 
-      serie: [null, Validators.compose([Validators.maxLength(4)])],
-      numero: [null, Validators.compose([Validators.maxLength(8)])],
-
-      fechaDeEmision: [null, Validators.compose([])],
-      fechaDeVencimiento: [null, Validators.compose([])],
-
-      moneda: ['PEN', Validators.compose([Validators.required, Validators.maxLength(3)])],
-      tipoCambio: [null, Validators.compose([])],
+      moneda: [null, Validators.compose([Validators.required, Validators.maxLength(3)])],
       operacionGratuita: [false, Validators.compose([Validators.required])],
 
       enviarAutomaticamenteASunat: [true, Validators.compose([Validators.required])],
       enviarAutomaticamenteAlCliente: [true, Validators.compose([Validators.required])],
 
-      lines: this.formBuilder.array([])
+      observaciones: [null, Validators.compose([Validators.maxLength(150)])],
+
+      totalGravado: [0, Validators.compose([Validators.required])],
+      totalExonerado: [0, Validators.compose([Validators.required])],
+      totalInafecto: [0, Validators.compose([Validators.required])],
+      totalGratuito: [0, Validators.compose([Validators.required])],
+      totalIgv: [0, Validators.compose([Validators.required])],
+
+      detalle: this.formBuilder.array([])
     });
 
-    this.addLine();
-
-    this.form.get('igv')
-      .valueChanges
-      .filter(form => this.form.get('igv').valid)
-      .map(igv => Number(igv.replace(/,/g, '')))
-      .subscribe(igv => {
-        let linesControls = this.form.get('lines')['controls'];
-        for (let i = 0; i < linesControls.length; i++) {
-          let formGroupLine: FormGroup = linesControls[i];
-
-          let cantidad = formGroupLine.get('cantidad').valid ? Number(formGroupLine.get('cantidad').value.replace(/,/g, '')) : 0;
-          let valorUnitario = formGroupLine.get('valorUnitario').valid ? Number(formGroupLine.get('valorUnitario').value.replace(/,/g, '')) : 0;
-
-          let subtotal = cantidad * valorUnitario;
-          let total = subtotal * (igv + 1) / 100;
-
-          formGroupLine.patchValue({
-            subtotal: subtotal,
-            total: total
-          });
-        }
-      });
+    this.addFormGlobalObservers();
+    this.setDefaultFormValues();
   }
 
-  get lines(): FormArray {
-    return this.form.get('lines') as FormArray;
+  // Geeter y Seeter
+  get igv(): FormControl {
+    return this.form.get("igv") as FormControl;
   }
 
-  addLine() {
-    let lineForm = this.formBuilder.group({
+  get detalle(): FormArray {
+    return this.form.get("detalle") as FormArray;
+  }
+
+  // Carga valores por defecto del formulario principal
+  setDefaultFormValues(): void {
+    this.form.patchValue({
+      tipo: this.tipoDocumento[0].valor,
+      igv: igv * 100,
+      entidadTipoDeDocumento: this.tipoDocumentoEntidad[0].valor,
+      moneda: this.monedas[0].valor
+    });
+  }
+
+  // Se activa al cambiar de moneda
+  changeMoneda(value) {
+    if (value == this.monedas[0].valor) {
+      this.form.removeControl("tipoCambio");
+    } else {
+      this.form.addControl("tipoCambio", this.formBuilder.control(null, Validators.compose([Validators.required])));
+    }
+  }
+
+  // Se activa al agregar un nuevo item al detalle del documento
+  addDetalle(): void {
+    let formGroup = this.formBuilder.group({
       descripcion: [null, Validators.compose([Validators.required, Validators.maxLength(150)])],
-      cantidad: [null, Validators.compose([Validators.required, Validators.maxLength(10)])],
-      tipoDeIgv: ["", Validators.compose([Validators.required, Validators.maxLength(2)])],
-      valorUnitario: [null, Validators.compose([Validators.required, Validators.maxLength(10)])],
-
-      subtotal: [null, Validators.compose([Validators.required, Validators.maxLength(20)])],
-      total: [null, Validators.compose([Validators.required, Validators.maxLength(20)])]
+      cantidad: [null, Validators.compose([Validators.required])],
+      tipoDeIgv: [null, Validators.compose([Validators.required])],
+      valorUnitario: [null, Validators.compose([Validators.required])],
+      subtotal: [null, Validators.compose([Validators.required])],
+      total: [null, Validators.compose([Validators.required])]
     });
-
-    let cantidadFormControl = lineForm.get('cantidad');
-    let valorUnitarioFormControl = lineForm.get('valorUnitario');
-
-    cantidadFormControl.valueChanges
-      .filter(p => cantidadFormControl.valid)
-      .filter(form => this.form.get('igv').valid)
-      .subscribe(cantidad => this.buildSubtotalValueChange(lineForm));
-
-    valorUnitarioFormControl.valueChanges
-      .filter(p => valorUnitarioFormControl.valid)
-      .filter(form => this.form.get('igv').valid)
-      .subscribe(valorUnitario => this.buildSubtotalValueChange(lineForm));
-
-    this.lines.push(lineForm);
-  }
-
-  buildSubtotalValueChange(formGroup: FormGroup) {
-    let igv = this.form.get('igv').valid ? Number(this.form.get('igv').value) : 0;
-    let cantidad = formGroup.get('cantidad').valid ? Number(formGroup.get('cantidad').value.replace(/,/g, '')) : 0;
-    let valorUnitario = formGroup.get('valorUnitario').valid ? Number(formGroup.get('valorUnitario').value.replace(/,/g, '')) : 0;
-
-    let subtotal = cantidad * valorUnitario;
-    let total = subtotal * (igv + 1) / 100;
 
     formGroup.patchValue({
-      subtotal: subtotal,
-      total: total
+      tipoDeIgv: this.tipoDeIgv[0].valor
+    });
+
+    this.detalle.push(formGroup);
+    this.refreshFormValues();
+    this.addFormDetalleObservers(formGroup);
+  }
+
+  // Se activa al eliminar un detalle
+  removeDetalle(index) {
+    this.detalle.removeAt(index);
+    this.refreshFormValues();
+  }
+
+  // Observers
+  addFormGlobalObservers() {
+    let formControls = [this.igv];
+    formControls.forEach(formControl => {
+      formControl.valueChanges.subscribe(formControlValue => {
+        this.refreshFormValues();
+      });
+    });
+
+    this.form.get("moneda").valueChanges.subscribe(value => this.changeMoneda(value));
+  }
+
+  addFormDetalleObservers(formGroup: FormGroup) {
+    let formControls = [formGroup.get("cantidad"), formGroup.get("valorUnitario"), formGroup.get("tipoDeIgv")];
+    formControls.forEach(formControl => {
+      formControl.valueChanges.subscribe(formControlValue => {
+        this.refreshFormValues();
+      });
     });
   }
 
-  removeLine(index) {
-    this.lines.removeAt(index);
+  // Actualizar calculos
+  refreshFormValues(): void {
+    if (!this.igv.valid) {
+      return;
+    }
+
+    // Igv valor numerico
+    let igvValue = this.form.get("igv").valid ? this.form.get("igv").value : undefined;
+    if (!igvValue) return;
+    if (typeof igvValue === "string") {
+      igvValue = Number(igvValue.replace(/[^0-9.]/g, ""));
+    }
+
+    // Recorrido por cada detalle
+    for (let i = 0; i < this.detalle.controls.length; i++) {
+      let formGroup: FormGroup = this.detalle.controls[i] as FormGroup;
+
+      let tipoDeIgv = this.tipoDeIgv.find(tipoDeIgv => tipoDeIgv.valor == formGroup.get("tipoDeIgv").value);
+      if (!tipoDeIgv) continue;
+
+      let cantidad = formGroup.get("cantidad").valid ? formGroup.get("cantidad").value : undefined;
+      if (!cantidad) continue;
+      if (typeof cantidad === "string") {
+        cantidad = Number(cantidad.replace(/[^0-9.]/g, ""));
+      }
+
+      let valorUnitario = formGroup.get("valorUnitario").valid ? formGroup.get("valorUnitario").value : undefined;
+      if (!valorUnitario) continue;
+      if (typeof valorUnitario === "string") {
+        valorUnitario = Number(valorUnitario.replace(/[^0-9.]/g, ""));
+      }
+
+      let subtotal = Math.round(cantidad * valorUnitario * 100) / 100;
+      let total = !tipoDeIgv.afectaIgv ? Math.round(cantidad * valorUnitario * 100) / 100 : Math.round(cantidad * valorUnitario * (igvValue + 100)) / 100;
+
+      formGroup.patchValue({
+        subtotal: subtotal,
+        total: total
+      });
+    }
+
+    // Calculo de totales
+
+    let totalExonerado = this.detalle.controls.filter(formGroup => {
+      let tipoDeIgv = this.tipoDeIgv.find(tipoDeIgv => tipoDeIgv.valor == formGroup.get("tipoDeIgv").value);
+      return tipoDeIgv.grupo == exonerado
+    }).map(formGroup => formGroup.get("subtotal").value).reduce((previousValue, currentValue) => previousValue + currentValue, 0);
+
+    let totalGravado = this.detalle.controls.filter(formGroup => {
+      let tipoDeIgv = this.tipoDeIgv.find(tipoDeIgv => tipoDeIgv.valor == formGroup.get("tipoDeIgv").value);
+      return tipoDeIgv.grupo == gravado
+    }).map(formGroup => formGroup.get("subtotal").value).reduce((previousValue, currentValue) => previousValue + currentValue, 0);
+
+    let totalInafecto = this.detalle.controls.filter(formGroup => {
+      let tipoDeIgv = this.tipoDeIgv.find(tipoDeIgv => tipoDeIgv.valor == formGroup.get("tipoDeIgv").value);
+      return tipoDeIgv.grupo == inafecto
+    }).map(formGroup => formGroup.get("subtotal").value).reduce((previousValue, currentValue) => previousValue + currentValue, 0);
+
+    let totalIgv = this.detalle.controls.map(formGroup => {
+      return (formGroup.get("total").value || 0) - (formGroup.get("subtotal").value || 0);
+    }).reduce((previousValue, currentValue) => previousValue + currentValue, 0);
+
+    this.form.patchValue({
+      totalGravado: totalGravado,
+      totalExonerado: totalExonerado,
+      totalInafecto: totalInafecto,
+      totalIgv: totalIgv
+    });
   }
+
 
   save(form: any): void {
     this.working = true;
@@ -185,12 +279,12 @@ export class CreateInvoiceFormComponent implements OnInit {
 
     /*this.dataService.organizations().create(organizationCopy).subscribe(
       result => {
-        this.alertService.pop('success', 'Success', 'Success! The organization has been created.');
-        this.router.navigate(['../']);
+        this.alertService.pop("success", "Success", "Success! The organization has been created.");
+        this.router.navigate(["../"]);
       },
       error => {
         this.working = false;
-        this.alertService.pop('error', 'Error', 'Organization could not be created.');
+        this.alertService.pop("error", "Error", "Organization could not be created.");
       }
     );*/
   }

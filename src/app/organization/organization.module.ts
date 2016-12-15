@@ -39,6 +39,7 @@ import { ComponentConfigComponent } from './component-config/component-config.co
 import { InvoicesComponent } from './invoices/invoices.component';
 import { CreateInvoiceComponent } from './create-invoice/create-invoice.component';
 import { CreateInvoiceFormComponent } from './create-invoice-form/create-invoice-form.component';
+import { CreateInvoiceFormConfirmModalComponent } from './create-invoice-form/create-invoice-form-confirm-modal.component';
 import { CreateInvoiceUploadComponent } from './create-invoice-upload/create-invoice-upload.component';
 import { EditInvoiceComponent } from './edit-invoice/edit-invoice.component';
 import { InvoiceOverviewComponent } from './invoice-overview/invoice-overview.component';
@@ -83,7 +84,7 @@ import { EventsSettingsComponent } from './events-settings/events-settings.compo
         TextMaskModule,
 
         // Openfact modules
-        SharedModule
+        SharedModule,
     ],
     declarations: [
         // Components
@@ -105,6 +106,7 @@ import { EventsSettingsComponent } from './events-settings/events-settings.compo
         InvoicesComponent,
         CreateInvoiceComponent,
         CreateInvoiceFormComponent,
+        CreateInvoiceFormConfirmModalComponent,
         CreateInvoiceUploadComponent,
         EditInvoiceComponent,
         InvoiceOverviewComponent,
@@ -128,6 +130,9 @@ import { EventsSettingsComponent } from './events-settings/events-settings.compo
         EventsComponent,
         AdminEventsComponent,
         EventsSettingsComponent,
+    ],
+    entryComponents: [
+        CreateInvoiceFormConfirmModalComponent
     ],
     providers: [
         // Shared

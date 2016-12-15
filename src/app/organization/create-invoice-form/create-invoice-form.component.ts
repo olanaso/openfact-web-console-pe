@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 import { FormBuilder, FormGroup, FormControl, FormArray, Validators } from "@angular/forms";
 import { Observable } from "rxjs/Observable";
 
@@ -9,6 +9,8 @@ import createNumberMask from "text-mask-addons/dist/createNumberMask.js";
 import { DataService } from "../../core/data/data.service";
 import { AlertService } from "../../core/alert/alert.service";
 import { Organization } from "../../core/models/organization.model";
+
+import { CreateInvoiceFormConfirmModalComponent } from "./create-invoice-form-confirm-modal.component";
 
 const gravado = "GRAVADO";
 const exonerado = "EXONERADO";
@@ -67,7 +69,8 @@ export class CreateInvoiceFormComponent implements OnInit {
   numberMask = createNumberMask({
     prefix: "",
     suffix: "",
-    allowDecimal: true
+    allowDecimal: true,
+    modelClean: true
   });
   quantityMask = createNumberMask({
     prefix: "",
@@ -84,6 +87,7 @@ export class CreateInvoiceFormComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
     private modalService: NgbModal,
     private dataService: DataService,
@@ -118,7 +122,13 @@ export class CreateInvoiceFormComponent implements OnInit {
       totalGratuito: [0, Validators.compose([Validators.required])],
       totalIgv: [0, Validators.compose([Validators.required])],
 
-      detalle: this.formBuilder.array([])
+      porcentajeDeDescuento: [0, Validators.compose([Validators.required])],
+      descuentoGlobal: [0, Validators.compose([Validators.required])],
+
+      totalOtrosCargos: [0, Validators.compose([Validators.required])],
+      total: [0, Validators.compose([Validators.required])],
+
+      detalle: this.formBuilder.array([], Validators.compose([]))
     });
 
     this.addFormGlobalObservers();
@@ -128,6 +138,18 @@ export class CreateInvoiceFormComponent implements OnInit {
   // Geeter y Seeter
   get igv(): FormControl {
     return this.form.get("igv") as FormControl;
+  }
+
+  get operacionGratuita(): FormControl {
+    return this.form.get("operacionGratuita") as FormControl;
+  }
+
+  get porcentajeDeDescuento(): FormControl {
+    return this.form.get("porcentajeDeDescuento") as FormControl;
+  }
+
+  get totalOtrosCargos(): FormControl {
+    return this.form.get("totalOtrosCargos") as FormControl;
   }
 
   get detalle(): FormArray {
@@ -156,6 +178,7 @@ export class CreateInvoiceFormComponent implements OnInit {
   // Se activa al agregar un nuevo item al detalle del documento
   addDetalle(): void {
     let formGroup = this.formBuilder.group({
+      unitCode: [null, Validators.compose([Validators.maxLength(150)])],
       descripcion: [null, Validators.compose([Validators.required, Validators.maxLength(150)])],
       cantidad: [null, Validators.compose([Validators.required])],
       tipoDeIgv: [null, Validators.compose([Validators.required])],
@@ -181,7 +204,7 @@ export class CreateInvoiceFormComponent implements OnInit {
 
   // Observers
   addFormGlobalObservers() {
-    let formControls = [this.igv];
+    let formControls = [this.igv, this.operacionGratuita, this.porcentajeDeDescuento, this.totalOtrosCargos];
     formControls.forEach(formControl => {
       formControl.valueChanges.subscribe(formControlValue => {
         this.refreshFormValues();
@@ -242,51 +265,114 @@ export class CreateInvoiceFormComponent implements OnInit {
     }
 
     // Calculo de totales
+    let porcentajeDeDescuento;
 
-    let totalExonerado = this.detalle.controls.filter(formGroup => {
-      let tipoDeIgv = this.tipoDeIgv.find(tipoDeIgv => tipoDeIgv.valor == formGroup.get("tipoDeIgv").value);
-      return tipoDeIgv.grupo == exonerado
-    }).map(formGroup => formGroup.get("subtotal").value).reduce((previousValue, currentValue) => previousValue + currentValue, 0);
+    let totalGratuito;
+    let totalExonerado;
+    let totalGravado;
+    let totalInafecto;
+    let totalIgv;
 
-    let totalGravado = this.detalle.controls.filter(formGroup => {
-      let tipoDeIgv = this.tipoDeIgv.find(tipoDeIgv => tipoDeIgv.valor == formGroup.get("tipoDeIgv").value);
-      return tipoDeIgv.grupo == gravado
-    }).map(formGroup => formGroup.get("subtotal").value).reduce((previousValue, currentValue) => previousValue + currentValue, 0);
+    let operacionGratuita = this.form.get("operacionGratuita").value;
+    if (operacionGratuita) {
+      totalGratuito = this.detalle.controls.map(formGroup => formGroup.get("total").value).reduce((previousValue, currentValue) => previousValue + currentValue, 0);
+      porcentajeDeDescuento = 0;
+      totalExonerado = 0;
+      totalGravado = 0;
+      totalInafecto = 0;
+      totalIgv = 0;
+    } else {
+      totalGratuito = 0;
 
-    let totalInafecto = this.detalle.controls.filter(formGroup => {
-      let tipoDeIgv = this.tipoDeIgv.find(tipoDeIgv => tipoDeIgv.valor == formGroup.get("tipoDeIgv").value);
-      return tipoDeIgv.grupo == inafecto
-    }).map(formGroup => formGroup.get("subtotal").value).reduce((previousValue, currentValue) => previousValue + currentValue, 0);
+      porcentajeDeDescuento = this.form.get("porcentajeDeDescuento").valid ? this.form.get("porcentajeDeDescuento").value : 0;
+      if (typeof porcentajeDeDescuento === "string") {
+        porcentajeDeDescuento = Number(porcentajeDeDescuento.replace(/[^0-9.]/g, ""));
+      }
 
-    let totalIgv = this.detalle.controls.map(formGroup => {
-      return (formGroup.get("total").value || 0) - (formGroup.get("subtotal").value || 0);
-    }).reduce((previousValue, currentValue) => previousValue + currentValue, 0);
+      totalExonerado = this.detalle.controls.filter(formGroup => {
+        let tipoDeIgv = this.tipoDeIgv.find(tipoDeIgv => tipoDeIgv.valor == formGroup.get("tipoDeIgv").value);
+        return tipoDeIgv.grupo == exonerado
+      }).map(formGroup => formGroup.get("subtotal").value).reduce((previousValue, currentValue) => previousValue + currentValue, 0);
+
+      totalGravado = this.detalle.controls.filter(formGroup => {
+        let tipoDeIgv = this.tipoDeIgv.find(tipoDeIgv => tipoDeIgv.valor == formGroup.get("tipoDeIgv").value);
+        return tipoDeIgv.grupo == gravado
+      }).map(formGroup => formGroup.get("subtotal").value).reduce((previousValue, currentValue) => previousValue + currentValue, 0);
+
+      totalInafecto = this.detalle.controls.filter(formGroup => {
+        let tipoDeIgv = this.tipoDeIgv.find(tipoDeIgv => tipoDeIgv.valor == formGroup.get("tipoDeIgv").value);
+        return tipoDeIgv.grupo == inafecto
+      }).map(formGroup => formGroup.get("subtotal").value).reduce((previousValue, currentValue) => previousValue + currentValue, 0);
+
+      totalIgv = this.detalle.controls.map(formGroup => {
+        return (formGroup.get("total").value || 0) - (formGroup.get("subtotal").value || 0);
+      }).reduce((previousValue, currentValue) => previousValue + currentValue, 0);
+    }
+
+    let totalGravadoConDescuento = Math.round(totalGravado * (100 - porcentajeDeDescuento)) / 100;
+    let totalExoneradoConDescuento = Math.round(totalExonerado * (100 - porcentajeDeDescuento)) / 100;
+    let totalInafectoConDescuento = Math.round(totalInafecto * (100 - porcentajeDeDescuento)) / 100;
+    let totalIgvConDescuento = Math.round(totalIgv * (100 - porcentajeDeDescuento)) / 100;
+
+    // Descuento global
+    let descuentoGlobal = (totalGravado - totalGravadoConDescuento) + (totalExonerado - totalExoneradoConDescuento) + (totalInafecto - totalInafectoConDescuento);
+
+    // Calculo del total
+    let totalOtrosCargos = this.form.get("totalOtrosCargos").valid ? this.form.get("totalOtrosCargos").value : 0;
+    if (typeof totalOtrosCargos === "string") {
+      totalOtrosCargos = Number(totalOtrosCargos.replace(/[^0-9.]/g, ""));
+    }
+    let total = totalGravadoConDescuento + totalExoneradoConDescuento + totalInafectoConDescuento + totalIgvConDescuento + totalOtrosCargos;
 
     this.form.patchValue({
-      totalGravado: totalGravado,
-      totalExonerado: totalExonerado,
-      totalInafecto: totalInafecto,
-      totalIgv: totalIgv
+      totalGratuito: totalGratuito,
+      totalGravado: totalGravadoConDescuento,
+      totalExonerado: totalExoneradoConDescuento,
+      totalInafecto: totalInafectoConDescuento,
+      totalIgv: totalIgvConDescuento,
+      descuentoGlobal: descuentoGlobal,
+      total: total
     });
   }
 
 
   save(form: any): void {
-    this.working = true;
-    console.log(form);
+    const modalRef = this.modalService.open(CreateInvoiceFormConfirmModalComponent)
 
-    //let organizationCopy = Object.assign(this.organization || {}, form);
+    modalRef.componentInstance.totalExonerado = this.form.get("totalExonerado").value;
+    modalRef.componentInstance.totalInafecto = this.form.get("totalInafecto").value;
+    modalRef.componentInstance.totalGravado = this.form.get("totalGravado").value;
+    modalRef.componentInstance.totalIgv = this.form.get("totalIgv").value;
+    modalRef.componentInstance.totalGratuito = this.form.get("totalGratuito").value;
+    modalRef.componentInstance.descuentoGlobal = this.form.get("descuentoGlobal").value;
+    modalRef.componentInstance.totalOtrosCargos = this.form.get("totalOtrosCargos").value;
+    modalRef.componentInstance.total = this.form.get("total").value;
 
-    /*this.dataService.organizations().create(organizationCopy).subscribe(
-      result => {
-        this.alertService.pop("success", "Success", "Success! The organization has been created.");
-        this.router.navigate(["../"]);
-      },
-      error => {
-        this.working = false;
-        this.alertService.pop("error", "Error", "Organization could not be created.");
-      }
-    );*/
+    modalRef.result.then((redirect) => {
+      console.log(form);
+      
+      /*this.working = true;
+      this.dataService.organizations().create(undefined).subscribe(
+        response => {
+          this.working = false;
+          this.alertService.pop("success", "Success", "Success! The invoice has been created.");
+          if (redirect) {
+            this.router.navigate(["../"], { relativeTo: this.activatedRoute });
+          } else {
+            this.buildForm();
+          }
+        },
+        error => {
+          this.working = false;
+          this.alertService.pop("error", "Error", "Invoice could not be created.");
+        }
+      );*/
+    }, (reason) => {
+    });
+  }
+
+  cancel() {
+    this.router.navigate(["../"], { relativeTo: this.activatedRoute });
   }
 
 }

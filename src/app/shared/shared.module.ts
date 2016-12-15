@@ -34,6 +34,7 @@ import {
 } from './components/wizard/wizard-buttons.directive';
 
 // Directives
+import { NumberMaskDirective } from './directives/number-mask.directive';
 
 // Pipes
 import { CapitalizePipe } from './pipes/capitalize.pipe';
@@ -77,6 +78,7 @@ import { YesNoPipe } from './pipes/yes-no.pipe';
     WizardResetButtonDirective,
 
     // Directives
+    NumberMaskDirective,
 
     // Pipes
     CapitalizePipe,
@@ -106,6 +108,7 @@ import { YesNoPipe } from './pipes/yes-no.pipe';
     WizardResetButtonDirective,
 
     // Directives
+    NumberMaskDirective,
 
     // Pipes
     FilterCollectionPipe,

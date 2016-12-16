@@ -4,7 +4,6 @@ import { FormBuilder, FormGroup, FormControl, FormArray, Validators } from "@ang
 import { Observable } from "rxjs/Observable";
 
 import { NgbModal, ModalDismissReasons } from "@ng-bootstrap/ng-bootstrap";
-import createNumberMask from "text-mask-addons/dist/createNumberMask.js";
 
 import { DataService } from "../../core/data/data.service";
 import { AlertService } from "../../core/alert/alert.service";
@@ -66,31 +65,17 @@ export class CreateInvoiceFormComponent implements OnInit {
     { denominacion: "Dolares Americanos", valor: "USD" }
   ];
 
-  numberMaskTest = {
-    prefix: "%",
-    suffix: "#",
-    allowDecimal: true,
-    includeThousandsSeparator: true
-  }
-
-  numberMask = createNumberMask({
-    prefix: "",
-    suffix: "",
-    allowDecimal: true,
-    modelClean: true
-  });
-  quantityMask = createNumberMask({
-    prefix: "",
-    suffix: "",
+  numberMask = {
+    allowDecimal: true
+  };
+  quantityMask = {
     allowDecimal: true,
     decimalLimit: 3
-  });
-  percentMask = createNumberMask({
-    prefix: "",
-    suffix: "",
-    allowDecimal: true,
-    thousandsSeparatorSymbol: ""
-  });
+  };
+  percentMask = {
+    prefix: "% ",
+    allowDecimal: true
+  };
 
   constructor(
     private router: Router,
@@ -108,7 +93,7 @@ export class CreateInvoiceFormComponent implements OnInit {
   buildForm(): void {
     this.form = this.formBuilder.group({
       tipo: [null, Validators.compose([Validators.required])],
-      igv: [0, Validators.compose([Validators.required])],
+      igv: [null, Validators.compose([Validators.required])],
 
       entidadTipoDeDocumento: [null, Validators.compose([Validators.required])],
       entidadNumeroDeDocumento: [null, Validators.compose([Validators.required, Validators.maxLength(20)])],
@@ -123,44 +108,23 @@ export class CreateInvoiceFormComponent implements OnInit {
 
       observaciones: [null, Validators.compose([Validators.maxLength(150)])],
 
-      totalGravado: [0, Validators.compose([Validators.required])],
-      totalExonerado: [0, Validators.compose([Validators.required])],
-      totalInafecto: [0, Validators.compose([Validators.required])],
-      totalGratuito: [0, Validators.compose([Validators.required])],
-      totalIgv: [0, Validators.compose([Validators.required])],
+      totalGravado: [null, Validators.compose([Validators.required])],
+      totalExonerado: [null, Validators.compose([Validators.required])],
+      totalInafecto: [null, Validators.compose([Validators.required])],
+      totalGratuito: [null, Validators.compose([Validators.required])],
+      totalIgv: [null, Validators.compose([Validators.required])],
 
-      porcentajeDeDescuento: [0, Validators.compose([Validators.required])],
-      descuentoGlobal: [0, Validators.compose([Validators.required])],
+      porcentajeDeDescuento: [null, Validators.compose([Validators.required])],
+      descuentoGlobal: [null, Validators.compose([Validators.required])],
 
-      totalOtrosCargos: [0, Validators.compose([Validators.required])],
-      total: [0, Validators.compose([Validators.required])],
+      totalOtrosCargos: [null, Validators.compose([Validators.required])],
+      total: [null, Validators.compose([Validators.required])],
 
       detalle: this.formBuilder.array([], Validators.compose([]))
     });
 
     this.addFormGlobalObservers();
     this.setDefaultFormValues();
-  }
-
-  // Geeter y Seeter
-  get igv(): FormControl {
-    return this.form.get("igv") as FormControl;
-  }
-
-  get operacionGratuita(): FormControl {
-    return this.form.get("operacionGratuita") as FormControl;
-  }
-
-  get porcentajeDeDescuento(): FormControl {
-    return this.form.get("porcentajeDeDescuento") as FormControl;
-  }
-
-  get totalOtrosCargos(): FormControl {
-    return this.form.get("totalOtrosCargos") as FormControl;
-  }
-
-  get detalle(): FormArray {
-    return this.form.get("detalle") as FormArray;
   }
 
   // Carga valores por defecto del formulario principal
@@ -171,15 +135,6 @@ export class CreateInvoiceFormComponent implements OnInit {
       entidadTipoDeDocumento: this.tipoDocumentoEntidad[0].valor,
       moneda: this.monedas[0].valor
     });
-  }
-
-  // Se activa al cambiar de moneda
-  changeMoneda(value) {
-    if (value == this.monedas[0].valor) {
-      this.form.removeControl("tipoCambio");
-    } else {
-      this.form.addControl("tipoCambio", this.formBuilder.control(null, Validators.compose([Validators.required])));
-    }
   }
 
   // Se activa al agregar un nuevo item al detalle del documento
@@ -218,11 +173,20 @@ export class CreateInvoiceFormComponent implements OnInit {
       });
     });
 
-    this.form.get("moneda").valueChanges.subscribe(value => this.changeMoneda(value));
+    this.moneda.valueChanges.subscribe(value => this.changeMoneda(value));
+  }
+
+  // Se activa al cambiar de moneda
+  changeMoneda(value) {
+    if (value == this.monedas[0].valor) {
+      this.form.removeControl("tipoCambio");
+    } else {
+      this.form.addControl("tipoCambio", this.formBuilder.control(null, Validators.compose([Validators.required])));
+    }
   }
 
   addFormDetalleObservers(formGroup: FormGroup) {
-    let formControls = [formGroup.get("cantidad"), formGroup.get("valorUnitario"), formGroup.get("tipoDeIgv")];
+    let formControls = [this.getDetalleCantidad(formGroup), this.getDetalleValorUnitario(formGroup), this.getDetalleTipoDeIgv(formGroup)];
     formControls.forEach(formControl => {
       formControl.valueChanges.subscribe(formControlValue => {
         this.refreshFormValues();
@@ -237,30 +201,19 @@ export class CreateInvoiceFormComponent implements OnInit {
     }
 
     // Igv valor numerico
-    let igvValue = this.form.get("igv").valid ? this.form.get("igv").value : undefined;
-    if (!igvValue) return;
-    if (typeof igvValue === "string") {
-      igvValue = Number(igvValue.replace(/[^0-9.]/g, ""));
-    }
+    let igvValue = this.igv.value;
 
     // Recorrido por cada detalle
     for (let i = 0; i < this.detalle.controls.length; i++) {
       let formGroup: FormGroup = this.detalle.controls[i] as FormGroup;
 
-      let tipoDeIgv = this.tipoDeIgv.find(tipoDeIgv => tipoDeIgv.valor == formGroup.get("tipoDeIgv").value);
-      if (!tipoDeIgv) continue;
-
-      let cantidad = formGroup.get("cantidad").valid ? formGroup.get("cantidad").value : undefined;
-      if (!cantidad) continue;
-      if (typeof cantidad === "string") {
-        cantidad = Number(cantidad.replace(/[^0-9.]/g, ""));
+      if (!this.getDetalleTipoDeIgv(formGroup).valid || !this.getDetalleCantidad(formGroup).valid || !this.getDetalleValorUnitario(formGroup).valid) {
+        continue;
       }
 
-      let valorUnitario = formGroup.get("valorUnitario").valid ? formGroup.get("valorUnitario").value : undefined;
-      if (!valorUnitario) continue;
-      if (typeof valorUnitario === "string") {
-        valorUnitario = Number(valorUnitario.replace(/[^0-9.]/g, ""));
-      }
+      let tipoDeIgv = this.tipoDeIgv.find(tipoDeIgv => tipoDeIgv.valor == this.getDetalleTipoDeIgv(formGroup).value);
+      let cantidad = this.getDetalleCantidad(formGroup).value;
+      let valorUnitario = this.getDetalleValorUnitario(formGroup).value;
 
       let subtotal = Math.round(cantidad * valorUnitario * 100) / 100;
       let total = !tipoDeIgv.afectaIgv ? Math.round(cantidad * valorUnitario * 100) / 100 : Math.round(cantidad * valorUnitario * (igvValue + 100)) / 100;
@@ -280,9 +233,12 @@ export class CreateInvoiceFormComponent implements OnInit {
     let totalInafecto;
     let totalIgv;
 
-    let operacionGratuita = this.form.get("operacionGratuita").value;
+    let operacionGratuita = this.operacionGratuita.value;
     if (operacionGratuita) {
-      totalGratuito = this.detalle.controls.map(formGroup => formGroup.get("total").value).reduce((previousValue, currentValue) => previousValue + currentValue, 0);
+      totalGratuito = this.detalle.controls
+        .map(formGroup => this.getDetalleTotal(formGroup as FormGroup).value || 0)
+        .reduce((previousValue, currentValue) => previousValue + currentValue, 0);
+
       porcentajeDeDescuento = 0;
       totalExonerado = 0;
       totalGravado = 0;
@@ -291,28 +247,28 @@ export class CreateInvoiceFormComponent implements OnInit {
     } else {
       totalGratuito = 0;
 
-      porcentajeDeDescuento = this.form.get("porcentajeDeDescuento").valid ? this.form.get("porcentajeDeDescuento").value : 0;
-      if (typeof porcentajeDeDescuento === "string") {
-        porcentajeDeDescuento = Number(porcentajeDeDescuento.replace(/[^0-9.]/g, ""));
-      }
+      porcentajeDeDescuento = this.porcentajeDeDescuento.value || 0;
 
       totalExonerado = this.detalle.controls.filter(formGroup => {
-        let tipoDeIgv = this.tipoDeIgv.find(tipoDeIgv => tipoDeIgv.valor == formGroup.get("tipoDeIgv").value);
-        return tipoDeIgv.grupo == exonerado
-      }).map(formGroup => formGroup.get("subtotal").value).reduce((previousValue, currentValue) => previousValue + currentValue, 0);
+        let tipoDeIgv = this.tipoDeIgv.find(tipoDeIgv => tipoDeIgv.valor == this.getDetalleTipoDeIgv(formGroup as FormGroup).value);
+        return tipoDeIgv.grupo == exonerado;
+      }).map(formGroup => this.getDetalleSubtotal(formGroup as FormGroup).value || 0)
+        .reduce((previousValue, currentValue) => previousValue + currentValue, 0);
 
       totalGravado = this.detalle.controls.filter(formGroup => {
-        let tipoDeIgv = this.tipoDeIgv.find(tipoDeIgv => tipoDeIgv.valor == formGroup.get("tipoDeIgv").value);
-        return tipoDeIgv.grupo == gravado
-      }).map(formGroup => formGroup.get("subtotal").value).reduce((previousValue, currentValue) => previousValue + currentValue, 0);
+        let tipoDeIgv = this.tipoDeIgv.find(tipoDeIgv => tipoDeIgv.valor == this.getDetalleTipoDeIgv(formGroup as FormGroup).value);
+        return tipoDeIgv.grupo == gravado;
+      }).map(formGroup => this.getDetalleSubtotal(formGroup as FormGroup).value || 0)
+        .reduce((previousValue, currentValue) => previousValue + currentValue, 0);
 
       totalInafecto = this.detalle.controls.filter(formGroup => {
-        let tipoDeIgv = this.tipoDeIgv.find(tipoDeIgv => tipoDeIgv.valor == formGroup.get("tipoDeIgv").value);
-        return tipoDeIgv.grupo == inafecto
-      }).map(formGroup => formGroup.get("subtotal").value).reduce((previousValue, currentValue) => previousValue + currentValue, 0);
+        let tipoDeIgv = this.tipoDeIgv.find(tipoDeIgv => tipoDeIgv.valor == this.getDetalleTipoDeIgv(formGroup as FormGroup).value);
+        return tipoDeIgv.grupo == inafecto;
+      }).map(formGroup => this.getDetalleSubtotal(formGroup as FormGroup).value || 0)
+        .reduce((previousValue, currentValue) => previousValue + currentValue, 0);
 
       totalIgv = this.detalle.controls.map(formGroup => {
-        return (formGroup.get("total").value || 0) - (formGroup.get("subtotal").value || 0);
+        return (this.getDetalleTotal(formGroup as FormGroup).value || 0) - (this.getDetalleSubtotal(formGroup as FormGroup).value || 0);
       }).reduce((previousValue, currentValue) => previousValue + currentValue, 0);
     }
 
@@ -325,10 +281,7 @@ export class CreateInvoiceFormComponent implements OnInit {
     let descuentoGlobal = (totalGravado - totalGravadoConDescuento) + (totalExonerado - totalExoneradoConDescuento) + (totalInafecto - totalInafectoConDescuento);
 
     // Calculo del total
-    let totalOtrosCargos = this.form.get("totalOtrosCargos").valid ? this.form.get("totalOtrosCargos").value : 0;
-    if (typeof totalOtrosCargos === "string") {
-      totalOtrosCargos = Number(totalOtrosCargos.replace(/[^0-9.]/g, ""));
-    }
+    let totalOtrosCargos = this.totalOtrosCargos.valid ? this.totalOtrosCargos.value : 0;
     let total = totalGravadoConDescuento + totalExoneradoConDescuento + totalInafectoConDescuento + totalIgvConDescuento + totalOtrosCargos;
 
     this.form.patchValue({
@@ -346,14 +299,14 @@ export class CreateInvoiceFormComponent implements OnInit {
   save(form: any): void {
     const modalRef = this.modalService.open(CreateInvoiceFormConfirmModalComponent)
 
-    modalRef.componentInstance.totalExonerado = this.form.get("totalExonerado").value;
-    modalRef.componentInstance.totalInafecto = this.form.get("totalInafecto").value;
-    modalRef.componentInstance.totalGravado = this.form.get("totalGravado").value;
-    modalRef.componentInstance.totalIgv = this.form.get("totalIgv").value;
-    modalRef.componentInstance.totalGratuito = this.form.get("totalGratuito").value;
-    modalRef.componentInstance.descuentoGlobal = this.form.get("descuentoGlobal").value;
-    modalRef.componentInstance.totalOtrosCargos = this.form.get("totalOtrosCargos").value;
-    modalRef.componentInstance.total = this.form.get("total").value;
+    modalRef.componentInstance.totalExonerado = this.totalExonerado.value;
+    modalRef.componentInstance.totalInafecto = this.totalInafecto.value;
+    modalRef.componentInstance.totalGravado = this.totalGravado.value;
+    modalRef.componentInstance.totalIgv = this.totalIgv.value;
+    modalRef.componentInstance.totalGratuito = this.totalGratuito.value;
+    modalRef.componentInstance.descuentoGlobal = this.descuentoGlobal.value;
+    modalRef.componentInstance.totalOtrosCargos = this.totalOtrosCargos.value;
+    modalRef.componentInstance.total = this.total.value;
 
     modalRef.result.then((redirect) => {
       console.log(form);
@@ -380,6 +333,81 @@ export class CreateInvoiceFormComponent implements OnInit {
 
   cancel() {
     this.router.navigate(["../"], { relativeTo: this.activatedRoute });
+  }
+
+  /**
+   * Getter and Setter
+  */
+  get moneda(): FormControl {
+    return this.form.get("moneda") as FormControl;
+  }
+
+  get igv(): FormControl {
+    return this.form.get("igv") as FormControl;
+  }
+
+  get operacionGratuita(): FormControl {
+    return this.form.get("operacionGratuita") as FormControl;
+  }
+
+  get porcentajeDeDescuento(): FormControl {
+    return this.form.get("porcentajeDeDescuento") as FormControl;
+  }
+
+  get detalle(): FormArray {
+    return this.form.get("detalle") as FormArray;
+  }
+
+  get totalExonerado(): FormArray {
+    return this.form.get("totalExonerado") as FormArray;
+  }
+
+  get totalInafecto(): FormArray {
+    return this.form.get("totalInafecto") as FormArray;
+  }
+
+  get totalGravado(): FormArray {
+    return this.form.get("totalGravado") as FormArray;
+  }
+
+  get totalIgv(): FormArray {
+    return this.form.get("totalIgv") as FormArray;
+  }
+
+  get totalGratuito(): FormArray {
+    return this.form.get("totalGratuito") as FormArray;
+  }
+
+  get descuentoGlobal(): FormArray {
+    return this.form.get("descuentoGlobal") as FormArray;
+  }
+
+  get totalOtrosCargos(): FormArray {
+    return this.form.get("totalOtrosCargos") as FormArray;
+  }
+
+  get total(): FormArray {
+    return this.form.get("total") as FormArray;
+  }
+
+  getDetalleCantidad(formGroup: FormGroup) {
+    return formGroup.get("cantidad");
+  }
+
+  getDetalleValorUnitario(formGroup: FormGroup) {
+    return formGroup.get("valorUnitario");
+  }
+
+  getDetalleTipoDeIgv(formGroup: FormGroup) {
+    return formGroup.get("tipoDeIgv");
+  }
+
+  getDetalleSubtotal(formGroup: FormGroup) {
+    return formGroup.get("subtotal");
+  }
+
+  getDetalleTotal(formGroup: FormGroup) {
+    return formGroup.get("total");
   }
 
 }

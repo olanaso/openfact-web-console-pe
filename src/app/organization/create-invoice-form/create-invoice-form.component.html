@@ -39,7 +39,7 @@
     <label class="control-label required-pf">Tipo Cambio
             <i class="fa fa-question-circle text-muted" ngbTooltip="organization of the organization" placement="right"></i>
           </label>
-    <input formControlName="tipoCambio" [textMask]="{ mask: numberMask }" type="text" class="form-control text-right" placeholder="0.00">
+    <input formControlName="tipoCambio" [ofNumberMask]="numberMask" type="text" class="form-control text-right" placeholder="0.00">
     <div *ngIf="!form.get('tipoCambio').valid && form.get('tipoCambio').dirty">
       <span *ngIf="form.get('tipoCambio').hasError('required')" class="help-block">This field is required</span>
       <span *ngIf="!form.get('tipoCambio').hasError('required') && !form.get('tipoCambio').valid" class="help-block">Value field is invalid</span>
@@ -51,7 +51,7 @@
     <label class="control-label required-pf">IGV (%)
             <i class="fa fa-question-circle text-muted" ngbTooltip="organization of the organization" placement="right"></i>
           </label>
-    <input formControlName="igv" [textMask]="{ mask: percentMask }" type="text" class="form-control text-right" placeholder="0.00 %">
+    <input formControlName="igv" [ofNumberMask]="percentMask" type="text" class="form-control text-right" placeholder="0.00 %">
     <div *ngIf="!form.get('igv').valid && form.get('igv').dirty">
       <span *ngIf="form.get('igv').hasError('required')" class="help-block">This field is required</span>
       <span *ngIf="!form.get('igv').hasError('required') && !form.get('igv').valid" class="help-block">Value field is invalid</span>
@@ -199,7 +199,7 @@
           </div>
         </td>
         <td [ngClass]="{ 'has-error' : !lineFormGroup.get('cantidad').valid && lineFormGroup.get('cantidad').dirty }">
-          <input formControlName="cantidad" [ofNumberMask]="numberMaskTest" type="text" class="form-control text-right" placeholder="0.00">
+          <input formControlName="cantidad" [ofNumberMask]="numberMask" type="text" class="form-control text-right" placeholder="0.00">
           <div *ngIf="!lineFormGroup.get('cantidad').valid && lineFormGroup.get('cantidad').dirty">
             <span *ngIf="lineFormGroup.get('cantidad').hasError('required')" class="help-block">This field is required</span>
             <span *ngIf="!lineFormGroup.get('cantidad').hasError('required') && !lineFormGroup.get('cantidad').valid" class="help-block">Value field is invalid</span>
@@ -217,7 +217,7 @@
         <!--/tipo igv-->
 
         <td [ngClass]="{ 'has-error' : !lineFormGroup.get('valorUnitario').valid && lineFormGroup.get('valorUnitario').dirty }">
-          <input formControlName="valorUnitario" [textMask]="{ mask: numberMask }" type="text" class="form-control text-right" placeholder="0.00">
+          <input formControlName="valorUnitario" [ofNumberMask]="numberMask" type="text" class="form-control text-right" placeholder="0.00">
           <div *ngIf="!lineFormGroup.get('valorUnitario').valid && lineFormGroup.get('valorUnitario').dirty">
             <span *ngIf="lineFormGroup.get('valorUnitario').hasError('required')" class="help-block">This field is required</span>
             <span *ngIf="!lineFormGroup.get('valorUnitario').hasError('required') && !lineFormGroup.get('valorUnitario').valid" class="help-block">Value field is invalid</span>
@@ -232,7 +232,7 @@
         <!--/subtotal-->
 
         <td [ngClass]="{ 'has-error' : !lineFormGroup.get('total').valid && lineFormGroup.get('total').dirty }">
-          <input formControlName="total" [textMask]="{ mask: numberMask }" type="text" class="form-control text-right" placeholder="0.00"
+          <input formControlName="total" [ofNumberMask]="numberMask" type="text" class="form-control text-right" placeholder="0.00"
             readonly>
           <div *ngIf="!lineFormGroup.get('total').valid && lineFormGroup.get('total').dirty">
             <span *ngIf="lineFormGroup.get('total').hasError('required')" class="help-block">This field is required</span>
@@ -279,7 +279,7 @@
           <tr>
             <td>% Porcentaje Descuento</td>
             <td [ngClass]="{ 'has-error' : !form.get('porcentajeDeDescuento').valid && form.get('porcentajeDeDescuento').dirty }">
-              <input formControlName="porcentajeDeDescuento" [textMask]="{ mask: numberMask }" *ngIf="!form.get('operacionGratuita').value"
+              <input formControlName="porcentajeDeDescuento" [ofNumberMask]="numberMask" *ngIf="!form.get('operacionGratuita').value"
                 type="text" class="form-control text-right">
               <input *ngIf="form.get('operacionGratuita').value" type="text" class="form-control text-right" value="0.00" disabled>
               <div *ngIf="!form.get('porcentajeDeDescuento').valid && form.get('porcentajeDeDescuento').dirty">
@@ -311,7 +311,7 @@
           <tr>
             <td>Otros Cargos</td>
             <td [ngClass]="{ 'has-error' : !form.get('totalOtrosCargos').valid && form.get('totalOtrosCargos').dirty }">
-              <input formControlName="totalOtrosCargos" [textMask]="{ mask: numberMask }" *ngIf="!form.get('operacionGratuita').value"
+              <input formControlName="totalOtrosCargos" [ofNumberMask]="numberMask" *ngIf="!form.get('operacionGratuita').value"
                 type="text" class="form-control text-right">
               <input *ngIf="form.get('operacionGratuita').value" type="text" class="form-control text-right" value="0.00" disabled>
               <div *ngIf="!form.get('totalOtrosCargos').valid && form.get('totalOtrosCargos').dirty">

@@ -19,8 +19,6 @@ export class InputManager {
     }
 
     updateValueAndCursor(newRawValue: string, oldLength: number, selectionStart: number): void {
-        console.log("update cursos");
-        
         this.rawValue = newRawValue;
         let newLength = newRawValue.length;
         selectionStart = selectionStart - (oldLength - newLength);

@@ -22,17 +22,15 @@ export class NumberMaskDirective implements AfterViewInit, ControlValueAccessor,
 
   optionsTemplate = {
     align: "right",
-    allowNegative: true,
-    precision: 2,
+    decimalLimit: 2,
+    decimalSymbol: ".",
+    allowNegative: false,
     prefix: "",
-    thousands: ",",
-    decimal: ".",
-    allowZero: true,
-
-    // featues
     suffix: "",
+    thousandsSeparatorSymbol: ",",
     includeThousandsSeparator: true,
-    thousandsSeparatorSymbol: ","
+    allowDecimal: false,
+    requireDecimal: false
   };
 
   constructor(private elementRef: ElementRef) {

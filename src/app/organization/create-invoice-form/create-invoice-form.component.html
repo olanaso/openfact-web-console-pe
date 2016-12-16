@@ -199,7 +199,7 @@
           </div>
         </td>
         <td [ngClass]="{ 'has-error' : !lineFormGroup.get('cantidad').valid && lineFormGroup.get('cantidad').dirty }">
-          <input formControlName="cantidad" ofNumberMask type="text" class="form-control text-right" placeholder="0.00">
+          <input formControlName="cantidad" [ofNumberMask]="numberMaskTest" type="text" class="form-control text-right" placeholder="0.00">
           <div *ngIf="!lineFormGroup.get('cantidad').valid && lineFormGroup.get('cantidad').dirty">
             <span *ngIf="lineFormGroup.get('cantidad').hasError('required')" class="help-block">This field is required</span>
             <span *ngIf="!lineFormGroup.get('cantidad').hasError('required') && !lineFormGroup.get('cantidad').valid" class="help-block">Value field is invalid</span>

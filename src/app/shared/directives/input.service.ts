@@ -1,5 +1,11 @@
 import { InputManager } from "./input.manager";
 
+const minus = '-';
+const number = 'number';
+const emptyString = '';
+const digitRegExp = /\d/;
+const nonDigitsRegExp = /\D+/g;
+
 export class InputService {
 
     private inputManager: InputManager;
@@ -17,44 +23,98 @@ export class InputService {
     }
 
     applyMask(isNumber: boolean, rawValue: string): string {
-        let {allowNegative, precision, thousands, decimal} = this.options;
-        rawValue = isNumber ? new Number(rawValue).toFixed(precision) : rawValue;  
-        let onlyNumbers = rawValue.replace(/[^0-9]/g, "");
-        let integerPart = onlyNumbers.slice(0, onlyNumbers.length - precision).replace(/^0*/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, thousands);
+        let {allowNegative, decimalLimit, thousandsSeparatorSymbol, includeThousandsSeparator, decimalSymbol} = this.options;
 
-        if (integerPart == "") {
-            integerPart = "0";
+        // New Start
+        const prefixLength = this.options.prefix.length;
+        const rawValueLength = rawValue.length;
+
+        // If empty string
+        if (rawValue === emptyString || (rawValue[0] === this.options.prefix[0] && rawValueLength === 1)) {
+            return this.options.prefix.concat(emptyString).concat(this.options.suffix);
         }
 
-        let newRawValue = integerPart;
-        let decimalPart = onlyNumbers.slice(onlyNumbers.length - precision);
+        const indexOfLastDecimal = rawValue.lastIndexOf(decimalSymbol);
+        const hasDecimal = indexOfLastDecimal !== -1;
+        const isNegative = (rawValue[0] === minus) && allowNegative;
 
-        if (precision > 0) {
-            newRawValue += decimal + decimalPart;
+        let integer;
+        let fraction;
+        let mask; // result
+
+        if (hasDecimal && (this.options.allowDecimal || this.options.requireDecimal)) {
+            integer = rawValue.slice(0, indexOfLastDecimal);
+
+            fraction = rawValue.slice(indexOfLastDecimal + 1, rawValueLength);
+            fraction = fraction.replace(nonDigitsRegExp, emptyString);
+        } else {
+            integer = rawValue;
         }
 
-        let isZero = parseInt(integerPart) == 0 && (parseInt(decimalPart) == 0 || decimalPart == "");
-        let operator = (rawValue.indexOf("-") > -1 && allowNegative && !isZero) ? "-" : "";
-        return operator + this.options.prefix + newRawValue;
+        integer = integer.replace(nonDigitsRegExp, emptyString);
+        integer = (includeThousandsSeparator) ? this.addThousandsSeparator(integer, thousandsSeparatorSymbol) : integer;
+        mask = integer;
+
+        if ((hasDecimal && this.options.allowDecimal) || this.options.requireDecimal === true) {
+            if (rawValue[indexOfLastDecimal - 1] !== decimalSymbol) {
+                mask = mask.concat(decimalSymbol);
+            }
+
+            if (fraction) {
+                if (typeof decimalLimit === number) {
+                    fraction = fraction.slice(0, decimalLimit);
+                }
+                mask = mask.concat(fraction);
+            }
+
+            if (this.options.requireDecimal === true && rawValue[indexOfLastDecimal - 1] === decimalSymbol) {
+                mask.push(digitRegExp);
+            }
+        }
+
+        // If prefix exists, then add it to mask
+        if (prefixLength > 0) {
+            mask = this.options.prefix.concat(mask);
+        }
+
+        if (isNegative) {
+            mask = minus.concat(mask);
+        }
+
+        if (this.options.suffix.length > 0) {
+            mask = mask.concat(this.options.suffix);
+        }
+
+        return mask;
+    }
+
+    convertToMask(strNumber) {
+        return strNumber
+            .split(emptyString)
+            .map((char) => digitRegExp.test(char) ? digitRegExp : char)
+    }
+
+    addThousandsSeparator(n, thousandsSeparatorSymbol) {
+        return n.replace(/\B(?=(\d{3})+(?!\d))/g, thousandsSeparatorSymbol);
     }
 
     clearMask(rawValue: string): number {
-        let value = (rawValue || "0").replace(this.options.prefix, "");
+        let value = (rawValue || "0").replace(this.options.prefix, "").replace(this.options.suffix, "");
 
-        if (this.options.thousands) {
-            value = value.replace(new RegExp("\\" + this.options.thousands, "g"), "");
+        if (this.options.thousandsSeparatorSymbol) {
+            value = value.replace(new RegExp("\\" + this.options.thousandsSeparatorSymbol, "g"), "");
         }
 
-        if (this.options.decimal) {
-            value = value.replace(this.options.decimal, ".");
+        if (this.options.decimalSymbol) {
+            value = value.replace(this.options.decimalSymbol, ".");
         }
-        
+
         return parseFloat(value);
     }
 
     changeToNegative(): void {
         if (this.options.allowNegative && this.rawValue != "" && this.rawValue.charAt(0) != "-" && this.value != 0) {
-            this.rawValue = "-" + this.rawValue; 
+            this.rawValue = "-" + this.rawValue;
         }
     }
 

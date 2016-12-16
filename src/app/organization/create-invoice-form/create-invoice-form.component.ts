@@ -66,6 +66,13 @@ export class CreateInvoiceFormComponent implements OnInit {
     { denominacion: "Dolares Americanos", valor: "USD" }
   ];
 
+  numberMaskTest = {
+    prefix: "%",
+    suffix: "#",
+    allowDecimal: true,
+    includeThousandsSeparator: true
+  }
+
   numberMask = createNumberMask({
     prefix: "",
     suffix: "",
@@ -350,7 +357,7 @@ export class CreateInvoiceFormComponent implements OnInit {
 
     modalRef.result.then((redirect) => {
       console.log(form);
-      
+
       /*this.working = true;
       this.dataService.organizations().create(undefined).subscribe(
         response => {

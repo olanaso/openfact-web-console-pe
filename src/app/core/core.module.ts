@@ -28,6 +28,8 @@ import { ServerInfoService } from './data/server-info.service';
 import { EventService } from './data/event.service';
 import { StorageFileService } from './data/storage-file.service';
 
+import { OrganizationPeService } from './data/organization-pe.service';
+
 // Resolvers
 import { OrganizationResolver } from './resolvers/organization-resolver';
 import { EventsConfigResolver } from './resolvers/events-config-resolver';
@@ -108,6 +110,8 @@ import { AllowedDataRoles } from './guards/allowed-data-roles';
     ServerInfoService,
     EventService,
     StorageFileService,
+
+    OrganizationPeService,
 
     // Resolvers
     OrganizationResolver,

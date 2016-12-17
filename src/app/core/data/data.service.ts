@@ -8,6 +8,8 @@ import { ServerInfoService } from './server-info.service';
 import { EventService } from './event.service';
 import { StorageFileService } from './storage-file.service';
 
+import { OrganizationPeService } from './organization-pe.service';
+
 @Injectable()
 export class DataService {
 
@@ -18,7 +20,8 @@ export class DataService {
         private debitnote: DebitnoteService,
         private serverinfo: ServerInfoService,
         private event: EventService,
-        private storageFile: StorageFileService) {
+        private storageFile: StorageFileService,
+        private organizationPe: OrganizationPeService) {
     }
 
     public organizations(): OrganizationService {
@@ -47,6 +50,10 @@ export class DataService {
 
     public storageFiles(): StorageFileService {
         return this.storageFile;
+    }
+
+     public organizationPeru(): OrganizationPeService {
+        return this.organizationPe;
     }
 
 }

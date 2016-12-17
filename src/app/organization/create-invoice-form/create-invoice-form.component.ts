@@ -26,6 +26,9 @@ export class CreateInvoiceFormComponent implements OnInit {
   form: FormGroup;
   working: boolean = false;
 
+  organization: Organization;
+
+
   tipoDocumento = [
     { denominacion: "BOLETA", valor: "01" },
     { denominacion: "FACTURA", valor: "02" }
@@ -84,6 +87,7 @@ export class CreateInvoiceFormComponent implements OnInit {
     private modalService: NgbModal,
     private dataService: DataService,
     private alertService: AlertService) {
+    this.organization = this.activatedRoute.snapshot.data['organization'];
     this.buildForm();
   }
 
@@ -114,10 +118,10 @@ export class CreateInvoiceFormComponent implements OnInit {
       totalGratuito: [null, Validators.compose([Validators.required])],
       totalIgv: [null, Validators.compose([Validators.required])],
 
-      porcentajeDeDescuento: [null, Validators.compose([Validators.required])],
+      porcentajeDeDescuento: [null, Validators.compose([])],
       descuentoGlobal: [null, Validators.compose([Validators.required])],
 
-      totalOtrosCargos: [null, Validators.compose([Validators.required])],
+      totalOtrosCargos: [null, Validators.compose([])],
       total: [null, Validators.compose([Validators.required])],
 
       detalle: this.formBuilder.array([], Validators.compose([]))
@@ -309,24 +313,22 @@ export class CreateInvoiceFormComponent implements OnInit {
     modalRef.componentInstance.total = this.total.value;
 
     modalRef.result.then((redirect) => {
-      console.log(form);
-
-      /*this.working = true;
-      this.dataService.organizations().create(undefined).subscribe(
+      this.working = true;
+      this.dataService.organizationPeru().create(this.organization, form).subscribe(
         response => {
           this.working = false;
           this.alertService.pop("success", "Success", "Success! The invoice has been created.");
-          if (redirect) {
+          /*if (redirect) {
             this.router.navigate(["../"], { relativeTo: this.activatedRoute });
           } else {
             this.buildForm();
-          }
+          }*/
         },
         error => {
           this.working = false;
           this.alertService.pop("error", "Error", "Invoice could not be created.");
         }
-      );*/
+      );
     }, (reason) => {
     });
   }

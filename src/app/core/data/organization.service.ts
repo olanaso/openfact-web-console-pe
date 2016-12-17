@@ -17,7 +17,7 @@ export class OrganizationService {
     private restangular: RestangularOpenfact;
 
     constructor(restangular: RestangularOpenfact) {
-        this.restangular = restangular;
+        this.restangular = restangular.all("admin");
     }
 
     public build(id?: string): Organization {

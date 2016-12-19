@@ -30,8 +30,8 @@ export class CreateInvoiceFormComponent implements OnInit {
 
 
   tipoDocumento = [
-    { denominacion: "BOLETA", valor: "01" },
-    { denominacion: "FACTURA", valor: "02" }
+    { denominacion: "BOLETA", valor: "03" },
+    { denominacion: "FACTURA", valor: "01" }
   ];
 
   tipoDocumentoEntidad = [
@@ -45,22 +45,22 @@ export class CreateInvoiceFormComponent implements OnInit {
   ];
 
   tipoDeIgv = [
-    { denominacion: "Gravado - Operación Onerosa", afectaIgv: true, grupo: gravado, valor: "1" },
-    { denominacion: "Gravado - Retiro por premio", afectaIgv: true, grupo: gravado, valor: "2" },
-    { denominacion: "Gravado - Retiro por donación", afectaIgv: true, grupo: gravado, valor: "3" },
-    { denominacion: "Gravado - Retiro", afectaIgv: true, grupo: gravado, valor: "4" },
-    { denominacion: "Gravado - Retiro por publicidad", afectaIgv: true, grupo: gravado, valor: "5" },
-    { denominacion: "Gravado - Bonificaciones", afectaIgv: true, grupo: gravado, valor: "6" },
-    { denominacion: "Gravado – Retiro por entrega a trabajadores", afectaIgv: true, grupo: gravado, valor: "7" },
-    { denominacion: "Exonerado - Operación Onerosa", afectaIgv: false, grupo: exonerado, valor: "8" },
-    { denominacion: "Inafecto - Operación Onerosa", afectaIgv: false, grupo: inafecto, valor: "9" },
-    { denominacion: "Inafecto - Retiro por Bonificación", afectaIgv: false, grupo: inafecto, valor: "10" },
-    { denominacion: "Inafecto - Retiro", afectaIgv: false, grupo: inafecto, valor: "11" },
-    { denominacion: "Inafecto - Retiro por Muestras Médicas", afectaIgv: false, grupo: inafecto, valor: "12" },
-    { denominacion: "Inafecto - Retiro por Convenio Colectivo", afectaIgv: false, grupo: inafecto, valor: "13" },
-    { denominacion: "Inafecto - Retiro por premio", afectaIgv: false, grupo: inafecto, valor: "14" },
-    { denominacion: "Inafecto - Retiro por publicidad", afectaIgv: false, grupo: inafecto, valor: "15" },
-    { denominacion: "Exportacion", afectaIgv: false, grupo: inafecto, valor: "16" }
+    { denominacion: "Gravado - Operación Onerosa", afectaIgv: true, grupo: gravado, valor: "10" },
+    { denominacion: "Gravado - Retiro por premio", afectaIgv: true, grupo: gravado, valor: "11" },
+    { denominacion: "Gravado - Retiro por donación", afectaIgv: true, grupo: gravado, valor: "12" },
+    { denominacion: "Gravado - Retiro", afectaIgv: true, grupo: gravado, valor: "13" },
+    { denominacion: "Gravado - Retiro por publicidad", afectaIgv: true, grupo: gravado, valor: "14" },
+    { denominacion: "Gravado - Bonificaciones", afectaIgv: true, grupo: gravado, valor: "15" },
+    { denominacion: "Gravado – Retiro por entrega a trabajadores", afectaIgv: true, grupo: gravado, valor: "16" },
+    { denominacion: "Exonerado - Operación Onerosa", afectaIgv: false, grupo: exonerado, valor: "20" },
+    { denominacion: "Inafecto - Operación Onerosa", afectaIgv: false, grupo: inafecto, valor: "30" },
+    { denominacion: "Inafecto - Retiro por Bonificación", afectaIgv: false, grupo: inafecto, valor: "31" },
+    { denominacion: "Inafecto - Retiro", afectaIgv: false, grupo: inafecto, valor: "32" },
+    { denominacion: "Inafecto - Retiro por Muestras Médicas", afectaIgv: false, grupo: inafecto, valor: "33" },
+    { denominacion: "Inafecto - Retiro por Convenio Colectivo", afectaIgv: false, grupo: inafecto, valor: "34" },
+    { denominacion: "Inafecto - Retiro por premio", afectaIgv: false, grupo: inafecto, valor: "35" },
+    { denominacion: "Inafecto - Retiro por publicidad", afectaIgv: false, grupo: inafecto, valor: "36" },
+    { denominacion: "Exportacion", afectaIgv: false, grupo: inafecto, valor: "40" }
   ];
 
   monedas = [

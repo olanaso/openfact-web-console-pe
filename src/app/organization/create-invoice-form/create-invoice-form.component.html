@@ -37,14 +37,14 @@
       </div>
 
       <div class="col-md-2" *ngIf="form.get('moneda').value !== 'PEN'">
-        <div class="form-group" [ngClass]="{ 'has-error' : !form.get('tipoCambio').valid && form.get('tipoCambio').dirty }">
+        <div class="form-group" [ngClass]="{ 'has-error' : !form.get('tipoDeCambio').valid && form.get('tipoDeCambio').dirty }">
           <label class="control-label required-pf">Tipo Cambio
               <i class="fa fa-question-circle text-muted" ngbTooltip="organization of the organization" placement="right"></i>
           </label>
-          <input formControlName="tipoCambio" [ofNumberMask]="numberMask" type="text" class="form-control text-right" placeholder="0.00">
-          <div *ngIf="!form.get('tipoCambio').valid && form.get('tipoCambio').dirty">
-            <span *ngIf="form.get('tipoCambio').hasError('required')" class="help-block">This field is required</span>
-            <span *ngIf="!form.get('tipoCambio').hasError('required') && !form.get('tipoCambio').valid" class="help-block">Value field is invalid</span>
+          <input formControlName="tipoDeCambio" [ofNumberMask]="numberMask" type="text" class="form-control text-right" placeholder="0.00">
+          <div *ngIf="!form.get('tipoDeCambio').valid && form.get('tipoDeCambio').dirty">
+            <span *ngIf="form.get('tipoDeCambio').hasError('required')" class="help-block">This field is required</span>
+            <span *ngIf="!form.get('tipoDeCambio').hasError('required') && !form.get('tipoDeCambio').valid" class="help-block">Value field is invalid</span>
           </div>
         </div>
       </div>
@@ -168,7 +168,6 @@
         <thead>
           <tr>
             <td class="text-right">#</td>
-            <td class="text-right">Cod.Producto</td>
             <td class="text-right">Producto/Servicio</td>
             <td class="text-right">Cantidad</td>
             <td class="text-right">Tipo IGV</td>
@@ -181,15 +180,6 @@
         <tbody formArrayName="detalle">
           <tr *ngFor="let lineFormGroup of detalle.controls; let i = index;" [formGroupName]="i">
             <td class="text-right">{{i+1}}</td>
-            <td [ngClass]="{ 'has-error' : !lineFormGroup.get('unitCode').valid && lineFormGroup.get('unitCode').dirty }">
-              <input formControlName="unitCode" type="text" class="form-control" placeholder="unitCode" />
-              <div *ngIf="!lineFormGroup.get('unitCode').valid && lineFormGroup.get('unitCode').dirty">
-                <span *ngIf="lineFormGroup.get('unitCode').hasError('required')" class="help-block">This field is required</span>
-                <span *ngIf="lineFormGroup.get('unitCode').hasError('maxlength')" class="help-block">Max length allowed: {{lineFormGroup.get('unitCode').errors.maxlength.requiredLength}}</span>
-                <span *ngIf="!lineFormGroup.get('unitCode').hasError('required') && !lineFormGroup.get('unitCode').hasError('maxlength') && !lineFormGroup.get('unitCode').valid"
-                  class="help-block">Value field is invalid</span>
-              </div>
-            </td>
             <td [ngClass]="{ 'has-error' : !lineFormGroup.get('descripcion').valid && lineFormGroup.get('descripcion').dirty }">
               <input formControlName="descripcion" type="text" class="form-control" placeholder="Descripcion" />
               <div *ngIf="!lineFormGroup.get('descripcion').valid && lineFormGroup.get('descripcion').dirty">
@@ -249,7 +239,7 @@
         </tbody>
         <tfoot>
           <tr>
-            <td colspan="9" class="text-right">
+            <td colspan="8" class="text-right">
               <button (click)="addDetalle()" type="button" class="btn btn-lg btn-default">Agregar Item
             <span class="fa fa-plus"></span>
           </button>
@@ -279,27 +269,27 @@
             <tbody>
               <tr>
                 <td>% Porcentaje Descuento</td>
-                <td [ngClass]="{ 'has-error' : !form.get('porcentajeDeDescuento').valid && form.get('porcentajeDeDescuento').dirty }">
-                  <input formControlName="porcentajeDeDescuento" [ofNumberMask]="numberMask" *ngIf="!form.get('operacionGratuita').value" type="text"
+                <td [ngClass]="{ 'has-error' : !form.get('porcentajeDescuento').valid && form.get('porcentajeDescuento').dirty }">
+                  <input formControlName="porcentajeDescuento" [ofNumberMask]="numberMask" *ngIf="!form.get('operacionGratuita').value" type="text"
                     class="form-control text-right">
                   <input *ngIf="form.get('operacionGratuita').value" type="text" class="form-control text-right" value="0.00" disabled>
-                  <div *ngIf="!form.get('porcentajeDeDescuento').valid && form.get('porcentajeDeDescuento').dirty">
-                    <span *ngIf="form.get('porcentajeDeDescuento').hasError('required')" class="help-block">This field is required</span>
-                    <span *ngIf="!form.get('porcentajeDeDescuento').hasError('required') && !form.get('porcentajeDeDescuento').valid" class="help-block">Value field is invalid</span>
+                  <div *ngIf="!form.get('porcentajeDescuento').valid && form.get('porcentajeDescuento').dirty">
+                    <span *ngIf="form.get('porcentajeDescuento').hasError('required')" class="help-block">This field is required</span>
+                    <span *ngIf="!form.get('porcentajeDescuento').hasError('required') && !form.get('porcentajeDescuento').valid" class="help-block">Value field is invalid</span>
                   </div>
                 </td>
               </tr>
               <tr>
                 <td>Exonerada</td>
-                <td>{{form.get('totalExonerado').value | number : '1.2-2'}}</td>
+                <td>{{form.get('totalExonerada').value | number : '1.2-2'}}</td>
               </tr>
               <tr>
                 <td>Inafecta</td>
-                <td>{{form.get('totalInafecto').value | number : '1.2-2'}}</td>
+                <td>{{form.get('totalInafecta').value | number : '1.2-2'}}</td>
               </tr>
               <tr>
                 <td>Gravada</td>
-                <td>{{form.get('totalGravado').value | number : '1.2-2'}}</td>
+                <td>{{form.get('totalGravada').value | number : '1.2-2'}}</td>
               </tr>
               <tr>
                 <td>IGV</td>
@@ -307,7 +297,7 @@
               </tr>
               <tr>
                 <td>Gratuita</td>
-                <td>{{form.get('totalGratuito').value | number : '1.2-2'}}</td>
+                <td>{{form.get('totalGratuita').value | number : '1.2-2'}}</td>
               </tr>
               <tr>
                 <td>Otros Cargos</td>

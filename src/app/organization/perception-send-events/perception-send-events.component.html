@@ -1,0 +1,78 @@
+<br>
+
+<table class="table table-bordered table-striped">
+  <thead>
+  <tr>
+    <td class="text-right">#</td>
+    <td class="text-right">Date</td>
+    <td>Result</td>
+    <td>Description</td>
+    <td>Destiny</td>
+    <td>Response</td>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let item of events; let i = index;">
+    <td>{{i+1}}</td>
+    <td>{{item.createdTimestamp | date}}</td>
+    <td>{{item.result | yesNo: 'SUCCESS.ERROR'}}</td>
+    <td>{{item.description}}</td>
+    <td>
+      <em *ngIf="!item.destiny || (item.destiny | keys).length == 0">No registered</em>
+      <table *ngIf="item.destiny && (item.destiny | keys).length > 0" class="table table-bordered table-striped">
+        <thead>
+        <tr>
+          <td>Key</td>
+          <td>Value</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let key of item.destiny | keys">
+          <td>{{key}}</td>
+          <td>{{item.destiny[key]}}</td>
+        </tr>
+        </tbody>
+      </table>
+
+      <table *ngIf="item.filesAttatchment && item.filesAttatchment.length > 0">
+        <thead>
+        <tr>Attatchments</tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let file of item.filesAttatchment">
+          <td><a (click)="downloadFile(file)" href="javascript:void();">{{file.fileName}}</a></td>
+        </tr>
+        </tbody>
+      </table>
+    </td>
+    <td>
+      <em *ngIf="!item.response || (item.response | keys).length == 0">No registered</em>
+      <table *ngIf="item.response && (item.response | keys).length > 0" class="table table-bordered table-striped">
+        <thead>
+        <tr>
+          <td>Key</td>
+          <td>Value</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let key of item.response | keys">
+          <td>{{key}}</td>
+          <td>{{item.response[key]}}</td>
+        </tr>
+        </tbody>
+      </table>
+
+      <table *ngIf="item.responseFilesAttatchment && item.responseFilesAttatchment.length > 0">
+        <thead>
+        <tr>Attatchments</tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let file of item.responseFilesAttatchment">
+          <td><a (click)="downloadFile(file)" href="javascript:void();">{{file.fileName}}</a></td>
+        </tr>
+        </tbody>
+      </table>
+    </td>
+  </tr>
+  </tbody>
+</table>

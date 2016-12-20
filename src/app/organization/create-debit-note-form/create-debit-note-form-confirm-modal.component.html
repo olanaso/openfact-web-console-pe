@@ -1,3 +1,72 @@
-<p>
-  create-debit-note-form-confirm-modal works!
-</p>
+<div class="modal-header">
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Close')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  <h4 class="modal-title">Are you sure to save this transaction?</h4>
+</div>
+
+<div class="modal-body">
+  <fieldset>
+    <legend>Resumen</legend>
+    <dl class="dl-horizontal left">
+      <dt>
+        Total Exonerado:
+        <span title="The currency of the creditNote." class="pficon pficon-help text-muted small"></span>
+      </dt>
+      <dd *ngIf="totalExonerado">{{totalExonerado | number:'1.2-3'}}</dd>
+      <dd *ngIf="!totalExonerado"><em>0.00</em></dd>
+      <dt>
+        Total Inafecto:
+        <span title="The currency of the creditNote." class="pficon pficon-help text-muted small"></span>
+      </dt>
+      <dd *ngIf="totalInafecto">{{totalInafecto | number:'1.2-3'}}</dd>
+      <dd *ngIf="!totalInafecto"><em>0.00</em></dd>
+      <dt>
+        Total Gravado:
+        <span title="The currency of the creditNote." class="pficon pficon-help text-muted small"></span>
+      </dt>
+      <dd *ngIf="totalGravado">{{totalGravado | number:'1.2-3'}}</dd>
+      <dd *ngIf="!totalGravado"><em>0.00</em></dd>
+      <dt>
+        Total Gratuito:
+        <span title="The currency of the creditNote." class="pficon pficon-help text-muted small"></span>
+      </dt>
+      <dd *ngIf="totalGratuito">{{totalGratuito | number:'1.2-3'}}</dd>
+      <dd *ngIf="!totalGratuito"><em>0.00</em></dd>
+    </dl>
+  </fieldset>
+  <fieldset>
+    <legend>Total</legend>
+    <dl class="dl-horizontal left">
+      <dt>
+        Total Igv:
+        <span title="The currency of the creditNote." class="pficon pficon-help text-muted small"></span>
+      </dt>
+      <dd *ngIf="totalIgv">{{totalIgv | number:'1.2-3'}}</dd>
+      <dd *ngIf="!totalIgv"><em>0.00</em></dd>
+      <dt>
+        Descuento Global:
+        <span title="The currency of the creditNote." class="pficon pficon-help text-muted small"></span>
+      </dt>
+      <dd *ngIf="descuentoGlobal">{{descuentoGlobal | number:'1.2-3'}}</dd>
+      <dd *ngIf="!descuentoGlobal"><em>0.00</em></dd>
+      <dt>
+        Otros Cargos:
+        <span title="The currency of the creditNote." class="pficon pficon-help text-muted small"></span>
+      </dt>
+      <dd *ngIf="totalOtrosCargos">{{totalOtrosCargos | number:'1.2-3'}}</dd>
+      <dd *ngIf="!totalOtrosCargos"><em>0.00</em></dd>
+      <dt>
+        Total:
+        <span title="The currency of the creditNote." class="pficon pficon-help text-muted small"></span>
+      </dt>
+      <dd *ngIf="total">{{total | number:'1.2-3'}}</dd>
+      <dd *ngIf="!total"><em>0.00</em></dd>
+    </dl>
+  </fieldset>
+</div>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-default" (click)="activeModal.dismiss('Cancel')">Cancel</button>
+  <button type="button" class="btn btn-primary" (click)="activeModal.close(true)">Save</button>
+</div>

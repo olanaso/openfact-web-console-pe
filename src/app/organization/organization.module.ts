@@ -49,6 +49,7 @@ import { InvoiceSendEventsComponent } from './invoice-send-events/invoice-send-e
 import { CreditNotesComponent } from './credit-notes/credit-notes.component';
 import { CreateCreditNoteComponent } from './create-credit-note/create-credit-note.component';
 import { CreateCreditNoteFormComponent } from './create-credit-note-form/create-credit-note-form.component';
+import { CreateCreditNoteFormConfirmModalComponent } from './create-credit-note-form/create-credit-note-form-confirm-modal.component';
 import { CreateCreditNoteUploadComponent } from './create-credit-note-upload/create-credit-note-upload.component';
 import { EditCreditNoteComponent } from './edit-credit-note/edit-credit-note.component';
 import { CreditNoteOverviewComponent } from './credit-note-overview/credit-note-overview.component';
@@ -56,6 +57,7 @@ import { CreditNoteOverviewComponent } from './credit-note-overview/credit-note-
 import { DebitNotesComponent } from './debit-notes/debit-notes.component';
 import { CreateDebitNoteComponent } from './create-debit-note/create-debit-note.component';
 import { CreateDebitNoteFormComponent } from './create-debit-note-form/create-debit-note-form.component';
+import { CreateDebitNoteFormConfirmModalComponent } from './create-debit-note-form/create-debit-note-form-confirm-modal.component';
 import { CreateDebitNoteUploadComponent } from './create-debit-note-upload/create-debit-note-upload.component';
 import { EditDebitNoteComponent } from './edit-debit-note/edit-debit-note.component';
 import { DebitNoteOverviewComponent } from './debit-note-overview/debit-note-overview.component';
@@ -116,6 +118,7 @@ import { EventsSettingsComponent } from './events-settings/events-settings.compo
         CreditNotesComponent,
         CreateCreditNoteComponent,
         CreateCreditNoteFormComponent,
+        CreateCreditNoteFormConfirmModalComponent,
         CreateCreditNoteUploadComponent,
         EditCreditNoteComponent,
         CreditNoteOverviewComponent,
@@ -123,6 +126,7 @@ import { EventsSettingsComponent } from './events-settings/events-settings.compo
         DebitNotesComponent,
         CreateDebitNoteComponent,
         CreateDebitNoteFormComponent,
+        CreateDebitNoteFormConfirmModalComponent,
         CreateDebitNoteUploadComponent,
         EditDebitNoteComponent,
         DebitNoteOverviewComponent,
@@ -132,7 +136,9 @@ import { EventsSettingsComponent } from './events-settings/events-settings.compo
         EventsSettingsComponent,
     ],
     entryComponents: [
-        CreateInvoiceFormConfirmModalComponent
+        CreateInvoiceFormConfirmModalComponent,
+        CreateCreditNoteFormConfirmModalComponent,
+        CreateDebitNoteFormConfirmModalComponent
     ],
     providers: [
         // Shared

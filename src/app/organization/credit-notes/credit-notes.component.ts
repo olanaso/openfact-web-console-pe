@@ -20,30 +20,30 @@ import { SearchCriteriaFilterOperator } from '../../core/models/search-criteria-
 })
 export class CreditNotesComponent implements OnInit {
 
-  private organization: Organization;
-  private searchResult: SearchResults<CreditNote> = new SearchResults<CreditNote>();
+  organization: Organization;
+  searchResult: SearchResults<CreditNote> = new SearchResults<CreditNote>();
 
-  private filters = {
+  filters = {
     filterText: undefined,
     selected: new Collections.Dictionary<String, any>()
   };
-  private sorter = {
+  sorter = {
     selected: undefined,
     ascending: true
   };
-  private paging = {
+  paging = {
     page: 1,
     size: 10
   };
 
-  private combo = {
+  combo = {
     issueDate: [
       { name: 'Last Hour', value: 'lastHour' },
       { name: 'Last 24 Hours', value: 'last24Hours' },
       { name: 'Last Week', value: 'lastWeek' },
       { name: 'Last Month', value: 'lastMonth' },
       { name: 'Last Year', value: 'lastYear' },
-      { name: 'Custom Interval...', value: 'custom', divider: true },
+      //{ name: 'Custom Interval...', value: 'custom', divider: true },
     ],
     orderBy: [
       { name: 'Issue Date', value: 'issueDateTime' },
@@ -55,7 +55,7 @@ export class CreditNotesComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private dataService: DataService,
     private alertService: AlertService) {
-    this.organization = this.activatedRoute.snapshot.parent.parent.data['organization'];
+    this.organization = this.activatedRoute.snapshot.data['organization'];
     this.loadSorter();
     this.search();
   }

@@ -55,7 +55,7 @@ export class InvoicesComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private dataService: DataService,
     private alertService: AlertService) {
-    this.organization = this.activatedRoute.snapshot.parent.parent.data['organization'];
+    this.organization = this.activatedRoute.snapshot.data['organization'];
     this.loadSorter();
     this.search();
   }

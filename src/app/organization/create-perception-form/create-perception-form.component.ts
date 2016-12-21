@@ -87,19 +87,20 @@ export class CreatePerceptionFormComponent implements OnInit {
       entidadTipoDeDocumento: [null, Validators.compose([Validators.required])],
       entidadNumeroDeDocumento: [null, Validators.compose([Validators.required, Validators.maxLength(20)])],
       entidadDenominacion: [null, Validators.compose([Validators.required, Validators.maxLength(150)])],
+      entidadDireccion: [null, Validators.compose([Validators.required, Validators.maxLength(150)])],
       entidadEmail: [null, Validators.compose([Validators.maxLength(150)])],
 
-      serieDocumento: [null, Validators.compose([Validators.maxLength(4)])],
-      numeroDocumento: [null, Validators.compose([Validators.maxLength(8)])],
+      serieDocumento: [null, Validators.compose([Validators.required, Validators.maxLength(4)])],
+      numeroDocumento: [null, Validators.compose([Validators.required, Validators.maxLength(8)])],
       monedaDocumento: [null, Validators.compose([Validators.required, Validators.maxLength(3)])],
       tasaDocumento: [null, Validators.compose([Validators.required])],
 
       enviarAutomaticamenteASunat: [true, Validators.compose([Validators.required])],
       enviarAutomaticamenteAlCliente: [true, Validators.compose([Validators.required])],
 
-      observaciones: [null, Validators.compose([Validators.maxLength(150)])],
+      observaciones: [null, Validators.compose([Validators.required, Validators.maxLength(150)])],
       totalPago: [0, Validators.compose([Validators.required])],
-      totalPercepcion: [0, Validators.compose([Validators.required])],
+      totalDocumentoSunat: [0, Validators.compose([Validators.required])],
       detalle: this.formBuilder.array([], Validators.compose([]))
     });
     this.addFormGlobalObservers();
@@ -138,10 +139,11 @@ export class CreatePerceptionFormComponent implements OnInit {
       monedaDocumentoRelacionado: [null, Validators.compose([Validators.required, Validators.maxLength(3)])],
       totalDocumentoRelacionado: [null, Validators.compose([Validators.required])],
       tipoCambio: [0, Validators.compose([Validators.required])],
-      pagoSinPercepcion: [0, Validators.compose([Validators.required])],
+      fechaCambio: [null, Validators.compose([Validators.required])],
+      pagoDocumentoSunat: [0, Validators.compose([Validators.required])],
       numeroPago: [null],
-      fechaPercepcion: [null, Validators.compose([Validators.required])],
-      importePercepcion: [0, Validators.compose([Validators.required])],
+      fechaDocumentoSunat: [null, Validators.compose([Validators.required])],
+      importeDocumentoSunat: [0, Validators.compose([Validators.required])],
       importePago: [0, Validators.compose([Validators.required])]
     });
     formGroup.patchValue({
@@ -159,7 +161,7 @@ export class CreatePerceptionFormComponent implements OnInit {
   }
 
   addFormDetalleObservers(formGroup: FormGroup) {
-    let formControls = [this.getpagoSinPercepcion(formGroup), this.getMonedaDocumentoRelacionado(formGroup), this.getTipoCambio(formGroup)];
+    let formControls = [this.getpagoDocumentoSunat(formGroup), this.getMonedaDocumentoRelacionado(formGroup), this.getTipoCambio(formGroup)];
     formControls.forEach(formControl => {
       formControl.valueChanges.subscribe(formControlValue => {
         this.refreshFormValues();
@@ -183,12 +185,12 @@ export class CreatePerceptionFormComponent implements OnInit {
       if (monedaDocumentoRelacionado.valor === monedaDocumento) {
         tipoCambio = 1;
       }
-      let pagoSinPercepcion = this.getpagoSinPercepcion(formGroup).valid ? this.getpagoSinPercepcion(formGroup).value : undefined;
-      if (!pagoSinPercepcion) continue;
-      let importePercepcion = ( Math.round(tipoCambio* pagoSinPercepcion * tasaDocumento) / 100 );
-      let importePago = (Math.round(tipoCambio * pagoSinPercepcion) - importePercepcion);
+      let pagoDocumentoSunat = this.getpagoDocumentoSunat(formGroup).valid ? this.getpagoDocumentoSunat(formGroup).value : undefined;
+      if (!pagoDocumentoSunat) continue;
+      let importeDocumentoSunat = ( Math.round(tipoCambio * pagoDocumentoSunat * tasaDocumento) / 100 );
+      let importePago = (Math.round(tipoCambio * pagoDocumentoSunat) - importeDocumentoSunat);
       formGroup.patchValue({
-        importePercepcion: importePercepcion,
+        importeDocumentoSunat: importeDocumentoSunat,
         importePago: importePago
       });
 
@@ -204,7 +206,7 @@ export class CreatePerceptionFormComponent implements OnInit {
     }
 
     // Calculo de totales
-    let totalPercepcion = this.detalle.controls.map(formGroup => {
+    let totalDocumentoSunat = this.detalle.controls.map(formGroup => {
       return (this.getImportePercepcion(formGroup as FormGroup).value || 0)
     }).reduce((previousValue, currentValue) => previousValue + currentValue, 0);
 
@@ -213,27 +215,31 @@ export class CreatePerceptionFormComponent implements OnInit {
     }).reduce((previousValue, currentValue) => previousValue + currentValue, 0);
 
     this.form.patchValue({
-      totalPercepcion: totalPercepcion,
+      totalDocumentoSunat: totalDocumentoSunat,
       totalPago: totalPago
     });
   }
 
   save(form: any): void {
+    if (!form.detalle || form.detalle.length == 0) {
+      this.alertService.pop("warning", "Warning", "Warning! Is required to add at least one line.");
+      return;
+    }
     const modalRef = this.modalService.open(CreatePerceptionFormConfirmModalComponent)
-    modalRef.componentInstance.totalPercepcion = this.totalPercepcion.value;
+    modalRef.componentInstance.totalDocumentoSunat = this.totalDocumentoSunat.value;
     modalRef.componentInstance.totalPago = this.totalPago.value;
 
     modalRef.result.then((redirect) => {
       this.working = true;
-      this.dataService.organizationPeru().create(this.organization, form).subscribe(
+      this.dataService.perceptions().create(this.organization, form).subscribe(
         response => {
           this.working = false;
           this.alertService.pop("success", "Success", "Success! The Perception has been created.");
-          /*if (redirect) {
-           this.router.navigate(["../"], { relativeTo: this.activatedRoute });
-           } else {
-           this.buildForm();
-           }*/
+          if (redirect) {
+            this.router.navigate(["../"], {relativeTo: this.activatedRoute});
+          } else {
+            this.buildForm();
+          }
         },
         error => {
           this.working = false;
@@ -260,8 +266,8 @@ export class CreatePerceptionFormComponent implements OnInit {
     return this.form.get("tasaDocumento") as FormControl;
   }
 
-  getpagoSinPercepcion(formGroup: FormGroup) {
-    return formGroup.get("pagoSinPercepcion");
+  getpagoDocumentoSunat(formGroup: FormGroup) {
+    return formGroup.get("pagoDocumentoSunat");
   }
 
   getMonedaDocumentoRelacionado(formGroup: FormGroup) {
@@ -273,15 +279,15 @@ export class CreatePerceptionFormComponent implements OnInit {
   }
 
   getImportePercepcion(formGroup: FormGroup) {
-    return formGroup.get("importePercepcion");
+    return formGroup.get("importeDocumentoSunat");
   }
 
   getImportePago(formGroup: FormGroup) {
     return formGroup.get("importePago");
   }
 
-  get totalPercepcion(): FormControl {
-    return this.form.get("totalPercepcion") as FormControl;
+  get totalDocumentoSunat(): FormControl {
+    return this.form.get("totalDocumentoSunat") as FormControl;
   }
 
   get totalPago(): FormControl {

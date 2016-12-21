@@ -9,7 +9,7 @@
         <div class="form-group"
              [ngClass]="{ 'has-error' : !form.get('entidadTipoDeDocumento').valid && form.get('entidadTipoDeDocumento').dirty }">
           <label class="control-label required-pf">DNI/RUC
-            <i class="fa fa-question-circle text-muted" ngbTooltip="organization of the organization"
+            <i class="fa fa-question-circle text-muted" ngbTooltip="Document Type of the organization"
                placement="right"></i>
           </label>
           <select formControlName="entidadTipoDeDocumento" class="form-control">
@@ -30,7 +30,7 @@
         <div class="form-group"
              [ngClass]="{ 'has-error' : !form.get('entidadNumeroDeDocumento').valid && form.get('entidadNumeroDeDocumento').dirty }">
           <label class="control-label required-pf">Nro.Documento
-            <i class="fa fa-question-circle text-muted" ngbTooltip="organization of the organization"
+            <i class="fa fa-question-circle text-muted" ngbTooltip="Customer Document number of the organization"
                placement="right"></i>
           </label>
           <input formControlName="entidadNumeroDeDocumento" type="text" class="form-control">
@@ -44,11 +44,11 @@
         </div>
       </div>
 
-      <div class="col-md-4">
+      <div class="col-md-3">
         <div class="form-group"
              [ngClass]="{ 'has-error' : !form.get('entidadDenominacion').valid && form.get('entidadDenominacion').dirty }">
           <label class="control-label required-pf">Nombre/R.Social
-            <i class="fa fa-question-circle text-muted" ngbTooltip="organization of the organization"
+            <i class="fa fa-question-circle text-muted" ngbTooltip="Customer name of the organization"
                placement="right"></i>
           </label>
           <input formControlName="entidadDenominacion" type="text" class="form-control">
@@ -65,9 +65,28 @@
 
       <div class="col-md-3">
         <div class="form-group"
+             [ngClass]="{ 'has-error' : !form.get('entidadDireccion').valid && form.get('entidadDireccion').dirty }">
+          <label class="control-label required-pf">Direccion Cliente
+            <i class="fa fa-question-circle text-muted" ngbTooltip="Address of the organization"
+               placement="right"></i>
+          </label>
+          <input formControlName="entidadDireccion" type="text" class="form-control">
+          <div *ngIf="!form.get('entidadDireccion').valid && form.get('entidadDireccion').dirty">
+            <span *ngIf="form.get('entidadDireccion').hasError('required')"
+                  class="help-block">This field is required</span>
+            <span *ngIf="form.get('entidadDireccion').hasError('maxlength')" class="help-block">Max length allowed: {{form.get('entidadDireccion').errors.maxlength.requiredLength}}</span>
+            <span
+              *ngIf="!form.get('entidadDenomentidadDireccioninacion').hasError('required') && !form.get('entidadDireccion').hasError('maxlength') && !form.get('entidadDireccion').valid"
+              class="help-block">Value field is invalid</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-2">
+        <div class="form-group"
              [ngClass]="{ 'has-error' : !form.get('entidadEmail').valid && form.get('entidadEmail').dirty }">
           <label class="control-label">Email
-            <i class="fa fa-question-circle text-muted" ngbTooltip="organization of the organization"
+            <i class="fa fa-question-circle text-muted" ngbTooltip="Email of the organization"
                placement="right"></i>
           </label>
           <input formControlName="entidadEmail" type="email" class="form-control" placeholder="email@domain.com"/>
@@ -204,21 +223,24 @@
       <thead>
       <tr>
         <td rowspan="2" class="text-right" width="2%">#</td>
-        <th colspan="6">Documento Relacionado</th>
-        <th colspan="6">Retencion</th>
+        <th colspan="6" class="text-center"><b>Documento Relacionado</b></th>
+        <th colspan="2" class="text-center"><b>Tipo Cambio</b></th>
+        <th colspan="2" class="text-center"><b>Datos Pago</b></th>
+        <th colspan="3" class="text-center"><b>Datos de Retencion</b></th>
         <th rowspan="2" width="6%">Acciones</th>
       </tr>
       <tr>
         <td width="13%">Tipo</td>
         <td width="5%">Serie</td>
         <td width="7%">Numero</td>
-        <td width="6%">Fecha</td>
+        <td width="4%">Fecha</td>
         <td width="10%">Moneda</td>
         <td class="text-right" width="8%">Total</td>
-        <td class="text-right" width="8%">Tipo Cambio</td>
-        <td class="text-right" width="10%">Pago Sin Retencion</td>
+        <td class="text-right" width="8%">Monto</td>
+        <td width="4%">Fecha</td>
+        <td class="text-right" width="10%">Pago Sunat</td>
         <td class="text-right" width="7%"># Pago</td>
-        <td width="6%">Fecha</td>
+        <td width="4%">Fecha</td>
         <td class="text-right" width="8%">Total Retenido</td>
         <td class="text-right" width="8%">Total Pago</td>
       </tr>
@@ -324,15 +346,30 @@
 
         </td>
         <td
-          [ngClass]="{ 'has-error' : !lineFormGroup.get('pagoSinRetencion').valid && lineFormGroup.get('pagoSinRetencion').dirty }">
-          <input formControlName="pagoSinRetencion" [ofNumberMask]="numberMask" type="text"
+          [ngClass]="{ 'has-error' : !lineFormGroup.get('fechaCambio').valid && lineFormGroup.get('fechaCambio').dirty}">
+          <div *ngIf="lineFormGroup.get('monedaDocumentoRelacionado').value !== CURRENNCY"
+               [ngClass]="{ 'has-error' : !lineFormGroup.get('fechaCambio').valid && lineFormGroup.get('fechaCambio').dirty }">
+            <input formControlName="fechaCambio" type="date"
+                   class="form-control text-right" placeholder="0.00" >
+            <div *ngIf="!lineFormGroup.get('fechaCambio').valid && lineFormGroup.get('fechaCambio').dirty">
+              <span *ngIf="lineFormGroup.get('fechaCambio').hasError('required')" class="help-block">This field is required</span>
+              <span
+                *ngIf="!lineFormGroup.get('fechaCambio').hasError('required') && !lineFormGroup.get('fechaCambio').valid"
+                class="help-block">Value field is invalid</span>
+            </div>
+          </div>
+
+        </td>
+        <td
+          [ngClass]="{ 'has-error' : !lineFormGroup.get('pagoDocumentoSunat').valid && lineFormGroup.get('pagoDocumentoSunat').dirty }">
+          <input formControlName="pagoDocumentoSunat" [ofNumberMask]="numberMask" type="text"
                  class="form-control text-right"
                  placeholder="0.00">
-          <div *ngIf="!lineFormGroup.get('pagoSinRetencion').valid && lineFormGroup.get('pagoSinRetencion').dirty">
-            <span *ngIf="lineFormGroup.get('pagoSinRetencion').hasError('required')"
+          <div *ngIf="!lineFormGroup.get('pagoDocumentoSunat').valid && lineFormGroup.get('pagoDocumentoSunat').dirty">
+            <span *ngIf="lineFormGroup.get('pagoDocumentoSunat').hasError('required')"
                   class="help-block">This field is required</span>
             <span
-              *ngIf="!lineFormGroup.get('pagoSinRetencion').hasError('required') && !lineFormGroup.get('pagoSinRetencion').valid"
+              *ngIf="!lineFormGroup.get('pagoDocumentoSunat').hasError('required') && !lineFormGroup.get('pagoDocumentoSunat').valid"
               class="help-block">Value field is invalid</span>
           </div>
         </td>
@@ -349,27 +386,27 @@
           </div>
         </td>
         <td
-          [ngClass]="{ 'has-error' : !lineFormGroup.get('fechaRetencion').valid && lineFormGroup.get('fechaRetencion').dirty }">
-          <input formControlName="fechaRetencion" type="date" class="form-control" placeholder="dd/mm/yyyy"/>
-          <div *ngIf="!lineFormGroup.get('fechaRetencion').valid && lineFormGroup.get('fechaRetencion').dirty">
-            <span *ngIf="lineFormGroup.get('fechaRetencion').hasError('required')"
+          [ngClass]="{ 'has-error' : !lineFormGroup.get('fechaDocumentoSunat').valid && lineFormGroup.get('fechaDocumentoSunat').dirty }">
+          <input formControlName="fechaDocumentoSunat" type="date" class="form-control" placeholder="dd/mm/yyyy"/>
+          <div *ngIf="!lineFormGroup.get('fechaDocumentoSunat').valid && lineFormGroup.get('fechaDocumentoSunat').dirty">
+            <span *ngIf="lineFormGroup.get('fechaDocumentoSunat').hasError('required')"
                   class="help-block">This field is required</span>
-            <span *ngIf="lineFormGroup.get('fechaRetencion').hasError('maxlength')" class="help-block">Max length allowed: {{lineFormGroup.get('fechaRetencion').errors.maxlength.requiredLength}}</span>
+            <span *ngIf="lineFormGroup.get('fechaDocumentoSunat').hasError('maxlength')" class="help-block">Max length allowed: {{lineFormGroup.get('fechaDocumentoSunat').errors.maxlength.requiredLength}}</span>
             <span
-              *ngIf="!lineFormGroup.get('fechaRetencion').hasError('required') && !lineFormGroup.get('fechaRetencion').hasError('maxlength') && !lineFormGroup.get('fechaRetencion').valid"
+              *ngIf="!lineFormGroup.get('fechaDocumentoSunat').hasError('required') && !lineFormGroup.get('fechaDocumentoSunat').hasError('maxlength') && !lineFormGroup.get('fechaDocumentoSunat').valid"
               class="help-block">Value field is invalid</span>
           </div>
         </td>
         <td
-          [ngClass]="{ 'has-error' : !lineFormGroup.get('importeRetencion').valid && lineFormGroup.get('importeRetencion').dirty }">
-          <input formControlName="importeRetencion" [ofNumberMask]="numberMask" type="text"
+          [ngClass]="{ 'has-error' : !lineFormGroup.get('importeDocumentoSunat').valid && lineFormGroup.get('importeDocumentoSunat').dirty }">
+          <input formControlName="importeDocumentoSunat" [ofNumberMask]="numberMask" type="text"
                  class="form-control text-right"
                  placeholder="0.00" readonly>
-          <div *ngIf="!lineFormGroup.get('importeRetencion').valid && lineFormGroup.get('importeRetencion').dirty">
-            <span *ngIf="lineFormGroup.get('importeRetencion').hasError('required')"
+          <div *ngIf="!lineFormGroup.get('importeDocumentoSunat').valid && lineFormGroup.get('importeDocumentoSunat').dirty">
+            <span *ngIf="lineFormGroup.get('importeDocumentoSunat').hasError('required')"
                   class="help-block">This field is required</span>
             <span
-              *ngIf="!lineFormGroup.get('importeRetencion').hasError('required') && !lineFormGroup.get('importeRetencion').valid"
+              *ngIf="!lineFormGroup.get('importeDocumentoSunat').hasError('required') && !lineFormGroup.get('importeDocumentoSunat').valid"
               class="help-block">Value field is invalid</span>
           </div>
         </td>
@@ -393,7 +430,7 @@
       </tbody>
       <tfoot>
       <tr>
-        <td colspan="14" class="text-right">
+        <td colspan="15" class="text-right">
           <button (click)="addDetalle()" type="button" class="btn btn-lg btn-default">Agregar Item
             <span class="fa fa-plus"></span>
           </button>
@@ -431,7 +468,7 @@
           <tbody>
           <tr>
             <td>Total Retencion</td>
-            <td>{{form.get('totalRetencion').value | number : '1.2-2'}}</td>
+            <td>{{form.get('totalDocumentoSunat').value | number : '1.2-2'}}</td>
           </tr>
           <tr>
             <td>Total Pagado</td>

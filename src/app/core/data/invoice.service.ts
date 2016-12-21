@@ -88,11 +88,11 @@ export class InvoiceService {
     return upload;
   }
 
-  public getAll(organization: Organization): Observable<Invoice[]> {
+  public getAll(organization: Organization, queryParams?: URLSearchParams): Observable<Invoice[]> {
     let restangular = organization.restangular;
     return restangular
       .all(invoiceBasePath)
-      .get()
+      .get(queryParams)
       .map(response => {
         let json = <Invoice[]>response.json();
         let result = new Array<Invoice>();

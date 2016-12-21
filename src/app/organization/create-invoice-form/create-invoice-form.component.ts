@@ -322,7 +322,7 @@ export class CreateInvoiceFormComponent implements OnInit {
 
     modalRef.result.then((redirect) => {
       this.working = true;
-      this.dataService.organizationPeru().create(this.organization, form).subscribe(
+      this.dataService.organizationPeru().createInvoice(this.organization, form).subscribe(
         response => {
           this.working = false;
           this.alertService.pop("success", "Success", "Success! The invoice has been created.");

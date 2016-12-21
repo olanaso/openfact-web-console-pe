@@ -22,7 +22,7 @@ export class OrganizationPeService {
     this.restangular = restangular;
   }
 
-  public create(organization: Organization, invoice: Invoice): Observable<Invoice> {
+  public createInvoice(organization: Organization, invoice: Invoice): Observable<Invoice> {
     let restangular = organization.restangular;
     return this.restangular.one("organizations", organization.organization)
       .all(basePath)
@@ -32,11 +32,35 @@ export class OrganizationPeService {
         if (response.status === 201 || 204) {
           return undefined;
         }
-        let json = <Invoice>response.json();
-        let result = new Invoice();
-        result.restangular = restangular.one(basePath, json[idName]);
-        result = Object.assign(result, json);
-        return result;
+        return response.json();
+      });
+  }
+
+  public createCreditNote(organization: Organization, creditNote: any): Observable<Invoice> {
+    let restangular = organization.restangular;
+    return this.restangular.one("organizations", organization.organization)
+      .all(basePath)
+      .all("credit-notes")
+      .post(creditNote)
+      .map(response => {
+        if (response.status === 201 || 204) {
+          return undefined;
+        }
+        return response.json();
+      });
+  }
+
+  public createDebitNote(organization: Organization, debitNote: any): Observable<Invoice> {
+    let restangular = organization.restangular;
+    return this.restangular.one("organizations", organization.organization)
+      .all(basePath)
+      .all("debit-notes")
+      .post(debitNote)
+      .map(response => {
+        if (response.status === 201 || 204) {
+          return undefined;
+        }
+        return response.json();
       });
   }
 

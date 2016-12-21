@@ -12,7 +12,7 @@ import { NgbModal, NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
 export class CreateRetentionFormConfirmModalComponent implements OnInit {
 
   @Input()
-  totalRetencion: number;
+  totalDocumentoSunat: number;
 
   @Input()
   totalPago: number;

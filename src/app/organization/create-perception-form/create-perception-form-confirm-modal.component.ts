@@ -12,7 +12,7 @@ import { NgbModal, NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
 export class CreatePerceptionFormConfirmModalComponent implements OnInit {
 
   @Input()
-  totalPercepcion: number;
+  totalDocumentoSunat: number;
 
   @Input()
   totalPago: number;

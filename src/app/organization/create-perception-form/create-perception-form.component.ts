@@ -8,6 +8,7 @@ import {Observable} from "rxjs/Observable";
 import {DataService} from '../../core/data/data.service';
 import {AlertService} from '../../core/alert/alert.service';
 import {Organization} from '../../core/models/organization.model';
+import {DatePipe} from '@angular/common';
 
 import {NgbModal, ModalDismissReasons} from "@ng-bootstrap/ng-bootstrap";
 
@@ -18,7 +19,8 @@ import createNumberMask from "text-mask-addons/dist/createNumberMask.js";
 @Component({
   selector: 'of-create-perception-form',
   templateUrl: './create-perception-form.component.html',
-  styleUrls: ['./create-perception-form.component.scss']
+  styleUrls: ['./create-perception-form.component.scss'],
+  providers: [DatePipe]
 })
 export class CreatePerceptionFormComponent implements OnInit {
 
@@ -33,7 +35,8 @@ export class CreatePerceptionFormComponent implements OnInit {
               private formBuilder: FormBuilder,
               private dataService: DataService,
               private modalService: NgbModal,
-              private alertService: AlertService) {
+              private alertService: AlertService,
+              private datePipe: DatePipe) {
     this.buildForm();
   }
 
@@ -87,11 +90,12 @@ export class CreatePerceptionFormComponent implements OnInit {
       entidadTipoDeDocumento: [null, Validators.compose([Validators.required])],
       entidadNumeroDeDocumento: [null, Validators.compose([Validators.required, Validators.maxLength(20)])],
       entidadDenominacion: [null, Validators.compose([Validators.required, Validators.maxLength(150)])],
-      entidadDireccion: [null, Validators.compose([Validators.required, Validators.maxLength(150)])],
+      entidadDireccion: [null, Validators.compose([Validators.maxLength(150)])],
       entidadEmail: [null, Validators.compose([Validators.maxLength(150)])],
 
-      serieDocumento: [null, Validators.compose([Validators.required, Validators.maxLength(4)])],
-      numeroDocumento: [null, Validators.compose([Validators.required, Validators.maxLength(8)])],
+      serieDocumento: [null, Validators.compose([Validators.maxLength(4)])],
+      numeroDocumento: [null, Validators.compose([Validators.maxLength(8)])],
+      fechaDeEmision: [new Date(), Validators.compose([Validators.required])],
       monedaDocumento: [null, Validators.compose([Validators.required, Validators.maxLength(3)])],
       tasaDocumento: [null, Validators.compose([Validators.required])],
 
@@ -103,6 +107,7 @@ export class CreatePerceptionFormComponent implements OnInit {
       totalDocumentoSunat: [0, Validators.compose([Validators.required])],
       detalle: this.formBuilder.array([], Validators.compose([]))
     });
+    this.updateIssues();
     this.addFormGlobalObservers();
     this.setDefaultFormValues();
   }
@@ -114,6 +119,11 @@ export class CreatePerceptionFormComponent implements OnInit {
       tasaDocumento: this.tasaEntidad[0].valor
     });
   }
+  updateIssues() {
+  this.form.patchValue({
+    fechaDeEmision: this.datePipe.transform(new Date(), 'yyyy-MM-dd')
+  });
+}
 
   get detalle(): FormArray {
     return this.form.get("detalle") as FormArray;
@@ -191,7 +201,8 @@ export class CreatePerceptionFormComponent implements OnInit {
       let importePago = (Math.round(tipoCambio * pagoDocumentoSunat) - importeDocumentoSunat);
       formGroup.patchValue({
         importeDocumentoSunat: importeDocumentoSunat,
-        importePago: importePago
+        importePago: importePago,
+        fechaDocumentoSunat: this.datePipe.transform(new Date(), 'yyyy-MM-dd')
       });
 
       /*if (monedaDocumentoRelacionado.valor === monedaDocumento && !this.updateCurrency) {

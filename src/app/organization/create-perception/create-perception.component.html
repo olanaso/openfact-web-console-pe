@@ -1,0 +1,20 @@
+<div class="page-header page-header-bleed-right page-header-bleed-left" style="border-bottom: 1px solid #d1d1d1; margin-top: 0; margin-bottom: 0; padding-left: 20px">
+  <h1>Create Perception</h1>
+</div>
+
+<br>
+<div class="row">
+  <div class="col-md-12">
+    <div class="tab-container">
+      <ul class="nav nav-tabs">
+        <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a routerLink="./">Form</a></li>
+        <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: false}"><a routerLink="./upload">Upload</a></li>
+      </ul>
+      <div class="tab-pane">
+        <div>
+          <router-outlet></router-outlet>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

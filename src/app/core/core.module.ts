@@ -24,6 +24,8 @@ import { OrganizationService } from './data/organization.service';
 import { InvoiceService } from './data/invoice.service';
 import { CreditnoteService } from './data/creditnote.service';
 import { DebitnoteService } from './data/debitnote.service';
+import  {PerceptionService} from './data/perception.service';
+import {RetentionService} from './data/retention.service';
 import { ServerInfoService } from './data/server-info.service';
 import { EventService } from './data/event.service';
 import { StorageFileService } from './data/storage-file.service';
@@ -41,6 +43,14 @@ import { InvoiceJsonResolver } from './resolvers/invoice-json-resolver';
 import { InvoiceTextResolver } from './resolvers/invoice-text-resolver';
 import { CreditNoteResolver } from './resolvers/credit-note-resolver';
 import { DebitNoteResolver } from './resolvers/debit-note-resolver';
+
+import { PerceptionResolver } from './resolvers/perception-resolver';
+import { PerceptionJsonResolver } from './resolvers/perception-json-resolver';
+import { PerceptionTextResolver } from './resolvers/perception-text-resolver';
+
+import { RetentionResolver } from './resolvers/retention-resolver';
+import { RetentionJsonResolver } from './resolvers/retention-json-resolver';
+import { RetentionTextResolver } from './resolvers/retention-text-resolver';
 
 // Guards
 import { AllowedDataOrganizations } from './guards/allowed-data-organizations';
@@ -107,6 +117,8 @@ import { AllowedDataRoles } from './guards/allowed-data-roles';
     InvoiceService,
     CreditnoteService,
     DebitnoteService,
+    PerceptionService,
+    RetentionService,
     ServerInfoService,
     EventService,
     StorageFileService,
@@ -126,6 +138,13 @@ import { AllowedDataRoles } from './guards/allowed-data-roles';
     CreditNoteResolver,
     DebitNoteResolver,
 
+    PerceptionResolver,
+    PerceptionJsonResolver,
+    PerceptionTextResolver,
+
+    RetentionResolver,
+    RetentionJsonResolver,
+    RetentionTextResolver,
     //Guards
     AllowedDataOrganizations,
     AllowedDataRoles

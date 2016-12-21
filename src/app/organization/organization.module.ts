@@ -53,12 +53,6 @@ import { CreateCreditNoteFormConfirmModalComponent } from './create-credit-note-
 import { CreateCreditNoteUploadComponent } from './create-credit-note-upload/create-credit-note-upload.component';
 import { EditCreditNoteComponent } from './edit-credit-note/edit-credit-note.component';
 import { CreditNoteOverviewComponent } from './credit-note-overview/credit-note-overview.component';
-import {CreditNotesComponent} from './credit-notes/credit-notes.component';
-import {CreateCreditNoteComponent} from './create-credit-note/create-credit-note.component';
-import {CreateCreditNoteFormComponent} from './create-credit-note-form/create-credit-note-form.component';
-import {CreateCreditNoteUploadComponent} from './create-credit-note-upload/create-credit-note-upload.component';
-import {EditCreditNoteComponent} from './edit-credit-note/edit-credit-note.component';
-import {CreditNoteOverviewComponent} from './credit-note-overview/credit-note-overview.component';
 
 import { DebitNotesComponent } from './debit-notes/debit-notes.component';
 import { CreateDebitNoteComponent } from './create-debit-note/create-debit-note.component';
@@ -67,100 +61,95 @@ import { CreateDebitNoteFormConfirmModalComponent } from './create-debit-note-fo
 import { CreateDebitNoteUploadComponent } from './create-debit-note-upload/create-debit-note-upload.component';
 import { EditDebitNoteComponent } from './edit-debit-note/edit-debit-note.component';
 import { DebitNoteOverviewComponent } from './debit-note-overview/debit-note-overview.component';
-import {DebitNotesComponent} from './debit-notes/debit-notes.component';
-import {CreateDebitNoteComponent} from './create-debit-note/create-debit-note.component';
-import {CreateDebitNoteFormComponent} from './create-debit-note-form/create-debit-note-form.component';
-import {CreateDebitNoteUploadComponent} from './create-debit-note-upload/create-debit-note-upload.component';
-import {EditDebitNoteComponent} from './edit-debit-note/edit-debit-note.component';
-import {DebitNoteOverviewComponent} from './debit-note-overview/debit-note-overview.component';
 
+import { PerceptionsComponent } from './perceptions/perceptions.component';
+import { CreatePerceptionComponent } from './create-perception/create-perception.component';
+import { CreatePerceptionFormComponent } from './create-perception-form/create-perception-form.component';
+import { CreatePerceptionUploadComponent } from './create-perception-upload/create-perception-upload.component';
+import { CreatePerceptionFormConfirmModalComponent } from './create-perception-form/create-perception-form-confirm-modal.component';
+import { EditPerceptionComponent } from './edit-perception/edit-perception.component';
+import { PerceptionOverviewComponent } from './perception-overview/perception-overview.component';
+import { PerceptionOverviewEventsComponent } from './perception-overview-events/perception-overview-events.component';
+import { PerceptionSendEventsComponent } from './perception-send-events/perception-send-events.component';
 
-import {PerceptionsComponent} from './perceptions/perceptions.component';
-import {CreatePerceptionComponent} from './create-perception/create-perception.component';
-import {CreatePerceptionFormComponent} from './create-perception-form/create-perception-form.component';
-import {CreatePerceptionUploadComponent} from './create-perception-upload/create-perception-upload.component';
-import {CreatePerceptionFormConfirmModalComponent} from './create-perception-form/create-perception-form-confirm-modal.component';
-import {EditPerceptionComponent} from './edit-perception/edit-perception.component';
-import {PerceptionOverviewComponent} from './perception-overview/perception-overview.component';
-import {PerceptionOverviewEventsComponent} from './perception-overview-events/perception-overview-events.component';
-import {PerceptionSendEventsComponent} from './perception-send-events/perception-send-events.component';
+import { RetentionsComponent } from './retentions/retentions.component';
+import { CreateRetentionComponent } from './create-retention/create-retention.component';
+import { CreateRetentionFormComponent } from './create-retention-form/create-retention-form.component';
+import { CreateRetentionUploadComponent } from './create-retention-upload/create-retention-upload.component';
+import { CreateRetentionFormConfirmModalComponent } from './create-retention-form/create-retention-form-confirm-modal.component';
+import { EditRetentionComponent } from './edit-retention/edit-retention.component';
+import { RetentionOverviewComponent } from './retention-overview/retention-overview.component';
+import { RetentionOverviewEventsComponent } from './retention-overview-events/retention-overview-events.component';
+import { RetentionSendEventsComponent } from './retention-send-events/retention-send-events.component';
 
-import {RetentionsComponent} from './retentions/retentions.component';
-import {CreateRetentionComponent} from './create-retention/create-retention.component';
-import {CreateRetentionFormComponent} from './create-retention-form/create-retention-form.component';
-import {CreateRetentionUploadComponent} from './create-retention-upload/create-retention-upload.component';
-import {CreateRetentionFormConfirmModalComponent} from './create-retention-form/create-retention-form-confirm-modal.component';
-import {EditRetentionComponent} from './edit-retention/edit-retention.component';
-import {RetentionOverviewComponent} from './retention-overview/retention-overview.component';
-import {RetentionOverviewEventsComponent} from './retention-overview-events/retention-overview-events.component';
-import {RetentionSendEventsComponent} from './retention-send-events/retention-send-events.component';
-
-import {EventsComponent} from './events/events.component';
-import {AdminEventsComponent} from './admin-events/admin-events.component';
-import {EventsSettingsComponent} from './events-settings/events-settings.component';
+import { EventsComponent } from './events/events.component';
+import { AdminEventsComponent } from './admin-events/admin-events.component';
+import { EventsSettingsComponent } from './events-settings/events-settings.component';
 
 @NgModule({
-    imports: [
-        // Angular modules
-        CommonModule,
-        RouterModule,
-        FormsModule,
-        ReactiveFormsModule,
+  imports: [
+    // Angular modules
+    CommonModule,
+    RouterModule,
+    FormsModule,
+    ReactiveFormsModule,
 
-        // Organization module
-        OrganizationRoutingModule,
+    // Organization module
+    OrganizationRoutingModule,
 
-        // Third modules
-        NgbModule.forRoot(),
-        MomentModule,
-        TranslateModule,
-        FileUploadModule,
-        SelectModule,
-        TextMaskModule,
+    // Third modules
+    NgbModule.forRoot(),
+    MomentModule,
+    TranslateModule,
+    FileUploadModule,
+    SelectModule,
+    TextMaskModule,
 
-        // Openfact modules
-        SharedModule,
-    ],
-    declarations: [
-        // Components
-        OrganizationComponent,
-        OrganizationHeaderComponent,
-        SidebarComponent,
-        OrganizationOverviewComponent,
-        OrganizationSettingsComponent,
-        OrganizationGeneralInformationComponent,
-        OrganizationAdditionalInformationComponent,
-        OrganizationKeySettingsComponent,
-        OrganizationKeyActiveSettingsComponent,
-        OrganizationAllKeysSettingsComponent,
-        OrganizationKeyProvidersSettingsComponent,
-        OrganizationGenericKeystoreComponent,
-        OrganizationSmtpSettingsComponent,
-        ComponentConfigComponent,
+    // Openfact modules
+    SharedModule,
+  ],
+  declarations: [
+    // Components
+    OrganizationComponent,
+    OrganizationHeaderComponent,
+    SidebarComponent,
+    OrganizationOverviewComponent,
+    OrganizationSettingsComponent,
+    OrganizationGeneralInformationComponent,
+    OrganizationAdditionalInformationComponent,
+    OrganizationKeySettingsComponent,
+    OrganizationKeyActiveSettingsComponent,
+    OrganizationAllKeysSettingsComponent,
+    OrganizationKeyProvidersSettingsComponent,
+    OrganizationGenericKeystoreComponent,
+    OrganizationSmtpSettingsComponent,
+    ComponentConfigComponent,
 
-        InvoicesComponent,
-        CreateInvoiceComponent,
-        CreateInvoiceFormComponent,
-        CreateInvoiceFormConfirmModalComponent,
-        CreateInvoiceUploadComponent,
-        EditInvoiceComponent,
-        InvoiceOverviewComponent,
-        InvoiceOverviewEventsComponent,
-        InvoiceSendEventsComponent,
+    InvoicesComponent,
+    CreateInvoiceComponent,
+    CreateInvoiceFormComponent,
+    CreateInvoiceFormConfirmModalComponent,
+    CreateInvoiceUploadComponent,
+    EditInvoiceComponent,
+    InvoiceOverviewComponent,
+    InvoiceOverviewEventsComponent,
+    InvoiceSendEventsComponent,
 
-        CreditNotesComponent,
-        CreateCreditNoteComponent,
-        CreateCreditNoteFormComponent,
-        CreateCreditNoteUploadComponent,
-        EditCreditNoteComponent,
-        CreditNoteOverviewComponent,
+    CreditNotesComponent,
+    CreateCreditNoteComponent,
+    CreateCreditNoteFormComponent,
+    CreateCreditNoteFormConfirmModalComponent,
+    CreateCreditNoteUploadComponent,
+    EditCreditNoteComponent,
+    CreditNoteOverviewComponent,
 
-        DebitNotesComponent,
-        CreateDebitNoteComponent,
-        CreateDebitNoteFormComponent,
-        CreateDebitNoteUploadComponent,
-        EditDebitNoteComponent,
-        DebitNoteOverviewComponent,
+    DebitNotesComponent,
+    CreateDebitNoteComponent,
+    CreateDebitNoteFormComponent,
+    CreateDebitNoteFormConfirmModalComponent,
+    CreateDebitNoteUploadComponent,
+    EditDebitNoteComponent,
+    DebitNoteOverviewComponent,
 
     PerceptionsComponent,
     CreatePerceptionComponent,
@@ -188,6 +177,8 @@ import {EventsSettingsComponent} from './events-settings/events-settings.compone
   ],
   entryComponents: [
     CreateInvoiceFormConfirmModalComponent,
+    CreateCreditNoteFormConfirmModalComponent,
+    CreateDebitNoteFormConfirmModalComponent,
     CreatePerceptionFormConfirmModalComponent,
     CreateRetentionFormConfirmModalComponent
   ],

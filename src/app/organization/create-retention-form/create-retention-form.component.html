@@ -66,7 +66,7 @@
       <div class="col-md-3">
         <div class="form-group"
              [ngClass]="{ 'has-error' : !form.get('entidadDireccion').valid && form.get('entidadDireccion').dirty }">
-          <label class="control-label required-pf">Direccion Cliente
+          <label class="control-label">Direccion Cliente
             <i class="fa fa-question-circle text-muted" ngbTooltip="Address of the organization"
                placement="right"></i>
           </label>
@@ -109,7 +109,7 @@
       <div class="col-md-1">
         <div class="form-group"
              [ngClass]="{ 'has-error' : !form.get('serieDocumento').valid && form.get('serieDocumento').dirty }">
-          <label class="control-label required-pf">Serie
+          <label class="control-label">Serie
             <i class="fa fa-question-circle text-muted" ngbTooltip="organization of the organization"
                placement="right"></i>
           </label>
@@ -124,10 +124,10 @@
           </div>
         </div>
       </div>
-      <div class="col-md-2">
+      <div class="col-md-1">
         <div class="form-group"
              [ngClass]="{ 'has-error' : !form.get('numeroDocumento').valid && form.get('numeroDocumento').dirty }">
-          <label class="control-label required-pf">Numero
+          <label class="control-label">Numero
             <i class="fa fa-question-circle text-muted" ngbTooltip="organization of the organization"
                placement="right"></i>
           </label>
@@ -138,6 +138,23 @@
             <span *ngIf="form.get('numeroDocumento').hasError('maxlength')" class="help-block">Max length allowed: {{form.get('numeroDocumento').errors.maxlength.requiredLength}}</span>
             <span
               *ngIf="!form.get('numeroDocumento').hasError('required') && !form.get('numeroDocumento').hasError('maxlength') && !form.get('numeroDocumento').valid"
+              class="help-block">Value field is invalid</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="form-group"
+             [ngClass]="{ 'has-error' : !form.get('fechaDeEmision').valid && form.get('fechaDeEmision').dirty }">
+          <label class="control-label required-pf">Fecha Emision
+            <i class="fa fa-question-circle text-muted" ngbTooltip="organization of the organization"
+               placement="right"></i>
+          </label>
+          <input formControlName="fechaDeEmision"  type="date" class="form-control"   readonly>
+          <div *ngIf="!form.get('fechaDeEmision').valid && form.get('fechaDeEmision').dirty">
+            <span *ngIf="form.get('fechaDeEmision').hasError('required')"
+                  class="help-block">This field is required</span>
+            <span
+              *ngIf="!form.get('fechaDeEmision').hasError('required') && !form.get('fechaDeEmision').hasError('maxlength') && !form.get('fechaDeEmision').valid"
               class="help-block">Value field is invalid</span>
           </div>
         </div>
@@ -181,7 +198,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-2">
+      <div class="col-md-1">
         <div class="form-group"
              [ngClass]="{ 'has-error' : !form.get('enviarAutomaticamenteASunat').valid && form.get('enviarAutomaticamenteASunat').dirty }">
           <label class="control-label">Enviar Sunat
@@ -197,7 +214,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-2">
+      <div class="col-md-1">
         <div class="form-group"
              [ngClass]="{ 'has-error' : !form.get('enviarAutomaticamenteAlCliente').valid && form.get('enviarAutomaticamenteAlCliente').dirty }">
           <label class="control-label">Enviar Cliente
@@ -223,8 +240,8 @@
       <thead>
       <tr>
         <td rowspan="2" class="text-right" width="2%">#</td>
-        <th colspan="6" class="text-center"><b>Documento Relacionado</b></th>
-        <th colspan="2" class="text-center"><b>Tipo Cambio</b></th>
+        <th colspan="6" class="text-center"><b>Datos Documento Relacionado</b></th>
+        <th colspan="2" class="text-center"><b>Datos Tipo Cambio</b></th>
         <th colspan="2" class="text-center"><b>Datos Pago</b></th>
         <th colspan="3" class="text-center"><b>Datos de Retencion</b></th>
         <th rowspan="2" width="6%">Acciones</th>
@@ -387,7 +404,7 @@
         </td>
         <td
           [ngClass]="{ 'has-error' : !lineFormGroup.get('fechaDocumentoSunat').valid && lineFormGroup.get('fechaDocumentoSunat').dirty }">
-          <input formControlName="fechaDocumentoSunat" type="date" class="form-control" placeholder="dd/mm/yyyy"/>
+          <input formControlName="fechaDocumentoSunat" type="date" class="form-control" />
           <div *ngIf="!lineFormGroup.get('fechaDocumentoSunat').valid && lineFormGroup.get('fechaDocumentoSunat').dirty">
             <span *ngIf="lineFormGroup.get('fechaDocumentoSunat').hasError('required')"
                   class="help-block">This field is required</span>

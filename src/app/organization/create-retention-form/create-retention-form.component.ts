@@ -14,6 +14,7 @@ import {NgbModal, ModalDismissReasons} from "@ng-bootstrap/ng-bootstrap";
 
 import {CreateRetentionFormConfirmModalComponent} from './create-retention-form-confirm-modal.component'
 import createNumberMask from "text-mask-addons/dist/createNumberMask.js";
+import {type} from "os";
 
 
 @Component({
@@ -36,6 +37,7 @@ export class CreateRetentionFormComponent implements OnInit {
               private modalService: NgbModal,
               private alertService: AlertService,
               private datePipe: DatePipe) {
+    this.organization = this.activatedRoute.snapshot.data['organization'];
     this.buildForm();
   }
 
@@ -92,8 +94,8 @@ export class CreateRetentionFormComponent implements OnInit {
       entidadDireccion: [null, Validators.compose([Validators.maxLength(150)])],
       entidadEmail: [null, Validators.compose([Validators.maxLength(150)])],
 
-      serieDocumento: [null, Validators.compose([Validators.maxLength(4)])],
-      numeroDocumento: [null, Validators.compose([ Validators.maxLength(8)])],
+      serieDocumento: [null, Validators.compose([Validators.maxLength(4),Validators.pattern('[R]{1}[0-9]{3}')])],
+      numeroDocumento: [null, Validators.compose([ Validators.maxLength(8),Validators.pattern('[0-9]{8}')])],
       fechaDeEmision: [null, Validators.compose([Validators.required])],
       monedaDocumento: [null, Validators.compose([Validators.required, Validators.maxLength(3)])],
       tasaDocumento: [null, Validators.compose([Validators.required, Validators.required])],
@@ -143,7 +145,9 @@ export class CreateRetentionFormComponent implements OnInit {
   addDetalle(): void {
     let formGroup = this.formBuilder.group({
       tipoDocumentoRelacionado: [null, Validators.compose([Validators.required])],
+/*
       serieDocumentoRelacionado: [null, Validators.compose([Validators.required, Validators.maxLength(4)])],
+*/
       numeroDocumentoRelacionado: [null, Validators.compose([Validators.required, Validators.maxLength(8)])],
       fechaDocumentoRelacionado: [null, Validators.compose([Validators.required])],
       monedaDocumentoRelacionado: [null, Validators.compose([Validators.required, Validators.maxLength(3)])],
@@ -236,9 +240,9 @@ export class CreateRetentionFormComponent implements OnInit {
       this.dataService.retentions().create(this.organization, form).subscribe(
         response => {
           this.working = false;
-          this.alertService.pop("success", "Success", "Success! The Retention has been created.");
+          this.alertService.pop("success", "Success", "Success! The retention has been created.");
           if (redirect) {
-            this.router.navigate(["../"], {relativeTo: this.activatedRoute});
+            this.router.navigate(["../"], { relativeTo: this.activatedRoute });
           } else {
             this.buildForm();
           }

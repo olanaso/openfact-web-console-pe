@@ -149,7 +149,7 @@
             <i class="fa fa-question-circle text-muted" ngbTooltip="organization of the organization"
                placement="right"></i>
           </label>
-          <input formControlName="fechaDeEmision"  type="date" class="form-control"   readonly>
+          <input formControlName="fechaDeEmision"  type="date" class="form-control"  >
           <div *ngIf="!form.get('fechaDeEmision').valid && form.get('fechaDeEmision').dirty">
             <span *ngIf="form.get('fechaDeEmision').hasError('required')"
                   class="help-block">This field is required</span>
@@ -248,8 +248,7 @@
       </tr>
       <tr>
         <td width="13%">Tipo</td>
-        <td width="5%">Serie</td>
-        <td width="7%">Numero</td>
+        <td width="12%">Numero</td>
         <td width="4%">Fecha</td>
         <td width="10%">Moneda</td>
         <td class="text-right" width="8%">Total</td>
@@ -276,19 +275,6 @@
             <span *ngIf="lineFormGroup.get('tipoDocumentoRelacionado').hasError('required')" class="help-block">This field is required</span>
             <span
               *ngIf="!lineFormGroup.get('tipoDocumentoRelacionado').hasError('required') && !lineFormGroup.get('tipoDocumentoRelacionado').valid"
-              class="help-block">Value field is invalid</span>
-          </div>
-        </td>
-        <td
-          [ngClass]="{ 'has-error' : !lineFormGroup.get('serieDocumentoRelacionado').valid && lineFormGroup.get('serieDocumentoRelacionado').dirty }">
-          <input formControlName="serieDocumentoRelacionado" type="text" class="form-control" placeholder="F001"/>
-          <div
-            *ngIf="!lineFormGroup.get('serieDocumentoRelacionado').valid && lineFormGroup.get('serieDocumentoRelacionado').dirty">
-            <span *ngIf="lineFormGroup.get('serieDocumentoRelacionado').hasError('required')"
-                  class="help-block">This field is required</span>
-            <span *ngIf="lineFormGroup.get('serieDocumentoRelacionado').hasError('maxlength')" class="help-block">Max length allowed: {{lineFormGroup.get('serieDocumentoRelacionado').errors.maxlength.requiredLength}}</span>
-            <span
-              *ngIf="!lineFormGroup.get('serieDocumentoRelacionado').hasError('required') && !lineFormGroup.get('serieDocumentoRelacionado').hasError('maxlength') && !lineFormGroup.get('serieDocumentoRelacionado').valid"
               class="help-block">Value field is invalid</span>
           </div>
         </td>

@@ -241,7 +241,7 @@
       <thead>
       <tr>
         <td rowspan="2" class="text-right" width="2%">#</td>
-        <th colspan="6" class="text-center"><b>Datos Documento Relacionado</b></th>
+        <th colspan="5" class="text-center"><b>Datos Documento Relacionado</b></th>
         <th colspan="2" class="text-center"><b>Datos Tipo Cambio</b></th>
         <th colspan="2" class="text-center"><b>Datos Pago</b></th>
         <th colspan="3" class="text-center"><b>Datos de Percepcion</b></th>
@@ -249,8 +249,7 @@
       </tr>
       <tr>
         <td width="13%">Tipo</td>
-        <td width="5%">Serie</td>
-        <td width="7%">Numero</td>
+        <td width="12%">Numero</td>
         <td width="4%">Fecha</td>
         <td width="10%">Moneda</td>
         <td class="text-right" width="8%">Total</td>
@@ -280,7 +279,7 @@
               class="help-block">Value field is invalid</span>
           </div>
         </td>
-        <td
+        <!--<td
           [ngClass]="{ 'has-error' : !lineFormGroup.get('serieDocumentoRelacionado').valid && lineFormGroup.get('serieDocumentoRelacionado').dirty }">
           <input formControlName="serieDocumentoRelacionado" type="text" class="form-control" placeholder="F001"/>
           <div
@@ -292,10 +291,26 @@
               *ngIf="!lineFormGroup.get('serieDocumentoRelacionado').hasError('required') && !lineFormGroup.get('serieDocumentoRelacionado').hasError('maxlength') && !lineFormGroup.get('serieDocumentoRelacionado').valid"
               class="help-block">Value field is invalid</span>
           </div>
-        </td>
+        </td>-->
+        <div class="form-group" [ngClass]="{ 'has-error' : !form.get('documentoQueSeModifica').valid && form.get('documentoQueSeModifica').dirty }">
+
+          <div class="input-group">
+            <input type="text" formControlName="documentoQueSeModifica" [textMask]="{mask: documentMask}" (keyup.enter)="findInvoice()" class="form-control" placeholder="[B|F]000-0000000"
+                   autofocus>
+            <span class="input-group-btn"><button (click)="findInvoice()" class="btn btn-default" type="button"><span class="fa fa-search"></span></button>
+            </span>
+          </div>
+          <div *ngIf="!form.get('documentoQueSeModifica').valid && form.get('documentoQueSeModifica').dirty">
+            <span *ngIf="form.get('documentoQueSeModifica').hasError('required')" class="help-block">This field is required</span>
+            <span *ngIf="!form.get('documentoQueSeModifica').hasError('required') && !form.get('documentoQueSeModifica').valid" class="help-block">Value field is invalid</span>
+          </div>
+        </div>
         <td
           [ngClass]="{ 'has-error' : !lineFormGroup.get('numeroDocumentoRelacionado').valid && lineFormGroup.get('numeroDocumentoRelacionado').dirty }">
-          <input formControlName="numeroDocumentoRelacionado" type="text" class="form-control" placeholder="00000001"/>
+          <input type="text" formControlName="numeroDocumentoRelacionado" [textMask]="{mask: documentMask}" (keyup.enter)="findInvoice()" class="form-control" placeholder="[B|F]000-0000000"
+                 autofocus>
+          <span class="input-group-btn"><button (click)="findInvoice()" class="btn btn-default" type="button"><span class="fa fa-search"></span></button>
+            </span>
           <div
             *ngIf="!lineFormGroup.get('numeroDocumentoRelacionado').valid && lineFormGroup.get('numeroDocumentoRelacionado').dirty">
             <span *ngIf="lineFormGroup.get('numeroDocumentoRelacionado').hasError('required')"

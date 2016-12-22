@@ -1,4 +1,5 @@
-<div class="page-header page-header-bleed-right page-header-bleed-left" style="border-bottom: 1px solid #d1d1d1; margin-top: 0; margin-bottom: 0; padding-left: 20px">
+<div class="page-header page-header-bleed-right page-header-bleed-left"
+     style="border-bottom: 1px solid #d1d1d1; margin-top: 0; margin-bottom: 0; padding-left: 20px">
   <h1>Retentions</h1>
 </div>
 
@@ -17,7 +18,8 @@
               </template>
             </ul>
           </div>
-          <input type="text" id="filterText" [(ngModel)]="filters.filterText" name="filterText" #filterText="ngModel" class="form-control"
+          <input type="text" id="filterText" [(ngModel)]="filters.filterText" name="filterText" #filterText="ngModel"
+                 class="form-control"
                  placeholder="Filter By Name..." autofocus>
         </div>
       </div>
@@ -25,7 +27,8 @@
 
       <div class="form-group">
         <div class="btn-group" ngbDropdown>
-          <button type="button" class="btn btn-default dropdown-toggle" ngbDropdownToggle>{{sorter.selected.name}} <span class="caret"></span></button>
+          <button type="button" class="btn btn-default dropdown-toggle" ngbDropdownToggle>{{sorter.selected.name}} <span
+            class="caret"></span></button>
           <ul class="dropdown-menu">
             <template ngFor let-item [ngForOf]="combo.orderBy" let-i="index">
               <li *ngIf="item.divider" class="divider"></li>
@@ -102,62 +105,52 @@
           <table class="datatable table table-striped table-bordered dataTable no-footer table-mobile">
             <thead>
             <tr>
-              <th rowspan="2" class="text-right">#</th>
-              <th colspan="6">Datos Retencion</th>
-              <th colspan="4">Datos Documento Relacionado</th>
-              <th colspan="3">Datos Cliente</th>
-              <th rowspan="2" colspan="2">Actions</th>
+              <th rowspan="2" class="text-center"><b>#</b></th>
+              <th colspan="6" class="text-center"><b>Datos de Retencion</b></th>
+              <th colspan="4" class="text-center"><b>Datos de Cliente</b></th>
+              <th rowspan="2" class="text-center"><b>Actions</b></th>
             </tr>
             <tr>
-              <th>Serie</th>
-              <th>Numero</th>
-              <th>Fecha</th>
-              <th class="text-right">Tasa</th>
-              <th class="text-right">Pago sin Retencion</th>
-              <th class="text-right">Importe Retenido</th>
-
-              <th>Serie</th>
-              <th>Numero</th>
-              <th>Fecha Pago</th>
-              <th class="text-right">Total</th>
-
-              <th># Documento</th>
+              <th>Numero Documento</th>
+              <th>Fecha </th>
+              <th>Moneda </th>
+              <th class="text-right">Tasa </th>
+              <th class="text-right">Total Retencion</th>
+              <th class="text-right">Total Pago</th>
+              <th>Tipo Documento</th>
+              <th>Numero Documento</th>
               <th>Razon Social</th>
               <th>E-mail</th>
             </tr>
-
             </thead>
             <tbody>
             <tr *ngIf="!searchResult || searchResult.items == 0">
-              <td colspan="15" class="text-center text-muted">
+              <td colspan="12" class="text-center text-muted">
                 <span>No results found.</span>
               </td>
             </tr>
             <tr *ngFor="let item of searchResult.items; let i = index;">
               <td class="text-right">{{i+1}}</td>
               <td>{{item.documentId}}</td>
-              <td>{{item.documentId}}</td>
-              <td>{{item.documentId}}</td>
-              <td>{{item.documentId}}</td>
-              <td>{{item.documentId}}</td>
-              <td>{{item.documentId}}</td>
-              <td>{{item.documentId}}</td>
-              <td>{{item.documentId}}</td>
-              <td>{{item.documentId}}</td>
-              <td>{{item.issueDateTime | date}}</td>
-              <td>{{item.retentionTypeCode}}</td>
-              <td class="text-right">{{item.documentCurrencyCode}}</td>
-              <td class="text-right">{{item.legalMonetaryTotal.payableAmount | number:'1.2-3'}}</td>
-              <td class="text-right">
-                <span *ngFor="let partyLegalEntity of item.accountingCustomerParty.party.partyLegalEntity">&nbsp;{{partyLegalEntity.registrationName}}.</span>
-              </td>
+              <td>{{item.issueDate}}</td>
+              <td>{{item.documentCurrencyCode}}</td>
+              <td>{{item.sunatRetentionPercent | number:'1.2-3'}}</td>
+              <td>{{item.totalRetentionAmount | number:'1.2-3'}}</td>
+              <td>{{item.totalCashed | number:'1.2-3'}}</td>
+
+              <td>{{item.entityDocumentType}}</td>
+              <td>{{item.entityDocumentNuber}}</td>
+              <td>{{item.entityName}}</td>
+              <td>{{item.entityEmail}}</td>
               <td class="kc-action-cell" [routerLink]="[item.id]">Overview</td>
             </tr>
             </tbody>
             <tfoot *ngIf="searchResult && searchResult.totalSize > 0">
             <tr>
-              <td class="text-right" colspan="8">
-                <ngb-pagination (pageChange)="search($event)" [collectionSize]="searchResult.totalSize" [(page)]="paging.page" [maxSize]="paging.size" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"></ngb-pagination>
+              <td class="text-right" colspan="12">
+                <ngb-pagination (pageChange)="search($event)" [collectionSize]="searchResult.totalSize"
+                                [(page)]="paging.page" [maxSize]="paging.size" [rotate]="true" [ellipses]="false"
+                                [boundaryLinks]="true"></ngb-pagination>
               </td>
             </tr>
             </tfoot>

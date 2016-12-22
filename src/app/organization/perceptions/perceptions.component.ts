@@ -40,7 +40,7 @@ export class PerceptionsComponent implements OnInit {
   };
 
   combo = {
-    issueDate: [
+    issueDateTime: [
       { name: 'Last Hour', value: 'lastHour' },
       { name: 'Last 24 Hours', value: 'last24Hours' },
       { name: 'Last Week', value: 'lastWeek' },
@@ -50,7 +50,7 @@ export class PerceptionsComponent implements OnInit {
     ],
     orderBy: [
       { name: 'Issue Date', value: 'issueDateTime' },
-      { name: 'Type Code', value: 'perceptionTypeCode' }
+      { name: 'Document Type', value: 'entityDocumentType' }
     ]
   };
 
@@ -127,9 +127,9 @@ export class PerceptionsComponent implements OnInit {
         lessThan = undefined;
         break;
       case 'custom':
-        throw new Error('Invalid issueDate period');
+        throw new Error('Invalid issueDateTime period');
       default:
-        throw new Error('Invalid issueDate period');
+        throw new Error('Invalid issueDateTime period');
     }
 
     let filterSelected = {
@@ -142,7 +142,7 @@ export class PerceptionsComponent implements OnInit {
     if (greatherThan) {
       filterSelected.criterias.push(greatherThan);
     }
-    this.filters.selected.setValue('issueDate', filterSelected);
+    this.filters.selected.setValue('issueDateTime', filterSelected);
 
     this.search();
   }
@@ -153,7 +153,7 @@ export class PerceptionsComponent implements OnInit {
 
     // Put filters
     criteria.filters = [];
-    let filterAttributes = ['issueDate', 'payableAmount'];
+    let filterAttributes = ['issueDateTime', 'payableAmount'];
     filterAttributes.forEach(attributeName => {
       if (this.filters.selected.containsKey(attributeName)) {
         let filter = this.filters.selected.getValue(attributeName);

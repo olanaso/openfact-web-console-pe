@@ -88,11 +88,15 @@ export class RetentionService {
         if (response.status === 201 || 204) {
           return undefined;
         }
+        return response.json();
+        /*if (response.status === 201 || 204) {
+          return undefined;
+        }
         let json = <Retention>response.json();
         let result = new Retention();
         result.restangular = restangular.all(basePath).all(extensionPath).one(retentionBasePath, json[retentionIdName]);
         result = Object.assign(result, json);
-        return result;
+        return result;*/
       });
   }
 

@@ -8,7 +8,9 @@ import {Observable} from "rxjs/Observable";
 import {DataService} from '../../core/data/data.service';
 import {AlertService} from '../../core/alert/alert.service';
 import {Organization} from '../../core/models/organization.model';
+import { Perception } from "../../core/models/perception.model";
 import {DatePipe} from '@angular/common';
+import { Response, URLSearchParams } from '@angular/http';
 
 import {NgbModal, ModalDismissReasons} from "@ng-bootstrap/ng-bootstrap";
 
@@ -27,6 +29,7 @@ export class CreatePerceptionFormComponent implements OnInit {
   form: FormGroup;
   working: boolean = false;
   organization: Organization;
+  perception:Perception;
   CURRENNCY: string = "PEN";
   updateCurrency: boolean = false;
 
@@ -37,6 +40,7 @@ export class CreatePerceptionFormComponent implements OnInit {
               private modalService: NgbModal,
               private alertService: AlertService,
               private datePipe: DatePipe) {
+    this.organization = this.activatedRoute.snapshot.data['organization'];
     this.buildForm();
   }
 
@@ -68,21 +72,40 @@ export class CreatePerceptionFormComponent implements OnInit {
   singleNumberMask = createNumberMask({
     allowDecimal: false
   });
+  documentMask = [/[B|F|b|f]/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/];
   numberMask = {
     allowDecimal: true
-  };
-  quantityMask = {
-    allowDecimal: true,
-    decimalLimit: 3
-  };
-  perceptionCode = {
-    prefix: "P ",
-    allowDecimal: false
   };
 
   ngOnInit() {
   }
 
+
+/*  findInvoice() {
+    if (this.numeroDocumentoRelacionado.valid) {
+      let queryParam: URLSearchParams = new URLSearchParams();
+      queryParam.set("documentId", this.numeroDocumentoRelacionado.value);
+      this.dataService.perceptions().getAll(this.organization, queryParam).subscribe(
+        response => {
+          this.perception = response[0];
+          if (this.invoice) {
+            this.form.patchValue({
+              entidadTipoDeDocumento: this.invoice["accountingCustomerParty"].additionalAccountId[0],
+              entidadNumeroDeDocumento: this.invoice["accountingCustomerParty"].customerAssignedAccountId,
+              entidadDenominacion: this.invoice["accountingCustomerParty"].party.partyLegalEntity[0].registrationName,
+
+              moneda: this.invoice["documentCurrencyCode"]
+            });
+          } else {
+            this.alertService.pop("info", "Info", "Could not find Invoice.");
+          }
+        },
+        error => {
+          this.alertService.pop("error", "Error", "Could not find Invoice.");
+        }
+      );
+    }
+  }*/
 
   buildForm(): void {
     this.form = this.formBuilder.group({
@@ -119,11 +142,12 @@ export class CreatePerceptionFormComponent implements OnInit {
       tasaDocumento: this.tasaEntidad[0].valor
     });
   }
+
   updateIssues() {
-  this.form.patchValue({
-    fechaDeEmision: this.datePipe.transform(new Date(), 'yyyy-MM-dd')
-  });
-}
+    this.form.patchValue({
+      fechaDeEmision: this.datePipe.transform(new Date(), 'yyyy-MM-dd')
+    });
+  }
 
   get detalle(): FormArray {
     return this.form.get("detalle") as FormArray;
@@ -143,7 +167,6 @@ export class CreatePerceptionFormComponent implements OnInit {
   addDetalle(): void {
     let formGroup = this.formBuilder.group({
       tipoDocumentoRelacionado: [null, Validators.compose([Validators.required])],
-      serieDocumentoRelacionado: [null, Validators.compose([Validators.required, Validators.maxLength(4)])],
       numeroDocumentoRelacionado: [null, Validators.compose([Validators.required, Validators.maxLength(8)])],
       fechaDocumentoRelacionado: [null, Validators.compose([Validators.required])],
       monedaDocumentoRelacionado: [null, Validators.compose([Validators.required, Validators.maxLength(3)])],
@@ -268,7 +291,9 @@ export class CreatePerceptionFormComponent implements OnInit {
   /**
    * Getter and Setter
    */
-
+  get numeroDocumentoRelacionado(): FormControl {
+    return this.form.get("numeroDocumentoRelacionado") as FormControl;
+  }
   get monedaDocumento(): FormControl {
     return this.form.get("monedaDocumento") as FormControl;
   }

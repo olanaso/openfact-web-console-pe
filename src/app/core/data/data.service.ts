@@ -1,14 +1,14 @@
 import { Injectable, Inject } from '@angular/core';
 
-import {OrganizationService} from './organization.service';
-import {InvoiceService} from './invoice.service';
-import {CreditnoteService} from './creditnote.service';
-import {DebitnoteService} from './debitnote.service';
-import {RetentionService} from './retention.service';
-import {PerceptionService} from './perception.service'
-import {ServerInfoService} from './server-info.service';
-import {EventService} from './event.service';
-import {StorageFileService} from './storage-file.service';
+import { OrganizationService } from './organization.service';
+import { InvoiceService } from './invoice.service';
+import { CreditnoteService } from './creditnote.service';
+import { DebitnoteService } from './debitnote.service';
+import { RetentionService } from './retention.service';
+import { PerceptionService } from './perception.service'
+import { ServerInfoService } from './server-info.service';
+import { EventService } from './event.service';
+import { StorageFileService } from './storage-file.service';
 
 import { OrganizationPeService } from './organization-pe.service';
 
@@ -16,15 +16,15 @@ import { OrganizationPeService } from './organization-pe.service';
 export class DataService {
 
   constructor(private organization: OrganizationService,
-              private invoice: InvoiceService,
-              private creditnote: CreditnoteService,
-              private debitnote: DebitnoteService,
-              private perception: PerceptionService,
-              private retention: RetentionService,
-              private serverinfo: ServerInfoService,
-              private event: EventService,
-              private storageFile: StorageFileService,
-              private organizationPe: OrganizationPeService) {
+    private invoice: InvoiceService,
+    private creditnote: CreditnoteService,
+    private debitnote: DebitnoteService,
+    private perception: PerceptionService,
+    private retention: RetentionService,
+    private serverinfo: ServerInfoService,
+    private event: EventService,
+    private storageFile: StorageFileService,
+    private organizationPe: OrganizationPeService) {
   }
 
   public organizations(): OrganizationService {
@@ -43,11 +43,11 @@ export class DataService {
     return this.debitnote;
   }
 
-  public  perceptions(): PerceptionService {
+  public perceptions(): PerceptionService {
     return this.perception;
   }
 
-  public  retentions(): RetentionService {
+  public retentions(): RetentionService {
     return this.retention;
   }
 
@@ -63,8 +63,8 @@ export class DataService {
     return this.storageFile;
   }
 
-     public organizationPeru(): OrganizationPeService {
-        return this.organizationPe;
-    }
+  public organizationPeru(): OrganizationPeService {
+    return this.organizationPe;
+  }
 
 }

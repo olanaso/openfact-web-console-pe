@@ -53,8 +53,7 @@ export class CreateOrganizationComponent implements OnInit {
         this.router.navigate(['../']);
       },
       error => {
-        this.working = false;
-        this.alertService.pop('error', 'Error', 'Organization could not be created.');
+        this.working = false;        
       }
     );
   }

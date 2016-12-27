@@ -15,7 +15,8 @@ import { OrganizationPeService } from './organization-pe.service';
 @Injectable()
 export class DataService {
 
-  constructor(private organization: OrganizationService,
+  constructor(
+    private organization: OrganizationService,
     private invoice: InvoiceService,
     private creditnote: CreditnoteService,
     private debitnote: DebitnoteService,

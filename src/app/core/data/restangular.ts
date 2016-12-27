@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, RequestOptionsArgs, URLSearchParams, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
@@ -13,17 +14,17 @@ export class Restangular {
 
     public constructor(http: Http) {
         this.http = http;
-    }
+    }    
 
     /*path builder*/
     public one(path: string, id: string): Restangular {
-        let restangular = new Restangular(this.http);
+        let restangular = this.clone();
         restangular.path = this.path + (path ? '/' + path : '') + '/' + id;
         return restangular;
     }
 
     public all(path: string): Restangular {
-        let restangular = new Restangular(this.http);
+        let restangular = this.clone();
         restangular.path = this.path + '/' + path;
         return restangular;
     }
@@ -34,21 +35,31 @@ export class Restangular {
         if (queryParams) {
             options = { headers: new Headers(), search: queryParams };
         }
-        return this.http.get(this.path, options).catch(this.handleError);
+
+        return this.http.get(this.path, options).catch((error) => {
+            return this.handleError(error);
+        });
     }
 
     public post(obj?: any): Observable<Response> {
-        return this.http.post(this.path, obj).catch(this.handleError);
+        return this.http.post(this.path, obj).catch((error) => {
+            return this.handleError(error);
+        });
     }
 
     public put(obj: any): Observable<Response> {
         let clone = Object.assign({}, obj);
         delete clone['restangular'];
-        return this.http.put(this.path, clone).catch(this.handleError);
+
+        return this.http.put(this.path, clone).catch((error) => {
+            return this.handleError(error);
+        });
     }
 
     public delete(): Observable<Response> {
-        return this.http.delete(this.path).catch(this.handleError);
+        return this.http.delete(this.path).catch((error) => {
+            return this.handleError(error);
+        });
     }
 
     /*handler error*/
@@ -69,6 +80,10 @@ export class Restangular {
 
         console.error(errMsg); // log to console instead
         return Observable.throw(errMsg);
+    }
+
+    protected clone(): Restangular {
+        return new Restangular(this.http);
     }
 
 }

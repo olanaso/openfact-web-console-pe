@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Response, URLSearchParams } from '@angular/http';
 
+import { Restangular } from './restangular';
 import { RestangularOpenfact } from './restangular-openfact';
 import { Organization } from '../models/organization.model';
 import { SearchResults } from '../models/search-results.model';
@@ -14,7 +15,7 @@ export const organizationBasePath: string = 'organizations';
 @Injectable()
 export class OrganizationService {
 
-    private restangular: RestangularOpenfact;
+    private restangular: Restangular;
 
     constructor(restangular: RestangularOpenfact) {
         this.restangular = restangular.all("admin");

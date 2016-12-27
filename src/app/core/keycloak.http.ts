@@ -76,10 +76,15 @@ export class KeycloakHttp extends Http {
                 result = f.apply(this, [url, options]);
             }
 
-            result.subscribe((response) => {
-                observer.next(response);
-                observer.complete();
-            });
+            result.subscribe(
+                (response) => {
+                    observer.next(response);
+                    observer.complete();
+                },
+                (err) => {
+                    observer.error(err);
+                }
+            );
         });
 
         return <Observable<Response>>Observable
@@ -87,6 +92,8 @@ export class KeycloakHttp extends Http {
             .merge(tokenRequestUpdateObservable) // Insure no concurrency in the merged Observables
             .filter((response) => response instanceof Response);
     }
+
+
 
     /**
      * Performs any type of http request. First argument is required, and can either be a url or

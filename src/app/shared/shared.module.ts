@@ -41,6 +41,7 @@ import { CapitalizePipe } from './pipes/capitalize.pipe';
 import { FilterCollectionPipe } from './pipes/filter-collection.pipe';
 import { KeysPipe } from './pipes/keys.pipe';
 import { YesNoPipe } from './pipes/yes-no.pipe';
+import { TextEquivaletPipe } from './pipes/text-equivalet.pipe';
 
 @NgModule({
   imports: [
@@ -51,7 +52,7 @@ import { YesNoPipe } from './pipes/yes-no.pipe';
     ReactiveFormsModule,
 
     // Third modules
-    NgbModule.forRoot(),
+    NgbModule,
     MomentModule,
     TranslateModule,
     FileUploadModule,
@@ -86,8 +87,17 @@ import { YesNoPipe } from './pipes/yes-no.pipe';
     KeysPipe,
     YesNoPipe,
     ReadFileComponent,
+    TextEquivaletPipe,
   ],
   exports: [
+    // Third modules
+    NgbModule,
+    MomentModule,
+    TranslateModule,
+    FileUploadModule,
+    SelectModule,
+    TextMaskModule,
+
     // Components
     ButtonDeleteComponent,
     ButtonSaveComponent,
@@ -111,9 +121,12 @@ import { YesNoPipe } from './pipes/yes-no.pipe';
     NumberMaskDirective,
 
     // Pipes
+    CapitalizePipe,
     FilterCollectionPipe,
     KeysPipe,
-    YesNoPipe
+    YesNoPipe,
+    ReadFileComponent,
+    TextEquivaletPipe
   ],
   providers: []
 })

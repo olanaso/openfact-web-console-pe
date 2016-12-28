@@ -25,6 +25,7 @@ export class InvoicesComponent implements OnInit {
 
   filters = {
     filterText: undefined,
+    typeCode: undefined,
     selected: new Collections.Dictionary<String, any>()
   };
   sorter = {
@@ -51,7 +52,13 @@ export class InvoicesComponent implements OnInit {
     ]
   };
 
+  typeCode = [
+    { key: "01", value: "Factura" },
+    { key: "03", value: "Boleta" }
+  ];
+
   constructor(
+    private router: Router,
     private activatedRoute: ActivatedRoute,
     private dataService: DataService,
     private alertService: AlertService) {
@@ -84,6 +91,7 @@ export class InvoicesComponent implements OnInit {
 
   clearFilters(): void {
     this.filters.selected.clear();
+    this.filters.typeCode = undefined;
     this.search();
   }
 
@@ -144,13 +152,34 @@ export class InvoicesComponent implements OnInit {
     this.search();
   }
 
+  changeTypeCode(typeCode: any) {
+    if (typeCode) {
+      let typeCodeCriteriaFilter: SearchCriteriaFilter = new SearchCriteriaFilter("invoiceTypeCode", typeCode, "eq");
+
+      let filterSelected = {
+        filter: undefined,
+        criterias: [typeCodeCriteriaFilter]
+      };
+
+      if (typeCode == "01") {
+        filterSelected.filter = { name: 'Factura', value: 'factura' };
+      }
+      if (typeCode == "03") {
+        filterSelected.filter = { name: 'Boleta', value: 'boleta' };
+      }
+
+      this.filters.selected.setValue('invoiceTypeCode', filterSelected);
+      this.search();
+    }
+  }
+
   search() {
     let criteria = new SearchCriteria();
     criteria.filterText = this.filters.filterText;
 
     // Put filters
     criteria.filters = [];
-    let filterAttributes = ['issueDate', 'payableAmount'];
+    let filterAttributes = ['issueDate', 'payableAmount', 'invoiceTypeCode'];
     filterAttributes.forEach(attributeName => {
       if (this.filters.selected.containsKey(attributeName)) {
         let filter = this.filters.selected.getValue(attributeName);
@@ -174,9 +203,44 @@ export class InvoicesComponent implements OnInit {
     this.dataService.invoices().search(this.organization, criteria).subscribe(
       result => {
         this.searchResult = result;
-      }, error => {
-        this.alertService.pop('error', 'Error', 'Error loading invoices.');
       });
+  }
+
+
+  downloadXml(invoice: any) {
+    invoice.downloadXml();
+  }
+
+  downloadPdf(invoice: any) {
+    invoice.downloadPdf();
+  }
+
+  sendToCustomer(invoice: any) {
+    invoice.sendToCustomer().subscribe(
+      result => {
+        this.alertService.pop('success', 'Success', 'Success! Invoice sended to customer.');
+      }
+    );
+  }
+
+  sendToThirdParty(invoice: any) {
+    invoice.sendToThirdParty().subscribe(
+      result => {
+        this.alertService.pop('success', 'Success', 'Success! Invoice sended to third party.');
+      }
+    );
+  }
+
+  attachCreditNote(invoice: any) {
+    this.router.navigate(["../credit-notes", "create", { invoice: invoice.id }], { relativeTo: this.activatedRoute.parent });
+  }
+
+  attachDebitNote(invoice: any) {
+    this.router.navigate(["../debit-notes", "create", { invoice: invoice.id }], { relativeTo: this.activatedRoute.parent });
+  }
+
+  maskAsVoided(invoice: any) {
+
   }
 
 }

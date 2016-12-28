@@ -18,14 +18,15 @@ import { Retention } from '../../core/models/retention.model';
 })
 export class EditRetentionComponent implements OnInit {
 
-  private retention: Retention;
-
+  private retention: any;
+  private organization: any;
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private formBuilder: FormBuilder,
     private dataService: DataService,
     private alertService: AlertService) {
+    this.organization = this.activatedRoute.snapshot.data['organization'];
     this.retention = this.activatedRoute.snapshot.data['retention'];
   }
 
@@ -33,15 +34,18 @@ export class EditRetentionComponent implements OnInit {
   }
 
   downloadXml() {
-    this.retention.downloadXml();
+    let retention: Retention = this.dataService.retentions().build(this.organization, this.retention.codigoUnico);
+    this.retention.downloadXml(retention);
   }
 
   downloadPdf() {
-    this.retention.downloadPdf();
+    let retention: Retention = this.dataService.retentions().build(this.organization, this.retention.codigoUnico);
+    this.retention.downloadPdf(retention);
   }
 
   sendToCustomer() {
-    this.retention.sendToCustomer().subscribe(
+    let retention: Retention = this.dataService.retentions().build(this.organization, this.retention.codigoUnico);
+    this.retention.sendToCustomer(retention).subscribe(
       result => {
         this.alertService.pop('success', 'Success', 'Success! Retention sended to customer.');
       },
@@ -52,7 +56,8 @@ export class EditRetentionComponent implements OnInit {
   }
 
   sendToThirdParty() {
-    this.retention.sendToThirdParty().subscribe(
+    let retention: Retention = this.dataService.retentions().build(this.organization, this.retention.codigoUnico);
+    this.retention.sendToThirdParty(retention).subscribe(
       result => {
         this.alertService.pop('success', 'Success', 'Success! Retention sended to third party.');
       },

@@ -11,8 +11,8 @@ import { saveAs } from 'file-saver';
 export class Perception extends Model {
   id: String;
 
-  downloadXml() {
-    let restangular = this.restangular.all("representation/xml");
+  downloadXml(perception:Perception) {
+    let restangular = perception.restangular.all("representation/xml");
     let url = restangular.path;
 
     return restangular.http
@@ -33,8 +33,8 @@ export class Perception extends Model {
       });
   }
 
-  downloadPdf() {
-    let restangular = this.restangular.all("representation/pdf");
+  downloadPdf(perception:Perception) {
+    let restangular = perception.restangular.all("representation/pdf");
     let url = restangular.path;
 
     return restangular.http
@@ -55,12 +55,12 @@ export class Perception extends Model {
       });
   }
 
-  sendToCustomer() {
-    return this.restangular.all("send-to-customer").post();
+  sendToCustomer(perception:Perception) {
+    return perception.restangular.all("send-to-customer").post();
   }
 
-  sendToThirdParty() {
-    return this.restangular.all("send-to-third-party").post();
+  sendToThirdParty(perception:Perception) {
+    return perception.restangular.all("send-to-third-party").post();
   }
 
 }

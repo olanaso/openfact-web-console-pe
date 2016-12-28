@@ -1,5 +1,5 @@
 /**
- * Created by lxpary on 14/12/16.
+ * Created by lxpary on 15/12/16.
  */
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -32,7 +32,7 @@ export class PerceptionSendEventsComponent implements OnInit {
   }
 
   loadData() {
-    let perception: Perception = this.dataService.perceptions().build(this.organization, this.perception.id);
+    let perception: Perception = this.dataService.perceptions().build(this.organization, this.perception.codigoUnico);
     this.dataService.perceptions().getSendEvents(perception).subscribe(
       result => {
         this.events = result;
@@ -44,7 +44,7 @@ export class PerceptionSendEventsComponent implements OnInit {
   }
 
   downloadFile(file) {
-    this.dataService.storageFiles().download(this.organization, file.id);
+    this.dataService.storageFiles().sunatDownload(this.organization, file.id);
   }
 
 }

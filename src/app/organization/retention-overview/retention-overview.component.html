@@ -1,3 +1,4 @@
+
 <br>
 <div class="row">
   <div class="col-lg-6">
@@ -8,26 +9,35 @@
     </fieldset>
     <dl class="dl-horizontal left">
       <dt>
+        Document ID:
+        <span title="The currency of the retentionJson." class="pficon pficon-help text-muted small"></span>
+      </dt>
+      <dd>{{retentionJson.id.value}}</dd>
+      <dt>
         Currency Code:
         <span title="The currency of the retentionJson." class="pficon pficon-help text-muted small"></span>
       </dt>
-      <dd>{{retentionJson.documentCurrencyCodeValue}}</dd>
-      <dt>
-        Invoice Type Code:
-        <span title="The type of the retentionJson." class="pficon pficon-help text-muted small"></span>
-      </dt>
-      <dd>{{retentionJson.retentionTypeCodeValue}}</dd>
+      <dd>{{retentionJson.documentCurrencyCode.value}}</dd>
       <dt>
         Issue Date:
         <span title="Issue Date of the retentionJson." class="pficon pficon-help text-muted small"></span>
       </dt>
-      <dd>{{retentionJson.issueDateValue | date: 'shortDate'}}</dd>
+      <dd>{{retentionJson.issueDate.value | date: 'shortDate'}}</dd>
       <dt>
-        Issue Time:
-        <span title="The time of the issue retentionJson." class="pficon pficon-help text-muted small"></span>
+        Retention Percent:
+        <span title="Issue Date of the retentionJson." class="pficon pficon-help text-muted small"></span>
       </dt>
-      <dd *ngIf="retentionJson.issueTimeValue">{{retentionJson.issueTimeValue | date: 'shortTime'}}</dd>
-      <dd *ngIf="!retentionJson.issueTimeValue"><em>Not registered</em></dd>
+      <dd>{{retentionJson.sunatRetentionPercent.value | number:'1.2-3'}}</dd>
+      <dt>
+        Total Retention:
+        <span title="Issue Date of the retentionJson." class="pficon pficon-help text-muted small"></span>
+      </dt>
+      <dd>{{retentionJson.totalInvoiceAmount.value | number:'1.2-3'}}</dd>
+      <dt>
+        Total Paid:
+        <span title="Issue Date of the retentionJson." class="pficon pficon-help text-muted small"></span>
+      </dt>
+      <dd>{{retentionJson.sunatTotalPaid.value | number:'1.2-3'}}</dd>
       <dt>
         <span class="pficon pficon-image" aria-hidden="true"></span> Xml:
         <span title="The time of the issue retentionJson." class="pficon pficon-help text-muted small"></span>
@@ -45,128 +55,32 @@
   <div class="col-lg-6">
     <fieldset>
       <legend>
-        <h3>Legal Monetary Total</h3>
+        <h3>Receiver Party</h3>
       </legend>
     </fieldset>
     <dl class="dl-horizontal left">
       <dt>
-        Payable Amount:
+        Party Identification:
         <span title="The currency of the retentionJson." class="pficon pficon-help text-muted small"></span>
       </dt>
-      <dd *ngIf="retentionJson.legalMonetaryTotal.payableAmountValue">{{retentionJson.legalMonetaryTotal.payableAmountValue | number:'1.2-3'}}</dd>
-      <dd *ngIf="!retentionJson.legalMonetaryTotal.payableAmountValue"><em>Not registered</em></dd>
+      <dd>{{retentionJson.receiverParty.partyIdentification[0].idvalue}}</dd>
       <dt>
-        Charge Total Amount:
+        Party Name:
         <span title="The currency of the retentionJson." class="pficon pficon-help text-muted small"></span>
       </dt>
-      <dd *ngIf="retentionJson.legalMonetaryTotal.chargeTotalAmountValue">{{retentionJson.legalMonetaryTotal.chargeTotalAmountValue | number:'1.2-3'}}</dd>
-      <dd *ngIf="!retentionJson.legalMonetaryTotal.chargeTotalAmountValue"><em>Not registered</em></dd>
+      <dd>{{retentionJson.receiverParty.partyName[0].nameValue}}</dd>
       <dt>
-        Allowance Total Amount:
-        <span title="The currency of the retentionJson." class="pficon pficon-help text-muted small"></span>
+        Street Name:
+        <span title="Issue Date of the retentionJson." class="pficon pficon-help text-muted small"></span>
       </dt>
-      <dd *ngIf="retentionJson.legalMonetaryTotal.allowanceTotalAmountValue">{{retentionJson.legalMonetaryTotal.allowanceTotalAmountValue | number:'1.2-3'}}</dd>
-      <dd *ngIf="!retentionJson.legalMonetaryTotal.allowanceTotalAmountValue"><em>Not registered</em></dd>
-    </dl>
-  </div>
-  <div class="col-lg-6">
-    <fieldset>
-      <legend>
-        <h3>Total Tax</h3>
-      </legend>
-    </fieldset>
-    <dl class="dl-horizontal left">
-      <dt>
-        Tax Amount:
-        <span title="The currency of the retentionJson." class="pficon pficon-help text-muted small"></span>
-      </dt>
-      <template ngIf="retentionJson.taxTotal && retentionJson.taxTotal.length">
-        <dd>
-          <ul class="list-inline" style="margin-bottom: 0px;">
-            <li *ngFor="let item of retentionJson.taxTotal">
-              {{item.taxAmount.value | number:'1.2-3'}}
-            </li>
-          </ul>
-        </dd>
-      </template>
-    </dl>
-  </div>
-  <div class="col-lg-6">
-    <fieldset>
-      <legend>
-        <h3>Supplier Party</h3>
-      </legend>
-    </fieldset>
-    <dl class="dl-horizontal left">
-      <dt>
-        Assigned Account ID:
-        <span title="The currency of the retentionJson." class="pficon pficon-help text-muted small"></span>
-      </dt>
-      <dd>{{retentionJson.accountingSupplierParty.customerAssignedAccountIDValue}}</dd>
-      <template ngIf="retentionJson.accountingSupplierParty.additionalAccountID && retentionJson.accountingSupplierParty.additionalAccountID.length">
-        <dt>
-          Additional Account IDs:
-          <span title="The currency of the retentionJson." class="pficon pficon-help text-muted small"></span>
-        </dt>
-        <dd>
-          <ul class="list-inline" style="margin-bottom: 0px;">
-            <li *ngFor="let item of retentionJson.accountingSupplierParty.additionalAccountID">{{item.value}}</li>
-          </ul>
-        </dd>
-      </template>
-      <template ngIf="retentionJson.accountingSupplierParty.party">
-        <dt>
-          Legal Entity:
-          <span title="The currency of the retentionJson." class="pficon pficon-help text-muted small"></span>
-        </dt>
-        <dd>
-          <ul class="list-unstyled" style="margin-bottom: 0px;">
-            <li *ngFor="let item of retentionJson.accountingSupplierParty.party.partyLegalEntity">{{item.registrationNameValue}}</li>
-          </ul>
-        </dd>
-      </template>
-    </dl>
-  </div>
-  <div class="col-lg-6">
-    <fieldset>
-      <legend>
-        <h3>Customer Party</h3>
-      </legend>
-    </fieldset>
-    <dl class="dl-horizontal left">
-      <dt>
-        Assigned Account ID:
-        <span title="The currency of the retentionJson." class="pficon pficon-help text-muted small"></span>
-      </dt>
-      <dd *ngIf="retentionJson.accountingCustomerParty.customerAssignedAccountID">{{retentionJson.accountingCustomerParty.customerAssignedAccountIDValue}}</dd>
-      <dd *ngIf="!retentionJson.accountingCustomerParty.customerAssignedAccountID"><em>Not registered</em></dd>
-      <dt>
-        Additional Account IDs:
-        <span title="The currency of the retentionJson." class="pficon pficon-help text-muted small"></span>
-      </dt>
-      <dd *ngIf="retentionJson.accountingCustomerParty.additionalAccountID.length > 0">
-        <ul class="list-inline" style="margin-bottom: 0px;">
-          <li *ngFor="let item of retentionJson.accountingCustomerParty.additionalAccountID">{{item.value}}</li>
-        </ul>
-      </dd>
-      <dd *ngIf="retentionJson.accountingCustomerParty.additionalAccountID.length === 0"><em>Not registered</em></dd>
-      <dt>
-        Legal Entity:
-        <span title="The currency of the retentionJson." class="pficon pficon-help text-muted small"></span>
-      </dt>
-      <dd *ngIf="retentionJson.accountingCustomerParty.party.partyLegalEntity.length > 0">
-        <ul class="list-unstyled" style="margin-bottom: 0px;">
-          <li *ngFor="let item of retentionJson.accountingCustomerParty.party.partyLegalEntity">{{item.registrationNameValue}}</li>
-        </ul>
-      </dd>
-      <dd *ngIf="retentionJson.accountingCustomerParty.party.partyLegalEntity.length === 0"><em>Not registered</em></dd>
+      <dd>{{retentionJson.receiverParty.postalAddress.streetName.value}}</dd>
     </dl>
   </div>
 </div>
 <div class="row">
   <div class="col-md-12">
     <div>
-      <h3>Invoice Lines</h3>
+      <h3>Retention Document Reference</h3>
     </div>
     <div>
       <div class="table-responsive">
@@ -174,29 +88,39 @@
           <thead>
           <tr>
             <th class="text-right">#</th>
-            <th class="text-right">Quantity</th>
-            <th>Item Description</th>
-            <th class="text-right">Price</th>
-            <th class="text-right">Tax Amount</th>
-            <th class="text-right">Line Extension Ammount</th>
+            <th class="text-right">Document Reference</th>
+            <th>Reference Date</th>
+            <th class="text-right">Reference Currency</th>
+            <th class="text-right">Reference Amount</th>
+
+            <th class="text-right">Payment Amount</th>
+            <th class="text-right">Payment Currency</th>
+            <th class="text-right">Payment Date</th>
+
+            <th class="text-right">Retention Date</th>
+            <th class="text-right">Retention Currency</th>
+            <th class="text-right">Total Retention</th>
+
+            <th class="text-right">Total Paid</th>
+
           </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let item of retentionJson.retentionLine; let i = index;">
+          <tr *ngFor="let item of retentionJson.sunatRetentionDocumentReference; let i = index;">
             <td class="text-right">{{i+1}}</td>
-            <td class="text-right">{{item.retentiondQuantity.value | number:'1.2-3'}}</td>
-            <td>
-								<span *ngFor="let itemDescription of item.item.description">
-									&nbsp;{{itemDescription.value}}.
-								</span>
-            </td>
-            <td class="text-right">{{item.price.priceAmountValue | number:'1.2-3'}}</td>
-            <td class="text-right">
-								<span *ngFor="let itemTaxTotal of item.taxTotal">
-									&nbsp;{{itemTaxTotal.taxAmountValue | number:'1.2-3'}}
-								</span>
-            </td>
-            <td class="text-right">{{item.lineExtensionAmount.value | number:'1.2-3'}}</td>
+            <td class="text-right">{{item.id.value }}</td>
+            <td class="text-right">{{item.issueDate.value | date: 'shortDate'}}</td>
+            <td class="text-right">{{item.totalInvoiceAmount.currencyID }}</td>
+            <td class="text-right">{{item.totalInvoiceAmount.value | number:'1.2-3'}}</td>
+
+            <td class="text-right">{{item.payment.paidAmount.value | number:'1.2-3'}}</td>
+            <td class="text-right">{{item.payment.paidAmount.currencyID }}</td>
+            <td class="text-right">{{item.payment.paidDate.value | date: 'shortDate'}}</td>
+
+            <td class="text-right">{{item.sunatretentionInformation.sunatretentionDate.value | date: 'shortDate'}}</td>
+            <td class="text-right">{{item.sunatretentionInformation.sunatretentionAmount.currencyID }}</td>
+            <td class="text-right">{{item.sunatretentionInformation.sunatretentionAmount.value | number:'1.2-3'}}</td>
+            <td class="text-right">{{item.sunatretentionInformation.sunatnetTotalPaid.value | number:'1.2-3'}}</td>
           </tr>
           </tbody>
         </table>

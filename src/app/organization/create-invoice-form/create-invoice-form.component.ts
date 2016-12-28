@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { Router, ActivatedRoute } from "@angular/router";
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, FormControl, FormArray, Validators } from "@angular/forms";
 import { Observable } from "rxjs/Observable";
 
@@ -327,14 +327,13 @@ export class CreateInvoiceFormComponent implements OnInit {
           this.working = false;
           this.alertService.pop("success", "Success", "Success! The invoice has been created.");
           if (redirect) {
-            this.router.navigate(["../"], { relativeTo: this.activatedRoute });
+            this.router.navigate(["../"], { relativeTo: this.activatedRoute.parent });
           } else {
             this.buildForm();
           }
         },
         error => {
           this.working = false;
-          this.alertService.pop("error", "Error", "Invoice could not be created.");
         }
       );
     }, (reason) => {
@@ -342,7 +341,7 @@ export class CreateInvoiceFormComponent implements OnInit {
   }
 
   cancel() {
-    this.router.navigate(["../"], { relativeTo: this.activatedRoute });
+    this.router.navigate(["../"], { relativeTo: this.activatedRoute.parent });
   }
 
   /**

@@ -11,8 +11,8 @@ import { saveAs } from 'file-saver';
 export class Retention extends Model {
   id: String;
 
-  downloadXml() {
-    let restangular = this.restangular.all("representation/xml");
+  downloadXml(retention: Retention) {
+    let restangular = retention.restangular.all("representation/xml");
     let url = restangular.path;
 
     return restangular.http
@@ -33,8 +33,8 @@ export class Retention extends Model {
       });
   }
 
-  downloadPdf() {
-    let restangular = this.restangular.all("representation/pdf");
+  downloadPdf(retention: Retention) {
+    let restangular = retention.restangular.all("representation/pdf");
     let url = restangular.path;
 
     return restangular.http
@@ -55,12 +55,12 @@ export class Retention extends Model {
       });
   }
 
-  sendToCustomer() {
-    return this.restangular.all("send-to-customer").post();
+  sendToCustomer(retention: Retention) {
+    return retention.restangular.all("send-to-customer").post();
   }
 
-  sendToThirdParty() {
-    return this.restangular.all("send-to-third-party").post();
+  sendToThirdParty(retention: Retention) {
+    return retention.restangular.all("send-to-third-party").post();
   }
 
 }

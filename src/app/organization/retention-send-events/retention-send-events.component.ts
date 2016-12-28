@@ -32,7 +32,7 @@ export class RetentionSendEventsComponent implements OnInit {
   }
 
   loadData() {
-    let retention: Retention = this.dataService.retentions().build(this.organization, this.retention.id);
+    let retention: Retention = this.dataService.retentions().build(this.organization, this.retention.codigoUnico);
     this.dataService.retentions().getSendEvents(retention).subscribe(
       result => {
         this.events = result;
@@ -44,7 +44,7 @@ export class RetentionSendEventsComponent implements OnInit {
   }
 
   downloadFile(file) {
-    this.dataService.storageFiles().download(this.organization, file.id);
+    this.dataService.storageFiles().sunatDownload(this.organization, file.id);
   }
 
 }

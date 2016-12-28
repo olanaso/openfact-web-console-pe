@@ -4,6 +4,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 import {FormBuilder, FormGroup, FormControl, FormArray, Validators} from '@angular/forms';
+import { Response, URLSearchParams } from '@angular/http';
 import {Observable} from "rxjs/Observable";
 import {DataService} from '../../core/data/data.service';
 import {AlertService} from '../../core/alert/alert.service';
@@ -15,6 +16,7 @@ import {NgbModal, ModalDismissReasons} from "@ng-bootstrap/ng-bootstrap";
 import {CreateRetentionFormConfirmModalComponent} from './create-retention-form-confirm-modal.component'
 import createNumberMask from "text-mask-addons/dist/createNumberMask.js";
 import {type} from "os";
+import {Retention} from "../../core/models/retention.model";
 
 
 @Component({
@@ -29,6 +31,7 @@ export class CreateRetentionFormComponent implements OnInit {
   working: boolean = false;
   organization: Organization;
   CURRENNCY: string = "PEN";
+  retention:Retention;
 
   constructor(private router: Router,
               private activatedRoute: ActivatedRoute,
@@ -65,6 +68,7 @@ export class CreateRetentionFormComponent implements OnInit {
     {denominacion: "TASA 2%", valor: "2"}
   ];
 
+  documentMask = [/[B|F|b|f]/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/];
 
   singleNumberMask = createNumberMask({
     allowDecimal: false
@@ -89,13 +93,13 @@ export class CreateRetentionFormComponent implements OnInit {
     this.form = this.formBuilder.group({
 
       entidadTipoDeDocumento: [null, Validators.compose([Validators.required])],
-      entidadNumeroDeDocumento: [null, Validators.compose([Validators.required, Validators.maxLength(20)])],
+      entidadNumeroDeDocumento: [null, Validators.compose([Validators.required, Validators.maxLength(20),Validators.pattern('[0-9]{1,20}')])],
       entidadDenominacion: [null, Validators.compose([Validators.required, Validators.maxLength(150)])],
       entidadDireccion: [null, Validators.compose([Validators.maxLength(150)])],
       entidadEmail: [null, Validators.compose([Validators.maxLength(150)])],
 
       serieDocumento: [null, Validators.compose([Validators.maxLength(4),Validators.pattern('[R]{1}[0-9]{3}')])],
-      numeroDocumento: [null, Validators.compose([ Validators.maxLength(8),Validators.pattern('[0-9]{8}')])],
+      numeroDocumento: [null, Validators.compose([ Validators.maxLength(8),Validators.pattern('[0-9]{1,8}')])],
       fechaDeEmision: [null, Validators.compose([Validators.required])],
       monedaDocumento: [null, Validators.compose([Validators.required, Validators.maxLength(3)])],
       tasaDocumento: [null, Validators.compose([Validators.required, Validators.required])],
@@ -256,6 +260,27 @@ export class CreateRetentionFormComponent implements OnInit {
     });
   }
 
+  findInvoice() {
+    if (this.numeroDocumentoRelacionado.valid) {
+      let queryParam: URLSearchParams = new URLSearchParams();
+      queryParam.set("documentId", this.numeroDocumentoRelacionado.value);
+      this.dataService.retentions().getAll(this.organization, queryParam).subscribe(
+        response => {
+          this.retention = response[0];
+          if (this.retention) {
+            this.form.patchValue({
+              entidadTipoDeDocumento: this.retention["totalDocumentoRelacionado"].additionalAccountId[0]
+            });
+          } else {
+            this.alertService.pop("info", "Info", "Could not find Invoice.");
+          }
+        },
+        error => {
+          this.alertService.pop("error", "Error", "Could not find Invoice.");
+        }
+      );
+    }
+  }
   cancel() {
     this.router.navigate(["../"], {relativeTo: this.activatedRoute});
   }
@@ -263,7 +288,9 @@ export class CreateRetentionFormComponent implements OnInit {
   /**
    * Getter and Setter
    */
-
+  get numeroDocumentoRelacionado(): FormControl {
+    return this.form.get("numeroDocumentoRelacionado") as FormControl;
+  }
   get monedaDocumento(): FormControl {
     return this.form.get("monedaDocumento") as FormControl;
   }

@@ -113,7 +113,7 @@
             <i class="fa fa-question-circle text-muted" ngbTooltip="organization of the organization"
                placement="right"></i>
           </label>
-          <input formControlName="serieDocumento"  type="text" class="form-control"  placeholder="R001">
+          <input formControlName="serieDocumento" type="text" class="form-control" placeholder="R001">
           <div *ngIf="!form.get('serieDocumento').valid && form.get('serieDocumento').dirty">
             <span *ngIf="form.get('serieDocumento').hasError('required')"
                   class="help-block">This field is required</span>
@@ -131,7 +131,7 @@
             <i class="fa fa-question-circle text-muted" ngbTooltip="organization of the organization"
                placement="right"></i>
           </label>
-          <input formControlName="numeroDocumento"  type="text" class="form-control"  placeholder="00000001">
+          <input formControlName="numeroDocumento" type="text" class="form-control" placeholder="00000001">
           <div *ngIf="!form.get('numeroDocumento').valid && form.get('numeroDocumento').dirty">
             <span *ngIf="form.get('numeroDocumento').hasError('required')"
                   class="help-block">This field is required</span>
@@ -149,7 +149,7 @@
             <i class="fa fa-question-circle text-muted" ngbTooltip="organization of the organization"
                placement="right"></i>
           </label>
-          <input formControlName="fechaDeEmision"  type="date" class="form-control"  >
+          <input formControlName="fechaDeEmision" type="date" class="form-control">
           <div *ngIf="!form.get('fechaDeEmision').valid && form.get('fechaDeEmision').dirty">
             <span *ngIf="form.get('fechaDeEmision').hasError('required')"
                   class="help-block">This field is required</span>
@@ -240,7 +240,7 @@
       <thead>
       <tr>
         <td rowspan="2" class="text-right" width="2%">#</td>
-        <th colspan="6" class="text-center"><b>Datos Documento Relacionado</b></th>
+        <th colspan="5" class="text-center"><b>Datos Documento Relacionado</b></th>
         <th colspan="2" class="text-center"><b>Datos Tipo Cambio</b></th>
         <th colspan="2" class="text-center"><b>Datos Pago</b></th>
         <th colspan="3" class="text-center"><b>Datos de Retencion</b></th>
@@ -265,7 +265,8 @@
       <tr *ngFor="let lineFormGroup of detalle.controls; let i = index;" [formGroupName]="i">
         <td class="text-right">{{i+1}}</td>
 
-        <td [ngClass]="{ 'has-error' : !lineFormGroup.get('tipoDocumentoRelacionado').valid && lineFormGroup.get('tipoDocumentoRelacionado').dirty }">
+        <td
+          [ngClass]="{ 'has-error' : !lineFormGroup.get('tipoDocumentoRelacionado').valid && lineFormGroup.get('tipoDocumentoRelacionado').dirty }">
           <select formControlName="tipoDocumentoRelacionado" class="form-control">
             <option *ngFor="let documento of tipoDocumento" [value]="documento.valor">{{documento.denominacion}}
             </option>
@@ -278,9 +279,15 @@
               class="help-block">Value field is invalid</span>
           </div>
         </td>
+
         <td
           [ngClass]="{ 'has-error' : !lineFormGroup.get('numeroDocumentoRelacionado').valid && lineFormGroup.get('numeroDocumentoRelacionado').dirty }">
-          <input formControlName="numeroDocumentoRelacionado" type="text" class="form-control" placeholder="00000001"/>
+          <div class="input-group"><input formControlName="numeroDocumentoRelacionado" type="text" (keyup.enter)="findInvoice()"
+                      class="form-control" placeholder="[B|F]000-0000000"/>
+            <span class="input-group-btn"><button (click)="findInvoice()" class="btn btn-default" type="button"><span
+              class="fa fa-search"></span></button>
+            </span>
+          </div>
           <div
             *ngIf="!lineFormGroup.get('numeroDocumentoRelacionado').valid && lineFormGroup.get('numeroDocumentoRelacionado').dirty">
             <span *ngIf="lineFormGroup.get('numeroDocumentoRelacionado').hasError('required')"
@@ -338,7 +345,7 @@
           <div *ngIf="lineFormGroup.get('monedaDocumentoRelacionado').value !== CURRENNCY"
                [ngClass]="{ 'has-error' : !lineFormGroup.get('tipoCambio').valid && lineFormGroup.get('tipoCambio').dirty }">
             <input formControlName="tipoCambio" [ofNumberMask]="numberMask" type="text"
-                   class="form-control text-right" placeholder="0.00" >
+                   class="form-control text-right" placeholder="0.00">
             <div *ngIf="!lineFormGroup.get('tipoCambio').valid && lineFormGroup.get('tipoCambio').dirty">
               <span *ngIf="lineFormGroup.get('tipoCambio').hasError('required')" class="help-block">This field is required</span>
               <span
@@ -353,7 +360,7 @@
           <div *ngIf="lineFormGroup.get('monedaDocumentoRelacionado').value !== CURRENNCY"
                [ngClass]="{ 'has-error' : !lineFormGroup.get('fechaCambio').valid && lineFormGroup.get('fechaCambio').dirty }">
             <input formControlName="fechaCambio" type="date"
-                   class="form-control text-right" placeholder="0.00" >
+                   class="form-control text-right" placeholder="0.00">
             <div *ngIf="!lineFormGroup.get('fechaCambio').valid && lineFormGroup.get('fechaCambio').dirty">
               <span *ngIf="lineFormGroup.get('fechaCambio').hasError('required')" class="help-block">This field is required</span>
               <span
@@ -390,8 +397,9 @@
         </td>
         <td
           [ngClass]="{ 'has-error' : !lineFormGroup.get('fechaDocumentoSunat').valid && lineFormGroup.get('fechaDocumentoSunat').dirty }">
-          <input formControlName="fechaDocumentoSunat" type="date" class="form-control" />
-          <div *ngIf="!lineFormGroup.get('fechaDocumentoSunat').valid && lineFormGroup.get('fechaDocumentoSunat').dirty">
+          <input formControlName="fechaDocumentoSunat" type="date" class="form-control"/>
+          <div
+            *ngIf="!lineFormGroup.get('fechaDocumentoSunat').valid && lineFormGroup.get('fechaDocumentoSunat').dirty">
             <span *ngIf="lineFormGroup.get('fechaDocumentoSunat').hasError('required')"
                   class="help-block">This field is required</span>
             <span *ngIf="lineFormGroup.get('fechaDocumentoSunat').hasError('maxlength')" class="help-block">Max length allowed: {{lineFormGroup.get('fechaDocumentoSunat').errors.maxlength.requiredLength}}</span>
@@ -405,7 +413,8 @@
           <input formControlName="importeDocumentoSunat" [ofNumberMask]="numberMask" type="text"
                  class="form-control text-right"
                  placeholder="0.00" readonly>
-          <div *ngIf="!lineFormGroup.get('importeDocumentoSunat').valid && lineFormGroup.get('importeDocumentoSunat').dirty">
+          <div
+            *ngIf="!lineFormGroup.get('importeDocumentoSunat').valid && lineFormGroup.get('importeDocumentoSunat').dirty">
             <span *ngIf="lineFormGroup.get('importeDocumentoSunat').hasError('required')"
                   class="help-block">This field is required</span>
             <span
@@ -433,7 +442,7 @@
       </tbody>
       <tfoot>
       <tr>
-        <td colspan="15" class="text-right">
+        <td colspan="14" class="text-right">
           <button (click)="addDetalle()" type="button" class="btn btn-lg btn-default">Agregar Item
             <span class="fa fa-plus"></span>
           </button>

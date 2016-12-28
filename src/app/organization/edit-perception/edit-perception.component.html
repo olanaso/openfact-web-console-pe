@@ -1,10 +1,10 @@
 <div class="container-fluid">
   <ol class="breadcrumb">
     <li><a href="javascript:void(0);" routerLink="../../perceptions">Perceptions</a></li>
-    <li class="active"> {{perception.documentId}}</li>
+    <li class="active"> {{perception.codigoUnico}}</li>
   </ol>
   <div>
-    <h3>Invoice {{perception.documentId}}
+    <h3>Perception {{perception.serieDocumento+"-"+perception.numeroDocumento}}
       <small>created
         <of-relative-timestamp [timestamp]="perception.issueDateTime">
         </of-relative-timestamp>

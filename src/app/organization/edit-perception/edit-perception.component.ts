@@ -1,5 +1,5 @@
 /**
- * Created by lxpary on 14/12/16.
+ * Created by lxpary on 15/12/16.
  */
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -18,14 +18,15 @@ import { Perception } from '../../core/models/perception.model';
 })
 export class EditPerceptionComponent implements OnInit {
 
-  private perception: Perception;
-
+  private perception: any;
+  private organization: any;
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private formBuilder: FormBuilder,
     private dataService: DataService,
     private alertService: AlertService) {
+    this.organization = this.activatedRoute.snapshot.data['organization'];
     this.perception = this.activatedRoute.snapshot.data['perception'];
   }
 
@@ -33,15 +34,18 @@ export class EditPerceptionComponent implements OnInit {
   }
 
   downloadXml() {
-    this.perception.downloadXml();
+    let perception: Perception = this.dataService.perceptions().build(this.organization, this.perception.codigoUnico);
+    this.perception.downloadXml(perception);
   }
 
   downloadPdf() {
-    this.perception.downloadPdf();
+    let perception: Perception = this.dataService.perceptions().build(this.organization, this.perception.codigoUnico);
+    this.perception.downloadPdf(perception);
   }
 
   sendToCustomer() {
-    this.perception.sendToCustomer().subscribe(
+    let perception: Perception = this.dataService.perceptions().build(this.organization, this.perception.codigoUnico);
+    this.perception.sendToCustomer(perception).subscribe(
       result => {
         this.alertService.pop('success', 'Success', 'Success! Perception sended to customer.');
       },
@@ -52,7 +56,8 @@ export class EditPerceptionComponent implements OnInit {
   }
 
   sendToThirdParty() {
-    this.perception.sendToThirdParty().subscribe(
+    let perception: Perception = this.dataService.perceptions().build(this.organization, this.perception.codigoUnico);
+    this.perception.sendToThirdParty(perception).subscribe(
       result => {
         this.alertService.pop('success', 'Success', 'Success! Perception sended to third party.');
       },

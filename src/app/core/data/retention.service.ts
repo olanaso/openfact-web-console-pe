@@ -113,24 +113,25 @@ export class RetentionService {
     return upload;
   }
 
-  public getAll(organization: Organization): Observable<Retention[]> {
+  public getAll(organization: Organization, queryParams?: URLSearchParams): Observable<Retention[]> {
     let restangular = organization.restangular;
     return this.restangular.one("organizations", organization.organization)
       .all(basePath).all(extensionPath)
       .all(retentionBasePath)
-      .get()
+      .get(queryParams)
       .map(response => {
         let json = <Retention[]>response.json();
         let result = new Array<Retention>();
         json.forEach(element => {
           let retention = new Retention();
-          retention.restangular = restangular.all(basePath).all(extensionPath).one(retentionBasePath, element[retentionIdName]);
+          retention.restangular = restangular.one(retentionBasePath, element[retentionIdName]);
           retention = Object.assign(retention, element);
           result.push(retention);
         });
         return result;
       });
   }
+
 
   public search(organization: Organization, criteria: SearchCriteria): Observable<SearchResults<Retention>> {
     let restangular = organization.restangular;

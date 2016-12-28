@@ -10,7 +10,7 @@ export class AlertConfig implements IAlertConfig {
 
     constructor(configOverrides?: IAlertConfig) {
         configOverrides = configOverrides || {};
-        this.limit = configOverrides.limit || null;
+        this.limit = configOverrides.limit || 1;
         this.alertContainerId = configOverrides.alertContainerId != null ? configOverrides.alertContainerId : null;
         this.defaultType = configOverrides.defaultType || 'info';
         this.showCloseButton = configOverrides.showCloseButton != null ? configOverrides.showCloseButton : true;

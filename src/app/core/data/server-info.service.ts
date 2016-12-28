@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Response, URLSearchParams } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
+import { Restangular } from './restangular';
 import { RestangularOpenfact } from './restangular-openfact';
 import { Organization } from '../models/organization.model';
 import { SearchResults } from '../models/search-results.model';
@@ -12,10 +13,10 @@ export const serverInfoBasePAth: string = 'serverinfo';
 @Injectable()
 export class ServerInfoService {
 
-  private restangular: RestangularOpenfact;
+  private restangular: Restangular;
 
   constructor(restangular: RestangularOpenfact) {
-    this.restangular = restangular;
+    this.restangular = restangular.all("admin");
   }
 
   public get(): Observable<any> {

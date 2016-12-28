@@ -14,40 +14,52 @@ import { AlertService } from '../../../core/alert/alert.service';
 export class ButtonDeleteComponent implements OnInit {
 
   // Object to be deleted
-  @Input() model: Model;
+  @Input()
+  model: Model;
 
   // Resource Kind to delete (e.g., "Pod" or "ReplicationController").
-  @Input() kind: string;
+  @Input()
+  kind: string;
 
   // Optional display name for kind.
-  @Input() typeDisplayName: string;
+  @Input()
+  typeDisplayName: string;
 
   // Optional display name of the resource to delete.
-  @Input() displayName: string;
+  @Input()
+  displayName: string;
 
   // Name of the resource to delete.
-  @Input() resourceName: string;
+  @Input()
+  resourceName: string;
 
   // Set to true to disable the delete button.
-  @Input() disableDelete: boolean = false;
+  @Input()
+  disableDelete: boolean = false;
 
   // Force the user to enter the name before we'll delete the resource (e.g. for projects).
-  @Input() typeNameToConfirm: boolean = false;
+  @Input()
+  typeNameToConfirm: boolean = false;
 
   // Optional link label. Defaults to "Delete".
-  @Input() label: string;
+  @Input()
+  label: string;
 
   // Only show a delete icon with no text.
-  @Input() buttonOnly: boolean;
+  @Input()
+  buttonOnly: boolean;
 
   // Stay on the current page without redirecting to the resource list.
-  @Input() stayOnCurrentPage: boolean = true;
+  @Input()
+  stayOnCurrentPage: boolean = true;
 
   // Optional callback when the delete succeeds
-  @Output() success: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output()
+  success: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   // Optional redirect URL when the delete succeeds
-  @Input() redirectUrl: string;
+  @Input()
+  redirectUrl: string;
 
   private confirmName: string = '';
 

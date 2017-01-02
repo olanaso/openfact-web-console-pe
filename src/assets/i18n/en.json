@@ -93,5 +93,6 @@
     "key": "Key",
     "value": "Value",
     "attatchments": "Attatchments",
-    "success-error": "SUCCESS.ERROR"
+    "success-error": "SUCCESS.ERROR",
+    "attatched-documents": "Attatched Documents"
 }

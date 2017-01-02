@@ -1,5 +1,5 @@
 <div class="page-header page-header-bleed-right page-header-bleed-left" style="border-bottom: 1px solid #d1d1d1; margin-top: 0; margin-bottom: 0; padding-left: 20px">
-<h1>Invoices</h1>
+<h1>{{'invoices' | translate}}</h1>
 </div>
 
 <div class="row toolbar-pf">
@@ -9,7 +9,7 @@
         <label class="sr-only">Name</label>
         <div class="input-group">
           <div class="input-group-btn" ngbDropdown>
-            <button type="button" class="btn btn-default" ngbDropdownToggle>Filters<span class="caret"></span></button>
+            <button type="button" class="btn btn-default" ngbDropdownToggle>{{'filters' | translate}}<span class="caret"></span></button>
             <ul class="dropdown-menu">
               <template ngFor let-item [ngForOf]="combo.issueDate" let-i="index">
                 <li *ngIf="item.divider" class="divider"></li>
@@ -18,7 +18,7 @@
             </ul>
           </div>
           <input type="text" id="filterText" [(ngModel)]="filters.filterText" name="filterText" #filterText="ngModel" class="form-control"
-            placeholder="Filter By Name..." autofocus>
+            placeholder="{{'filter-text' | translate}}" autofocus>
         </div>
       </div>
       <!-- /filter -->
@@ -49,30 +49,15 @@
         <div class="form-group toolbar-pf-find">
           <button class="btn btn-link btn-find" type="submit">
 						<span class="fa fa-search"></span>
-					</button>
-          <div class="find-pf-dropdown-container">
-            <input type="text" class="form-control" id="find" placeholder="Find By Keyword...">
-            <div class="find-pf-buttons">
-              <span class="find-pf-nums">1 of 3</span>
-              <button class="btn btn-link" type="button">
-								<span class="fa fa-angle-up"></span>
-							</button>
-              <button class="btn btn-link" type="button">
-								<span class="fa fa-angle-down"></span>
-							</button>
-              <button class="btn btn-link btn-find-close" type="button">
-								<span class="pficon pficon-close"></span>
-							</button>
-            </div>
-          </div>
+					</button>          
         </div>
       </div>
     </form>
     <div class="row toolbar-pf-results">
       <div class="col-sm-12">
-        <h5>{{searchResult.totalSize}} Results</h5>
-        <p *ngIf="filters.selected.keys().length > 0">Active filters:</p>
-        <p *ngIf="filters.selected.keys().length == 0" class="text-muted">No Active filters</p>
+        <h5>{{searchResult.totalSize}} {{'results' | translate}}</h5>
+        <p *ngIf="filters.selected.keys().length > 0">{{'active-filters' | translate}}:</p>
+        <p *ngIf="filters.selected.keys().length == 0" class="text-muted">{{'no-active-filters' | translate}}</p>
         <ul *ngIf="filters.selected.keys().length > 0" class="list-inline">
           <li *ngFor="let item of filters.selected.keys()">
             <span class="label label-info">{{filters.selected.getValue(item).filter.name}}
@@ -81,7 +66,7 @@
           </li>
         </ul>
         <p *ngIf="filters.selected.keys().length > 0">
-          <a (click)="clearFilters()" href="javascript:void(0);">Clear All Filters</a>
+          <a (click)="clearFilters()" href="javascript:void(0);">{{'clear-all-filters' | translate}}</a>
         </p>
       </div>
       <!-- /col -->
@@ -96,11 +81,11 @@
     <div class="col-md-12">
       <div class="page-header-bleed-right page-header-bleed-left">
         <div class="hidden-xs pull-right">
-          <a routerLink="../create" class="btn btn-default">New Invoice</a>
+          <a routerLink="../create" class="btn btn-default">{{'new-invoice' | translate}}</a>
         </div>
-        <h2>Search Results</h2>
+        <h2>{{'search-results' | translate}}</h2>
         <div class="visible-xs-block">
-          <a class="btn btn-default" routerLink="../create">New Invoice</a>
+          <a class="btn btn-default" routerLink="../create">{{'new-invoice' | translate}}</a>
         </div>
       </div>
       <div class="page-header-bleed-right page-header-bleed-left">
@@ -109,21 +94,21 @@
               <tr>
                 <th class="text-right">#</th>
                 <th>ID</th>
-                <th>Issue Date</th>
-                <th>Type Code</th>
-                <th class="text-right">Currency Code</th>
-                <th class="text-right">Payable Ammount</th>
-                <th class="text-right">Customer ID</th>
-                <th class="text-right">Voided</th>
-                <th class="text-right">Customer</th>
-                <th class="text-right">Third Party</th>
-                <th colspan="2">Actions</th>
+                <th>{{'issue-date' | translate}}</th>
+                <th>{{'invoice-type-code' | translate}}</th>
+                <th class="text-right">{{'currency-code' | translate}}</th>
+                <th class="text-right">{{'payable-amount' | translate}}</th>
+                <th class="text-right">{{'customer-registration-name' | translate}}</th>
+                <th class="text-right">{{'voided' | translate}}</th>
+                <th class="text-right">{{'customer-sended' | translate}}</th>
+                <th class="text-right">{{'third-party-sended' | translate}}</th>
+                <th colspan="2">{{'actions' | translate}}</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngIf="!searchResult || searchResult.items == 0">
                 <td colspan="12" class="text-center text-muted">
-                  <span>No results found.</span>
+                  <span>{{'no-results-found' | translate}}.</span>
                 </td>
               </tr>
               <tr *ngFor="let item of searchResult.items; let i = index;">
@@ -135,20 +120,20 @@
                 <td class="text-right">{{item.payableAmount | number:'1.2-3'}}</td>
                 <td class="text-right">{{item.customerRegistrationName}}</td>
                 <td class="text-right">                  
-                  <span *ngIf="item.attributes && item.attributes.length > 0">{{item.attributes['VOIDED'] | yesNo: 'Yes.No'}}</span>
-                  <span *ngIf="!item.attributes || item.attributes.length == 0">No</span>
+                  <span *ngIf="item.attributes && item.attributes.length > 0">{{item.attributes['VOIDED'] | yesNo: ('yes-no' | translate)}}</span>
+                  <span *ngIf="!item.attributes || item.attributes.length == 0">{{'no' | translate}}</span>
                 </td>
                 <td class="text-right">                  
-                  <span *ngIf="item.requiredActions && item.requiredActions.length > 0">{{item.requiredActions['SEND_TO_CUSTOMER'] | yesNo: 'Yes.No'}}</span>
+                  <span *ngIf="item.requiredActions && item.requiredActions.length > 0">{{item.requiredActions['SEND_TO_CUSTOMER'] | yesNo: ('yes-no' | translate)}}</span>
                   <span *ngIf="!item.requiredActions || item.requiredActions.length == 0">Yes</span>
                 </td>
                 <td class="text-right">                  
-                  <span *ngIf="item.requiredActions && item.requiredActions.length > 0">{{item.requiredActions['SEND_TO_TRIRD_PARTY'] | yesNo: 'Yes.No'}}</span>
-                  <span *ngIf="!item.requiredActions || item.requiredActions.length == 0">Yes</span>
+                  <span *ngIf="item.requiredActions && item.requiredActions.length > 0">{{item.requiredActions['SEND_TO_TRIRD_PARTY'] | yesNo: ('yes-no' | translate)}}</span>
+                  <span *ngIf="!item.requiredActions || item.requiredActions.length == 0">{{'yes' | translate}}</span>
                 </td>
                 <td class="table-view-pf-actions">
                   <div class="table-view-pf-btn">
-                    <button class="btn btn-default" type="button" [routerLink]="[item.id]">Overview</button>
+                    <button class="btn btn-default" type="button" [routerLink]="[item.id]">{{'edit' | translate}}</button>
                   </div>
                 </td>
                 <td class="table-view-pf-actions">
@@ -170,29 +155,29 @@
                       <li role="separator" class="divider"></li>                      
                       <li>
                         <a href="javascript:void(0);" (click)="attachCreditNote(item)">
-                          <span class="fa fa-credit-card"></span> Attach Credit Note
+                          <span class="fa fa-credit-card"></span> {{'attach-credit-note' | translate}}
                         </a>
                       </li>
                       <li>
                         <a href="javascript:void(0);" (click)="attachDebitNote(item)">
-                          <span class="fa fa-credit-card-alt"></span> Attach Debit Note
+                          <span class="fa fa-credit-card-alt"></span> {{'attach-debit-note' | translate}}
                         </a>
                       </li>                    
                       <li role="separator" class="divider"></li>
                       <li>
                         <a href="javascript:void(0);" (click)="sendToCustomer(item)">
-                          <span class="fa fa-paper-plane"></span> Send to Customer
+                          <span class="fa fa-paper-plane"></span> {{'send-to-customer' | translate}}
                         </a>
                       </li>
                       <li>
                         <a href="javascript:void(0);" (click)="sendToThirdParty(item)">
-                          <span class="fa fa-paper-plane"></span> Send to Thrid Party
+                          <span class="fa fa-paper-plane"></span> {{'send-to-third-party' | translate}}
                         </a>
                       </li>
                       <li role="separator" class="divider"></li>
                       <li>
                         <a href="javascript:void(0);" (click)="maskAsVoided(item)">
-                          <span class="fa fa-thumbs-down"></span> Voided
+                          <span class="fa fa-thumbs-down"></span> {{'voided' | translate}}
                         </a>
                       </li>
                     </ul>

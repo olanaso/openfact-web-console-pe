@@ -59,4 +59,16 @@ export class EditInvoiceComponent implements OnInit {
     );
   }
 
+  attachCreditNote() {
+    this.router.navigate(["../credit-notes", "create", { invoice: this.invoice.id }], { relativeTo: this.activatedRoute.parent });
+  }
+
+  attachDebitNote() {
+    this.router.navigate(["../debit-notes", "create", { invoice: this.invoice.id }], { relativeTo: this.activatedRoute.parent });
+  }
+
+  maskAsVoided(invoice: any) {
+
+  }
+
 }

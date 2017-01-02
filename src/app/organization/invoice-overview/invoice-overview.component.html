@@ -3,81 +3,69 @@
 	<div class="col-lg-6">
 		<fieldset>
 			<legend>
-				<h3>General Information</h3>
+				<h3>{{'general-information' | translate}}</h3>
 			</legend>
 		</fieldset>
 		<dl class="dl-horizontal left">
 			<dt>
-				Currency Code:
+				{{'currency-code' | translate}}:
 				<span title="The currency of the invoiceJson." class="pficon pficon-help text-muted small"></span>
 			</dt>
 			<dd>{{invoiceJson.documentCurrencyCodeValue}}</dd>
 			<dt>
-				Invoice Type Code:
+				{{'invoice-type-code' | translate}}:
 				<span title="The type of the invoiceJson." class="pficon pficon-help text-muted small"></span>
 			</dt>
 			<dd>{{invoiceJson.invoiceTypeCodeValue}}</dd>
 			<dt>
-				Issue Date:
+				{{'issue-date' | translate}}:
 				<span title="Issue Date of the invoiceJson." class="pficon pficon-help text-muted small"></span>
 			</dt>
 			<dd>{{invoiceJson.issueDateValue | date: 'shortDate'}}</dd>
 			<dt>
-				Issue Time:
+				{{'issue-time' | translate}}:
 				<span title="The time of the issue invoiceJson." class="pficon pficon-help text-muted small"></span>
 			</dt>
 			<dd *ngIf="invoiceJson.issueTimeValue">{{invoiceJson.issueTimeValue | date: 'shortTime'}}</dd>
-			<dd *ngIf="!invoiceJson.issueTimeValue"><em>Not registered</em></dd>
-			<dt>
-				<span class="pficon pficon-image" aria-hidden="true"></span> Xml:
-				<span title="The time of the issue invoiceJson." class="pficon pficon-help text-muted small"></span>
-			</dt>
-			<dd>				
-				<of-view-xml [xml]="invoiceText" [label]="'Xml preview'" [buttonOnly]="false"></of-view-xml>
-			</dd>
-			<dd>
-				<a href="">
-					<span><i class="fa fa-file-pdf-o"> </i> Pdf preview</span>
-				</a>
-			</dd>
+			<dd *ngIf="!invoiceJson.issueTimeValue"><em>{{'not-registered' | translate}}</em></dd>
 		</dl>
 	</div>
 	<div class="col-lg-6">
 		<fieldset>
 			<legend>
-				<h3>Legal Monetary Total</h3>
+				<h3>{{'legal-monetary-total' | translate}}</h3>
 			</legend>
 		</fieldset>
 		<dl class="dl-horizontal left">
 			<dt>
-				Payable Amount:
+				{{'payable-amount' | translate}}:
 				<span title="The currency of the invoiceJson." class="pficon pficon-help text-muted small"></span>
 			</dt>
 			<dd *ngIf="invoiceJson.legalMonetaryTotal.payableAmountValue">{{invoiceJson.legalMonetaryTotal.payableAmountValue | number:'1.2-3'}}</dd>
-			<dd *ngIf="!invoiceJson.legalMonetaryTotal.payableAmountValue"><em>Not registered</em></dd>
+			<dd *ngIf="!invoiceJson.legalMonetaryTotal.payableAmountValue"><em>{{'not-registered' | translate}}</em></dd>
 			<dt>
-				Charge Total Amount:
+				{{'charge-total-amount' | translate}}:
 				<span title="The currency of the invoiceJson." class="pficon pficon-help text-muted small"></span>
 			</dt>
 			<dd *ngIf="invoiceJson.legalMonetaryTotal.chargeTotalAmountValue">{{invoiceJson.legalMonetaryTotal.chargeTotalAmountValue | number:'1.2-3'}}</dd>
-			<dd *ngIf="!invoiceJson.legalMonetaryTotal.chargeTotalAmountValue"><em>Not registered</em></dd>
+			<dd *ngIf="!invoiceJson.legalMonetaryTotal.chargeTotalAmountValue"><em>{{'not-registered' | translate}}</em></dd>
 			<dt>
-				Allowance Total Amount:
+				{{'allowance-total-amount' | translate}}:
 				<span title="The currency of the invoiceJson." class="pficon pficon-help text-muted small"></span>
 			</dt>
 			<dd *ngIf="invoiceJson.legalMonetaryTotal.allowanceTotalAmountValue">{{invoiceJson.legalMonetaryTotal.allowanceTotalAmountValue | number:'1.2-3'}}</dd>
-			<dd *ngIf="!invoiceJson.legalMonetaryTotal.allowanceTotalAmountValue"><em>Not registered</em></dd>
+			<dd *ngIf="!invoiceJson.legalMonetaryTotal.allowanceTotalAmountValue"><em>{{'not-registered' | translate}}</em></dd>
 		</dl>
 	</div>
 	<div class="col-lg-6">
 		<fieldset>
 			<legend>
-				<h3>Total Tax</h3>
+				<h3>{{'tax-total' | translate}}</h3>
 			</legend>
 		</fieldset>
 		<dl class="dl-horizontal left">
 			<dt>
-				Tax Amount:
+				{{'tax-amount' | translate}}:
 				<span title="The currency of the invoiceJson." class="pficon pficon-help text-muted small"></span>
 			</dt>
 			<template ngIf="invoiceJson.taxTotal && invoiceJson.taxTotal.length">
@@ -94,18 +82,18 @@
 	<div class="col-lg-6">
 		<fieldset>
 			<legend>
-				<h3>Supplier Party</h3>
+				<h3>{{'supplier-party' | translate}}</h3>
 			</legend>
 		</fieldset>
 		<dl class="dl-horizontal left">
 			<dt>
-				Assigned Account ID:
+				{{'assigned-account-id' | translate}}:
 				<span title="The currency of the invoiceJson." class="pficon pficon-help text-muted small"></span>
 			</dt>
 			<dd>{{invoiceJson.accountingSupplierParty.customerAssignedAccountIDValue}}</dd>
 			<template ngIf="invoiceJson.accountingSupplierParty.additionalAccountID && invoiceJson.accountingSupplierParty.additionalAccountID.length">
 				<dt>
-					Additional Account IDs:
+					{{'additional-account-id' | translate}}:
 					<span title="The currency of the invoiceJson." class="pficon pficon-help text-muted small"></span>
 				</dt>
 				<dd>
@@ -116,7 +104,7 @@
 			</template>
 			<template ngIf="invoiceJson.accountingSupplierParty.party">
 				<dt>
-					Legal Entity:
+					{{'registration-name' | translate}}:
 					<span title="The currency of the invoiceJson." class="pficon pficon-help text-muted small"></span>
 				</dt>
 				<dd>
@@ -130,18 +118,18 @@
 	<div class="col-lg-6">
 		<fieldset>
 			<legend>
-				<h3>Customer Party</h3>
+				<h3>{{'customer-party' | translate}}</h3>
 			</legend>
 		</fieldset>
 		<dl class="dl-horizontal left">
 			<dt>
-				Assigned Account ID:
+				{{'assigned-account-id' | translate}}:
 				<span title="The currency of the invoiceJson." class="pficon pficon-help text-muted small"></span>
 			</dt>
 			<dd *ngIf="invoiceJson.accountingCustomerParty.customerAssignedAccountID">{{invoiceJson.accountingCustomerParty.customerAssignedAccountIDValue}}</dd>
-			<dd *ngIf="!invoiceJson.accountingCustomerParty.customerAssignedAccountID"><em>Not registered</em></dd>
+			<dd *ngIf="!invoiceJson.accountingCustomerParty.customerAssignedAccountID"><em>{{'not-registered' | translate}}</em></dd>
 			<dt>
-				Additional Account IDs:
+				{{'additional-account-id' | translate}}:
 				<span title="The currency of the invoiceJson." class="pficon pficon-help text-muted small"></span>
 			</dt>
 			<dd *ngIf="invoiceJson.accountingCustomerParty.additionalAccountID.length > 0">
@@ -149,9 +137,9 @@
 					<li *ngFor="let item of invoiceJson.accountingCustomerParty.additionalAccountID">{{item.value}}</li>
 				</ul>
 			</dd>
-			<dd *ngIf="invoiceJson.accountingCustomerParty.additionalAccountID.length === 0"><em>Not registered</em></dd>
+			<dd *ngIf="invoiceJson.accountingCustomerParty.additionalAccountID.length === 0"><em>{{'not-registered' | translate}}</em></dd>
 			<dt>
-				Legal Entity:
+				{{'registration-name' | translate}}:
 				<span title="The currency of the invoiceJson." class="pficon pficon-help text-muted small"></span>
 			</dt>
 			<dd *ngIf="invoiceJson.accountingCustomerParty.party.partyLegalEntity.length > 0">
@@ -159,14 +147,14 @@
 					<li *ngFor="let item of invoiceJson.accountingCustomerParty.party.partyLegalEntity">{{item.registrationNameValue}}</li>
 				</ul>
 			</dd>
-			<dd *ngIf="invoiceJson.accountingCustomerParty.party.partyLegalEntity.length === 0"><em>Not registered</em></dd>
+			<dd *ngIf="invoiceJson.accountingCustomerParty.party.partyLegalEntity.length === 0"><em>{{'not-registered' | translate}}</em></dd>
 		</dl>
 	</div>
 </div>
 <div class="row">
 	<div class="col-md-12">
 		<div>
-			<h3>Invoice Lines</h3>
+			<h3>{{'invoice-lines' | translate}}</h3>
 		</div>
 		<div>
 			<div class="table-responsive">
@@ -174,11 +162,11 @@
 					<thead>
 						<tr>
 							<th class="text-right">#</th>
-							<th class="text-right">Quantity</th>
-							<th>Item Description</th>
-							<th class="text-right">Price</th>
-							<th class="text-right">Tax Amount</th>
-							<th class="text-right">Line Extension Ammount</th>
+							<th class="text-right">{{'quantity' | translate}}</th>
+							<th>{{'item-description' | translate}}</th>
+							<th class="text-right">{{'price' | translate}}</th>
+							<th class="text-right">{{'tax-amount' | translate}}</th>
+							<th class="text-right">{{'line-extension-amount' | translate}}</th>
 						</tr>
 					</thead>
 					<tbody>

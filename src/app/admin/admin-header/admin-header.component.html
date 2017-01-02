@@ -17,32 +17,32 @@
 					<span class="pficon pficon-user"></span> {{username}} <b class="caret"></b>
 				</a>
 				<ul class="dropdown-menu">
-					<li><a href="javascript:void(0);" (click)="accountManagement()">Manage account</a></li>
+					<li><a href="javascript:void(0);" (click)="accountManagement()">{{'manage-account' | translate}}</a></li>
 					<li class="divider"></li>
-					<li><a href="javascript:void(0);" (click)="logout()">Sign Out</a></li>
+					<li><a href="javascript:void(0);" (click)="logout()">{{'sign-out' | translate}}}</a></li>
 				</ul>
 			</li>
 		</ul>
 		<ul class="nav navbar-nav navbar-primary persistent-secondary">
 			<li routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
-				<a routerLink="./organizations">Organizations</a>
+				<a routerLink="./organizations">{{'organizations' | translate}}</a>
 				<ul class="nav navbar-nav navbar-persistent">
 					<li routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
-						<a routerLink="./organizations">All</a>
+						<a routerLink="./organizations">{{'all' | translate}}</a>
 					</li>
 					<li routerLinkActive="active">
-						<a routerLink="./organizations/create">Create Organization</a>
+						<a routerLink="./organizations/create">{{'create-organization' | translate}}</a>
 					</li>
 				</ul>
 			</li>
 			<li routerLinkActive="active">
-				<a routerLink="./server-info">Server Info</a>
+				<a routerLink="./server-info">{{'server-info' | translate}}</a>
 				<ul class="nav navbar-nav navbar-persistent">
 					<li routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
-						<a routerLink="./server-info">General</a>
+						<a routerLink="./server-info">{{'general' | translate}}</a>
 					</li>
 					<li routerLinkActive="active">
-						<a routerLink="./server-info/providers">Providers</a>
+						<a routerLink="./server-info/providers">{{'providers' | translate}}</a>
 					</li>
 				</ul>
 			</li>

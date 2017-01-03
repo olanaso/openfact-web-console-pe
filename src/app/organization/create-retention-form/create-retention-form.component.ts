@@ -9,6 +9,7 @@ import {Observable} from "rxjs/Observable";
 import {DataService} from '../../core/data/data.service';
 import {AlertService} from '../../core/alert/alert.service';
 import {Organization} from '../../core/models/organization.model';
+import { Invoice } from "../../core/models/invoice.model";
 import {DatePipe} from '@angular/common';
 
 import {NgbModal, ModalDismissReasons} from "@ng-bootstrap/ng-bootstrap";
@@ -16,8 +17,6 @@ import {NgbModal, ModalDismissReasons} from "@ng-bootstrap/ng-bootstrap";
 import {CreateRetentionFormConfirmModalComponent} from './create-retention-form-confirm-modal.component'
 import createNumberMask from "text-mask-addons/dist/createNumberMask.js";
 import {type} from "os";
-import {Retention} from "../../core/models/retention.model";
-
 
 @Component({
   selector: 'of-create-retention-form',
@@ -31,7 +30,7 @@ export class CreateRetentionFormComponent implements OnInit {
   working: boolean = false;
   organization: Organization;
   CURRENNCY: string = "PEN";
-  retention:Retention;
+  invoice: Invoice;
 
   constructor(private router: Router,
               private activatedRoute: ActivatedRoute,
@@ -45,8 +44,8 @@ export class CreateRetentionFormComponent implements OnInit {
   }
 
   tipoDocumento = [
-    {denominacion: "BOLETA ELECTRONICA", valor: "01"},
-    {denominacion: "FACTURA ELECTRONICA", valor: "02"}
+    {denominacion: "FACTURA ELECTRONICA", valor: "01"},
+    {denominacion: "BOLETA ELECTRONICA", valor: "03"}
   ];
 
   tipoDocumentoEntidad = [
@@ -69,20 +68,13 @@ export class CreateRetentionFormComponent implements OnInit {
   ];
 
   documentMask = [/[B|F|b|f]/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/];
+  serieDocumentMask = ['R', /\d/, /\d/, /\d/];
 
   singleNumberMask = createNumberMask({
     allowDecimal: false
   });
   numberMask = {
     allowDecimal: true
-  };
-  quantityMask = {
-    allowDecimal: true,
-    decimalLimit: 3
-  };
-  retentionCode = {
-    prefix: "P ",
-    allowDecimal: false
   };
 
   ngOnInit() {
@@ -93,7 +85,7 @@ export class CreateRetentionFormComponent implements OnInit {
     this.form = this.formBuilder.group({
 
       entidadTipoDeDocumento: [null, Validators.compose([Validators.required])],
-      entidadNumeroDeDocumento: [null, Validators.compose([Validators.required, Validators.maxLength(20),Validators.pattern('[0-9]{1,20}')])],
+      entidadNumeroDeDocumento: [null, Validators.compose([Validators.required,Validators.minLength(8), Validators.maxLength(20),Validators.pattern('[0-9]{1,20}')])],
       entidadDenominacion: [null, Validators.compose([Validators.required, Validators.maxLength(150)])],
       entidadDireccion: [null, Validators.compose([Validators.maxLength(150)])],
       entidadEmail: [null, Validators.compose([Validators.maxLength(150)])],
@@ -131,10 +123,6 @@ export class CreateRetentionFormComponent implements OnInit {
     });
   }
 
-  get detalle(): FormArray {
-    return this.form.get("detalle") as FormArray;
-  }
-
   // Observers
   addFormGlobalObservers() {
     let formControls = [this.monedaDocumento, this.tasaDocumento];
@@ -145,21 +133,17 @@ export class CreateRetentionFormComponent implements OnInit {
     });
   }
 
-
   addDetalle(): void {
     let formGroup = this.formBuilder.group({
       tipoDocumentoRelacionado: [null, Validators.compose([Validators.required])],
-/*
-      serieDocumentoRelacionado: [null, Validators.compose([Validators.required, Validators.maxLength(4)])],
-*/
-      numeroDocumentoRelacionado: [null, Validators.compose([Validators.required, Validators.maxLength(8)])],
+      numeroDocumentoRelacionado: [null, Validators.compose([Validators.required, Validators.maxLength(13)])],
       fechaDocumentoRelacionado: [null, Validators.compose([Validators.required])],
       monedaDocumentoRelacionado: [null, Validators.compose([Validators.required, Validators.maxLength(3)])],
       totalDocumentoRelacionado: [null, Validators.compose([Validators.required])],
       tipoCambio: [0, Validators.compose([Validators.required])],
       fechaCambio: [this.datePipe.transform(new Date(), 'yyyy-MM-dd'), Validators.compose([Validators.required])],
       pagoDocumentoSunat: [0, Validators.compose([Validators.required])],
-      numeroPago: [null],
+      numeroPago: [null,Validators.compose([Validators.required])],
       fechaDocumentoSunat: [null, Validators.compose([Validators.required])],
       importeDocumentoSunat: [0, Validators.compose([Validators.required])],
       importePago: [0, Validators.compose([Validators.required])]
@@ -260,16 +244,20 @@ export class CreateRetentionFormComponent implements OnInit {
     });
   }
 
-  findInvoice() {
-    if (this.numeroDocumentoRelacionado.valid) {
+  findInvoice(index) {
+    let formGroup: FormGroup = this.detalle.controls[index] as FormGroup;
+    if (this.getNumeroDocumentoRelacionado(formGroup).valid) {
       let queryParam: URLSearchParams = new URLSearchParams();
-      queryParam.set("documentId", this.numeroDocumentoRelacionado.value);
-      this.dataService.retentions().getAll(this.organization, queryParam).subscribe(
+      queryParam.set("documentId", this.getNumeroDocumentoRelacionado(formGroup).value);
+      this.dataService.invoices().getAll(this.organization, queryParam).subscribe(
         response => {
-          this.retention = response[0];
-          if (this.retention) {
-            this.form.patchValue({
-              entidadTipoDeDocumento: this.retention["totalDocumentoRelacionado"].additionalAccountId[0]
+          this.invoice = response[0];
+          if (this.invoice) {
+            formGroup.patchValue({
+              totalDocumentoRelacionado: this.invoice["payableAmount"],
+              fechaDocumentoRelacionado: this.datePipe.transform(this.invoice["issueDateTime"], 'yyyy-MM-dd'),
+              tipoDocumentoRelacionado: this.invoice["invoiceTypeCode"],
+              monedaDocumentoRelacionado: this.invoice["documentCurrencyCode"]
             });
           } else {
             this.alertService.pop("info", "Info", "Could not find Invoice.");
@@ -281,6 +269,7 @@ export class CreateRetentionFormComponent implements OnInit {
       );
     }
   }
+
   cancel() {
     this.router.navigate(["../"], {relativeTo: this.activatedRoute});
   }
@@ -288,8 +277,8 @@ export class CreateRetentionFormComponent implements OnInit {
   /**
    * Getter and Setter
    */
-  get numeroDocumentoRelacionado(): FormControl {
-    return this.form.get("numeroDocumentoRelacionado") as FormControl;
+  getNumeroDocumentoRelacionado(formGroup: FormGroup) {
+    return formGroup.get("numeroDocumentoRelacionado");
   }
   get monedaDocumento(): FormControl {
     return this.form.get("monedaDocumento") as FormControl;
@@ -326,6 +315,8 @@ export class CreateRetentionFormComponent implements OnInit {
   get totalPago(): FormControl {
     return this.form.get("totalPago") as FormControl;
   }
-
+  get detalle(): FormArray {
+    return this.form.get("detalle") as FormArray;
+  }
 
 }

@@ -8,7 +8,7 @@
       <div class="col-md-2">
         <div class="form-group"
              [ngClass]="{ 'has-error' : !form.get('entidadTipoDeDocumento').valid && form.get('entidadTipoDeDocumento').dirty }">
-          <label class="control-label required-pf">DNI/RUC
+          <label class="control-label required-pf">Customer Document Type
             <i class="fa fa-question-circle text-muted" ngbTooltip="Document Type of the organization"
                placement="right"></i>
           </label>
@@ -29,7 +29,7 @@
       <div class="col-md-2">
         <div class="form-group"
              [ngClass]="{ 'has-error' : !form.get('entidadNumeroDeDocumento').valid && form.get('entidadNumeroDeDocumento').dirty }">
-          <label class="control-label required-pf">Nro.Documento
+          <label class="control-label required-pf">Customer Document Number
             <i class="fa fa-question-circle text-muted" ngbTooltip="Customer Document number of the organization"
                placement="right"></i>
           </label>
@@ -47,7 +47,7 @@
       <div class="col-md-3">
         <div class="form-group"
              [ngClass]="{ 'has-error' : !form.get('entidadDenominacion').valid && form.get('entidadDenominacion').dirty }">
-          <label class="control-label required-pf">Nombre/R.Social
+          <label class="control-label required-pf">Customer Business Name
             <i class="fa fa-question-circle text-muted" ngbTooltip="Customer name of the organization"
                placement="right"></i>
           </label>
@@ -66,7 +66,7 @@
       <div class="col-md-3">
         <div class="form-group"
              [ngClass]="{ 'has-error' : !form.get('entidadDireccion').valid && form.get('entidadDireccion').dirty }">
-          <label class="control-label">Direccion Cliente
+          <label class="control-label"> Customer Address
             <i class="fa fa-question-circle text-muted" ngbTooltip="Address of the organization"
                placement="right"></i>
           </label>
@@ -85,7 +85,7 @@
       <div class="col-md-2">
         <div class="form-group"
              [ngClass]="{ 'has-error' : !form.get('entidadEmail').valid && form.get('entidadEmail').dirty }">
-          <label class="control-label">Email
+          <label class="control-label">Customer E-Mail
             <i class="fa fa-question-circle text-muted" ngbTooltip="Email of the organization"
                placement="right"></i>
           </label>
@@ -109,11 +109,12 @@
       <div class="col-md-1">
         <div class="form-group"
              [ngClass]="{ 'has-error' : !form.get('serieDocumento').valid && form.get('serieDocumento').dirty }">
-          <label class="control-label">Serie
+          <label class="control-label">Doc. Series
             <i class="fa fa-question-circle text-muted" ngbTooltip="organization of the organization"
                placement="right"></i>
           </label>
-          <input formControlName="serieDocumento" type="text" class="form-control" placeholder="R001">
+          <input formControlName="serieDocumento" type="text" class="form-control"
+                 [textMask]="{mask: serieDocumentMask}" placeholder="001">
           <div *ngIf="!form.get('serieDocumento').valid && form.get('serieDocumento').dirty">
             <span *ngIf="form.get('serieDocumento').hasError('required')"
                   class="help-block">This field is required</span>
@@ -127,7 +128,7 @@
       <div class="col-md-1">
         <div class="form-group"
              [ngClass]="{ 'has-error' : !form.get('numeroDocumento').valid && form.get('numeroDocumento').dirty }">
-          <label class="control-label">Numero
+          <label class="control-label">Doc. Number
             <i class="fa fa-question-circle text-muted" ngbTooltip="organization of the organization"
                placement="right"></i>
           </label>
@@ -145,11 +146,11 @@
       <div class="col-md-2">
         <div class="form-group"
              [ngClass]="{ 'has-error' : !form.get('fechaDeEmision').valid && form.get('fechaDeEmision').dirty }">
-          <label class="control-label required-pf">Fecha Emision
+          <label class="control-label required-pf">IssueDate
             <i class="fa fa-question-circle text-muted" ngbTooltip="organization of the organization"
                placement="right"></i>
           </label>
-          <input formControlName="fechaDeEmision" type="date" class="form-control">
+          <input formControlName="fechaDeEmision" type="date" class="form-control" disabled>
           <div *ngIf="!form.get('fechaDeEmision').valid && form.get('fechaDeEmision').dirty">
             <span *ngIf="form.get('fechaDeEmision').hasError('required')"
                   class="help-block">This field is required</span>
@@ -162,7 +163,7 @@
       <div class="col-md-2">
         <div class="form-group"
              [ngClass]="{ 'has-error' : !form.get('monedaDocumento').valid && form.get('monedaDocumento').dirty }">
-          <label class="control-label required-pf">Moneda
+          <label class="control-label required-pf">Currency
             <i class="fa fa-question-circle text-muted" ngbTooltip="organization of the organization"
                placement="right"></i>
           </label>
@@ -182,7 +183,7 @@
       <div class="col-md-2">
         <div class="form-group"
              [ngClass]="{ 'has-error' : !form.get('tasaDocumento').valid && form.get('tasaDocumento').dirty }">
-          <label class="control-label required-pf">Tasa
+          <label class="control-label required-pf">Perception Percent
             <i class="fa fa-question-circle text-muted" ngbTooltip="organization of the organization"
                placement="right"></i>
           </label>
@@ -198,10 +199,10 @@
           </div>
         </div>
       </div>
-      <div class="col-md-1">
+      <div class="col-md-2">
         <div class="form-group"
              [ngClass]="{ 'has-error' : !form.get('enviarAutomaticamenteASunat').valid && form.get('enviarAutomaticamenteASunat').dirty }">
-          <label class="control-label">Enviar Sunat
+          <label class="control-label">Send to Thrid Party
             <i class="fa fa-question-circle text-muted" ngbTooltip="Enabled of the organization" placement="right"></i>
           </label>
           <of-button-switch formControlName="enviarAutomaticamenteASunat" [onText]="'SI'"
@@ -214,10 +215,10 @@
           </div>
         </div>
       </div>
-      <div class="col-md-1">
+      <div class="col-md-2">
         <div class="form-group"
              [ngClass]="{ 'has-error' : !form.get('enviarAutomaticamenteAlCliente').valid && form.get('enviarAutomaticamenteAlCliente').dirty }">
-          <label class="control-label">Enviar Cliente
+          <label class="control-label">Send To Customer
             <i class="fa fa-question-circle text-muted" ngbTooltip="Enabled of the organization" placement="right"></i>
           </label>
           <of-button-switch formControlName="enviarAutomaticamenteAlCliente" [onText]="'SI'"
@@ -240,31 +241,53 @@
       <thead>
       <tr>
         <td rowspan="2" class="text-right" width="2%">#</td>
-        <th colspan="5" class="text-center"><b>Datos Documento Relacionado</b></th>
-        <th colspan="2" class="text-center"><b>Datos Tipo Cambio</b></th>
-        <th colspan="2" class="text-center"><b>Datos Pago</b></th>
-        <th colspan="3" class="text-center"><b>Datos de Retencion</b></th>
-        <th rowspan="2" width="6%">Acciones</th>
+        <th colspan="5" class="text-center"><b>Related Document Data </b></th>
+        <th colspan="2" class="text-center"><b>Exchange Rate Data</b></th>
+        <th colspan="2" class="text-center"><b>Payment Information</b></th>
+        <th colspan="3" class="text-center"><b>Retention Data</b></th>
+        <th rowspan="2" width="6%">Actions</th>
       </tr>
       <tr>
-        <td width="13%">Tipo</td>
-        <td width="12%">Numero</td>
-        <td width="4%">Fecha</td>
-        <td width="10%">Moneda</td>
-        <td class="text-right" width="8%">Total</td>
-        <td class="text-right" width="8%">Monto</td>
-        <td width="4%">Fecha</td>
-        <td class="text-right" width="10%">Pago Sunat</td>
-        <td class="text-right" width="7%"># Pago</td>
-        <td width="4%">Fecha</td>
-        <td class="text-right" width="8%">Total Retenido</td>
-        <td class="text-right" width="8%">Total Pago</td>
+        <td width="12%">Document Number</td>
+        <td width="13%">Document Type</td>
+        <td width="4%">IssueDate</td>
+        <td width="10%">Currency</td>
+        <td class="text-right" width="8%">Invoice Amount</td>
+
+        <td class="text-right" width="8%">Exchange rate</td>
+        <td width="4%">IssueDate E/R</td>
+
+        <td class="text-right" width="10%">Payment without retention</td>
+        <td class="text-right" width="7%">Payment Number</td>
+
+        <td width="4%">Retention date</td>
+        <td class="text-right" width="8%">Retained Amount</td>
+        <td class="text-right" width="8%">Amount paid</td>
       </tr>
       </thead>
       <tbody formArrayName="detalle">
       <tr *ngFor="let lineFormGroup of detalle.controls; let i = index;" [formGroupName]="i">
         <td class="text-right">{{i+1}}</td>
-
+        <td
+          [ngClass]="{ 'has-error' : !lineFormGroup.get('numeroDocumentoRelacionado').valid && lineFormGroup.get('numeroDocumentoRelacionado').dirty }">
+          <div class="input-group"><input formControlName="numeroDocumentoRelacionado" type="text"
+                                          (keyup.enter)="findInvoice(i)"
+                                          [textMask]="{mask: documentMask}" class="form-control"
+                                          placeholder="[B|F]000-0000000"/>
+            <span class="input-group-btn"><button (click)="findInvoice(i)" class="btn btn-default" type="button"><span
+              class="fa fa-search"></span></button>
+            </span>
+          </div>
+          <div
+            *ngIf="!lineFormGroup.get('numeroDocumentoRelacionado').valid && lineFormGroup.get('numeroDocumentoRelacionado').dirty">
+            <span *ngIf="lineFormGroup.get('numeroDocumentoRelacionado').hasError('required')"
+                  class="help-block">This field is required</span>
+            <span *ngIf="lineFormGroup.get('numeroDocumentoRelacionado').hasError('maxlength')" class="help-block">Max length allowed: {{lineFormGroup.get('numeroDocumentoRelacionado').errors.maxlength.requiredLength}}</span>
+            <span
+              *ngIf="!lineFormGroup.get('numeroDocumentoRelacionado').hasError('required') && !lineFormGroup.get('numeroDocumentoRelacionado').hasError('maxlength') && !lineFormGroup.get('numeroDocumentoRelacionado').valid"
+              class="help-block">Value field is invalid</span>
+          </div>
+        </td>
         <td
           [ngClass]="{ 'has-error' : !lineFormGroup.get('tipoDocumentoRelacionado').valid && lineFormGroup.get('tipoDocumentoRelacionado').dirty }">
           <select formControlName="tipoDocumentoRelacionado" class="form-control">
@@ -276,25 +299,6 @@
             <span *ngIf="lineFormGroup.get('tipoDocumentoRelacionado').hasError('required')" class="help-block">This field is required</span>
             <span
               *ngIf="!lineFormGroup.get('tipoDocumentoRelacionado').hasError('required') && !lineFormGroup.get('tipoDocumentoRelacionado').valid"
-              class="help-block">Value field is invalid</span>
-          </div>
-        </td>
-
-        <td
-          [ngClass]="{ 'has-error' : !lineFormGroup.get('numeroDocumentoRelacionado').valid && lineFormGroup.get('numeroDocumentoRelacionado').dirty }">
-          <div class="input-group"><input formControlName="numeroDocumentoRelacionado" type="text" (keyup.enter)="findInvoice()"
-                      class="form-control" placeholder="[B|F]000-0000000"/>
-            <span class="input-group-btn"><button (click)="findInvoice()" class="btn btn-default" type="button"><span
-              class="fa fa-search"></span></button>
-            </span>
-          </div>
-          <div
-            *ngIf="!lineFormGroup.get('numeroDocumentoRelacionado').valid && lineFormGroup.get('numeroDocumentoRelacionado').dirty">
-            <span *ngIf="lineFormGroup.get('numeroDocumentoRelacionado').hasError('required')"
-                  class="help-block">This field is required</span>
-            <span *ngIf="lineFormGroup.get('numeroDocumentoRelacionado').hasError('maxlength')" class="help-block">Max length allowed: {{lineFormGroup.get('numeroDocumentoRelacionado').errors.maxlength.requiredLength}}</span>
-            <span
-              *ngIf="!lineFormGroup.get('numeroDocumentoRelacionado').hasError('required') && !lineFormGroup.get('numeroDocumentoRelacionado').hasError('maxlength') && !lineFormGroup.get('numeroDocumentoRelacionado').valid"
               class="help-block">Value field is invalid</span>
           </div>
         </td>
@@ -443,7 +447,7 @@
       <tfoot>
       <tr>
         <td colspan="14" class="text-right">
-          <button (click)="addDetalle()" type="button" class="btn btn-lg btn-default">Agregar Item
+          <button (click)="addDetalle()" type="button" class="btn btn-lg btn-default">Add Item
             <span class="fa fa-plus"></span>
           </button>
         </td>
@@ -458,7 +462,7 @@
       <div class="col-md-8">
         <div class="form-group"
              [ngClass]="{ 'has-error' : !form.get('observaciones').valid && form.get('observaciones').dirty }">
-          <label>Observaciones
+          <label>Observations
             <i class="fa fa-question-circle text-muted" ngbTooltip="Enabled of the organization" placement="right"></i>
           </label>
           <textarea formControlName="observaciones" rows="5" class="form-control"></textarea>
@@ -474,16 +478,16 @@
         <table class="table table-bordered table-striped">
           <thead>
           <tr>
-            <th colspan="2">Resumen</th>
+            <th colspan="2">SUMMARY</th>
           </tr>
           </thead>
           <tbody>
           <tr>
-            <td>Total Retencion</td>
+            <td>TOTAL RETENTION</td>
             <td>{{form.get('totalDocumentoSunat').value | number : '1.2-2'}}</td>
           </tr>
           <tr>
-            <td>Total Pagado</td>
+            <td>TOTAL PAID</td>
             <td>{{form.get('totalPago').value | number : '1.2-2'}}</td>
           </tr>
           </tbody>

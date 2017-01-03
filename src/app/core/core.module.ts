@@ -27,6 +27,7 @@ import { CreditnoteService } from './data/creditnote.service';
 import { DebitnoteService } from './data/debitnote.service';
 import { PerceptionService } from './data/perception.service';
 import { RetentionService } from './data/retention.service';
+import  {VoidedService} from './data/voided.service';
 import { ServerInfoService } from './data/server-info.service';
 import { EventService } from './data/event.service';
 import { StorageFileService } from './data/storage-file.service';
@@ -53,6 +54,10 @@ import { RetentionResolver } from './resolvers/retention-resolver';
 import { RetentionJsonResolver } from './resolvers/retention-json-resolver';
 import { RetentionTextResolver } from './resolvers/retention-text-resolver';
 
+import { VoidedResolver } from './resolvers/voided-resolver';
+import { VoidedJsonResolver } from './resolvers/voided-json-resolver';
+import { VoidedTextResolver } from './resolvers/voided-text-resolver';
+
 // Guards
 import { AllowedDataOrganizations } from './guards/allowed-data-organizations';
 import { AllowedDataRoles } from './guards/allowed-data-roles';
@@ -63,7 +68,7 @@ import { AllowedDataRoles } from './guards/allowed-data-roles';
     CommonModule,
     HttpModule,
 
-    // Third modules    
+    // Third modules
   ],
   declarations: [
     AlertComponent,
@@ -100,6 +105,7 @@ import { AllowedDataRoles } from './guards/allowed-data-roles';
     DebitnoteService,
     PerceptionService,
     RetentionService,
+    VoidedService,
     ServerInfoService,
     EventService,
     StorageFileService,
@@ -126,6 +132,10 @@ import { AllowedDataRoles } from './guards/allowed-data-roles';
     RetentionResolver,
     RetentionJsonResolver,
     RetentionTextResolver,
+
+    VoidedResolver,
+    VoidedJsonResolver,
+    VoidedTextResolver,
     //Guards
     AllowedDataOrganizations,
     AllowedDataRoles

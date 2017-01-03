@@ -181,5 +181,31 @@ export class PerceptionsComponent implements OnInit {
         this.alertService.pop('error', 'Error', 'Error loading perceptions.');
       });
   }
+  downloadXml(perception: any) {
+    let per: Perception = this.dataService.perceptions().build(this.organization, perception.codigoUnico);
+    perception.downloadXml(per);
+  }
 
+  downloadPdf(perception: any) {
+    let per: Perception = this.dataService.perceptions().build(this.organization, perception.codigoUnico);
+    perception.downloadPdf(per);
+  }
+
+  sendToCustomer(perception: any) {
+    let per: Perception = this.dataService.perceptions().build(this.organization, perception.codigoUnico);
+    perception.sendToCustomer(per).subscribe(
+      result => {
+        this.alertService.pop('success', 'Success', 'Success! Invoice sended to customer.');
+      }
+    );
+  }
+
+  sendToThirdParty(perception: any) {
+    let per: Perception = this.dataService.perceptions().build(this.organization, perception.codigoUnico);
+    perception.sendToThirdParty(per).subscribe(
+      result => {
+        this.alertService.pop('success', 'Success', 'Success! Invoice sended to third party.');
+      }
+    );
+  }
 }

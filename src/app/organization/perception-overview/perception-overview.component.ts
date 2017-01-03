@@ -23,8 +23,9 @@ export class PerceptionOverviewComponent implements OnInit {
   constructor(private activatedRoute: ActivatedRoute,
               private dataService: DataService, private alertService: AlertService) {
     this.perception = this.activatedRoute.snapshot.data['perception'];
-    this.perceptionJson = this.activatedRoute.snapshot.data['perceptionJson'];
     this.perceptionText = this.activatedRoute.snapshot.data['perceptionText'];
+    this.perceptionJson = this.activatedRoute.snapshot.data['perceptionJson'];
+
   }
 
   ngOnInit() {

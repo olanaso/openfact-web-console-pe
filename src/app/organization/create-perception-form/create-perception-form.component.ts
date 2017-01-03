@@ -4,10 +4,12 @@
 import {Component, OnInit} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 import {FormBuilder, FormGroup, FormControl, FormArray, Validators} from '@angular/forms';
+import { Response, URLSearchParams } from '@angular/http';
 import {Observable} from "rxjs/Observable";
 import {DataService} from '../../core/data/data.service';
 import {AlertService} from '../../core/alert/alert.service';
 import {Organization} from '../../core/models/organization.model';
+import { Invoice } from "../../core/models/invoice.model";
 import {DatePipe} from '@angular/common';
 
 import {NgbModal, ModalDismissReasons} from "@ng-bootstrap/ng-bootstrap";
@@ -28,6 +30,7 @@ export class CreatePerceptionFormComponent implements OnInit {
   form: FormGroup;
   working: boolean = false;
   organization: Organization;
+  invoice: Invoice;
   CURRENNCY: string = "PEN";
 
   constructor(private router: Router,
@@ -42,8 +45,8 @@ export class CreatePerceptionFormComponent implements OnInit {
   }
 
   tipoDocumento = [
-    {denominacion: "BOLETA ELECTRONICA", valor: "01"},
-    {denominacion: "FACTURA ELECTRONICA", valor: "02"}
+    {denominacion: "FACTURA ELECTRONICA", valor: "01"},
+    {denominacion: "BOLETA ELECTRONICA", valor: "03"}
   ];
 
   tipoDocumentoEntidad = [
@@ -65,7 +68,8 @@ export class CreatePerceptionFormComponent implements OnInit {
     {denominacion: "TASA 2%", valor: "2"}
   ];
 
-
+  documentMask = [/[B|F|b|f]/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/];
+  serieDocumentMask = ['P', /\d/, /\d/, /\d/];
   singleNumberMask = createNumberMask({
     allowDecimal: false
   });
@@ -89,7 +93,7 @@ export class CreatePerceptionFormComponent implements OnInit {
     this.form = this.formBuilder.group({
 
       entidadTipoDeDocumento: [null, Validators.compose([Validators.required])],
-      entidadNumeroDeDocumento: [null, Validators.compose([Validators.required, Validators.maxLength(20),Validators.pattern('[0-9]{1,20}')])],
+      entidadNumeroDeDocumento: [null, Validators.compose([Validators.required,Validators.minLength(8), Validators.maxLength(20),Validators.pattern('[0-9]{1,20}')])],
       entidadDenominacion: [null, Validators.compose([Validators.required, Validators.maxLength(150)])],
       entidadDireccion: [null, Validators.compose([Validators.maxLength(150)])],
       entidadEmail: [null, Validators.compose([Validators.maxLength(150)])],
@@ -145,17 +149,14 @@ export class CreatePerceptionFormComponent implements OnInit {
   addDetalle(): void {
     let formGroup = this.formBuilder.group({
       tipoDocumentoRelacionado: [null, Validators.compose([Validators.required])],
-      /*
-       serieDocumentoRelacionado: [null, Validators.compose([Validators.required, Validators.maxLength(4)])],
-       */
-      numeroDocumentoRelacionado: [null, Validators.compose([Validators.required, Validators.maxLength(8)])],
+      numeroDocumentoRelacionado: [null, Validators.compose([Validators.required, Validators.maxLength(13)])],
       fechaDocumentoRelacionado: [null, Validators.compose([Validators.required])],
       monedaDocumentoRelacionado: [null, Validators.compose([Validators.required, Validators.maxLength(3)])],
       totalDocumentoRelacionado: [null, Validators.compose([Validators.required])],
       tipoCambio: [0, Validators.compose([Validators.required])],
       fechaCambio: [this.datePipe.transform(new Date(), 'yyyy-MM-dd'), Validators.compose([Validators.required])],
       pagoDocumentoSunat: [0, Validators.compose([Validators.required])],
-      numeroPago: [null],
+      numeroPago: [null,Validators.compose([Validators.required])],
       fechaDocumentoSunat: [null, Validators.compose([Validators.required])],
       importeDocumentoSunat: [0, Validators.compose([Validators.required])],
       importePago: [0, Validators.compose([Validators.required])]
@@ -256,6 +257,32 @@ export class CreatePerceptionFormComponent implements OnInit {
     });
   }
 
+  findInvoice(index) {
+    let formGroup: FormGroup = this.detalle.controls[index] as FormGroup;
+    if (this.getNumeroDocumentoRelacionado(formGroup).valid) {
+      let queryParam: URLSearchParams = new URLSearchParams();
+      queryParam.set("documentId", this.getNumeroDocumentoRelacionado(formGroup).value);
+      this.dataService.invoices().getAll(this.organization, queryParam).subscribe(
+        response => {
+          this.invoice = response[0];
+          if (this.invoice) {
+            formGroup.patchValue({
+              totalDocumentoRelacionado: this.invoice["payableAmount"],
+              fechaDocumentoRelacionado:this.datePipe.transform(this.invoice["issueDateTime"], 'yyyy-MM-dd'),
+              tipoDocumentoRelacionado: this.invoice["invoiceTypeCode"],
+              monedaDocumentoRelacionado: this.invoice["documentCurrencyCode"]
+            });
+          } else {
+            this.alertService.pop("info", "Info", "Could not find Invoice.");
+          }
+        },
+        error => {
+          this.alertService.pop("error", "Error", "Could not find Invoice.");
+        }
+      );
+    }
+  }
+
   cancel() {
     this.router.navigate(["../"], {relativeTo: this.activatedRoute});
   }
@@ -263,6 +290,9 @@ export class CreatePerceptionFormComponent implements OnInit {
   /**
    * Getter and Setter
    */
+  getNumeroDocumentoRelacionado(formGroup: FormGroup) {
+    return formGroup.get("numeroDocumentoRelacionado");
+  }
 
   get monedaDocumento(): FormControl {
     return this.form.get("monedaDocumento") as FormControl;

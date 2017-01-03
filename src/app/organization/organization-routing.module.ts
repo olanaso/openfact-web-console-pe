@@ -322,7 +322,8 @@ import { EventsSettingsComponent } from './events-settings/events-settings.compo
                     resolve: {
                       organization: OrganizationResolver,
                       perception: PerceptionResolver,
-                      perceptionJson: PerceptionJsonResolver
+                      perceptionJson: PerceptionJsonResolver,
+                      perceptionText: PerceptionTextResolver
                     }
                   },
                   {
@@ -392,7 +393,8 @@ import { EventsSettingsComponent } from './events-settings/events-settings.compo
                     resolve: {
                       organization: OrganizationResolver,
                       retention: RetentionResolver,
-                      retentionJson: RetentionJsonResolver
+                      retentionJson: RetentionJsonResolver,
+                      retentionText: RetentionTextResolver
                     }
                   },
                   {
@@ -415,6 +417,77 @@ import { EventsSettingsComponent } from './events-settings/events-settings.compo
               }
             ]
           },
+          /*{
+            path: 'voideds',
+            children: [
+              {
+                path: '',
+                component: RetentionsComponent,
+                resolve: {
+                  organization: OrganizationResolver
+                }
+              },
+              {
+                path: 'create',
+                component: CreateRetentionComponent,
+                resolve: {
+                  organization: OrganizationResolver
+                },
+                children: [
+                  {
+                    path: '',
+                    component: CreateRetentionFormComponent,
+                    resolve: {
+                      organization: OrganizationResolver
+                    }
+                  },
+                  {
+                    path: 'upload',
+                    component: CreateRetentionUploadComponent,
+                    resolve: {
+                      organization: OrganizationResolver
+                    }
+                  }
+                ]
+              },
+              {
+                path: ':retention',
+                component: EditRetentionComponent,
+                resolve: {
+                  organization: OrganizationResolver,
+                  retention: RetentionResolver
+                },
+                children: [
+                  {
+                    path: '',
+                    component: RetentionOverviewComponent,
+                    resolve: {
+                      organization: OrganizationResolver,
+                      retention: RetentionResolver,
+                      retentionJson: RetentionJsonResolver,
+                      retentionText: RetentionTextResolver
+                    }
+                  },
+                  {
+                    path: 'send-events',
+                    component: RetentionSendEventsComponent,
+                    resolve: {
+                      organization: OrganizationResolver,
+                      retention: RetentionResolver
+                    }
+                  },
+                  {
+                    path: 'events',
+                    component: RetentionOverviewEventsComponent,
+                    resolve: {
+                      organization: OrganizationResolver,
+                      retention: RetentionResolver
+                    }
+                  }
+                ]
+              }
+            ]
+          },*/
           {
             path: 'settings',
             component: OrganizationSettingsComponent,

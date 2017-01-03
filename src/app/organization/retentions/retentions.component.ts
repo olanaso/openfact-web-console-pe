@@ -181,5 +181,31 @@ export class RetentionsComponent implements OnInit {
         this.alertService.pop('error', 'Error', 'Error loading retentions.');
       });
   }
+  downloadXml(retention: any) {
+    let ret: Retention = this.dataService.retentions().build(this.organization, retention.codigoUnico);
+    retention.downloadXml(ret);
+  }
 
+  downloadPdf(retention: any) {
+    let ret: Retention = this.dataService.retentions().build(this.organization, retention.codigoUnico);
+    retention.downloadPdf(ret);
+  }
+
+  sendToCustomer(retention: any) {
+    let ret: Retention = this.dataService.retentions().build(this.organization, retention.codigoUnico);
+    retention.sendToCustomer(ret).subscribe(
+      result => {
+        this.alertService.pop('success', 'Success', 'Success! Invoice sended to customer.');
+      }
+    );
+  }
+
+  sendToThirdParty(retention: any) {
+    let ret: Retention = this.dataService.retentions().build(this.organization, retention.codigoUnico);
+    retention.sendToThirdParty(ret).subscribe(
+      result => {
+        this.alertService.pop('success', 'Success', 'Success! Invoice sended to third party.');
+      }
+    );
+  }
 }

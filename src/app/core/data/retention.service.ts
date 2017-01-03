@@ -101,7 +101,7 @@ export class RetentionService {
   }
 
   public getFileUpload(organization: Organization): FileUploader {
-    let restangular = organization.restangular.one("organizations", organization.organization)
+    let restangular = this.restangular.one("organizations", organization.organization)
       .all(basePath)
       .all(extensionPath)
       .all(retentionBasePath)

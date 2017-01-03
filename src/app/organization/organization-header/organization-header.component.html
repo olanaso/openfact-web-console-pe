@@ -23,7 +23,7 @@
 						<a [routerLink]="['/organizations', item.organization]">{{item.organization}}</a>
 					</li>
 					<li class="divider"></li>
-					<li><a routerLink="/admin/organizations">View all Organizations</a></li>
+					<li><a routerLink="/admin/organizations">{{'view-all-organizations' | translate}}</a></li>
 				</ul>
 			</li>
 			<li class="dropdown" ngbDropdown>
@@ -32,9 +32,9 @@
 					<span class="caret"></span>
 				</a>
 				<ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-					<li><a href="javascript:void(0);" (click)="accountManagement()">Manage account</a></li>
+					<li><a href="javascript:void(0);" (click)="accountManagement()">{{'manage-account' | translate}}</a></li>
 					<li class="divider"></li>
-					<li><a href="javascript:void(0);" (click)="logout()">Sign Out</a></li>
+					<li><a href="javascript:void(0);" (click)="logout()">{{'sign-out' | translate}}</a></li>
 				</ul>
 			</li>
 		</ul>

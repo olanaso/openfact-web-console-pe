@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { NotFound404Component } from './not-found-404/not-found-404.component';
+import { NotFoundComponent } from './not-found/not-found.component';
+import { ForbiddenComponent } from './forbidden/forbidden.component';
 import { Unauthorized401Component } from './unauthorized-401/unauthorized-401.component';
 
 @NgModule({
@@ -12,8 +13,16 @@ import { Unauthorized401Component } from './unauthorized-401/unauthorized-401.co
         component: Unauthorized401Component
       },
       {
+        path: 'forbidden',
+        component: ForbiddenComponent
+      },
+      {
+        path: 'notfound',
+        component: NotFoundComponent
+      },
+      {
         path: '**',
-        component: NotFound404Component
+        component: NotFoundComponent
       }
     ])
   ],

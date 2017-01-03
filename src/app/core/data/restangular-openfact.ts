@@ -1,9 +1,11 @@
 import { Injectable, Inject } from '@angular/core';
 import { Http, Response } from '@angular/http';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 
 import { Restangular } from './restangular';
 import { AlertService } from '../alert/alert.service';
+import { KeycloakService } from '../keycloak.service';
 
 export const path: string = 'http://localhost:8081/openfact';
 
@@ -12,22 +14,19 @@ export class RestangularOpenfact extends Restangular {
 
   private alertService: AlertService;
 
-  constructor(http: Http, alertService: AlertService) {
+  constructor(http: Http, alertService: AlertService, private router: Router) {
     super(http);
     this.path = path;
     this.alertService = alertService;
   }
 
   handleError(error: any): Observable<Response> {
-    if (error.status == 401) {
-      //Auth.authz.logout();
-      console.log("Auth error");
+    if (error.status == 401) {      
+      KeycloakService.auth.authz.logout();
     } else if (error.status == 403) {
-      //$location.path('/forbidden');
-      console.log("forbidden");
+      this.router.navigate(["./forbidden"]);
     } else if (error.status == 404) {
-      //$location.path('/notfound');
-      console.log("not found");
+      this.router.navigate(["./notfound"]);
     } else if (error.status) {
       let data: Response = (<Response>error).json();
       if (data && data["errorMessage"]) {
@@ -40,7 +39,7 @@ export class RestangularOpenfact extends Restangular {
   }
 
   clone(): Restangular {
-    return new RestangularOpenfact(this.http, this.alertService);
+    return new RestangularOpenfact(this.http, this.alertService, this.router);
   }
 
 }

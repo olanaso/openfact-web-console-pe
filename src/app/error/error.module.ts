@@ -12,8 +12,9 @@ import { SharedModule } from '../shared/shared.module';
 // Components
 import { ErrorHeaderComponent } from './error-header/error-header.component';
 import { ErrorFooterComponent } from './error-footer/error-footer.component';
-import { NotFound404Component } from './not-found-404/not-found-404.component';
 import { Unauthorized401Component } from './unauthorized-401/unauthorized-401.component';
+import { NotFoundComponent } from './not-found/not-found.component';
+import { ForbiddenComponent } from './forbidden/forbidden.component';
 
 @NgModule({
   imports: [
@@ -32,8 +33,9 @@ import { Unauthorized401Component } from './unauthorized-401/unauthorized-401.co
     // Components
     ErrorHeaderComponent,
     ErrorFooterComponent,
-    NotFound404Component,
-    Unauthorized401Component
+    Unauthorized401Component,
+    NotFoundComponent,
+    ForbiddenComponent
   ]
 })
 export class ErrorModule { }

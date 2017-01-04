@@ -50,7 +50,7 @@ export class EditPerceptionComponent implements OnInit {
         this.alertService.pop('success', 'Success', 'Success! Perception sended to customer.');
       },
       error => {
-        this.alertService.pop('error', 'Error', 'Organization could not be created.');
+        this.alertService.pop('error', 'Error', 'Perception could not be sended to customer.');
       }
     );
   }
@@ -62,7 +62,7 @@ export class EditPerceptionComponent implements OnInit {
         this.alertService.pop('success', 'Success', 'Success! Perception sended to third party.');
       },
       error => {
-        this.alertService.pop('error', 'Error', 'Organization could not be created.');
+        this.alertService.pop('error', 'Error', 'Perception could not be sended to third party.');
       }
     );
   }

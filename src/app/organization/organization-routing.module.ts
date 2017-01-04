@@ -18,6 +18,9 @@ import { PerceptionTextResolver } from '../core/resolvers/perception-text-resolv
 import { RetentionResolver } from '../core/resolvers/retention-resolver';
 import { RetentionJsonResolver } from '../core/resolvers/retention-json-resolver';
 import { RetentionTextResolver } from '../core/resolvers/retention-text-resolver';
+import { VoidedResolver } from '../core/resolvers/voided-resolver';
+import { VoidedJsonResolver } from '../core/resolvers/voided-json-resolver';
+import { VoidedTextResolver } from '../core/resolvers/voided-text-resolver';
 
 import { OrganizationComponent } from './organization.component';
 import { OrganizationOverviewComponent } from './organization-overview/organization-overview.component';
@@ -73,6 +76,15 @@ import { EditRetentionComponent } from './edit-retention/edit-retention.componen
 import { RetentionOverviewComponent } from './retention-overview/retention-overview.component';
 import { RetentionOverviewEventsComponent } from './retention-overview-events/retention-overview-events.component';
 import { RetentionSendEventsComponent } from './retention-send-events/retention-send-events.component';
+
+import { VoidedsComponent } from './voideds/voideds.component';
+import { CreateVoidedComponent } from './create-voided/create-voided.component';
+import { CreateVoidedFormComponent } from './create-voided-form/create-voided-form.component';
+import { CreateVoidedUploadComponent } from './create-voided-upload/create-voided-upload.component';
+import { EditVoidedComponent } from './edit-voided/edit-voided.component';
+import { VoidedOverviewComponent } from './voided-overview/voided-overview.component';
+import { VoidedOverviewEventsComponent } from './voided-overview-events/voided-overview-events.component';
+import { VoidedSendEventsComponent } from './voided-send-events/voided-send-events.component';
 
 import { EventsComponent } from './events/events.component';
 import { AdminEventsComponent } from './admin-events/admin-events.component';
@@ -417,33 +429,33 @@ import { EventsSettingsComponent } from './events-settings/events-settings.compo
               }
             ]
           },
-          /*{
+          {
             path: 'voideds',
             children: [
               {
                 path: '',
-                component: RetentionsComponent,
+                component: VoidedsComponent,
                 resolve: {
                   organization: OrganizationResolver
                 }
               },
               {
                 path: 'create',
-                component: CreateRetentionComponent,
+                component: CreateVoidedComponent,
                 resolve: {
                   organization: OrganizationResolver
                 },
                 children: [
                   {
                     path: '',
-                    component: CreateRetentionFormComponent,
+                    component: CreateVoidedFormComponent,
                     resolve: {
                       organization: OrganizationResolver
                     }
                   },
                   {
                     path: 'upload',
-                    component: CreateRetentionUploadComponent,
+                    component: CreateVoidedUploadComponent,
                     resolve: {
                       organization: OrganizationResolver
                     }
@@ -451,43 +463,43 @@ import { EventsSettingsComponent } from './events-settings/events-settings.compo
                 ]
               },
               {
-                path: ':retention',
-                component: EditRetentionComponent,
+                path: ':voided',
+                component: EditVoidedComponent,
                 resolve: {
                   organization: OrganizationResolver,
-                  retention: RetentionResolver
+                  voided: VoidedResolver
                 },
                 children: [
                   {
                     path: '',
-                    component: RetentionOverviewComponent,
+                    component: VoidedOverviewComponent,
                     resolve: {
                       organization: OrganizationResolver,
-                      retention: RetentionResolver,
-                      retentionJson: RetentionJsonResolver,
-                      retentionText: RetentionTextResolver
+                      voided: VoidedResolver,
+                      voidedJson: VoidedJsonResolver,
+                      voidedText: VoidedTextResolver
                     }
                   },
                   {
                     path: 'send-events',
-                    component: RetentionSendEventsComponent,
+                    component: VoidedSendEventsComponent,
                     resolve: {
                       organization: OrganizationResolver,
-                      retention: RetentionResolver
+                      voided: VoidedResolver
                     }
                   },
                   {
                     path: 'events',
-                    component: RetentionOverviewEventsComponent,
+                    component: VoidedOverviewEventsComponent,
                     resolve: {
                       organization: OrganizationResolver,
-                      retention: RetentionResolver
+                      voided: VoidedResolver
                     }
                   }
                 ]
               }
             ]
-          },*/
+          },
           {
             path: 'settings',
             component: OrganizationSettingsComponent,

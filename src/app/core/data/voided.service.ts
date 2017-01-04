@@ -17,7 +17,7 @@ import {KeycloakHttp} from '../keycloak.http';
 export const voidedIdName: string = 'id';
 export const basePath: string = 'sunat';
 export const extensionPath: string = 'ubl-extensions';
-export const voidedBasePath: string = 'voideds';
+export const voidedBasePath: string = 'voided-documents';
 
 @Injectable()
 export class VoidedService {

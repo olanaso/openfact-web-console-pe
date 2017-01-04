@@ -155,7 +155,10 @@ import { EventsSettingsComponent } from './events-settings/events-settings.compo
                   },
                   {
                     path: 'attatched-documents',
-                    component: InvoiceAttatchedDocumentsComponent
+                    component: InvoiceAttatchedDocumentsComponent,
+                    resolve: {                      
+                      invoice: InvoiceResolver
+                    }
                   },
                   {
                     path: 'events',

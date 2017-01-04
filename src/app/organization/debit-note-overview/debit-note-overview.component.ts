@@ -17,7 +17,7 @@ export class DebitNoteOverviewComponent implements OnInit {
 
   constructor(private activatedRoute: ActivatedRoute,
     private dataService: DataService, private alertService: AlertService) {
-    this.debitNote = this.activatedRoute.parent.snapshot.data['debitNote'];
+    this.debitNote = this.activatedRoute.snapshot.data['debitNote'];
   }
 
   ngOnInit() {

@@ -94,5 +94,9 @@
     "value": "Value",
     "attatchments": "Attatchments",
     "success-error": "SUCCESS.ERROR",
-    "attatched-documents": "Attatched Documents"
+    "attatched-documents": "Attatched Documents",
+    "attributes": "Attributes",
+    "additional-info": "Additional info",
+    "view-details": "View Details",
+    "view": "View"
 }

@@ -94,5 +94,9 @@
     "value": "Valor",
     "attatchments": "Adjuntos",
     "success-error": "SATISFACTORIO.ERROR",
-    "attatched-documents": "Documentos relacionados"
+    "attatched-documents": "Documentos relacionados",
+    "attributes": "Attributos",
+    "additional-info": "Informacion Adicional",
+    "view-details": "Ver Detalle",
+    "view": "Ver"
 }

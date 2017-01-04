@@ -326,8 +326,8 @@ export class CreateInvoiceFormComponent implements OnInit {
         response => {
           this.working = false;
           this.alertService.pop("success", "Success", "Success! The invoice has been created.");
-          if (redirect) {
-            this.router.navigate(["../"], { relativeTo: this.activatedRoute });
+          if (redirect) {            
+            this.router.navigate(["../"], { relativeTo: this.activatedRoute.parent });
           } else {
             this.buildForm();
           }
@@ -341,7 +341,7 @@ export class CreateInvoiceFormComponent implements OnInit {
   }
 
   cancel() {
-    this.router.navigate(["../"], { relativeTo: this.activatedRoute });
+    this.router.navigate(["../"], { relativeTo: this.activatedRoute.parent });
   }
 
   /**

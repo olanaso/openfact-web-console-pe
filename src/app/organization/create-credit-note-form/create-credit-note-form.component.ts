@@ -108,6 +108,7 @@ export class CreateCreditNoteFormComponent implements OnInit {
       entidadTipoDeDocumento: [null, Validators.compose([Validators.required])],
       entidadNumeroDeDocumento: [null, Validators.compose([Validators.required, Validators.maxLength(20)])],
       entidadDenominacion: [null, Validators.compose([Validators.required, Validators.maxLength(150)])],
+      entidadEmail: [null, Validators.compose([Validators.maxLength(150)])],
 
       operacionGratuita: [false, Validators.compose([Validators.required])],
       moneda: [null, Validators.compose([Validators.required])],
@@ -303,9 +304,10 @@ export class CreateCreditNoteFormComponent implements OnInit {
           this.invoice = response[0];
           if (this.invoice) {
             this.form.patchValue({
-              entidadTipoDeDocumento: this.invoice["accountingCustomerParty"].additionalAccountId[0],
-              entidadNumeroDeDocumento: this.invoice["accountingCustomerParty"].customerAssignedAccountId,
-              entidadDenominacion: this.invoice["accountingCustomerParty"].party.partyLegalEntity[0].registrationName,
+              entidadTipoDeDocumento: this.invoice["customerAdditionalAccountId"],
+              entidadNumeroDeDocumento: this.invoice["customerAssignedAccountId"],
+              entidadDenominacion: this.invoice["customerRegistrationName"],
+              entidadEmail: this.invoice["customerElectronicMail"],
 
               moneda: this.invoice["documentCurrencyCode"]
             });

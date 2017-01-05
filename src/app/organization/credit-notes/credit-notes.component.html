@@ -122,13 +122,13 @@
 								<td>{{item.idUbl}}</td>
 								<td>{{item.issueDateTime | date}}</td>
 								<td>									
-									<template ngFor let-subitem [ngForOf]="item.discrepancyResponse" let-i="index">
+									<!--<template ngFor let-subitem [ngForOf]="item.discrepancyResponse" let-i="index">
 										<span>{{subitem.referenceID}}</span>&nbsp;										
-									</template>
+									</template>-->
 								</td>
 								<td class="text-right">{{item.documentCurrencyCode}}</td>
-								<td class="text-right">{{item.legalMonetaryTotal.payableAmount | number:'1.2-3'}}</td>
-								<td class="text-right">{{item.accountingCustomerParty.customerAssignedAccountID}}</td>
+								<td class="text-right"><!--{{item.legalMonetaryTotal.payableAmount | number:'1.2-3'}}--></td>
+								<td class="text-right"><!--{{item.accountingCustomerParty.customerAssignedAccountID}}--></td>
 								<td class="kc-action-cell" [routerLink]="[item.id]">Overview</td>
 							</tr>
 						</tbody>

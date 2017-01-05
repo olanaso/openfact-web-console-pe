@@ -93,7 +93,21 @@
               class="help-block">Value field is invalid</span>
           </div>
         </div>
-      </div>      
+      </div>    
+      <div class="col-md-2">
+          <div class="form-group" [ngClass]="{ 'has-error' : !form.get('entidadEmail').valid && form.get('entidadEmail').dirty }">
+            <label class="control-label">Email
+            <i class="fa fa-question-circle text-muted" ngbTooltip="organization of the organization" placement="right"></i>
+          </label>
+            <input formControlName="entidadEmail" type="email" class="form-control" placeholder="email@domain.com" />
+            <div *ngIf="!form.get('entidadEmail').valid && form.get('entidadEmail').dirty">
+              <span *ngIf="form.get('entidadEmail').hasError('required')" class="help-block">This field is required</span>
+              <span *ngIf="form.get('entidadEmail').hasError('maxlength')" class="help-block">Max length allowed: {{form.get('entidadEmail').errors.maxlength.requiredLength}}</span>
+              <span *ngIf="!form.get('entidadEmail').hasError('required') && !form.get('entidadEmail').hasError('maxlength') && !form.get('entidadEmail').valid"
+                class="help-block">Value field is invalid</span>
+            </div>
+          </div>
+      </div>  
       <div class="col-md-2">
         <div class="form-group" [ngClass]="{ 'has-error' : !form.get('enviarAutomaticamenteASunat').valid && form.get('enviarAutomaticamenteASunat').dirty }">
           <label class="control-label">Enviar Sunat

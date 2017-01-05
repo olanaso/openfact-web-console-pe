@@ -1,0 +1,69 @@
+<div class="container-fluid container-cards-pf">
+  <div class="row row-cards-pf">
+    <div class="col-md-12">
+      <form [formGroup]="form" (ngSubmit)="save(form.value)" class="form-horizontal">
+        <p class="fields-status-pf">The fields marked with <span class="required-pf">*</span> are required.</p>
+                
+        <div class="form-group" [ngClass]="{ 'has-error' : !form.get('tasksEnabled').valid && form.get('tasksEnabled').dirty }">
+          <label class="col-md-2 control-label required-pf">Enable
+						<i class="fa fa-question-circle text-muted" ngbTooltip="tasksEnabled of the organization" placement="right"></i>
+          </label>
+          <div class="col-md-4">
+            <of-button-switch formControlName="tasksEnabled"></of-button-switch>
+            <div *ngIf="!form.get('tasksEnabled').valid && form.get('tasksEnabled').dirty">
+              <span *ngIf="form.get('tasksEnabled').errors.required" class="help-block">This field is required</span>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="form.get('tasksEnabled').value" class="form-group" [ngClass]="{ 'has-error' : !form.get('taskDelay').valid && form.get('taskDelay').dirty }">
+          <label class="col-md-2 control-label required-pf">Delay
+						<i class="fa fa-question-circle text-muted" ngbTooltip="taskDelay of the organization" placement="right"></i>
+          </label>
+          <div class="col-md-3">
+            <input formControlName="taskDelay" type="number" class="form-control" placeholder="Milliseconds" />
+            <div *ngIf="!form.get('taskDelay').valid && form.get('taskDelay').dirty">
+              <span *ngIf="form.get('taskDelay').hasError('required')" class="help-block">This field is required</span>
+              <span *ngIf="form.get('taskDelay').hasError('maxlength')" class="help-block">Max length allowed: {{form.get('taskDelay').errors.maxlength.requiredLength}}</span>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="form.get('tasksEnabled').value" class="form-group" [ngClass]="{ 'has-error' : !form.get('taskFirstTime').valid && form.get('taskFirstTime').dirty }">
+          <label class="col-md-2 control-label required-pf">First Time Date
+						<i class="fa fa-question-circle text-muted" ngbTooltip="taskDelay of the organization" placement="right"></i>
+          </label>
+          <div class="col-md-3">            
+            <div class="input-group">
+              <input formControlName="taskFirstDate" class="form-control" placeholder="yyyy-mm-dd" ngbDatepicker #d="ngbDatepicker">
+              <div class="input-group-addon" (click)="d.toggle()" >
+                <span class="glyphicon glyphicon-calendar"></span>              
+              </div>
+            </div>
+            <div *ngIf="!form.get('taskFirstDate').valid && form.get('taskFirstDate').dirty">
+              <span *ngIf="form.get('taskFirstDate').hasError('required')" class="help-block">This field is required</span>
+              <span *ngIf="form.get('taskFirstDate').hasError('maxlength')" class="help-block">Max length allowed: {{form.get('taskFirstDate').errors.maxlength.requiredLength}}</span>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="form.get('tasksEnabled').value" class="form-group" [ngClass]="{ 'has-error' : !form.get('taskFirstTime').valid && form.get('taskFirstTime').dirty }">
+          <label class="col-md-2 control-label required-pf">First Time
+						<i class="fa fa-question-circle text-muted" ngbTooltip="taskDelay of the organization" placement="right"></i>
+          </label>
+          <div class="col-md-3">            
+            <ngb-timepicker formControlName="taskFirstTime"></ngb-timepicker>
+            <div *ngIf="!form.get('taskFirstTime').valid && form.get('taskFirstTime').dirty">
+              <span *ngIf="form.get('taskFirstTime').hasError('required')" class="help-block">This field is required</span>
+              <span *ngIf="form.get('taskFirstTime').hasError('maxlength')" class="help-block">Max length allowed: {{form.get('taskFirstTime').errors.maxlength.requiredLength}}</span>
+            </div>
+          </div>
+        </div>        
+        
+        <div class="form-group">
+          <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-md-offset-2 col-lg-offset-2">
+            <of-button-save [form]="form" [working]="working"></of-button-save>
+            <button type="button" (click)="loadData()" class="btn btn-default" [disabled]="!form.dirty">Cancel</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

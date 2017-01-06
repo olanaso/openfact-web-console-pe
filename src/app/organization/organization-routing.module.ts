@@ -34,6 +34,7 @@ import { OrganizationKeyProvidersSettingsComponent } from './organization-key-pr
 import { OrganizationGenericKeystoreComponent } from './organization-generic-keystore/organization-generic-keystore.component';
 import { OrganizationSmtpSettingsComponent } from './organization-smtp-settings/organization-smtp-settings.component';
 import { OrganizationTasksComponent } from './organization-tasks/organization-tasks.component';
+import { OrganizationThemesComponent } from './organization-themes/organization-themes.component';
 
 import { InvoicesComponent } from './invoices/invoices.component';
 import { CreateInvoiceComponent } from './create-invoice/create-invoice.component';
@@ -168,7 +169,7 @@ import { EventsSettingsComponent } from './events-settings/events-settings.compo
                   {
                     path: 'attatched-documents',
                     component: InvoiceAttatchedDocumentsComponent,
-                    resolve: {                      
+                    resolve: {
                       invoice: InvoiceResolver
                     }
                   }
@@ -573,6 +574,14 @@ import { EventsSettingsComponent } from './events-settings/events-settings.compo
                 component: OrganizationSmtpSettingsComponent,
                 resolve: {
                   organization: OrganizationResolver
+                }
+              },
+              {
+                path: 'theme-settings',
+                component: OrganizationThemesComponent,
+                resolve: {
+                  organization: OrganizationResolver,
+                  serverinfo: ServerInfoResolver
                 }
               },
               {

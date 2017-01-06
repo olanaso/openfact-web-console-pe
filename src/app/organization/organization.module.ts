@@ -30,6 +30,7 @@ import { OrganizationGenericKeystoreComponent } from './organization-generic-key
 import { OrganizationSmtpSettingsComponent } from './organization-smtp-settings/organization-smtp-settings.component';
 import { ComponentConfigComponent } from './component-config/component-config.component';
 import { OrganizationTasksComponent } from './organization-tasks/organization-tasks.component';
+import { OrganizationThemesComponent } from './organization-themes/organization-themes.component';
 
 import { InvoicesComponent } from './invoices/invoices.component';
 import { CreateInvoiceComponent } from './create-invoice/create-invoice.component';
@@ -124,6 +125,7 @@ import { EventsSettingsComponent } from './events-settings/events-settings.compo
     OrganizationSmtpSettingsComponent,
     ComponentConfigComponent,
     OrganizationTasksComponent,
+    OrganizationThemesComponent,
 
     InvoicesComponent,
     CreateInvoiceComponent,
@@ -186,6 +188,7 @@ import { EventsSettingsComponent } from './events-settings/events-settings.compo
     EventsSettingsComponent,
     InvoiceAttatchedDocumentsComponent,
     OrganizationTasksComponent,
+    OrganizationThemesComponent,
   ],
   entryComponents: [
     CreateInvoiceFormConfirmModalComponent,

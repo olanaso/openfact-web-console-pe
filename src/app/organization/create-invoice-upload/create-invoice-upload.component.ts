@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FileUploader } from 'ng2-file-upload';
+
+import { Subscription } from 'rxjs/Subscription';
 
 import { DataService } from '../../core/data/data.service';
 import { AlertService } from '../../core/alert/alert.service';
@@ -11,7 +13,9 @@ import { Organization } from '../../core/models/organization.model';
   templateUrl: './create-invoice-upload.component.html',
   styleUrls: ['./create-invoice-upload.component.scss']
 })
-export class CreateInvoiceUploadComponent implements OnInit {
+export class CreateInvoiceUploadComponent implements OnInit, OnDestroy {
+
+  dataSubscription: Subscription;
 
   organization: Organization;
 
@@ -21,15 +25,21 @@ export class CreateInvoiceUploadComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private dataService: DataService) {
-    this.organization = this.activatedRoute.snapshot.parent.parent.parent.data['organization'];
-    this.uploader = dataService.invoices().getFileUpload(this.organization);
+    this.dataSubscription = this.activatedRoute.data.subscribe(data => {
+      this.organization = data['organization'];
+    });
   }
 
   ngOnInit() {
+    this.uploader = this.dataService.invoices().getFileUpload(this.organization);
   }
 
-  public fileOver(event: any): void {
-    this.hasDropZoneOver = event;    
+  ngOnDestroy() {
+    this.dataSubscription.unsubscribe();
+  }
+
+  fileOver(event: any): void {
+    this.hasDropZoneOver = event;
   }
 
 }

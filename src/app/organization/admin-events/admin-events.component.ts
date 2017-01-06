@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { URLSearchParams } from '@angular/http';
+
+import { Subscription } from 'rxjs/Subscription';
 
 import { DataService } from '../../core/data/data.service';
 import { AlertService } from '../../core/alert/alert.service';
@@ -12,27 +14,35 @@ import { Organization } from '../../core/models/organization.model';
   templateUrl: './admin-events.component.html',
   styleUrls: ['./admin-events.component.scss']
 })
-export class AdminEventsComponent implements OnInit {
+export class AdminEventsComponent implements OnInit, OnDestroy {
+
+  dataSubscription: Subscription;
 
   organization: any;
+  adminEvents: Array<any>;
 
   pagination: any = {
     page: 1,
     size: 10
   };
 
-  adminEvents: Array<any>;
-
-  constructor(private router: Router,
+  constructor(
+    private router: Router,
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
     private dataService: DataService,
     private alertService: AlertService) {
-    this.organization = this.activatedRoute.snapshot.data['organization'];
-    this.loadEvents();
+    this.dataSubscription = this.activatedRoute.data.subscribe(data => {
+      this.organization = data['organization'];
+    });
   }
 
   ngOnInit() {
+    this.loadEvents();
+  }
+
+  ngOnDestroy() {
+    this.dataSubscription.unsubscribe();
   }
 
   loadEvents() {
@@ -43,14 +53,9 @@ export class AdminEventsComponent implements OnInit {
     queryParams.set("first", first.toString());
     queryParams.set("max", max.toString());
 
-    this.dataService.organizations().getAdminEvents(this.organization, queryParams).subscribe(
-      result => {
-        this.adminEvents = result;
-      },
-      error => {
-        this.alertService.pop('error', 'Error', 'Your changes could not saved to the organization.');
-      }
-    );
+    this.dataService.organizations().getAdminEvents(this.organization, queryParams).subscribe(response => {
+      this.adminEvents = response;
+    });
   }
 
 }

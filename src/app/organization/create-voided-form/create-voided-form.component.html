@@ -1,10 +1,195 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<br>
+<form [formGroup]="form" (ngSubmit)="save(form.value)">
+  <p class="fields-status-pf">The fields marked with <span class="required-pf">*</span> are required.</p>
 
-</body>
-</html>
+  <div>
+    <div class="row">
+      <div class="col-md-1">
+        <div class="form-group"
+             [ngClass]="{ 'has-error' : !form.get('serieDocumento').valid && form.get('serieDocumento').dirty }">
+          <label class="control-label">Doc. Series
+            <i class="fa fa-question-circle text-muted" ngbTooltip="organization of the organization"
+               placement="right"></i>
+          </label>
+          <input formControlName="serieDocumento" type="text" class="form-control"
+                  placeholder="RA-YYYYMMDD" disabled>
+          <div *ngIf="!form.get('serieDocumento').valid && form.get('serieDocumento').dirty">
+            <span *ngIf="form.get('serieDocumento').hasError('required')"
+                  class="help-block">This field is required</span>
+            <span *ngIf="form.get('serieDocumento').hasError('maxlength')" class="help-block">Max length allowed: {{form.get('serieDocumento').errors.maxlength.requiredLength}}</span>
+            <span
+              *ngIf="!form.get('serieDocumento').hasError('required') && !form.get('serieDocumento').hasError('maxlength') && !form.get('serieDocumento').valid"
+              class="help-block">Value field is invalid</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-1">
+        <div class="form-group"
+             [ngClass]="{ 'has-error' : !form.get('numeroDocumento').valid && form.get('numeroDocumento').dirty }">
+          <label class="control-label">Doc. Number
+            <i class="fa fa-question-circle text-muted" ngbTooltip="organization of the organization"
+               placement="right"></i>
+          </label>
+          <input formControlName="numeroDocumento" type="text" class="form-control" placeholder="00001">
+          <div *ngIf="!form.get('numeroDocumento').valid && form.get('numeroDocumento').dirty">
+            <span *ngIf="form.get('numeroDocumento').hasError('required')"
+                  class="help-block">This field is required</span>
+            <span *ngIf="form.get('numeroDocumento').hasError('maxlength')" class="help-block">Max length allowed: {{form.get('numeroDocumento').errors.maxlength.requiredLength}}</span>
+            <span
+              *ngIf="!form.get('numeroDocumento').hasError('required') && !form.get('numeroDocumento').hasError('maxlength') && !form.get('numeroDocumento').valid"
+              class="help-block">Value field is invalid</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="form-group"
+             [ngClass]="{ 'has-error' : !form.get('fechaDeEmision').valid && form.get('fechaDeEmision').dirty }">
+          <label class="control-label required-pf">IssueDate
+            <i class="fa fa-question-circle text-muted" ngbTooltip="organization of the organization"
+               placement="right"></i>
+          </label>
+          <input formControlName="fechaDeEmision" type="date" class="form-control" disabled>
+          <div *ngIf="!form.get('fechaDeEmision').valid && form.get('fechaDeEmision').dirty">
+            <span *ngIf="form.get('fechaDeEmision').hasError('required')"
+                  class="help-block">This field is required</span>
+            <span
+              *ngIf="!form.get('fechaDeEmision').hasError('required') && !form.get('fechaDeEmision').hasError('maxlength') && !form.get('fechaDeEmision').valid"
+              class="help-block">Value field is invalid</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="form-group"
+             [ngClass]="{ 'has-error' : !form.get('enviarAutomaticamenteASunat').valid && form.get('enviarAutomaticamenteASunat').dirty }">
+          <label class="control-label">Send to Thrid Party
+            <i class="fa fa-question-circle text-muted" ngbTooltip="Enabled of the organization" placement="right"></i>
+          </label>
+          <of-button-switch formControlName="enviarAutomaticamenteASunat" [onText]="'SI'"
+                            [offText]="'NO'"></of-button-switch>
+          <div *ngIf="!form.get('enviarAutomaticamenteASunat').valid && form.get('enviarAutomaticamenteASunat').dirty">
+            <span *ngIf="form.get('enviarAutomaticamenteASunat').errors.required" class="help-block">This field is required</span>
+            <span
+              *ngIf="!form.get('enviarAutomaticamenteASunat').hasError('required') && !form.get('enviarAutomaticamenteASunat').valid"
+              class="help-block">Value field is invalid</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="form-group"
+             [ngClass]="{ 'has-error' : !form.get('enviarAutomaticamenteAlCliente').valid && form.get('enviarAutomaticamenteAlCliente').dirty }">
+          <label class="control-label">Send To Customer
+            <i class="fa fa-question-circle text-muted" ngbTooltip="Enabled of the organization" placement="right"></i>
+          </label>
+          <of-button-switch formControlName="enviarAutomaticamenteAlCliente" [onText]="'SI'"
+                            [offText]="'NO'"></of-button-switch>
+          <div
+            *ngIf="!form.get('enviarAutomaticamenteAlCliente').valid && form.get('enviarAutomaticamenteAlCliente').dirty">
+            <span *ngIf="form.get('enviarAutomaticamenteAlCliente').errors.required" class="help-block">This field is required</span>
+            <span
+              *ngIf="!form.get('enviarAutomaticamenteAlCliente').hasError('required') && !form.get('enviarAutomaticamenteAlCliente').valid"
+              class="help-block">Value field is invalid</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/General information-->
+
+  <div>
+    <table class="table table-bordered table-striped">
+      <thead>
+      <tr>
+        <td rowspan="2" class="text-right" width="2%">#</td>
+        <th colspan="3" class="text-center"><b>Information of Voided Document </b></th>
+        <th rowspan="2" width="6%">Actions</th>
+      </tr>
+      <tr>
+        <td width="12%">Document Number</td>
+        <td width="13%">Document Type</td>
+        <td class="text-right" width="8%">Description</td>
+      </tr>
+      </thead>
+      <tbody formArrayName="detalle">
+      <tr *ngFor="let lineFormGroup of detalle.controls; let i = index;" [formGroupName]="i">
+        <td
+          [ngClass]="{ 'has-error' : !lineFormGroup.get('id').valid && lineFormGroup.get('id').dirty }">
+          <input formControlName="id"  type="text"
+                 class="form-control text-right" placeholder="00" disabled>
+          <div *ngIf="!lineFormGroup.get('id').valid && lineFormGroup.get('id').dirty">
+            <span *ngIf="lineFormGroup.get('id').hasError('required')"
+                  class="help-block">This field is required</span>
+            <span
+              *ngIf="!lineFormGroup.get('id').hasError('required') && !lineFormGroup.get('id').valid"
+              class="help-block">Value field is invalid</span>
+          </div>
+        </td>
+        <td
+          [ngClass]="{ 'has-error' : !lineFormGroup.get('numeroDocumentoRelacionado').valid && lineFormGroup.get('numeroDocumentoRelacionado').dirty }">
+          <div class="input-group"><input formControlName="numeroDocumentoRelacionado" type="text"
+                                          (keyup.enter)="findInvoice(i)"
+                                          [textMask]="{mask: documentMask}" class="form-control"
+                                          placeholder="[B|F]000-0000000"/>
+            <span class="input-group-btn"><button (click)="findInvoice(i)" class="btn btn-default" type="button"><span
+              class="fa fa-search"></span></button>
+            </span>
+          </div>
+          <div
+            *ngIf="!lineFormGroup.get('numeroDocumentoRelacionado').valid && lineFormGroup.get('numeroDocumentoRelacionado').dirty">
+            <span *ngIf="lineFormGroup.get('numeroDocumentoRelacionado').hasError('required')"
+                  class="help-block">This field is required</span>
+            <span *ngIf="lineFormGroup.get('numeroDocumentoRelacionado').hasError('maxlength')" class="help-block">Max length allowed: {{lineFormGroup.get('numeroDocumentoRelacionado').errors.maxlength.requiredLength}}</span>
+            <span
+              *ngIf="!lineFormGroup.get('numeroDocumentoRelacionado').hasError('required') && !lineFormGroup.get('numeroDocumentoRelacionado').hasError('maxlength') && !lineFormGroup.get('numeroDocumentoRelacionado').valid"
+              class="help-block">Value field is invalid</span>
+          </div>
+        </td>
+        <td
+          [ngClass]="{ 'has-error' : !lineFormGroup.get('tipoDocumentoRelacionado').valid && lineFormGroup.get('tipoDocumentoRelacionado').dirty }">
+          <select formControlName="tipoDocumentoRelacionado" class="form-control">
+            <option *ngFor="let documento of tipoDocumento" [value]="documento.valor">{{documento.denominacion}}
+            </option>
+          </select>
+          <div
+            *ngIf="!lineFormGroup.get('tipoDocumentoRelacionado').valid && lineFormGroup.get('tipoDocumentoRelacionado').dirty">
+            <span *ngIf="lineFormGroup.get('tipoDocumentoRelacionado').hasError('required')" class="help-block">This field is required</span>
+            <span
+              *ngIf="!lineFormGroup.get('tipoDocumentoRelacionado').hasError('required') && !lineFormGroup.get('tipoDocumentoRelacionado').valid"
+              class="help-block">Value field is invalid</span>
+          </div>
+        </td>
+
+        <td
+          [ngClass]="{ 'has-error' : !lineFormGroup.get('descripcionDocumentoRelacionado').valid && lineFormGroup.get('descripcionDocumentoRelacionado').dirty }">
+          <input formControlName="descripcionDocumentoRelacionado" type="text"
+                 class="form-control text-right"
+                 placeholder="Description voided">
+          <div
+            *ngIf="!lineFormGroup.get('descripcionDocumentoRelacionado').valid && lineFormGroup.get('descripcionDocumentoRelacionado').dirty">
+            <span *ngIf="lineFormGroup.get('descripcionDocumentoRelacionado').hasError('required')"
+                  class="help-block">This field is required</span>
+            <span
+              *ngIf="!lineFormGroup.get('descripcionDocumentoRelacionado').hasError('required') && !lineFormGroup.get('descripcionDocumentoRelacionado').valid"
+              class="help-block">Value field is invalid</span>
+          </div>
+        </td>
+        <td class="kc-action-cell" (click)="removeDetalle(i)">
+          <span class="fa fa-trash"></span>
+        </td>
+      </tr>
+      </tbody>
+      <tfoot>
+      <tr>
+        <td colspan="14" class="text-right">
+          <button (click)="addDetalle()" type="button" class="btn btn-lg btn-default">Add Item
+            <span class="fa fa-plus"></span>
+          </button>
+        </td>
+      </tr>
+      </tfoot>
+    </table>
+  </div>
+  <!--/Detalle-->
+
+  <of-button-save [form]="form" [working]="working"></of-button-save>
+  <button type="button" (click)="cancel()" class="btn btn-default">Cancel</button>
+</form>

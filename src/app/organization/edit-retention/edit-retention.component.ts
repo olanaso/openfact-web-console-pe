@@ -50,7 +50,7 @@ export class EditRetentionComponent implements OnInit {
         this.alertService.pop('success', 'Success', 'Success! Retention sended to customer.');
       },
       error => {
-        this.alertService.pop('error', 'Error', 'Organization could not be created.');
+        this.alertService.pop('error', 'Error', 'Retention could not be sended to customer.');
       }
     );
   }
@@ -62,7 +62,7 @@ export class EditRetentionComponent implements OnInit {
         this.alertService.pop('success', 'Success', 'Success! Retention sended to third party.');
       },
       error => {
-        this.alertService.pop('error', 'Error', 'Organization could not be created.');
+        this.alertService.pop('error', 'Error', 'Retention could not be sended to third party.');
       }
     );
   }

@@ -1,10 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<div class="modal-header">
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Close')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  <h4 class="modal-title">Are you sure to save this transaction?</h4>
+</div>
 
-</body>
-</html>
+<div class="modal-body">
+  <fieldset>
+    <legend></legend>
+    <dl class="dl-horizontal left">
+
+      <div class="col-md-12">
+        <div class="form-group" >
+          <label>Observations
+            <i class="fa fa-question-circle text-muted" ngbTooltip="Enabled of the organization" placement="right"></i>
+          </label>
+          <textarea [(ngModel)]="description" rows="5" class="form-control"></textarea>
+        </div>
+      </div>
+    </dl>
+  </fieldset>
+</div>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-default" (click)="activeModal.dismiss('Cancel')">Cancel</button>
+  <button type="button" class="btn btn-primary" (click)="update()">Save</button>
+</div>

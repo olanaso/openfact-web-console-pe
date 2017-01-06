@@ -1,10 +1,88 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
 
-</body>
-</html>
+<br>
+<div class="row">
+  <div class="col-lg-6">
+    <fieldset>
+      <legend>
+        <h3>General Information</h3>
+      </legend>
+    </fieldset>
+    <dl class="dl-horizontal left">
+      <dt>
+        Document ID:
+        <span title="The currency of the voidedJson." class="pficon pficon-help text-muted small"></span>
+      </dt>
+      <dd *ngIf="voidedJson.id">{{voidedJson.id.value }}</dd>
+      <dd *ngIf="!voidedJson.id"><em>Not registered</em></dd>
+      <dt>
+        Issue Date:
+        <span title="Issue Date of the voidedJson." class="pficon pficon-help text-muted small"></span>
+      </dt>
+      <dd *ngIf="voidedJson.issueDate">{{voidedJson.issueDate.value| date: 'shortDate' }}</dd>
+      <dd *ngIf="!voidedJson.issueDate"><em>Not registered</em></dd>
+      <dd>
+        <of-view-xml [xml]="voidedText" [label]="'Xml preview'" [buttonOnly]="false"></of-view-xml>
+      </dd>
+      <dd>
+        <a href="">
+          <span><i class="fa fa-file-pdf-o"> </i> Pdf preview</span>
+        </a>
+      </dd>
+    </dl>
+  </div>
+  <div class="col-lg-6">
+    <fieldset>
+      <legend>
+        <h3>Accounting Supplier Party</h3>
+      </legend>
+    </fieldset>
+    <dl class="dl-horizontal left">
+      <dt>
+        Customer Assigned Account:
+        <span title="The currency of the voidedJson." class="pficon pficon-help text-muted small"></span>
+      </dt>
+      <dd *ngIf="voidedJson.accountingSupplierParty.customerAssignedAccountID">{{voidedJson.accountingSupplierParty.customerAssignedAccountID.value}}</dd>
+      <dd *ngIf="!voidedJson.accountingSupplierParty.customerAssignedAccountID"><em>Not registered</em></dd>
+      <dt>
+        Registration Name:
+        <span title="The currency of the voidedJson." class="pficon pficon-help text-muted small"></span>
+      </dt>
+      <dd *ngIf="voidedJson.accountingSupplierParty.party.partyLegalEntity[0].registrationName">{{voidedJson.accountingSupplierParty.party.partyLegalEntity[0].registrationName.value}}</dd>
+      <dd *ngIf="!voidedJson.accountingSupplierParty.party.partyLegalEntity[0].registrationName"><em>Not registered</em></dd>
+    </dl>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div>
+      <h3>Voided Document Line</h3>
+    </div>
+    <div>
+      <div class="table-responsive">
+        <table class="datatable table table-striped table-bordered dataTable no-footer table-mobile">
+          <thead>
+          <tr>
+            <th colspan="5" class="text-center"><b>Information of Voided Document Line</b></th>
+          </tr>
+          <tr>
+            <th><b>Line Id</b></th>
+            <th><b>Document Type Code</b></th>
+            <th><b>Document Serial ID</b></th>
+            <th><b>Document Number ID</b></th>
+            <th><b>Void Reason Description</b></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let item of voidedJson.voidedDocumentsLine; let i = index;">
+            <td class="text-right">{{item.lineID.value}}</td>
+            <td class="text-right">{{item.documentTypeCode.value }}</td>
+            <td class="text-right">{{item.documentSerialID.value }}</td>
+            <td class="text-right">{{item.documentNumberID.value }}</td>
+            <td class="text-right">{{item.voidReasonDescription.value }}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

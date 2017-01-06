@@ -77,6 +77,16 @@ import { RetentionOverviewComponent } from './retention-overview/retention-overv
 import { RetentionOverviewEventsComponent } from './retention-overview-events/retention-overview-events.component';
 import { RetentionSendEventsComponent } from './retention-send-events/retention-send-events.component';
 
+import { VoidedsComponent } from './voideds/voideds.component';
+import { CreateVoidedComponent } from './create-voided/create-voided.component';
+import { CreateVoidedFormComponent } from './create-voided-form/create-voided-form.component';
+import { CreateVoidedUploadComponent } from './create-voided-upload/create-voided-upload.component';
+import { CreateVoidedFormConfirmModalComponent } from './create-voided-form/create-voided-form-confirm-modal.component';
+import { EditVoidedComponent } from './edit-voided/edit-voided.component';
+import { VoidedOverviewComponent } from './voided-overview/voided-overview.component';
+import { VoidedOverviewEventsComponent } from './voided-overview-events/voided-overview-events.component';
+import { VoidedSendEventsComponent } from './voided-send-events/voided-send-events.component';
+
 import { EventsComponent } from './events/events.component';
 import { AdminEventsComponent } from './admin-events/admin-events.component';
 import { EventsSettingsComponent } from './events-settings/events-settings.component';
@@ -161,6 +171,16 @@ import { EventsSettingsComponent } from './events-settings/events-settings.compo
     RetentionOverviewEventsComponent,
     RetentionSendEventsComponent,
 
+    VoidedsComponent,
+    CreateVoidedComponent,
+    CreateVoidedFormComponent,
+    CreateVoidedFormConfirmModalComponent,
+    CreateVoidedUploadComponent,
+    EditVoidedComponent,
+    VoidedOverviewComponent,
+    VoidedOverviewEventsComponent,
+    VoidedSendEventsComponent,
+
     EventsComponent,
     AdminEventsComponent,
     EventsSettingsComponent,
@@ -172,7 +192,8 @@ import { EventsSettingsComponent } from './events-settings/events-settings.compo
     CreateCreditNoteFormConfirmModalComponent,
     CreateDebitNoteFormConfirmModalComponent,
     CreatePerceptionFormConfirmModalComponent,
-    CreateRetentionFormConfirmModalComponent
+    CreateRetentionFormConfirmModalComponent,
+    CreateVoidedFormConfirmModalComponent
   ],
   providers: [
     // Shared

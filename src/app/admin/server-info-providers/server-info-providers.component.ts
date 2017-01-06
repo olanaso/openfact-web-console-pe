@@ -11,24 +11,24 @@ import { AlertService } from '../../core/alert/alert.service';
 })
 export class ServerInfoProvidersComponent implements OnInit {
 
-  private spis = new Collections.Dictionary<String, any>();
+  spis = new Collections.Dictionary<String, any>();
 
-  constructor(private dataService: DataService, private alertService: AlertService) {
-    this.loadData(); this.spis.getValue
+  constructor(
+    private dataService: DataService,
+    private alertService: AlertService) {
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.loadData();
+  }
 
   loadData() {
-    this.dataService.serverInfo().get().subscribe(
-      result => {
-        this.spis = new Collections.Dictionary<String, any>()
-        for (let key in result['providers']) {
-          this.spis.setValue(key, result['providers'][key]);
-        }
-      }, error => {
-        this.alertService.pop('error', 'Error', 'Error loading server info providers.');
-      });
+    this.dataService.serverInfo().get().subscribe(result => {
+      this.spis = new Collections.Dictionary<String, any>()
+      for (let key in result['providers']) {
+        this.spis.setValue(key, result['providers'][key]);
+      }
+    });
   }
 
 }

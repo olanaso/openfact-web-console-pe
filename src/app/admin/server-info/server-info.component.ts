@@ -10,24 +10,24 @@ import { AlertService } from '../../core/alert/alert.service';
 })
 export class ServerInfoComponent implements OnInit {
 
-  private serverInfo: any = {
+  serverInfo: any = {
     systemInfo: {},
     memoryInfo: {}
   };
 
-  constructor(private dataService: DataService, private alertService: AlertService) {
+  constructor(
+    private dataService: DataService,
+    private alertService: AlertService) {
+  }
+
+  ngOnInit() {
     this.loadData();
   }
 
-  ngOnInit() { }
-
   loadData() {
-    this.dataService.serverInfo().get().subscribe(
-      result => {
-        this.serverInfo = result;
-      }, error => {
-        this.alertService.pop('error', 'Error', 'Error loading server info.');
-      });
+    this.dataService.serverInfo().get().subscribe(result => {
+      this.serverInfo = result;
+    });
   }
 
 }

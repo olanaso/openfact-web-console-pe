@@ -11,12 +11,11 @@ export class AdminHeaderComponent implements OnInit {
   username: string;
   authz: any;
 
-  constructor() {
-    this.authz = KeycloakService.auth.authz;
-    this.username = this.authz.tokenParsed.username;
-  }
+  constructor() { }
 
   ngOnInit() {
+    this.authz = KeycloakService.auth.authz;
+    this.username = KeycloakService.auth.authz.tokenParsed.username;
   }
 
   accountManagement() {

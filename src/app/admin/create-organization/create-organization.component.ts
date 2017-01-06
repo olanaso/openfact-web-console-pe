@@ -24,10 +24,10 @@ export class CreateOrganizationComponent implements OnInit {
     private formBuilder: FormBuilder,
     private dataService: DataService,
     private alertService: AlertService) {
-    this.buildForm();
   }
 
   ngOnInit() {
+    this.buildForm();
   }
 
   buildForm(): void {
@@ -53,7 +53,7 @@ export class CreateOrganizationComponent implements OnInit {
         this.router.navigate(['../']);
       },
       error => {
-        this.working = false;        
+        this.working = false;
       }
     );
   }

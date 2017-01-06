@@ -1,6 +1,6 @@
 <br>
 <div class="row">
-	<!--<div class="col-lg-6">
+	<div class="col-lg-6">
 		<fieldset>
 			<legend>
 				<h3>General Information</h3>
@@ -52,20 +52,20 @@
 				Payable Amount:
 				<span title="The currency of the creditNote." class="pficon pficon-help text-muted small"></span>
 			</dt>
-			<dd *ngIf="creditNote.legalMonetaryTotal.payableAmount">{{creditNote.legalMonetaryTotal.payableAmount | number:'1.2-3'}}</dd>
-			<dd *ngIf="!creditNote.legalMonetaryTotal.payableAmount"><em>0.00</em></dd>
+			<dd *ngIf="creditNote.payableAmount">{{creditNote.payableAmount | number:'1.2-3'}}</dd>
+			<dd *ngIf="!creditNote.payableAmount"><em>0.00</em></dd>
 			<dt>
 				Charge Total Amount:
 				<span title="The currency of the creditNote." class="pficon pficon-help text-muted small"></span>
 			</dt>
-			<dd *ngIf="creditNote.legalMonetaryTotal.chargeTotalAmount">{{creditNote.legalMonetaryTotal.chargeTotalAmount | number:'1.2-3'}}</dd>
-			<dd *ngIf="!creditNote.legalMonetaryTotal.chargeTotalAmount"><em>0.00</em></dd>
+			<dd *ngIf="creditNote.chargeTotalAmount">{{creditNote.chargeTotalAmount | number:'1.2-3'}}</dd>
+			<dd *ngIf="!creditNote.chargeTotalAmount"><em>0.00</em></dd>
 			<dt>
 				Allowance Total Amount:
 				<span title="The currency of the creditNote." class="pficon pficon-help text-muted small"></span>
 			</dt>
-			<dd *ngIf="creditNote.legalMonetaryTotal.allowanceTotalAmount">{{creditNote.legalMonetaryTotal.allowanceTotalAmount | number:'1.2-3'}}</dd>
-			<dd *ngIf="!creditNote.legalMonetaryTotal.allowanceTotalAmount"><em>0.00</em></dd>
+			<dd *ngIf="creditNote.allowanceTotalAmount">{{creditNote.allowanceTotalAmount | number:'1.2-3'}}</dd>
+			<dd *ngIf="!creditNote.allowanceTotalAmount"><em>0.00</em></dd>
 		</dl>
 	</div>
 	<div class="col-lg-6">
@@ -79,11 +79,11 @@
 				Tax Amount:
 				<span title="The currency of the creditNote." class="pficon pficon-help text-muted small"></span>
 			</dt>
-			<dd *ngIf="creditNote.taxTotal.taxAmount">{{creditNote.taxTotal.taxAmount | number:'1.2-3'}}</dd>
-			<dd *ngIf="!creditNote.taxTotal.taxAmount"><em>0.00</em></dd>
+			<dd *ngIf="creditNote.taxAmount">{{creditNote.taxAmount | number:'1.2-3'}}</dd>
+			<dd *ngIf="!creditNote.taxAmount"><em>0.00</em></dd>
 		</dl>
 	</div>
-	<div class="col-lg-6">
+	<!--<div class="col-lg-6">
 		<fieldset>
 			<legend>
 				<h3>Supplier Party</h3>
@@ -94,15 +94,15 @@
 				Assigned Account ID:
 				<span title="The currency of the creditNote." class="pficon pficon-help text-muted small"></span>
 			</dt>
-			<dd>{{creditNote.accountingSupplierParty.customerAssignedAccountID}}</dd>
-			<template ngIf="creditNote.accountingSupplierParty.additionalAccountID && creditNote.accountingSupplierParty.additionalAccountID.length">
+			<dd>{{creditNote.customerAssignedAccountId}}</dd>
+			<template ngIf="creditNote.customerAssignedAccountId && creditNote.customerAssignedAccountId.length">
 				<dt>
 					Additional Account IDs:
 					<span title="The currency of the creditNote." class="pficon pficon-help text-muted small"></span>
 				</dt>
 				<dd>
 					<ul class="list-inline" style="margin-bottom: 0px;">
-						<li *ngFor="let item of creditNote.accountingSupplierParty.additionalAccountID">{{item}}</li>
+						<li *ngFor="let item of creditNote.additionalAccountI">{{item}}</li>
 					</ul>
 				</dd>
 			</template>
@@ -155,7 +155,7 @@
 		</dl>
 	</div>
 </div>
-<!--<div class="row">
+<div class="row">
 	<div class="col-md-12">
 		<div>
 			<h3>creditNote Lines</h3>
@@ -187,4 +187,4 @@
 			</div>
 		</div>
 	</div>
-</div>-->
+</div>

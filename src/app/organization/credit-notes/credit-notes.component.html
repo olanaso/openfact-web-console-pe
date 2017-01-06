@@ -102,38 +102,74 @@
 				</div>
 			</div>
 			<div class="page-header-bleed-right page-header-bleed-left">
-				<div class="table-responsive">
-					<table class="datatable table table-striped table-bordered dataTable no-footer table-mobile">
+				<table class="datatable table table-striped table-bordered dataTable no-footer table-mobile">
 						<thead>
 							<tr>
 								<th>#</th>
 								<th>ID</th>
-								<th>Issue Date</th>
-								<th>Discrepancy Response</th>
-								<th class="text-right">Currency Code</th>
-								<th class="text-right">Payable Ammount</th>
-								<th class="text-right">Customer ID</th>
-								<th colspan="2">Actions</th>
+								<th>{{'issue-date' | translate}}</th>
+								<th class="text-right">{{'currency-code' | translate}}</th>
+								<th class="text-right">{{'payable-amount' | translate}}</th>
+								<th class="text-right">{{'customer-registration-name' | translate}}</th>
+								<th class="text-right">{{'customer-sended' | translate}}</th>
+								<th class="text-right">{{'third-party-sended' | translate}}</th>
+								<th colspan="2">{{'actions' | translate}}</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr *ngFor="let item of searchResult.items; let i = index;">
 								<td>{{i+1}}</td>
-								<td>{{item.idUbl}}</td>
+								<td>{{item.documentId}}</td>
 								<td>{{item.issueDateTime | date}}</td>
-								<td>									
-									<!--<template ngFor let-subitem [ngForOf]="item.discrepancyResponse" let-i="index">
-										<span>{{subitem.referenceID}}</span>&nbsp;										
-									</template>-->
-								</td>
 								<td class="text-right">{{item.documentCurrencyCode}}</td>
-								<td class="text-right"><!--{{item.legalMonetaryTotal.payableAmount | number:'1.2-3'}}--></td>
-								<td class="text-right"><!--{{item.accountingCustomerParty.customerAssignedAccountID}}--></td>
-								<td class="kc-action-cell" [routerLink]="[item.id]">Overview</td>
+								<td class="text-right">{{item.payableAmount | number:'1.2-3'}}</td>
+                				<td class="text-right">{{item.customerRegistrationName}}</td>
+								<td class="text-right">                  
+									<span *ngIf="item.requiredActions && item.requiredActions.length > 0">{{item.requiredActions['SEND_TO_CUSTOMER'] | yesNo: ('yes-no' | translate)}}</span>
+									<span *ngIf="!item.requiredActions || item.requiredActions.length == 0">Yes</span>
+								</td>
+								<td class="text-right">                  
+									<span *ngIf="item.requiredActions && item.requiredActions.length > 0">{{item.requiredActions['SEND_TO_TRIRD_PARTY'] | yesNo: ('yes-no' | translate)}}</span>
+									<span *ngIf="!item.requiredActions || item.requiredActions.length == 0">{{'yes' | translate}}</span>
+								</td>
+								<td class="table-view-pf-actions">
+									<div class="table-view-pf-btn">
+										<button class="btn btn-default" type="button" [routerLink]="[item.id]">{{'edit' | translate}}</button>
+									</div>
+								</td>
+								<td class="table-view-pf-actions">
+									<div class="dropdown dropdown-kebab-pf" ngbDropdown>
+										<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" ngbDropdownToggle>
+										<span class="fa fa-ellipsis-v"></span>
+										</button>
+										<ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownKebabRight">
+											<li>
+												<a href="javascript:void(0);" (click)="downloadPdf(item)">
+												<span class="fa fa-file-pdf-o"></span> Pdf
+												</a>
+											</li>
+											<li>
+												<a href="javascript:void(0);" (click)="downloadXml(item)">
+												<span class="fa fa-file-code-o"></span> Xml
+												</a>
+											</li>
+											<li role="separator" class="divider"></li>                      										
+											<li>
+												<a href="javascript:void(0);" (click)="sendToCustomer(item)">
+												<span class="fa fa-paper-plane"></span> {{'send-to-customer' | translate}}
+												</a>
+											</li>
+											<li>
+												<a href="javascript:void(0);" (click)="sendToThirdParty(item)">
+												<span class="fa fa-paper-plane"></span> {{'send-to-third-party' | translate}}
+												</a>
+											</li>
+										</ul>
+									</div>
+									</td>
 							</tr>
 						</tbody>
 					</table>
-				</div>
 				<div class="dataTables_footer" *ngIf="searchResult.totalSize > paging.size">
 					<ngb-pagination (pageChange)="changePagination($event)" [collectionSize]="searchResult.totalSize" [(page)]="paging.page"
 						[(pageSize)]="paging.size"></ngb-pagination>

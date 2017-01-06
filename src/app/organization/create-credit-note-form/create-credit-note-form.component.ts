@@ -346,14 +346,13 @@ export class CreateCreditNoteFormComponent implements OnInit {
           this.working = false;
           this.alertService.pop("success", "Success", "Success! The credit note has been created.");
           if (redirect) {
-            this.router.navigate(["../"], { relativeTo: this.activatedRoute });
+            this.router.navigate(["../"], { relativeTo: this.activatedRoute.parent });
           } else {
             this.buildForm();
           }
         },
         error => {
           this.working = false;
-          this.alertService.pop("error", "Error", "Credit note could not be created.");
         }
       );
     }, (reason) => {
@@ -361,7 +360,7 @@ export class CreateCreditNoteFormComponent implements OnInit {
   }
 
   cancel() {
-    this.router.navigate(["../"], { relativeTo: this.activatedRoute });
+    this.router.navigate(["../"], { relativeTo: this.activatedRoute.parent });
   }
 
   /**

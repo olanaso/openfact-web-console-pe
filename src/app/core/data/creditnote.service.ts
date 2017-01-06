@@ -51,7 +51,7 @@ export class CreditnoteService {
   }
 
   public getFileUpload(organization: Organization): FileUploader {
-    let restangular = organization.restangular.all(creditNoteBasePath).all("xml");
+    let restangular = organization.restangular.all(creditNoteBasePath).all("upload");
     let upload = new FileUploader({
       url: restangular.path,
       headers: [KeycloakHttp.getToken()]

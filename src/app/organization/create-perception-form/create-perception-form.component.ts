@@ -64,8 +64,10 @@ export class CreatePerceptionFormComponent implements OnInit {
     {denominacion: "Dolares Americanos", valor: "USD"}
   ];
   tasaEntidad = [
-    {denominacion: "TASA 3%", valor: "3"}, // el primero sera usado por defecto
-    {denominacion: "TASA 2%", valor: "2"}
+    {codigo:"01",abreviatura:"TASA 2%",denominacion: "PERCEPCION VENTA INTERNA", valor: "2"},
+    {codigo:"02",abreviatura:"TASA 1%",denominacion: "PERCEPCION A LA ADQUISICION DE COMBUSTIBLE", valor: "1"},
+    {codigo:"03",abreviatura:"TASA 0.5%",denominacion: "PERCEPCION REALIZADA AL AGENTE DE PERCEPCION CON TASA ESPECIAL", valor: "0.5"}
+
   ];
 
   documentMask = [/[B|F|b|f]/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/];

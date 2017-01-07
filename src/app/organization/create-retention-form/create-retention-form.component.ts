@@ -63,8 +63,8 @@ export class CreateRetentionFormComponent implements OnInit {
     {denominacion: "Dolares Americanos", valor: "USD"}
   ];
   tasaEntidad = [
-    {denominacion: "TASA 3%", valor: "3"}, // el primero sera usado por defecto
-    {denominacion: "TASA 2%", valor: "2"}
+    {denominacion: "TASA 3%", valor: "3", codigo:"01"}
+
   ];
 
   documentMask = [/[B|F|b|f]/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/];

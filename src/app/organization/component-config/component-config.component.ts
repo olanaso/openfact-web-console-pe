@@ -18,8 +18,7 @@ export class ComponentConfigComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
   onSwitchChange(option, $event) {
     this.config[option.name][0] = $event;

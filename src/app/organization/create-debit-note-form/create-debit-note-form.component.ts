@@ -296,9 +296,9 @@ export class CreateDebitNoteFormComponent implements OnInit {
           this.invoice = response[0];
           if (this.invoice) {
             this.form.patchValue({
-              entidadTipoDeDocumento: this.invoice["accountingCustomerParty"].additionalAccountId[0],
-              entidadNumeroDeDocumento: this.invoice["accountingCustomerParty"].customerAssignedAccountId,
-              entidadDenominacion: this.invoice["accountingCustomerParty"].party.partyLegalEntity[0].registrationName,
+              entidadTipoDeDocumento: this.invoice["customerAdditionalAccountId"],
+              entidadNumeroDeDocumento: this.invoice["customerAssignedAccountId"],
+              entidadDenominacion: this.invoice["customerRegistrationName"],
 
               moneda: this.invoice["documentCurrencyCode"]
             });
@@ -337,14 +337,13 @@ export class CreateDebitNoteFormComponent implements OnInit {
           this.working = false;
           this.alertService.pop("success", "Success", "Success! The debit note has been created.");
           if (redirect) {
-            this.router.navigate(["../"], { relativeTo: this.activatedRoute });
+            this.router.navigate(["../"], { relativeTo: this.activatedRoute.parent });
           } else {
             this.buildForm();
           }
         },
         error => {
           this.working = false;
-          this.alertService.pop("error", "Error", "Debit note could not be created.");
         }
       );
     }, (reason) => {
@@ -352,7 +351,7 @@ export class CreateDebitNoteFormComponent implements OnInit {
   }
 
   cancel() {
-    this.router.navigate(["../"], { relativeTo: this.activatedRoute });
+    this.router.navigate(["../"], { relativeTo: this.activatedRoute.parent });
   }
 
   /**

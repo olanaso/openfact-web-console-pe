@@ -28,7 +28,13 @@ export class RestangularOpenfact extends Restangular {
     } else if (error.status == 404) {
       this.router.navigate(["./notfound"]);
     } else if (error.status) {
-      let data: Response = (<Response>error).json();
+      let data: Response;
+      try {
+        data = (<Response>error).json();
+      } catch (err) {
+        console.log(err);        
+      }
+      
       if (data && data["errorMessage"]) {
         this.alertService.popAsync('error', 'Error', data["errorMessage"]);
       } else {

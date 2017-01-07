@@ -51,7 +51,7 @@ export class DebitnoteService {
   }
 
   public getFileUpload(organization: Organization): FileUploader {
-    let restangular = organization.restangular.all(debitNoteBasePath).all("xml");
+    let restangular = organization.restangular.all(debitNoteBasePath).all("upload");
     let upload = new FileUploader({
       url: restangular.path,
       headers: [KeycloakHttp.getToken()]

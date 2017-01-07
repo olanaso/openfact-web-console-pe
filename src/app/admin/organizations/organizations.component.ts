@@ -22,10 +22,10 @@ export class OrganizationsComponent implements OnInit {
     private router: Router,
     private dataService: DataService,
     private alertService: AlertService) {
-    this.search();
   }
 
   ngOnInit() {
+    this.search();
   }
 
   editOrganization(organization: Organization) {
@@ -33,12 +33,9 @@ export class OrganizationsComponent implements OnInit {
   }
 
   search() {
-    this.dataService.organizations().getAll().subscribe(
-      result => {
-        this.searchResult = result;
-      }, error => {
-        this.alertService.pop('error', 'Error', 'Error loading projects.');
-      });
+    this.dataService.organizations().getAll().subscribe(result => {
+      this.searchResult = result;
+    });
   }
 
 }

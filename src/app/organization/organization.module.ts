@@ -29,6 +29,8 @@ import { OrganizationKeyProvidersSettingsComponent } from './organization-key-pr
 import { OrganizationGenericKeystoreComponent } from './organization-generic-keystore/organization-generic-keystore.component';
 import { OrganizationSmtpSettingsComponent } from './organization-smtp-settings/organization-smtp-settings.component';
 import { ComponentConfigComponent } from './component-config/component-config.component';
+import { OrganizationTasksComponent } from './organization-tasks/organization-tasks.component';
+import { OrganizationThemesComponent } from './organization-themes/organization-themes.component';
 
 import { InvoicesComponent } from './invoices/invoices.component';
 import { CreateInvoiceComponent } from './create-invoice/create-invoice.component';
@@ -37,7 +39,6 @@ import { CreateInvoiceFormConfirmModalComponent } from './create-invoice-form/cr
 import { CreateInvoiceUploadComponent } from './create-invoice-upload/create-invoice-upload.component';
 import { EditInvoiceComponent } from './edit-invoice/edit-invoice.component';
 import { InvoiceOverviewComponent } from './invoice-overview/invoice-overview.component';
-import { InvoiceOverviewEventsComponent } from './invoice-overview-events/invoice-overview-events.component';
 import { InvoiceSendEventsComponent } from './invoice-send-events/invoice-send-events.component';
 import { InvoiceAttatchedDocumentsComponent } from './invoice-attatched-documents/invoice-attatched-documents.component';
 
@@ -123,6 +124,8 @@ import { EventsSettingsComponent } from './events-settings/events-settings.compo
     OrganizationGenericKeystoreComponent,
     OrganizationSmtpSettingsComponent,
     ComponentConfigComponent,
+    OrganizationTasksComponent,
+    OrganizationThemesComponent,
 
     InvoicesComponent,
     CreateInvoiceComponent,
@@ -131,7 +134,6 @@ import { EventsSettingsComponent } from './events-settings/events-settings.compo
     CreateInvoiceUploadComponent,
     EditInvoiceComponent,
     InvoiceOverviewComponent,
-    InvoiceOverviewEventsComponent,
     InvoiceSendEventsComponent,
     InvoiceAttatchedDocumentsComponent,
 
@@ -185,6 +187,8 @@ import { EventsSettingsComponent } from './events-settings/events-settings.compo
     AdminEventsComponent,
     EventsSettingsComponent,
     InvoiceAttatchedDocumentsComponent,
+    OrganizationTasksComponent,
+    OrganizationThemesComponent,
   ],
   entryComponents: [
     CreateInvoiceFormConfirmModalComponent,

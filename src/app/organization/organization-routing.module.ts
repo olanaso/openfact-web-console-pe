@@ -33,6 +33,8 @@ import { OrganizationAllKeysSettingsComponent } from './organization-all-keys-se
 import { OrganizationKeyProvidersSettingsComponent } from './organization-key-providers-settings/organization-key-providers-settings.component';
 import { OrganizationGenericKeystoreComponent } from './organization-generic-keystore/organization-generic-keystore.component';
 import { OrganizationSmtpSettingsComponent } from './organization-smtp-settings/organization-smtp-settings.component';
+import { OrganizationTasksComponent } from './organization-tasks/organization-tasks.component';
+import { OrganizationThemesComponent } from './organization-themes/organization-themes.component';
 
 import { InvoicesComponent } from './invoices/invoices.component';
 import { CreateInvoiceComponent } from './create-invoice/create-invoice.component';
@@ -40,7 +42,6 @@ import { CreateInvoiceFormComponent } from './create-invoice-form/create-invoice
 import { CreateInvoiceUploadComponent } from './create-invoice-upload/create-invoice-upload.component';
 import { EditInvoiceComponent } from './edit-invoice/edit-invoice.component';
 import { InvoiceOverviewComponent } from './invoice-overview/invoice-overview.component';
-import { InvoiceOverviewEventsComponent } from './invoice-overview-events/invoice-overview-events.component';
 import { InvoiceSendEventsComponent } from './invoice-send-events/invoice-send-events.component';
 import { InvoiceAttatchedDocumentsComponent } from './invoice-attatched-documents/invoice-attatched-documents.component';
 
@@ -168,15 +169,7 @@ import { EventsSettingsComponent } from './events-settings/events-settings.compo
                   {
                     path: 'attatched-documents',
                     component: InvoiceAttatchedDocumentsComponent,
-                    resolve: {                      
-                      invoice: InvoiceResolver
-                    }
-                  },
-                  {
-                    path: 'events',
-                    component: InvoiceOverviewEventsComponent,
                     resolve: {
-                      organization: OrganizationResolver,
                       invoice: InvoiceResolver
                     }
                   }
@@ -579,6 +572,21 @@ import { EventsSettingsComponent } from './events-settings/events-settings.compo
               {
                 path: 'smtp-settings',
                 component: OrganizationSmtpSettingsComponent,
+                resolve: {
+                  organization: OrganizationResolver
+                }
+              },
+              {
+                path: 'theme-settings',
+                component: OrganizationThemesComponent,
+                resolve: {
+                  organization: OrganizationResolver,
+                  serverinfo: ServerInfoResolver
+                }
+              },
+              {
+                path: 'tasks-settings',
+                component: OrganizationTasksComponent,
                 resolve: {
                   organization: OrganizationResolver
                 }

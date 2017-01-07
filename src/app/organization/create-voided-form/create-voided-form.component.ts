@@ -56,7 +56,9 @@ export class CreateVoidedFormComponent implements OnInit {
     this.form = this.formBuilder.group({
       serieDocumento: [null, Validators.compose([Validators.maxLength(11)])],
       numeroDocumento: [null, Validators.compose([ Validators.maxLength(5),Validators.pattern('[0-9]{1,5}')])],
+/*
       fechaDeEmision: [null, Validators.compose([Validators.required])],
+*/
       observaciones: [null, Validators.compose([ Validators.maxLength(150)])],
       enviarAutomaticamenteASunat: [true, Validators.compose([Validators.required])],
       enviarAutomaticamenteAlCliente: [true, Validators.compose([Validators.required])],
@@ -64,7 +66,9 @@ export class CreateVoidedFormComponent implements OnInit {
     });
     this.form.patchValue({
       serieDocumento:"RA-"+this.datePipe.transform(new Date(), 'yyyyMMdd'),
+/*
       fechaDeEmision: this.datePipe.transform(new Date(), 'yyyy-MM-dd')
+*/
     });
   }
 

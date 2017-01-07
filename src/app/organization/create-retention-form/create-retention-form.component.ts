@@ -92,7 +92,9 @@ export class CreateRetentionFormComponent implements OnInit {
 
       serieDocumento: [null, Validators.compose([Validators.maxLength(4),Validators.pattern('[R]{1}[0-9]{3}')])],
       numeroDocumento: [null, Validators.compose([ Validators.maxLength(8),Validators.pattern('[0-9]{1,8}')])],
+/*
       fechaDeEmision: [null, Validators.compose([Validators.required])],
+*/
       monedaDocumento: [null, Validators.compose([Validators.required, Validators.maxLength(3)])],
       tasaDocumento: [null, Validators.compose([Validators.required, Validators.required])],
 
@@ -104,16 +106,16 @@ export class CreateRetentionFormComponent implements OnInit {
       totalDocumentoSunat: [0, Validators.compose([Validators.required])],
       detalle: this.formBuilder.array([], Validators.compose([]))
     });
-    this.updateIssues();
+    //this.updateIssues();
     this.addFormGlobalObservers();
     this.setDefaultFormValues();
   }
 
-  updateIssues() {
+ /* updateIssues() {
     this.form.patchValue({
       fechaDeEmision: this.datePipe.transform(new Date(), 'yyyy-MM-dd')
     });
-  }
+  }*/
 
   setDefaultFormValues(): void {
     this.form.patchValue({

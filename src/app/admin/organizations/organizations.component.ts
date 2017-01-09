@@ -13,8 +13,8 @@ import { Organization } from '../../core/models/organization.model';
 })
 export class OrganizationsComponent implements OnInit {
 
-  searchResult: Array<Organization> = new Array<Organization>();
-  filters = {
+  private searchResult: Array<Organization> = new Array<Organization>();
+  private filters = {
     filterText: undefined
   };
 

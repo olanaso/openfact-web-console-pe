@@ -2,11 +2,11 @@
   <div class="row row-cards-pf">
     <div class="col-md-12">
       <form [formGroup]="form" (ngSubmit)="save(form.value)" class="form-horizontal">
-        <p class="fields-status-pf">The fields marked with <span class="required-pf">*</span> are required.</p>
+        <p class="fields-status-pf">{{'fields-marked-with' | translate}} <span class="required-pf">*</span> {{'are-required' | translate}}.</p>
                 
         <div class="form-group" [ngClass]="{ 'has-error' : !form.get('tasksEnabled').valid && form.get('tasksEnabled').dirty }">
-          <label class="col-md-2 control-label required-pf">Enable
-						<i class="fa fa-question-circle text-muted" ngbTooltip="tasksEnabled of the organization" placement="right"></i>
+          <label class="col-md-2 control-label required-pf">{{'enabled' | translate}}
+						<i class="fa fa-question-circle text-muted" ngbTooltip="True/false if the tasks is enable or disabled for the current organization." placement="right"></i>
           </label>
           <div class="col-md-4">
             <of-button-switch formControlName="tasksEnabled"></of-button-switch>
@@ -17,7 +17,7 @@
         </div>
         <div *ngIf="form.get('tasksEnabled').value" class="form-group" [ngClass]="{ 'has-error' : !form.get('taskDelay').valid && form.get('taskDelay').dirty }">
           <label class="col-md-2 control-label required-pf">Delay
-						<i class="fa fa-question-circle text-muted" ngbTooltip="taskDelay of the organization" placement="right"></i>
+						<i class="fa fa-question-circle text-muted" ngbTooltip="Time beetween one and another tasks in miliseconds." placement="right"></i>
           </label>
           <div class="col-md-3">
             <input formControlName="taskDelay" type="number" class="form-control" placeholder="Milliseconds" />
@@ -29,7 +29,7 @@
         </div>
         <div *ngIf="form.get('tasksEnabled').value" class="form-group" [ngClass]="{ 'has-error' : !form.get('taskFirstTime').valid && form.get('taskFirstTime').dirty }">
           <label class="col-md-2 control-label required-pf">First Time Date
-						<i class="fa fa-question-circle text-muted" ngbTooltip="taskDelay of the organization" placement="right"></i>
+						<i class="fa fa-question-circle text-muted" ngbTooltip="Date when the tasks will be executed the first time." placement="right"></i>
           </label>
           <div class="col-md-3">            
             <div class="input-group">
@@ -46,7 +46,7 @@
         </div>
         <div *ngIf="form.get('tasksEnabled').value" class="form-group" [ngClass]="{ 'has-error' : !form.get('taskFirstTime').valid && form.get('taskFirstTime').dirty }">
           <label class="col-md-2 control-label required-pf">First Time
-						<i class="fa fa-question-circle text-muted" ngbTooltip="taskDelay of the organization" placement="right"></i>
+						<i class="fa fa-question-circle text-muted" ngbTooltip="Time when the tasks will be executed the first time." placement="right"></i>
           </label>
           <div class="col-md-3">            
             <ngb-timepicker formControlName="taskFirstTime"></ngb-timepicker>
@@ -60,7 +60,7 @@
         <div class="form-group">
           <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-md-offset-2 col-lg-offset-2">
             <of-button-save [form]="form" [working]="working"></of-button-save>
-            <button type="button" (click)="loadData()" class="btn btn-default" [disabled]="!form.dirty">Cancel</button>
+            <button type="button" (click)="loadData()" class="btn btn-default" [disabled]="!form.dirty">{{'cancel' | translate}}</button>
           </div>
         </div>
       </form>

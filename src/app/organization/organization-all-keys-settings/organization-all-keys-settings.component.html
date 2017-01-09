@@ -22,13 +22,13 @@
         <a *ngIf="item.provider" [routerLink]="['../providers', item.provider.providerId, item.provider.id]">{{item.provider.name}}</a>
       </td>
 
-      <td *ngIf="item.publicKey" class="kc-action-cell">
-        <of-view-key [key]="item.publicKey" [label]="'View'" [isSpan]="true"></of-view-key>
+      <td *ngIf="item.publicKey" class="kc-action-cell" (click)="viewKey(publicKey)">
+        <of-view-key #publicKey [key]="item.publicKey" [label]="'view' | translate" [isSpan]="true" [disableOpen]="true"></of-view-key>
       </td>
       <td *ngIf="!item.publicKey"></td>
 
-      <td *ngIf="item.certificate" class="kc-action-cell">
-        <of-view-key [key]="item.certificate" [label]="'View'" [isSpan]="true"></of-view-key>
+      <td *ngIf="item.certificate" class="kc-action-cell" (click)="viewKey(certificate)">
+        <of-view-key #certificate [key]="item.certificate" [label]="'view' | translate" [isSpan]="true" [disableOpen]="true"></of-view-key>
       </td>
       <td *ngIf="!item.certificate"></td>
     </tr>

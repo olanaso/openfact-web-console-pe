@@ -8,20 +8,20 @@
 
         <div class="form-group">
           <label class="col-sm-2 control-label">{{'import' | translate}}
-            <i class="fa fa-question-circle text-muted" ngbTooltip="organization of the organization" placement="right"></i>
+            <i class="fa fa-question-circle text-muted" ngbTooltip="Select a file for import organization configuration." placement="right"></i>
           </label>
           <div class="col-md-9" [hidden]="importing">
             <of-read-file (complete)="importFile($event)"></of-read-file>
           </div>
           <div class="col-md-9" [hidden]="!importing">
-            <of-view-object [object]="organization" [label]="'View details'"></of-view-object>
-            <input type="button" class="btn btn-default" (click)="reset()" value="Clear import" />
+            <of-view-object [object]="organization" [label]="'view-details' | translate"></of-view-object>
+            <input type="button" class="btn btn-default" (click)="reset()" [value]="'clear-import' | translate" />
           </div>
         </div>
 
         <div class="form-group" [ngClass]="{ 'has-error' : !form.controls.organization.valid && form.controls.organization.dirty }">
           <label class="col-md-2 control-label required-pf">{{'name' | translate}}
-						<i class="fa fa-question-circle text-muted" ngbTooltip="organization of the organization" placement="right"></i>
+						<i class="fa fa-question-circle text-muted" ngbTooltip="Name of the organization." placement="right"></i>
           </label>
           <div class="col-md-9">
             <input [formControl]="form.controls.organization" type="text" class="form-control" autofocus/>
@@ -33,7 +33,7 @@
         </div>
         <div class="form-group" [ngClass]="{ 'has-error' : !form.controls.description.valid && form.controls.description.dirty }">
           <label class="col-md-2 control-label">{{'description' | translate}}
-						<i class="fa fa-question-circle text-muted" ngbTooltip="Description of the organization" placement="right"></i>
+						<i class="fa fa-question-circle text-muted" ngbTooltip="Description of the organization." placement="right"></i>
           </label>
           <div class="col-md-9">
             <textarea [formControl]="form.controls.description" type="text" class="form-control"></textarea>

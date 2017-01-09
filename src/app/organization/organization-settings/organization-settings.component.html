@@ -1,11 +1,11 @@
 <div class="container-fluid">
 	<ol class="breadcrumb">
-		<li><a href="javascript:void(0);" routerLink="../overview">Settings</a></li>
+		<li><a href="javascript:void(0);" routerLink="../overview">{{'settings' | translate}}</a></li>
 		<li class="active"> {{organization.organization}}</li>
 	</ol>
 	<div>
 		<h3>{{organization.organization}}
-			<small>created 
+			<small>{{'created' | translate}} 
 			<of-relative-timestamp [timestamp]="organization.createdTimestamp">			
 			</of-relative-timestamp>
 		</small>
@@ -19,12 +19,12 @@
 		<div class="col-md-12">
 			<div class="tab-container">
 				<ul class="nav nav-tabs">
-					<li routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"><a routerLink="./">General</a></li>
-					<li routerLinkActive="active"><a routerLink="./additional-information">Additional</a></li>
-					<li routerLinkActive="active"><a routerLink="./keys">Keys</a></li>
-					<li routerLinkActive="active"><a routerLink="./smtp-settings">Email</a></li>
-					<li routerLinkActive="active"><a routerLink="./theme-settings">Themes</a></li>
-					<li routerLinkActive="active"><a routerLink="./tasks-settings">Tasks</a></li>
+					<li routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"><a routerLink="./">{{'general' | translate}}</a></li>
+					<li routerLinkActive="active"><a routerLink="./additional-information">{{'additional-info' | translate}}</a></li>
+					<li routerLinkActive="active"><a routerLink="./keys">{{'keys' | translate}}</a></li>
+					<li routerLinkActive="active"><a routerLink="./smtp-settings">{{'email' | translate}}</a></li>
+					<li routerLinkActive="active"><a routerLink="./theme-settings">{{'themes' | translate}}</a></li>
+					<li routerLinkActive="active"><a routerLink="./tasks-settings">{{'tasks' | translate}}</a></li>
 				</ul>
 				<div class="tab-pane">
 					<div>

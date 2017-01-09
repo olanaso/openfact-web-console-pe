@@ -120,15 +120,26 @@
                 <td class="text-right">{{item.payableAmount | number:'1.2-3'}}</td>
                 <td class="text-right">{{item.customerRegistrationName}}</td>
                 <td class="text-right">                  
-                  <span *ngIf="item.attributes && item.attributes.length > 0">{{item.attributes['VOIDED'] | yesNo: ('yes-no' | translate)}}</span>
-                  <span *ngIf="!item.attributes || item.attributes.length == 0">{{'no' | translate}}</span>
+                  <span *ngIf="item.attributes && item.attributes.length > 0">
+                    <i class="pficon-error-circle-o"></i>
+                    {{item.attributes['VOIDED'] | yesNo: ('yes-no' | translate)}}
+                  </span>
+                  <span *ngIf="!item.attributes || item.attributes.length == 0">                    
+                    {{'no' | translate}}
+                  </span>
                 </td>
                 <td class="text-right">                  
-                  <span *ngIf="item.requiredActions && item.requiredActions.length > 0">{{item.requiredActions['SEND_TO_CUSTOMER'] | yesNo: ('yes-no' | translate)}}</span>
-                  <span *ngIf="!item.requiredActions || item.requiredActions.length == 0">Yes</span>
+                  <span *ngIf="item.requiredActions && item.requiredActions.length > 0">
+                    <i class="pficon pficon-warning-triangle-o"></i>
+                    {{item.requiredActions['SEND_TO_CUSTOMER'] | yesNo: ('yes-no' | translate)}}
+                  </span>
+                  <span *ngIf="!item.requiredActions || item.requiredActions.length == 0">{{'yes' | translate}}</span>
                 </td>
                 <td class="text-right">                  
-                  <span *ngIf="item.requiredActions && item.requiredActions.length > 0">{{item.requiredActions['SEND_TO_TRIRD_PARTY'] | yesNo: ('yes-no' | translate)}}</span>
+                  <span *ngIf="item.requiredActions && item.requiredActions.length > 0">
+                    <i class="pficon pficon-warning-triangle-o"></i>
+                    {{item.requiredActions['SEND_TO_TRIRD_PARTY'] | yesNo: ('yes-no' | translate)}}
+                  </span>
                   <span *ngIf="!item.requiredActions || item.requiredActions.length == 0">{{'yes' | translate}}</span>
                 </td>
                 <td class="table-view-pf-actions">
@@ -176,7 +187,7 @@
                       </li>
                       <li role="separator" class="divider"></li>
                       <li>
-                        <a href="javascript:void(0);" (click)="maskAsVoided(item)">
+                        <a href="javascript:void(0);" (click)="markAsVoided(item)">
                           <span class="fa fa-thumbs-down"></span> {{'voided' | translate}}
                         </a>
                       </li>

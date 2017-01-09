@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs/Subscription';
 
 import { DataService } from '../../core/data/data.service';
 import { AlertService } from '../../core/alert/alert.service';
@@ -11,20 +12,30 @@ import { Invoice } from '../../core/models/invoice.model';
   templateUrl: './invoice-overview.component.html',
   styleUrls: ['./invoice-overview.component.scss']
 })
-export class InvoiceOverviewComponent implements OnInit {
+export class InvoiceOverviewComponent implements OnInit, OnDestroy {
+
+  private dataSubscription: Subscription;
 
   private invoice: Invoice;
   private invoiceJson: Invoice;
   private invoiceText: Invoice;
 
-  constructor(private activatedRoute: ActivatedRoute,
-    private dataService: DataService, private alertService: AlertService) {
-    this.invoice = this.activatedRoute.snapshot.data['invoice'];
-    this.invoiceJson = this.activatedRoute.snapshot.data['invoiceJson'];
-    this.invoiceText = this.activatedRoute.snapshot.data['invoiceText'];
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private dataService: DataService,
+    private alertService: AlertService) {
   }
 
   ngOnInit() {
+    this.dataSubscription = this.activatedRoute.data.subscribe(data => {
+      this.invoice = data["invoice"];
+      this.invoice = data["invoiceJson"];
+      this.invoice = data["invoiceText"];
+    });
+  }
+
+  ngOnDestroy() {
+    this.dataSubscription.unsubscribe();
   }
 
 }

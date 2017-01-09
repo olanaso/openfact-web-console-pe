@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import * as Collections from 'typescript-collections';
+
+import { Subscription } from 'rxjs/Subscription';
 
 import { DataService } from '../../core/data/data.service';
 import { AlertService } from '../../core/alert/alert.service';
@@ -18,7 +20,9 @@ import { SearchCriteriaFilterOperator } from '../../core/models/search-criteria-
   templateUrl: './invoices.component.html',
   styleUrls: ['./invoices.component.scss']
 })
-export class InvoicesComponent implements OnInit {
+export class InvoicesComponent implements OnInit, OnDestroy {
+
+  dataSubscription: Subscription;
 
   organization: Organization;
   searchResult: SearchResults<Invoice> = new SearchResults<Invoice>();
@@ -62,12 +66,19 @@ export class InvoicesComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private dataService: DataService,
     private alertService: AlertService) {
-    this.organization = this.activatedRoute.snapshot.data['organization'];
-    this.loadSorter();
-    this.search();
   }
 
   ngOnInit() {
+    this.dataSubscription = this.activatedRoute.data.subscribe(data => {
+      this.organization = data["organization"];
+      this.search();
+    });
+
+    this.loadSorter();    
+  }
+
+  ngOnDestroy() {
+    this.dataSubscription.unsubscribe();
   }
 
   loadSorter(): void {
@@ -200,10 +211,9 @@ export class InvoicesComponent implements OnInit {
     criteria.paging = new Paging(this.paging.page, this.paging.size);
 
     //Send Request
-    this.dataService.invoices().search(this.organization, criteria).subscribe(
-      result => {
-        this.searchResult = result;
-      });
+    this.dataService.invoices().search(this.organization, criteria).subscribe(result => {
+      this.searchResult = result;
+    });
   }
 
 
@@ -239,8 +249,8 @@ export class InvoicesComponent implements OnInit {
     this.router.navigate(["../debit-notes", "create", { invoice: invoice.id }], { relativeTo: this.activatedRoute.parent });
   }
 
-  maskAsVoided(invoice: any) {
-
+  markAsVoided(invoice: any) {
+    this.router.navigate(["../voideds", "create", { invoice: invoice.id }], { relativeTo: this.activatedRoute.parent });
   }
 
 }

@@ -18,13 +18,13 @@
         <a [routerLink]="['./providers', activeMap.getValue(item).provider.providerId, activeMap.getValue(item).provider.id]">{{activeMap.getValue(item).provider.name}}</a>
       </td>
 
-      <td *ngIf="activeMap.getValue(item).publicKey" class="kc-action-cell">
-        <of-view-key [key]="activeMap.getValue(item).publicKey" [label]="'View'" [isSpan]="true"></of-view-key>
+      <td *ngIf="activeMap.getValue(item).publicKey" class="kc-action-cell" (click)="viewKey(publicKey)">
+        <of-view-key #publicKey [key]="activeMap.getValue(item).publicKey" [label]="'view' | translate" [isSpan]="true" [disableOpen]="true"></of-view-key>
       </td>
       <td *ngIf="!activeMap.getValue(item).publicKey"></td>
 
-      <td *ngIf="activeMap.getValue(item).certificate" class="kc-action-cell">
-        <of-view-key [key]="activeMap.getValue(item).certificate" [label]="'View'" [isSpan]="true"></of-view-key>
+      <td *ngIf="activeMap.getValue(item).certificate" class="kc-action-cell" (click)="viewKey(certificate)">
+        <of-view-key #certificate [key]="activeMap.getValue(item).certificate" [label]="'view' | translate" [isSpan]="true" [disableOpen]="true"></of-view-key>
       </td>
       <td *ngIf="!activeMap.getValue(item).certificate"></td>
     </tr>

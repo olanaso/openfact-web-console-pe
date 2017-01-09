@@ -13,6 +13,16 @@
 	<div class="collapse navbar-collapse navbar-collapse-11">
 		<ul class="nav navbar-nav navbar-utility">
 			<li class="dropdown" ngbDropdown>
+				<a class="dropdown-toggle nav-item-iconic" href="javascript:void(0);" ngbDropdownToggle>					
+					<span class="fa fa-flag"></span> {{selectedLanguage}} <b class="caret"></b>
+				</a>
+				<ul class="dropdown-menu">
+					<li *ngFor="let language of supportedLanguages" [ngClass]="{'active': language == selectedLanguage}" >
+						<a href="javascript:void(0);" (click)="changeLanguage(language)">{{language}}</a>
+					</li>
+				</ul>
+			</li>
+			<li class="dropdown" ngbDropdown>
 				<a class="dropdown-toggle nav-item-iconic" href="javascript:void(0);" ngbDropdownToggle>
 					<span class="pficon pficon-user"></span> {{username}} <b class="caret"></b>
 				</a>
@@ -21,7 +31,7 @@
 					<li class="divider"></li>
 					<li><a href="javascript:void(0);" (click)="logout()">{{'sign-out' | translate}}}</a></li>
 				</ul>
-			</li>
+			</li>			
 		</ul>
 		<ul class="nav navbar-nav navbar-primary persistent-secondary">
 			<li routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">

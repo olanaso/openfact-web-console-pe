@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs/Subscription';
 
 import { DataService } from '../../core/data/data.service';
 import { AlertService } from '../../core/alert/alert.service';
@@ -11,21 +12,32 @@ import { Invoice } from '../../core/models/invoice.model';
   templateUrl: './invoice-send-events.component.html',
   styleUrls: ['./invoice-send-events.component.scss']
 })
-export class InvoiceSendEventsComponent implements OnInit {
+export class InvoiceSendEventsComponent implements OnInit, OnDestroy {
+
+  private dataSubscription: Subscription;
+
 
   private organization: any;
   private invoice: any;
 
-  events: Array<any>;
+  private events: Array<any>;
 
-  constructor(private activatedRoute: ActivatedRoute,
-    private dataService: DataService, private alertService: AlertService) {
-    this.organization = this.activatedRoute.snapshot.data['organization'];
-    this.invoice = this.activatedRoute.snapshot.data['invoice'];
-    this.loadData();
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private dataService: DataService,
+    private alertService: AlertService) {
   }
 
   ngOnInit() {
+    this.dataSubscription = this.activatedRoute.data.subscribe(data => {
+      this.organization = data["organization"];
+      this.invoice = data["invoice"];
+      this.loadData();
+    });    
+  }
+
+  ngOnDestroy() {
+    this.dataSubscription.unsubscribe();
   }
 
   loadData() {

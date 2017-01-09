@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+import { Subscription } from 'rxjs/Subscription';
 
 import { DataService } from '../../core/data/data.service';
 import { AlertService } from '../../core/alert/alert.service';
@@ -11,7 +13,9 @@ import { Organization } from '../../core/models/organization.model';
   templateUrl: './organization-smtp-settings.component.html',
   styleUrls: ['./organization-smtp-settings.component.scss']
 })
-export class OrganizationSmtpSettingsComponent implements OnInit {
+export class OrganizationSmtpSettingsComponent implements OnInit, OnDestroy {
+
+  private dataSubscription: Subscription;
 
   private organization: Organization;
 
@@ -23,14 +27,19 @@ export class OrganizationSmtpSettingsComponent implements OnInit {
     private formBuilder: FormBuilder,
     private dataService: DataService,
     private alertService: AlertService) {
-    this.activatedRoute.data.subscribe(result => {
-      this.organization = <Organization>result['organization'];
-    });
-    this.buildForm();
-    this.loadData();
   }
 
   ngOnInit() {
+    this.dataSubscription = this.activatedRoute.data.subscribe(data => {
+      this.organization = data["organization"];
+      this.loadData();
+    });
+
+    this.buildForm();    
+  }
+
+  ngOnDestroy() {
+    this.dataSubscription.unsubscribe();
   }
 
   buildForm() {
@@ -62,7 +71,6 @@ export class OrganizationSmtpSettingsComponent implements OnInit {
       },
       error => {
         this.working = false;
-        this.alertService.pop('error', 'Error', 'Your changes could not saved to the organization.');
       }
     );
   }

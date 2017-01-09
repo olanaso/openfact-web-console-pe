@@ -4,5 +4,5 @@
   </div>
 </template>
 
-<span *ngIf="isSpan" (click)="open(content)">{{label || 'View details'}}</span>
-<button *ngIf="isButton" type="button" class="btn btn-default" (click)="open(content)">{{label || 'View details'}}</button>
+<span *ngIf="isSpan" (click)="internalOpen()">{{label || 'View details'}}</span>
+<button *ngIf="isButton" type="button" class="btn btn-default" (click)="internalOpen()">{{label || 'View details'}}</button>

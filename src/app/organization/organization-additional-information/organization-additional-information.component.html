@@ -2,10 +2,11 @@
 	<div class="row row-cards-pf">
 		<div class="col-md-12">
 			<form [formGroup]="form" (ngSubmit)="save(form.value)" class="form-horizontal">
-				<p class="fields-status-pf">The fields marked with <span class="required-pf">*</span> are required.</p>
+				<p class="fields-status-pf">{{'fields-marked-with' | translate}} <span class="required-pf">*</span> {{'are-required' | translate}}.</p>
+				
 				<div class="form-group" [ngClass]="{ 'has-error' : !form.get('assignedIdentificationId').valid && form.get('assignedIdentificationId').dirty }">
-					<label class="col-md-2 control-label required-pf">Assigned Identification Id
-						<i class="fa fa-question-circle text-muted" ngbTooltip="organization of the assignedIdentificationId" placement="right"></i>
+					<label class="col-md-2 control-label required-pf">{{'assigned-identification-id' | translate}}
+						<i class="fa fa-question-circle text-muted" ngbTooltip="AssignedIdentificationId of the organization." placement="right"></i>
           			</label>
 					<div class="col-md-3">
 						<input formControlName="assignedIdentificationId" type="text" class="form-control" />
@@ -16,8 +17,8 @@
 					</div>
 				</div>
 				<div class="form-group" [ngClass]="{ 'has-error' : !form.get('additionalAccountId').valid && form.get('additionalAccountId').dirty }">
-					<label class="col-md-2 control-label required-pf">Additional Account Id
-						<i class="fa fa-question-circle text-muted" ngbTooltip="additionalAccountId of the organization" placement="right"></i>
+					<label class="col-md-2 control-label required-pf">{{'additional-account-id' | translate}}
+						<i class="fa fa-question-circle text-muted" ngbTooltip="AdditionalAccountId of the organization." placement="right"></i>
           			</label>
 					<div class="col-md-3">
 						<input formControlName="additionalAccountId" type="text" class="form-control" />
@@ -28,8 +29,8 @@
 					</div>
 				</div>
 				<div class="form-group" [ngClass]="{ 'has-error' : !form.get('supplierName').valid && form.get('supplierName').dirty }">
-					<label class="col-md-2 control-label required-pf">Supplier Name
-						<i class="fa fa-question-circle text-muted" ngbTooltip="supplierName of the organization" placement="right"></i>
+					<label class="col-md-2 control-label required-pf">{{'supplier-name' | translate}}
+						<i class="fa fa-question-circle text-muted" ngbTooltip="Supplier name of the organization." placement="right"></i>
           			</label>
 					<div class="col-md-4">
 						<input formControlName="supplierName" type="text" class="form-control" />
@@ -40,8 +41,8 @@
 					</div>
 				</div>
 				<div class="form-group" [ngClass]="{ 'has-error' : !form.get('registrationName').valid && form.get('registrationName').dirty }">
-					<label class="col-md-2 control-label required-pf">Registration Name
-						<i class="fa fa-question-circle text-muted" ngbTooltip="registrationName of the organization" placement="right"></i>
+					<label class="col-md-2 control-label required-pf">{{'registration-name' | translate}}
+						<i class="fa fa-question-circle text-muted" ngbTooltip="Registration name of the organization" placement="right"></i>
           			</label>
 					<div class="col-md-4">
 						<input formControlName="registrationName" type="text" class="form-control" />
@@ -54,8 +55,8 @@
 
 				<div formGroupName="postalAddress">
 					<div class="form-group" [ngClass]="{ 'has-error' : !form.get('postalAddress').get('cityName').valid && form.get('postalAddress').get('cityName').dirty }">
-						<label class="col-md-2 control-label">City Name
-						<i class="fa fa-question-circle text-muted" ngbTooltip="registrationName of the organization" placement="right"></i>
+						<label class="col-md-2 control-label">{{'city-name' | translate}}
+						<i class="fa fa-question-circle text-muted" ngbTooltip="City name where the organization is located." placement="right"></i>
           			</label>
 						<div class="col-md-4">
 							<input formControlName="cityName" type="text" class="form-control" />
@@ -65,8 +66,8 @@
 						</div>
 					</div>
 					<div class="form-group" [ngClass]="{ 'has-error' : !form.get('postalAddress').get('citySubdivisionName').valid && form.get('postalAddress').get('citySubdivisionName').dirty }">
-						<label class="col-md-2 control-label">City Subdivision Name
-						<i class="fa fa-question-circle text-muted" ngbTooltip="registrationName of the organization" placement="right"></i>
+						<label class="col-md-2 control-label">{{'city-subdivision-name' | translate}}
+						<i class="fa fa-question-circle text-muted" ngbTooltip="City Subdivision name where the organization is located." placement="right"></i>
           			</label>
 						<div class="col-md-4">
 							<input formControlName="citySubdivisionName" type="text" class="form-control" />
@@ -76,8 +77,8 @@
 						</div>
 					</div>
 					<div class="form-group" [ngClass]="{ 'has-error' : !form.get('postalAddress').get('countryIdentificationCode').valid && form.get('postalAddress').get('countryIdentificationCode').dirty }">
-						<label class="col-md-2 control-label">Country Identification Code
-						<i class="fa fa-question-circle text-muted" ngbTooltip="registrationName of the organization" placement="right"></i>
+						<label class="col-md-2 control-label">{{'country-identification-code' | translate}}
+						<i class="fa fa-question-circle text-muted" ngbTooltip="Country identification code where the organization is located." placement="right"></i>
           			</label>
 						<div class="col-md-2">
 							<input formControlName="countryIdentificationCode" type="text" class="form-control" />
@@ -87,8 +88,8 @@
 						</div>
 					</div>
 					<div class="form-group" [ngClass]="{ 'has-error' : !form.get('postalAddress').get('countrySubentity').valid && form.get('postalAddress').get('countrySubentity').dirty }">
-						<label class="col-md-2 control-label">Country Sub Entity
-						<i class="fa fa-question-circle text-muted" ngbTooltip="registrationName of the organization" placement="right"></i>
+						<label class="col-md-2 control-label">{{'country-sub-entity' | translate}}
+						<i class="fa fa-question-circle text-muted" ngbTooltip="Country sub entity where the organization is located." placement="right"></i>
           			</label>
 						<div class="col-md-4">
 							<input formControlName="countrySubentity" type="text" class="form-control" />
@@ -98,8 +99,8 @@
 						</div>
 					</div>
 					<div class="form-group" [ngClass]="{ 'has-error' : !form.get('postalAddress').get('district').valid && form.get('postalAddress').get('district').dirty }">
-						<label class="col-md-2 control-label">District
-						<i class="fa fa-question-circle text-muted" ngbTooltip="registrationName of the organization" placement="right"></i>
+						<label class="col-md-2 control-label">{{'district' | translate}}
+						<i class="fa fa-question-circle text-muted" ngbTooltip="District where the organization is located." placement="right"></i>
           			</label>
 						<div class="col-md-4">
 							<input formControlName="district" type="text" class="form-control" />
@@ -109,8 +110,8 @@
 						</div>
 					</div>
 					<div class="form-group" [ngClass]="{ 'has-error' : !form.get('postalAddress').get('streetName').valid && form.get('postalAddress').get('streetName').dirty }">
-						<label class="col-md-2 control-label">Street Name
-						<i class="fa fa-question-circle text-muted" ngbTooltip="registrationName of the organization" placement="right"></i>
+						<label class="col-md-2 control-label">{{'street-name' | translate}}
+						<i class="fa fa-question-circle text-muted" ngbTooltip="Street name where the organization is located." placement="right"></i>
           			</label>
 						<div class="col-md-4">
 							<input formControlName="streetName" type="text" class="form-control" />
@@ -124,7 +125,7 @@
 				<div class="form-group">
 					<div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-md-offset-2 col-lg-offset-2">
 						<of-button-save [form]="form" [working]="working"></of-button-save>
-						<button type="button" (click)="loadData()" class="btn btn-default" [disabled]="!form.dirty">Cancel</button>
+						<button type="button" (click)="loadData()" class="btn btn-default" [disabled]="!form.dirty">{{'cancel' | translate}}</button>
 					</div>
 				</div>
 			</form>

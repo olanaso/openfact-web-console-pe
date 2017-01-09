@@ -10,7 +10,7 @@ import { AlertService } from '../../core/alert/alert.service';
 })
 export class ServerInfoComponent implements OnInit {
 
-  serverInfo: any = {
+  private serverInfo: any = {
     systemInfo: {},
     memoryInfo: {}
   };

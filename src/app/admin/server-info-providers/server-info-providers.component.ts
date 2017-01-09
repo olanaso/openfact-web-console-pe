@@ -11,7 +11,7 @@ import { AlertService } from '../../core/alert/alert.service';
 })
 export class ServerInfoProvidersComponent implements OnInit {
 
-  spis = new Collections.Dictionary<String, any>();
+  private spis = new Collections.Dictionary<String, any>();
 
   constructor(
     private dataService: DataService,

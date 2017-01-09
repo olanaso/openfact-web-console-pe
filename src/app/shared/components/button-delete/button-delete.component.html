@@ -1,20 +1,20 @@
 <template #content let-c="close" let-d="dismiss">
 	<div class="modal-body">
-		<h1>Are you sure you want to delete the {{typeDisplayName || kind}} '
-			<strong>{{displayName ? displayName : resourceName}}</strong>'?
+		<h1>{{'are-you-sure-to-delete' | translate}} {{typeDisplayName || kind}} 
+			'<strong>{{displayName ? displayName : resourceName}}</strong>'?
 		</h1>
 
-		<p>This 
-			<span *ngIf="isOrganization()"> will 
-				<strong>delete all resources</strong> 
-				associated with the organization {{displayName ? displayName : resourceName}} and
+		<p>{{'this' | translate}} 
+			<span *ngIf="isOrganization()"> 
+				<strong>{{'will-delete-all-resources' | translate}}</strong> 
+				{{'associated-with' | translate}} {{'organization' | translate}} {{displayName ? displayName : resourceName}} {{'and' | translate}}
 			</span>
-			<strong>cannot be undone</strong>. 
-			Make sure this is something you really want to do!
+			<strong>{{'cannot-be-undone' | translate}}</strong>. 
+			{{'make-sure-message' | translate}}
 		</p>
 
 		<div [hidden]="!typeNameToConfirm">
-			<p>Type the name of the {{typeDisplayName || kind}} to confirm.</p>
+			<p>{{'type-name-of' | translate}} {{typeDisplayName || kind}} {{'to-confirm' | translate}}.</p>
 			<p>
 				<label class="sr-only">{{typeDisplayName || kind}} to delete</label>
 				<input type="text" [(ngModel)]="confirmName" name="confirmName" class="form-control input-lg" autocorrect="off" autocapitalize="off"

@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { URLSearchParams } from '@angular/http';
 import * as Collections from 'typescript-collections';
+
+import { Subscription } from 'rxjs/Subscription';
 
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
@@ -14,14 +16,16 @@ import { Organization } from '../../core/models/organization.model';
   templateUrl: './organization-key-providers-settings.component.html',
   styleUrls: ['./organization-key-providers-settings.component.scss']
 })
-export class OrganizationKeyProvidersSettingsComponent implements OnInit {
+export class OrganizationKeyProvidersSettingsComponent implements OnInit, OnDestroy {
 
-  organization: Organization;
-  serverinfo: any;
-  enableUpload: boolean = false;
+  private dataSubscription: Subscription;
 
-  providers: any;
-  instances: any;
+  private organization: Organization;
+  private serverinfo: any;
+  private enableUpload: boolean = false;
+
+  private providers: any;
+  private instances: any;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -29,13 +33,19 @@ export class OrganizationKeyProvidersSettingsComponent implements OnInit {
     private modalService: NgbModal,
     private dataService: DataService,
     private alertService: AlertService) {
-    this.organization = this.activatedRoute.snapshot.data['organization'];
-    this.serverinfo = this.activatedRoute.snapshot.data['serverinfo'];
-    this.providers = this.serverinfo.componentTypes['org.openfact.keys.KeyProvider'];
-    this.loadComponents();
   }
 
   ngOnInit() {
+    this.dataSubscription = this.activatedRoute.data.subscribe(data => {
+      this.organization = data["organization"];
+      this.serverinfo = data["serverinfo"];
+      this.providers = this.serverinfo.componentTypes['org.openfact.keys.KeyProvider'];
+      this.loadComponents();
+    });    
+  }
+
+  ngOnDestroy() {
+    this.dataSubscription.unsubscribe();
   }
 
   loadComponents() {
@@ -53,7 +63,7 @@ export class OrganizationKeyProvidersSettingsComponent implements OnInit {
     );
   }
 
-  addProvider(provider) {    
+  addProvider(provider) {
     this.router.navigate(['./', provider], { relativeTo: this.activatedRoute });
   };
 
@@ -68,9 +78,7 @@ export class OrganizationKeyProvidersSettingsComponent implements OnInit {
           this.alertService.pop('success', 'Success', 'The provider has been deleted.');
           this.loadComponents();
         },
-        error => {
-          this.alertService.pop('error', 'Error', 'Your changes could not saved to the organization.');
-        }
+        error => { }
       );
     }, (reason) => {
     });

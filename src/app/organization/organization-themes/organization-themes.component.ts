@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+import { Subscription } from 'rxjs/Subscription';
 
 import { DataService } from '../../core/data/data.service';
 import { AlertService } from '../../core/alert/alert.service';
@@ -11,15 +13,17 @@ import { Organization } from '../../core/models/organization.model';
   templateUrl: './organization-themes.component.html',
   styleUrls: ['./organization-themes.component.scss']
 })
-export class OrganizationThemesComponent implements OnInit {
+export class OrganizationThemesComponent implements OnInit, OnDestroy {
 
-  organization: Organization;
-  serverinfo: any;
+  private dataSubscription: Subscription;
 
-  form: FormGroup;
-  working: boolean = false;
+  private organization: Organization;
+  private serverinfo: any;
 
-  supportedLocales = ["en", "es"];
+  private form: FormGroup;
+  private working: boolean = false;
+
+  private supportedLocales = ["en", "es"];
 
   constructor(
     private router: Router,
@@ -30,15 +34,17 @@ export class OrganizationThemesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.activatedRoute.data.subscribe(result => {
-      this.organization = <Organization>result['organization'];
-    });
-    this.activatedRoute.data.subscribe(result => {
-      this.serverinfo = result['serverinfo'];
+    this.dataSubscription = this.activatedRoute.data.subscribe(data => {
+      this.organization = data["organization"];
+      this.serverinfo = data["serverinfo"];
+      this.loadData();
     });
 
-    this.buildForm();
-    this.loadData();
+    this.buildForm();    
+  }
+
+  ngOnDestroy() {
+    this.dataSubscription.unsubscribe();
   }
 
   buildForm() {
@@ -59,7 +65,7 @@ export class OrganizationThemesComponent implements OnInit {
   refreshSupportedLocalesSelectValue(values: [any]) {
     this.form.patchValue({
       supportedLocales: values.map(f => f.id)
-    });    
+    });
   }
 
   save(form: any) {

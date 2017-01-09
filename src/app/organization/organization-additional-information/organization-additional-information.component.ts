@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+import { Subscription } from 'rxjs/Subscription';
 
 import { DataService } from '../../core/data/data.service';
 import { AlertService } from '../../core/alert/alert.service';
@@ -11,26 +13,34 @@ import { Organization } from '../../core/models/organization.model';
   templateUrl: './organization-additional-information.component.html',
   styleUrls: ['./organization-additional-information.component.scss']
 })
-export class OrganizationAdditionalInformationComponent implements OnInit {
+export class OrganizationAdditionalInformationComponent implements OnInit, OnDestroy {
 
-   private organization: Organization;
+  private dataSubscription: Subscription;
+
+  private organization: Organization;
 
   private form: FormGroup;
   private working: boolean = false;
 
-  constructor(private router: Router,
+  constructor(
+    private router: Router,
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
     private dataService: DataService,
     private alertService: AlertService) {
-    this.activatedRoute.data.subscribe(result => {
-      this.organization = <Organization>result['organization'];
-    });
-    this.buildForm();
-    this.loadData();
   }
 
   ngOnInit() {
+    this.dataSubscription = this.activatedRoute.data.subscribe(data => {
+      this.organization = data["organization"];
+      this.loadData();
+    });
+
+    this.buildForm();    
+  }
+
+  ngOnDestroy() {
+    this.dataSubscription.unsubscribe();
   }
 
   buildForm() {
@@ -66,7 +76,6 @@ export class OrganizationAdditionalInformationComponent implements OnInit {
       },
       error => {
         this.working = false;
-        this.alertService.pop('error', 'Error', 'Your changes could not saved to the organization.');
       }
     );
   }

@@ -15,6 +15,17 @@
 		<ul class="nav navbar-nav navbar-right navbar-iconic">
 			<li class="dropdown" ngbDropdown>
 				<a class="dropdown-toggle nav-item-iconic" href="javascript:void(0);" ngbDropdownToggle>
+					<span title="Language" class="fa pficon-flag">&nbsp;{{selectedLanguage}}</span>
+					<span class="caret"></span>
+				</a>
+				<ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+					<li *ngFor="let language of supportedLanguages" routerLinkActive="active">
+						<a href="javascript:void(0);" (click)="changeLanguage(language)">{{language}}</a>
+					</li>
+				</ul>
+			</li>
+			<li class="dropdown" ngbDropdown>
+				<a class="dropdown-toggle nav-item-iconic" href="javascript:void(0);" ngbDropdownToggle>
 					<span title="Organization" class="fa pficon-enterprise">&nbsp;{{currentOrganization.organization}}</span>
 					<span class="caret"></span>
 				</a>

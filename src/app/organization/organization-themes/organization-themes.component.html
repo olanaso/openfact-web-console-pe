@@ -4,7 +4,7 @@
       <form [formGroup]="form" (ngSubmit)="save(form.value)" class="form-horizontal">
         <div class="form-group" [ngClass]="{ 'has-error' : !form.get('emailTheme').valid && form.get('emailTheme').dirty }">
           <label class="col-md-2 control-label">Email Theme
-						<i class="fa fa-question-circle text-muted" ngbTooltip="organization of the emailTheme" placement="right"></i>
+						<i class="fa fa-question-circle text-muted" ngbTooltip="Email theme for the current organization." placement="right"></i>
           </label>
           <div class="col-md-3">
             <select formControlName="emailTheme" class="form-control">
@@ -18,7 +18,7 @@
         </div>
         <div class="form-group" [ngClass]="{ 'has-error' : !form.get('reportTheme').valid && form.get('reportTheme').dirty }">
           <label class="col-md-2 control-label">Report Theme
-						<i class="fa fa-question-circle text-muted" ngbTooltip="organization of the reportTheme" placement="right"></i>
+						<i class="fa fa-question-circle text-muted" ngbTooltip="Report theme for the current organization." placement="right"></i>
           </label>
           <div class="col-md-3">
             <select formControlName="reportTheme" class="form-control">
@@ -32,7 +32,7 @@
         </div>
         <div class="form-group" [ngClass]="{ 'has-error' : !form.get('internationalizationEnabled').valid && form.get('internationalizationEnabled').dirty }">
           <label class="col-md-2 control-label">Internationalization Enabled
-						<i class="fa fa-question-circle text-muted" ngbTooltip="internationalizationEnabled of the organization" placement="right"></i>
+						<i class="fa fa-question-circle text-muted" ngbTooltip="Set true to enable internationalization on current organization." placement="right"></i>
           </label>
           <div class="col-md-4">
             <of-button-switch formControlName="internationalizationEnabled"></of-button-switch>
@@ -43,7 +43,7 @@
         </div>    
         <div [hidden]="!form.get('internationalizationEnabled').value" class="form-group" [ngClass]="{ 'has-error' : !form.get('supportedLocales').valid && form.get('supportedLocales').dirty }">
           <label class="col-md-2 control-label">Supported Locales
-						<i class="fa fa-question-circle text-muted" ngbTooltip="supportedLocales of the organization" placement="right"></i>
+						<i class="fa fa-question-circle text-muted" ngbTooltip="Supported locales for the current organization." placement="right"></i>
           </label>
           <div class="col-md-4">
             <ng-select (data)="refreshSupportedLocalesSelectValue($event)" [active]="supportedLocales" [multiple]="true" [items]="supportedLocales"></ng-select>
@@ -54,7 +54,7 @@
         </div>   
         <div [hidden]="!form.get('internationalizationEnabled').value" class="form-group" [ngClass]="{ 'has-error' : !form.get('defaultLocale').valid && form.get('defaultLocale').dirty }">
           <label class="col-md-2 control-label">Default Locale
-						<i class="fa fa-question-circle text-muted" ngbTooltip="organization of the defaultLocale" placement="right"></i>
+						<i class="fa fa-question-circle text-muted" ngbTooltip="Default locale for the current organization. This is important for reports which are generated from the backend." placement="right"></i>
           </label>
           <div class="col-md-3">
             <select formControlName="defaultLocale" class="form-control">
@@ -69,7 +69,7 @@
         <div class="form-group">
           <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-md-offset-2 col-lg-offset-2">
             <of-button-save [form]="form" [working]="working"></of-button-save>
-            <button type="button" (click)="loadData()" class="btn btn-default" [disabled]="!form.dirty">Cancel</button>
+            <button type="button" (click)="loadData()" class="btn btn-default" [disabled]="!form.dirty">{{'cancel' | translate}}</button>
           </div>
         </div>
       </form>

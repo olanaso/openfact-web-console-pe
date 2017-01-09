@@ -21,7 +21,7 @@ import { AllowedDataOrganizations } from './core/guards/allowed-data-organizatio
                 path: 'organizations/:organization',
                 loadChildren: 'app/organization/organization.module#OrganizationModule'
             }
-        ], { useHash: true, enableTracing: true, preloadingStrategy: PreloadAllModules })
+        ], { useHash: false, enableTracing: false, preloadingStrategy: PreloadAllModules })
     ],
     exports: [
         RouterModule

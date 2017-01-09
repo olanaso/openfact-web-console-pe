@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+import { Subscription } from 'rxjs/Subscription';
 
 import { DataService } from '../../core/data/data.service';
 import { AlertService } from '../../core/alert/alert.service';
@@ -14,17 +15,19 @@ import { findParam } from '../../core/resolvers/find-param';
   templateUrl: './organization-generic-keystore.component.html',
   styleUrls: ['./organization-generic-keystore.component.scss']
 })
-export class OrganizationGenericKeystoreComponent implements OnInit {
+export class OrganizationGenericKeystoreComponent implements OnInit, OnDestroy {
 
-  organization: any;
-  serverinfo: any;
+  private dataSubscription: Subscription;
 
-  form: FormGroup;
-  create: boolean;
-  working: boolean = false;
+  private organization: any;
+  private serverinfo: any;
 
-  providerFactory: any;
-  instance: any;
+  private form: FormGroup;
+  private create: boolean;
+  private working: boolean = false;
+
+  private providerFactory: any;
+  private instance: any;
 
   constructor(
     private router: Router,
@@ -33,9 +36,23 @@ export class OrganizationGenericKeystoreComponent implements OnInit {
     private dataService: DataService,
     private alertService: AlertService
   ) {
-    this.organization = this.activatedRoute.snapshot.data['organization'];
-    this.serverinfo = this.activatedRoute.snapshot.data['serverinfo'];
-    this.instance = this.activatedRoute.snapshot.data['instance'] || {};
+  }
+
+  ngOnInit() {
+    this.dataSubscription = this.activatedRoute.data.subscribe(data => {
+      this.organization = data["organization"];
+      this.serverinfo = data["serverinfo"];
+      this.instance = data["instance"] || {};
+      this.refreshValues();
+    });
+    this.buildForm();
+  }
+
+  ngOnDestroy() {
+    this.dataSubscription.unsubscribe();
+  }
+
+  refreshValues() {
     this.create = !this.instance.providerId;
 
     let providerId = findParam('provider', this.activatedRoute.snapshot);
@@ -81,11 +98,6 @@ export class OrganizationGenericKeystoreComponent implements OnInit {
         }
       }
     }
-
-    this.buildForm();
-  }
-
-  ngOnInit() {
   }
 
   buildForm(): void {

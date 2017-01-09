@@ -2,10 +2,11 @@
   <div class="row row-cards-pf">
     <div class="col-md-12">
       <form [formGroup]="form" (ngSubmit)="save(form.value)" class="form-horizontal">
-        <p class="fields-status-pf">The fields marked with <span class="required-pf">*</span> are required.</p>
+        <p class="fields-status-pf">{{'fields-marked-with' | translate}} <span class="required-pf">*</span> {{'are-required' | translate}}.</p>
+        
         <div class="form-group" [ngClass]="{ 'has-error' : !form.get('host').valid && form.get('host').dirty }">
           <label class="col-md-2 control-label required-pf">Host
-						<i class="fa fa-question-circle text-muted" ngbTooltip="organization of the host" placement="right"></i>
+						<i class="fa fa-question-circle text-muted" ngbTooltip="Host of the smtp server." placement="right"></i>
           </label>
           <div class="col-md-3">
             <input formControlName="host" type="text" class="form-control" placeholder="SMTP Host" />
@@ -17,7 +18,7 @@
         </div>
         <div class="form-group" [ngClass]="{ 'has-error' : !form.get('host').valid && form.get('port').dirty }">
           <label class="col-md-2 control-label">Port
-						<i class="fa fa-question-circle text-muted" ngbTooltip="host of the organization" placement="right"></i>
+						<i class="fa fa-question-circle text-muted" ngbTooltip="Port of the smtp server." placement="right"></i>
           			</label>
           <div class="col-md-3">
             <input formControlName="port" type="text" class="form-control" placeholder="SMTP Port(defaults to 25)" />
@@ -29,7 +30,7 @@
         </div>
         <div class="form-group" [ngClass]="{ 'has-error' : !form.get('host').valid && form.get('from').dirty }">
           <label class="col-md-2 control-label required-pf">From
-						<i class="fa fa-question-circle text-muted" ngbTooltip="host of the organization" placement="right"></i>
+						<i class="fa fa-question-circle text-muted" ngbTooltip="Origin of the smtp server." placement="right"></i>
           			</label>
           <div class="col-md-4">
             <input formControlName="from" type="text" class="form-control" placeholder="Sender Email Address" />
@@ -41,7 +42,7 @@
         </div>
         <div class="form-group" [ngClass]="{ 'has-error' : !form.get('ssl').valid && form.get('ssl').dirty }">
           <label class="col-md-2 control-label">Enable SSL
-						<i class="fa fa-question-circle text-muted" ngbTooltip="ssl of the organization" placement="right"></i>
+						<i class="fa fa-question-circle text-muted" ngbTooltip="Set true/false to enable/disable ssl on smtp server." placement="right"></i>
           			</label>
           <div class="col-md-4">
             <of-button-switch formControlName="ssl"></of-button-switch>
@@ -52,8 +53,8 @@
         </div>
         <div class="form-group" [ngClass]="{ 'has-error' : !form.get('starttls').valid && form.get('starttls').dirty }">
           <label class="col-md-2 control-label">Enable StartTLS
-						<i class="fa fa-question-circle text-muted" ngbTooltip="starttls of the organization" placement="right"></i>
-          			</label>
+						<i class="fa fa-question-circle text-muted" ngbTooltip="Set true/false to enable/disable startTLS on smtp server." placement="right"></i>
+          </label>
           <div class="col-md-4">
             <of-button-switch formControlName="starttls"></of-button-switch>
             <div *ngIf="!form.get('starttls').valid && form.get('starttls').dirty">
@@ -63,8 +64,8 @@
         </div>
         <div class="form-group">
           <label class="col-md-2 control-label">Enable Authentication
-						<i class="fa fa-question-circle text-muted" ngbTooltip="starttls of the organization" placement="right"></i>
-          			</label>
+						<i class="fa fa-question-circle text-muted" ngbTooltip="Set true to enalble authentication" placement="right"></i>
+          </label>
           <div class="col-md-4">
             <div class="checkbox">
               <label>
@@ -93,7 +94,7 @@
         <div class="form-group">
           <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-md-offset-2 col-lg-offset-2">
             <of-button-save [form]="form" [working]="working"></of-button-save>
-            <button type="button" (click)="loadData()" class="btn btn-default" [disabled]="!form.dirty">Cancel</button>
+            <button type="button" (click)="loadData()" class="btn btn-default" [disabled]="!form.dirty">{{'cancel' | translate}}</button>
           </div>
         </div>
       </form>

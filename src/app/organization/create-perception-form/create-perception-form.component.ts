@@ -64,9 +64,9 @@ export class CreatePerceptionFormComponent implements OnInit {
     {denominacion: "Dolares Americanos", valor: "USD"}
   ];
   tasaEntidad = [
-    {codigo:"01",abreviatura:"TASA 2%",denominacion: "PERCEPCION VENTA INTERNA", valor: "2"},
-    {codigo:"02",abreviatura:"TASA 1%",denominacion: "PERCEPCION A LA ADQUISICION DE COMBUSTIBLE", valor: "1"},
-    {codigo:"03",abreviatura:"TASA 0.5%",denominacion: "PERCEPCION REALIZADA AL AGENTE DE PERCEPCION CON TASA ESPECIAL", valor: "0.5"}
+    {codigo:"01",denominacion: "PERCEPCION VENTA INTERNA", valor: "2"},
+    {codigo:"02",denominacion: "PERCEPCION A LA ADQUISICION DE COMBUSTIBLE", valor: "1"},
+    {codigo:"03",denominacion: "PERCEPCION REALIZADA AL AGENTE DE PERCEPCION CON TASA ESPECIAL", valor: "0.5"}
 
   ];
 
@@ -78,13 +78,9 @@ export class CreatePerceptionFormComponent implements OnInit {
   numberMask = {
     allowDecimal: true
   };
-  quantityMask = {
-    allowDecimal: true,
-    decimalLimit: 3
-  };
-  perceptionCode = {
-    prefix: "P ",
-    allowDecimal: false
+  percentMask = {
+    prefix: "% ",
+    allowDecimal: true
   };
 
   ngOnInit() {
@@ -106,6 +102,7 @@ export class CreatePerceptionFormComponent implements OnInit {
       fechaDeEmision: [null, Validators.compose([Validators.required])],
 */
       monedaDocumento: [null, Validators.compose([Validators.required, Validators.maxLength(3)])],
+      codigoDocumento: [null, Validators.compose([Validators.required, Validators.required])],
       tasaDocumento: [null, Validators.compose([Validators.required, Validators.required])],
 
       enviarAutomaticamenteASunat: [true, Validators.compose([Validators.required])],
@@ -131,6 +128,7 @@ export class CreatePerceptionFormComponent implements OnInit {
     this.form.patchValue({
       entidadTipoDeDocumento: this.tipoDocumentoEntidad[0].valor,
       monedaDocumento: this.monedaEntidad[0].valor,
+      codigoDocumento: this.tasaEntidad[0].codigo,
       tasaDocumento: this.tasaEntidad[0].valor
     });
   }
@@ -141,7 +139,7 @@ export class CreatePerceptionFormComponent implements OnInit {
 
   // Observers
   addFormGlobalObservers() {
-    let formControls = [this.monedaDocumento, this.tasaDocumento];
+    let formControls = [this.monedaDocumento, this.codigoDocumento];
     formControls.forEach(formControl => {
       formControl.valueChanges.subscribe(formControlValue => {
         this.refreshFormValues();
@@ -190,11 +188,16 @@ export class CreatePerceptionFormComponent implements OnInit {
 
   refreshFormValues(): void {
     // Igv valor numerico
-    let tasaDocumento = this.tasaDocumento.valid ? this.tasaDocumento.value : undefined;
-    if (!tasaDocumento) return;
+    let codigoDocumento = this.codigoDocumento.valid ? this.codigoDocumento.value : undefined;
+    if (!codigoDocumento) return;
     let monedaDocumento = this.monedaDocumento.valid ? this.monedaDocumento.value : undefined;
     if (!monedaDocumento) return;
-
+    let tasaEntidad = this.tasaEntidad.filter(tasa => tasa.codigo === this.codigoDocumento.value);
+    this.form.patchValue({
+      tasaDocumento: tasaEntidad[0].valor
+    });
+    let tasaDocumento=this.tasaDocumento.valid ? this.tasaDocumento.value : undefined;
+    if (!tasaDocumento) return;
     // Recorrido por cada detalle
     for (let i = 0; i < this.detalle.controls.length; i++) {
       let formGroup: FormGroup = this.detalle.controls[i] as FormGroup;
@@ -301,9 +304,11 @@ export class CreatePerceptionFormComponent implements OnInit {
   get monedaDocumento(): FormControl {
     return this.form.get("monedaDocumento") as FormControl;
   }
-
   get tasaDocumento(): FormControl {
     return this.form.get("tasaDocumento") as FormControl;
+  }
+  get codigoDocumento(): FormControl {
+    return this.form.get("codigoDocumento") as FormControl;
   }
 
   getpagoDocumentoSunat(formGroup: FormGroup) {

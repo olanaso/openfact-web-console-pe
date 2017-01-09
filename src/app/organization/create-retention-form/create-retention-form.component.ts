@@ -4,12 +4,12 @@
 import {Component, OnInit} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 import {FormBuilder, FormGroup, FormControl, FormArray, Validators} from '@angular/forms';
-import { Response, URLSearchParams } from '@angular/http';
+import {Response, URLSearchParams} from '@angular/http';
 import {Observable} from "rxjs/Observable";
 import {DataService} from '../../core/data/data.service';
 import {AlertService} from '../../core/alert/alert.service';
 import {Organization} from '../../core/models/organization.model';
-import { Invoice } from "../../core/models/invoice.model";
+import {Invoice} from "../../core/models/invoice.model";
 import {DatePipe} from '@angular/common';
 
 import {NgbModal, ModalDismissReasons} from "@ng-bootstrap/ng-bootstrap";
@@ -63,8 +63,7 @@ export class CreateRetentionFormComponent implements OnInit {
     {denominacion: "Dolares Americanos", valor: "USD"}
   ];
   tasaEntidad = [
-    {denominacion: "TASA 3%", valor: "3", codigo:"01"}
-
+    {codigo: "01", abreviatura: "3%", denominacion: "RETENCION DE 3%", valor: "3"}
   ];
 
   documentMask = [/[B|F|b|f]/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/];
@@ -76,7 +75,10 @@ export class CreateRetentionFormComponent implements OnInit {
   numberMask = {
     allowDecimal: true
   };
-
+  percentMask = {
+    sufix: "% ",
+    allowDecimal: true
+  };
   ngOnInit() {
   }
 
@@ -85,17 +87,18 @@ export class CreateRetentionFormComponent implements OnInit {
     this.form = this.formBuilder.group({
 
       entidadTipoDeDocumento: [null, Validators.compose([Validators.required])],
-      entidadNumeroDeDocumento: [null, Validators.compose([Validators.required,Validators.minLength(8), Validators.maxLength(20),Validators.pattern('[0-9]{1,20}')])],
+      entidadNumeroDeDocumento: [null, Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(20), Validators.pattern('[0-9]{1,20}')])],
       entidadDenominacion: [null, Validators.compose([Validators.required, Validators.maxLength(150)])],
       entidadDireccion: [null, Validators.compose([Validators.maxLength(150)])],
       entidadEmail: [null, Validators.compose([Validators.maxLength(150)])],
 
-      serieDocumento: [null, Validators.compose([Validators.maxLength(4),Validators.pattern('[R]{1}[0-9]{3}')])],
-      numeroDocumento: [null, Validators.compose([ Validators.maxLength(8),Validators.pattern('[0-9]{1,8}')])],
-/*
-      fechaDeEmision: [null, Validators.compose([Validators.required])],
-*/
+      serieDocumento: [null, Validators.compose([Validators.maxLength(4), Validators.pattern('[R]{1}[0-9]{3}')])],
+      numeroDocumento: [null, Validators.compose([Validators.maxLength(8), Validators.pattern('[0-9]{1,8}')])],
+      /*
+       fechaDeEmision: [null, Validators.compose([Validators.required])],
+       */
       monedaDocumento: [null, Validators.compose([Validators.required, Validators.maxLength(3)])],
+      codigoDocumento: [null, Validators.compose([Validators.required, Validators.required])],
       tasaDocumento: [null, Validators.compose([Validators.required, Validators.required])],
 
       enviarAutomaticamenteASunat: [true, Validators.compose([Validators.required])],
@@ -111,23 +114,24 @@ export class CreateRetentionFormComponent implements OnInit {
     this.setDefaultFormValues();
   }
 
- /* updateIssues() {
-    this.form.patchValue({
-      fechaDeEmision: this.datePipe.transform(new Date(), 'yyyy-MM-dd')
-    });
-  }*/
+  /* updateIssues() {
+   this.form.patchValue({
+   fechaDeEmision: this.datePipe.transform(new Date(), 'yyyy-MM-dd')
+   });
+   }*/
 
   setDefaultFormValues(): void {
     this.form.patchValue({
       entidadTipoDeDocumento: this.tipoDocumentoEntidad[0].valor,
       monedaDocumento: this.monedaEntidad[0].valor,
+      codigoDocumento: this.tasaEntidad[0].codigo,
       tasaDocumento: this.tasaEntidad[0].valor
     });
   }
 
   // Observers
   addFormGlobalObservers() {
-    let formControls = [this.monedaDocumento, this.tasaDocumento];
+    let formControls = [this.monedaDocumento, this.codigoDocumento];
     formControls.forEach(formControl => {
       formControl.valueChanges.subscribe(formControlValue => {
         this.refreshFormValues();
@@ -145,7 +149,7 @@ export class CreateRetentionFormComponent implements OnInit {
       tipoCambio: [0, Validators.compose([Validators.required])],
       fechaCambio: [this.datePipe.transform(new Date(), 'yyyy-MM-dd'), Validators.compose([Validators.required])],
       pagoDocumentoSunat: [0, Validators.compose([Validators.required])],
-      numeroPago: [null,Validators.compose([Validators.required])],
+      numeroPago: [null, Validators.compose([Validators.required])],
       fechaDocumentoSunat: [null, Validators.compose([Validators.required])],
       importeDocumentoSunat: [0, Validators.compose([Validators.required])],
       importePago: [0, Validators.compose([Validators.required])]
@@ -175,11 +179,16 @@ export class CreateRetentionFormComponent implements OnInit {
 
   refreshFormValues(): void {
     // Igv valor numerico
-    let tasaDocumento = this.tasaDocumento.valid ? this.tasaDocumento.value : undefined;
-    if (!tasaDocumento) return;
+    let codigoDocumento = this.codigoDocumento.valid ? this.codigoDocumento.value : undefined;
+    if (!codigoDocumento) return;
     let monedaDocumento = this.monedaDocumento.valid ? this.monedaDocumento.value : undefined;
     if (!monedaDocumento) return;
-
+    let tasaEntidad = this.tasaEntidad.filter(tasa => tasa.codigo === this.codigoDocumento.value);
+    this.form.patchValue({
+      tasaDocumento: tasaEntidad[0].valor
+    });
+    let tasaDocumento=this.tasaDocumento.valid ? this.tasaDocumento.value : undefined;
+    if (!tasaDocumento) return;
     // Recorrido por cada detalle
     for (let i = 0; i < this.detalle.controls.length; i++) {
       let formGroup: FormGroup = this.detalle.controls[i] as FormGroup;
@@ -210,6 +219,7 @@ export class CreateRetentionFormComponent implements OnInit {
       return (this.getImportePago(formGroup as FormGroup).value || 0)
     }).reduce((previousValue, currentValue) => previousValue + currentValue, 0);
 
+
     this.form.patchValue({
       totalDocumentoSunat: totalDocumentoSunat,
       totalPago: totalPago
@@ -232,7 +242,7 @@ export class CreateRetentionFormComponent implements OnInit {
           this.working = false;
           this.alertService.pop("success", "Success", "Success! The retention has been created.");
           if (redirect) {
-            this.router.navigate(["../"], { relativeTo: this.activatedRoute });
+            this.router.navigate(["../"], {relativeTo: this.activatedRoute});
           } else {
             this.buildForm();
           }
@@ -282,12 +292,15 @@ export class CreateRetentionFormComponent implements OnInit {
   getNumeroDocumentoRelacionado(formGroup: FormGroup) {
     return formGroup.get("numeroDocumentoRelacionado");
   }
+
   get monedaDocumento(): FormControl {
     return this.form.get("monedaDocumento") as FormControl;
   }
-
   get tasaDocumento(): FormControl {
     return this.form.get("tasaDocumento") as FormControl;
+  }
+  get codigoDocumento(): FormControl {
+    return this.form.get("codigoDocumento") as FormControl;
   }
 
   getpagoDocumentoSunat(formGroup: FormGroup) {
@@ -317,6 +330,7 @@ export class CreateRetentionFormComponent implements OnInit {
   get totalPago(): FormControl {
     return this.form.get("totalPago") as FormControl;
   }
+
   get detalle(): FormArray {
     return this.form.get("detalle") as FormArray;
   }

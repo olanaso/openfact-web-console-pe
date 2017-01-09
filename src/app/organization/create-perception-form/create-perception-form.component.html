@@ -181,20 +181,37 @@
       </div>
       <div class="col-md-2">
         <div class="form-group"
-             [ngClass]="{ 'has-error' : !form.get('tasaDocumento').valid && form.get('tasaDocumento').dirty }">
-          <label class="control-label required-pf">Tasa
+             [ngClass]="{ 'has-error' : !form.get('codigoDocumento').valid && form.get('codigoDocumento').dirty }">
+          <label class="control-label required-pf">Tipo Percepcion
             <i class="fa fa-question-circle text-muted" ngbTooltip="organization of the organization"
                placement="right"></i>
           </label>
-          <select formControlName="tasaDocumento" class="form-control" autofocus>
-            <option *ngFor="let documento of tasaEntidad" [value]="documento.valor">{{documento.denominacion}}
+          <select formControlName="codigoDocumento" class="form-control" autofocus>
+            <option *ngFor="let documento of tasaEntidad" [value]="documento.codigo">{{documento.denominacion}}
             </option>
           </select>
+          <div *ngIf="!form.get('codigoDocumento').valid && form.get('codigoDocumento').dirty">
+            <span *ngIf="form.get('codigoDocumento').hasError('required')"
+                  class="help-block">This field is required</span>
+            <span *ngIf="!form.get('codigoDocumento').hasError('required') && !form.get('codigoDocumento').valid"
+                  class="help-block">Value field is invalid</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-1">
+        <div class="form-group"
+             [ngClass]="{ 'has-error' : !form.get('tasaDocumento').valid && form.get('tasaDocumento').dirty }">
+          <label class="control-label required-pf">Porcentaje
+            <i class="fa fa-question-circle text-muted" ngbTooltip="organization of the organization"
+               placement="right"></i>
+          </label>
+          <input formControlName="tasaDocumento" [ofNumberMask]="percentMask" type="text" class="form-control" disabled>
           <div *ngIf="!form.get('tasaDocumento').valid && form.get('tasaDocumento').dirty">
             <span *ngIf="form.get('tasaDocumento').hasError('required')"
                   class="help-block">This field is required</span>
-            <span *ngIf="!form.get('tasaDocumento').hasError('required') && !form.get('tasaDocumento').valid"
-                  class="help-block">Value field is invalid</span>
+            <span
+              *ngIf="!form.get('tasaDocumento').hasError('required') && !form.get('tasaDocumento').hasError('maxlength') && !form.get('tasaDocumento').valid"
+              class="help-block">Value field is invalid</span>
           </div>
         </div>
       </div>

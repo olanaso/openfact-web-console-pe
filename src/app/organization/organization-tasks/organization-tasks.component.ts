@@ -27,16 +27,15 @@ export class OrganizationTasksComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
     private dataService: DataService,
-    private alertService: AlertService) {    
+    private alertService: AlertService) {
   }
 
   ngOnInit() {
+    this.buildForm();
     this.dataSubscription = this.activatedRoute.data.subscribe(data => {
       this.organization = data["organization"];
       this.loadData();
     });
-    
-    this.buildForm();  
   }
 
   ngOnDestroy() {
@@ -79,10 +78,6 @@ export class OrganizationTasksComponent implements OnInit, OnDestroy {
         this.form.removeControl("taskFirstDate");
         this.form.removeControl("taskFirstTime");
       }
-    });
-
-    this.form.patchValue({
-      tasksEnabled: this.organization.tasksEnabled
     });
   }
 

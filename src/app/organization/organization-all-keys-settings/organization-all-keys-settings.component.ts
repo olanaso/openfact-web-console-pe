@@ -34,9 +34,8 @@ export class OrganizationAllKeysSettingsComponent implements OnInit, OnDestroy {
     this.dataSubscription = this.activatedRoute.data.subscribe(data => {
       this.organization = data["organization"];
       this.keys = data["keys"];
-
       this.loadComponents();
-    });    
+    });
   }
 
   ngOnDestroy() {

@@ -30,12 +30,11 @@ export class OrganizationSmtpSettingsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.buildForm();
     this.dataSubscription = this.activatedRoute.data.subscribe(data => {
       this.organization = data["organization"];
       this.loadData();
     });
-
-    this.buildForm();    
   }
 
   ngOnDestroy() {

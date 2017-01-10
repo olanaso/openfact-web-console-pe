@@ -31,12 +31,11 @@ export class OrganizationGeneralInformationComponent implements OnInit, OnDestro
   }
 
   ngOnInit() {
+    this.buildForm();
     this.dataSubscription = this.activatedRoute.data.subscribe(data => {
       this.organization = data["organization"];
       this.loadData();
     });
-
-    this.buildForm();    
   }
 
   ngOnDestroy() {

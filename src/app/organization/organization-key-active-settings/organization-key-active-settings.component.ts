@@ -37,7 +37,7 @@ export class OrganizationKeyActiveSettingsComponent implements OnInit, OnDestroy
       this.organization = data["organization"];
       this.keys = data["keys"];
       this.loadComponents();
-    });    
+    });
   }
 
   ngOnDestroy() {

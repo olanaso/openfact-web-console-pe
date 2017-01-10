@@ -13,7 +13,6 @@ import { Organization } from '../../core/models/organization.model';
 export class OrganizationSettingsComponent implements OnInit, OnDestroy {
 
   private dataSubscription: Subscription;
-
   private organization: Organization;
 
   constructor(private activatedRoute: ActivatedRoute) { }

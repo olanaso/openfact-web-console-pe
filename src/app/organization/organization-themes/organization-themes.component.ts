@@ -34,13 +34,12 @@ export class OrganizationThemesComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.buildForm();
     this.dataSubscription = this.activatedRoute.data.subscribe(data => {
       this.organization = data["organization"];
       this.serverinfo = data["serverinfo"];
       this.loadData();
     });
-
-    this.buildForm();    
   }
 
   ngOnDestroy() {

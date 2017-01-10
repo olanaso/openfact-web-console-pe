@@ -39,13 +39,13 @@ export class OrganizationGenericKeystoreComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.buildForm();
     this.dataSubscription = this.activatedRoute.data.subscribe(data => {
       this.organization = data["organization"];
       this.serverinfo = data["serverinfo"];
       this.instance = data["instance"] || {};
       this.refreshValues();
-    });
-    this.buildForm();
+    });    
   }
 
   ngOnDestroy() {

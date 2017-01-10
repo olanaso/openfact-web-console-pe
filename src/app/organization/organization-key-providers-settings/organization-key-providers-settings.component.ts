@@ -41,7 +41,7 @@ export class OrganizationKeyProvidersSettingsComponent implements OnInit, OnDest
       this.serverinfo = data["serverinfo"];
       this.providers = this.serverinfo.componentTypes['org.openfact.keys.KeyProvider'];
       this.loadComponents();
-    });    
+    });
   }
 
   ngOnDestroy() {

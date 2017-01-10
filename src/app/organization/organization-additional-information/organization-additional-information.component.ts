@@ -31,12 +31,11 @@ export class OrganizationAdditionalInformationComponent implements OnInit, OnDes
   }
 
   ngOnInit() {
+    this.buildForm();
     this.dataSubscription = this.activatedRoute.data.subscribe(data => {
       this.organization = data["organization"];
       this.loadData();
     });
-
-    this.buildForm();    
   }
 
   ngOnDestroy() {

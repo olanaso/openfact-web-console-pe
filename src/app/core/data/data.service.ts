@@ -10,6 +10,7 @@ import {PerceptionService} from './perception.service'
 import {ServerInfoService} from './server-info.service';
 import {EventService} from './event.service';
 import {StorageFileService} from './storage-file.service';
+import  {GenericTypeService} from './generic-type.service'
 
 import {OrganizationPeService} from './organization-pe.service';
 
@@ -26,7 +27,8 @@ export class DataService {
               private serverinfo: ServerInfoService,
               private event: EventService,
               private storageFile: StorageFileService,
-              private organizationPe: OrganizationPeService) {
+              private organizationPe: OrganizationPeService,
+              private  genericTypePe: GenericTypeService) {
   }
 
   public organizations(): OrganizationService {
@@ -71,6 +73,10 @@ export class DataService {
 
   public organizationPeru(): OrganizationPeService {
     return this.organizationPe;
+  }
+
+  public genericTypePeru(): GenericTypeService {
+    return this.genericTypePe;
   }
 
 }

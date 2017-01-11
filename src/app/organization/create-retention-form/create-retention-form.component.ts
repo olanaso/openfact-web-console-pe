@@ -31,6 +31,7 @@ export class CreateRetentionFormComponent implements OnInit {
   organization: Organization;
   CURRENNCY: string = "PEN";
   invoice: Invoice;
+  tipo: any;
 
   constructor(private router: Router,
               private activatedRoute: ActivatedRoute,
@@ -76,9 +77,10 @@ export class CreateRetentionFormComponent implements OnInit {
     allowDecimal: true
   };
   percentMask = {
-    sufix: "% ",
+    suffix: "% ",
     allowDecimal: true
   };
+
   ngOnInit() {
   }
 
@@ -187,7 +189,7 @@ export class CreateRetentionFormComponent implements OnInit {
     this.form.patchValue({
       tasaDocumento: tasaEntidad[0].valor
     });
-    let tasaDocumento=this.tasaDocumento.valid ? this.tasaDocumento.value : undefined;
+    let tasaDocumento = this.tasaDocumento.valid ? this.tasaDocumento.value : undefined;
     if (!tasaDocumento) return;
     // Recorrido por cada detalle
     for (let i = 0; i < this.detalle.controls.length; i++) {
@@ -296,9 +298,11 @@ export class CreateRetentionFormComponent implements OnInit {
   get monedaDocumento(): FormControl {
     return this.form.get("monedaDocumento") as FormControl;
   }
+
   get tasaDocumento(): FormControl {
     return this.form.get("tasaDocumento") as FormControl;
   }
+
   get codigoDocumento(): FormControl {
     return this.form.get("codigoDocumento") as FormControl;
   }

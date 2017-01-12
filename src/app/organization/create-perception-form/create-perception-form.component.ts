@@ -64,7 +64,7 @@ export class CreatePerceptionFormComponent implements OnInit {
   ngOnInit()
   {}
 
-  buildGeneric() {
+  buildGeneric(): void {
     this.dataService.genericTypePeru().searchTipoComprobante(this.organization).subscribe(
       result => {
         this.tipoDocumento = result;

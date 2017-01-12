@@ -48,7 +48,7 @@ export class CreateVoidedFormComponent implements OnInit {
   documentMask = [/[B|F|b|f]/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/];
   ngOnInit() {
   }
-  buildGeneric() {
+  buildGeneric() : void{
     this.dataService.genericTypePeru().searchTipoComprobante(this.organization).subscribe(
       result => {
         this.tipoDocumento = result;

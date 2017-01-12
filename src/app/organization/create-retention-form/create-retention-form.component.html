@@ -13,7 +13,7 @@
                placement="right"></i>
           </label>
           <select formControlName="entidadTipoDeDocumento" class="form-control">
-            <option *ngFor="let doc of tipoDocumentoEntidad" [value]="doc.valor">
+            <option *ngFor="let doc of tipoDocumentoEntidad" [value]="doc.codigo">
               {{doc.denominacion}}
             </option>
           </select>
@@ -169,7 +169,7 @@
           </label>
           <div formControlName="monedaDocumento" ngbRadioGroup style="display: block;">
             <label *ngFor="let moneda of monedaEntidad" class="btn btn-default">
-              <input type="radio" [value]="moneda.valor">{{moneda.valor}}
+              <input type="radio" [value]="moneda.codigo">{{moneda.codigo}}
             </label>
           </div>
           <div *ngIf="!form.get('monedaDocumento').valid && form.get('monedaDocumento').dirty">
@@ -308,7 +308,7 @@
         <td
           [ngClass]="{ 'has-error' : !lineFormGroup.get('tipoDocumentoRelacionado').valid && lineFormGroup.get('tipoDocumentoRelacionado').dirty }">
           <select formControlName="tipoDocumentoRelacionado" class="form-control">
-            <option *ngFor="let documento of tipoDocumento" [value]="documento.valor">{{documento.denominacion}}
+            <option *ngFor="let documento of tipoDocumento" [value]="documento.codigo">{{documento.denominacion}}
             </option>
           </select>
           <div
@@ -336,7 +336,7 @@
           [ngClass]="{ 'has-error' : !lineFormGroup.get('monedaDocumentoRelacionado').valid && lineFormGroup.get('monedaDocumentoRelacionado').dirty }">
           <div formControlName="monedaDocumentoRelacionado" ngbRadioGroup style="display: block;">
             <label *ngFor="let moneda of monedaEntidad" class="btn btn-default">
-              <input type="radio" [value]="moneda.valor">{{moneda.valor}}
+              <input type="radio" [value]="moneda.codigo">{{moneda.codigo}}
             </label>
           </div>
           <div

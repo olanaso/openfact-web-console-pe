@@ -38,7 +38,7 @@ export class GenericTypeService {
       .all(extensionPath)
       .all(genericBasePath)
       .all("afectacion-igv")
-      .get()
+      .post()
       .map(response => {
         return response.json();
       });
@@ -49,7 +49,7 @@ export class GenericTypeService {
       .all(extensionPath)
       .all(genericBasePath)
       .all("comprobante-electronico")
-      .get()
+      .post()
       .map(response => {
         return response.json();
       });
@@ -60,7 +60,7 @@ export class GenericTypeService {
       .all(extensionPath)
       .all(genericBasePath)
       .all("conceptos-tributarios")
-      .get()
+      .post()
       .map(response => {
         return response.json();
       });
@@ -71,7 +71,7 @@ export class GenericTypeService {
       .all(extensionPath)
       .all(genericBasePath)
       .all("tipo-documento")
-      .get()
+      .post()
       .map(response => {
         return response.json();
       });
@@ -82,7 +82,7 @@ export class GenericTypeService {
       .all(extensionPath)
       .all(genericBasePath)
       .all("documento-relacionado-guia")
-      .get()
+      .post()
       .map(response => {
         return response.json();
       });
@@ -93,7 +93,7 @@ export class GenericTypeService {
       .all(extensionPath)
       .all(genericBasePath)
       .all("documento-relacionado-tributo")
-      .get()
+      .post()
       .map(response => {
         return response.json();
       });
@@ -104,7 +104,7 @@ export class GenericTypeService {
       .all(extensionPath)
       .all(genericBasePath)
       .all("elementos-adicionales-comprobante")
-      .get()
+      .post()
       .map(response => {
         return response.json();
       });
@@ -115,7 +115,7 @@ export class GenericTypeService {
       .all(extensionPath)
       .all(genericBasePath)
       .all("estado-item")
-      .get()
+      .post()
       .map(response => {
         return response.json();
       });
@@ -126,7 +126,7 @@ export class GenericTypeService {
       .all(extensionPath)
       .all(genericBasePath)
       .all("modalidad-traslado")
-      .get()
+      .post()
       .map(response => {
         return response.json();
       });
@@ -137,7 +137,7 @@ export class GenericTypeService {
       .all(extensionPath)
       .all(genericBasePath)
       .all("moneda")
-      .get()
+      .post()
       .map(response => {
         return response.json();
       });
@@ -148,7 +148,7 @@ export class GenericTypeService {
       .all(extensionPath)
       .all(genericBasePath)
       .all("motivo-traslado")
-      .get()
+      .post()
       .map(response => {
         return response.json();
       });
@@ -159,7 +159,7 @@ export class GenericTypeService {
       .all(extensionPath)
       .all(genericBasePath)
       .all("tipo-nota-credito")
-      .get()
+      .post()
       .map(response => {
         return response.json();
       });
@@ -170,7 +170,7 @@ export class GenericTypeService {
       .all(extensionPath)
       .all(genericBasePath)
       .all("tipo-nota-debito")
-      .get()
+      .post()
       .map(response => {
         return response.json();
       });
@@ -181,7 +181,7 @@ export class GenericTypeService {
       .all(extensionPath)
       .all(genericBasePath)
       .all("tipo-operacion")
-      .get()
+      .post()
       .map(response => {
         return response.json();
       });
@@ -192,7 +192,7 @@ export class GenericTypeService {
       .all(extensionPath)
       .all(genericBasePath)
       .all("precio-venta-unitario")
-      .get()
+      .post()
       .map(response => {
         return response.json();
       });
@@ -203,7 +203,7 @@ export class GenericTypeService {
       .all(extensionPath)
       .all(genericBasePath)
       .all("recibo-servicios-publicos")
-      .get()
+      .post()
       .map(response => {
         return response.json();
       });
@@ -214,7 +214,7 @@ export class GenericTypeService {
       .all(extensionPath)
       .all(genericBasePath)
       .all("regimen-percepcion")
-      .get()
+      .post()
       .map(response => {
         return response.json();
       });
@@ -225,7 +225,7 @@ export class GenericTypeService {
       .all(extensionPath)
       .all(genericBasePath)
       .all("regimen-retencion")
-      .get()
+      .post()
       .map(response => {
         return response.json();
       });
@@ -236,7 +236,7 @@ export class GenericTypeService {
       .all(extensionPath)
       .all(genericBasePath)
       .all("sistema-calculo-isc")
-      .get()
+      .post()
       .map(response => {
         return response.json();
       });
@@ -247,7 +247,7 @@ export class GenericTypeService {
       .all(extensionPath)
       .all(genericBasePath)
       .all("tipo-tributo")
-      .get()
+      .post()
       .map(response => {
         return response.json();
       });
@@ -258,7 +258,7 @@ export class GenericTypeService {
       .all(extensionPath)
       .all(genericBasePath)
       .all("valor-venta")
-      .get()
+      .post()
       .map(response => {
         return response.json();
       });

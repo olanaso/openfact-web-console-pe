@@ -30,6 +30,7 @@ export class CreateVoidedFormComponent implements OnInit {
   working: boolean = false;
   organization: Organization;
   invoice: Invoice;
+  tipoDocumento:any;
 
   constructor(private router: Router,
               private activatedRoute: ActivatedRoute,
@@ -39,36 +40,34 @@ export class CreateVoidedFormComponent implements OnInit {
               private alertService: AlertService,
               private datePipe: DatePipe) {
     this.organization = this.activatedRoute.snapshot.data['organization'];
+    this.buildGeneric();
     this.buildForm();
   }
 
-  tipoDocumento = [
-    {denominacion: "FACTURA ELECTRONICA", valor: "01"},
-    {denominacion: "BOLETA ELECTRONICA", valor: "03"}
-  ];
 
   documentMask = [/[B|F|b|f]/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/];
   ngOnInit() {
   }
-
+  buildGeneric() : void{
+    this.dataService.genericTypePeru().searchTipoComprobante(this.organization).subscribe(
+      result => {
+        this.tipoDocumento = result;
+      }, error => {
+        this.alertService.pop('error', 'Error', 'Error loading document sunat type.');
+      });
+  }
 
   buildForm(): void {
     this.form = this.formBuilder.group({
       serieDocumento: [null, Validators.compose([Validators.maxLength(11)])],
       numeroDocumento: [null, Validators.compose([ Validators.maxLength(5),Validators.pattern('[0-9]{1,5}')])],
-/*
-      fechaDeEmision: [null, Validators.compose([Validators.required])],
-*/
       observaciones: [null, Validators.compose([ Validators.maxLength(150)])],
       enviarAutomaticamenteASunat: [true, Validators.compose([Validators.required])],
       enviarAutomaticamenteAlCliente: [true, Validators.compose([Validators.required])],
       detalle: this.formBuilder.array([], Validators.compose([]))
     });
     this.form.patchValue({
-      serieDocumento:"RA-"+this.datePipe.transform(new Date(), 'yyyyMMdd'),
-/*
-      fechaDeEmision: this.datePipe.transform(new Date(), 'yyyy-MM-dd')
-*/
+      serieDocumento:"RA-"+this.datePipe.transform(new Date(), 'yyyyMMdd')
     });
   }
 
@@ -80,7 +79,7 @@ export class CreateVoidedFormComponent implements OnInit {
       descripcionDocumentoRelacionado: [null, Validators.compose([Validators.required, Validators.maxLength(150)])]
     });
     formGroup.patchValue({
-      tipoDocumentoRelacionado: this.tipoDocumento[0].valor
+      tipoDocumentoRelacionado: this.tipoDocumento[0].codigo
     });
     this.detalle.push(formGroup);
     this.refreshFormValues();

@@ -19,6 +19,7 @@ import { AlertService } from './alert/alert.service';
 import { ErrorInterceptor } from './error-interceptor';
 
 import { Restangular } from './data/restangular';
+import { GenericTypeService } from './data/generic-type.service';
 import { RestangularOpenfact } from './data/restangular-openfact';
 import { DataService } from './data/data.service';
 import { OrganizationService } from './data/organization.service';
@@ -27,7 +28,7 @@ import { CreditnoteService } from './data/creditnote.service';
 import { DebitnoteService } from './data/debitnote.service';
 import { PerceptionService } from './data/perception.service';
 import { RetentionService } from './data/retention.service';
-import  {VoidedService} from './data/voided.service';
+import { VoidedService } from './data/voided.service';
 import { ServerInfoService } from './data/server-info.service';
 import { EventService } from './data/event.service';
 import { StorageFileService } from './data/storage-file.service';
@@ -98,6 +99,7 @@ import { AllowedDataRoles } from './guards/allowed-data-roles';
     RestangularOpenfact,
     DataService,
     OrganizationService,
+    GenericTypeService,
     InvoiceService,
     CreditnoteService,
     DebitnoteService,
@@ -132,7 +134,7 @@ import { AllowedDataRoles } from './guards/allowed-data-roles';
     VoidedResolver,
     VoidedJsonResolver,
     VoidedTextResolver,
-    
+
     //Guards
     AllowedDataOrganizations,
     AllowedDataRoles

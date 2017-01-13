@@ -20,10 +20,7 @@ export class CreateVoidedFormConfirmModalComponent implements OnInit {
   }
 
   update() {
-    let status: boolean = false;
-    if (this.description != null) {
-      status = true;
-    }
+    let status: boolean = true;
     this.activeModal.close({description: this.description, status: status});
   }
 }

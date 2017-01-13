@@ -124,5 +124,11 @@
   "keys": "Llaves",
   "email": "Email",
   "themes": "Temas",
-  "active": "Activo"
+  "active": "Activo",
+  "create-invoice": "Crear Boleta/Factura",
+  "create-credit-note": "Crear Nota de Credito",
+  "create-debit-note": "Crear Nota de Debito",
+  "send-to-custom-third-party-by-email": "Enviar a tercero por Email",
+  "send": "Enviar",
+  "read-more": "Leer mas..."
 }

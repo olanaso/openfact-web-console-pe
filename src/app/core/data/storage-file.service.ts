@@ -27,7 +27,7 @@ export class StorageFileService {
         this.restangular = restangular;
     }
 
-    download(organization: Organization, id: string) {
+    download(organization: Organization, id: string, fileName?: string) {
       let restangular = organization.restangular.one(storageFileBasePath, id);
         return restangular.http
             .get(restangular.path, {
@@ -37,7 +37,7 @@ export class StorageFileService {
             .map(response => {
                 let file = {
                     file: response.blob(),
-                    fileName: (this['fileName'] || 'file')
+                    fileName: fileName || (this['fileName'] || 'file')
                 };
                 return file;
             }).subscribe(result => {

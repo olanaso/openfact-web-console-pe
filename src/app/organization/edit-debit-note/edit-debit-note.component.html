@@ -1,11 +1,11 @@
 <div class="container-fluid">
 	<ol class="breadcrumb">
 		<li><a href="javascript:void(0);" routerLink="../../debit-notes">Debit notes</a></li>
-		<li class="active"> {{debitNote.idUbl}}</li>
+		<li class="active"> {{debitNote.documentId}}</li>
 	</ol>
 	<div>
-		<h3>{{debitNote.idUbl}}
-			<small>created 
+		<h3>{{debitNote.documentId}}
+			<small>{{'created' | translate}} 
 				<of-relative-timestamp [timestamp]="debitNote.issueDateTime">			
 				</of-relative-timestamp>
 			</small>

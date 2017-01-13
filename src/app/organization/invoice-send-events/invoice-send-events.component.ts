@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { URLSearchParams } from '@angular/http';
 import { Subscription } from 'rxjs/Subscription';
-
 import { DataService } from '../../core/data/data.service';
 import { AlertService } from '../../core/alert/alert.service';
 import { Organization } from '../../core/models/organization.model';
@@ -14,13 +14,19 @@ import { Invoice } from '../../core/models/invoice.model';
 })
 export class InvoiceSendEventsComponent implements OnInit, OnDestroy {
 
+  private parentDataSubscription: Subscription;
   private dataSubscription: Subscription;
 
+  private organization: Organization;
+  private invoice: Invoice;
+  private sendEvents: Array<any>;
 
-  private organization: any;
-  private invoice: any;
-
-  private events: Array<any>;
+  private selectedDestinyType: string = "CUSTOMER";
+  private destinyType = [
+    { denomination: "send-to-customer", value: "CUSTOMER" },
+    { denomination: "send-to-third-party", value: "THIRD_PARTY" },
+    { denomination: "send-to-custom-third-party-by-email", value: "THIRD_PARTY_BY_EMAIL" }
+  ];
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -29,31 +35,30 @@ export class InvoiceSendEventsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.parentDataSubscription = this.activatedRoute.parent.data.subscribe(data => {
+      this.organization = <Organization>data["organization"];
+    });
     this.dataSubscription = this.activatedRoute.data.subscribe(data => {
-      this.organization = data["organization"];
-      this.invoice = data["invoice"];
-      this.loadData();
-    });    
+      this.invoice = <Invoice>data["invoice"];
+      this.loadData(this.selectedDestinyType);
+    });
   }
 
   ngOnDestroy() {
+    this.parentDataSubscription.unsubscribe();
     this.dataSubscription.unsubscribe();
   }
 
-  loadData() {
-    let invoice: Invoice = this.dataService.invoices().build(this.organization, this.invoice.id);
-    this.dataService.invoices().getSendEvents(invoice).subscribe(
-      result => {
-        this.events = result;
-      },
-      error => {
-        this.alertService.pop('error', 'Error', 'Organization could not be created.');
-      }
-    );;
+  loadData(destinyType: string) {
+    let customerQueryParams: URLSearchParams = new URLSearchParams();
+    customerQueryParams.set("destinyType", destinyType);
+    this.invoice.getSendEvents(customerQueryParams).subscribe(data => {
+      this.sendEvents = data;
+    });
   }
 
   downloadFile(file) {
-    this.dataService.storageFiles().download(this.organization, file.id);
+    this.dataService.storageFiles().download(this.organization, file.id, file.fileName);
   }
 
 }

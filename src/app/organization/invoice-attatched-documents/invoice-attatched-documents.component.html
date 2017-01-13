@@ -11,6 +11,11 @@
     </tr>
   </thead>
   <tbody>
+     <tr *ngIf="!invoice.attatchedDocuments || invoice.attatchedDocuments.length == 0">
+      <td colspan="5" class="text-center text-muted">
+        <span>{{'no-results-found' | translate}}.</span>
+      </td>
+    </tr>
     <tr *ngFor="let attatchedDocument of invoice.attatchedDocuments; let i = index;">
       <td>{{i+1}}</td>
       <td>{{attatchedDocument.documentId}}</td>

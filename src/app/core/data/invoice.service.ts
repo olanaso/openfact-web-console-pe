@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Response, URLSearchParams } from '@angular/http';
+import { Response, Headers, URLSearchParams, ResponseContentType } from '@angular/http';
+
 import { Observable } from 'rxjs/Observable';
 import { FileUploader } from 'ng2-file-upload';
+import { saveAs } from 'file-saver';
 
 import { RestangularOpenfact } from './restangular-openfact';
 import { Organization } from '../models/organization.model';
@@ -20,10 +22,7 @@ export class InvoiceService {
   constructor() { }
 
   public build(organization: Organization, id?: string): Invoice {
-    let invoice = new Invoice();
-    invoice.id = id;
-    invoice.restangular = organization.restangular.one(invoiceBasePath, id);
-    return invoice;
+    return new Invoice(organization.restangular.one(invoiceBasePath, id)).setId(id);
   }
 
   public findById(organization: Organization, id: string, queryParams?: URLSearchParams): Observable<Invoice> {
@@ -32,33 +31,9 @@ export class InvoiceService {
       .one(invoiceBasePath, id)
       .get(queryParams)
       .map(response => {
-        let json = <Invoice>response.json();
-        let result = new Invoice();
-        result.restangular = restangular.one(invoiceBasePath, json[invoiceIdName]);
-        result = Object.assign(result, json);
-        return result;
-      });
-  }
-
-  public findByIdAsJson(organization: Organization, id: string, queryParams?: URLSearchParams): Observable<any> {
-    let restangular = organization.restangular;
-    return restangular
-      .one(invoiceBasePath, id)
-      .all("representation/json")
-      .get(queryParams)
-      .map(response => {
-        return response.json();
-      });
-  }
-
-  public findByIdAsText(organization: Organization, id: string, queryParams?: URLSearchParams): Observable<string> {
-    let restangular = organization.restangular;
-    return restangular
-      .one(invoiceBasePath, id)
-      .all("representation/text")
-      .get(queryParams)
-      .map(response => {
-        return response.text();
+        let data = <Invoice>response.json();
+        let invoice = new Invoice(restangular.one(invoiceBasePath, data[invoiceIdName]));
+        return Object.assign(invoice, data);
       });
   }
 
@@ -70,12 +45,11 @@ export class InvoiceService {
       .map(response => {
         if (response.status === 201 || 204) {
           return undefined;
+        } else {
+          let data = <Invoice>response.json();
+          let invoice = new Invoice(restangular.one(invoiceBasePath, data[invoiceIdName]));
+          return Object.assign(invoice, data);
         }
-        let json = <Invoice>response.json();
-        let result = new Invoice();
-        result.restangular = restangular.one(invoiceBasePath, json[invoiceIdName]);
-        result = Object.assign(result, json);
-        return result;
       });
   }
 
@@ -94,13 +68,11 @@ export class InvoiceService {
       .all(invoiceBasePath)
       .get(queryParams)
       .map(response => {
-        let json = <Invoice[]>response.json();
+        let arrayData = <Invoice[]>response.json();
         let result = new Array<Invoice>();
-        json.forEach(element => {
-          let invoice = new Invoice();
-          invoice.restangular = restangular.one(invoiceBasePath, element[invoiceIdName]);
-          invoice = Object.assign(invoice, element);
-          result.push(invoice);
+        arrayData.forEach(element => {
+          let invoice = new Invoice(restangular.one(invoiceBasePath, element[invoiceIdName]));
+          result.push(Object.assign(invoice, element));
         });
         return result;
       });
@@ -118,22 +90,14 @@ export class InvoiceService {
         let items = new Array<Invoice>();
 
         json.items.forEach(element => {
-          let invoice = new Invoice();
-          invoice.restangular = restangular.one(invoiceBasePath, element[invoiceIdName]);
-          invoice = Object.assign(invoice, element);
-          items.push(invoice);
+          let invoice = new Invoice(restangular.one(invoiceBasePath, element[invoiceIdName]));
+          items.push(Object.assign(invoice, element));
         });
 
         result.items = items;
         result.totalSize = json.totalSize;
         return result;
       });
-  }
-
-  public getSendEvents(invoice: Invoice): Observable<any> {
-    return invoice.restangular.all('send-events').get().map(response => {
-      return response.json()
-    });
   }
 
 }

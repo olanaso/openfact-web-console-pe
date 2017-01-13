@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs/Rx';
 import { Subscription } from 'rxjs/Subscription';
 
 import { DataService } from '../../core/data/data.service';
@@ -17,8 +18,7 @@ export class InvoiceOverviewComponent implements OnInit, OnDestroy {
   private dataSubscription: Subscription;
 
   private invoice: Invoice;
-  private invoiceJson: Invoice;
-  private invoiceText: Invoice;
+  private invoiceJson: Observable<Invoice>;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -29,8 +29,9 @@ export class InvoiceOverviewComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.dataSubscription = this.activatedRoute.data.subscribe(data => {
       this.invoice = data["invoice"];
-      this.invoice = data["invoiceJson"];
-      this.invoice = data["invoiceText"];
+      this.invoice.getJsonRepresentation().subscribe(data => {
+        this.invoiceJson = data;
+      });
     });
   }
 

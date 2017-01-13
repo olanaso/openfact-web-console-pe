@@ -1,8 +1,9 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 import { FormBuilder, FormGroup, FormControl, FormArray, Validators } from "@angular/forms";
 import { Response, URLSearchParams } from '@angular/http';
 import { Observable } from "rxjs/Observable";
+import { Subscription } from 'rxjs/Subscription';
 
 import { NgbModal, ModalDismissReasons } from "@ng-bootstrap/ng-bootstrap";
 
@@ -23,7 +24,11 @@ const igv = 0.18;
   templateUrl: './create-credit-note-form.component.html',
   styleUrls: ['./create-credit-note-form.component.scss']
 })
-export class CreateCreditNoteFormComponent implements OnInit {
+export class CreateCreditNoteFormComponent implements OnInit, OnDestroy {
+
+  dataSubscription: Subscription;
+  paramsSubscription: Subscription;
+  formSubcriptions: Array<Subscription> = new Array<Subscription>();
 
   form: FormGroup;
   working: boolean = false;
@@ -92,11 +97,23 @@ export class CreateCreditNoteFormComponent implements OnInit {
     private modalService: NgbModal,
     private dataService: DataService,
     private alertService: AlertService) {
-    this.organization = this.activatedRoute.snapshot.data['organization'];
-    this.buildForm();
   }
 
   ngOnInit() {
+    this.buildForm();
+    this.dataSubscription = this.activatedRoute.data.subscribe(data => {
+      this.organization = data["organization"];
+    });
+    this.paramsSubscription = this.activatedRoute.params.subscribe(params => {
+      let invoiceDocumentId = params["invoice"];
+      this.findInvoiceByDocumentId(invoiceDocumentId);
+    });
+  }
+
+  ngOnDestroy() {
+    this.dataSubscription.unsubscribe();
+    this.paramsSubscription.unsubscribe();
+    this.formSubcriptions.forEach(subscription => subscription.unsubscribe());
   }
 
   buildForm(): void {
@@ -176,9 +193,10 @@ export class CreateCreditNoteFormComponent implements OnInit {
   addFormGlobalObservers() {
     let formControls = [this.igv, this.porcentajeDescuento, this.totalOtrosCargos];
     formControls.forEach(formControl => {
-      formControl.valueChanges.subscribe(formControlValue => {
+      let subscription = formControl.valueChanges.subscribe(formControlValue => {
         this.refreshFormValues();
       });
+      this.formSubcriptions.push(subscription);
     });
   }
 
@@ -294,32 +312,30 @@ export class CreateCreditNoteFormComponent implements OnInit {
     });
   }
 
-
-  findInvoice() {
-    if (this.documentoQueSeModifica.valid) {
-      let queryParam: URLSearchParams = new URLSearchParams();
-      queryParam.set("documentId", this.documentoQueSeModifica.value);
-      this.dataService.invoices().getAll(this.organization, queryParam).subscribe(
-        response => {
-          this.invoice = response[0];
-          if (this.invoice) {
-            this.form.patchValue({
-              entidadTipoDeDocumento: this.invoice["customerAdditionalAccountId"],
-              entidadNumeroDeDocumento: this.invoice["customerAssignedAccountId"],
-              entidadDenominacion: this.invoice["customerRegistrationName"],
-              entidadEmail: this.invoice["customerElectronicMail"],
-
-              moneda: this.invoice["documentCurrencyCode"]
-            });
-          } else {
-            this.alertService.pop("info", "Info", "Could not find Invoice.");
-          }
-        },
-        error => {
-          this.alertService.pop("error", "Error", "Could not find Invoice.");
-        }
-      );
+  findInvoiceByDocumentId(documentId: string) {
+    if (!documentId) {
+      documentId = this.documentoQueSeModifica.value;
     }
+
+    let queryParam: URLSearchParams = new URLSearchParams();
+    queryParam.set("documentId", documentId);
+    this.dataService.invoices().getAll(this.organization, queryParam).subscribe(response => {
+      this.invoice = response[0];
+      if (this.invoice) {
+        this.form.patchValue({
+          entidadTipoDeDocumento: this.invoice["customerAdditionalAccountId"],
+          entidadNumeroDeDocumento: this.invoice["customerAssignedAccountId"],
+          entidadDenominacion: this.invoice["customerRegistrationName"],
+          entidadEmail: this.invoice["customerElectronicMail"],
+
+          moneda: this.invoice["documentCurrencyCode"],
+
+          documentoQueSeModifica: this.invoice["documentId"]
+        });
+      } else {
+        this.alertService.pop("info", "Info", "Could not find Invoice.");
+      }
+    });
   }
 
   save(form: any): void {

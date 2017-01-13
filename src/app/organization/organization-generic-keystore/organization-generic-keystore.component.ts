@@ -45,11 +45,30 @@ export class OrganizationGenericKeystoreComponent implements OnInit, OnDestroy {
       this.serverinfo = data["serverinfo"];
       this.instance = data["instance"] || {};
       this.refreshValues();
-    });    
+      this.loadData();      
+    });
   }
 
   ngOnDestroy() {
     this.dataSubscription.unsubscribe();
+  }
+
+  buildForm(): void {
+    this.form = this.formBuilder.group({
+      name: [null, Validators.compose([Validators.required, Validators.maxLength(60)])],
+      parentId: [null, Validators.maxLength(250)],
+      providerId: [null, Validators.maxLength(250)],
+      providerType: [null, Validators.maxLength(250)]
+    });
+  }
+
+  loadData() {
+    this.form.patchValue({
+      name: this.instance.name,
+      parentId: this.instance.parentId,
+      providerId: this.instance.providerId,
+      providerType: this.instance.providerType
+    });
   }
 
   refreshValues() {
@@ -100,15 +119,6 @@ export class OrganizationGenericKeystoreComponent implements OnInit, OnDestroy {
     }
   }
 
-  buildForm(): void {
-    this.form = this.formBuilder.group({
-      name: [this.instance.name, Validators.compose([Validators.required, Validators.maxLength(60)])],
-      parentId: [this.instance.parentId, Validators.maxLength(250)],
-      providerId: [this.instance.providerId, Validators.maxLength(250)],
-      providerType: [this.instance.providerType, Validators.maxLength(250)]
-    });
-  }
-
   save(form, config) {
     this.working = true;
 
@@ -120,7 +130,6 @@ export class OrganizationGenericKeystoreComponent implements OnInit, OnDestroy {
         },
         error => {
           this.working = false;
-          this.alertService.pop('error', 'Error', 'Organization could not be created.');
         }
       );
     } else {
@@ -131,7 +140,6 @@ export class OrganizationGenericKeystoreComponent implements OnInit, OnDestroy {
         },
         error => {
           this.working = false;
-          this.alertService.pop('error', 'Error', 'Organization could not be created.');
         }
       );
     }

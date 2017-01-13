@@ -124,5 +124,11 @@
   "keys": "Keys",
   "email": "Email",
   "themes": "Themes",
-  "active": "Active"
+  "active": "Active",
+  "create-invoice": "Create Invoice",
+  "create-credit-note": "Create Credit Note",
+  "create-debit-note": "Create Debit Note",
+  "send-to-custom-third-party-by-email": "Send to third party by Email",
+  "send": "Send",
+  "read-more": "Read more..."
 }

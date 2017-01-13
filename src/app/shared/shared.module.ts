@@ -25,6 +25,8 @@ import { OnOffSwitchStringComponent } from './components/on-off-switch-string/on
 import { ViewXmlComponent } from './components/view-xml/view-xml.component';
 import { WizardComponent } from './components/wizard/wizard.component';
 import { WizardStepComponent } from './components/wizard/wizard-step.component';
+import { LimitedStringComponent } from './components/limited-string/limited-string.component';
+
 import {
   WizardCancelButtonDirective,
   WizardFinishButtonDirective,
@@ -42,6 +44,7 @@ import { FilterCollectionPipe } from './pipes/filter-collection.pipe';
 import { KeysPipe } from './pipes/keys.pipe';
 import { YesNoPipe } from './pipes/yes-no.pipe';
 import { TextEquivaletPipe } from './pipes/text-equivalet.pipe';
+import { ArrayPipe } from './pipes/array.pipe';
 
 @NgModule({
   imports: [
@@ -72,6 +75,7 @@ import { TextEquivaletPipe } from './pipes/text-equivalet.pipe';
     ViewXmlComponent,
     WizardComponent,
     WizardStepComponent,
+    LimitedStringComponent,
     WizardCancelButtonDirective,
     WizardFinishButtonDirective,
     WizardNextButtonDirective,
@@ -88,6 +92,8 @@ import { TextEquivaletPipe } from './pipes/text-equivalet.pipe';
     YesNoPipe,
     ReadFileComponent,
     TextEquivaletPipe,
+    ArrayPipe,
+    LimitedStringComponent,
   ],
   exports: [
     // Third modules
@@ -111,6 +117,7 @@ import { TextEquivaletPipe } from './pipes/text-equivalet.pipe';
     ViewXmlComponent,
     WizardComponent,
     WizardStepComponent,
+    LimitedStringComponent,
     WizardCancelButtonDirective,
     WizardFinishButtonDirective,
     WizardNextButtonDirective,
@@ -126,7 +133,8 @@ import { TextEquivaletPipe } from './pipes/text-equivalet.pipe';
     KeysPipe,
     YesNoPipe,
     ReadFileComponent,
-    TextEquivaletPipe
+    TextEquivaletPipe,
+    ArrayPipe
   ],
   providers: []
 })

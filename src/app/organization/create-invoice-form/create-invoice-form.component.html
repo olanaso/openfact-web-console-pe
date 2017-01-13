@@ -1,6 +1,6 @@
 <br>
 <form [formGroup]="form" (ngSubmit)="save(form.value)">
-  <p class="fields-status-pf">The fields marked with <span class="required-pf">*</span> are required.</p>
+  <p class="fields-status-pf">{{'fields-marked-with' | translate}} <span class="required-pf">*</span> {{'are-required' | translate}}.</p>
 
   <div>
     <div class="row">
@@ -190,7 +190,7 @@
               </div>
             </td>
             <td [ngClass]="{ 'has-error' : !lineFormGroup.get('cantidad').valid && lineFormGroup.get('cantidad').dirty }">
-              <input formControlName="cantidad" [ofNumberMask]="numberMask" type="text" class="form-control text-right" placeholder="0.00">
+              <input formControlName="cantidad" [ofNumberMask]="quantityMask" type="text" class="form-control text-right" placeholder="0.00">
               <div *ngIf="!lineFormGroup.get('cantidad').valid && lineFormGroup.get('cantidad').dirty">
                 <span *ngIf="lineFormGroup.get('cantidad').hasError('required')" class="help-block">This field is required</span>
                 <span *ngIf="!lineFormGroup.get('cantidad').hasError('required') && !lineFormGroup.get('cantidad').valid" class="help-block">Value field is invalid</span>

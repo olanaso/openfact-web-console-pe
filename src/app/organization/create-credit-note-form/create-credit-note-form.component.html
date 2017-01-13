@@ -10,9 +10,9 @@
             <i class="fa fa-question-circle text-muted" ngbTooltip="organization of the organization" placement="right"></i>
           </label>
           <div class="input-group">
-            <input type="text" formControlName="documentoQueSeModifica" [textMask]="{mask: documentMask}" (keyup.enter)="findInvoice()" class="form-control" placeholder="[B|F]000-0000000"
+            <input type="text" formControlName="documentoQueSeModifica" [textMask]="{mask: documentMask}" (keyup.enter)="findInvoiceByDocumentId()" class="form-control" placeholder="[B|F]000-0000000"
               autofocus>
-            <span class="input-group-btn"><button (click)="findInvoice()" class="btn btn-default" type="button"><span class="fa fa-search"></span></button>
+            <span class="input-group-btn"><button (click)="findInvoiceByDocumentId()" class="btn btn-default" type="button"><span class="fa fa-search"></span></button>
             </span>
           </div>
           <div *ngIf="!form.get('documentoQueSeModifica').valid && form.get('documentoQueSeModifica').dirty">
@@ -163,7 +163,7 @@
               </div>
             </td>
             <td [ngClass]="{ 'has-error' : !lineFormGroup.get('cantidad').valid && lineFormGroup.get('cantidad').dirty }">
-              <input formControlName="cantidad" [ofNumberMask]="numberMask" type="text" class="form-control text-right" placeholder="0.00">
+              <input formControlName="cantidad" [ofNumberMask]="quantityMask" type="text" class="form-control text-right" placeholder="0.00">
               <div *ngIf="!lineFormGroup.get('cantidad').valid && lineFormGroup.get('cantidad').dirty">
                 <span *ngIf="lineFormGroup.get('cantidad').hasError('required')" class="help-block">This field is required</span>
                 <span *ngIf="!lineFormGroup.get('cantidad').hasError('required') && !lineFormGroup.get('cantidad').valid" class="help-block">Value field is invalid</span>

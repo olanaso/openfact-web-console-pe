@@ -1,8 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import * as Collections from 'typescript-collections';
-
 import { Subscription } from 'rxjs/Subscription';
+import * as Collections from 'typescript-collections';
 
 import { DataService } from '../../core/data/data.service';
 import { AlertService } from '../../core/alert/alert.service';
@@ -69,12 +68,11 @@ export class InvoicesComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.loadSorter();
     this.dataSubscription = this.activatedRoute.data.subscribe(data => {
       this.organization = data["organization"];
       this.search();
     });
-
-    this.loadSorter();    
   }
 
   ngOnDestroy() {
@@ -242,15 +240,15 @@ export class InvoicesComponent implements OnInit, OnDestroy {
   }
 
   attachCreditNote(invoice: any) {
-    this.router.navigate(["../credit-notes", "create", { invoice: invoice.id }], { relativeTo: this.activatedRoute.parent });
+    this.router.navigate(["../credit-notes", "create", { invoice: invoice.documentId }], { relativeTo: this.activatedRoute.parent });
   }
 
   attachDebitNote(invoice: any) {
-    this.router.navigate(["../debit-notes", "create", { invoice: invoice.id }], { relativeTo: this.activatedRoute.parent });
+    this.router.navigate(["../debit-notes", "create", { invoice: invoice.documentId }], { relativeTo: this.activatedRoute.parent });
   }
 
   markAsVoided(invoice: any) {
-    this.router.navigate(["../voideds", "create", { invoice: invoice.id }], { relativeTo: this.activatedRoute.parent });
+    this.router.navigate(["../voideds", "create", { invoice: invoice.documentId }], { relativeTo: this.activatedRoute.parent });
   }
 
 }

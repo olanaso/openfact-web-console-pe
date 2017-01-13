@@ -10,9 +10,9 @@
             <i class="fa fa-question-circle text-muted" ngbTooltip="organization of the organization" placement="right"></i>
           </label>
           <div class="input-group">
-            <input type="text" formControlName="documentoQueSeModifica" [textMask]="{mask: documentMask}" (keyup.enter)="findInvoice()" class="form-control" placeholder="[B|F]000-0000000"
+            <input type="text" formControlName="documentoQueSeModifica" [textMask]="{mask: documentMask}" (keyup.enter)="findInvoiceByDocumentId()" class="form-control" placeholder="[B|F]000-0000000"
               autofocus>
-            <span class="input-group-btn"><button (click)="findInvoice()" class="btn btn-default" type="button"><span class="fa fa-search"></span></button>
+            <span class="input-group-btn"><button (click)="findInvoiceByDocumentId()" class="btn btn-default" type="button"><span class="fa fa-search"></span></button>
             </span>
           </div>
           <div *ngIf="!form.get('documentoQueSeModifica').valid && form.get('documentoQueSeModifica').dirty">

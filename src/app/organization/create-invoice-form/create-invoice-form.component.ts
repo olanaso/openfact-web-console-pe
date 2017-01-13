@@ -1,7 +1,8 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, FormControl, FormArray, Validators } from "@angular/forms";
 import { Observable } from "rxjs/Observable";
+import { Subscription } from 'rxjs/Subscription';
 
 import { NgbModal, ModalDismissReasons } from "@ng-bootstrap/ng-bootstrap";
 
@@ -21,13 +22,15 @@ const igv = 0.18;
   templateUrl: "./create-invoice-form.component.html",
   styleUrls: ["./create-invoice-form.component.scss"]
 })
-export class CreateInvoiceFormComponent implements OnInit {
+export class CreateInvoiceFormComponent implements OnInit, OnDestroy {
+
+  dataSubscription: Subscription;
+  formSubcriptions: Array<Subscription> = new Array<Subscription>();
 
   form: FormGroup;
   working: boolean = false;
 
   organization: Organization;
-
 
   tipoDocumento = [
     { denominacion: "BOLETA", valor: "03" },
@@ -87,11 +90,18 @@ export class CreateInvoiceFormComponent implements OnInit {
     private modalService: NgbModal,
     private dataService: DataService,
     private alertService: AlertService) {
-    this.organization = this.activatedRoute.snapshot.data['organization'];
-    this.buildForm();
   }
 
   ngOnInit() {
+    this.buildForm();
+    this.dataSubscription = this.activatedRoute.data.subscribe(data => {
+      this.organization = data["organization"];
+    });
+  }
+
+  ngOnDestroy() {
+    this.dataSubscription.unsubscribe();
+    this.formSubcriptions.forEach(subscription => subscription.unsubscribe());
   }
 
   buildForm(): void {
@@ -173,12 +183,14 @@ export class CreateInvoiceFormComponent implements OnInit {
   addFormGlobalObservers() {
     let formControls = [this.igv, this.operacionGratuita, this.porcentajeDescuento, this.totalOtrosCargos];
     formControls.forEach(formControl => {
-      formControl.valueChanges.subscribe(formControlValue => {
+      let subscription = formControl.valueChanges.subscribe(formControlValue => {
         this.refreshFormValues();
       });
+      this.formSubcriptions.push(subscription);
     });
 
-    this.moneda.valueChanges.subscribe(value => this.changeMoneda(value));
+    let subscription = this.moneda.valueChanges.subscribe(value => this.changeMoneda(value));
+    this.formSubcriptions.push(subscription);
   }
 
   // Se activa al cambiar de moneda
@@ -326,7 +338,7 @@ export class CreateInvoiceFormComponent implements OnInit {
         response => {
           this.working = false;
           this.alertService.pop("success", "Success", "Success! The invoice has been created.");
-          if (redirect) {            
+          if (redirect) {
             this.router.navigate(["../"], { relativeTo: this.activatedRoute.parent });
           } else {
             this.buildForm();

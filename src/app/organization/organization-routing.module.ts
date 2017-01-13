@@ -8,8 +8,6 @@ import { OrganizationKeysResolver } from '../core/resolvers/organization-keys-re
 import { OrganizationComponentResolver } from '../core/resolvers/organization-component-resolver';
 
 import { InvoiceResolver } from '../core/resolvers/invoice-resolver';
-import { InvoiceJsonResolver } from '../core/resolvers/invoice-json-resolver';
-import { InvoiceTextResolver } from '../core/resolvers/invoice-text-resolver';
 import { CreditNoteResolver } from '../core/resolvers/credit-note-resolver';
 import { DebitNoteResolver } from '../core/resolvers/debit-note-resolver';
 import { PerceptionResolver } from '../core/resolvers/perception-resolver';
@@ -153,17 +151,14 @@ import { EventsSettingsComponent } from './events-settings/events-settings.compo
                     path: '',
                     component: InvoiceOverviewComponent,
                     resolve: {
-                      organization: OrganizationResolver,
-                      invoice: InvoiceResolver,
-                      invoiceJson: InvoiceJsonResolver
+                      invoice: InvoiceResolver
                     }
                   },
                   {
                     path: 'send-events',
                     component: InvoiceSendEventsComponent,
-                    resolve: {
-                      organization: OrganizationResolver,
-                      invoice: InvoiceResolver
+                    resolve: {                      
+                      invoice: InvoiceResolver                      
                     }
                   },
                   {

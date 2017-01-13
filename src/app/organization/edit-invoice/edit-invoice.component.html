@@ -12,10 +12,19 @@
 						<of-relative-timestamp [timestamp]="invoice.issueDateTime">			
 						</of-relative-timestamp>
 					</small>
+
+					&nbsp;
+					<a href="javascript:void(0);" (click)="reloadInvoice()">
+						<i class="pficon pficon-restart"></i>
+					</a>
+
 					<div class="pull-right">
 						<div class="btn-group">
 							<button type="button" (click)="downloadXml()" class="btn btn-default">
 								<span class="fa fa-file-code-o"></span> Xml
+							</button>
+							<button type="button" (click)="downloadCdr()" class="btn btn-default">
+								<span class="fa fa-file-code-o"></span> Cdr
 							</button>
 							<button type="button" (click)="downloadPdf()" class="btn btn-default">
 								<span class="fa fa-file-pdf-o"></span> Pdf
@@ -46,12 +55,17 @@
 									<li class="divider"></li>
 									<li>
 										<a href="javascript:void(0);" (click)="sendToCustomer()">
-											<span class="fa fa-paper-plane"></span> {{'send-to-customer' | translate}}
+											<span class="fa fa-child"></span> {{'send-to-customer' | translate}}
 										</a>
 									</li>
 									<li>
 										<a href="javascript:void(0);" (click)="sendToThirdParty()">
-											<span class="fa fa-paper-plane"></span> {{'send-to-third-party' | translate}}
+											<span class="fa fa-server"></span> {{'send-to-third-party' | translate}}
+										</a>
+									</li>
+									<li>
+										<a href="javascript:void(0);" (click)="sendToCustomThridPartyByEmail(sendToThirdPartyTemplateContent)">
+											<span class="fa fa-share"></span> {{'send-to-custom-third-party-by-email' | translate}}
 										</a>
 									</li>
 								</ul>
@@ -74,8 +88,7 @@
 				<ul class="nav nav-tabs">
 					<li routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"><a routerLink="./">{{'overview' | translate}}</a></li>
 					<li routerLinkActive="active"><a routerLink="./send-events">{{'send-events' | translate}}</a></li>
-					<li routerLinkActive="active"><a routerLink="./attatched-documents">{{'attatched-documents' | translate}}</a></li>
-					<!--<li routerLinkActive="active"><a routerLink="./events">Events</a></li>-->
+					<li routerLinkActive="active"><a routerLink="./attatched-documents">{{'attatched-documents' | translate}}</a></li>					
 				</ul>
 				<div class="tab-pane">
 					<div>
@@ -146,3 +159,24 @@
   		</div>
 	</div>
 </div>
+
+<template #sendToThirdPartyTemplateContent let-c="close" let-d="dismiss">
+	<form #f="ngForm" (ngSubmit)="c(f)" novalidate>
+		<div class="modal-body" ngModelGroup="thirdPartyByEmail">
+			<h3>Email</h3>
+			<input 			
+				id="email"
+				name="email"
+				type="email"
+				#email="ngModel"
+				[(ngModel)]="thirdPartyByEmail.email"				
+				class="form-control"
+				pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
+				required>
+		</div>
+		<div class="modal-footer">
+			<button type="submit" class="btn btn-primary" [disabled]="!f.valid">{{'send' | translate}}</button>
+			<button type="button" class="btn btn-default" (click)="d('Cancel')">{{'cancel' | translate}}</button>
+		</div>
+	</form>
+</template>

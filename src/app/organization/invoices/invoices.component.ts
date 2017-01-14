@@ -1,6 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { URLSearchParams } from '@angular/http';
+import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import * as Collections from 'typescript-collections';
 
 import { DataService } from '../../core/data/data.service';
@@ -25,6 +28,8 @@ export class InvoicesComponent implements OnInit, OnDestroy {
 
   organization: Organization;
   searchResult: SearchResults<Invoice> = new SearchResults<Invoice>();
+
+  thirdPartyByEmail: any = {};
 
   filters = {
     filterText: undefined,
@@ -63,6 +68,7 @@ export class InvoicesComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
+    private modalService: NgbModal,
     private dataService: DataService,
     private alertService: AlertService) {
   }
@@ -215,39 +221,52 @@ export class InvoicesComponent implements OnInit, OnDestroy {
   }
 
 
-  downloadXml(invoice: any) {
+  downloadXml(invoice: Invoice) {
     invoice.downloadXml();
   }
 
-  downloadPdf(invoice: any) {
-    invoice.downloadPdf();
+  downloadCdr(invoice: Invoice) {
+    this.dataService.organizationPeru().downloadInvoiceCdr(this.organization.organization, invoice.id);
   }
 
-  sendToCustomer(invoice: any) {
-    invoice.sendToCustomer().subscribe(
-      result => {
-        this.alertService.pop('success', 'Success', 'Success! Invoice sended to customer.');
+  downloadPdf(invoice: Invoice) {
+    let queryParams: URLSearchParams = new URLSearchParams();
+    queryParams.set("format", "pdf");
+    invoice.downloadReport(queryParams);
+  }
+
+  sendToCustomer(invoice: Invoice) {
+    invoice.sendToCustomer().subscribe(result => {
+      this.alertService.pop('success', 'Success', 'Success! Invoice sended to customer.');
+    });
+  }
+
+  sendToThirdParty(invoice: Invoice) {
+    invoice.sendToThirdParty().subscribe(result => {
+      this.alertService.pop('success', 'Success', 'Success! Invoice sended to third party.');
+    });
+  }
+
+  sendToCustomThridPartyByEmail(invoice:Invoice, content: any) {
+    this.modalService.open(content).result.then((form: NgForm) => {
+      if (form.valid) {
+        invoice.sendToThirdPartyByEmail({ email: form.value.thirdPartyByEmail.email }).subscribe(data => {
+          this.alertService.pop('success', 'Success', 'Success! Invoice sended to third party.');
+        })
       }
-    );
+    }, (reason) => {
+    });
   }
 
-  sendToThirdParty(invoice: any) {
-    invoice.sendToThirdParty().subscribe(
-      result => {
-        this.alertService.pop('success', 'Success', 'Success! Invoice sended to third party.');
-      }
-    );
-  }
-
-  attachCreditNote(invoice: any) {
+  attachCreditNote(invoice: Invoice) {
     this.router.navigate(["../credit-notes", "create", { invoice: invoice.documentId }], { relativeTo: this.activatedRoute.parent });
   }
 
-  attachDebitNote(invoice: any) {
+  attachDebitNote(invoice: Invoice) {
     this.router.navigate(["../debit-notes", "create", { invoice: invoice.documentId }], { relativeTo: this.activatedRoute.parent });
   }
 
-  markAsVoided(invoice: any) {
+  markAsVoided(invoice: Invoice) {
     this.router.navigate(["../voideds", "create", { invoice: invoice.documentId }], { relativeTo: this.activatedRoute.parent });
   }
 

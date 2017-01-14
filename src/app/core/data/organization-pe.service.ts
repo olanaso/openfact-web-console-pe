@@ -90,4 +90,56 @@ export class OrganizationPeService {
       });
   }
 
+  public downloadCreditNoteCdr(organizationName: string, creditNoteId: string) {
+    let restangular = this.restangular
+      .one("organizations", organizationName)
+      .one("sunat/credit-notes", creditNoteId)
+      .all("cdr");
+
+    let url = restangular.path;
+
+    return restangular.http
+      .get(url, {
+        headers: new Headers(),
+        responseType: ResponseContentType.Blob
+      })
+      .map(response => {
+        let file = {
+          file: response.blob(),
+          fileName: 'file.xml'
+        };
+        return file;
+      }).subscribe(result => {
+        saveAs(result.file, result.fileName);
+      }, error => {
+        Observable.throw(error);
+      });
+  }
+
+  public downloadDebitNoteCdr(organizationName: string, debitNoteId: string) {
+    let restangular = this.restangular
+      .one("organizations", organizationName)
+      .one("sunat/debit-notes", debitNoteId)
+      .all("cdr");
+
+    let url = restangular.path;
+
+    return restangular.http
+      .get(url, {
+        headers: new Headers(),
+        responseType: ResponseContentType.Blob
+      })
+      .map(response => {
+        let file = {
+          file: response.blob(),
+          fileName: 'file.xml'
+        };
+        return file;
+      }).subscribe(result => {
+        saveAs(result.file, result.fileName);
+      }, error => {
+        Observable.throw(error);
+      });
+  }
+
 }

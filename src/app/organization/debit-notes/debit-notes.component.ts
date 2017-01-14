@@ -1,5 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { URLSearchParams } from '@angular/http';
+import { NgForm } from '@angular/forms';
+import { Subscription } from 'rxjs/Subscription';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import * as Collections from 'typescript-collections';
 
 import { DataService } from '../../core/data/data.service';
@@ -18,10 +22,14 @@ import { SearchCriteriaFilterOperator } from '../../core/models/search-criteria-
   templateUrl: './debit-notes.component.html',
   styleUrls: ['./debit-notes.component.scss']
 })
-export class DebitNotesComponent implements OnInit {
+export class DebitNotesComponent implements OnInit, OnDestroy {
+
+  dataSubscription: Subscription;
 
   organization: Organization;
   searchResult: SearchResults<DebitNote> = new SearchResults<DebitNote>();
+
+  thirdPartyByEmail: any = {};
 
   filters = {
     filterText: undefined,
@@ -47,20 +55,28 @@ export class DebitNotesComponent implements OnInit {
     ],
     orderBy: [
       { name: 'Issue Date', value: 'issueDateTime' },
-      { name: 'Type Code', value: 'invoiceTypeCode' }
+      //{ name: 'Type Code', value: 'InvoiceTypeCode' }
     ]
   };
 
   constructor(
+    private router: Router,
     private activatedRoute: ActivatedRoute,
+    private modalService: NgbModal,
     private dataService: DataService,
     private alertService: AlertService) {
-    this.organization = this.activatedRoute.snapshot.data['organization'];
-    this.loadSorter();
-    this.search();
   }
 
   ngOnInit() {
+    this.loadSorter();
+    this.dataSubscription = this.activatedRoute.data.subscribe(data => {
+      this.organization = data["organization"];
+      this.search();
+    });
+  }
+
+  ngOnDestroy() {
+    this.dataSubscription.unsubscribe();
   }
 
   loadSorter(): void {
@@ -171,12 +187,46 @@ export class DebitNotesComponent implements OnInit {
     criteria.paging = new Paging(this.paging.page, this.paging.size);
 
     //Send Request
-    this.dataService.debitnotes().search(this.organization, criteria).subscribe(
-      result => {
-        this.searchResult = result;
-      }, error => {
-        this.alertService.pop('error', 'Error', 'Error loading debit notes.');
-      });
+    this.dataService.debitnotes().search(this.organization, criteria).subscribe(result => {
+      this.searchResult = result;
+    });
+  }
+
+  downloadXml(debitNote: DebitNote) {
+    debitNote.downloadXml();
+  }
+
+  downloadCdr(debitNote: DebitNote) {
+    this.dataService.organizationPeru().downloadDebitNoteCdr(this.organization.organization, debitNote.id);
+  }
+
+  downloadPdf(debitNote: DebitNote) {
+    let queryParams: URLSearchParams = new URLSearchParams();
+    queryParams.set("format", "pdf");
+    debitNote.downloadReport(queryParams);
+  }
+
+  sendToCustomer(debitNote: DebitNote) {
+    debitNote.sendToCustomer().subscribe(result => {
+      this.alertService.pop('success', 'Success', 'Success! Debit Note sended to customer.');
+    });
+  }
+
+  sendToThirdParty(debitNote: DebitNote) {
+    debitNote.sendToThirdParty().subscribe(result => {
+      this.alertService.pop('success', 'Success', 'Success! Debit Note sended to third party.');
+    });
+  }
+
+  sendToCustomThridPartyByEmail(debitNote:DebitNote, content: any) {
+    this.modalService.open(content).result.then((form: NgForm) => {
+      if (form.valid) {
+        debitNote.sendToThirdPartyByEmail({ email: form.value.thirdPartyByEmail.email }).subscribe(data => {
+          this.alertService.pop('success', 'Success', 'Success! Debit Note sended to third party.');
+        })
+      }
+    }, (reason) => {
+    });
   }
 
 }

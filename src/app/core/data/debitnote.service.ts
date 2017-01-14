@@ -19,17 +19,19 @@ export class DebitnoteService {
 
   constructor() { }
 
+  public build(organization: Organization, id?: string): DebitNote {
+    return new DebitNote(organization.restangular.one(debitNoteBasePath, id)).setId(id);
+  }
+
   public findById(organization: Organization, id: string, queryParams?: URLSearchParams): Observable<DebitNote> {
     let restangular = organization.restangular;
     return restangular
       .one(debitNoteBasePath, id)
       .get(queryParams)
       .map(response => {
-        let json = <DebitNote>response.json();
-        let result = new DebitNote();
-        result.restangular = restangular.one(debitNoteBasePath, json[debitNoteIdName]);
-        result = Object.assign(result, json);
-        return result;
+        let data = <DebitNote>response.json();
+        let debitNote = new DebitNote(restangular.one(debitNoteBasePath, data[debitNoteIdName]));
+        return Object.assign(debitNote, data);
       });
   }
 
@@ -41,12 +43,11 @@ export class DebitnoteService {
       .map(response => {
         if (response.status === 201 || 204) {
           return undefined;
+        } else {
+          let data = <DebitNote>response.json();
+          let debitNote = new DebitNote(restangular.one(debitNoteBasePath, data[debitNoteIdName]));
+          return Object.assign(debitNote, data);
         }
-        let json = <DebitNote>response.json();
-        let result = new DebitNote();
-        result.restangular = restangular.one(debitNoteBasePath, json[debitNoteIdName]);
-        result = Object.assign(result, json);
-        return result;
       });
   }
 
@@ -65,13 +66,11 @@ export class DebitnoteService {
       .all(debitNoteBasePath)
       .get()
       .map(response => {
-        let json = <DebitNote[]>response.json();
+        let arrayData = <DebitNote[]>response.json();
         let result = new Array<DebitNote>();
-        json.forEach(element => {
-          let debitnote = new DebitNote();
-          debitnote.restangular = restangular.one(debitNoteBasePath, element[debitNoteIdName]);
-          debitnote = Object.assign(debitnote, element);
-          result.push(debitnote);
+        arrayData.forEach(element => {
+          let debitNote = new DebitNote(restangular.one(debitNoteBasePath, element[debitNoteIdName]));
+          result.push(Object.assign(debitNote, element));
         });
         return result;
       });
@@ -89,10 +88,8 @@ export class DebitnoteService {
         let items = new Array<DebitNote>();
 
         json.items.forEach(element => {
-          let debitnote = new DebitNote();
-          debitnote.restangular = restangular.one(debitNoteBasePath, element[debitNoteIdName]);
-          debitnote = Object.assign(debitnote, element);
-          items.push(debitnote);
+          let debitNote = new DebitNote(restangular.one(debitNoteBasePath, element[debitNoteIdName]));
+          items.push(Object.assign(debitNote, element));
         });
 
         result.items = items;

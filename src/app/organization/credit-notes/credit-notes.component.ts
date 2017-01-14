@@ -1,5 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { URLSearchParams } from '@angular/http';
+import { NgForm } from '@angular/forms';
+import { Subscription } from 'rxjs/Subscription';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import * as Collections from 'typescript-collections';
 
 import { DataService } from '../../core/data/data.service';
@@ -18,10 +22,14 @@ import { SearchCriteriaFilterOperator } from '../../core/models/search-criteria-
   templateUrl: './credit-notes.component.html',
   styleUrls: ['./credit-notes.component.scss']
 })
-export class CreditNotesComponent implements OnInit {
+export class CreditNotesComponent implements OnInit, OnDestroy {
+
+  dataSubscription: Subscription;
 
   organization: Organization;
   searchResult: SearchResults<CreditNote> = new SearchResults<CreditNote>();
+
+  thirdPartyByEmail: any = {};
 
   filters = {
     filterText: undefined,
@@ -47,20 +55,28 @@ export class CreditNotesComponent implements OnInit {
     ],
     orderBy: [
       { name: 'Issue Date', value: 'issueDateTime' },
-      { name: 'Type Code', value: 'invoiceTypeCode' }
+      //{ name: 'Type Code', value: 'invoiceTypeCode' }
     ]
   };
 
   constructor(
+    private router: Router,
     private activatedRoute: ActivatedRoute,
+    private modalService: NgbModal,
     private dataService: DataService,
     private alertService: AlertService) {
-    this.organization = this.activatedRoute.snapshot.data['organization'];
-    this.loadSorter();
-    this.search();
   }
 
   ngOnInit() {
+    this.loadSorter();
+    this.dataSubscription = this.activatedRoute.data.subscribe(data => {
+      this.organization = data["organization"];
+      this.search();
+    });
+  }
+
+  ngOnDestroy() {
+    this.dataSubscription.unsubscribe();
   }
 
   loadSorter(): void {
@@ -171,12 +187,46 @@ export class CreditNotesComponent implements OnInit {
     criteria.paging = new Paging(this.paging.page, this.paging.size);
 
     //Send Request
-    this.dataService.creditnotes().search(this.organization, criteria).subscribe(
-      result => {
-        this.searchResult = result;
-      }, error => {
-        this.alertService.pop('error', 'Error', 'Error loading credit notes.');
-      });
+    this.dataService.creditnotes().search(this.organization, criteria).subscribe(result => {
+      this.searchResult = result;
+    });
+  }
+
+  downloadXml(creditNote: CreditNote) {
+    creditNote.downloadXml();
+  }
+
+  downloadCdr(creditNote: CreditNote) {
+    this.dataService.organizationPeru().downloadCreditNoteCdr(this.organization.organization, creditNote.id);
+  }
+
+  downloadPdf(creditNote: CreditNote) {
+    let queryParams: URLSearchParams = new URLSearchParams();
+    queryParams.set("format", "pdf");
+    creditNote.downloadReport(queryParams);
+  }
+
+  sendToCustomer(creditNote: CreditNote) {
+    creditNote.sendToCustomer().subscribe(result => {
+      this.alertService.pop('success', 'Success', 'Success! Debit Note sended to customer.');
+    });
+  }
+
+  sendToThirdParty(creditNote: CreditNote) {
+    creditNote.sendToThirdParty().subscribe(result => {
+      this.alertService.pop('success', 'Success', 'Success! Debit Note sended to third party.');
+    });
+  }
+
+  sendToCustomThridPartyByEmail(creditNote:CreditNote, content: any) {
+    this.modalService.open(content).result.then((form: NgForm) => {
+      if (form.valid) {
+        creditNote.sendToThirdPartyByEmail({ email: form.value.thirdPartyByEmail.email }).subscribe(data => {
+          this.alertService.pop('success', 'Success', 'Success! Debit Note sended to third party.');
+        })
+      }
+    }, (reason) => {
+    });
   }
 
 }

@@ -19,17 +19,19 @@ export class CreditnoteService {
 
   constructor() { }
 
+  public build(organization: Organization, id?: string): CreditNote {
+    return new CreditNote(organization.restangular.one(creditNoteBasePath, id)).setId(id);
+  }
+
   public findById(organization: Organization, id: string, queryParams?: URLSearchParams): Observable<CreditNote> {
     let restangular = organization.restangular;
     return restangular
       .one(creditNoteBasePath, id)
       .get(queryParams)
       .map(response => {
-        let json = <CreditNote>response.json();
-        let result = new CreditNote();
-        result.restangular = restangular.one(creditNoteBasePath, json[creditNoteIdName]);
-        result = Object.assign(result, json);
-        return result;
+        let data = <CreditNote>response.json();
+        let creditNote = new CreditNote(restangular.one(creditNoteBasePath, data[creditNoteIdName]));
+        return Object.assign(creditNote, data);
       });
   }
 
@@ -41,12 +43,11 @@ export class CreditnoteService {
       .map(response => {
         if (response.status === 201 || 204) {
           return undefined;
+        } else {
+          let data = <CreditNote>response.json();
+          let creditNote = new CreditNote(restangular.one(creditNoteBasePath, data[creditNoteIdName]));
+          return Object.assign(creditNote, data);
         }
-        let json = <CreditNote>response.json();
-        let result = new CreditNote();
-        result.restangular = restangular.one(creditNoteBasePath, json[creditNoteIdName]);
-        result = Object.assign(result, json);
-        return result;
       });
   }
 
@@ -65,13 +66,11 @@ export class CreditnoteService {
       .all(creditNoteBasePath)
       .get()
       .map(response => {
-        let json = <CreditNote[]>response.json();
+        let arrayData = <CreditNote[]>response.json();
         let result = new Array<CreditNote>();
-        json.forEach(element => {
-          let creditnote = new CreditNote();
-          creditnote.restangular = restangular.one(creditNoteBasePath, element[creditNoteIdName]);
-          creditnote = Object.assign(creditnote, element);
-          result.push(creditnote);
+        arrayData.forEach(element => {
+          let creditNote = new CreditNote(restangular.one(creditNoteBasePath, element[creditNoteIdName]));
+          result.push(Object.assign(creditNote, element));
         });
         return result;
       });
@@ -89,10 +88,8 @@ export class CreditnoteService {
         let items = new Array<CreditNote>();
 
         json.items.forEach(element => {
-          let creditnote = new CreditNote();
-          creditnote.restangular = restangular.one(creditNoteBasePath, element[creditNoteIdName]);
-          creditnote = Object.assign(creditnote, element);
-          items.push(creditnote);
+          let creditNote = new CreditNote(restangular.one(creditNoteBasePath, element[creditNoteIdName]));
+          items.push(Object.assign(creditNote, element));
         });
 
         result.items = items;

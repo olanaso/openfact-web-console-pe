@@ -1,12 +1,37 @@
 import { Model } from './model';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
-import { Headers, ResponseContentType } from '@angular/http';
-
+import { Response, Headers, ResponseContentType, URLSearchParams } from '@angular/http';
+import { Restangular } from '../data/restangular';
 import { saveAs } from 'file-saver';
 
 export class CreditNote extends Model {
-    id: String;
+
+    id: string;
+    documentId: string;
+
+    constructor(restangular: Restangular) {
+        super();
+        this.restangular = restangular;
+    }
+
+    public getJsonRepresentation(): Observable<any> {
+        return this.restangular
+            .all("representation/json")
+            .get()
+            .map(response => response.json());
+    }
+
+    reload() {
+        return this.restangular.get()
+            .map(response => Object.assign(new CreditNote(this.restangular), <CreditNote>response.json()));
+    }
+
+    getSendEvents(queryParams?: URLSearchParams): Observable<any> {
+        return this.restangular.all('send-events')
+            .get(queryParams)
+            .map(response => response.json());
+    }
 
     downloadXml() {
         let restangular = this.restangular.all("representation/xml");
@@ -30,19 +55,25 @@ export class CreditNote extends Model {
             });
     }
 
-    downloadPdf() {
-        let restangular = this.restangular.all("representation/pdf");
+    downloadReport(queryParams?: URLSearchParams) {
+        let restangular = this.restangular.all("report");
         let url = restangular.path;
 
         return restangular.http
             .get(url, {
                 headers: new Headers(),
-                responseType: ResponseContentType.Blob
+                responseType: ResponseContentType.Blob,
+                search: queryParams
             })
             .map(response => {
+                let fileExtension: string = "";
+                if (queryParams.get("format")) {
+                    fileExtension = "." + queryParams.get("format");
+                }
+
                 let file = {
                     file: response.blob(),
-                    fileName: (this['documentId'] || 'file') + '.pdf'
+                    fileName: (this['documentId'] || 'file') + fileExtension
                 };
                 return file;
             }).subscribe(result => {
@@ -58,5 +89,20 @@ export class CreditNote extends Model {
 
     sendToThirdParty() {
         return this.restangular.all("send-to-third-party").post();
-    } 
+    }
+
+    sendToThirdPartyByEmail(obj: any) {
+        return this.restangular.all("send-to-third-party-by-email").post(obj);
+    }
+
+    setId(id: string): CreditNote {
+        this.id = id;
+        return this;
+    }
+
+    setDocumentId(documentId: string): CreditNote {
+        this.documentId = documentId;
+        return this;
+    }
+
 }

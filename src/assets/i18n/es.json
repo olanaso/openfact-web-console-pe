@@ -44,6 +44,8 @@
   "welcome-to": "Bienvenido a",
   "welcome-message": "Openfact es un software empresarial desarrollador para administrar todos sus documentos xml UBL 2.1 como invoices, credit notes, debit notes, etc. Tambien puedes crear tus propios documentos dependiendo de tu localizacion.",
   "new-invoice": "Nueva Boleta/Factura",
+  "new-credit-note": "Nueva Nota de Credito",
+  "new-debit-note": "Nueva Nota de Debito",
   "search-results": "Resultados de Busqueda",
   "issue-date": "Fecha de Emision",
   "issue-time": "Hora de Emision",

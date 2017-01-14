@@ -16,7 +16,7 @@ export class Invoice extends Model {
         this.restangular = restangular;
     }
 
-    public getJsonRepresentation(): Observable<any> {
+    getJsonRepresentation(): Observable<any> {
         return this.restangular
             .all("representation/json")
             .get()

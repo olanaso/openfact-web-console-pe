@@ -32,8 +32,6 @@ export class EditCreditNoteComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.dataSubscription = this.activatedRoute.data.subscribe(data => {
-     console.log(data);
-     
       this.organization = data["organization"];
       this.creditNote = data["creditNote"];
     });

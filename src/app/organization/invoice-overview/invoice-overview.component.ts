@@ -18,7 +18,7 @@ export class InvoiceOverviewComponent implements OnInit, OnDestroy {
   private dataSubscription: Subscription;
 
   private invoice: Invoice;
-  private invoiceJson: Observable<Invoice>;
+  private invoiceJson: Observable<any>;
 
   constructor(
     private activatedRoute: ActivatedRoute,

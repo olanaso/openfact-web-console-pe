@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs/Rx';
+import { Subscription } from 'rxjs/Subscription';
 
 import { DataService } from '../../core/data/data.service';
 import { AlertService } from '../../core/alert/alert.service';
@@ -13,14 +15,28 @@ import { CreditNote } from '../../core/models/credit-note.model';
 })
 export class CreditNoteOverviewComponent implements OnInit {
 
-  private creditNote: CreditNote;
+  private dataSubscription: Subscription;
 
-  constructor(private activatedRoute: ActivatedRoute,
-    private dataService: DataService, private alertService: AlertService) {
-    this.creditNote = this.activatedRoute.parent.snapshot.data['creditNote'];
+  private creditNote: CreditNote;
+  private creditNoteJson: Observable<any>;
+
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private dataService: DataService,
+    private alertService: AlertService) {
   }
 
   ngOnInit() {
+    this.dataSubscription = this.activatedRoute.data.subscribe(data => {
+      this.creditNote = data["creditNote"];
+      this.creditNote.getJsonRepresentation().subscribe(data => {
+        this.creditNoteJson = data;
+      });
+    });
+  }
+
+  ngOnDestroy() {
+    this.dataSubscription.unsubscribe();
   }
 
 }

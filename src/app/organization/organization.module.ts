@@ -49,6 +49,8 @@ import { CreateCreditNoteFormConfirmModalComponent } from './create-credit-note-
 import { CreateCreditNoteUploadComponent } from './create-credit-note-upload/create-credit-note-upload.component';
 import { EditCreditNoteComponent } from './edit-credit-note/edit-credit-note.component';
 import { CreditNoteOverviewComponent } from './credit-note-overview/credit-note-overview.component';
+import { CreditNoteSendEventsComponent } from './credit-note-send-events/credit-note-send-events.component';
+import { CreditNoteAttatchedDocumentsComponent } from './credit-note-attatched-documents/credit-note-attatched-documents.component';
 
 import { DebitNotesComponent } from './debit-notes/debit-notes.component';
 import { CreateDebitNoteComponent } from './create-debit-note/create-debit-note.component';
@@ -57,6 +59,8 @@ import { CreateDebitNoteFormConfirmModalComponent } from './create-debit-note-fo
 import { CreateDebitNoteUploadComponent } from './create-debit-note-upload/create-debit-note-upload.component';
 import { EditDebitNoteComponent } from './edit-debit-note/edit-debit-note.component';
 import { DebitNoteOverviewComponent } from './debit-note-overview/debit-note-overview.component';
+import { DebitNoteSendEventsComponent } from './debit-note-send-events/debit-note-send-events.component';
+import { DebitNoteAttatchedDocumentsComponent } from './debit-note-attatched-documents/debit-note-attatched-documents.component';
 
 import { PerceptionsComponent } from './perceptions/perceptions.component';
 import { CreatePerceptionComponent } from './create-perception/create-perception.component';
@@ -144,6 +148,8 @@ import { EventsSettingsComponent } from './events-settings/events-settings.compo
     CreateCreditNoteUploadComponent,
     EditCreditNoteComponent,
     CreditNoteOverviewComponent,
+    CreditNoteSendEventsComponent,
+    CreditNoteAttatchedDocumentsComponent,
 
     DebitNotesComponent,
     CreateDebitNoteComponent,
@@ -152,6 +158,8 @@ import { EventsSettingsComponent } from './events-settings/events-settings.compo
     CreateDebitNoteUploadComponent,
     EditDebitNoteComponent,
     DebitNoteOverviewComponent,
+    DebitNoteSendEventsComponent,
+    DebitNoteAttatchedDocumentsComponent,
 
     PerceptionsComponent,
     CreatePerceptionComponent,
@@ -189,6 +197,10 @@ import { EventsSettingsComponent } from './events-settings/events-settings.compo
     InvoiceAttatchedDocumentsComponent,
     OrganizationTasksComponent,
     OrganizationThemesComponent,
+    CreditNoteSendEventsComponent,
+    CreditNoteAttatchedDocumentsComponent,
+    DebitNoteAttatchedDocumentsComponent,
+    DebitNoteSendEventsComponent,
   ],
   entryComponents: [
     CreateInvoiceFormConfirmModalComponent,

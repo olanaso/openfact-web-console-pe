@@ -33,7 +33,7 @@
             <i class="fa fa-question-circle text-muted" ngbTooltip="Customer Document number of the organization"
                placement="right"></i>
           </label>
-          <input formControlName="entidadNumeroDeDocumento" type="text" class="form-control">
+          <input formControlName="entidadNumeroDeDocumento" type="text" class="form-control" minlength="{{LENGTH}}" maxlength="{{LENGTH}}">
           <div *ngIf="!form.get('entidadNumeroDeDocumento').valid && form.get('entidadNumeroDeDocumento').dirty">
             <span *ngIf="form.get('entidadNumeroDeDocumento').hasError('required')" class="help-block">This field is required</span>
             <span *ngIf="form.get('entidadNumeroDeDocumento').hasError('maxlength')" class="help-block">Max length allowed: {{form.get('entidadNumeroDeDocumento').errors.maxlength.requiredLength}}</span>

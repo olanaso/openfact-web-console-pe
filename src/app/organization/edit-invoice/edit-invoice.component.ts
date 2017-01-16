@@ -98,7 +98,9 @@ export class EditInvoiceComponent implements OnInit, OnDestroy {
   }
 
   viewAttatchedDocument(attatchedDocument) {
-    if (attatchedDocument.documentType == "CREDIT_NOTE") {
+    if (attatchedDocument.documentType == "INVOICE") {
+      this.router.navigate(['../../invoices', attatchedDocument.documentId], { relativeTo: this.activatedRoute });
+    } else if (attatchedDocument.documentType == "CREDIT_NOTE") {
       this.router.navigate(['../../credit-notes', attatchedDocument.documentId], { relativeTo: this.activatedRoute });
     } else if (attatchedDocument.documentType == "DEBIT_NOTE") {
       this.router.navigate(['../../debit-notes', attatchedDocument.documentId], { relativeTo: this.activatedRoute });

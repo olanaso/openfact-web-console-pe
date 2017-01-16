@@ -15,7 +15,7 @@
       <td class="text-center" width="10"></td>
       <td class="text-right" width="10">#</td>
       <td class="text-right" width="100">{{'date' | translate}}</td>
-      <td width="100">{{'result' | translate}}</td>
+      <td width="120">{{'result' | translate}}</td>
       <td>{{'description' | translate}}</td>
     </tr>
   </thead>
@@ -32,11 +32,11 @@
         </td>
         <td class="text-right">{{event.createdTimestamp | date}}</td>
         <td>
-          <span *ngIf="event.result == 'SUCCESS' || 'ERROR'">
+          <span *ngIf="event.result == 'SUCCESS' || event.result == 'ERROR'">
                 <i *ngIf="event.result == 'SUCCESS'" class="pficon pficon-ok"></i>
                 <i *ngIf="event.result == 'ERROR'" class="pficon pficon-warning-triangle-o"></i>                               
                 {{event.result}}
-              </span>
+          </span>
           <div *ngIf="event.result == 'ON_PROCESS'">
             <div class="spinner spinner-xs spinner-inline"></div>
             {{event.result}}

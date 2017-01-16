@@ -84,4 +84,20 @@ export class EditCreditNoteComponent implements OnInit, OnDestroy {
     });
   }
 
+  viewAttatchedDocument(attatchedDocument) {
+    if (attatchedDocument.documentType == "INVOICE") {
+      this.router.navigate(['../../invoices', attatchedDocument.documentId], { relativeTo: this.activatedRoute });
+    } else if (attatchedDocument.documentType == "CREDIT_NOTE") {
+      this.router.navigate(['../../credit-notes', attatchedDocument.documentId], { relativeTo: this.activatedRoute });
+    } else if (attatchedDocument.documentType == "DEBIT_NOTE") {
+      this.router.navigate(['../../debit-notes', attatchedDocument.documentId], { relativeTo: this.activatedRoute });
+    } else if (attatchedDocument.documentType == "PERCEPTION") {
+      this.router.navigate(['../../perceptions', attatchedDocument.documentId], { relativeTo: this.activatedRoute });
+    } else if (attatchedDocument.documentType == "RETENTIONS") {
+      this.router.navigate(['../../retentions', attatchedDocument.documentId], { relativeTo: this.activatedRoute });
+    } else if (attatchedDocument.documentType == "VOIDED") {
+      this.router.navigate(['../../voideds', attatchedDocument.documentId], { relativeTo: this.activatedRoute });
+    }
+  }
+
 }

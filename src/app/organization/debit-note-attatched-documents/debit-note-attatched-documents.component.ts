@@ -1,15 +1,47 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
-  selector: 'app-debit-note-attatched-documents',
+  selector: 'of-debit-note-attatched-documents',
   templateUrl: './debit-note-attatched-documents.component.html',
   styleUrls: ['./debit-note-attatched-documents.component.scss']
 })
-export class DebitNoteAttatchedDocumentsComponent implements OnInit {
+export class DebitNoteAttatchedDocumentsComponent implements OnInit, OnDestroy {
 
-  constructor() { }
+  private dataSubscription: Subscription;
+
+  private debitNote: any;
+
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private router: Router, ) {
+  }
 
   ngOnInit() {
+    this.dataSubscription = this.activatedRoute.data.subscribe(data => {
+      this.debitNote = data["debitNote"];
+    });
+  }
+
+  ngOnDestroy() {
+    this.dataSubscription.unsubscribe();
+  }
+
+  viewAttatchedDocument(attatchedDocument) {
+    if (attatchedDocument.documentType == "INVOICE") {
+      this.router.navigate(['../../../invoices', attatchedDocument.documentId], { relativeTo: this.activatedRoute });
+    } else if (attatchedDocument.documentType == "CREDIT_NOTE") {
+      this.router.navigate(['../../../credit-notes', attatchedDocument.documentId], { relativeTo: this.activatedRoute });
+    } else if (attatchedDocument.documentType == "DEBIT_NOTE") {
+      this.router.navigate(['../../../debit-notes', attatchedDocument.documentId], { relativeTo: this.activatedRoute });
+    } else if (attatchedDocument.documentType == "PERCEPTION") {
+      this.router.navigate(['../../../perceptions', attatchedDocument.documentId], { relativeTo: this.activatedRoute });
+    } else if (attatchedDocument.documentType == "RETENTIONS") {
+      this.router.navigate(['../../../retentions', attatchedDocument.documentId], { relativeTo: this.activatedRoute });
+    } else if (attatchedDocument.documentType == "VOIDED") {
+      this.router.navigate(['../../../voideds', attatchedDocument.documentId], { relativeTo: this.activatedRoute });
+    }
   }
 
 }

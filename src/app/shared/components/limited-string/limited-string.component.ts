@@ -18,6 +18,7 @@ export class LimitedStringComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    if (!this.value) this.value = "";
     this.currentMaxlength = this.maxlength;
   }
 

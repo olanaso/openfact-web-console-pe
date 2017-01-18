@@ -15,8 +15,9 @@
   "name": "Nombre",
   "description": "Descripcion",
   "select-file": "Seleccionar Archivo",
-  "save": "Guardar",
+  "save": "Guardar",  
   "saving": "Guardando...",
+  "delete": "Eliminar",
   "cancel": "Cancelar",
   "filter-by": "Filtrar por",
   "filters": "Filtros",
@@ -106,7 +107,7 @@
   "additional-info": "Informacion Adicional",
   "view-details": "Ver detalle",
   "view": "Ver",
-  "are-you-sure-to-delete": "Estas seguro de querer eliminar la",
+  "are-you-sure-to-delete": "Estas seguro de querer eliminar el/la",
   "make-sure-message": "Asegurate de estar seguro de querer hacer esto!",
   "type-name-of": "Escribe el nombre de la",
   "to-confirm": "para confirmar",
@@ -135,5 +136,6 @@
   "create-debit-note": "Crear Nota de Debito",
   "send-to-custom-third-party-by-email": "Enviar a tercero por Email",
   "send": "Enviar",
-  "read-more": "Leer mas..."
+  "read-more": "Leer mas...",
+  "download": "Descargar"
 }

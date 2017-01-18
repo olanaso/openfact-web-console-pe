@@ -26,6 +26,7 @@ import { ViewXmlComponent } from './components/view-xml/view-xml.component';
 import { WizardComponent } from './components/wizard/wizard.component';
 import { WizardStepComponent } from './components/wizard/wizard-step.component';
 import { LimitedStringComponent } from './components/limited-string/limited-string.component';
+import { DialogComponent } from './components/dialog/dialog.component';
 
 import {
   WizardCancelButtonDirective,
@@ -45,6 +46,9 @@ import { KeysPipe } from './pipes/keys.pipe';
 import { YesNoPipe } from './pipes/yes-no.pipe';
 import { TextEquivaletPipe } from './pipes/text-equivalet.pipe';
 import { ArrayPipe } from './pipes/array.pipe';
+
+// Services
+import { DialogService } from './components/dialog/dialog.service';
 
 @NgModule({
   imports: [
@@ -81,6 +85,7 @@ import { ArrayPipe } from './pipes/array.pipe';
     WizardNextButtonDirective,
     WizardPreviousButtonDirective,
     WizardResetButtonDirective,
+    DialogComponent,
 
     // Directives
     NumberMaskDirective,
@@ -136,6 +141,11 @@ import { ArrayPipe } from './pipes/array.pipe';
     TextEquivaletPipe,
     ArrayPipe
   ],
-  providers: []
+  providers: [
+    DialogService
+  ],
+  entryComponents: [
+    DialogComponent
+  ],
 })
 export class SharedModule { }

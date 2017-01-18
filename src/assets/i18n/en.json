@@ -15,8 +15,9 @@
   "name": "Name",
   "description": "Description",
   "select-file": "Select File",
-  "save": "Save",
+  "save": "Save",  
   "saving": "Saving...",
+  "delete": "Delete",
   "cancel": "Cancel",
   "filter-by": "Filter by",
   "filters": "Filters",
@@ -135,5 +136,6 @@
   "create-debit-note": "Create Debit Note",
   "send-to-custom-third-party-by-email": "Send to third party by Email",
   "send": "Send",
-  "read-more": "Read more..."
+  "read-more": "Read more...",
+  "download": "Download"
 }

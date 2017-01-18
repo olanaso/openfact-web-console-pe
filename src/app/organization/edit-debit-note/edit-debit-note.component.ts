@@ -10,6 +10,8 @@ import { AlertService } from '../../core/alert/alert.service';
 import { Organization } from '../../core/models/organization.model';
 import { DebitNote } from '../../core/models/debit-note.model';
 
+import { DialogService } from '../../shared/components/dialog/dialog.service';
+
 @Component({
   selector: 'of-edit-debit-note',
   templateUrl: './edit-debit-note.component.html',
@@ -28,7 +30,8 @@ export class EditDebitNoteComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private modalService: NgbModal,
     private dataService: DataService,
-    private alertService: AlertService) {
+    private alertService: AlertService,
+    private dialog: DialogService) {
   }
 
   ngOnInit() {
@@ -82,6 +85,15 @@ export class EditDebitNoteComponent implements OnInit, OnDestroy {
         })
       }
     }, (reason) => {
+    });
+  }
+
+  delete() {
+    this.dialog.confirmDelete(this.debitNote.documentId, "Debit Note").result.then((result) => {
+      this.debitNote.delete().subscribe((data) => {
+        this.alertService.pop('success', 'Success', 'Success! Debit Note deleted successfully.');
+        this.router.navigate(["../debit-notes"], { relativeTo: this.activatedRoute.parent });
+      })
     });
   }
 

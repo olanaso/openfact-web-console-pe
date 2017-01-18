@@ -10,6 +10,8 @@ import { AlertService } from '../../core/alert/alert.service';
 import { Organization } from '../../core/models/organization.model';
 import { Invoice } from '../../core/models/invoice.model';
 
+import { DialogService } from '../../shared/components/dialog/dialog.service';
+
 @Component({
   selector: 'of-edit-invoice',
   templateUrl: './edit-invoice.component.html',
@@ -28,7 +30,8 @@ export class EditInvoiceComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private modalService: NgbModal,
     private dataService: DataService,
-    private alertService: AlertService) {
+    private alertService: AlertService,
+    private dialog: DialogService) {
   }
 
   ngOnInit() {
@@ -93,8 +96,17 @@ export class EditInvoiceComponent implements OnInit, OnDestroy {
     this.router.navigate(["../debit-notes", "create", { invoice: this.invoice.documentId }], { relativeTo: this.activatedRoute.parent });
   }
 
-  maskAsVoided(invoice: any) {
+  maskAsVoided() {
     this.router.navigate(["../voideds", "create", { invoice: this.invoice.documentId }], { relativeTo: this.activatedRoute.parent });
+  }
+
+  delete() {
+    this.dialog.confirmDelete(this.invoice.documentId, "Invoice").result.then((result) => {
+      this.invoice.delete().subscribe((data) => {
+        this.alertService.pop('success', 'Success', 'Success! Invoice deleted successfully.');
+        this.router.navigate(["../invoices"], { relativeTo: this.activatedRoute.parent });
+      })
+    });
   }
 
   viewAttatchedDocument(attatchedDocument) {

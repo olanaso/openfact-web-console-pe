@@ -20,20 +20,37 @@
 
 					<div class="pull-right">
 						<div class="btn-group">
-							<button type="button" (click)="downloadXml()" class="btn btn-default">
-								<span class="fa fa-file-code-o"></span> Xml
-							</button>
-							<button type="button" (click)="downloadCdr()" class="btn btn-default">
-								<span class="fa fa-file-code-o"></span> Cdr
-							</button>
-							<button type="button" (click)="downloadPdf()" class="btn btn-default">
-								<span class="fa fa-file-pdf-o"></span> Pdf
+							<button class="btn btn-default" (click)="delete()">
+								<span class="pficon pficon-delete"></span> {{'delete' | translate}}
 							</button>
 						</div>
 						<div class="btn-group">
-							<button type="button" (click)="maskAsVoided()" class="btn btn-default">
-								<span class="fa fa-thumbs-down"></span> {{'voided' | translate}}
-							</button>
+							<div class="btn-group" ngbDropdown>
+								<button type="button" class="btn btn-default">
+									<span class="fa fa-download"></span> {{'download' | translate}}
+								</button>
+								<button class="btn btn-default" ngbDropdownToggle>
+									<span class="caret"></span><span class="sr-only">{{'download' | translate}}</span>
+								</button>
+								<ul class="dropdown-menu" aria-labelledby="dropdownMenu2" style="right: 0; left: auto;">
+									<li>
+										<a href="javascript:void(0);" (click)="downloadXml()">
+											<span class="fa fa-file-code-o"></span> Xml
+										</a>
+									</li>
+									<li>
+										<a href="javascript:void(0);" (click)="downloadCdr()">
+											<span class="fa fa-file-code-o"></span> Cdr
+										</a>
+									</li>
+									<li class="divider"></li>
+									<li>
+										<a href="javascript:void(0);" (click)="downloadPdf()">
+											<span class="fa fa-file-pdf-o"></span> Pdf
+										</a>
+									</li>
+								</ul>
+							</div>
 						</div>
 						<div class="btn-group">
 							<div class="btn-group" ngbDropdown>

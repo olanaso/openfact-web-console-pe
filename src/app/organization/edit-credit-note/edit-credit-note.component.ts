@@ -10,6 +10,8 @@ import { AlertService } from '../../core/alert/alert.service';
 import { Organization } from '../../core/models/organization.model';
 import { CreditNote } from '../../core/models/credit-note.model';
 
+import { DialogService } from '../../shared/components/dialog/dialog.service';
+
 @Component({
   selector: 'of-edit-credit-note',
   templateUrl: './edit-credit-note.component.html',
@@ -27,7 +29,8 @@ export class EditCreditNoteComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private modalService: NgbModal,
     private dataService: DataService,
-    private alertService: AlertService) {
+    private alertService: AlertService,
+    private dialog: DialogService) {
   }
 
   ngOnInit() {
@@ -81,6 +84,15 @@ export class EditCreditNoteComponent implements OnInit, OnDestroy {
         })
       }
     }, (reason) => {
+    });
+  }
+
+  delete() {
+    this.dialog.confirmDelete(this.creditNote.documentId, "Credit Note").result.then((result) => {
+      this.creditNote.delete().subscribe((data) => {
+        this.alertService.pop('success', 'Success', 'Success! Credit Note deleted successfully.');
+        this.router.navigate(["../credit-notes"], { relativeTo: this.activatedRoute.parent });
+      })
     });
   }
 

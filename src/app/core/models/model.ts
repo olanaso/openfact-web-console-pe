@@ -16,4 +16,8 @@ export abstract class Model {
     }
   }
 
+  delete() {
+    return this.restangular.delete();
+  }
+
 }

@@ -30,6 +30,7 @@ export class CreateRetentionFormComponent implements OnInit {
   working: boolean = false;
   organization: Organization;
   CURRENNCY: string = "PEN";
+  LENGTH: number = 0;
   invoice: Invoice;
   /*ini genericos*/
   tipoDocumento: any;
@@ -80,6 +81,7 @@ export class CreateRetentionFormComponent implements OnInit {
         this.form.patchValue({
           entidadTipoDeDocumento: this.tipoDocumentoEntidad[0].codigo
         });
+        this.LENGTH=this.tipoDocumentoEntidad[0].length;
       }, error => {
         this.alertService.pop('error', 'Error', 'Error loading document type.');
       });
@@ -107,7 +109,7 @@ export class CreateRetentionFormComponent implements OnInit {
   buildForm(): void {
     this.form = this.formBuilder.group({
       entidadTipoDeDocumento: [null, Validators.compose([Validators.required])],
-      entidadNumeroDeDocumento: [null, Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(20), Validators.pattern('[0-9]{1,20}')])],
+      entidadNumeroDeDocumento: [null, Validators.compose([Validators.required, Validators.pattern('[0-9]{1,20}')])],
       entidadDenominacion: [null, Validators.compose([Validators.required, Validators.maxLength(150)])],
       entidadDireccion: [null, Validators.compose([Validators.maxLength(150)])],
       entidadEmail: [null, Validators.compose([Validators.maxLength(150)])],
@@ -131,7 +133,7 @@ export class CreateRetentionFormComponent implements OnInit {
 
   // Observers
   addFormGlobalObservers() {
-    let formControls = [this.monedaDocumento, this.codigoDocumento];
+    let formControls = [this.monedaDocumento, this.codigoDocumento, this.entidadTipoDeDocumento];
     formControls.forEach(formControl => {
       formControl.valueChanges.subscribe(formControlValue => {
         this.refreshFormValues();
@@ -178,7 +180,10 @@ export class CreateRetentionFormComponent implements OnInit {
   }
 
   refreshFormValues(): void {
-    // Igv valor numerico
+   let tipoDocumentoEntidad =this.tipoDocumentoEntidad.filter(documento => documento.codigo === this.entidadTipoDeDocumento.value);
+    if (!tipoDocumentoEntidad)return;
+    this.LENGTH=tipoDocumentoEntidad[0].length;
+
     let codigoDocumento = this.codigoDocumento.valid ? this.codigoDocumento.value : undefined;
     if (!codigoDocumento) return;
     let monedaDocumento = this.monedaDocumento.valid ? this.monedaDocumento.value : undefined;
@@ -299,6 +304,10 @@ export class CreateRetentionFormComponent implements OnInit {
 
   get tasaDocumento(): FormControl {
     return this.form.get("tasaDocumento") as FormControl;
+  }
+
+  get entidadTipoDeDocumento(): FormControl {
+    return this.form.get("entidadTipoDeDocumento") as FormControl;
   }
 
   get codigoDocumento(): FormControl {

@@ -11,7 +11,8 @@
     </label>
       <div class="col-md-9">
         <ng-select 
-          (data)="eventsConfig.eventsListeners" 
+          (data)="eventsConfig.eventsListeners"   
+          [active]="eventsConfig.eventsListeners"        
           [multiple]="true" 
           [items]="eventListeners"
           placeholder="No listener selected"></ng-select>
@@ -54,7 +55,7 @@
     <div class="form-group">
       <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-md-offset-2 col-lg-offset-2">
         <of-button-save [form]="form" [working]="working"></of-button-save>
-        <button type="button" (click)="cancel()" class="btn btn-default">Cancel</button>
+        <button type="button" (click)="cancel()" class="btn btn-default">{{'cancel' | translate}}</button>
       </div>
     </div>
   </fieldset>
@@ -73,6 +74,6 @@
   <div class="modal-footer">
     <button [disabled]="typeNameToConfirm && confirmName !== resourceName && confirmName !== displayName" type="button" class="btn btn-lg btn-danger"
       (click)="c('Delete')">Delete</button>
-    <button type="button" class="btn btn-lg btn-default" (click)="d('Cancel')">Cancel</button>
+    <button type="button" class="btn btn-lg btn-default" (click)="d('Cancel')">{{'cancel' | translate}}</button>
   </div>
 </template>

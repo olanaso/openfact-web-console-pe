@@ -11,12 +11,12 @@
   </thead>
   <tbody>
     <tr *ngFor="let item of adminEvents">
-      <td>{{item.time}}</td>
+      <td>{{item.time | ofToDate | date: 'yyyy/MM/dd HH:mm:ss'}}</td>
       <td>{{item.operationType}}</td>
       <td>{{item.resourceType}}</td>
       <td>{{item.resourcePath}}</td>
-      <td>
-        <button type="button" class="btn btn-default btn-xs">Details</button>
+      <td>       
+        <of-view-object [object]="item" [label]="'view-details' | translate"></of-view-object>
       </td>
     </tr>
   </tbody>

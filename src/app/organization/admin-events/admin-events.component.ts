@@ -32,13 +32,13 @@ export class AdminEventsComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private dataService: DataService,
     private alertService: AlertService) {
-    this.dataSubscription = this.activatedRoute.data.subscribe(data => {
-      this.organization = data['organization'];
-    });
   }
 
   ngOnInit() {
-    this.loadEvents();
+    this.dataSubscription = this.activatedRoute.data.subscribe(data => {
+      this.organization = data['organization'];
+      this.loadEvents();
+    });    
   }
 
   ngOnDestroy() {

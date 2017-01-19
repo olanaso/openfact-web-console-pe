@@ -46,6 +46,7 @@ import { KeysPipe } from './pipes/keys.pipe';
 import { YesNoPipe } from './pipes/yes-no.pipe';
 import { TextEquivaletPipe } from './pipes/text-equivalet.pipe';
 import { ArrayPipe } from './pipes/array.pipe';
+import { ToDatePipe } from './pipes/to-date.pipe';
 
 // Services
 import { DialogService } from './components/dialog/dialog.service';
@@ -99,6 +100,7 @@ import { DialogService } from './components/dialog/dialog.service';
     TextEquivaletPipe,
     ArrayPipe,
     LimitedStringComponent,
+    ToDatePipe,
   ],
   exports: [
     // Third modules
@@ -139,7 +141,8 @@ import { DialogService } from './components/dialog/dialog.service';
     YesNoPipe,
     ReadFileComponent,
     TextEquivaletPipe,
-    ArrayPipe
+    ArrayPipe,
+    ToDatePipe
   ],
   providers: [
     DialogService

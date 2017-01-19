@@ -1,34 +1,36 @@
-import {Injectable, Inject} from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 
-import {OrganizationService} from './organization.service';
-import {InvoiceService} from './invoice.service';
-import {CreditnoteService} from './creditnote.service';
-import {DebitnoteService} from './debitnote.service';
-import {RetentionService} from './retention.service';
-import {VoidedService} from './voided.service'
-import {PerceptionService} from './perception.service'
-import {ServerInfoService} from './server-info.service';
-import {EventService} from './event.service';
-import {StorageFileService} from './storage-file.service';
-import  {GenericTypeService} from './generic-type.service'
+import { OrganizationService } from './organization.service';
+import { InvoiceService } from './invoice.service';
+import { CreditnoteService } from './creditnote.service';
+import { DebitnoteService } from './debitnote.service';
+import { RetentionService } from './retention.service';
+import { VoidedService } from './voided.service'
+import { PerceptionService } from './perception.service'
+import { ServerInfoService } from './server-info.service';
+import { EventService } from './event.service';
+import { StorageFileService } from './storage-file.service';
+import { GenericTypeService } from './generic-type.service'
+import { OrganizationPeService } from './organization-pe.service';
 
-import {OrganizationPeService} from './organization-pe.service';
+import { JobreportService } from './jobreport.service';
 
 @Injectable()
 export class DataService {
 
   constructor(private organization: OrganizationService,
-              private invoice: InvoiceService,
-              private creditnote: CreditnoteService,
-              private debitnote: DebitnoteService,
-              private perception: PerceptionService,
-              private retention: RetentionService,
-              private voided: VoidedService,
-              private serverinfo: ServerInfoService,
-              private event: EventService,
-              private storageFile: StorageFileService,
-              private organizationPe: OrganizationPeService,
-              private  genericTypePe: GenericTypeService) {
+    private invoice: InvoiceService,
+    private creditnote: CreditnoteService,
+    private debitnote: DebitnoteService,
+    private perception: PerceptionService,
+    private retention: RetentionService,
+    private voided: VoidedService,
+    private serverinfo: ServerInfoService,
+    private event: EventService,
+    private storageFile: StorageFileService,
+    private organizationPe: OrganizationPeService,
+    private genericTypePe: GenericTypeService,
+    private jobreport: JobreportService) {
   }
 
   public organizations(): OrganizationService {
@@ -69,6 +71,10 @@ export class DataService {
 
   public storageFiles(): StorageFileService {
     return this.storageFile;
+  }
+
+  public jobReports(): JobreportService {
+    return this.jobreport;
   }
 
   public organizationPeru(): OrganizationPeService {

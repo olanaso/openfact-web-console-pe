@@ -32,6 +32,7 @@ import { VoidedService } from './data/voided.service';
 import { ServerInfoService } from './data/server-info.service';
 import { EventService } from './data/event.service';
 import { StorageFileService } from './data/storage-file.service';
+import { JobreportService } from './data/jobreport.service';
 
 import { OrganizationPeService } from './data/organization-pe.service';
 
@@ -109,6 +110,7 @@ import { AllowedDataRoles } from './guards/allowed-data-roles';
     ServerInfoService,
     EventService,
     StorageFileService,
+    JobreportService,
 
     OrganizationPeService,
 

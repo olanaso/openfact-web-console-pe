@@ -22,17 +22,17 @@
         </div>
       </div>
       <div class="col-md-2">
-        <div class="form-group" [ngClass]="{ 'has-error' : !form.get('tipoDeNotaDeCredito').valid && form.get('tipoDeNotaDeCredito').dirty }">
+        <div class="form-group" [ngClass]="{ 'has-error' : !form.get('tipoDeNotaDeDebito').valid && form.get('tipoDeNotaDeDebito').dirty }">
           <label class="control-label required-pf">Tipo
             <i class="fa fa-question-circle text-muted" ngbTooltip="organization of the organization" placement="right"></i>
           </label>
-          <select formControlName="tipoDeNotaDeCredito" class="form-control" autofocus>
+          <select formControlName="tipoDeNotaDeDebito" class="form-control" autofocus>
             <option value="" disabled> Seleccione </option>
-            <option *ngFor="let tipo of tipoDeNotaDeCredito" [value]="tipo.valor">{{tipo.denominacion}}</option>
+            <option *ngFor="let tipo of tipoDeNotaDeDebito" [value]="tipo.valor">{{tipo.denominacion}}</option>
           </select>
-          <div *ngIf="!form.get('tipoDeNotaDeCredito').valid && form.get('tipoDeNotaDeCredito').dirty">
-            <span *ngIf="form.get('tipoDeNotaDeCredito').hasError('required')" class="help-block">This field is required</span>
-            <span *ngIf="!form.get('tipoDeNotaDeCredito').hasError('required') && !form.get('tipoDeNotaDeCredito').valid" class="help-block">Value field is invalid</span>
+          <div *ngIf="!form.get('tipoDeNotaDeDebito').valid && form.get('tipoDeNotaDeDebito').dirty">
+            <span *ngIf="form.get('tipoDeNotaDeDebito').hasError('required')" class="help-block">This field is required</span>
+            <span *ngIf="!form.get('tipoDeNotaDeDebito').hasError('required') && !form.get('tipoDeNotaDeDebito').valid" class="help-block">Value field is invalid</span>
           </div>
         </div>
       </div>
@@ -214,7 +214,7 @@
       <div class="row">
         <div class="col-md-8">
           <div class="form-group" [ngClass]="{ 'has-error' : !form.get('observaciones').valid && form.get('observaciones').dirty }">
-            <label>Observaciones
+            <label class="required-pf">Observaciones
           <i class="fa fa-question-circle text-muted" ngbTooltip="Enabled of the organization" placement="right"></i>      
         </label>
             <textarea formControlName="observaciones" rows="5" class="form-control"></textarea>

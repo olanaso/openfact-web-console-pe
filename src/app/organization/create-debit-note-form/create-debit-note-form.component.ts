@@ -49,7 +49,7 @@ export class CreateDebitNoteFormComponent implements OnInit, OnDestroy {
     allowDecimal: true
   };
 
-  tipoDeNotaDeCredito = [
+  tipoDeNotaDeDebito = [
     { denominacion: "INTERES POR MORA", valor: "01" },
     { denominacion: "AUMENTO EN EL VALOR", valor: "02" }
   ];
@@ -112,7 +112,7 @@ export class CreateDebitNoteFormComponent implements OnInit, OnDestroy {
   buildForm(): void {
     this.form = this.formBuilder.group({
       documentoQueSeModifica: [null, Validators.compose([Validators.required])],
-      tipoDeNotaDeCredito: [null, Validators.compose([Validators.required])],
+      tipoDeNotaDeDebito: [null, Validators.compose([Validators.required])],
       igv: [null, Validators.compose([Validators.required])],
 
       entidadTipoDeDocumento: [null, Validators.compose([Validators.required])],
@@ -122,7 +122,7 @@ export class CreateDebitNoteFormComponent implements OnInit, OnDestroy {
       operacionGratuita: [false, Validators.compose([Validators.required])],
       moneda: [null, Validators.compose([Validators.required])],
 
-      observaciones: [null, Validators.compose([Validators.maxLength(150)])],
+      observaciones: [null, Validators.compose([Validators.required, Validators.maxLength(150)])],
 
       totalGravada: [null, Validators.compose([Validators.required])],
       totalExonerada: [null, Validators.compose([Validators.required])],
@@ -149,7 +149,7 @@ export class CreateDebitNoteFormComponent implements OnInit, OnDestroy {
   // Carga valores por defecto del formulario principal
   setDefaultFormValues(): void {
     this.form.patchValue({
-      tipoDeNotaDeCredito: "",
+      tipoDeNotaDeDebito: "",
       igv: igv * 100,
     });
   }

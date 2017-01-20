@@ -14,7 +14,7 @@ export class Restangular {
 
     public constructor(http: Http) {
         this.http = http;
-    }    
+    }
 
     /*path builder*/
     public one(path: string, id: string): Restangular {
@@ -30,13 +30,22 @@ export class Restangular {
     }
 
     /*http methods*/
-    public get(queryParams?: URLSearchParams): Observable<Response> {
-        let options;
-        if (queryParams) {
-            options = { headers: new Headers(), search: queryParams };
+    public get(queryParams?: URLSearchParams, options?: RequestOptionsArgs): Observable<Response> {
+        let requestOptionsArgs;
+        if (queryParams || options) {
+            requestOptionsArgs = {
+                headers: new Headers()
+            };
+
+            if (queryParams) {
+                requestOptionsArgs.search = queryParams
+            }
+            if (options) {
+                requestOptionsArgs = Object.assign(requestOptionsArgs, options);
+            }
         }
 
-        return this.http.get(this.path, options).catch((error) => {
+        return this.http.get(this.path, requestOptionsArgs).catch((error) => {
             return this.handleError(error);
         });
     }

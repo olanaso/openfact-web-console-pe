@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { Response, URLSearchParams, Headers, ResponseContentType } from '@angular/http';
+import { Response, URLSearchParams, RequestOptionsArgs, Headers, ResponseContentType } from '@angular/http';
 import { RestangularOpenfact } from './restangular-openfact';
 import { Organization } from '../models/organization.model';
 import { SearchResults } from '../models/search-results.model';
@@ -65,22 +65,19 @@ export class OrganizationPeService {
   }
 
   public downloadInvoiceCdr(organizationName: string, invoiceId: string) {
-    let restangular = this.restangular
+    let options: RequestOptionsArgs = {
+      responseType: ResponseContentType.Blob
+    };
+
+    return this.restangular
       .one("organizations", organizationName)
       .one("sunat/invoices", invoiceId)
-      .all("cdr");
-
-    let url = restangular.path;
-
-    return restangular.http
-      .get(url, {
-        headers: new Headers(),
-        responseType: ResponseContentType.Blob
-      })
+      .all("cdr")
+      .get(null, options)
       .map(response => {
         let file = {
           file: response.blob(),
-          fileName: 'file.xml'
+          fileName: "cdr.zip"
         };
         return file;
       }).subscribe(result => {
@@ -91,22 +88,19 @@ export class OrganizationPeService {
   }
 
   public downloadCreditNoteCdr(organizationName: string, creditNoteId: string) {
-    let restangular = this.restangular
+    let options: RequestOptionsArgs = {
+      responseType: ResponseContentType.Blob
+    };
+
+    return this.restangular
       .one("organizations", organizationName)
       .one("sunat/credit-notes", creditNoteId)
-      .all("cdr");
-
-    let url = restangular.path;
-
-    return restangular.http
-      .get(url, {
-        headers: new Headers(),
-        responseType: ResponseContentType.Blob
-      })
+      .all("cdr")
+      .get(null, options)
       .map(response => {
         let file = {
           file: response.blob(),
-          fileName: 'file.xml'
+          fileName: 'cdr.zip'
         };
         return file;
       }).subscribe(result => {
@@ -117,22 +111,19 @@ export class OrganizationPeService {
   }
 
   public downloadDebitNoteCdr(organizationName: string, debitNoteId: string) {
-    let restangular = this.restangular
+    let options: RequestOptionsArgs = {
+      responseType: ResponseContentType.Blob
+    };
+
+    return this.restangular
       .one("organizations", organizationName)
       .one("sunat/debit-notes", debitNoteId)
-      .all("cdr");
-
-    let url = restangular.path;
-
-    return restangular.http
-      .get(url, {
-        headers: new Headers(),
-        responseType: ResponseContentType.Blob
-      })
+      .all("cdr")
+      .get(null, options)
       .map(response => {
         let file = {
           file: response.blob(),
-          fileName: 'file.xml'
+          fileName: 'cdr.xml'
         };
         return file;
       }).subscribe(result => {

@@ -72,7 +72,7 @@
                   <dl class="dl-horizontal left">
                     <template ngFor let-key [ngForOf]="(event.responseAttributes | keys)">
                       <dt>{{key}}</dt>
-                      <dd>{{event.destinyAttributes[key]}}</dd>
+                      <dd>{{event.responseAttributes[key]}}</dd>
                     </template>
                   </dl>
                 </td>

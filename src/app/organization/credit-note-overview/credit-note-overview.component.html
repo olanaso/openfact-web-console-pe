@@ -28,13 +28,13 @@
 					{{'issue-date' | translate}}:
 					<span ngbTooltip="Issue Date." placement="right" class="pficon pficon-help text-muted small"></span>
 				</dt>
-				<dd *ngIf="creditNoteJson.IssueDate">{{creditNoteJson.IssueDate | date: 'shortDate'}}</dd>
+				<dd *ngIf="creditNoteJson.IssueDate">{{creditNoteJson.IssueDate}}</dd>
 				<dd *ngIf="!creditNoteJson.IssueDate"><em>{{'not-registered' | translate}}</em></dd>			
 				<dt>
 					{{'issue-time' | translate}}:
 					<span ngbTooltip="Issue Time." placement="right" class="pficon pficon-help text-muted small"></span>
 				</dt>
-				<dd *ngIf="creditNoteJson.IssueTime">{{creditNoteJson.IssueTime | date: 'shortTime'}}</dd>
+				<dd *ngIf="creditNoteJson.IssueTime">{{creditNoteJson.IssueTime}}</dd>
 				<dd *ngIf="!creditNoteJson.IssueTime"><em>{{'not-registered' | translate}}</em></dd>
 			</dl>
 		</div>

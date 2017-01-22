@@ -18,7 +18,9 @@
       "prefix": "of",
       "mobile": false,
       "styles": [
-        "styles.scss"
+        "styles.scss",
+        "../node_modules/patternfly/dist/css/patternfly.css",
+        "../node_modules/patternfly/dist/css/patternfly-additions.css"
       ],
       "scripts": [],
       "environments": {

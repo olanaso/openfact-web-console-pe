@@ -38,6 +38,13 @@ import {
 
 // Directives
 import { NumberMaskDirective } from './directives/number-mask.directive';
+import {
+  UblLineDirective,
+  UblLineQuantityDirective,
+  UblLineUnitPriceDirective,
+  UblLineSubtotalDirective,
+  UblLineTotalDirective
+} from './directives/ubl-line.directive';
 
 // Pipes
 import { CapitalizePipe } from './pipes/capitalize.pipe';
@@ -90,6 +97,11 @@ import { DialogService } from './components/dialog/dialog.service';
 
     // Directives
     NumberMaskDirective,
+    UblLineDirective,
+    UblLineQuantityDirective,
+    UblLineUnitPriceDirective,
+    UblLineSubtotalDirective,
+    UblLineTotalDirective,
 
     // Pipes
     CapitalizePipe,
@@ -133,6 +145,11 @@ import { DialogService } from './components/dialog/dialog.service';
 
     // Directives
     NumberMaskDirective,
+    UblLineDirective,
+    UblLineQuantityDirective,
+    UblLineUnitPriceDirective,
+    UblLineSubtotalDirective,
+    UblLineTotalDirective,
 
     // Pipes
     CapitalizePipe,

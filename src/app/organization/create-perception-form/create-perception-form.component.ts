@@ -1,23 +1,21 @@
 /**
  * Created by lxpary on 14/12/16.
  */
-import {Component, OnInit} from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
-import {FormBuilder, FormGroup, FormControl, FormArray, Validators} from '@angular/forms';
-import {Response, URLSearchParams} from '@angular/http';
-import {Observable} from "rxjs/Observable";
-import {DataService} from '../../core/data/data.service';
-import {AlertService} from '../../core/alert/alert.service';
-import {Organization} from '../../core/models/organization.model';
-import {Invoice} from "../../core/models/invoice.model";
-import {DatePipe} from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { FormBuilder, FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
+import { Response, URLSearchParams } from '@angular/http';
+import { Observable } from "rxjs/Observable";
+import { DataService } from '../../core/data/data.service';
+import { AlertService } from '../../core/alert/alert.service';
+import { Organization } from '../../core/models/organization.model';
+import { Invoice } from "../../core/models/invoice.model";
+import { DatePipe } from '@angular/common';
 
-import {NgbModal, ModalDismissReasons} from "@ng-bootstrap/ng-bootstrap";
+import { NgbModal, ModalDismissReasons } from "@ng-bootstrap/ng-bootstrap";
 
-import {CreatePerceptionFormConfirmModalComponent} from './create-perception-form-confirm-modal.component'
+import { CreatePerceptionFormConfirmModalComponent } from './create-perception-form-confirm-modal.component'
 import createNumberMask from "text-mask-addons/dist/createNumberMask.js";
-import {type} from "os";
-
 
 @Component({
   selector: 'of-create-perception-form',
@@ -38,16 +36,17 @@ export class CreatePerceptionFormComponent implements OnInit {
   monedaEntidad: any;
   tasaEntidad: any;
 
-  constructor(private router: Router,
-              private activatedRoute: ActivatedRoute,
-              private formBuilder: FormBuilder,
-              private dataService: DataService,
-              private modalService: NgbModal,
-              private alertService: AlertService,
-              private datePipe: DatePipe) {
+  constructor(
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private formBuilder: FormBuilder,
+    private dataService: DataService,
+    private modalService: NgbModal,
+    private alertService: AlertService,
+    private datePipe: DatePipe) {
     this.organization = this.activatedRoute.snapshot.data['organization'];
-    this.buildGeneric();
     this.buildForm();
+    this.buildGeneric();
   }
 
   documentMask = [/[B|F|b|f]/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/];
@@ -67,44 +66,29 @@ export class CreatePerceptionFormComponent implements OnInit {
   }
 
   buildGeneric(): void {
-    this.dataService.genericTypePeru().searchTipoComprobante(this.organization).subscribe(
-      result => {
-        this.tipoDocumento = result;
-      }, error => {
-        this.alertService.pop('error', 'Error', 'Error loading document sunat type.');
+    this.dataService.genericTypePeru().searchTipoComprobante(this.organization).subscribe(result => {
+      this.tipoDocumento = result;    
+    });
+    this.dataService.genericTypePeru().searchTipoDocumento(this.organization).subscribe(result => {
+      this.tipoDocumentoEntidad = result;
+      this.form.patchValue({
+        entidadTipoDeDocumento: this.tipoDocumentoEntidad[0].codigo
       });
-    this.dataService.genericTypePeru().searchTipoDocumento(this.organization).subscribe(
-      result => {
-        console.log(JSON.stringify(result));
-        this.tipoDocumentoEntidad = result;
-        this.form.patchValue({
-          entidadTipoDeDocumento: this.tipoDocumentoEntidad[0].codigo
-        });
-        this.LENGTH=this.tipoDocumentoEntidad[0].length;
-      }, error => {
-        this.alertService.pop('error', 'Error', 'Error loading document type.');
+      this.LENGTH = this.tipoDocumentoEntidad[0].length;
+    });
+    this.dataService.genericTypePeru().searchTipoMoneda(this.organization).subscribe(result => {
+      this.monedaEntidad = result;
+      this.form.patchValue({
+        monedaDocumento: this.monedaEntidad[0].codigo
       });
-    this.dataService.genericTypePeru().searchTipoMoneda(this.organization).subscribe(
-      result => {
-        console.log(JSON.stringify(result));
-        this.monedaEntidad = result;
-        this.form.patchValue({
-          monedaDocumento: this.monedaEntidad[0].codigo
-        });
-      }, error => {
-        this.alertService.pop('error', 'Error', 'Error loading currency code.');
+    });
+    this.dataService.genericTypePeru().searchTipoRegimenPercepcion(this.organization).subscribe(result => {
+      this.tasaEntidad = result;
+      this.form.patchValue({
+        codigoDocumento: this.tasaEntidad[0].codigo,
+        tasaDocumento: this.tasaEntidad[0].valor
       });
-    this.dataService.genericTypePeru().searchTipoRegimenPercepcion(this.organization).subscribe(
-      result => {
-        console.log(JSON.stringify(result));
-        this.tasaEntidad = result;
-        this.form.patchValue({
-          codigoDocumento: this.tasaEntidad[0].codigo,
-          tasaDocumento: this.tasaEntidad[0].valor
-        });
-      }, error => {
-        this.alertService.pop('error', 'Error', 'Error loading retention type.');
-      });
+    });
   }
 
   buildForm(): void {
@@ -188,7 +172,7 @@ export class CreatePerceptionFormComponent implements OnInit {
 
   refreshFormValues(): void {
     let tipoDocumentoEntidad = this.tipoDocumentoEntidad.filter(documento => documento.codigo === this.entidadTipoDeDocumento.value);
-    if (!tipoDocumentoEntidad)return;
+    if (!tipoDocumentoEntidad) return;
     this.LENGTH = tipoDocumentoEntidad[0].length;
 
     let codigoDocumento = this.codigoDocumento.valid ? this.codigoDocumento.value : undefined;
@@ -212,7 +196,7 @@ export class CreatePerceptionFormComponent implements OnInit {
       }
       let pagoDocumentoSunat = this.getpagoDocumentoSunat(formGroup).valid ? this.getpagoDocumentoSunat(formGroup).value : undefined;
       if (!pagoDocumentoSunat) continue;
-      let importeDocumentoSunat = ( Math.round(tipoCambio * pagoDocumentoSunat * tasaDocumento) / 100 );
+      let importeDocumentoSunat = (Math.round(tipoCambio * pagoDocumentoSunat * tasaDocumento) / 100);
       let importePago = (Math.round(tipoCambio * pagoDocumentoSunat) - importeDocumentoSunat);
       formGroup.patchValue({
         importeDocumentoSunat: importeDocumentoSunat,
@@ -253,14 +237,13 @@ export class CreatePerceptionFormComponent implements OnInit {
           this.working = false;
           this.alertService.pop("success", "Success", "Success! The perception has been created.");
           if (redirect) {
-            this.router.navigate(["../"], {relativeTo: this.activatedRoute});
+            this.router.navigate(["../"], { relativeTo: this.activatedRoute });
           } else {
             this.buildForm();
           }
         },
         error => {
           this.working = false;
-          this.alertService.pop("error", "Error", "Perception could not be created.");
         }
       );
     }, (reason) => {
@@ -294,7 +277,7 @@ export class CreatePerceptionFormComponent implements OnInit {
   }
 
   cancel() {
-    this.router.navigate(["../"], {relativeTo: this.activatedRoute});
+    this.router.navigate(["../"], { relativeTo: this.activatedRoute });
   }
 
   /**

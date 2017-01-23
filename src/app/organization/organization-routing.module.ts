@@ -354,8 +354,7 @@ import { EventsSettingsComponent } from './events-settings/events-settings.compo
                     resolve: {
                       organization: OrganizationResolver,
                       perception: PerceptionResolver,
-                      perceptionJson: PerceptionJsonResolver,
-                      perceptionText: PerceptionTextResolver
+                      perceptionJson: PerceptionJsonResolver
                     }
                   },
                   {

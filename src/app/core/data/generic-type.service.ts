@@ -1,15 +1,15 @@
 /**
  * Created by lxpary on 11/01/17.
  */
-import {Injectable} from '@angular/core';
-import {Response, URLSearchParams} from '@angular/http';
-import {Observable} from 'rxjs/Observable';
+import { Injectable } from '@angular/core';
+import { Response, URLSearchParams } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
 
-import {RestangularOpenfact} from './restangular-openfact';
-import {Organization} from '../models/organization.model';
-import {GenericType} from '../models/generic-type.model';
+import { RestangularOpenfact } from './restangular-openfact';
+import { Organization } from '../models/organization.model';
+import { GenericType } from '../models/generic-type.model';
 
-import {KeycloakHttp} from '../keycloak.http';
+import { KeycloakHttp } from '../keycloak.http';
 
 export const genericIdName: string = 'id';
 export const basePath: string = 'sunat';

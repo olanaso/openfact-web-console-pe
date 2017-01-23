@@ -1,4 +1,3 @@
-
 <br>
 <div class="row">
   <div class="col-lg-6">
@@ -12,50 +11,38 @@
         Document ID:
         <span title="The currency of the perceptionJson." class="pficon pficon-help text-muted small"></span>
       </dt>
-      <dd *ngIf="perceptionJson.id">{{perceptionJson.id.value }}</dd>
-      <dd *ngIf="!perceptionJson.id"><em>Not registered</em></dd>
+      <dd *ngIf="perceptionJson.ID">{{perceptionJson.ID }}</dd>
+      <dd *ngIf="!perceptionJson.ID"><em>Not registered</em></dd>
       <dt>
         Currency Code:
         <span title="The currency of the perceptionJson." class="pficon pficon-help text-muted small"></span>
       </dt>
-      <dd *ngIf="perceptionJson.documentCurrencyCode">{{perceptionJson.documentCurrencyCode.value }}</dd>
-      <dd *ngIf="!perceptionJson.documentCurrencyCode"><em>Not registered</em></dd>
+      <dd *ngIf="perceptionJson.DocumentCurrencyCode">{{perceptionJson.DocumentCurrencyCode }}</dd>
+      <dd *ngIf="!perceptionJson.DocumentCurrencyCode"><em>Not registered</em></dd>
       <dt>
         Issue Date:
         <span title="Issue Date of the perceptionJson." class="pficon pficon-help text-muted small"></span>
       </dt>
-      <dd *ngIf="perceptionJson.issueDate">{{perceptionJson.issueDate.value | date: 'shortDate'}}</dd>
-      <dd *ngIf="!perceptionJson.issueDate"><em>Not registered</em></dd>
+      <dd *ngIf="perceptionJson.IssueDate">{{perceptionJson.IssueDate.value}}</dd>
+      <dd *ngIf="!perceptionJson.IssueDate"><em>Not registered</em></dd>
       <dt>
         Perception Percent:
         <span title="Issue Date of the perceptionJson." class="pficon pficon-help text-muted small"></span>
       </dt>
-      <dd *ngIf="perceptionJson.sunatPerceptionPercent">{{perceptionJson.sunatPerceptionPercent.value| number:'1.2-3' }}</dd>
-      <dd *ngIf="!perceptionJson.sunatPerceptionPercent"><em>Not registered</em></dd>
+      <dd *ngIf="perceptionJson.SUNATPerceptionPercent">{{perceptionJson.SUNATPerceptionPercent| number:'1.2-3' }}</dd>
+      <dd *ngIf="!perceptionJson.SUNATPerceptionPercent"><em>Not registered</em></dd>
       <dt>
         Total Perception:
         <span title="Issue Date of the perceptionJson." class="pficon pficon-help text-muted small"></span>
       </dt>
-      <dd *ngIf="perceptionJson.totalInvoiceAmount">{{perceptionJson.totalInvoiceAmount.value| number:'1.2-3' }}</dd>
-      <dd *ngIf="!perceptionJson.totalInvoiceAmount"><em>Not registered</em></dd>
+      <dd *ngIf="perceptionJson.TotalInvoiceAmount">{{perceptionJson.TotalInvoiceAmount.content | number:'1.2-3' }}</dd>
+      <dd *ngIf="!perceptionJson.TotalInvoiceAmount"><em>Not registered</em></dd>
       <dt>
         Total Paid:
         <span title="Issue Date of the perceptionJson." class="pficon pficon-help text-muted small"></span>
       </dt>
-      <dd *ngIf="perceptionJson.sunatTotalCashed">{{perceptionJson.sunatTotalCashed.value| number:'1.2-3' }}</dd>
-      <dd *ngIf="!perceptionJson.sunatTotalCashed"><em>Not registered</em></dd>
-      <dt>
-        <span class="pficon pficon-image" aria-hidden="true"></span> Xml:
-        <span title="The time of the issue perceptionJson." class="pficon pficon-help text-muted small"></span>
-      </dt>
-      <dd>
-        <of-view-xml [xml]="perceptionText" [label]="'Xml preview'" [buttonOnly]="false"></of-view-xml>
-      </dd>
-      <dd>
-        <a href="">
-          <span><i class="fa fa-file-pdf-o"> </i> Pdf preview</span>
-        </a>
-      </dd>
+      <dd *ngIf="perceptionJson.SUNATTotalCashed">{{perceptionJson.SUNATTotalCashed.content | number:'1.2-3' }}</dd>
+      <dd *ngIf="!perceptionJson.SUNATTotalCashed"><em>Not registered</em></dd>      
     </dl>
   </div>
   <div class="col-lg-6">
@@ -69,20 +56,28 @@
         Party Identification:
         <span title="The currency of the perceptionJson." class="pficon pficon-help text-muted small"></span>
       </dt>
-      <dd *ngIf="perceptionJson.receiverParty.partyIdentification[0]">{{perceptionJson.receiverParty.partyIdentification[0].idvalue}}</dd>
-      <dd *ngIf="!perceptionJson.receiverParty.partyIdentification[0]"><em>Not registered</em></dd>
+      <dd *ngIf="perceptionJson.ReceiverParty.PartyIdentification">        
+        <span *ngFor="let PartyIdentification of perceptionJson.ReceiverParty.PartyIdentification | ofArray">
+          {{PartyIdentification.ID.content}}
+        </span>
+      </dd>
+      <dd *ngIf="!perceptionJson.ReceiverParty.PartyIdentification"><em>Not registered</em></dd>
       <dt>
         Party Name:
         <span title="The currency of the perceptionJson." class="pficon pficon-help text-muted small"></span>
       </dt>
-      <dd *ngIf="perceptionJson.receiverParty.partyName[0]">{{perceptionJson.receiverParty.partyName[0].nameValue}}</dd>
-      <dd *ngIf="!perceptionJson.receiverParty.partyName[0]"><em>Not registered</em></dd>
+      <dd *ngIf="perceptionJson.ReceiverParty.PartyName">
+        <span *ngFor="let PartyName of perceptionJson.ReceiverParty.PartyName | ofArray">
+          {{PartyName.name}}
+        </span>
+      </dd>
+      <dd *ngIf="!perceptionJson.ReceiverParty.partyName"><em>Not registered</em></dd>
       <dt>
         Street Name:
         <span title="Issue Date of the perceptionJson." class="pficon pficon-help text-muted small"></span>
       </dt>
-      <dd *ngIf="perceptionJson.receiverParty.postalAddress.streetName">{{perceptionJson.receiverParty.postalAddress.streetName.value}}</dd>
-      <dd *ngIf="!perceptionJson.receiverParty.postalAddress.streetName"><em>Not registered</em></dd>
+      <dd *ngIf="perceptionJson.ReceiverParty.PostalAddress.streetName">{{perceptionJson.ReceiverParty.PostalAddress.StreetName}}</dd>
+      <dd *ngIf="!perceptionJson.ReceiverParty.PostalAddress"><em>Not registered</em></dd>
     </dl>
   </div>
 </div>
@@ -95,42 +90,42 @@
       <div class="table-responsive">
         <table class="datatable table table-striped table-bordered dataTable no-footer table-mobile">
           <thead>
-          <tr>
-            <th class="text-right">#</th>
-            <th class="text-right">Document Reference</th>
-            <th>Reference Date</th>
-            <th class="text-right">Reference Currency</th>
-            <th class="text-right">Reference Amount</th>
+            <tr>
+              <th class="text-right">#</th>
+              <th class="text-right">Document Reference</th>
+              <th>Reference Date</th>
+              <th class="text-right">Reference Currency</th>
+              <th class="text-right">Reference Amount</th>
 
-            <th class="text-right">Payment Amount</th>
-            <th class="text-right">Payment Currency</th>
-            <th class="text-right">Payment Date</th>
+              <th class="text-right">Payment Amount</th>
+              <th class="text-right">Payment Currency</th>
+              <th class="text-right">Payment Date</th>
 
-            <th class="text-right">Perception Date</th>
-            <th class="text-right">Perception Currency</th>
-            <th class="text-right">Total Perception</th>
+              <th class="text-right">Perception Date</th>
+              <th class="text-right">Perception Currency</th>
+              <th class="text-right">Total Perception</th>
 
-            <th class="text-right">Total Paid</th>
+              <th class="text-right">Total Paid</th>
 
-          </tr>
+            </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let item of perceptionJson.sunatPerceptionDocumentReference; let i = index;">
-            <td class="text-right">{{i+1}}</td>
-            <td class="text-right">{{item.id.value }}</td>
-            <td class="text-right">{{item.issueDate.value | date: 'shortDate'}}</td>
-            <td class="text-right">{{item.totalInvoiceAmount.currencyID }}</td>
-            <td class="text-right">{{item.totalInvoiceAmount.value | number:'1.2-3'}}</td>
+            <tr *ngFor="let item of (perceptionJson.SUNATPerceptionDocumentReference | ofArray); let i = index;">
+              <td class="text-right">{{i+1}}</td>
+              <td class="text-right">{{item.ID.content }}</td>
+              <td class="text-right">{{item.IssueDate}}</td>
+              <td class="text-right">{{item.TotalInvoiceAmount.currencyID }}</td>
+              <td class="text-right">{{item.TotalInvoiceAmount.content | number:'1.2-3'}}</td>
 
-            <td class="text-right">{{item.payment.paidAmount.value | number:'1.2-3'}}</td>
-            <td class="text-right">{{item.payment.paidAmount.currencyID }}</td>
-            <td class="text-right">{{item.payment.paidDate.value | date: 'shortDate'}}</td>
+              <td class="text-right">{{item.Payment.PaidAmount.content | number:'1.2-3'}}</td>
+              <td class="text-right">{{item.Payment.PaidAmount.currencyID }}</td>
+              <td class="text-right">{{item.Payment.PaidAmount.content | date: 'shortDate'}}</td>
 
-            <td class="text-right">{{item.sunatPerceptionInformation.sunatPerceptionDate.value | date: 'shortDate'}}</td>
-            <td class="text-right">{{item.sunatPerceptionInformation.sunatPerceptionAmount.currencyID }}</td>
-            <td class="text-right">{{item.sunatPerceptionInformation.sunatPerceptionAmount.value | number:'1.2-3'}}</td>
-            <td class="text-right">{{item.sunatPerceptionInformation.sunatNetTotalCashed.value | number:'1.2-3'}}</td>
-          </tr>
+              <td class="text-right">{{item.SUNATPerceptionInformation.SUNATPerceptionDate | date: 'shortDate'}}</td>
+              <td class="text-right">{{item.SUNATPerceptionInformation.SUNATPerceptionAmount.currencyID }}</td>
+              <td class="text-right">{{item.SUNATPerceptionInformation.SUNATPerceptionDate.value | number:'1.2-3'}}</td>
+              <td class="text-right">{{item.SUNATPerceptionInformation.SUNATPerceptionDate.value | number:'1.2-3'}}</td>
+            </tr>
           </tbody>
         </table>
       </div>

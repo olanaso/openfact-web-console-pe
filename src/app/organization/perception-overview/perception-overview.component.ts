@@ -20,12 +20,11 @@ export class PerceptionOverviewComponent implements OnInit {
   private perceptionJson: Perception;
   private perceptionText: Perception;
 
-  constructor(private activatedRoute: ActivatedRoute,
-              private dataService: DataService, private alertService: AlertService) {
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private dataService: DataService, private alertService: AlertService) {
     this.perception = this.activatedRoute.snapshot.data['perception'];
-    this.perceptionText = this.activatedRoute.snapshot.data['perceptionText'];
     this.perceptionJson = this.activatedRoute.snapshot.data['perceptionJson'];
-
   }
 
   ngOnInit() {

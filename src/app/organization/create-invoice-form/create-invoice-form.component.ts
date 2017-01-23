@@ -31,44 +31,10 @@ export class CreateInvoiceFormComponent implements OnInit, OnDestroy {
 
   organization: Organization;
 
-  tipoDocumento = [
-    { denominacion: "BOLETA", valor: "03" },
-    { denominacion: "FACTURA", valor: "01" }
-  ];
-
-  tipoDocumentoEntidad = [
-    { abreviatura: "DNI", denominacion: "DOC.NACIONAL DE IDENTIDAD", valor: "1" },
-    { abreviatura: "RUC", denominacion: "REGISTRO UNICO DE CONTRIBUYENTE", valor: "6" },
-    { abreviatura: "VARIOS", denominacion: "VARIOS-VENTAS MENORES A S/.700.00 Y OTROS", valor: "-" },
-    { abreviatura: "C.EXTRANJERIA", denominacion: "CARNET DE EXTRANJERIA", valor: "4" },
-    { abreviatura: "PASS.", denominacion: "PASAPORT", valor: "7" },
-    { abreviatura: "CED.DIPLOMATICA", denominacion: "CEDULA DIPLOMATICA DE IDENTIDAD", valor: "A" },
-    { abreviatura: "NO DOMICILIADO", denominacion: "NO DOMICILIADO, SIN RUC(EXPORTACION)", valor: "0" }
-  ];
-
-  tipoDeIgv = [
-    { denominacion: "Gravado - Operación Onerosa", afectaIgv: true, grupo: gravado, valor: "10" },
-    { denominacion: "Gravado - Retiro por premio", afectaIgv: true, grupo: gravado, valor: "11" },
-    { denominacion: "Gravado - Retiro por donación", afectaIgv: true, grupo: gravado, valor: "12" },
-    { denominacion: "Gravado - Retiro", afectaIgv: true, grupo: gravado, valor: "13" },
-    { denominacion: "Gravado - Retiro por publicidad", afectaIgv: true, grupo: gravado, valor: "14" },
-    { denominacion: "Gravado - Bonificaciones", afectaIgv: true, grupo: gravado, valor: "15" },
-    { denominacion: "Gravado – Retiro por entrega a trabajadores", afectaIgv: true, grupo: gravado, valor: "16" },
-    { denominacion: "Exonerado - Operación Onerosa", afectaIgv: false, grupo: exonerado, valor: "20" },
-    { denominacion: "Inafecto - Operación Onerosa", afectaIgv: false, grupo: inafecto, valor: "30" },
-    { denominacion: "Inafecto - Retiro por Bonificación", afectaIgv: false, grupo: inafecto, valor: "31" },
-    { denominacion: "Inafecto - Retiro", afectaIgv: false, grupo: inafecto, valor: "32" },
-    { denominacion: "Inafecto - Retiro por Muestras Médicas", afectaIgv: false, grupo: inafecto, valor: "33" },
-    { denominacion: "Inafecto - Retiro por Convenio Colectivo", afectaIgv: false, grupo: inafecto, valor: "34" },
-    { denominacion: "Inafecto - Retiro por premio", afectaIgv: false, grupo: inafecto, valor: "35" },
-    { denominacion: "Inafecto - Retiro por publicidad", afectaIgv: false, grupo: inafecto, valor: "36" },
-    { denominacion: "Exportacion", afectaIgv: false, grupo: inafecto, valor: "40" }
-  ];
-
-  monedas = [
-    { denominacion: "Nuevos Soles", valor: "PEN" }, // el primero sera usado por defecto
-    { denominacion: "Dolares Americanos", valor: "USD" }
-  ];
+  tipoDocumento: any[];
+  tipoDocumentoEntidad: any[];
+  tipoDeIgv: any[];
+  monedas: any[];
 
   numberMask = {
     allowDecimal: true
@@ -95,6 +61,10 @@ export class CreateInvoiceFormComponent implements OnInit, OnDestroy {
     this.buildForm();
     this.dataSubscription = this.route.data.subscribe(data => {
       this.organization = data["organization"];
+      this.tipoDocumento = data["invoiceType"];
+      this.tipoDocumentoEntidad = data["additionalAccountId"];
+      this.tipoDeIgv = data["taxType"];
+      this.monedas = this.organization.supportedCurrencies || ["PEN"];
     });
   }
 
@@ -136,7 +106,7 @@ export class CreateInvoiceFormComponent implements OnInit, OnDestroy {
     });
 
     this.addFormGlobalObservers();
-    this.setDefaultFormValues();
+    //this.setDefaultFormValues();
   }
 
   // Carga valores por defecto del formulario principal

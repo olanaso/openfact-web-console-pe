@@ -58,6 +58,8 @@ import { VoidedResolver } from './resolvers/voided-resolver';
 import { VoidedJsonResolver } from './resolvers/voided-json-resolver';
 import { VoidedTextResolver } from './resolvers/voided-text-resolver';
 
+import { TipoIgvResolver, InvoiceTypeResolver, TipoDocumentoEntidadResolver } from './resolvers/type-resolver';
+
 // Guards
 import { AllowedDataOrganizations } from './guards/allowed-data-organizations';
 import { AllowedDataRoles } from './guards/allowed-data-roles';
@@ -136,6 +138,8 @@ import { AllowedDataRoles } from './guards/allowed-data-roles';
     VoidedResolver,
     VoidedJsonResolver,
     VoidedTextResolver,
+
+    TipoIgvResolver, InvoiceTypeResolver, TipoDocumentoEntidadResolver,
 
     //Guards
     AllowedDataOrganizations,

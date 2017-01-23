@@ -20,6 +20,8 @@ import { VoidedResolver } from '../core/resolvers/voided-resolver';
 import { VoidedJsonResolver } from '../core/resolvers/voided-json-resolver';
 import { VoidedTextResolver } from '../core/resolvers/voided-text-resolver';
 
+import { TipoIgvResolver, InvoiceTypeResolver, TipoDocumentoEntidadResolver } from '../core/resolvers/type-resolver';
+
 import { OrganizationComponent } from './organization.component';
 import { OrganizationOverviewComponent } from './organization-overview/organization-overview.component';
 import { OrganizationSettingsComponent } from './organization-settings/organization-settings.component';
@@ -130,7 +132,10 @@ import { EventsSettingsComponent } from './events-settings/events-settings.compo
                     path: '',
                     component: CreateInvoiceFormComponent,
                     resolve: {
-                      organization: OrganizationResolver
+                      organization: OrganizationResolver,
+                      invoiceType: InvoiceTypeResolver,
+                      additionalAccountId: TipoDocumentoEntidadResolver,
+                      taxType: TipoIgvResolver
                     }
                   },
                   {

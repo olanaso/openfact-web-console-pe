@@ -85,7 +85,7 @@ export class CreateInvoiceFormComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
-    private activatedRoute: ActivatedRoute,
+    private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private modalService: NgbModal,
     private dataService: DataService,
@@ -94,7 +94,7 @@ export class CreateInvoiceFormComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.buildForm();
-    this.dataSubscription = this.activatedRoute.data.subscribe(data => {
+    this.dataSubscription = this.route.data.subscribe(data => {
       this.organization = data["organization"];
     });
   }
@@ -339,7 +339,7 @@ export class CreateInvoiceFormComponent implements OnInit, OnDestroy {
           this.working = false;
           this.alertService.pop("success", "Success", "Success! The invoice has been created.");
           if (redirect) {
-            this.router.navigate(["../"], { relativeTo: this.activatedRoute.parent });
+            this.router.navigate(["../"], { relativeTo: this.route.parent });
           } else {
             this.buildForm();
           }
@@ -353,7 +353,7 @@ export class CreateInvoiceFormComponent implements OnInit, OnDestroy {
   }
 
   cancel() {
-    this.router.navigate(["../"], { relativeTo: this.activatedRoute.parent });
+    this.router.navigate(["../"], { relativeTo: this.route.parent });
   }
 
   /**

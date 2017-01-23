@@ -23,7 +23,6 @@ export class RetentionOverviewComponent implements OnInit {
   constructor(private activatedRoute: ActivatedRoute,
               private dataService: DataService, private alertService: AlertService) {
     this.retention = this.activatedRoute.snapshot.data['retention'];
-    this.retentionText = this.activatedRoute.snapshot.data['retentionText'];
     this.retentionJson = this.activatedRoute.snapshot.data['retentionJson'];
   }
 

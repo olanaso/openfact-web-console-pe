@@ -424,8 +424,7 @@ import { EventsSettingsComponent } from './events-settings/events-settings.compo
                     resolve: {
                       organization: OrganizationResolver,
                       retention: RetentionResolver,
-                      retentionJson: RetentionJsonResolver,
-                      retentionText: RetentionTextResolver
+                      retentionJson: RetentionJsonResolver
                     }
                   },
                   {

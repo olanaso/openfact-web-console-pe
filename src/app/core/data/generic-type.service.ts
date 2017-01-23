@@ -25,15 +25,15 @@ export class GenericTypeService {
     this.restangular = restangular;
   }
 
-  public build(organization: Organization, id?: string): GenericType {
+  public build(organizationName: string, id?: string): GenericType {
     let generic = new GenericType();
     generic.id = id;
-    generic.restangular = this.restangular.one("organizations", organization.organization).all(basePath).all(extensionPath).one(genericBasePath, id);
+    generic.restangular = this.restangular.one("organizations", organizationName).all(basePath).all(extensionPath).one(genericBasePath, id);
     return generic;
   }
 
-  public searchTipoAfectacionIgv(organization: Organization): Observable<GenericType> {
-    return this.restangular.one("organizations", organization.organization)
+  public searchTipoAfectacionIgv(organizationName: string): Observable<GenericType> {
+    return this.restangular.one("organizations", organizationName)
       .all(basePath)
       .all(extensionPath)
       .all(genericBasePath)
@@ -43,8 +43,8 @@ export class GenericTypeService {
         return response.json();
       });
   }
-  public searchTipoComprobante(organization: Organization): Observable<GenericType> {
-    return this.restangular.one("organizations", organization.organization)
+  public searchTipoComprobante(organizationName: string): Observable<GenericType> {
+    return this.restangular.one("organizations", organizationName)
       .all(basePath)
       .all(extensionPath)
       .all(genericBasePath)
@@ -54,8 +54,8 @@ export class GenericTypeService {
         return response.json();
       });
   }
-  public searchTipoConceptosTributarios(organization: Organization): Observable<GenericType> {
-    return this.restangular.one("organizations", organization.organization)
+  public searchTipoConceptosTributarios(organizationName: string): Observable<GenericType> {
+    return this.restangular.one("organizations", organizationName)
       .all(basePath)
       .all(extensionPath)
       .all(genericBasePath)
@@ -65,8 +65,8 @@ export class GenericTypeService {
         return response.json();
       });
   }
-  public searchTipoDocumento(organization: Organization): Observable<GenericType> {
-    return this.restangular.one("organizations", organization.organization)
+  public searchTipoDocumento(organizationName: string): Observable<GenericType> {
+    return this.restangular.one("organizations", organizationName)
       .all(basePath)
       .all(extensionPath)
       .all(genericBasePath)
@@ -76,8 +76,8 @@ export class GenericTypeService {
         return response.json();
       });
   }
-  public searchTipoDocumentoRelacionadoGuia(organization: Organization): Observable<GenericType> {
-    return this.restangular.one("organizations", organization.organization)
+  public searchTipoDocumentoRelacionadoGuia(organizationName: string): Observable<GenericType> {
+    return this.restangular.one("organizations", organizationName)
       .all(basePath)
       .all(extensionPath)
       .all(genericBasePath)
@@ -87,8 +87,8 @@ export class GenericTypeService {
         return response.json();
       });
   }
-  public searchTipoDocumentoRelacionadoTributo(organization: Organization): Observable<GenericType> {
-    return this.restangular.one("organizations", organization.organization)
+  public searchTipoDocumentoRelacionadoTributo(organizationName: string): Observable<GenericType> {
+    return this.restangular.one("organizations", organizationName)
       .all(basePath)
       .all(extensionPath)
       .all(genericBasePath)
@@ -98,8 +98,8 @@ export class GenericTypeService {
         return response.json();
       });
   }
-  public searchTipoElementosAdicionalesComprobante(organization: Organization): Observable<GenericType> {
-    return this.restangular.one("organizations", organization.organization)
+  public searchTipoElementosAdicionalesComprobante(organizationName: string): Observable<GenericType> {
+    return this.restangular.one("organizations", organizationName)
       .all(basePath)
       .all(extensionPath)
       .all(genericBasePath)
@@ -109,8 +109,8 @@ export class GenericTypeService {
         return response.json();
       });
   }
-  public searchTipoEstadoItem(organization: Organization): Observable<GenericType> {
-    return this.restangular.one("organizations", organization.organization)
+  public searchTipoEstadoItem(organizationName: string): Observable<GenericType> {
+    return this.restangular.one("organizations", organizationName)
       .all(basePath)
       .all(extensionPath)
       .all(genericBasePath)
@@ -120,8 +120,8 @@ export class GenericTypeService {
         return response.json();
       });
   }
-  public searchTipoModalidadTraslado(organization: Organization): Observable<GenericType> {
-    return this.restangular.one("organizations", organization.organization)
+  public searchTipoModalidadTraslado(organizationName: string): Observable<GenericType> {
+    return this.restangular.one("organizations", organizationName)
       .all(basePath)
       .all(extensionPath)
       .all(genericBasePath)
@@ -131,8 +131,8 @@ export class GenericTypeService {
         return response.json();
       });
   }
-  public searchTipoMoneda(organization: Organization): Observable<GenericType> {
-    return this.restangular.one("organizations", organization.organization)
+  public searchTipoMoneda(organizationName: string): Observable<GenericType> {
+    return this.restangular.one("organizations", organizationName)
       .all(basePath)
       .all(extensionPath)
       .all(genericBasePath)
@@ -142,8 +142,8 @@ export class GenericTypeService {
         return response.json();
       });
   }
-  public searchTipoMotivoTraslado(organization: Organization): Observable<GenericType> {
-    return this.restangular.one("organizations", organization.organization)
+  public searchTipoMotivoTraslado(organizationName: string): Observable<GenericType> {
+    return this.restangular.one("organizations", organizationName)
       .all(basePath)
       .all(extensionPath)
       .all(genericBasePath)
@@ -153,8 +153,8 @@ export class GenericTypeService {
         return response.json();
       });
   }
-  public searchTipoNotaCredito(organization: Organization): Observable<GenericType> {
-    return this.restangular.one("organizations", organization.organization)
+  public searchTipoNotaCredito(organizationName: string): Observable<GenericType> {
+    return this.restangular.one("organizations", organizationName)
       .all(basePath)
       .all(extensionPath)
       .all(genericBasePath)
@@ -164,8 +164,8 @@ export class GenericTypeService {
         return response.json();
       });
   }
-  public searchTipoNotaDebito(organization: Organization): Observable<GenericType> {
-    return this.restangular.one("organizations", organization.organization)
+  public searchTipoNotaDebito(organizationName: string): Observable<GenericType> {
+    return this.restangular.one("organizations", organizationName)
       .all(basePath)
       .all(extensionPath)
       .all(genericBasePath)
@@ -175,8 +175,8 @@ export class GenericTypeService {
         return response.json();
       });
   }
-  public searchTipoOperacion(organization: Organization): Observable<GenericType> {
-    return this.restangular.one("organizations", organization.organization)
+  public searchTipoOperacion(organizationName: string): Observable<GenericType> {
+    return this.restangular.one("organizations", organizationName)
       .all(basePath)
       .all(extensionPath)
       .all(genericBasePath)
@@ -186,8 +186,8 @@ export class GenericTypeService {
         return response.json();
       });
   }
-  public searchTipoPrecioVentaUnitario(organization: Organization): Observable<GenericType> {
-    return this.restangular.one("organizations", organization.organization)
+  public searchTipoPrecioVentaUnitario(organizationName: string): Observable<GenericType> {
+    return this.restangular.one("organizations", organizationName)
       .all(basePath)
       .all(extensionPath)
       .all(genericBasePath)
@@ -197,8 +197,8 @@ export class GenericTypeService {
         return response.json();
       });
   }
-  public searchTipoReciboServiciosPublicos(organization: Organization): Observable<GenericType> {
-    return this.restangular.one("organizations", organization.organization)
+  public searchTipoReciboServiciosPublicos(organizationName: string): Observable<GenericType> {
+    return this.restangular.one("organizations", organizationName)
       .all(basePath)
       .all(extensionPath)
       .all(genericBasePath)
@@ -208,8 +208,8 @@ export class GenericTypeService {
         return response.json();
       });
   }
-  public searchTipoRegimenPercepcion(organization: Organization): Observable<GenericType> {
-    return this.restangular.one("organizations", organization.organization)
+  public searchTipoRegimenPercepcion(organizationName: string): Observable<GenericType> {
+    return this.restangular.one("organizations", organizationName)
       .all(basePath)
       .all(extensionPath)
       .all(genericBasePath)
@@ -219,8 +219,8 @@ export class GenericTypeService {
         return response.json();
       });
   }
-  public searchTipoRegimenRetencion(organization: Organization): Observable<GenericType> {
-    return this.restangular.one("organizations", organization.organization)
+  public searchTipoRegimenRetencion(organizationName: string): Observable<GenericType> {
+    return this.restangular.one("organizations", organizationName)
       .all(basePath)
       .all(extensionPath)
       .all(genericBasePath)
@@ -230,8 +230,8 @@ export class GenericTypeService {
         return response.json();
       });
   }
-  public searchTipoSistemaCalculoISC(organization: Organization): Observable<GenericType> {
-    return this.restangular.one("organizations", organization.organization)
+  public searchTipoSistemaCalculoISC(organizationName: string): Observable<GenericType> {
+    return this.restangular.one("organizations", organizationName)
       .all(basePath)
       .all(extensionPath)
       .all(genericBasePath)
@@ -241,8 +241,8 @@ export class GenericTypeService {
         return response.json();
       });
   }
-  public searchTipoTributo(organization: Organization): Observable<GenericType> {
-    return this.restangular.one("organizations", organization.organization)
+  public searchTipoTributo(organizationName: string): Observable<GenericType> {
+    return this.restangular.one("organizations", organizationName)
       .all(basePath)
       .all(extensionPath)
       .all(genericBasePath)
@@ -252,8 +252,8 @@ export class GenericTypeService {
         return response.json();
       });
   }
-  public searchTipoValorVenta(organization: Organization): Observable<GenericType> {
-    return this.restangular.one("organizations", organization.organization)
+  public searchTipoValorVenta(organizationName: string): Observable<GenericType> {
+    return this.restangular.one("organizations", organizationName)
       .all(basePath)
       .all(extensionPath)
       .all(genericBasePath)

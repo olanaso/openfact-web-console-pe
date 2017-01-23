@@ -66,23 +66,23 @@ export class CreatePerceptionFormComponent implements OnInit {
   }
 
   buildGeneric(): void {
-    this.dataService.genericTypePeru().searchTipoComprobante(this.organization).subscribe(result => {
+    this.dataService.genericTypePeru().searchTipoComprobante(this.organization.organization).subscribe(result => {
       this.tipoDocumento = result;    
     });
-    this.dataService.genericTypePeru().searchTipoDocumento(this.organization).subscribe(result => {
+    this.dataService.genericTypePeru().searchTipoDocumento(this.organization.organization).subscribe(result => {
       this.tipoDocumentoEntidad = result;
       this.form.patchValue({
         entidadTipoDeDocumento: this.tipoDocumentoEntidad[0].codigo
       });
       this.LENGTH = this.tipoDocumentoEntidad[0].length;
     });
-    this.dataService.genericTypePeru().searchTipoMoneda(this.organization).subscribe(result => {
+    this.dataService.genericTypePeru().searchTipoMoneda(this.organization.organization).subscribe(result => {
       this.monedaEntidad = result;
       this.form.patchValue({
         monedaDocumento: this.monedaEntidad[0].codigo
       });
     });
-    this.dataService.genericTypePeru().searchTipoRegimenPercepcion(this.organization).subscribe(result => {
+    this.dataService.genericTypePeru().searchTipoRegimenPercepcion(this.organization.organization).subscribe(result => {
       this.tasaEntidad = result;
       this.form.patchValue({
         codigoDocumento: this.tasaEntidad[0].codigo,

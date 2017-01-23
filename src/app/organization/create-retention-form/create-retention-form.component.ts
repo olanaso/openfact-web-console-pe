@@ -69,13 +69,13 @@ export class CreateRetentionFormComponent implements OnInit {
   }
 
   buildGeneric(): void {
-    this.dataService.genericTypePeru().searchTipoComprobante(this.organization).subscribe(
+    this.dataService.genericTypePeru().searchTipoComprobante(this.organization.organization).subscribe(
       result => {
         this.tipoDocumento = result;
       }, error => {
         this.alertService.pop('error', 'Error', 'Error loading document sunat type.');
       });
-    this.dataService.genericTypePeru().searchTipoDocumento(this.organization).subscribe(
+    this.dataService.genericTypePeru().searchTipoDocumento(this.organization.organization).subscribe(
       result => {
         this.tipoDocumentoEntidad = result;
         this.form.patchValue({
@@ -85,7 +85,7 @@ export class CreateRetentionFormComponent implements OnInit {
       }, error => {
         this.alertService.pop('error', 'Error', 'Error loading document type.');
       });
-    this.dataService.genericTypePeru().searchTipoMoneda(this.organization).subscribe(
+    this.dataService.genericTypePeru().searchTipoMoneda(this.organization.organization).subscribe(
       result => {
         this.monedaEntidad = result;
         this.form.patchValue({
@@ -94,7 +94,7 @@ export class CreateRetentionFormComponent implements OnInit {
       }, error => {
         this.alertService.pop('error', 'Error', 'Error loading currency code.');
       });
-    this.dataService.genericTypePeru().searchTipoRegimenRetencion(this.organization).subscribe(
+    this.dataService.genericTypePeru().searchTipoRegimenRetencion(this.organization.organization).subscribe(
       result => {
         this.tasaEntidad = result;
         this.form.patchValue({

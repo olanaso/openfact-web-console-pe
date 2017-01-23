@@ -49,7 +49,7 @@ export class CreateVoidedFormComponent implements OnInit {
   ngOnInit() {
   }
   buildGeneric() : void{
-    this.dataService.genericTypePeru().searchTipoComprobante(this.organization).subscribe(
+    this.dataService.genericTypePeru().searchTipoComprobante(this.organization.organization).subscribe(
       result => {
         this.tipoDocumento = result;
       }, error => {

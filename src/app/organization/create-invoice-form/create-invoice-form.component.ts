@@ -25,7 +25,6 @@ const igv = 0.18;
 export class CreateInvoiceFormComponent implements OnInit, OnDestroy {
 
   dataSubscription: Subscription;
-  formSubcriptions: Array<Subscription> = new Array<Subscription>();
 
   form: FormGroup;
   working: boolean = false;
@@ -101,7 +100,6 @@ export class CreateInvoiceFormComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.dataSubscription.unsubscribe();
-    this.formSubcriptions.forEach(subscription => subscription.unsubscribe());
   }
 
   buildForm(): void {
@@ -183,14 +181,12 @@ export class CreateInvoiceFormComponent implements OnInit, OnDestroy {
   addFormGlobalObservers() {
     let formControls = [this.igv, this.operacionGratuita, this.porcentajeDescuento, this.totalOtrosCargos];
     formControls.forEach(formControl => {
-      let subscription = formControl.valueChanges.subscribe(formControlValue => {
+      formControl.valueChanges.subscribe(formControlValue => {
         this.refreshFormValues();
       });
-      this.formSubcriptions.push(subscription);
     });
 
-    let subscription = this.moneda.valueChanges.subscribe(value => this.changeMoneda(value));
-    this.formSubcriptions.push(subscription);
+    this.moneda.valueChanges.subscribe(value => this.changeMoneda(value));
   }
 
   // Se activa al cambiar de moneda

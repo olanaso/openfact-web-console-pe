@@ -12,7 +12,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from './shared/shared.module';
 
-export const BASE_URL: string = "http://localhost:8081/openfact";
+export const BASE_URL = 'http://localhost:8081/openfact';
 
 export function createTranslateLoader(http: Http) {
   return new TranslateStaticLoader(http, './assets/i18n', '.json');

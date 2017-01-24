@@ -8,10 +8,8 @@ export class KeycloakService {
 
   static auth: any = {};
 
-  constructor() { }
-
   static init(): Promise<any> {
-    let keycloakAuth: any = new Keycloak('keycloak.json');
+    const keycloakAuth: any = new Keycloak('keycloak.json');
 
     return new Promise((resolve, reject) => {
       keycloakAuth.init({ onLoad: 'login-required' })
@@ -26,6 +24,8 @@ export class KeycloakService {
     });
   }
 
+  constructor() { }
+
   getToken(): Promise<string> {
     return new Promise<string>((resolve, reject) => {
       if (KeycloakService.auth.authz.token) {
@@ -39,5 +39,7 @@ export class KeycloakService {
       }
     });
   }
+
+
 
 }

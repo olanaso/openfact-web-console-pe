@@ -32,13 +32,13 @@ export class RestangularService {
   }
 
   one(path: string, id: string): RestangularService {
-    let restangular = this.clone();
-    restangular.path += (path ? "/" + path : "") + "/" + id;
+    const restangular = this.clone();
+    restangular.path += (path ? '/' + path : '') + '/' + id;
     return restangular;
   }
 
   all(path: string): RestangularService {
-    let restangular = this.clone();
+    const restangular = this.clone();
     restangular.path = restangular.path + '/' + path;
     return restangular;
   }
@@ -52,7 +52,7 @@ export class RestangularService {
       };
 
       if (queryParams) {
-        requestOptionsArgs.search = queryParams
+        requestOptionsArgs.search = queryParams;
       }
       if (options) {
         requestOptionsArgs = Object.assign(requestOptionsArgs, options);
@@ -71,7 +71,7 @@ export class RestangularService {
   }
 
   put(obj: any): Observable<Response> {
-    let clone = Object.assign({}, obj);
+    const clone = Object.assign({}, obj);
     delete clone['_restangular'];
 
     return this.http.put(this.path, clone).catch((error) => {
@@ -90,12 +90,12 @@ export class RestangularService {
   }
 
   handleError(error: any): Observable<Response> {
-    if (error.status == 401) {
+    if (error.status === 401) {
       KeycloakService.auth.authz.logout();
-    } else if (error.status == 403) {
-      this.router.navigate(["./forbidden"]);
-    } else if (error.status == 404) {
-      this.router.navigate(["./not-found"]);
+    } else if (error.status === 403) {
+      this.router.navigate(['./forbidden']);
+    } else if (error.status === 404) {
+      this.router.navigate(['./not-found']);
     } else if (error.status) {
       let data: Response;
       try {
@@ -104,10 +104,10 @@ export class RestangularService {
         console.log(err);
       }
 
-      if (data && data["errorMessage"]) {
-        this.alertService.popAsync('error', 'Error', data["errorMessage"]);
+      if (data && data['errorMessage']) {
+        this.alertService.popAsync('error', 'Error', data['errorMessage']);
       } else {
-        this.alertService.popAsync('error', 'Error', "An unexpected server error has occurred");
+        this.alertService.popAsync('error', 'Error', 'An unexpected server error has occurred');
       }
     }
     return Observable.throw(error);

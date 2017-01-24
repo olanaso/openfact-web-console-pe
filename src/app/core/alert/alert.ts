@@ -17,7 +17,7 @@ export interface Alert {
     onShowCallback?: OnActionCallback;
     onHideCallback?: OnActionCallback;
 
-    alertConfig?: AlertConfig
+    alertConfig?: AlertConfig;
 }
 
 export interface AlertLink {
@@ -26,6 +26,4 @@ export interface AlertLink {
     onClickCallback?: OnActionCallback;
 }
 
-export interface OnActionCallback {
-    (toast: Alert): void
-}
+export type OnActionCallback = (toast: Alert) => void;

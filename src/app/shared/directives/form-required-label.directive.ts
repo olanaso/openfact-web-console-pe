@@ -10,13 +10,13 @@ export class FormRequiredLabelDirective implements OnInit {
   @Input()
   ofFormRequiredLabel: FormControl;
 
-  constructor() { }
-
-  @HostBinding("class.required-pf")
+  @HostBinding('class.required-pf')
   required: boolean;
 
+  constructor() { }
+
   ngOnInit() {
-    if (this.ofFormRequiredLabel.errors && this.ofFormRequiredLabel.errors["required"] !== "undefined") {
+    if (this.ofFormRequiredLabel.errors && this.ofFormRequiredLabel.errors['required'] !== 'undefined') {
       this.required = true;
     }
   }

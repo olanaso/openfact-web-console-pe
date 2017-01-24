@@ -1,6 +1,6 @@
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'of-about',
@@ -9,7 +9,7 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 })
 export class AboutComponent implements OnInit {
 
-  @ViewChild("aboutModalContent")
+  @ViewChild('aboutModalContent')
   aboutModalContent;
 
   constructor(
@@ -22,12 +22,13 @@ export class AboutComponent implements OnInit {
   }
 
   open() {
-    this.modalService.open(this.aboutModalContent).result.then((result) => {
-
-    }, (reason) => {
-      let url = this.router.createUrlTree(["./", { outlets: { secondary: null } }]);
-      this.router.navigateByUrl(url, { relativeTo: this.route });
-    });
+    this.modalService.open(this.aboutModalContent).result.then(
+      (result) => { },
+      (reason) => {
+        const url = this.router.createUrlTree(['./', { outlets: { secondary: null } }]);
+        this.router.navigateByUrl(url, { relativeTo: this.route });
+      }
+    );
   }
 
 }

@@ -1,6 +1,5 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-
 import { Alert, AlertLink } from './alert';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'of-alert',
@@ -26,10 +25,10 @@ export class AlertComponent implements OnInit {
 
   onLinkClick(alert: Alert, link: AlertLink) {
     if (link.onClickCallback) {
-      if (typeof link.onClickCallback === "function") {
+      if (typeof link.onClickCallback === 'function') {
         link.onClickCallback(alert);
       } else {
-        console.log("The alert link click handler is not a callable function.");
+        console.log('The alert link click handler is not a callable function.');
         return false;
       }
     }

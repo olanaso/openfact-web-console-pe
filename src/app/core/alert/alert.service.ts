@@ -1,10 +1,9 @@
-import { Injectable } from '@angular/core';
-
-import { Observable } from 'rxjs/Observable';
-import { Observer } from 'rxjs/Observer';
 import 'rxjs/add/operator/share';
 
 import { Alert } from './alert';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { Observer } from 'rxjs/Observer';
 
 @Injectable()
 export class AlertService {
@@ -21,12 +20,12 @@ export class AlertService {
   }
 
   pop(type: string | Alert, message?: string, details?: string): Alert {
-    let alert = typeof type === 'string' ? { type: type, message: message, details: details } : type;
+    const alert = typeof type === 'string' ? { type: type, message: message, details: details } : type;
 
     alert.alertId = Guid.newGuid();
 
     if (!this._addAlert) {
-      throw new Error("No Alert Containers have been initialized to receive alerts.");
+      throw new Error('No Alert Containers have been initialized to receive alerts.');
     }
 
     this._addAlert.next(alert);
@@ -42,12 +41,12 @@ export class AlertService {
   }
 
   clear(alertId?: string, alertContainerId?: number) {
-    let clearWrapper: IClearWrapper = {
+    const clearWrapper: IClearWrapper = {
       alertId: alertId,
       alertContainerId: alertContainerId
     };
 
-    this._clearAlerts.next(clearWrapper)
+    this._clearAlerts.next(clearWrapper);
   }
 
 }
@@ -60,7 +59,8 @@ export interface IClearWrapper {
 class Guid {
   static newGuid() {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-      var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+      const r = Math.random() * 16 | 0;
+      const v = c === 'x' ? r : (r & 0x3 | 0x8);
       return v.toString(16);
     });
   }

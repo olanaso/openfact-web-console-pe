@@ -18,59 +18,59 @@ export class Organization extends Model {
 
     getOrganizationKeys(queryParams?: URLSearchParams) {
         return this.restangular
-            .all("keys")
+            .all('keys')
             .get(queryParams)
             .map(response => response.json());
     }
 
     getComponent(componentId, queryParams?: URLSearchParams) {
         return this.restangular
-            .one("components", componentId)
+            .one('components', componentId)
             .get(queryParams)
             .map(response => response.json());
     }
 
     getComponents(queryParams?: URLSearchParams) {
         return this.restangular
-            .all("components")
+            .all('components')
             .get(queryParams)
             .map(response => response.json());
     }
 
     createComponent(component: any) {
         return this.restangular
-            .all("components")
+            .all('components')
             .post(component);
     }
 
     updateComponent(componentId: string, component: any) {
         return this.restangular
-            .one("components", componentId)
+            .one('components', componentId)
             .put(component);
     }
 
     removeComponent(componentId: any) {
         return this.restangular
-            .one("components", componentId)
+            .one('components', componentId)
             .delete();
     }
 
     getEventsConfig(queryParams?: URLSearchParams) {
         return this.restangular
-            .all("events/config")
+            .all('events/config')
             .get(queryParams)
             .map(response => response.json());
     }
 
     updateEventsConfig(config: any) {
         return this.restangular
-            .all("events/config")
+            .all('events/config')
             .put(config);
     }
 
     getClearAdminEvents(organization: Organization) {
         return this.restangular
-            .all("admin-events")
+            .all('admin-events')
             .delete();
     }
 

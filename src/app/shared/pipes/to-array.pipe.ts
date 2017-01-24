@@ -9,7 +9,7 @@ export class ToArrayPipe implements PipeTransform {
     if (!value) {
       return [];
     }
-    if (value.constructor == Array) {
+    if (value.constructor === Array) {
       return value;
     }
     return [value];

@@ -45,7 +45,7 @@ export class OrganizationCreateComponent implements OnInit {
 
   save(form: any): void {
     this.working = true;
-    let organizationCopy = Object.assign(this.organization || {}, form);
+    const organizationCopy = Object.assign(this.organization || {}, form);
 
     this.dataService.organizations().create(organizationCopy).subscribe(
       result => {

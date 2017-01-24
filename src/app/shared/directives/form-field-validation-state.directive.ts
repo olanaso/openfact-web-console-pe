@@ -10,6 +10,9 @@ export class FormFieldValidationStateDirective implements OnInit {
   @Input()
   ofFormFieldValidationState: FormControl;
 
+  @HostBinding('class.has-error')
+  hasError: boolean;
+
   constructor() { }
 
   ngOnInit() {
@@ -21,8 +24,5 @@ export class FormFieldValidationStateDirective implements OnInit {
       }
     });
   }
-
-  @HostBinding("class.has-error")
-  hasError: boolean;
 
 }

@@ -1,22 +1,22 @@
-import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AboutComponent } from './pages/about/about.component';
+import { NgModule } from '@angular/core';
 
 const routes: Routes = [
     {
-        path: "",
-        redirectTo: "/admin/organizations",
-        pathMatch: "full"
+        path: '',
+        redirectTo: '/admin/organizations',
+        pathMatch: 'full'
     },
     {
-        path: "about",
+        path: 'about',
         component: AboutComponent,
-        outlet: "secondary"
+        outlet: 'secondary'
     },
     {
-        path: "admin",
-        loadChildren: "app/admin/admin.module#AdminModule"
+        path: 'admin',
+        loadChildren: 'app/admin/admin.module#AdminModule'
     }
 ];
 

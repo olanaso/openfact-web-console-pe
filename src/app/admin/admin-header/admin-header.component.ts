@@ -1,7 +1,8 @@
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { TranslateService } from 'ng2-translate';
+
 import { KeycloakService } from '../../core/keycloak.service';
+import { TranslateService } from 'ng2-translate';
 
 @Component({
   selector: 'of-admin-header',
@@ -11,7 +12,7 @@ import { KeycloakService } from '../../core/keycloak.service';
 export class AdminHeaderComponent implements OnInit {
 
   user: any = {
-    username: ""
+    username: ''
   };
 
   authz: any;
@@ -33,7 +34,7 @@ export class AdminHeaderComponent implements OnInit {
   }
 
   about() {
-    let url = this.router.createUrlTree(["./", { outlets: { secondary: "about" } }]);
+    const url = this.router.createUrlTree(['./', { outlets: { secondary: 'about' } }]);
     this.router.navigateByUrl(url, { relativeTo: this.route });
   }
 

@@ -39,7 +39,7 @@ export class OrganizationListComponent implements OnInit {
   }
 
   editOrganization(organization: Organization): void {
-    this.router.navigate(["/organizations", organization.organization]);
+    this.router.navigate(['/organizations', organization.organization]);
   }
 
 }

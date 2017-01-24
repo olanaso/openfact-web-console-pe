@@ -25,15 +25,17 @@ export class FormFieldsStatusComponent implements OnInit {
 
   checkIfHasRequiredFields(formGroup: FormGroup): boolean {
     let result = false;
-    for (let key in this.form.controls) {
-      let abstractControl: AbstractControl = this.form.controls[key];
+    for (const key in this.form.controls) {
+      if (!key) { continue; }
+
+      const abstractControl: AbstractControl = this.form.controls[key];
       if (abstractControl instanceof FormGroup) {
         if (this.checkIfHasRequiredFields(abstractControl)) {
           result = true;
           break;
         }
       } else {
-        if (abstractControl.errors && abstractControl.errors["required"] !== "undefined") {
+        if (abstractControl.errors && abstractControl.errors['required'] !== 'undefined') {
           result = true;
           break;
         }

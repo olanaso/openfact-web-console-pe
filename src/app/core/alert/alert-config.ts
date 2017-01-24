@@ -6,7 +6,7 @@ export class AlertConfig implements IAlertConfig {
     timeout: number | Object;
     mouseoverTimerStop: boolean;
 
-    toast: boolean | Object;;
+    toast: boolean | Object;
 
     constructor(configOverrides?: IAlertConfig) {
         configOverrides = configOverrides || {};

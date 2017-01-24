@@ -24,7 +24,7 @@ export class ServerInfoComponent implements OnInit {
   };
   spis = new Collections.Dictionary<String, any>();
 
-  tab: string = "serverInfo";
+  tab: string = 'serverInfo';
 
   constructor(private dataService: DataService) { }
 
@@ -37,9 +37,11 @@ export class ServerInfoComponent implements OnInit {
       (data) => {
         this.serverInfo = data;
 
-        this.spis = new Collections.Dictionary<String, any>()
-        for (let key in data["providers"]) {
-          this.spis.setValue(key, data["providers"][key]);
+        this.spis = new Collections.Dictionary<String, any>();
+        for (const key in data['providers']) {
+          if (key) {
+            this.spis.setValue(key, data['providers'][key]);
+          }
         }
       }
     );

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from 'ng2-translate';
+import { KeycloakService } from '../../core/keycloak.service';
 
 @Component({
   selector: 'of-admin-header',
@@ -24,8 +25,8 @@ export class AdminHeaderComponent implements OnInit {
     private translate: TranslateService) { }
 
   ngOnInit() {
-    //this.authz = KeycloakService.auth.authz;
-    //this.user.username = KeycloakService.auth.authz.tokenParsed.username;
+    this.authz = KeycloakService.auth.authz;
+    this.user.username = KeycloakService.auth.authz.tokenParsed.username;
 
     this.selectedLanguage = this.translate.currentLang;
     this.supportedLanguages = this.translate.getLangs();

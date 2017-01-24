@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl } from '@angular/forms';
 
 import { AlertService } from './../../core/alert/alert.service';
 import { DataService } from './../../core/data/data.service';
-import { FormBuilder } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Validators } from '@angular/forms';
@@ -43,9 +43,9 @@ export class OrganizationCreateComponent implements OnInit {
     this.importing = true;
   }
 
-  save(form: any): void {
+  save(form: FormControl): void {
     this.working = true;
-    const organizationCopy = Object.assign(this.organization || {}, form);
+    const organizationCopy = Object.assign(this.organization || {}, form.value);
 
     this.dataService.organizations().create(organizationCopy).subscribe(
       result => {

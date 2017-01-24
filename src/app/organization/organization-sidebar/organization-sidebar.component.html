@@ -49,7 +49,7 @@
       </a>
     </li>
     <li class="list-group-item" routerLinkActive="active">
-      <a routerLink="settings">
+      <a [routerLink]="['settings', 'general-information']">
         <span class="fa fa-gear" title="{{'settings' | translate}}"></span>
         <span class="list-group-item-value">{{'settings' | translate}}</span>
       </a>

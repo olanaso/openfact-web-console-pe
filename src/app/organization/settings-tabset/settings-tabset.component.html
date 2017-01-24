@@ -1,0 +1,22 @@
+<ol class="breadcrumb">
+  <li><a href="javascript:void(0);" routerLink="../dashboard">{{'settings' | translate}}</a></li>
+  <li class="active"> {{organization.organization}}</li>
+</ol>
+<div>
+  <h3>{{organization.organization}}
+    <small>{{'created' | translate}} 
+      <span>
+        {{organization.createdTimestamp | amTimeAgo}}
+      </span>
+		</small>
+  </h3>
+</div>
+
+<ul class="nav nav-tabs">
+  <li routerLinkActive="active"><a routerLink="../general-information">{{'general' | translate}}</a></li>
+  <li routerLinkActive="active"><a routerLink="../additional-information">{{'additional-info' | translate}}</a></li>
+  <li routerLinkActive="active"><a routerLink="../keys">{{'keys' | translate}}</a></li>
+  <li routerLinkActive="active"><a routerLink="../smtp-settings">{{'email' | translate}}</a></li>
+  <li routerLinkActive="active"><a routerLink="../theme-settings">{{'themes' | translate}}</a></li>
+  <li routerLinkActive="active"><a routerLink="../tasks-settings">{{'tasks' | translate}}</a></li>
+</ul>

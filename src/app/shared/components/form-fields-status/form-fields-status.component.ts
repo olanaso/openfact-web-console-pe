@@ -9,7 +9,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class FormFieldsStatusComponent implements OnInit {
 
   @Input()
-  form: FormGroup;
+  ofForm: FormGroup;
 
   hasRequiredFields: boolean;
 
@@ -20,20 +20,20 @@ export class FormFieldsStatusComponent implements OnInit {
   }
 
   refreshState() {
-    this.hasRequiredFields = this.checkIfHasRequiredFields(this.form);
+    this.hasRequiredFields = this.checkIfHasRequiredFields(this.ofForm);
   }
 
   checkIfHasRequiredFields(formGroup: FormGroup): boolean {
     let result = false;
-    for (const key in this.form.controls) {
+    for (const key in this.ofForm.controls) {
       if (!key) { continue; }
 
-      const abstractControl: AbstractControl = this.form.controls[key];
+      const abstractControl: AbstractControl = this.ofForm.controls[key];
       if (abstractControl instanceof FormGroup) {
-        if (this.checkIfHasRequiredFields(abstractControl)) {
+        /*if (this.checkIfHasRequiredFields(abstractControl)) {
           result = true;
           break;
-        }
+        }*/
       } else {
         if (abstractControl.errors && abstractControl.errors['required'] !== 'undefined') {
           result = true;

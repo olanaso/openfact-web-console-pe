@@ -8,7 +8,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 export class ButtonCancelComponent implements OnInit {
 
   @Output()
-  ofClick: EventEmitter<boolean> = new EventEmitter<boolean>();
+  ofOnCancel: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor() { }
 
@@ -16,7 +16,7 @@ export class ButtonCancelComponent implements OnInit {
   }
 
   cancel() {
-    this.ofClick.emit(true);
+    this.ofOnCancel.emit(true);
   }
 
 }

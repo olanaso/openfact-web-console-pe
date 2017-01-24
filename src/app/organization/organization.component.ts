@@ -9,7 +9,13 @@ import { Subscription } from 'rxjs/Subscription';
 @Component({
   selector: 'of-organization',
   templateUrl: './organization.component.html',
-  styleUrls: []
+  styles: [`
+    .container-pf-nav-pf-vertical {      
+      top: 60px;
+      position: relative;
+      margin-left: 200px;
+    }
+  `]
 })
 export class OrganizationComponent implements OnInit, OnDestroy {
 

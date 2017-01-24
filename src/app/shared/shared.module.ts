@@ -12,6 +12,7 @@ import { FormFieldsStatusComponent } from './components/form-fields-status/form-
 import { FormRequiredLabelDirective } from './directives/form-required-label.directive';
 import { HttpModule } from '@angular/http';
 import { KeysPipe } from './pipes/keys.pipe';
+import { MomentModule } from 'angular2-moment';
 import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReadFileComponent } from './components/read-file/read-file.component';
@@ -31,7 +32,8 @@ import { YesNoPipe } from './pipes/yes-no.pipe';
     ReactiveFormsModule,
 
     NgbModule,
-    TranslateModule
+    TranslateModule,
+    MomentModule,
   ],
   declarations: [
     FormFieldsStatusComponent,
@@ -60,6 +62,7 @@ import { YesNoPipe } from './pipes/yes-no.pipe';
 
     NgbModule,
     TranslateModule,
+    MomentModule,
 
     FormFieldsStatusComponent,
     FormRequiredLabelDirective,

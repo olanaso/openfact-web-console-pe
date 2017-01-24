@@ -1,3 +1,22 @@
-<p>
-  organization-create works!
-</p>
+<br><br>
+<div class="container-fluid container-cards-pf">
+  <div class="row row-cards-pf">
+    <div class="col-xs-12 col-sm-12 col-md-10 col-lg-6 col-lg-offset-1 col-md-offset-1">
+      <h3>{{'create-organization' | translate}}</h3>
+      <form [formGroup]="form" (ngSubmit)="save(form.value)" class="form-horizontal">
+        <of-form-fields-status [form]="form"></of-form-fields-status>
+
+        <div class="form-group" [ofFormFieldValidationState]="form.get('organization')">
+          <label class="col-md-2 control-label" [ofFormRequiredLabel]="form.get('organization')">{{'name' | translate}}
+						<i class="fa fa-question-circle text-muted" ngbTooltip="Name of the organization." placement="right"></i>
+          </label>
+          <div class="col-md-9">
+            <input [formControl]="form.controls.organization" type="text" class="form-control" autofocus/>
+            <of-form-field-validation-messages [ofFormControl]="form.get('organization')">
+            </of-form-field-validation-messages>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

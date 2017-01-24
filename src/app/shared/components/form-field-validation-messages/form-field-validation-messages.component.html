@@ -1,0 +1,7 @@
+<div *ngIf="!ofFormControl.valid && ofFormControl.dirty">
+  <span *ngIf="ofFormControl.errors.required" class="help-block">This field is required</span>
+  <span *ngIf="ofFormControl.errors.maxlength" class="help-block">Max length allowed: {{ofFormControl.errors.maxlength.requiredLength}}</span>
+  <ng-content>
+
+  </ng-content>
+</div>

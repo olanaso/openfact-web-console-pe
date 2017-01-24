@@ -11,6 +11,11 @@ export class Organization extends Model {
     internationalizationEnabled: boolean;
     defaultLocale: string;
 
+    smtpServer: SmtpServerConfig;
+
+    taskDelay: number;
+    taskFirstTime: Date;
+
     constructor(restangular: RestangularService) {
         super(restangular);
     }
@@ -84,4 +89,15 @@ export class Organization extends Model {
             .map(response => response.json());
     }
 
+}
+
+export interface SmtpServerConfig {
+    host: string;
+    port: string;
+    from?: string;
+    ssl?: string;
+    starttls?: string;
+    auth?: string;
+    user?: string;
+    password?: string;
 }

@@ -27,7 +27,8 @@ import { SettingsTabsetComponent } from './settings-tabset/settings-tabset.compo
     SettingsThemeComponent,
     SettingsTasksComponent,
     DashboardComponent,
-    SettingsTabsetComponent
+    SettingsTabsetComponent,
+    SettingsSmtpComponent
   ]
 })
 export class OrganizationModule { }

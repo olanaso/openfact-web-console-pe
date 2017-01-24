@@ -13,7 +13,7 @@ export class ButtonSaveComponent implements OnInit {
   ofForm: FormGroup;
 
   @Input()
-  working: boolean = false;  
+  working: boolean = false;
 
   constructor() { }
 

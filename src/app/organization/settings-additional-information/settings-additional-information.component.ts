@@ -1,6 +1,6 @@
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { AlertService } from './../../core/alert/alert.service';
 import { DataService } from './../../core/data/data.service';
@@ -66,10 +66,10 @@ export class SettingsAdditionalInformationComponent implements OnInit, OnDestroy
     this.form.patchValue(this.organization);
   }
 
-  save(value: any) {
+  save(form: FormControl) {
     this.working = true;
 
-    this.organization.save(value).subscribe(
+    this.organization.save(form.value).subscribe(
       result => {
         this.working = false;
         this.form.markAsPristine();

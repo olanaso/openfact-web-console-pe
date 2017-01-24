@@ -12,6 +12,7 @@ import { RequestOptions } from '@angular/http';
 import { RestangularService } from './data/restangular.service';
 import { RestangularServiceFactory } from './data/restangular.service';
 import { Router } from '@angular/router';
+import { ServerInfoResolverService } from './resolvers/server-info-resolver.service';
 import { ServerInfoService } from './data/server-info.service';
 import { SharedModule } from '../shared/shared.module';
 import { XHRBackend } from '@angular/http';
@@ -44,7 +45,8 @@ import { XHRBackend } from '@angular/http';
     OrganizationService,
     ServerInfoService,
 
-    OrganizationResolverService
+    OrganizationResolverService,
+    ServerInfoResolverService
   ]
 })
 export class CoreModule { }

@@ -1,6 +1,6 @@
 <of-settings-tabset [organization]="organization"></of-settings-tabset>
 
-<form [formGroup]="form" (ngSubmit)="save(form.value)" class="form-horizontal">
+<form [formGroup]="form" (ngSubmit)="save(form)" class="form-horizontal">
     <of-form-fields-status [ofForm]="form"></of-form-fields-status>
 
     <div class="form-group" [ofFormFieldValidationState]="form.get('assignedIdentificationId')">

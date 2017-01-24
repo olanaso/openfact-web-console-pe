@@ -9,6 +9,7 @@ import { CoreModule } from './core/core.module';
 import { Http } from '@angular/http';
 import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { OrganizationModule } from './organization/organization.module';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from './shared/shared.module';
 
@@ -36,7 +37,8 @@ export function createTranslateLoader(http: Http) {
 
     SharedModule,
     CoreModule,
-    AdminModule
+    AdminModule,
+    OrganizationModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

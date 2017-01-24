@@ -6,6 +6,7 @@ import { Http } from '@angular/http';
 import { KeycloakHttpFactory } from './keycloak.http';
 import { KeycloakService } from './keycloak.service';
 import { NgModule } from '@angular/core';
+import { OrganizationResolverService } from './resolvers/organization-resolver.service';
 import { OrganizationService } from './data/organization.service';
 import { RequestOptions } from '@angular/http';
 import { RestangularService } from './data/restangular.service';
@@ -41,7 +42,9 @@ import { XHRBackend } from '@angular/http';
     AlertService,
     DataService,
     OrganizationService,
-    ServerInfoService
+    ServerInfoService,
+
+    OrganizationResolverService
   ]
 })
 export class CoreModule { }

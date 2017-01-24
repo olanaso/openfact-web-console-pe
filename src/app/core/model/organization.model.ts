@@ -8,6 +8,9 @@ export class Organization extends Model {
     id: string;
     organization: string;
 
+    internationalizationEnabled: boolean;
+    defaultLocale: string;
+
     constructor(restangular: RestangularService) {
         super(restangular);
     }

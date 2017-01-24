@@ -1,18 +1,18 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { Http } from '@angular/http';
-import { RouterModule } from '@angular/router';
+import { TranslateLoader, TranslateModule, TranslateStaticLoader } from 'ng2-translate';
 
+import { AboutComponent } from './pages/about/about.component';
+import { AdminModule } from './admin/admin.module';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateModule, TranslateStaticLoader, TranslateLoader } from 'ng2-translate';
-
-import { SharedModule } from './shared/shared.module';
+import { BrowserModule } from '@angular/platform-browser';
 import { CoreModule } from './core/core.module';
-import { AdminModule } from './admin/admin.module';
-import { AboutComponent } from './pages/about/about.component';
+import { Http } from '@angular/http';
+import { NgModule } from '@angular/core';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { RouterModule } from '@angular/router';
+import { SharedModule } from './shared/shared.module';
+
+export const BASE_URL: string = "http://localhost:8081/openfact";
 
 export function createTranslateLoader(http: Http) {
   return new TranslateStaticLoader(http, './assets/i18n', '.json');

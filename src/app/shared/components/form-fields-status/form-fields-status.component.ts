@@ -1,4 +1,4 @@
-import { AbstractControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
@@ -26,16 +26,17 @@ export class FormFieldsStatusComponent implements OnInit {
   checkIfHasRequiredFields(formGroup: FormGroup): boolean {
     let result = false;
     for (const key in this.ofForm.controls) {
-      if (!key) { continue; }
+      if (!this.ofForm.controls[key]) { continue; }
 
       const abstractControl: AbstractControl = this.ofForm.controls[key];
       if (abstractControl instanceof FormGroup) {
-        /*if (this.checkIfHasRequiredFields(abstractControl)) {
+        if (this.checkIfHasRequiredFields(abstractControl)) {
           result = true;
           break;
-        }*/
+        }
       } else {
-        if (abstractControl.errors && abstractControl.errors['required'] !== 'undefined') {
+        const validator: any = abstractControl.validator && abstractControl.validator(new FormControl());
+        if (validator && validator.required) {
           result = true;
           break;
         }

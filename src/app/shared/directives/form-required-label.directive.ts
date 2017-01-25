@@ -1,6 +1,5 @@
+import { AbstractControl, FormControl, Validators } from '@angular/forms';
 import { Directive, HostBinding, HostListener, Input, OnInit } from '@angular/core';
-
-import { FormControl } from '@angular/forms';
 
 @Directive({
   selector: '[ofFormRequiredLabel]'
@@ -11,14 +10,13 @@ export class FormRequiredLabelDirective implements OnInit {
   ofFormRequiredLabel: FormControl;
 
   @HostBinding('class.required-pf')
-  required: boolean;
+  isRequired: boolean;
 
   constructor() { }
 
   ngOnInit() {
-    if (this.ofFormRequiredLabel.errors && this.ofFormRequiredLabel.errors['required'] !== 'undefined') {
-      this.required = true;
-    }
+    const validator: any = this.ofFormRequiredLabel.validator && this.ofFormRequiredLabel.validator(new FormControl());
+    this.isRequired = validator && validator.required;
   }
 
 }

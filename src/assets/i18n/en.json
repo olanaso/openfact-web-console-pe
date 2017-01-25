@@ -138,5 +138,8 @@
   "send-to-custom-third-party-by-email": "Send to third party by Email",
   "send": "Send",
   "read-more": "Read more...",
-  "download": "Download"
+  "download": "Download",
+  "this-field-is-required": "this field is required",
+  "this-field-max-length-allowed-is": "Max length allowed is",
+  "this-field-value-is-invalid": "The value of this field is invalid"
 }

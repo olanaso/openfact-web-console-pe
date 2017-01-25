@@ -15,11 +15,13 @@ import { KeysPipe } from './pipes/keys.pipe';
 import { MomentModule } from 'angular2-moment';
 import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { OnOffSwitchStringComponent } from './components/on-off-switch-string/on-off-switch-string.component';
 import { ReadFileComponent } from './components/read-file/read-file.component';
 import { RouterModule } from '@angular/router';
 import { ToArrayPipe } from './pipes/to-array.pipe';
 import { ToDatePipe } from './pipes/to-date.pipe';
 import { TranslateModule } from 'ng2-translate';
+import { ViewKeyComponent } from './components/view-key/view-key.component';
 import { ViewObjectComponent } from './components/view-object/view-object.component';
 import { YesNoPipe } from './pipes/yes-no.pipe';
 
@@ -52,6 +54,8 @@ import { YesNoPipe } from './pipes/yes-no.pipe';
     KeysPipe,
     ToDatePipe,
     YesNoPipe,
+    ViewKeyComponent,
+    OnOffSwitchStringComponent,
   ],
   exports: [
     CommonModule,
@@ -74,9 +78,11 @@ import { YesNoPipe } from './pipes/yes-no.pipe';
     ButtonCancelComponent,
     ButtonResetComponent,
     ButtonSwitchComponent,
+    OnOffSwitchStringComponent,
 
     ReadFileComponent,
     ViewObjectComponent,
+    ViewKeyComponent,
 
     ToArrayPipe,
     KeysPipe,

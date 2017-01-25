@@ -2,10 +2,14 @@ import { AlertComponent } from './alert/alert.component';
 import { AlertService } from './alert/alert.service';
 import { AlertsComponent } from './alert/alerts.component';
 import { DataService } from './data/data.service';
+import { DialogComponent } from './dialog/dialog.component';
+import { DialogService } from './dialog/dialog.service';
 import { Http } from '@angular/http';
 import { KeycloakHttpFactory } from './keycloak.http';
 import { KeycloakService } from './keycloak.service';
 import { NgModule } from '@angular/core';
+import { OrganizationComponentResolverService } from './resolvers/organization-component-resolver.service';
+import { OrganizationKeyResolverService } from './resolvers/organization-key-resolver.service';
 import { OrganizationResolverService } from './resolvers/organization-resolver.service';
 import { OrganizationService } from './data/organization.service';
 import { RequestOptions } from '@angular/http';
@@ -23,7 +27,11 @@ import { XHRBackend } from '@angular/http';
   ],
   declarations: [
     AlertsComponent,
-    AlertComponent
+    AlertComponent,
+    DialogComponent
+  ],
+  entryComponents: [
+    DialogComponent
   ],
   exports: [
     AlertsComponent
@@ -41,12 +49,15 @@ import { XHRBackend } from '@angular/http';
       deps: [Http, Router, AlertService]
     },
     AlertService,
+    DialogService,
     DataService,
     OrganizationService,
     ServerInfoService,
 
     OrganizationResolverService,
-    ServerInfoResolverService
+    OrganizationKeyResolverService,
+    OrganizationComponentResolverService,
+    ServerInfoResolverService,
   ]
 })
 export class CoreModule { }

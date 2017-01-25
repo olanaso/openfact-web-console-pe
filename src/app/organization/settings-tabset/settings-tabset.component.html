@@ -13,10 +13,10 @@
 </div>
 
 <ul class="nav nav-tabs">
-  <li routerLinkActive="active"><a routerLink="../general-information">{{'general' | translate}}</a></li>
-  <li routerLinkActive="active"><a routerLink="../additional-information">{{'additional-info' | translate}}</a></li>
-  <li routerLinkActive="active"><a routerLink="../keys">{{'keys' | translate}}</a></li>
-  <li routerLinkActive="active"><a routerLink="../smtp-settings">{{'email' | translate}}</a></li>
-  <li routerLinkActive="active"><a routerLink="../theme-settings">{{'themes' | translate}}</a></li>
-  <li routerLinkActive="active"><a routerLink="../tasks-settings">{{'tasks' | translate}}</a></li>
+  <li routerLinkActive="active"><a [routerLink]="['/organizations', organization.organization, 'settings', 'general-information']">{{'general' | translate}}</a></li>
+  <li routerLinkActive="active"><a [routerLink]="['/organizations', organization.organization, 'settings', 'additional-information']">{{'additional-info' | translate}}</a></li>
+  <li routerLinkActive="active"><a [routerLink]="['/organizations', organization.organization, 'settings', 'keys']">{{'keys' | translate}}</a></li>
+  <li routerLinkActive="active"><a [routerLink]="['/organizations', organization.organization, 'settings', 'smtp-settings']">{{'email' | translate}}</a></li>
+  <li routerLinkActive="active"><a [routerLink]="['/organizations', organization.organization, 'settings', 'theme-settings']">{{'themes' | translate}}</a></li>
+  <li routerLinkActive="active"><a [routerLink]="['/organizations', organization.organization, 'settings', 'tasks-settings']">{{'tasks' | translate}}</a></li>
 </ul>

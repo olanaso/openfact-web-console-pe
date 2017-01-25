@@ -31,7 +31,7 @@ export class Organization extends Model {
             .map(response => response.json());
     }
 
-    getComponent(componentId, queryParams?: URLSearchParams) {
+    getComponent(componentId: string, queryParams?: URLSearchParams) {
         return this.restangular
             .one('components', componentId)
             .get(queryParams)
@@ -57,7 +57,7 @@ export class Organization extends Model {
             .put(component);
     }
 
-    removeComponent(componentId: any) {
+    removeComponent(componentId: string) {
         return this.restangular
             .one('components', componentId)
             .delete();
@@ -76,7 +76,7 @@ export class Organization extends Model {
             .put(config);
     }
 
-    getClearAdminEvents(organization: Organization) {
+    clearAdminEvents(organization: Organization) {
         return this.restangular
             .all('admin-events')
             .delete();

@@ -16,7 +16,11 @@ export class OrganizationService {
     this.restangular = restangular.all('admin');
   }
 
-  public findById(id: string): Observable<Organization> {
+  build(id: string): Organization {
+    return new Organization(this.restangular.one(organizationsPath, id));
+  }
+
+  findById(id: string): Observable<Organization> {
     const organizationRestangular = this.restangular.one(organizationsPath, id);
     return organizationRestangular
       .get()
@@ -26,7 +30,7 @@ export class OrganizationService {
       });
   }
 
-  public create(organization: Organization): Observable<Organization> {
+  create(organization: Organization): Observable<Organization> {
     const organizationRestangular = this.restangular.all(organizationsPath);
     return organizationRestangular
       .post(organization)
@@ -40,7 +44,7 @@ export class OrganizationService {
       });
   }
 
-  public getAll(queryParams?: URLSearchParams): Observable<Organization[]> {
+  getAll(queryParams?: URLSearchParams): Observable<Organization[]> {
     const organizationsRestangular = this.restangular.all(organizationsPath);
     return organizationsRestangular
       .get(queryParams)

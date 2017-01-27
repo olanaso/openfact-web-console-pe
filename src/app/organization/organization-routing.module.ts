@@ -7,7 +7,12 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { DebitNoteCreateComponent } from './debit-note-create/debit-note-create.component';
 import { DebitNoteListComponent } from './debit-note-list/debit-note-list.component';
 import { DebitNoteUploadComponent } from './debit-note-upload/debit-note-upload.component';
+import { DocumentAttachedDocumentsComponent } from './document-attached-documents/document-attached-documents.component';
+import { DocumentResolverService } from './../core/resolvers/document-resolver.service';
+import { DocumentSendEventsComponent } from './document-send-events/document-send-events.component';
 import { InvoiceCreateComponent } from './invoice-create/invoice-create.component';
+import { InvoiceEditComponent } from './invoice-edit/invoice-edit.component';
+import { InvoiceEditOverviewComponent } from './invoice-edit-overview/invoice-edit-overview.component';
 import { InvoiceListComponent } from './invoice-list/invoice-list.component';
 import { InvoiceUploadComponent } from './invoice-upload/invoice-upload.component';
 import { NgModule } from '@angular/core';
@@ -126,6 +131,27 @@ const routes: Routes = [
       {
         path: 'invoices/upload',
         component: InvoiceUploadComponent
+      },
+      {
+        path: 'invoices/:document',
+        component: InvoiceEditComponent,
+        resolve: {
+          document: DocumentResolverService
+        },
+        children: [
+          {
+            path: '',
+            component: InvoiceEditOverviewComponent
+          },
+          {
+            path: 'send-events',
+            component: DocumentSendEventsComponent
+          },
+          {
+            path: 'attached-documents',
+            component: DocumentAttachedDocumentsComponent
+          }
+        ]
       },
       {
         path: 'credit-notes',

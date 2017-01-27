@@ -6,7 +6,9 @@ import { DataService } from './data/data.service';
 import { DebitNoteService } from './data/debit-note.service';
 import { DialogComponent } from './dialog/dialog.component';
 import { DialogService } from './dialog/dialog.service';
+import { DocumentResolverService } from './resolvers/document-resolver.service';
 import { DocumentService } from './data/document.service';
+import { FileService } from './data/file.service';
 import { Http } from '@angular/http';
 import { InvoiceService } from './data/invoice.service';
 import { KeycloakHttpFactory } from './keycloak.http';
@@ -58,6 +60,7 @@ import { XHRBackend } from '@angular/http';
     OrganizationService,
     ServerInfoService,
     DocumentService,
+    FileService,
     InvoiceService,
     CreditNoteService,
     DebitNoteService,
@@ -66,6 +69,7 @@ import { XHRBackend } from '@angular/http';
     OrganizationKeyResolverService,
     OrganizationComponentResolverService,
     ServerInfoResolverService,
+    DocumentResolverService,
   ]
 })
 export class CoreModule { }

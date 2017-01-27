@@ -15,6 +15,7 @@ import { FormFieldsStatusComponent } from './components/form-fields-status/form-
 import { FormRequiredLabelDirective } from './directives/form-required-label.directive';
 import { HttpModule } from '@angular/http';
 import { KeysPipe } from './pipes/keys.pipe';
+import { LimitedStringComponent } from './components/limited-string/limited-string.component';
 import { MomentModule } from 'angular2-moment';
 import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -62,7 +63,8 @@ import { YesNoPipe } from './pipes/yes-no.pipe';
     ViewKeyComponent,
     OnOffSwitchStringComponent,
     FirstElementPipe,
-    ToNumberPipe,    
+    ToNumberPipe,
+    LimitedStringComponent,
   ],
   exports: [
     CommonModule,
@@ -91,6 +93,7 @@ import { YesNoPipe } from './pipes/yes-no.pipe';
     ReadFileComponent,
     ViewObjectComponent,
     ViewKeyComponent,
+    LimitedStringComponent,
 
     ToArrayPipe,
     KeysPipe,

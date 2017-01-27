@@ -63,7 +63,7 @@ export class InvoiceListComponent implements OnInit {
   }
 
   editDocument(document: Document) {
-    this.router.navigate([document.id], { relativeTo: this.route });
+    this.router.navigate(['./', document.id], { relativeTo: this.route });
   }
 
   search() {
@@ -84,11 +84,11 @@ export class InvoiceListComponent implements OnInit {
   }
 
   downloadCdr(document: Document) {
-    //this.dataService.organizationPeru().downloadInvoiceCdr(this.organization.organization, document.id);
+    // this.dataService.organizationPeru().downloadInvoiceCdr(this.organization.organization, document.id);
   }
 
   downloadPdf(document: Document) {
-    let queryParams: URLSearchParams = new URLSearchParams();
+    const queryParams: URLSearchParams = new URLSearchParams();
     queryParams.set('format', 'pdf');
     document.downloadReport(queryParams);
   }
@@ -110,7 +110,7 @@ export class InvoiceListComponent implements OnInit {
       if (form.valid) {
         invoice.sendToThirdPartyByEmail({ email: form.value.thirdPartyByEmail.email }).subscribe(data => {
           this.alertService.pop('success', 'Success', 'Success! Document sended to third party.');
-        })
+        });
       }
     }, (reason) => {
     });

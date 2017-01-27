@@ -4,11 +4,23 @@ import { Observable } from 'rxjs/Rx';
 import { Organization } from './../model/organization.model';
 import { SearchCriteria } from './../model/search-criteria.model';
 import { SearchResults } from './../model/search-results.model';
+import { URLSearchParams } from '@angular/http';
 
 @Injectable()
 export class DocumentService {
 
   constructor() { }
+
+  public findById(organization: Organization, id: string, queryParams?: URLSearchParams): Observable<Document> {
+    const restangular = organization.restangular.one('documents', id);
+
+    return restangular
+      .get(queryParams)
+      .map(response => {
+        const data = response.json();
+        return Object.assign(new Document(restangular), data);
+      });
+  }
 
   public search(organization: Organization, criteria: SearchCriteria): Observable<SearchResults<Document>> {
     const restangular = organization.restangular;

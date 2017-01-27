@@ -37,8 +37,8 @@ export class Document extends Model {
     }
 
     downloadXml() {
-        let restangular = this.restangular.all('representation/xml');
-        let url = restangular.path;
+        const restangular = this.restangular.all('representation/xml');
+        const url = restangular.path;
 
         return restangular.http
             .get(url, {
@@ -46,7 +46,7 @@ export class Document extends Model {
                 responseType: ResponseContentType.Blob
             })
             .map(response => {
-                let file = {
+                const file = {
                     file: response.blob(),
                     fileName: (this['documentId'] || 'file') + '.xml'
                 };
@@ -59,8 +59,8 @@ export class Document extends Model {
     }
 
     downloadReport(queryParams?: URLSearchParams) {
-        let restangular = this.restangular.all('report');
-        let url = restangular.path;
+        const restangular = this.restangular.all('report');
+        const url = restangular.path;
 
         return restangular.http
             .get(url, {
@@ -69,12 +69,12 @@ export class Document extends Model {
                 search: queryParams
             })
             .map(response => {
-                let fileExtension: string = '';
+                let fileExtension = '';
                 if (queryParams.get('format')) {
                     fileExtension = '.' + queryParams.get('format');
                 }
 
-                let file = {
+                const file = {
                     file: response.blob(),
                     fileName: (this['documentId'] || 'file') + fileExtension
                 };

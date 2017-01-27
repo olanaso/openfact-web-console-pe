@@ -1,10 +1,14 @@
 import { RouterModule, Routes } from '@angular/router';
 
 import { CreditNoteCreateComponent } from './credit-note-create/credit-note-create.component';
+import { CreditNoteEditComponent } from './credit-note-edit/credit-note-edit.component';
+import { CreditNoteEditOverviewComponent } from './credit-note-edit-overview/credit-note-edit-overview.component';
 import { CreditNoteListComponent } from './credit-note-list/credit-note-list.component';
 import { CreditNoteUploadComponent } from './credit-note-upload/credit-note-upload.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DebitNoteCreateComponent } from './debit-note-create/debit-note-create.component';
+import { DebitNoteEditComponent } from './debit-note-edit/debit-note-edit.component';
+import { DebitNoteEditOverviewComponent } from './debit-note-edit-overview/debit-note-edit-overview.component';
 import { DebitNoteListComponent } from './debit-note-list/debit-note-list.component';
 import { DebitNoteUploadComponent } from './debit-note-upload/debit-note-upload.component';
 import { DocumentAttachedDocumentsComponent } from './document-attached-documents/document-attached-documents.component';
@@ -166,6 +170,27 @@ const routes: Routes = [
         component: CreditNoteUploadComponent
       },
       {
+        path: 'credit-notes/:document',
+        component: CreditNoteEditComponent,
+        resolve: {
+          document: DocumentResolverService
+        },
+        children: [
+          {
+            path: '',
+            component: CreditNoteEditOverviewComponent
+          },
+          {
+            path: 'send-events',
+            component: DocumentSendEventsComponent
+          },
+          {
+            path: 'attached-documents',
+            component: DocumentAttachedDocumentsComponent
+          }
+        ]
+      },
+      {
         path: 'debit-notes',
         component: DebitNoteListComponent
       },
@@ -176,6 +201,27 @@ const routes: Routes = [
       {
         path: 'debit-notes/upload',
         component: DebitNoteUploadComponent
+      },
+      {
+        path: 'debit-notes/:document',
+        component: DebitNoteEditComponent,
+        resolve: {
+          document: DocumentResolverService
+        },
+        children: [
+          {
+            path: '',
+            component: DebitNoteEditOverviewComponent
+          },
+          {
+            path: 'send-events',
+            component: DocumentSendEventsComponent
+          },
+          {
+            path: 'attached-documents',
+            component: DocumentAttachedDocumentsComponent
+          }
+        ]
       },
     ]
   }

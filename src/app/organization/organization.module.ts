@@ -29,6 +29,10 @@ import { SettingsTabsetComponent } from './settings-tabset/settings-tabset.compo
 import { SettingsTasksComponent } from './settings-tasks/settings-tasks.component';
 import { SettingsThemeComponent } from './settings-theme/settings-theme.component';
 import { SharedModule } from './../shared/shared.module';
+import { CreditNoteEditComponent } from './credit-note-edit/credit-note-edit.component';
+import { DebitNoteEditComponent } from './debit-note-edit/debit-note-edit.component';
+import { DebitNoteEditOverviewComponent } from './debit-note-edit-overview/debit-note-edit-overview.component';
+import { CreditNoteEditOverviewComponent } from './credit-note-edit-overview/credit-note-edit-overview.component';
 
 @NgModule({
   imports: [
@@ -64,7 +68,11 @@ import { SharedModule } from './../shared/shared.module';
     InvoiceEditComponent,
     InvoiceEditOverviewComponent,
     DocumentSendEventsComponent,
-    DocumentAttachedDocumentsComponent
+    DocumentAttachedDocumentsComponent,
+    CreditNoteEditComponent,
+    DebitNoteEditComponent,
+    DebitNoteEditOverviewComponent,
+    CreditNoteEditOverviewComponent
   ]
 })
 export class OrganizationModule { }

@@ -8,6 +8,7 @@ import { ButtonSwitchComponent } from './components/button-switch/button-switch.
 import { CommonModule } from '@angular/common';
 import { FileSelectDirective } from 'ng2-file-upload';
 import { FileUploadModule } from 'ng2-file-upload';
+import { FirstElementPipe } from './pipes/first-element.pipe';
 import { FormFieldValidationMessagesComponent } from './components/form-field-validation-messages/form-field-validation-messages.component';
 import { FormFieldValidationStateDirective } from './directives/form-field-validation-state.directive';
 import { FormFieldsStatusComponent } from './components/form-fields-status/form-fields-status.component';
@@ -22,6 +23,7 @@ import { ReadFileComponent } from './components/read-file/read-file.component';
 import { RouterModule } from '@angular/router';
 import { ToArrayPipe } from './pipes/to-array.pipe';
 import { ToDatePipe } from './pipes/to-date.pipe';
+import { ToNumberPipe } from './pipes/to-number.pipe';
 import { TranslateModule } from 'ng2-translate';
 import { ViewKeyComponent } from './components/view-key/view-key.component';
 import { ViewObjectComponent } from './components/view-object/view-object.component';
@@ -59,6 +61,8 @@ import { YesNoPipe } from './pipes/yes-no.pipe';
     YesNoPipe,
     ViewKeyComponent,
     OnOffSwitchStringComponent,
+    FirstElementPipe,
+    ToNumberPipe,    
   ],
   exports: [
     CommonModule,
@@ -92,6 +96,8 @@ import { YesNoPipe } from './pipes/yes-no.pipe';
     KeysPipe,
     ToDatePipe,
     YesNoPipe,
+    FirstElementPipe,
+    ToNumberPipe,
   ]
 })
 export class SharedModule { }

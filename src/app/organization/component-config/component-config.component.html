@@ -11,7 +11,8 @@
       <input class="form-control" type="password" [(ngModel)]="config[ option.name ][0]">
     </div>
     <div class="col-md-6" *ngIf="option.type == 'boolean'">
-      <of-on-off-switch-string name="option.name" [value]="config[ option.name ][0]" (onChange)="onSwitchChange(option, $event)" [onText]="'ON'" [offText]="'OFF'"></of-on-off-switch-string>
+      <of-on-off-switch-string name="option.name" [value]="config[ option.name ][0]" (onChange)="onSwitchChange(option, $event)"
+        [onText]="'ON'" [offText]="'OFF'"></of-on-off-switch-string>
     </div>
     <div class="col-md-6" *ngIf="option.type == 'List'">
       <select [(ngModel)]="config[ option.name ][0]" (change)="onListChange(option, $event.target.value)">

@@ -1,15 +1,14 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+
+import { AlertService } from './../../../core/alert/alert.service';
+import { Model } from '../../../core/model/model';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
-
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-
-import { Model } from '../../../core/models/model';
-import { AlertService } from '../../../core/alert/alert.service';
 
 @Component({
   selector: 'of-button-delete',
   templateUrl: './button-delete.component.html',
-  styleUrls: ['./button-delete.component.scss']
+  styleUrls: []
 })
 export class ButtonDeleteComponent implements OnInit {
 
@@ -17,7 +16,7 @@ export class ButtonDeleteComponent implements OnInit {
   @Input()
   model: Model;
 
-  // Resource Kind to delete (e.g., "Pod" or "ReplicationController").
+  // Resource Kind to delete (e.g., 'Pod' or 'ReplicationController').
   @Input()
   kind: string;
 
@@ -41,7 +40,7 @@ export class ButtonDeleteComponent implements OnInit {
   @Input()
   typeNameToConfirm: boolean = false;
 
-  // Optional link label. Defaults to "Delete".
+  // Optional link label. Defaults to 'Delete'.
   @Input()
   label: string;
 
@@ -61,7 +60,7 @@ export class ButtonDeleteComponent implements OnInit {
   @Input()
   redirectUrl: string;
 
-  private confirmName: string = '';
+  confirmName: string = '';
 
   constructor(
     private router: Router,
@@ -79,29 +78,30 @@ export class ButtonDeleteComponent implements OnInit {
     return false;
   }
 
-  openDeleteModal(content) {
+  openDeleteModal(confirmDeleteContent: any): void {
     if (this.disableDelete) {
       return;
     }
 
     // opening the modal with settings scope as parent
-    this.modalService.open(content).result.then((result) => {
-      this.model.restangular.delete().subscribe(
-        result => {
-          this.alertService.pop('success', 'Success', 'Success! The organization has been deleted.');
+    this.modalService.open(confirmDeleteContent).result.then(
+      (result) => {
+        this.model.restangular.delete().subscribe(
+          (data) => {
+            this.alertService.pop('success', 'Success', 'Success! The organization has been deleted.');
 
-          // callback
-          this.success.emit(true);
+            // callback
+            this.success.emit(true);
 
-          // navigate
-          if (!this.stayOnCurrentPage) {
-            this.router.navigate([this.redirectUrl]);
+            // navigate
+            if (!this.stayOnCurrentPage) {
+              this.router.navigate([this.redirectUrl]);
+            }
           }
-        }, error => {
-          this.alertService.pop('error', 'Error', 'Organization could not be deleted.');
-        });
-    }, (reason) => {
-    });
+        );
+      },
+      (reason) => { }
+    );
   }
 
 }

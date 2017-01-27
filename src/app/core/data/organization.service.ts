@@ -1,190 +1,62 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { Response, URLSearchParams } from '@angular/http';
+import { Observable } from 'rxjs/Rx';
+import { Organization } from './../model/organization.model';
+import { RestangularService } from './restangular.service';
+import { URLSearchParams } from '@angular/http';
 
-import { Restangular } from './restangular';
-import { RestangularOpenfact } from './restangular-openfact';
-import { Organization } from '../models/organization.model';
-import { SearchResults } from '../models/search-results.model';
-import { SearchCriteria } from '../models/search-criteria.model';
-import { KeysMetadata } from '../models/keys-metadata.model';
-
-export const organizationIdName: string = 'organization';
-export const organizationBasePath: string = 'organizations';
+const organizationIdName = 'organization';
+const organizationsPath = 'organizations';
 
 @Injectable()
 export class OrganizationService {
 
-    private restangular: Restangular;
+  private restangular: RestangularService;
 
-    constructor(restangular: RestangularOpenfact) {
-        this.restangular = restangular.all("admin");
-    }
+  constructor(restangular: RestangularService) {
+    this.restangular = restangular.all('admin');
+  }
 
-    public build(id?: string): Organization {
-        let organization = new Organization();
-        organization.organization = id;
-        organization.restangular = this.restangular.one(organizationBasePath, id);
-        return organization;
-    }
+  build(id: string): Organization {
+    return new Organization(this.restangular.one(organizationsPath, id));
+  }
 
-    public findById(id: string): Observable<Organization> {
-        return this.restangular
-            .one(organizationBasePath, id)
-            .get()
-            .map(response => {
-                let json = <Organization>response.json();
-                let result = new Organization();
-                result.restangular = this.restangular.one(organizationBasePath, json[organizationIdName]);
-                result = Object.assign(result, json);
-                return result;
-            });
-    }
+  findById(id: string): Observable<Organization> {
+    const organizationRestangular = this.restangular.one(organizationsPath, id);
+    return organizationRestangular
+      .get()
+      .map(response => {
+        const organization = new Organization(organizationRestangular);
+        return Object.assign(organization, response.json());
+      });
+  }
 
-    public create(organization: Organization): Observable<Organization> {
-        return this.restangular
-            .all(organizationBasePath)
-            .post(organization)
-            .map(response => {
-                if (response.status === 201 || 204) {
-                    return undefined;
-                }
-                let json = <Organization>response.json();
-                let result = new Organization();
-                result.restangular = this.restangular.one(organizationBasePath, json[organizationIdName]);
-                result = Object.assign(result, json);
-                return result;
-            });
-    }
+  create(organization: Organization): Observable<Organization> {
+    const organizationRestangular = this.restangular.all(organizationsPath);
+    return organizationRestangular
+      .post(organization)
+      .map(response => {
+        if (response.status === 201 || 204) {
+          return undefined;
+        }
+        const json = response.json();
+        const organization = new Organization(organizationRestangular.one('', json[organizationIdName]));
+        return Object.assign(organization, json);
+      });
+  }
 
-    public getAll(queryParams?: URLSearchParams): Observable<Organization[]> {
-        return this.restangular
-            .all(organizationBasePath)
-            .get(queryParams)
-            .map(response => {
-                let json = <Organization[]>response.json();
-                let result = new Array<Organization>();
-                json.forEach(element => {
-                    let organization = new Organization();
-                    organization.restangular = this.restangular.one(organizationBasePath, element[organizationIdName]);
-                    organization = Object.assign(organization, element);
-                    result.push(organization);
-                });
-                return result;
-            });
-    }
-
-    public search(criteria: SearchCriteria): Observable<SearchResults<Organization>> {
-        return this.restangular
-            .all(organizationBasePath)
-            .all("search")
-            .post(criteria)
-            .map(response => {
-                let json = <SearchResults<Organization>>response.json();
-                let result = new SearchResults<Organization>();
-                let items = new Array<Organization>();
-
-                json.items.forEach(element => {
-                    let organization = new Organization();
-                    organization.restangular = this.restangular.one(organizationBasePath, element[organizationIdName]);
-                    organization = Object.assign(organization, element);
-                    items.push(organization);
-                });
-
-                result.items = items;
-                result.totalSize = json.totalSize;
-                return result;
-            });
-    }
-
-    getOrganizationKeys(organization: Organization, queryParams?: URLSearchParams) {
-        return this.restangular
-            .one(organizationBasePath, organization.organization)
-            .all('keys')
-            .get(queryParams)
-            .map(response => {
-                let json = <any>response.json();
-                return json;
-            });
-    }
-
-    getComponent(organization: Organization, componentId, queryParams?: URLSearchParams) {
-        return this.restangular
-            .one(organizationBasePath, organization.organization)
-            .one('components', componentId)
-            .get(queryParams)
-            .map(response => {
-                let json = <any>response.json();
-                return json;
-            });
-    }
-
-    getComponents(organization: Organization, queryParams?: URLSearchParams) {
-        return this.restangular
-            .one(organizationBasePath, organization.organization)
-            .all('components')
-            .get(queryParams)
-            .map(response => {
-                let json = <any>response.json();
-                return json;
-            });
-    }
-
-    createComponent(organization: Organization, component: any) {
-        return this.restangular
-            .one(organizationBasePath, organization.organization)
-            .all('components')
-            .post(component);
-    }
-
-    updateComponent(organization: Organization, componentId: string, component: any) {
-        return this.restangular
-            .one(organizationBasePath, organization.organization)
-            .one('components', componentId)
-            .put(component);
-    }
-
-    removeComponent(organization: Organization, componentId: any) {
-        return this.restangular
-            .one(organizationBasePath, organization.organization)
-            .one('components', componentId)
-            .delete();
-    }
-
-    getEventsConfig(organization: Organization, queryParams?: URLSearchParams) {
-        return this.restangular
-            .one(organizationBasePath, organization.organization)
-            .all('events/config')
-            .get(queryParams)
-            .map(response => {
-                let json = <any>response.json();
-                return json;
-            });
-    }
-
-    updateEventsConfig(organization: Organization, config: any) {
-        return this.restangular
-            .one(organizationBasePath, organization.organization)
-            .all('events/config')
-            .put(config);
-    }
-
-    getClearAdminEvents(organization: Organization) {
-        return this.restangular
-            .one(organizationBasePath, organization.organization)
-            .all('admin-events')
-            .delete();
-    }
-
-    getAdminEvents(organization: Organization, queryParams?: URLSearchParams) {
-        return this.restangular
-            .one(organizationBasePath, organization.organization)
-            .all('admin-events')
-            .get(queryParams)
-            .map(response => {
-                let json = <any>response.json();
-                return json;
-            });
-    }
+  getAll(queryParams?: URLSearchParams): Observable<Organization[]> {
+    const organizationsRestangular = this.restangular.all(organizationsPath);
+    return organizationsRestangular
+      .get(queryParams)
+      .map(response => {
+        const json = response.json();
+        const organizations = new Array<Organization>();
+        json.forEach(element => {
+          const organization = new Organization(organizationsRestangular.one('', element[organizationIdName]));
+          organizations.push(Object.assign(organization, element));
+        });
+        return organizations;
+      });
+  }
 
 }

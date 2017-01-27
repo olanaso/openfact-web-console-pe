@@ -1,15 +1,15 @@
-import { Component, OnInit, Input, ChangeDetectorRef, ViewEncapsulation } from '@angular/core';
+import { Alert, AlertLink } from './alert';
+import { AlertService, IClearWrapper } from './alert.service';
+import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 
 import { AlertConfig } from './alert-config';
-import { AlertService, IClearWrapper } from './alert.service';
-import { Alert, AlertLink } from './alert';
 
 @Component({
   selector: 'of-alerts',
   templateUrl: './alerts.component.html',
   styleUrls: ['./alerts.component.scss']
 })
-export class AlertsComponent implements OnInit {
+export class AlertsComponent implements OnInit, OnDestroy {
 
   private addAlertSubscriber: any;
   private clearAlertsSubscriber: any;
@@ -74,17 +74,20 @@ export class AlertsComponent implements OnInit {
   private addAlert(alert: Alert) {
     alert.alertConfig = this.alertConfig;
 
-    if (alert.alertContainerId && this.alertConfig.alertContainerId
-      && alert.alertContainerId !== this.alertConfig.alertContainerId) return;
+    if (alert.alertContainerId &&
+      this.alertConfig.alertContainerId &&
+      alert.alertContainerId !== this.alertConfig.alertContainerId) {
+      return;
+    }
 
     if (!alert.type) {
       alert.type = this.alertConfig.defaultType;
     }
 
-    if (alert.showCloseButton === null || typeof alert.showCloseButton === "undefined") {
-      if (typeof this.alertConfig.showCloseButton === "object") {
+    if (alert.showCloseButton === null || typeof alert.showCloseButton === 'undefined') {
+      if (typeof this.alertConfig.showCloseButton === 'object') {
         alert.showCloseButton = this.alertConfig.showCloseButton[alert.type];
-      } else if (typeof this.alertConfig.showCloseButton === "boolean") {
+      } else if (typeof this.alertConfig.showCloseButton === 'boolean') {
         alert.showCloseButton = <boolean>this.alertConfig.showCloseButton;
       }
     }
@@ -102,9 +105,11 @@ export class AlertsComponent implements OnInit {
   }
 
   private configureTimer(alert: Alert) {
-    var timeout = (typeof alert.timeout === "number") ? alert.timeout : this.alertConfig.timeout;
+    let timeout = (typeof alert.timeout === 'number') ? alert.timeout : this.alertConfig.timeout;
 
-    if (typeof timeout === "object") timeout = timeout[alert.type];
+    if (typeof timeout === 'object') {
+      timeout = timeout[alert.type];
+    }
     if (timeout > 0) {
       alert.timeoutId = window.setTimeout(() => {
         this.ref.markForCheck();
@@ -118,26 +123,30 @@ export class AlertsComponent implements OnInit {
   }
 
   private removeAlert(alert: Alert) {
-    var index = this.alerts.indexOf(alert);
-    if (index < 0) return;
+    const index = this.alerts.indexOf(alert);
+    if (index < 0) {
+      return;
+    }
 
     this.alerts.splice(index, 1);
     if (alert.timeoutId) {
       window.clearTimeout(alert.timeoutId);
       alert.timeoutId = null;
     }
-    if (alert.onHideCallback) alert.onHideCallback(alert);
+    if (alert.onHideCallback) {
+      alert.onHideCallback(alert);
+    }
   }
 
   private removeAllAlerts() {
-    for (var i = this.alerts.length - 1; i >= 0; i--) {
+    for (let i = this.alerts.length - 1; i >= 0; i--) {
       this.removeAlert(this.alerts[i]);
     }
   }
 
   private clearAlerts(clearWrapper: IClearWrapper) {
-    let alertId = clearWrapper.alertId;
-    let alertContainerId = clearWrapper.alertContainerId;
+    const alertId = clearWrapper.alertId;
+    const alertContainerId = clearWrapper.alertContainerId;
 
     if (alertContainerId === null || typeof alertContainerId === 'undefined') {
       this.clearAlertsAction(alertId);

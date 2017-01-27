@@ -1,4 +1,5 @@
 {
+  "about": "Acerca de",
   "manage-account": "Administrar Cuenta",
   "sign-out": "Cerrar Session",
   "organizations": "Organizaciones",
@@ -15,7 +16,7 @@
   "name": "Nombre",
   "description": "Descripcion",
   "select-file": "Seleccionar Archivo",
-  "save": "Guardar",  
+  "save": "Guardar",
   "saving": "Guardando...",
   "delete": "Eliminar",
   "cancel": "Cancelar",
@@ -137,5 +138,8 @@
   "send-to-custom-third-party-by-email": "Enviar a tercero por Email",
   "send": "Enviar",
   "read-more": "Leer mas...",
-  "download": "Descargar"
+  "download": "Descargar",
+  "this-field-is-required": "Este campo es requerido",
+  "this-field-max-length-allowed-is": "Longitud maxima permitida",
+  "this-field-value-is-invalid": "El valor de este campo es invalido"
 }

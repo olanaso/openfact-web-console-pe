@@ -1,56 +1,35 @@
-import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
-
-import { AllowedDataRoles } from '../core/guards/allowed-data-roles';
-import { AllowedDataOrganizations } from '../core/guards/allowed-data-organizations';
+import { RouterModule, Routes } from '@angular/router';
 
 import { AdminComponent } from './admin.component';
-import { OrganizationsComponent } from './organizations/organizations.component';
-import { CreateOrganizationComponent } from './create-organization/create-organization.component';
+import { NgModule } from '@angular/core';
+import { OrganizationCreateComponent } from './organization-create/organization-create.component';
+import { OrganizationListComponent } from './organization-list/organization-list.component';
 import { ServerInfoComponent } from './server-info/server-info.component';
-import { ServerInfoProvidersComponent } from './server-info-providers/server-info-providers.component';
+
+const routes: Routes = [
+  {
+    path: '',
+    component: AdminComponent,
+    children: [
+      {
+        path: 'organizations',
+        component: OrganizationListComponent
+      },
+      {
+        path: 'organizations/create',
+        component: OrganizationCreateComponent
+      },
+      {
+        path: 'server-info',
+        component: ServerInfoComponent
+      }
+    ]
+  }
+];
 
 @NgModule({
-    imports: [
-        RouterModule.forChild([
-            {
-                path: '',
-                component: AdminComponent,
-                data: { organizations: ['master'], roles: ['admin'] },
-                canActivate: [AllowedDataRoles, AllowedDataOrganizations],
-                children: [
-                    {
-                        path: 'organizations',
-                        children: [
-                            {
-                                path: '',
-                                component: OrganizationsComponent
-                            },
-                            {
-                                path: 'create',
-                                component: CreateOrganizationComponent
-                            }
-                        ]
-                    },
-                    {
-                        path: 'server-info',
-                        children: [
-                            {
-                                path: '',
-                                component: ServerInfoComponent
-                            },
-                            {
-                                path: 'providers',
-                                component: ServerInfoProvidersComponent
-                            }
-                        ]
-                    }
-                ]
-            }
-        ])
-    ],
-    exports: [
-        RouterModule
-    ]
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
+  providers: []
 })
 export class AdminRoutingModule { }

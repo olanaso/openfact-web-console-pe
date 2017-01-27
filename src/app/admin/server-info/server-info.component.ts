@@ -1,33 +1,54 @@
+import * as Collections from 'typescript-collections';
+
 import { Component, OnInit } from '@angular/core';
 
-import { DataService } from '../../core/data/data.service';
-import { AlertService } from '../../core/alert/alert.service';
+import { DataService } from './../../core/data/data.service';
 
 @Component({
   selector: 'of-server-info',
   templateUrl: './server-info.component.html',
-  styleUrls: ['./server-info.component.scss']
+  styles: [`
+    .table {
+      margin-top: 0;
+    }
+    .list-unstyled {
+      margin-bottom: 0px;
+    }
+  `]
 })
 export class ServerInfoComponent implements OnInit {
 
-  private serverInfo: any = {
+  serverInfo: any = {
     systemInfo: {},
     memoryInfo: {}
   };
+  spis = new Collections.Dictionary<String, any>();
 
-  constructor(
-    private dataService: DataService,
-    private alertService: AlertService) {
-  }
+  tab: string = 'serverInfo';
+
+  constructor(private dataService: DataService) { }
 
   ngOnInit() {
     this.loadData();
   }
 
-  loadData() {
-    this.dataService.serverInfo().get().subscribe(result => {
-      this.serverInfo = result;
-    });
+  loadData(): void {
+    this.dataService.serverInfo().get().subscribe(
+      (data) => {
+        this.serverInfo = data;
+
+        this.spis = new Collections.Dictionary<String, any>();
+        for (const key in data['providers']) {
+          if (key) {
+            this.spis.setValue(key, data['providers'][key]);
+          }
+        }
+      }
+    );
+  }
+
+  changeTab(tabName: string): void {
+    this.tab = tabName;
   }
 
 }

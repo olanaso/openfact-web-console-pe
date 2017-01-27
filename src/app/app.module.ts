@@ -1,48 +1,46 @@
-// Angular modules
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { HttpModule, Http } from '@angular/http';
+import { TranslateLoader, TranslateModule, TranslateStaticLoader } from 'ng2-translate';
 
-// App Config
+import { AboutComponent } from './pages/about/about.component';
+import { AdminModule } from './admin/admin.module';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-
-// Third modules
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-translate';
-
-// Openfact modules
-import { SharedModule } from './shared/shared.module';
+import { BrowserModule } from '@angular/platform-browser';
 import { CoreModule } from './core/core.module';
-import { ErrorModule } from './error/error.module';
-import { AdminModule } from './admin/admin.module';
+import { Http } from '@angular/http';
+import { NgModule } from '@angular/core';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { OrganizationModule } from './organization/organization.module';
+import { RouterModule } from '@angular/router';
+import { SharedModule } from './shared/shared.module';
+
+export const BASE_URL = 'http://localhost:8081/openfact';
+
+export function createTranslateLoader(http: Http) {
+  return new TranslateStaticLoader(http, './assets/i18n', '.json');
+}
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    AboutComponent
   ],
   imports: [
-    // Angular modules
     BrowserModule,
-    FormsModule,
     AppRoutingModule,
-    HttpModule,
+
     NgbModule.forRoot(),
     TranslateModule.forRoot({
       provide: TranslateLoader,
-      useFactory: (http: Http) => new TranslateStaticLoader(http, '/assets/i18n', '.json'),
+      useFactory: (createTranslateLoader),
       deps: [Http]
     }),
 
-    // Third modules
-
-    // Openfact modules
     SharedModule,
     CoreModule,
-    ErrorModule,
-    AdminModule
+    AdminModule,
+    OrganizationModule,
   ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

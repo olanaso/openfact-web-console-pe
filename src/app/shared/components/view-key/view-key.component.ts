@@ -1,14 +1,15 @@
-import { Component, ViewChild, OnInit, Input } from '@angular/core';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'of-view-key',
   templateUrl: './view-key.component.html',
-  styleUrls: ['./view-key.component.scss']
+  styleUrls: []
 })
 export class ViewKeyComponent implements OnInit {
 
-  @ViewChild('content')
+  @ViewChild('viewKeyModalContent')
   content: any;
 
   @Input()
@@ -22,6 +23,9 @@ export class ViewKeyComponent implements OnInit {
 
   @Input()
   isButton: boolean;
+
+  @Input()
+  isLink: boolean;
 
   @Input()
   disableOpen: boolean;

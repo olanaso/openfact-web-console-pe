@@ -1,14 +1,15 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 
 declare var Keycloak: any;
 declare var KeycloakAuthorization: any;
 
 @Injectable()
 export class KeycloakService {
+
   static auth: any = {};
 
   static init(): Promise<any> {
-    let keycloakAuth: any = new Keycloak('keycloak.json');
+    const keycloakAuth: any = new Keycloak('keycloak.json');
 
     return new Promise((resolve, reject) => {
       keycloakAuth.init({ onLoad: 'login-required' })
@@ -23,6 +24,8 @@ export class KeycloakService {
     });
   }
 
+  constructor() { }
+
   getToken(): Promise<string> {
     return new Promise<string>((resolve, reject) => {
       if (KeycloakService.auth.authz.token) {
@@ -36,4 +39,7 @@ export class KeycloakService {
       }
     });
   }
+
+
+
 }

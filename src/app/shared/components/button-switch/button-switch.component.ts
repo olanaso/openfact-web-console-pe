@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, forwardRef } from '@angular/core';
+import { Component, Input, OnInit, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
@@ -13,13 +13,16 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
     }
   ]
 })
-export class ButtonSwitchComponent implements ControlValueAccessor, OnInit {
+export class ButtonSwitchComponent implements OnInit, ControlValueAccessor {
 
   @Input()
   onText;
-  
+
   @Input()
   offText;
+
+  @Input()
+  disable;
 
   _value: boolean = false;
 

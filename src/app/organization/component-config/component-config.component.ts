@@ -1,9 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'of-component-config',
   templateUrl: './component-config.component.html',
-  styleUrls: ['./component-config.component.scss']
+  styleUrls: []
 })
 export class ComponentConfigComponent implements OnInit {
 

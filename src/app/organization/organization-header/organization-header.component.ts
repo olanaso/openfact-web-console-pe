@@ -1,36 +1,42 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { TranslateService } from 'ng2-translate';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Component, Input, OnInit } from '@angular/core';
 
-import { KeycloakService } from '../../core/keycloak.service';
-import { Organization } from '../../core/models/organization.model';
+import { KeycloakService } from './../../core/keycloak.service';
+import { Organization } from './../../core/model/organization.model';
+import { TranslateService } from 'ng2-translate';
 
 @Component({
   selector: 'of-organization-header',
   templateUrl: './organization-header.component.html',
-  styleUrls: ['./organization-header.component.scss']
+  styles: []
 })
 export class OrganizationHeaderComponent implements OnInit {
 
   @Input()
-  private currentOrganization: Organization;
+  currentOrganization: Organization;
 
   @Input()
-  private organizations: Array<Organization>;
+  organizations: Array<Organization>;
 
-  private username: string;
-  private authz: any;
+  authz: any;
+  user: any = {
+    username: ''
+  };
 
-  private selectedLanguage: string;
-  private supportedLanguages: string[];
+  selectedLanguage: string;
+  supportedLanguages: string[];
 
-  constructor(private translate: TranslateService) { }
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private translate: TranslateService) { }
 
   ngOnInit() {
     this.authz = KeycloakService.auth.authz;
-    this.username = this.authz.tokenParsed.username;
+    this.user.username = this.authz.tokenParsed.username;
 
-    if (this.currentOrganization.internationalizationEnabled == true) {
-      this.changeLanguage(this.currentOrganization.defaultLocale || this.translate.currentLang || "en");
+    if (this.currentOrganization.internationalizationEnabled === true) {
+      this.changeLanguage(this.currentOrganization.defaultLocale || this.translate.currentLang || 'en');
     } else {
       this.changeLanguage(this.translate.getDefaultLang());
     }
@@ -48,6 +54,11 @@ export class OrganizationHeaderComponent implements OnInit {
 
   logout() {
     this.authz.logout();
+  }
+
+  about() {
+    const url = this.router.createUrlTree(['./', { outlets: { secondary: 'about' } }]);
+    this.router.navigateByUrl(url, { relativeTo: this.route });
   }
 
 }

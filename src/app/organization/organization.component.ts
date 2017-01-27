@@ -1,42 +1,53 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 
-import { DataService } from '../core/data/data.service';
-import { AlertService } from '../core/alert/alert.service';
-import { Organization } from '../core/models/organization.model';
+import { ActivatedRoute } from '@angular/router';
+import { AlertService } from './../core/alert/alert.service';
+import { DataService } from './../core/data/data.service';
+import { Organization } from './../core/model/organization.model';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
-    selector: 'app-organization',
-    templateUrl: './organization.component.html',
-    styleUrls: ['./organization.component.scss']
+  selector: 'of-organization',
+  templateUrl: './organization.component.html',
+  styles: [`
+    .container-pf-nav-pf-vertical {      
+      top: 60px;
+      position: relative;
+      margin-left: 200px;
+    }
+  `]
 })
-export class OrganizationComponent implements OnInit {
+export class OrganizationComponent implements OnInit, OnDestroy {
 
-    private organization: Organization;
-    private organizations: Array<Organization>;
+  dataSubscription: Subscription;
 
-    constructor(
-        private activatedRoute: ActivatedRoute,
-        private dataService: DataService,
-        private alertService: AlertService) {
-        this.activatedRoute.data.subscribe(result => {
-            this.organization = <Organization>result['organization'];
-        });
-        this.loadAllowedOrganizations();
-    }
+  organization: Organization;
+  organizations: Array<Organization>;
 
-    ngOnInit() {
-    }
+  constructor(
+    private route: ActivatedRoute,
+    private dataService: DataService,
+    private alertService: AlertService) { }
 
-    loadAllowedOrganizations() {
-        this.dataService.organizations().getAll().subscribe(
-            result => {
-                this.organizations = result;
-            },
-            error => {
-                this.alertService.pop('error', 'Error', 'Could not loaded organizations.');
-            }
-        );
-    }
+  ngOnInit() {
+    this.dataSubscription = this.route.data.subscribe(
+      (data) => {
+        this.organization = data['organization'];
+      }
+    );
+    this.loadAllowedOrganizations();
+  }
+
+  ngOnDestroy() {
+    this.dataSubscription.unsubscribe();
+  }
+
+  loadAllowedOrganizations() {
+    this.dataService.organizations().getAll().subscribe(
+      (data) => {
+        this.organizations = data;
+      }
+    );
+  }
 
 }

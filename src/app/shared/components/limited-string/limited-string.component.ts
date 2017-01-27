@@ -1,9 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'of-limited-string',
   templateUrl: './limited-string.component.html',
-  styleUrls: ['./limited-string.component.scss']
+  styleUrls: []
 })
 export class LimitedStringComponent implements OnInit {
 
@@ -18,11 +18,12 @@ export class LimitedStringComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    if (!this.value) this.value = "";
+    if (!this.value) { this.value = ''; }
     this.currentMaxlength = this.maxlength;
   }
 
   readMore() {
     this.currentMaxlength = this.value.length;
   }
+
 }

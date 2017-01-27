@@ -1,14 +1,14 @@
-import { OpenfactWebConsolePage } from './app.po';
+import { OpenfactWebConsolePePage } from './app.po';
 
-describe('openfact-web-console App', function() {
-  let page: OpenfactWebConsolePage;
+describe('openfact-web-console-pe App', function() {
+  let page: OpenfactWebConsolePePage;
 
   beforeEach(() => {
-    page = new OpenfactWebConsolePage();
+    page = new OpenfactWebConsolePePage();
   });
 
   it('should display message saying app works', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('app works!');
+    expect(page.getParagraphText()).toEqual('of works!');
   });
 });

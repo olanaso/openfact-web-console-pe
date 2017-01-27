@@ -3,7 +3,7 @@
 import { TestBed, async, inject } from '@angular/core/testing';
 import { OrganizationService } from './organization.service';
 
-describe('Service: Organization', () => {
+describe('OrganizationService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [OrganizationService]

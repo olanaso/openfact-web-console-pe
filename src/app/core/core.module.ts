@@ -1,80 +1,43 @@
-// Angular modules
-import { NgModule, ErrorHandler } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { HttpModule, Http, XHRBackend, RequestOptions } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
-
-// Third modules
-
-// Components
 import { AlertComponent } from './alert/alert.component';
-import { AlertsComponent } from './alert/alerts.component';
-
-// Services
-import { KeycloakHttp } from "./keycloak.http";
-import { KeycloakService } from "./keycloak.service";
-
 import { AlertService } from './alert/alert.service';
-
-import { ErrorInterceptor } from './error-interceptor';
-
-import { Restangular } from './data/restangular';
-import { GenericTypeService } from './data/generic-type.service';
-import { RestangularOpenfact } from './data/restangular-openfact';
+import { AlertsComponent } from './alert/alerts.component';
+import { CreditNoteService } from './data/credit-note.service';
 import { DataService } from './data/data.service';
-import { OrganizationService } from './data/organization.service';
+import { DebitNoteService } from './data/debit-note.service';
+import { DialogComponent } from './dialog/dialog.component';
+import { DialogService } from './dialog/dialog.service';
+import { DocumentResolverService } from './resolvers/document-resolver.service';
+import { DocumentService } from './data/document.service';
+import { FileService } from './data/file.service';
+import { Http } from '@angular/http';
 import { InvoiceService } from './data/invoice.service';
-import { CreditnoteService } from './data/creditnote.service';
-import { DebitnoteService } from './data/debitnote.service';
-import { PerceptionService } from './data/perception.service';
-import { RetentionService } from './data/retention.service';
-import { VoidedService } from './data/voided.service';
+import { KeycloakHttpFactory } from './keycloak.http';
+import { KeycloakService } from './keycloak.service';
+import { NgModule } from '@angular/core';
+import { OrganizationComponentResolverService } from './resolvers/organization-component-resolver.service';
+import { OrganizationKeyResolverService } from './resolvers/organization-key-resolver.service';
+import { OrganizationResolverService } from './resolvers/organization-resolver.service';
+import { OrganizationService } from './data/organization.service';
+import { RequestOptions } from '@angular/http';
+import { RestangularService } from './data/restangular.service';
+import { RestangularServiceFactory } from './data/restangular.service';
+import { Router } from '@angular/router';
+import { ServerInfoResolverService } from './resolvers/server-info-resolver.service';
 import { ServerInfoService } from './data/server-info.service';
-import { EventService } from './data/event.service';
-import { StorageFileService } from './data/storage-file.service';
-import { JobreportService } from './data/jobreport.service';
-
-import { OrganizationPeService } from './data/organization-pe.service';
-
-// Resolvers
-import { OrganizationResolver } from './resolvers/organization-resolver';
-import { EventsConfigResolver } from './resolvers/events-config-resolver';
-import { ServerInfoResolver } from './resolvers/server-info-resolver';
-import { OrganizationKeysResolver } from './resolvers/organization-keys-resolver';
-import { OrganizationComponentResolver } from './resolvers/organization-component-resolver';
-import { InvoiceResolver } from './resolvers/invoice-resolver';
-import { CreditNoteResolver } from './resolvers/credit-note-resolver';
-import { DebitNoteResolver } from './resolvers/debit-note-resolver';
-
-import { PerceptionResolver } from './resolvers/perception-resolver';
-import { PerceptionJsonResolver } from './resolvers/perception-json-resolver';
-import { PerceptionTextResolver } from './resolvers/perception-text-resolver';
-
-import { RetentionResolver } from './resolvers/retention-resolver';
-import { RetentionJsonResolver } from './resolvers/retention-json-resolver';
-import { RetentionTextResolver } from './resolvers/retention-text-resolver';
-
-import { VoidedResolver } from './resolvers/voided-resolver';
-import { VoidedJsonResolver } from './resolvers/voided-json-resolver';
-import { VoidedTextResolver } from './resolvers/voided-text-resolver';
-
-import { TipoIgvResolver, InvoiceTypeResolver, TipoDocumentoEntidadResolver } from './resolvers/type-resolver';
-
-// Guards
-import { AllowedDataOrganizations } from './guards/allowed-data-organizations';
-import { AllowedDataRoles } from './guards/allowed-data-roles';
+import { SharedModule } from '../shared/shared.module';
+import { XHRBackend } from '@angular/http';
 
 @NgModule({
   imports: [
-    // Angular modules
-    CommonModule,
-    HttpModule,
-
-    // Third modules
+    SharedModule
   ],
   declarations: [
+    AlertsComponent,
     AlertComponent,
-    AlertsComponent
+    DialogComponent
+  ],
+  entryComponents: [
+    DialogComponent
   ],
   exports: [
     AlertsComponent
@@ -83,67 +46,30 @@ import { AllowedDataRoles } from './guards/allowed-data-roles';
     KeycloakService,
     {
       provide: Http,
-      useFactory:
-      (
-        backend: XHRBackend,
-        defaultOptions: RequestOptions,
-        keycloakService: KeycloakService
-      ) => new KeycloakHttp(backend, defaultOptions, keycloakService),
+      useFactory: KeycloakHttpFactory,
       deps: [XHRBackend, RequestOptions, KeycloakService]
     },
     {
-      provide: ErrorHandler,
-      useClass: ErrorInterceptor
+      provide: RestangularService,
+      useFactory: RestangularServiceFactory,
+      deps: [Http, Router, AlertService]
     },
-
     AlertService,
-
-    Restangular,
-    RestangularOpenfact,
+    DialogService,
     DataService,
     OrganizationService,
-    GenericTypeService,
-    InvoiceService,
-    CreditnoteService,
-    DebitnoteService,
-    PerceptionService,
-    RetentionService,
-    VoidedService,
     ServerInfoService,
-    EventService,
-    StorageFileService,
-    JobreportService,
+    DocumentService,
+    FileService,
+    InvoiceService,
+    CreditNoteService,
+    DebitNoteService,
 
-    OrganizationPeService,
-
-    // Resolvers
-    OrganizationResolver,
-    EventsConfigResolver,
-    ServerInfoResolver,
-    OrganizationKeysResolver,
-    OrganizationComponentResolver,
-
-    InvoiceResolver,
-    CreditNoteResolver,
-    DebitNoteResolver,
-
-    PerceptionResolver,
-    PerceptionJsonResolver,
-    PerceptionTextResolver,
-
-    RetentionResolver,
-    RetentionJsonResolver,
-    RetentionTextResolver,
-
-    VoidedResolver,
-    VoidedJsonResolver,
-    VoidedTextResolver,
-
-    TipoIgvResolver, InvoiceTypeResolver, TipoDocumentoEntidadResolver,
-
-    //Guards
-    AllowedDataOrganizations,
-    AllowedDataRoles
+    OrganizationResolverService,
+    OrganizationKeyResolverService,
+    OrganizationComponentResolverService,
+    ServerInfoResolverService,
+    DocumentResolverService,
   ]
 })
 export class CoreModule { }

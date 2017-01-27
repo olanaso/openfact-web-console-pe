@@ -1,9 +1,13 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'of-read-file',
   templateUrl: './read-file.component.html',
-  styleUrls: ['./read-file.component.scss']
+  styles: [`
+    input[type=file] {
+      display: none;
+    }
+  `]
 })
 export class ReadFileComponent implements OnInit {
 
@@ -13,7 +17,7 @@ export class ReadFileComponent implements OnInit {
   @Output()
   complete: EventEmitter<any> = new EventEmitter<any>();
 
-  private file: any = {
+  file: any = {
     fileName: undefined,
     data: undefined
   };
@@ -24,11 +28,11 @@ export class ReadFileComponent implements OnInit {
   }
 
   changeListener($event: any) {
-    let inputValue = $event.target;
-    var files: File = inputValue.files;
+    const inputValue = $event.target;
+    const files: File = inputValue.files;
 
-    let self = this;
-    let reader: FileReader = new FileReader();
+    const self = this;
+    const reader: FileReader = new FileReader();
 
     this.file.fileName = files[0].name;
     reader.onloadend = function (e) {

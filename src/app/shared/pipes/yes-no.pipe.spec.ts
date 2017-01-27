@@ -3,9 +3,9 @@
 import { TestBed, async } from '@angular/core/testing';
 import { YesNoPipe } from './yes-no.pipe';
 
-describe('Pipe: YesNo', () => {
+describe('YesNoPipe', () => {
   it('create an instance', () => {
-    let pipe = new YesNoPipe();
+    const pipe = new YesNoPipe();
     expect(pipe).toBeTruthy();
   });
 });

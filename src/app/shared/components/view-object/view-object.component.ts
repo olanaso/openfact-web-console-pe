@@ -1,10 +1,15 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { Component, Input, OnInit } from '@angular/core';
+
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'of-view-object',
   templateUrl: './view-object.component.html',
-  styleUrls: ['./view-object.component.scss']
+  styles: [`
+    .viewer {
+      padding: 20px 20px 10px 20px;
+    }
+  `]
 })
 export class ViewObjectComponent implements OnInit {
 
@@ -16,13 +21,13 @@ export class ViewObjectComponent implements OnInit {
 
   constructor(private modalService: NgbModal) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
   open(content) {
-    this.modalService.open(content).result.then((result) => {
-    }, (reason) => {
-    });
+    this.modalService.open(content).result.then(
+      (result) => { },
+      (reason) => { }
+    );
   }
 
 }

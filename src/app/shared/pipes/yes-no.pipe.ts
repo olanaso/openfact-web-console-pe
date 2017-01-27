@@ -6,7 +6,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class YesNoPipe implements PipeTransform {
 
   transform(value: any, args?: any): any {
-    let dictionary = args.split('.');
+    const dictionary = args.split('.');
     return value ? dictionary[0] : dictionary[1];
   }
 

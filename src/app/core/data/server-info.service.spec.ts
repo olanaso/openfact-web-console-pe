@@ -3,7 +3,7 @@
 import { TestBed, async, inject } from '@angular/core/testing';
 import { ServerInfoService } from './server-info.service';
 
-describe('Service: ServerInfo', () => {
+describe('ServerInfoService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [ServerInfoService]

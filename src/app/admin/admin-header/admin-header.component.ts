@@ -1,28 +1,41 @@
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+
 import { KeycloakService } from '../../core/keycloak.service';
 import { TranslateService } from 'ng2-translate';
 
 @Component({
   selector: 'of-admin-header',
   templateUrl: './admin-header.component.html',
-  styleUrls: ['./admin-header.component.scss']
+  styles: []
 })
 export class AdminHeaderComponent implements OnInit {
 
-  private username: string;
-  private authz: any;
+  user: any = {
+    username: ''
+  };
 
-  private selectedLanguage: string;
-  private supportedLanguages: string[];
+  authz: any;
 
-  constructor(private translate: TranslateService) { }
+  selectedLanguage: string;
+  supportedLanguages: string[];
+
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private translate: TranslateService) { }
 
   ngOnInit() {
     this.authz = KeycloakService.auth.authz;
-    this.username = KeycloakService.auth.authz.tokenParsed.username;
+    this.user.username = KeycloakService.auth.authz.tokenParsed.username;
 
     this.selectedLanguage = this.translate.currentLang;
     this.supportedLanguages = this.translate.getLangs();
+  }
+
+  about() {
+    const url = this.router.createUrlTree(['./', { outlets: { secondary: 'about' } }]);
+    this.router.navigateByUrl(url, { relativeTo: this.route });
   }
 
   changeLanguage(language: string) {

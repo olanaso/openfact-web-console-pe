@@ -1,171 +1,106 @@
-// Angular modules
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-// Third modules
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { MomentModule } from 'angular2-moment';
-import { TranslateModule } from 'ng2-translate';
-import { FileUploadModule } from 'ng2-file-upload';
-import { SelectModule } from 'ng2-select';
-import { TextMaskModule } from 'angular2-text-mask';
-
-// Components
+import { ButtonCancelComponent } from './components/button-cancel/button-cancel.component';
 import { ButtonDeleteComponent } from './components/button-delete/button-delete.component';
+import { ButtonResetComponent } from './components/button-reset/button-reset.component';
 import { ButtonSaveComponent } from './components/button-save/button-save.component';
 import { ButtonSwitchComponent } from './components/button-switch/button-switch.component';
-import { RelativeTimestampComponent } from './components/relative-timestamp/relative-timestamp.component';
-import { ModalTextPreviewComponent } from './components/modal-text-preview/modal-text-preview.component';
-import { ViewObjectComponent } from './components/view-object/view-object.component';
-import { ReadFileComponent } from './components/read-file/read-file.component';
-import { ViewKeyComponent } from './components/view-key/view-key.component';
-import { OnOffSwitchStringComponent } from './components/on-off-switch-string/on-off-switch-string.component';
-import { ViewXmlComponent } from './components/view-xml/view-xml.component';
-import { WizardComponent } from './components/wizard/wizard.component';
-import { WizardStepComponent } from './components/wizard/wizard-step.component';
-import { LimitedStringComponent } from './components/limited-string/limited-string.component';
-import { DialogComponent } from './components/dialog/dialog.component';
-
-import {
-  WizardCancelButtonDirective,
-  WizardFinishButtonDirective,
-  WizardNextButtonDirective,
-  WizardPreviousButtonDirective,
-  WizardResetButtonDirective
-} from './components/wizard/wizard-buttons.directive';
-
-// Directives
-import { NumberMaskDirective } from './directives/number-mask.directive';
-import {
-  UblLineDirective,
-  UblLineQuantityDirective,
-  UblLineUnitPriceDirective,
-  UblLineSubtotalDirective,
-  UblLineTotalDirective
-} from './directives/ubl-line.directive';
-
-// Pipes
-import { CapitalizePipe } from './pipes/capitalize.pipe';
-import { FilterCollectionPipe } from './pipes/filter-collection.pipe';
+import { CommonModule } from '@angular/common';
+import { FileSelectDirective } from 'ng2-file-upload';
+import { FileUploadModule } from 'ng2-file-upload';
+import { FirstElementPipe } from './pipes/first-element.pipe';
+import { FormFieldValidationMessagesComponent } from './components/form-field-validation-messages/form-field-validation-messages.component';
+import { FormFieldValidationStateDirective } from './directives/form-field-validation-state.directive';
+import { FormFieldsStatusComponent } from './components/form-fields-status/form-fields-status.component';
+import { FormRequiredLabelDirective } from './directives/form-required-label.directive';
+import { HttpModule } from '@angular/http';
 import { KeysPipe } from './pipes/keys.pipe';
-import { YesNoPipe } from './pipes/yes-no.pipe';
-import { TextEquivaletPipe } from './pipes/text-equivalet.pipe';
-import { ArrayPipe } from './pipes/array.pipe';
+import { LimitedStringComponent } from './components/limited-string/limited-string.component';
+import { MomentModule } from 'angular2-moment';
+import { NgModule } from '@angular/core';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { OnOffSwitchStringComponent } from './components/on-off-switch-string/on-off-switch-string.component';
+import { ReadFileComponent } from './components/read-file/read-file.component';
+import { RouterModule } from '@angular/router';
+import { ToArrayPipe } from './pipes/to-array.pipe';
 import { ToDatePipe } from './pipes/to-date.pipe';
-
-// Services
-import { DialogService } from './components/dialog/dialog.service';
+import { ToNumberPipe } from './pipes/to-number.pipe';
+import { TranslateModule } from 'ng2-translate';
+import { ViewKeyComponent } from './components/view-key/view-key.component';
+import { ViewObjectComponent } from './components/view-object/view-object.component';
+import { YesNoPipe } from './pipes/yes-no.pipe';
 
 @NgModule({
   imports: [
-    // Angular modules
     CommonModule,
     RouterModule,
+    HttpModule,
     FormsModule,
     ReactiveFormsModule,
 
-    // Third modules
     NgbModule,
-    MomentModule,
     TranslateModule,
+    MomentModule,
     FileUploadModule,
-    SelectModule,
-    TextMaskModule
   ],
   declarations: [
-    // Components
+    FormFieldsStatusComponent,
+    FormRequiredLabelDirective,
+    FormFieldValidationMessagesComponent,
+    FormFieldValidationStateDirective,
+
     ButtonDeleteComponent,
     ButtonSaveComponent,
+    ButtonCancelComponent,
+    ButtonResetComponent,
     ButtonSwitchComponent,
-    RelativeTimestampComponent,
-    ModalTextPreviewComponent,
+    ReadFileComponent,
     ViewObjectComponent,
+    ToArrayPipe,
+    KeysPipe,
+    ToDatePipe,
+    YesNoPipe,
     ViewKeyComponent,
     OnOffSwitchStringComponent,
-    ViewXmlComponent,
-    WizardComponent,
-    WizardStepComponent,
+    FirstElementPipe,
+    ToNumberPipe,
     LimitedStringComponent,
-    WizardCancelButtonDirective,
-    WizardFinishButtonDirective,
-    WizardNextButtonDirective,
-    WizardPreviousButtonDirective,
-    WizardResetButtonDirective,
-    DialogComponent,
-
-    // Directives
-    NumberMaskDirective,
-    UblLineDirective,
-    UblLineQuantityDirective,
-    UblLineUnitPriceDirective,
-    UblLineSubtotalDirective,
-    UblLineTotalDirective,
-
-    // Pipes
-    CapitalizePipe,
-    FilterCollectionPipe,
-    KeysPipe,
-    YesNoPipe,
-    ReadFileComponent,
-    TextEquivaletPipe,
-    ArrayPipe,
-    LimitedStringComponent,
-    ToDatePipe,
   ],
   exports: [
-    // Third modules
-    NgbModule,
-    MomentModule,
-    TranslateModule,
-    FileUploadModule,
-    SelectModule,
-    TextMaskModule,
+    CommonModule,
+    RouterModule,
+    HttpModule,
+    FormsModule,
+    ReactiveFormsModule,
 
-    // Components
+    NgbModule,
+    TranslateModule,
+    MomentModule,
+    FileUploadModule,
+
+    FormFieldsStatusComponent,
+    FormRequiredLabelDirective,
+    FormFieldValidationMessagesComponent,
+    FormFieldValidationStateDirective,
+
     ButtonDeleteComponent,
     ButtonSaveComponent,
+    ButtonCancelComponent,
+    ButtonResetComponent,
     ButtonSwitchComponent,
-    RelativeTimestampComponent,
-    ModalTextPreviewComponent,
-    ViewObjectComponent,
-    ReadFileComponent,
-    ViewKeyComponent,
     OnOffSwitchStringComponent,
-    ViewXmlComponent,
-    WizardComponent,
-    WizardStepComponent,
-    LimitedStringComponent,
-    WizardCancelButtonDirective,
-    WizardFinishButtonDirective,
-    WizardNextButtonDirective,
-    WizardPreviousButtonDirective,
-    WizardResetButtonDirective,
 
-    // Directives
-    NumberMaskDirective,
-    UblLineDirective,
-    UblLineQuantityDirective,
-    UblLineUnitPriceDirective,
-    UblLineSubtotalDirective,
-    UblLineTotalDirective,
-
-    // Pipes
-    CapitalizePipe,
-    FilterCollectionPipe,
-    KeysPipe,
-    YesNoPipe,
     ReadFileComponent,
-    TextEquivaletPipe,
-    ArrayPipe,
-    ToDatePipe
-  ],
-  providers: [
-    DialogService
-  ],
-  entryComponents: [
-    DialogComponent
-  ],
+    ViewObjectComponent,
+    ViewKeyComponent,
+    LimitedStringComponent,
+
+    ToArrayPipe,
+    KeysPipe,
+    ToDatePipe,
+    YesNoPipe,
+    FirstElementPipe,
+    ToNumberPipe,
+  ]
 })
 export class SharedModule { }

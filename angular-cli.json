@@ -1,7 +1,7 @@
 {
   "project": {
-    "version": "1.0.0-beta.21",
-    "name": "openfact-web-console"
+    "version": "1.0.0-beta.26",
+    "name": "openfact-web-console-pe"
   },
   "apps": [
     {
@@ -15,18 +15,16 @@
       "main": "main.ts",
       "test": "test.ts",
       "tsconfig": "tsconfig.json",
-      "prefix": "app",
+      "prefix": "of",
       "mobile": false,
       "styles": [
         "styles.scss",
-        "../node_modules/patternfly/dist/css/patternfly.css",
-        "../node_modules/patternfly/dist/css/patternfly-additions.css"
+        "../node_modules/patternfly/dist/css/patternfly.min.css",
+        "../node_modules/patternfly/dist/css/patternfly-additions.min.css"
       ],
       "scripts": [
-        "../node_modules/keycloak-js/dist/keycloak.js",
-        "../node_modules/keycloak-js/dist/keycloak-authz.js",      
-        "../node_modules/d3/d3.min.js",
-        "../node_modules/c3/c3.min.js"
+        "../node_modules/keycloak-js/dist/keycloak.min.js",
+        "../node_modules/keycloak-js/dist/keycloak-authz.min.js"
       ],
       "environments": {
         "source": "environments/environment.ts",
@@ -35,8 +33,6 @@
       }
     }
   ],
-  "addons": [],
-  "packages": [],
   "e2e": {
     "protractor": {
       "config": "./protractor.conf.js"

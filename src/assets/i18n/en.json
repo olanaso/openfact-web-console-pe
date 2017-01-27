@@ -1,4 +1,5 @@
 {
+  "about": "About",
   "manage-account": "Manage Account",
   "sign-out": "Sign Out",
   "organizations": "Organizations",
@@ -15,7 +16,7 @@
   "name": "Name",
   "description": "Description",
   "select-file": "Select File",
-  "save": "Save",  
+  "save": "Save",
   "saving": "Saving...",
   "delete": "Delete",
   "cancel": "Cancel",
@@ -137,5 +138,8 @@
   "send-to-custom-third-party-by-email": "Send to third party by Email",
   "send": "Send",
   "read-more": "Read more...",
-  "download": "Download"
+  "download": "Download",
+  "this-field-is-required": "this field is required",
+  "this-field-max-length-allowed-is": "Max length allowed is",
+  "this-field-value-is-invalid": "The value of this field is invalid"
 }

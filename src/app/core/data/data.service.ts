@@ -1,88 +1,50 @@
-import { Injectable, Inject } from '@angular/core';
-
-import { OrganizationService } from './organization.service';
+import { CreditNoteService } from './credit-note.service';
+import { DebitNoteService } from './debit-note.service';
+import { DocumentService } from './document.service';
+import { FileService } from './file.service';
+import { Injectable } from '@angular/core';
 import { InvoiceService } from './invoice.service';
-import { CreditnoteService } from './creditnote.service';
-import { DebitnoteService } from './debitnote.service';
-import { RetentionService } from './retention.service';
-import { VoidedService } from './voided.service'
-import { PerceptionService } from './perception.service'
+import { OrganizationService } from './organization.service';
 import { ServerInfoService } from './server-info.service';
-import { EventService } from './event.service';
-import { StorageFileService } from './storage-file.service';
-import { GenericTypeService } from './generic-type.service'
-import { OrganizationPeService } from './organization-pe.service';
-
-import { JobreportService } from './jobreport.service';
 
 @Injectable()
 export class DataService {
 
-  constructor(private organization: OrganizationService,
-    private invoice: InvoiceService,
-    private creditnote: CreditnoteService,
-    private debitnote: DebitnoteService,
-    private perception: PerceptionService,
-    private retention: RetentionService,
-    private voided: VoidedService,
-    private serverinfo: ServerInfoService,
-    private event: EventService,
-    private storageFile: StorageFileService,
-    private organizationPe: OrganizationPeService,
-    private genericTypePe: GenericTypeService,
-    private jobreport: JobreportService) {
+  constructor(
+    private organizationService: OrganizationService,
+    private serverInfoService: ServerInfoService,
+    private documentService: DocumentService,
+    private fileService: FileService,
+    private invoiceService: InvoiceService,
+    private creditNoteService: CreditNoteService,
+    private debitNoteService: DebitNoteService) { }
+
+  organizations(): OrganizationService {
+    return this.organizationService;
   }
 
-  public organizations(): OrganizationService {
-    return this.organization;
+  serverInfo(): ServerInfoService {
+    return this.serverInfoService;
   }
 
-  public invoices(): InvoiceService {
-    return this.invoice;
+  documents(): DocumentService {
+    return this.documentService;
   }
 
-  public creditnotes(): CreditnoteService {
-    return this.creditnote;
+  files(): FileService {
+    return this.fileService;
   }
 
-  public debitnotes(): DebitnoteService {
-    return this.debitnote;
+  invoices(): InvoiceService {
+    return this.invoiceService;
   }
 
-  public perceptions(): PerceptionService {
-    return this.perception;
+  creditNotes(): CreditNoteService {
+    return this.creditNoteService;
   }
 
-  public retentions(): RetentionService {
-    return this.retention;
-  }
-
-  public voideds(): VoidedService {
-    return this.voided;
-  }
-
-  public serverInfo(): ServerInfoService {
-    return this.serverinfo;
-  }
-
-  public events(): EventService {
-    return this.event;
-  }
-
-  public storageFiles(): StorageFileService {
-    return this.storageFile;
-  }
-
-  public jobReports(): JobreportService {
-    return this.jobreport;
-  }
-
-  public organizationPeru(): OrganizationPeService {
-    return this.organizationPe;
-  }
-
-  public genericTypePeru(): GenericTypeService {
-    return this.genericTypePe;
+  debitNotes(): DebitNoteService {
+    return this.debitNoteService;
   }
 
 }

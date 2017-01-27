@@ -1,31 +1,35 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, PreloadAllModules } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
-import { AllowedDataOrganizations } from './core/guards/allowed-data-organizations';
+import { AboutComponent } from './pages/about/about.component';
+import { NgModule } from '@angular/core';
+
+const routes: Routes = [
+    {
+        path: '',
+        redirectTo: '/admin/organizations',
+        pathMatch: 'full'
+    },
+    {
+        path: 'about',
+        component: AboutComponent,
+        outlet: 'secondary'
+    },
+    {
+        path: 'admin',
+        loadChildren: 'app/admin/admin.module#AdminModule'
+    },
+    {
+        path: 'organizations/:organization',
+        loadChildren: 'app/organization/organization.module#OrganizationModule'
+    }
+];
 
 @NgModule({
     imports: [
-        RouterModule.forRoot([
-            {
-                path: '',
-                redirectTo: '/admin/organizations',
-                pathMatch: 'full'
-            },
-            {
-                path: 'admin',
-                loadChildren: 'app/admin/admin.module#AdminModule',
-                data: { organizations: ['master'] },
-                canLoad: [AllowedDataOrganizations]
-            },
-            {
-                path: 'organizations/:organization',
-                loadChildren: 'app/organization/organization.module#OrganizationModule'
-            }
-        ], { useHash: false, enableTracing: false, preloadingStrategy: PreloadAllModules })
+        RouterModule.forRoot(routes)
     ],
-    exports: [
-        RouterModule
-    ],
+    exports: [RouterModule],
     providers: []
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}

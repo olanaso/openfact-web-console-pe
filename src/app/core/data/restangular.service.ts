@@ -21,25 +21,33 @@ export interface RestangularBasePath {
 @Injectable()
 export class RestangularService {
 
-  private path: string;
+  private _path: string;
 
   constructor(
-    private http: Http,
+    private _http: Http,
     private router: Router,
     private alertService: AlertService,
     basePath: RestangularBasePath) {
-    this.path = basePath.url;
+    this._path = basePath.url;
+  }
+
+  get path() {
+    return this._path;
+  }
+
+  get http() {
+    return this._http;
   }
 
   one(path: string, id: string): RestangularService {
     const restangular = this.clone();
-    restangular.path += (path ? '/' + path : '') + '/' + id;
+    restangular._path += (path ? '/' + path : '') + '/' + id;
     return restangular;
   }
 
   all(path: string): RestangularService {
     const restangular = this.clone();
-    restangular.path = restangular.path + '/' + path;
+    restangular._path = restangular._path + '/' + path;
     return restangular;
   }
 
@@ -59,13 +67,13 @@ export class RestangularService {
       }
     }
 
-    return this.http.get(this.path, requestOptionsArgs).catch((error) => {
+    return this._http.get(this._path, requestOptionsArgs).catch((error) => {
       return this.handleError(error);
     });
   }
 
   post(obj?: any): Observable<Response> {
-    return this.http.post(this.path, obj).catch((error) => {
+    return this._http.post(this._path, obj).catch((error) => {
       return this.handleError(error);
     });
   }
@@ -74,19 +82,19 @@ export class RestangularService {
     const clone = Object.assign({}, obj);
     delete clone['_restangular'];
 
-    return this.http.put(this.path, clone).catch((error) => {
+    return this._http.put(this._path, clone).catch((error) => {
       return this.handleError(error);
     });
   }
 
   delete(): Observable<Response> {
-    return this.http.delete(this.path).catch((error) => {
+    return this._http.delete(this._path).catch((error) => {
       return this.handleError(error);
     });
   }
 
   clone(): RestangularService {
-    return new RestangularService(this.http, this.router, this.alertService, { url: this.path });
+    return new RestangularService(this._http, this.router, this.alertService, { url: this._path });
   }
 
   handleError(error: any): Observable<Response> {

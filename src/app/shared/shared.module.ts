@@ -6,6 +6,8 @@ import { ButtonResetComponent } from './components/button-reset/button-reset.com
 import { ButtonSaveComponent } from './components/button-save/button-save.component';
 import { ButtonSwitchComponent } from './components/button-switch/button-switch.component';
 import { CommonModule } from '@angular/common';
+import { FileSelectDirective } from 'ng2-file-upload';
+import { FileUploadModule } from 'ng2-file-upload';
 import { FormFieldValidationMessagesComponent } from './components/form-field-validation-messages/form-field-validation-messages.component';
 import { FormFieldValidationStateDirective } from './directives/form-field-validation-state.directive';
 import { FormFieldsStatusComponent } from './components/form-fields-status/form-fields-status.component';
@@ -36,6 +38,7 @@ import { YesNoPipe } from './pipes/yes-no.pipe';
     NgbModule,
     TranslateModule,
     MomentModule,
+    FileUploadModule,
   ],
   declarations: [
     FormFieldsStatusComponent,
@@ -67,6 +70,7 @@ import { YesNoPipe } from './pipes/yes-no.pipe';
     NgbModule,
     TranslateModule,
     MomentModule,
+    FileUploadModule,
 
     FormFieldsStatusComponent,
     FormRequiredLabelDirective,

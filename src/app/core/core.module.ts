@@ -1,10 +1,13 @@
 import { AlertComponent } from './alert/alert.component';
 import { AlertService } from './alert/alert.service';
 import { AlertsComponent } from './alert/alerts.component';
+import { CreditNoteService } from './data/credit-note.service';
 import { DataService } from './data/data.service';
+import { DebitNoteService } from './data/debit-note.service';
 import { DialogComponent } from './dialog/dialog.component';
 import { DialogService } from './dialog/dialog.service';
 import { Http } from '@angular/http';
+import { InvoiceService } from './data/invoice.service';
 import { KeycloakHttpFactory } from './keycloak.http';
 import { KeycloakService } from './keycloak.service';
 import { NgModule } from '@angular/core';
@@ -53,6 +56,9 @@ import { XHRBackend } from '@angular/http';
     DataService,
     OrganizationService,
     ServerInfoService,
+    InvoiceService,
+    CreditNoteService,
+    DebitNoteService,
 
     OrganizationResolverService,
     OrganizationKeyResolverService,

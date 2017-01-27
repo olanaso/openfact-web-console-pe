@@ -1,6 +1,15 @@
 import { RouterModule, Routes } from '@angular/router';
 
+import { CreditNoteCreateComponent } from './credit-note-create/credit-note-create.component';
+import { CreditNoteListComponent } from './credit-note-list/credit-note-list.component';
+import { CreditNoteUploadComponent } from './credit-note-upload/credit-note-upload.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { DebitNoteCreateComponent } from './debit-note-create/debit-note-create.component';
+import { DebitNoteListComponent } from './debit-note-list/debit-note-list.component';
+import { DebitNoteUploadComponent } from './debit-note-upload/debit-note-upload.component';
+import { InvoiceCreateComponent } from './invoice-create/invoice-create.component';
+import { InvoiceListComponent } from './invoice-list/invoice-list.component';
+import { InvoiceUploadComponent } from './invoice-upload/invoice-upload.component';
 import { NgModule } from '@angular/core';
 import { OrganizationComponent } from './organization.component';
 import { OrganizationComponentResolverService } from './../core/resolvers/organization-component-resolver.service';
@@ -105,7 +114,43 @@ const routes: Routes = [
           serverInfo: ServerInfoResolverService,
           instance: OrganizationComponentResolverService
         }
-      }
+      },
+      {
+        path: 'invoices',
+        component: InvoiceListComponent
+      },
+      {
+        path: 'invoices/create',
+        component: InvoiceCreateComponent
+      },
+      {
+        path: 'invoices/upload',
+        component: InvoiceUploadComponent
+      },
+      {
+        path: 'credit-notes',
+        component: CreditNoteListComponent
+      },
+      {
+        path: 'credit-notes/create',
+        component: CreditNoteCreateComponent
+      },
+      {
+        path: 'credit-notes/upload',
+        component: CreditNoteUploadComponent
+      },
+      {
+        path: 'debit-notes',
+        component: DebitNoteListComponent
+      },
+      {
+        path: 'debit-notes/create',
+        component: DebitNoteCreateComponent
+      },
+      {
+        path: 'debit-notes/upload',
+        component: DebitNoteUploadComponent
+      },
     ]
   }
 ];

@@ -1,4 +1,5 @@
 import { RouterModule, Routes } from '@angular/router';
+import { TiposAfectacionIGVResolverService, TiposComprobantePagoResolverService, TiposDocumentoEntidadResolverService } from './../core/resolvers/generic-type-resolver.service';
 
 import { CreditNoteCreateComponent } from './documents/credit-notes/credit-note-create/credit-note-create.component';
 import { CreditNoteEditComponent } from './documents/credit-notes/credit-note-edit/credit-note-edit.component';
@@ -130,7 +131,12 @@ const routes: Routes = [
       },
       {
         path: 'invoices/create',
-        component: InvoiceCreateComponent
+        component: InvoiceCreateComponent,
+        resolve: {
+          tiposComprobantePago: TiposComprobantePagoResolverService,
+          tiposDocumentEntidad: TiposDocumentoEntidadResolverService,
+          tiposAfectacionIGV: TiposAfectacionIGVResolverService
+        }
       },
       {
         path: 'invoices/upload',

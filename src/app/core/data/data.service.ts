@@ -5,6 +5,7 @@ import { FileService } from './file.service';
 import { Injectable } from '@angular/core';
 import { InvoiceService } from './invoice.service';
 import { OrganizationService } from './organization.service';
+import { OrganizationSunatService } from './organization-sunat.service';
 import { ServerInfoService } from './server-info.service';
 
 @Injectable()
@@ -17,10 +18,15 @@ export class DataService {
     private fileService: FileService,
     private invoiceService: InvoiceService,
     private creditNoteService: CreditNoteService,
-    private debitNoteService: DebitNoteService) { }
+    private debitNoteService: DebitNoteService,
+    private organizationSunat: OrganizationSunatService) { }
 
   organizations(): OrganizationService {
     return this.organizationService;
+  }
+
+  organizationsSunat(): OrganizationSunatService {
+    return this.organizationSunat;
   }
 
   serverInfo(): ServerInfoService {

@@ -1,3 +1,5 @@
+import { TiposAfectacionIGVResolverService, TiposComprobantePagoResolverService, TiposDocumentoEntidadResolverService } from './resolvers/generic-type-resolver.service';
+
 import { AlertComponent } from './alert/alert.component';
 import { AlertService } from './alert/alert.service';
 import { AlertsComponent } from './alert/alerts.component';
@@ -18,6 +20,7 @@ import { OrganizationComponentResolverService } from './resolvers/organization-c
 import { OrganizationKeyResolverService } from './resolvers/organization-key-resolver.service';
 import { OrganizationResolverService } from './resolvers/organization-resolver.service';
 import { OrganizationService } from './data/organization.service';
+import { OrganizationSunatService } from './data/organization-sunat.service';
 import { RequestOptions } from '@angular/http';
 import { RestangularService } from './data/restangular.service';
 import { RestangularServiceFactory } from './data/restangular.service';
@@ -64,12 +67,17 @@ import { XHRBackend } from '@angular/http';
     InvoiceService,
     CreditNoteService,
     DebitNoteService,
+    OrganizationSunatService,
 
     OrganizationResolverService,
     OrganizationKeyResolverService,
     OrganizationComponentResolverService,
     ServerInfoResolverService,
     DocumentResolverService,
+
+    TiposComprobantePagoResolverService,
+    TiposDocumentoEntidadResolverService,
+    TiposAfectacionIGVResolverService,
   ]
 })
 export class CoreModule { }

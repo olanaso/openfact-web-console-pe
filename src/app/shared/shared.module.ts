@@ -28,6 +28,8 @@ import { ToArrayPipe } from './pipes/to-array.pipe';
 import { ToDatePipe } from './pipes/to-date.pipe';
 import { ToNumberPipe } from './pipes/to-number.pipe';
 import { TranslateModule } from 'ng2-translate';
+import { UblLineGroupByDirective } from './directives/ubl-line-group-by.directive';
+import { UblLineGroupDirective } from './directives/ubl-line-group.directive';
 import { ViewKeyComponent } from './components/view-key/view-key.component';
 import { ViewObjectComponent } from './components/view-object/view-object.component';
 import { YesNoPipe } from './pipes/yes-no.pipe';
@@ -74,6 +76,9 @@ import { YesNoPipe } from './pipes/yes-no.pipe';
     UblLineUnitPriceDirective,
     UblLineSubtotalDirective,
     UblLineTotalDirective,
+    
+    UblLineGroupByDirective,
+    UblLineGroupDirective,
   ],
   exports: [
     CommonModule,
@@ -118,6 +123,9 @@ import { YesNoPipe } from './pipes/yes-no.pipe';
     UblLineUnitPriceDirective,
     UblLineSubtotalDirective,
     UblLineTotalDirective,
+
+    UblLineGroupByDirective,
+    UblLineGroupDirective,
   ]
 })
 export class SharedModule { }

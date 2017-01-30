@@ -14,11 +14,11 @@ export interface UblLine {
 })
 export class UblLineDirective {
 
-  private _ofUblLine: number = 1;
+  private _tax: number = 1;
 
   @Input('ofUblLine')
   set ofUblLine(ofUblLine: number) {
-    this._ofUblLine = ofUblLine;
+    this._tax = ofUblLine;
     this.currentState = null;
     this.refreshLeft();
   }
@@ -36,8 +36,8 @@ export class UblLineDirective {
   refreshLeft() {
     if (this._quantity && this._unitPrice && this.isFireAllowed()) {
       this._subtotal = this._quantity * this._unitPrice;
-      this._total = this._subtotal * (this._ofUblLine + 1);
-
+      this._total = this._subtotal * (this._tax + 1);
+      
       this.currentState = this.getResult();
       this.notificator.emit(this.currentState);
     }
@@ -46,7 +46,7 @@ export class UblLineDirective {
   refreshSubRight() {
     if (this._unitPrice && this._subtotal && this.isFireAllowed()) {
       this._quantity = this._subtotal / this._unitPrice;
-      this._total = this._subtotal * (this._ofUblLine + 1);
+      this._total = this._subtotal * (this._tax + 1);
 
       this.currentState = this.getResult();
       this.notificator.emit(this.currentState);
@@ -55,7 +55,7 @@ export class UblLineDirective {
 
   refreshRight() {
     if (this._unitPrice && this._total && this.isFireAllowed()) {
-      this._quantity = this._total / (this._unitPrice * (this._ofUblLine + 1));
+      this._quantity = this._total / (this._unitPrice * (this._tax + 1));
       this._subtotal = this._quantity * this._unitPrice;
 
       this.currentState = this.getResult();

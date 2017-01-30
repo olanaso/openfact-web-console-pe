@@ -160,7 +160,7 @@
             </thead>
             <tbody formArrayName="detalle">
               <template ngFor let-item [ngForOf]="detalle.controls" let-i="index">
-                <tr [formGroupName]="i" [ofUblLine]="item.get('igv').value">
+                <tr [formGroupName]="i" [ofUblLine]="getIgvFactor(item)">
                   <td class="text-right">{{i+1}}</td>
                   <td [ofFormFieldValidationState]="item.get('descripcion')">
                     <input formControlName="descripcion" type="text" class="form-control" placeholder="Descripcion" />

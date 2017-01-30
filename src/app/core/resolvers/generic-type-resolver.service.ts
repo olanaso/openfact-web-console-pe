@@ -40,3 +40,15 @@ export class TiposAfectacionIGVResolverService implements Resolve<any> {
   }
 
 }
+
+@Injectable()
+export class IgvResolverService implements Resolve<any> {
+
+  constructor(private dataService: DataService) { }
+
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Promise<any> {
+    const organizationId = findParam('organization', route);
+    return this.dataService.organizationsSunat().getIgv(organizationId);
+  }
+
+}

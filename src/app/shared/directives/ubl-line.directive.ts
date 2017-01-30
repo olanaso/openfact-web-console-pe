@@ -1,4 +1,5 @@
-import { Directive, Input, HostListener, ElementRef, EventEmitter, OnInit } from '@angular/core';
+import { Directive, ElementRef, EventEmitter, HostListener, Input, OnInit } from '@angular/core';
+
 import { NgControl } from '@angular/forms';
 
 export interface UblLine {
@@ -13,8 +14,14 @@ export interface UblLine {
 })
 export class UblLineDirective {
 
-  @Input("ofUblLine")
-  private tax: number = 1;
+  private _ofUblLine: number = 1;
+
+  @Input('ofUblLine')
+  set ofUblLine(ofUblLine: number) {
+    this._ofUblLine = ofUblLine;
+    this.currentState = null;
+    this.refreshLeft();
+  }
 
   currentState: UblLine;
   notificator: EventEmitter<UblLine> = new EventEmitter<UblLine>();
@@ -29,7 +36,7 @@ export class UblLineDirective {
   refreshLeft() {
     if (this._quantity && this._unitPrice && this.isFireAllowed()) {
       this._subtotal = this._quantity * this._unitPrice;
-      this._total = this._subtotal * (this.tax + 1);
+      this._total = this._subtotal * (this._ofUblLine + 1);
 
       this.currentState = this.getResult();
       this.notificator.emit(this.currentState);
@@ -39,7 +46,7 @@ export class UblLineDirective {
   refreshSubRight() {
     if (this._unitPrice && this._subtotal && this.isFireAllowed()) {
       this._quantity = this._subtotal / this._unitPrice;
-      this._total = this._subtotal * (this.tax + 1);
+      this._total = this._subtotal * (this._ofUblLine + 1);
 
       this.currentState = this.getResult();
       this.notificator.emit(this.currentState);
@@ -48,7 +55,7 @@ export class UblLineDirective {
 
   refreshRight() {
     if (this._unitPrice && this._total && this.isFireAllowed()) {
-      this._quantity = this._total / (this._unitPrice * (this.tax + 1));
+      this._quantity = this._total / (this._unitPrice * (this._ofUblLine + 1));
       this._subtotal = this._quantity * this._unitPrice;
 
       this.currentState = this.getResult();
@@ -67,7 +74,8 @@ export class UblLineDirective {
   }
 
   isFireAllowed(): boolean {
-    if (this.currentState &&
+    if (
+      this.currentState &&
       this._quantity == this.currentState.quantity &&
       this._unitPrice == this.currentState.unitPrice &&
       this._subtotal == this.currentState.subtotal &&
@@ -76,6 +84,7 @@ export class UblLineDirective {
     }
     return true;
   }
+
 
   set quantity(quantity: number) {
     this._quantity = quantity;

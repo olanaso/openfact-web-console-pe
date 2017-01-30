@@ -42,4 +42,14 @@ export class OrganizationSunatService {
       .map(response => response.json());
   }
 
+  getIgv(organizationName: string): Observable<any> {
+    return this.restangular.one('organizations', organizationName)
+      .all(basePath)
+      .all(extensionPath)
+      .all(genericBasePath)
+      .all('igv')
+      .get()
+      .map(response => response.json());
+  }
+
 }

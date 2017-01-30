@@ -1,4 +1,5 @@
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UblLineDirective, UblLineQuantityDirective, UblLineSubtotalDirective, UblLineTotalDirective, UblLineUnitPriceDirective } from './directives/ubl-line.directive';
 
 import { ButtonCancelComponent } from './components/button-cancel/button-cancel.component';
 import { ButtonDeleteComponent } from './components/button-delete/button-delete.component';
@@ -19,6 +20,7 @@ import { LimitedStringComponent } from './components/limited-string/limited-stri
 import { MomentModule } from 'angular2-moment';
 import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NumberMaskDirective } from './directives/number-mask.directive';
 import { OnOffSwitchStringComponent } from './components/on-off-switch-string/on-off-switch-string.component';
 import { ReadFileComponent } from './components/read-file/read-file.component';
 import { RouterModule } from '@angular/router';
@@ -65,6 +67,13 @@ import { YesNoPipe } from './pipes/yes-no.pipe';
     FirstElementPipe,
     ToNumberPipe,
     LimitedStringComponent,
+    NumberMaskDirective,
+
+    UblLineDirective,
+    UblLineQuantityDirective,
+    UblLineUnitPriceDirective,
+    UblLineSubtotalDirective,
+    UblLineTotalDirective,
   ],
   exports: [
     CommonModule,
@@ -101,6 +110,14 @@ import { YesNoPipe } from './pipes/yes-no.pipe';
     YesNoPipe,
     FirstElementPipe,
     ToNumberPipe,
+
+    NumberMaskDirective,
+
+    UblLineDirective,
+    UblLineQuantityDirective,
+    UblLineUnitPriceDirective,
+    UblLineSubtotalDirective,
+    UblLineTotalDirective,
   ]
 })
 export class SharedModule { }

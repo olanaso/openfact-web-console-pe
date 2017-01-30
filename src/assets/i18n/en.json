@@ -141,5 +141,6 @@
   "download": "Download",
   "this-field-is-required": "this field is required",
   "this-field-max-length-allowed-is": "Max length allowed is",
+  "this-field-min-length-allowed-is": "Min length allowed is",
   "this-field-value-is-invalid": "The value of this field is invalid"
 }

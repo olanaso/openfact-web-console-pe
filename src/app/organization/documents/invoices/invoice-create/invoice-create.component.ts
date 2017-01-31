@@ -46,7 +46,7 @@ export class InvoiceCreateComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.buildForm();
-    this.parentDataSubscription = this.route.data.subscribe((data) => {
+    this.parentDataSubscription = this.route.parent.data.subscribe((data) => {
       this.organization = data['organization'];
     });
     this.dataSubscription = this.route.data.subscribe((data) => {
@@ -121,6 +121,19 @@ export class InvoiceCreateComponent implements OnInit, OnDestroy {
             entidadTipoDeDocumento: tipoDocumento.codigo
           });
         }
+
+        // poner envio automatico
+        if (tipoComprobante) {
+          if (tipoComprobante.abreviatura.toUpperCase() === 'FACTURA') {
+            this.form.patchValue({
+              enviarAutomaticamenteASunat: true
+            });
+          } else if (tipoComprobante.abreviatura.toUpperCase() === 'BOLETA') {
+            this.form.patchValue({
+              enviarAutomaticamenteASunat: false
+            });
+          }
+        }
       }
     });
 
@@ -130,6 +143,7 @@ export class InvoiceCreateComponent implements OnInit, OnDestroy {
         const tipoComprobante = this.tiposDocumentEntidad.find(f => f.codigo === value);
         if (tipoComprobante) {
           this.form.get('entidadNumeroDeDocumento').setValidators(Validators.compose([
+            Validators.required,
             Validators.minLength(tipoComprobante.length),
             Validators.maxLength(tipoComprobante.length)
           ]));
@@ -145,21 +159,19 @@ export class InvoiceCreateComponent implements OnInit, OnDestroy {
     });
     this.detalle.valueChanges.subscribe(value => {
       this.recalcularDatos();
-      console.log(this.form);
-      
     });
   }
 
   addDetalleFormControl(): void {
-    let formGroup = this.formBuilder.group({
+    const formGroup = this.formBuilder.group({
       unitCode: [null, Validators.compose([Validators.maxLength(150)])],
       descripcion: [null, Validators.compose([Validators.required, Validators.maxLength(150)])],
-      cantidad: [null, Validators.compose([Validators.required])],
-      tipoDeIgv: [null, Validators.compose([Validators.required])],
-      valorUnitario: [null, Validators.compose([Validators.required])],
-      precioUnitario: [null, Validators.compose([Validators.required])],
-      subtotal: [null, Validators.compose([Validators.required])],
-      total: [null, Validators.compose([Validators.required])]
+      cantidad: [null, Validators.compose([Validators.required, Validators.minLength(1)])],
+      tipoDeIgv: [null, Validators.compose([Validators.required, Validators.minLength(1)])],
+      valorUnitario: [null, Validators.compose([Validators.required, Validators.minLength(1)])],//valor del producto sin igv
+      precioUnitario: [null, Validators.compose([Validators.required, Validators.minLength(1)])],//valor del producto con igv
+      subtotal: [null, Validators.compose([Validators.required, Validators.minLength(1)])],
+      total: [null, Validators.compose([Validators.required, Validators.minLength(1)])]
     });
     this.loadDataDetalle(formGroup);
     this.detalle.push(formGroup);
@@ -290,17 +302,16 @@ export class InvoiceCreateComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.dialogService.confirm('Confirm', 'Are you sure to process this action').result.then(
+    this.dialogService.confirm('Confirm', 'Estas seguro de realizar esta operacion').result.then(
       (redirect) => {
         this.working = true;
-        console.log(form.value);
 
-        /*this.dataService.organizationPeru().createInvoice(this.organization, form).subscribe(
+        this.dataService.organizationsSunat().createInvoice(this.organization.organization, form.value).subscribe(
           response => {
             this.working = false;
             this.alertService.pop('success', 'Success', 'Success! The invoice has been created.');
             if (redirect) {
-              this.router.navigate(['../'], { relativeTo: this.route.parent });
+              this.router.navigate(['../'], { relativeTo: this.route });
             } else {
               this.buildForm();
             }
@@ -308,8 +319,9 @@ export class InvoiceCreateComponent implements OnInit, OnDestroy {
           error => {
             this.working = false;
           }
-        );*/
-      }
+        );
+      },
+      (dissmiss) => { }
     );
   }
 

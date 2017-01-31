@@ -16,8 +16,8 @@ export class FormFieldValidationStateDirective implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.ofFormFieldValidationState.valueChanges.subscribe(controlValue => {
-      if (this.ofFormFieldValidationState.valid) {
+    this.ofFormFieldValidationState.statusChanges.subscribe(controlValue => {
+      if (this.ofFormFieldValidationState.valid || this.ofFormFieldValidationState.disabled) {
         this.hasError = false;
       } else {
         this.hasError = true;

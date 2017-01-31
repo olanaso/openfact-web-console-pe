@@ -7,6 +7,7 @@ import { NgControl } from '@angular/forms';
 // debe debe de realizar la suma de subtotales y totales tomando en cuenta todos los decimales
 export interface UblLine {
   quantity: number,
+  unitValue: number,
   unitPrice: number,
   subtotal: number,
   total: number
@@ -31,6 +32,7 @@ export class UblLineDirective {
   notificator: EventEmitter<UblLine> = new EventEmitter<UblLine>();
 
   private _quantity: number;
+  private _unitValue: number;
   private _unitPrice: number;
   private _subtotal: number;
   private _total: number;
@@ -38,8 +40,8 @@ export class UblLineDirective {
   constructor() { }
 
   refreshLeft() {
-    if (this._quantity && this._unitPrice && this.isFireAllowed()) {
-      this._subtotal = this._quantity * this._unitPrice;
+    if (this._quantity && this._unitValue && this.isFireAllowed()) {
+      this._subtotal = this._quantity * this._unitValue;
       this._total = this._subtotal * this._tax;
 
       this.currentState = this.getResult();
@@ -48,8 +50,8 @@ export class UblLineDirective {
   }
 
   refreshSubRight() {
-    if (this._unitPrice && this._subtotal && this.isFireAllowed()) {
-      this._quantity = this._subtotal / this._unitPrice;
+    if (this._unitValue && this._subtotal && this.isFireAllowed()) {
+      this._quantity = this._subtotal / this._unitValue;
       this._total = this._subtotal * this._tax;
 
       this.currentState = this.getResult();
@@ -58,9 +60,9 @@ export class UblLineDirective {
   }
 
   refreshRight() {
-    if (this._unitPrice && this._total && this.isFireAllowed()) {
-      this._quantity = this._total / (this._unitPrice * this._tax);
-      this._subtotal = this._quantity * this._unitPrice;
+    if (this._unitValue && this._total && this.isFireAllowed()) {
+      this._quantity = this._total / (this._unitValue * this._tax);
+      this._subtotal = this._quantity * this._unitValue;
 
       this.currentState = this.getResult();
       this.notificator.emit(this.currentState);
@@ -70,12 +72,14 @@ export class UblLineDirective {
   // redondeos para evitar errores de multiplicacion con float y decimales indeterminados
   getResult(): UblLine {
     this._quantity = +this._quantity.toFixed(3);
-    this._unitPrice = +this._unitPrice.toFixed(2);
+    this._unitPrice = +(this._unitValue * this._tax).toFixed(2);
+    this._unitValue = +this._unitValue.toFixed(2);
     this._subtotal = +this._subtotal.toFixed(2);
     this._total = +this._total.toFixed(2);
 
     let result: UblLine = {
       quantity: this._quantity,
+      unitValue: this._unitValue,
       unitPrice: this._unitPrice,
       subtotal: this._subtotal,
       total: this._total
@@ -87,7 +91,7 @@ export class UblLineDirective {
     if (
       this.currentState &&
       this._quantity == this.currentState.quantity &&
-      this._unitPrice == this.currentState.unitPrice &&
+      this._unitValue == this.currentState.unitValue &&
       this._subtotal == this.currentState.subtotal &&
       this._total == this.currentState.total) {
       return false;
@@ -100,8 +104,8 @@ export class UblLineDirective {
     this.refreshLeft();
   }
 
-  set unitPrice(unitPrice: number) {
-    this._unitPrice = unitPrice;
+  set unitValue(unitValue: number) {
+    this._unitValue = unitValue;
     this.refreshLeft();
   }
 
@@ -136,6 +140,27 @@ export class UblLineQuantityDirective implements OnInit {
 
 }
 
+// Precio sin igv
+@Directive({
+  selector: '[ofUblLineUnitValue]'
+})
+export class UblLineUnitValueDirective implements OnInit {
+
+  constructor(public line: UblLineDirective, private control: NgControl) { }
+
+  ngOnInit() {
+    this.control.valueChanges.subscribe(controlValue => {
+      this.line.unitValue = controlValue;
+    });
+
+    this.line.notificator.subscribe((result: UblLine) => {
+      this.control.control.setValue(result.unitValue);
+    });
+  }
+
+}
+
+//Precio con igv
 @Directive({
   selector: '[ofUblLineUnitPrice]'
 })
@@ -144,10 +169,6 @@ export class UblLineUnitPriceDirective implements OnInit {
   constructor(public line: UblLineDirective, private control: NgControl) { }
 
   ngOnInit() {
-    this.control.valueChanges.subscribe(controlValue => {
-      this.line.unitPrice = controlValue;
-    });
-
     this.line.notificator.subscribe((result: UblLine) => {
       this.control.control.setValue(result.unitPrice);
     });

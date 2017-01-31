@@ -62,7 +62,7 @@ export class InvoiceEditComponent implements OnInit, OnDestroy {
   }
 
   downloadCdr() {
-    // this.dataService.organizationPeru().downloadDocumentCdr(this.organization.organization, this.document.id);
+    this.dataService.organizationsSunat().downloadDocumentCdr(this.organization.organization, this.document.id);
   }
 
   downloadPdf() {

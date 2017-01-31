@@ -1,8 +1,11 @@
+import { RequestOptionsArgs, ResponseContentType } from '@angular/http';
+
 import { Document } from './../model/document.model';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import { Organization } from './../model/organization.model';
 import { RestangularService } from './restangular.service';
+import { saveAs } from 'file-saver';
 
 export const genericIdName = 'id';
 export const basePath = 'sunat';
@@ -13,6 +16,29 @@ export const genericBasePath = 'generic-types';
 export class OrganizationSunatService {
 
   constructor(private restangular: RestangularService) { }
+
+  downloadDocumentCdr(organizationName: string, documentId: string) {
+    let options: RequestOptionsArgs = {
+      responseType: ResponseContentType.Blob
+    };
+
+    return this.restangular.one('organizations', organizationName)
+      .all(basePath)
+      .one('documents', documentId)
+      .all('cdr')
+      .get(null, options)
+      .map(response => {
+        let file = {
+          file: response.blob(),
+          fileName: 'cdr.zip'
+        };
+        return file;
+      }).subscribe(result => {
+        saveAs(result.file, result.fileName);
+      }, error => {
+        Observable.throw(error);
+      });
+  }
 
   createInvoice(organizationName: string, document: any): Observable<any> {
     return this.restangular.one('organizations', organizationName)

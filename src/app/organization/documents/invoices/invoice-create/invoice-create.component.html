@@ -287,9 +287,10 @@
         </div>
       </div>
       <!--/ Totales-->
+
+      <of-button-save [ofForm]="form" [working]="working"></of-button-save>
+      <of-button-cancel (ofOnCancel)="cancel()"></of-button-cancel>
+
     </form>
-
-    {{form.value | json}}
-
   </div>
 </div>

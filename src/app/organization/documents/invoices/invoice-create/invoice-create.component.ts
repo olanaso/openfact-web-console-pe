@@ -4,6 +4,7 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
 
 import { AlertService } from './../../../../core/alert/alert.service';
 import { DataService } from './../../../../core/data/data.service';
+import { DialogService } from './../../../../core/dialog/dialog.service';
 import { GenericType } from './../../../../core/model/genericType.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Organization } from './../../../../core/model/organization.model';
@@ -40,7 +41,8 @@ export class InvoiceCreateComponent implements OnInit, OnDestroy {
 
   constructor(private router: Router, private route: ActivatedRoute,
     private formBuilder: FormBuilder, private modalService: NgbModal,
-    private dataService: DataService, private alertService: AlertService) { }
+    private dataService: DataService, private alertService: AlertService,
+    private dialogService: DialogService) { }
 
   ngOnInit() {
     this.buildForm();
@@ -136,13 +138,15 @@ export class InvoiceCreateComponent implements OnInit, OnDestroy {
     });
 
     this.form.get('porcentajeDescuento').valueChanges.subscribe(value => {
-       this.recalcularDatos();
+      this.recalcularDatos();
     });
     this.form.get('totalOtrosCargos').valueChanges.subscribe(value => {
       this.recalcularDatos();
     });
     this.detalle.valueChanges.subscribe(value => {
       this.recalcularDatos();
+      console.log(this.form);
+      
     });
   }
 
@@ -278,6 +282,39 @@ export class InvoiceCreateComponent implements OnInit, OnDestroy {
 
   getIgvAsDecimal(): number {
     return (this.form.get('igv').value || 0) / 100
+  }
+
+  save(form: FormGroup): void {
+    if (!form.value.detalle || form.value.detalle.length == 0) {
+      this.alertService.pop('warning', 'Warning', 'Warning! Is required to add at least one line.');
+      return;
+    }
+
+    this.dialogService.confirm('Confirm', 'Are you sure to process this action').result.then(
+      (redirect) => {
+        this.working = true;
+        console.log(form.value);
+
+        /*this.dataService.organizationPeru().createInvoice(this.organization, form).subscribe(
+          response => {
+            this.working = false;
+            this.alertService.pop('success', 'Success', 'Success! The invoice has been created.');
+            if (redirect) {
+              this.router.navigate(['../'], { relativeTo: this.route.parent });
+            } else {
+              this.buildForm();
+            }
+          },
+          error => {
+            this.working = false;
+          }
+        );*/
+      }
+    );
+  }
+
+  cancel() {
+    this.router.navigate(['../'], { relativeTo: this.route });
   }
 
 }

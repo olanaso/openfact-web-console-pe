@@ -51,7 +51,7 @@ export class InvoiceCreateComponent implements OnInit, OnDestroy {
       this.tiposComprobantePago = data['tiposComprobantePago'] || [];
       this.tiposDocumentEntidad = data['tiposDocumentEntidad'] || [];
       this.tiposDeAfectacionIgv = data['tiposDeAfectacionIgv'] || [];
-      this.igv = data['igv'] || { valor: 0.18 };
+      this.igv = data['igv'];
       this.loadDataForm();
     });
   }
@@ -135,18 +135,14 @@ export class InvoiceCreateComponent implements OnInit, OnDestroy {
       }
     });
 
-    // Recalculos
-    this.form.get('igv').valueChanges.subscribe(value => {
-      //this.recalcularDatos();
-    });
     this.form.get('porcentajeDescuento').valueChanges.subscribe(value => {
-      // this.recalcularDatos();
+       this.recalcularDatos();
     });
     this.form.get('totalOtrosCargos').valueChanges.subscribe(value => {
-      //this.recalcularDatos();
+      this.recalcularDatos();
     });
     this.detalle.valueChanges.subscribe(value => {
-      // this.recalcularDatos();
+      this.recalcularDatos();
     });
   }
 
@@ -161,8 +157,8 @@ export class InvoiceCreateComponent implements OnInit, OnDestroy {
       subtotal: [null, Validators.compose([Validators.required])],
       total: [null, Validators.compose([Validators.required])]
     });
-    this.detalle.push(formGroup);
     this.loadDataDetalle(formGroup);
+    this.detalle.push(formGroup);
   }
 
   removeDetalleFormControl(index) {
@@ -171,10 +167,10 @@ export class InvoiceCreateComponent implements OnInit, OnDestroy {
 
   getIgvFactor(formControl: FormControl): number {
     const tipoAfectacionIgv = this.tiposDeAfectacionIgv.find(p => p.codigo == formControl.get('tipoDeIgv').value);
-    if(tipoAfectacionIgv && tipoAfectacionIgv.afectaIgv) {
-      return this.form.get('igv').value || 0;
+    if (tipoAfectacionIgv && tipoAfectacionIgv.afectaIgv) {
+      return this.getIgvAsDecimal();
     }
-    return 0;    
+    return 0;
   }
 
   recalcularDatos() {
@@ -187,37 +183,36 @@ export class InvoiceCreateComponent implements OnInit, OnDestroy {
     const totalOtrosCargos = this.form.get('totalOtrosCargos').value || 0;
 
     this.detalle.controls.forEach(formControl => {
-      const subtotal = formControl.get('subtotal').value || 0;
-      const total = formControl.get('total').value || 0;
+
+      // Se debe de multiplicar nuevamente para no perder los redondeos y sumar con todos los digitos
+      const subtotal = (formControl.get('cantidad').value || 0) * (formControl.get('valorUnitario').value || 0);
+      const total = subtotal * this.getIgvAsInteger();
+      const tipoIgv = this.tiposDeAfectacionIgv.find(p => p.codigo === formControl.get('tipoDeIgv').value);
 
       //Operacion gratuita
       if (operacionGratuita) {
         totalGratuita += subtotal;
       } else {
-        const tipoIgv = this.tiposDeAfectacionIgv.find(p => p.codigo === formControl.get('tipoDeIgv').value);
         if (tipoIgv.grupo.toUpperCase() == 'GRAVADO') {
           totalGravado += subtotal;
         } else if (tipoIgv.grupo.toUpperCase() == 'EXONERADO') {
           totalExonerado += subtotal;
         } else if (tipoIgv.grupo.toUpperCase() == 'INAFECTO') {
           totalInafecto += subtotal;
+        } else {
+          throw new Error('Invalid IGV');
         }
       }
-      totalIgv += (total - subtotal);
+
+      if (tipoIgv.afectaIgv) {
+        totalIgv += (subtotal * this.getIgvAsDecimal());
+      }
     });
-    totalGravado = this.round(totalGravado, 2);
-    totalExonerado = this.round(totalExonerado, 2);
-    totalInafecto = this.round(totalInafecto, 2);
-    totalIgv = this.round(totalIgv, 2);
 
     let totalGravadaConDescuento = totalGravado - (totalGravado * porcentajeDescuento);
     let totalExoneradaConDescuento = totalExonerado - (totalExonerado * porcentajeDescuento);
     let totalInafectaConDescuento = totalInafecto - (totalInafecto * porcentajeDescuento);
     let totalIgvConDescuento = totalIgv - (totalIgv * porcentajeDescuento);
-    totalGravadaConDescuento = this.round(totalGravadaConDescuento, 2);
-    totalExoneradaConDescuento = this.round(totalExoneradaConDescuento, 2);
-    totalInafectaConDescuento = this.round(totalInafectaConDescuento, 2);
-    totalIgvConDescuento = this.round(totalIgvConDescuento, 2);
 
     // Descuento global
     const descuentoGlobal =
@@ -226,20 +221,20 @@ export class InvoiceCreateComponent implements OnInit, OnDestroy {
       (totalInafecto - totalInafectaConDescuento);
 
     // Calculo del total
-    const total = totalGravadaConDescuento +
+    const total: number = totalGravadaConDescuento +
       totalExoneradaConDescuento +
       totalInafectaConDescuento +
       totalIgvConDescuento +
       totalOtrosCargos;
 
     this.form.patchValue({
-      totalGratuita: totalGratuita,
-      totalGravada: totalGravadaConDescuento,
-      totalExonerada: totalExoneradaConDescuento,
-      totalInafecta: totalInafectaConDescuento,
-      totalIgv: totalIgvConDescuento,
-      descuentoGlobal: descuentoGlobal,
-      total: total
+      totalGratuita: +totalGratuita.toFixed(2),
+      totalGravada: +totalGravadaConDescuento.toFixed(2),
+      totalExonerada: +totalExoneradaConDescuento.toFixed(2),
+      totalInafecta: +totalInafectaConDescuento.toFixed(2),
+      totalIgv: +totalIgvConDescuento.toFixed(2),
+      descuentoGlobal: +descuentoGlobal.toFixed(2),
+      total: +total.toFixed(2)
     });
   }
 
@@ -249,7 +244,7 @@ export class InvoiceCreateComponent implements OnInit, OnDestroy {
       formValue.tipo = this.tiposComprobantePago[0].codigo;
     }
     if (this.igv) {
-      formValue.igv = this.igv.valor;
+      formValue.igv = +(this.igv.valor * 100).toFixed(2);
     }
     if (this.monedasSoportadas && this.monedasSoportadas.length > 0) {
       formValue.moneda = this.monedasSoportadas[0];
@@ -275,6 +270,14 @@ export class InvoiceCreateComponent implements OnInit, OnDestroy {
 
   get detalle(): FormArray {
     return this.form.get('detalle') as FormArray;
+  }
+
+  getIgvAsInteger() {
+    return this.form.get('igv').value || 0;
+  }
+
+  getIgvAsDecimal(): number {
+    return (this.form.get('igv').value || 0) / 100
   }
 
 }

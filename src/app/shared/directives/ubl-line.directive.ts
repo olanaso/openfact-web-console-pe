@@ -5,7 +5,6 @@ import { NgControl } from '@angular/forms';
 // al sacar subtotal y total se debe de redondear a dos digitos
 // Sin embargo para el calculo de total gravado, exonerado e inafecto se
 // debe debe de realizar la suma de subtotales y totales tomando en cuenta todos los decimales
-
 export interface UblLine {
   quantity: number,
   unitPrice: number,
@@ -23,7 +22,7 @@ export class UblLineDirective {
 
   @Input('ofUblLine')
   set ofUblLine(ofUblLine: number) {
-    this._tax = +(ofUblLine + 1).toFixed(2);
+    this._tax = ofUblLine + 1;
     this.currentState = null;
     this.refreshLeft();
   }
@@ -71,9 +70,9 @@ export class UblLineDirective {
   // redondeos para evitar errores de multiplicacion con float y decimales indeterminados
   getResult(): UblLine {
     this._quantity = +this._quantity.toFixed(3);
-    this._unitPrice = +this._quantity.toFixed(2);
-    this._subtotal = +this._quantity.toFixed(2);
-    this._total = +this._quantity.toFixed(2);
+    this._unitPrice = +this._unitPrice.toFixed(2);
+    this._subtotal = +this._subtotal.toFixed(2);
+    this._total = +this._total.toFixed(2);
 
     let result: UblLine = {
       quantity: this._quantity,

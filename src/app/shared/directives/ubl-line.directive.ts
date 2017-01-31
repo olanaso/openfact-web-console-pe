@@ -2,6 +2,10 @@ import { Directive, ElementRef, EventEmitter, HostListener, Input, OnInit } from
 
 import { NgControl } from '@angular/forms';
 
+// al sacar subtotal y total se debe de redondear a dos digitos
+// Sin embargo para el calculo de total gravado, exonerado e inafecto se
+// debe debe de realizar la suma de subtotales y totales tomando en cuenta todos los decimales
+
 export interface UblLine {
   quantity: number,
   unitPrice: number,
@@ -14,11 +18,12 @@ export interface UblLine {
 })
 export class UblLineDirective {
 
+  // Se debe de ingresar el factor de incremento ej. 0.18
   private _tax: number = 1;
 
   @Input('ofUblLine')
   set ofUblLine(ofUblLine: number) {
-    this._tax = ofUblLine;
+    this._tax = +(ofUblLine + 1).toFixed(2);
     this.currentState = null;
     this.refreshLeft();
   }
@@ -26,18 +31,18 @@ export class UblLineDirective {
   currentState: UblLine;
   notificator: EventEmitter<UblLine> = new EventEmitter<UblLine>();
 
-  private _quantity: any;
-  private _unitPrice: any;
-  private _subtotal: any;
-  private _total: any;
+  private _quantity: number;
+  private _unitPrice: number;
+  private _subtotal: number;
+  private _total: number;
 
   constructor() { }
 
   refreshLeft() {
     if (this._quantity && this._unitPrice && this.isFireAllowed()) {
       this._subtotal = this._quantity * this._unitPrice;
-      this._total = this._subtotal * (this._tax + 1);
-      
+      this._total = this._subtotal * this._tax;
+
       this.currentState = this.getResult();
       this.notificator.emit(this.currentState);
     }
@@ -46,7 +51,7 @@ export class UblLineDirective {
   refreshSubRight() {
     if (this._unitPrice && this._subtotal && this.isFireAllowed()) {
       this._quantity = this._subtotal / this._unitPrice;
-      this._total = this._subtotal * (this._tax + 1);
+      this._total = this._subtotal * this._tax;
 
       this.currentState = this.getResult();
       this.notificator.emit(this.currentState);
@@ -55,7 +60,7 @@ export class UblLineDirective {
 
   refreshRight() {
     if (this._unitPrice && this._total && this.isFireAllowed()) {
-      this._quantity = this._total / (this._unitPrice * (this._tax + 1));
+      this._quantity = this._total / (this._unitPrice * this._tax);
       this._subtotal = this._quantity * this._unitPrice;
 
       this.currentState = this.getResult();
@@ -63,7 +68,13 @@ export class UblLineDirective {
     }
   }
 
+  // redondeos para evitar errores de multiplicacion con float y decimales indeterminados
   getResult(): UblLine {
+    this._quantity = +this._quantity.toFixed(3);
+    this._unitPrice = +this._quantity.toFixed(2);
+    this._subtotal = +this._quantity.toFixed(2);
+    this._total = +this._quantity.toFixed(2);
+
     let result: UblLine = {
       quantity: this._quantity,
       unitPrice: this._unitPrice,
@@ -84,7 +95,6 @@ export class UblLineDirective {
     }
     return true;
   }
-
 
   set quantity(quantity: number) {
     this._quantity = quantity;

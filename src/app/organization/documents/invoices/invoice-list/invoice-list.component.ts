@@ -12,6 +12,7 @@ import { OrderBy } from './../../../../core/model/order-by.model';
 import { Organization } from './../../../../core/model/organization.model';
 import { Paging } from './../../../../core/model/paging.model';
 import { SearchCriteria } from './../../../../core/model/search-criteria.model';
+import { SearchCriteriaFilter } from './../../../../core/model/search-criteria-filter.model';
 import { SearchResults } from './../../../../core/model/search-results.model';
 import { Subscription } from 'rxjs/Subscription';
 import { URLSearchParams } from '@angular/http';
@@ -30,13 +31,13 @@ export class InvoiceListComponent implements OnInit {
 
   thirdPartyByEmail: any = {};
 
-  filters = {
-    filterText: undefined,
-    typeCode: undefined,
-    selected: new Collections.Dictionary<String, any>()
+  // Search Criteria
+  searchCriteria: SearchCriteria = {
+    filterText: null
   };
+  filters: Array<SearchCriteriaFilter> = new Array<SearchCriteriaFilter>();
   orderBy: OrderBy = {
-    name: undefined,
+    name: 'createdTimestamp',
     ascending: true
   };
   paging: Paging = {
@@ -49,7 +50,8 @@ export class InvoiceListComponent implements OnInit {
     private route: ActivatedRoute,
     private modalService: NgbModal,
     private dataService: DataService,
-    private alertService: AlertService) { }
+    private alertService: AlertService) {
+  }
 
   ngOnInit() {
     this.dataSubscription = this.route.parent.data.subscribe(data => {
@@ -67,13 +69,97 @@ export class InvoiceListComponent implements OnInit {
   }
 
   search() {
-    const searchCriteria = new SearchCriteria();
+    const criteria: SearchCriteria = {
+      filterText: this.searchCriteria.filterText,
+      filters: this.filters.map(f => {
+        return new SearchCriteriaFilter(f.name, f.value, f.operator, f.type);
+      }),
+      orders: [this.orderBy],
+      paging: this.paging
+    };
 
-    this.dataService.documents().search(this.organization, searchCriteria).subscribe(
+    this.dataService.documents().search(this.organization, criteria).subscribe(
       (data) => {
         this.searchResult = data;
       }
     );
+  }
+
+  /**
+   * Sort
+   */
+  changeAscending() {
+    this.orderBy.ascending = !this.orderBy.ascending;
+    this.search();
+  }
+
+  /**
+   * Filters
+   */
+
+  clearFilters() {
+    this.filters = new Array<SearchCriteriaFilter>();
+    this.search();
+  }
+
+  removeFilter(index: number) {
+    this.filters.splice(index, 1);
+    this.search();
+  }
+
+  addBoletasFilter() {
+    const filter = new SearchCriteriaFilter('documentId', 'B', 'like');
+    filter.alias = 'Boletas';
+    this.filters.push(filter);
+    this.search();
+  }
+
+  addFacturasFilter() {
+    const filter = new SearchCriteriaFilter('documentId', 'F', 'like');
+    filter.alias = 'Facturas';
+    this.filters.push(filter);
+    this.search();
+  }
+
+  addNoEnviadosSunatFilter() {
+    const filter = new SearchCriteriaFilter('requiredActions', 'SEND_TO_TRIRD_PARTY', 'in');
+    filter.alias = 'No Enviados a Sunat';
+    this.filters.push(filter);
+    this.search();
+  }
+
+  addNoEnviadosClienteFilter() {
+    const filter = new SearchCriteriaFilter('requiredActions', 'SEND_TO_CUSTOMER', 'in');
+    filter.alias = 'No Enviados a Cliente';
+    this.filters.push(filter);
+    this.search();
+  }
+
+  addUltimaHoraFilter() {
+    let date = new Date();
+    date.setHours(date.getHours() - 1);
+    const filter = new SearchCriteriaFilter('createdTimestamp', date, 'gt', 'DATETIME');
+    filter.alias = 'Ultima Hora';
+    this.filters.push(filter);
+    this.search();
+  }
+
+  addUltimas24HorasFilter() {
+    let date = new Date();
+    date.setHours(date.getHours() - 24);
+    const filter = new SearchCriteriaFilter('createdTimestamp', date, 'gt', 'DATETIME');
+    filter.alias = 'Ultimas 24 Horas';
+    this.filters.push(filter);
+    this.search();
+  }
+
+  addUltimoMesFilter() {
+    let date = new Date();
+    date.setMonth(date.getMonth() - 1);
+    const filter = new SearchCriteriaFilter('issueDateTime', date, 'gt', 'DATETIME');
+    filter.alias = 'Ultimo mes';
+    this.filters.push(filter);
+    this.search();
   }
 
   /**

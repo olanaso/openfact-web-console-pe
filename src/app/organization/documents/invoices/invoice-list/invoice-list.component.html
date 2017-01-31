@@ -4,24 +4,36 @@
 
     <div class="row toolbar-pf table-view-pf-toolbar" id="toolbar1">
       <div class="col-sm-12">
-        <form class="toolbar-pf-actions">
+        <form #searchForm="ngForm" (ngSubmit)="search()" class="toolbar-pf-actions">
           <div class="form-group toolbar-pf-filter">
-            <label class="sr-only" for="filter">Rendering Engine</label>
+            <label class="sr-only" for="filter">Filter</label>
             <div class="input-group">
-              <div class="input-group-btn">
-                <button type="button" class="btn btn-default dropdown-toggle" id="filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Rendering Engine <span class="caret"></span></button>
+              <div class="input-group-btn" ngbDropdown>
+                <button type="button" ngbDropdownToggle class="btn btn-default dropdown-toggle" id="filter" data-toggle="dropdown" aria-haspopup="true"
+                  aria-expanded="false">Filtros <span class="caret"></span></button>
                 <ul class="dropdown-menu">
-                  <li><a href="#" id="filter1">Rendering Engine</a></li>
-                  <li><a href="#" id="filter2">Browser</a></li>
-                  <li><a href="#" id="filter3">Platform(s)</a></li>
-                  <li><a href="#" id="filter4">Engine Version</a></li>
-                  <li><a href="#" id="filter5">CSS Grade</a></li>
+                  <li><a href="javascript:void(0);" (click)="addBoletasFilter()">Boletas</a></li>
+                  <li><a href="javascript:void(0);" (click)="addFacturasFilter()">Facturas</a></li>
+                  <li class="divider"></li>
+                  <li><a href="javascript:void(0);" (click)="addNoEnviadosSunatFilter()">No Enviados a Sunat</a></li>
+                  <li><a href="javascript:void(0);" (click)="addNoEnviadosClienteFilter()">No Enviados a Cliente</a></li>
+                  <li class="divider"></li>
+                  <li><a href="javascript:void(0);" (click)="addUltimaHoraFilter()">Ultima Hora</a></li>
+                  <li><a href="javascript:void(0);" (click)="addUltimas24HorasFilter()">Ultimas 24 Horas</a></li>
+                  <li><a href="javascript:void(0);" (click)="addUltimoMesFilter()">Ultimo Mes</a></li>
                 </ul>
               </div>
-              <input type="text" class="form-control" placeholder="Filter By Rendering Engine..." autocomplete="off" id="filterInput">
+              <input id="filterText" [(ngModel)]="searchCriteria.filterText" name="filterText" #filterText="ngModel" type="text" class="form-control"
+                placeholder="Filter By DocumentId..." autocomplete="off">
             </div>
           </div>
           <div class="form-group">
+            <button type="button" class="btn btn-default">Fecha creacion</button>
+            <button class="btn btn-link" type="button" (click)="changeAscending()">
+              <span class="fa fa-sort-alpha-{{orderBy.ascending ? 'asc' : 'desc'}}"></span>
+            </button>
+          </div>
+          <!--<div class="form-group">
             <button class="btn btn-default" type="button" id="deleteRows1">Delete Rows</button>
             <button class="btn btn-default" type="button" id="restoreRows1" disabled="">Restore Rows</button>
             <div class="dropdown btn-group  dropdown-kebab-pf">
@@ -37,11 +49,10 @@
                 <li><a href="#">Separated link</a></li>
               </ul>
             </div>
-
-          </div>
+          </div>-->
           <div class="toolbar-pf-action-right">
             <div class="form-group toolbar-pf-find">
-              <button class="btn btn-link btn-find" type="button">
+              <button class="btn btn-link btn-find" type="submit">
                 <span class="fa fa-search"></span>
               </button>
               <div class="find-pf-dropdown-container">
@@ -67,11 +78,17 @@
         </form>
         <div class="row toolbar-pf-results">
           <div class="col-sm-9">
-            <div class="hidden">
-              <h5>0 Results</h5>
-              <p>Active filters:</p>
-              <ul class="list-inline"></ul>
-              <p><a href="#">Clear All Filters</a></p>
+            <div>
+              <h5>{{searchResult.totalSize || 0}} {{'results' | translate}}</h5>
+              <p *ngIf="filters.length > 0">{{'active-filters' | translate}}:</p>
+              <ul class="list-inline">
+                <li *ngFor="let filter of filters; let i = index;">
+                  <span class="label label-info">{{filter.alias}}
+							      <a (click)="removeFilter(i)" href="javascript:void(0);"><span class="pficon pficon-close"></span></a>
+                  </span>
+                </li>
+              </ul>
+              <p *ngIf="filters.length > 0"><a (click)="clearFilters()" href="javascript:void(0);">{{'clear-all-filters' | translate}}</a></p>
             </div>
           </div>
           <div class="col-sm-3 table-view-pf-select-results">

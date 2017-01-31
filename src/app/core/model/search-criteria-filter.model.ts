@@ -6,6 +6,8 @@ export class SearchCriteriaFilter {
     type: string;
     operator: string;
 
+    alias: string;
+
     constructor(name: string, value: any, operator: string, type?: string) {
         this.name = name;
         this.value = value;

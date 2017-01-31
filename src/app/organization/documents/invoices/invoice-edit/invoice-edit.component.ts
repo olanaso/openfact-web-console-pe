@@ -110,14 +110,14 @@ export class InvoiceEditComponent implements OnInit, OnDestroy {
     this.dialog.confirmDelete(this.document.documentId, 'Document').result.then((result) => {
       this.document.delete().subscribe((data) => {
         this.alertService.pop('success', 'Success', 'Success! Document deleted successfully.');
-        this.router.navigate(['../Documents'], { relativeTo: this.route.parent });
+        this.router.navigate(['../'], { relativeTo: this.route });
       });
     });
   }
 
   viewAttatchedDocument(attatchedDocument) {
-    if (attatchedDocument.documentType === 'Document') {
-      this.router.navigate(['../../Documents', attatchedDocument.documentId], { relativeTo: this.route });
+    if (attatchedDocument.documentType === 'INVOICE') {
+      this.router.navigate(['../../invoices', attatchedDocument.documentId], { relativeTo: this.route });
     } else if (attatchedDocument.documentType === 'CREDIT_NOTE') {
       this.router.navigate(['../../credit-notes', attatchedDocument.documentId], { relativeTo: this.route });
     } else if (attatchedDocument.documentType === 'DEBIT_NOTE') {

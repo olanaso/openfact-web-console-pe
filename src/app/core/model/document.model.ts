@@ -3,6 +3,7 @@ import { Headers, ResponseContentType, URLSearchParams } from '@angular/http';
 import { Model } from './model';
 import { Observable } from 'rxjs/Observable';
 import { RestangularService } from './../data/restangular.service';
+import { saveAs } from 'file-saver';
 
 export class Document extends Model {
 

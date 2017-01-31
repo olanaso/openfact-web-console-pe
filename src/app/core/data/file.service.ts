@@ -3,6 +3,7 @@ import { Headers, ResponseContentType } from '@angular/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import { Organization } from './../model/organization.model';
+import { saveAs } from 'file-saver';
 
 @Injectable()
 export class FileService {

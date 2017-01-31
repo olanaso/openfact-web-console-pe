@@ -84,7 +84,7 @@ export class InvoiceListComponent implements OnInit {
   }
 
   downloadCdr(document: Document) {
-    // this.dataService.organizationPeru().downloadInvoiceCdr(this.organization.organization, document.id);
+    this.dataService.organizationsSunat().downloadDocumentCdr(this.organization.organization, document.id);
   }
 
   downloadPdf(document: Document) {

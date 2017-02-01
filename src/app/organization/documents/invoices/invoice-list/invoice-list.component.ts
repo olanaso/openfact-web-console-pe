@@ -1,7 +1,7 @@
 import * as Collections from 'typescript-collections';
 
 import { ActivatedRoute, Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import { AlertService } from './../../../../core/alert/alert.service';
 import { DataService } from './../../../../core/data/data.service';
@@ -22,7 +22,7 @@ import { URLSearchParams } from '@angular/http';
   templateUrl: './invoice-list.component.html',
   styles: []
 })
-export class InvoiceListComponent implements OnInit {
+export class InvoiceListComponent implements OnInit, OnDestroy {
 
   dataSubscription: Subscription;
 
@@ -60,7 +60,11 @@ export class InvoiceListComponent implements OnInit {
     });
   }
 
-  createNewInvoice() {
+  ngOnDestroy() {
+    this.dataSubscription.unsubscribe();
+  }
+
+  createNewDocument() {
     this.router.navigate(['./create'], { relativeTo: this.route });
   }
 

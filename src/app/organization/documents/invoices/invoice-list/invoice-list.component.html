@@ -28,7 +28,7 @@
             </div>
           </div>
           <div class="form-group">
-            <button type="button" class="btn btn-default">Fecha creacion</button>
+            <span>Fecha creacion</span>
             <button class="btn btn-link" type="button" (click)="changeAscending()">
               <span class="fa fa-sort-alpha-{{orderBy.ascending ? 'asc' : 'desc'}}"></span>
             </button>
@@ -135,15 +135,15 @@
             </td>
             <td class="text-right">
               <span *ngIf="item.requiredActions && item.requiredActions.length > 0">
-                    <i class="pficon pficon-warning-triangle-o"></i>
-                    {{item.requiredActions['SEND_TO_CUSTOMER'] | yesNo: ('yes-no' | translate)}}
+                    <i *ngIf="hasRequiredAction(item, 'SEND_TO_CUSTOMER')" class="pficon pficon-warning-triangle-o"></i>                    
+                    {{!hasRequiredAction(item, 'SEND_TO_CUSTOMER') | yesNo: ('yes-no' | translate)}}
               </span>
               <span *ngIf="!item.requiredActions || item.requiredActions.length == 0">{{'yes' | translate}}</span>
             </td>
             <td class="text-right">
               <span *ngIf="item.requiredActions && item.requiredActions.length > 0">
-                    <i class="pficon pficon-warning-triangle-o"></i>
-                    {{item.requiredActions['SEND_TO_TRIRD_PARTY'] | yesNo: ('yes-no' | translate)}}
+                    <i *ngIf="hasRequiredAction(item, 'SEND_TO_TRIRD_PARTY')" class="pficon pficon-warning-triangle-o"></i>
+                    {{!hasRequiredAction(item, 'SEND_TO_TRIRD_PARTY') | yesNo: ('yes-no' | translate)}}
               </span>
               <span *ngIf="!item.requiredActions || item.requiredActions.length == 0">{{'yes' | translate}}</span>
             </td>
@@ -217,20 +217,20 @@
 
     <form class="content-view-pf-pagination table-view-pf-pagination clearfix">
       <div class="form-group">
-        <div class="btn-group bootstrap-select pagination-pf-pagesize">
-          <button type="button" class="btn dropdown-toggle btn-default" data-toggle="dropdown" title="15">
-            <span class="filter-option pull-left">15</span>&nbsp;<span class="bs-caret"><span class="caret"></span></span>
+        <div class="btn-group bootstrap-select pagination-pf-pagesize" ngbDropdown>
+          <button type="button" class="btn dropdown-toggle btn-default" ngbDropdownToggle data-toggle="dropdown" [title]="paging.pageSize">
+            <span class="filter-option pull-left">{{paging.pageSize}}</span>&nbsp;<span class="bs-caret"><span class="caret"></span></span>
           </button>
           <div class="dropdown-menu open">
             <ul class="dropdown-menu inner" role="menu">
-              <li data-original-index="0"><a tabindex="0" class="" data-tokens="null"><span class="text">6</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li>
-              <li data-original-index="1"><a tabindex="0" class="" data-tokens="null"><span class="text">10</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li>
-              <li data-original-index="2" class="selected"><a tabindex="0" class="" data-tokens="null"><span class="text">15</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li>
-              <li data-original-index="3"><a tabindex="0" class="" data-tokens="null"><span class="text">25</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li>
-              <li data-original-index="4"><a tabindex="0" class="" data-tokens="null"><span class="text">50</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li>
+              <li [ngClass]="{'selected': paging.pageSize === 6}"><a (click)="changePageSize(6)" href="javascript:void(0);"><span class="text">6</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li>
+              <li [ngClass]="{'selected': paging.pageSize === 10}"><a (click)="changePageSize(10)" href="javascript:void(0);"><span class="text">10</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li>
+              <li [ngClass]="{'selected': paging.pageSize === 15}"><a (click)="changePageSize(15)" href="javascript:void(0);"><span class="text">15</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li>
+              <li [ngClass]="{'selected': paging.pageSize === 25}"><a (click)="changePageSize(25)" href="javascript:void(0);"><span class="text">25</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li>
+              <li [ngClass]="{'selected': paging.pageSize === 50}"><a (click)="changePageSize(50)" href="javascript:void(0);"><span class="text">50</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li>
             </ul>
           </div>
-          <select class="selectpicker pagination-pf-pagesize" tabindex="-98">
+          <select class="selectpicker pagination-pf-pagesize">
             <option value="6">6</option>
             <option value="10">10</option>
             <option value="15" selected="selected">15</option>
@@ -238,19 +238,19 @@
             <option value="50">50</option>
           </select>
         </div>
-        <span>per page</span>
+        <span>{{'per page' | translate}}</span>
       </div>
       <div class="form-group">
-        <span><span class="pagination-pf-items-current">1-15</span> of <span class="pagination-pf-items-total">75</span></span>
+        <span><span class="pagination-pf-items-current">{{(paging.page-1) * paging.pageSize + 1}}-{{paging.page * paging.pageSize}}</span>        {{'of' | translate}} <span class="pagination-pf-items-total">{{searchResult.totalSize}}</span></span>
         <ul class="pagination pagination-pf-back">
-          <li class="disabled"><a href="#"><span class="i fa fa-angle-double-left"></span></a></li>
-          <li class="disabled"><a href="#"><span class="i fa fa-angle-left"></span></a></li>
+          <li [ngClass]="{'disabled': paging.page === 1}"><a (click)="firstPage()" href="javascript:void();"><span class="i fa fa-angle-double-left"></span></a></li>
+          <li [ngClass]="{'disabled': paging.page === 1}"><a (click)="previousPage()" href="javascript:void();"><span class="i fa fa-angle-left"></span></a></li>
         </ul>
-        <input class="pagination-pf-page" type="text" value="1">
-        <span>of <span class="pagination-pf-pages">5</span></span>
+        <input id="page" [(ngModel)]="paging.page" name="page" #filterText="ngModel" class="pagination-pf-page" type="text">
+        <span>{{'of' | translate}} <span class="pagination-pf-pages">{{getTotalNumberOfPages()}}</span></span>
         <ul class="pagination pagination-pf-forward">
-          <li><a href="#"><span class="i fa fa-angle-right"></span></a></li>
-          <li><a href="#"><span class="i fa fa-angle-double-right"></span></a></li>
+          <li [ngClass]="{'disabled': getTotalNumberOfPages() === paging.page}"><a (click)="nextPage()" href="javascript:void();"><span class="i fa fa-angle-right"></span></a></li>
+          <li [ngClass]="{'disabled': getTotalNumberOfPages() === paging.page}"><a (click)="lastPage()" href="javascript:void();"><span class="i fa fa-angle-double-right"></span></a></li>
         </ul>
       </div>
     </form>
@@ -259,3 +259,24 @@
 
   </div>
 </div>
+
+<template #sendToThirdPartyTemplateContent let-c="close" let-d="dismiss">
+	<form #f="ngForm" (ngSubmit)="c(f)" novalidate>
+		<div class="modal-body" ngModelGroup="thirdPartyByEmail">
+			<h3>Email</h3>
+			<input 			
+				id="email"
+				name="email"
+				type="email"
+				#email="ngModel"
+				[(ngModel)]="thirdPartyByEmail.email"				
+				class="form-control"
+				pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
+				required>
+		</div>
+		<div class="modal-footer">
+			<button type="submit" class="btn btn-primary" [disabled]="!f.valid">{{'send' | translate}}</button>
+			<button type="button" class="btn btn-default" (click)="d('Cancel')">{{'cancel' | translate}}</button>
+		</div>
+	</form>
+</template>

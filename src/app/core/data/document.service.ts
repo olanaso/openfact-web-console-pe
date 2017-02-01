@@ -23,9 +23,8 @@ export class DocumentService {
   }
 
   public search(organization: Organization, criteria: SearchCriteria): Observable<SearchResults<Document>> {
-    const restangular = organization.restangular;
+    const restangular = organization.restangular.all('documents');
     return restangular
-      .all('documents')
       .all('search')
       .post(criteria)
       .map(response => {
@@ -35,7 +34,7 @@ export class DocumentService {
         const items = new Array<Document>();
 
         json.items.forEach(element => {
-          const document = new Document(restangular.one(element['id'], ''));
+          const document = new Document(restangular.all(element['id']));
           items.push(Object.assign(document, element));
         });
 

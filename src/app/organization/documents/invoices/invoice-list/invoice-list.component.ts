@@ -38,7 +38,7 @@ export class InvoiceListComponent implements OnInit {
   filters: Array<SearchCriteriaFilter> = new Array<SearchCriteriaFilter>();
   orderBy: OrderBy = {
     name: 'createdTimestamp',
-    ascending: true
+    ascending: false
   };
   paging: Paging = {
     page: 1,
@@ -77,6 +77,7 @@ export class InvoiceListComponent implements OnInit {
       orders: [this.orderBy],
       paging: this.paging
     };
+    criteria.filters.push(new SearchCriteriaFilter('documentType', 'INVOICE', 'eq'));
 
     this.dataService.documents().search(this.organization, criteria).subscribe(
       (data) => {
@@ -85,12 +86,64 @@ export class InvoiceListComponent implements OnInit {
     );
   }
 
+  hasRequiredAction(item: any, requiredAction: string) {
+    if (item.requiredActions && item.requiredActions.length > 0) {
+      return item.requiredActions.indexOf(requiredAction) >= 0;
+    } else {
+      return false;
+    }
+  }
+
   /**
    * Sort
    */
   changeAscending() {
     this.orderBy.ascending = !this.orderBy.ascending;
     this.search();
+  }
+
+  /**
+   * Pagination
+   */
+  changePageSize(pageSize: number) {
+    this.paging.pageSize = pageSize;
+    this.search();
+  }
+
+  nextPage() {
+    this.paging.page++;
+    if (this.paging.page > this.getTotalNumberOfPages()) {
+      this.paging.page = this.getTotalNumberOfPages();
+    } else {
+      this.search();
+    }
+  }
+
+  previousPage() {
+    this.paging.page--;
+    if (this.paging.page < 1) {
+      this.paging.page = 1;
+    } else {
+      this.search();
+    }
+  }
+
+  firstPage() {
+    if (this.paging.page !== 1) {
+      this.paging.page = 1;
+      this.search();
+    }
+  }
+
+  lastPage() {
+    if (this.paging.page !== this.getTotalNumberOfPages()) {
+      this.paging.page = +(this.searchResult.totalSize / this.paging.pageSize).toFixed(0);
+      this.search();
+    }
+  }
+
+  getTotalNumberOfPages() {
+    return Math.floor(this.searchResult.totalSize / this.paging.pageSize) + 1;
   }
 
   /**
@@ -108,14 +161,14 @@ export class InvoiceListComponent implements OnInit {
   }
 
   addBoletasFilter() {
-    const filter = new SearchCriteriaFilter('documentId', 'B', 'like');
+    const filter = new SearchCriteriaFilter('documentId', 'B*', 'like');
     filter.alias = 'Boletas';
     this.filters.push(filter);
     this.search();
   }
 
   addFacturasFilter() {
-    const filter = new SearchCriteriaFilter('documentId', 'F', 'like');
+    const filter = new SearchCriteriaFilter('documentId', 'F*', 'like');
     filter.alias = 'Facturas';
     this.filters.push(filter);
     this.search();
@@ -156,7 +209,7 @@ export class InvoiceListComponent implements OnInit {
   addUltimoMesFilter() {
     let date = new Date();
     date.setMonth(date.getMonth() - 1);
-    const filter = new SearchCriteriaFilter('issueDateTime', date, 'gt', 'DATETIME');
+    const filter = new SearchCriteriaFilter('createdTimestamp', date, 'gt', 'DATETIME');
     filter.alias = 'Ultimo mes';
     this.filters.push(filter);
     this.search();
@@ -192,14 +245,14 @@ export class InvoiceListComponent implements OnInit {
   }
 
   sendToCustomThridPartyByEmail(invoice: Document, content: any) {
-    this.modalService.open(content).result.then((form: NgForm) => {
-      if (form.valid) {
-        invoice.sendToThirdPartyByEmail({ email: form.value.thirdPartyByEmail.email }).subscribe(data => {
-          this.alertService.pop('success', 'Success', 'Success! Document sended to third party.');
-        });
-      }
-    }, (reason) => {
-    });
+    this.modalService.open(content).result.then(
+      (form: NgForm) => {
+        if (form.valid) {
+          invoice.sendToThirdPartyByEmail({ email: form.value.thirdPartyByEmail.email }).subscribe(data => {
+            this.alertService.pop('success', 'Success', 'Success! Document sended to third party.');
+          });
+        }
+      }, (reason) => { });
   }
 
   attachCreditNote(document: Document) {

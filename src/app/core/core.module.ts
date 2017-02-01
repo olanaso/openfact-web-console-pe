@@ -1,4 +1,4 @@
-import { IgvResolverService, TiposAfectacionIGVResolverService, TiposComprobantePagoResolverService, TiposDocumentoEntidadResolverService } from './resolvers/generic-type-resolver.service';
+import { IgvResolverService, TiposAfectacionIGVResolverService, TiposComprobantePagoResolverService, TiposDocumentoEntidadResolverService, TiposNotaCreditoResolverService, TiposNotaDebitoResolverService } from './resolvers/generic-type-resolver.service';
 
 import { AlertComponent } from './alert/alert.component';
 import { AlertService } from './alert/alert.service';
@@ -76,6 +76,8 @@ import { XHRBackend } from '@angular/http';
     DocumentResolverService,
 
     TiposComprobantePagoResolverService,
+    TiposNotaCreditoResolverService,
+    TiposNotaDebitoResolverService,
     TiposDocumentoEntidadResolverService,
     TiposAfectacionIGVResolverService,
     IgvResolverService,

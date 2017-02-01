@@ -18,6 +18,30 @@ export class TiposComprobantePagoResolverService implements Resolve<any> {
 }
 
 @Injectable()
+export class TiposNotaCreditoResolverService implements Resolve<any> {
+
+  constructor(private dataService: DataService) { }
+
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Promise<any> {
+    const organizationId = findParam('organization', route);
+    return this.dataService.organizationsSunat().getAllTiposNotaCredito(organizationId);
+  }
+
+}
+
+@Injectable()
+export class TiposNotaDebitoResolverService implements Resolve<any> {
+
+  constructor(private dataService: DataService) { }
+
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Promise<any> {
+    const organizationId = findParam('organization', route);
+    return this.dataService.organizationsSunat().getAllTiposNotaDebito(organizationId);
+  }
+
+}
+
+@Injectable()
 export class TiposDocumentoEntidadResolverService implements Resolve<any> {
 
   constructor(private dataService: DataService) { }

@@ -89,6 +89,26 @@ export class OrganizationSunatService {
       .map(response => response.json());
   }
 
+  getAllTiposNotaCredito(organizationName: string): Observable<any> {
+    return this.restangular.one('organizations', organizationName)
+      .all(basePath)
+      .all(extensionPath)
+      .all(genericBasePath)
+      .all('tipos-nota-credito')
+      .get()
+      .map(response => response.json());
+  }
+
+  getAllTiposNotaDebito(organizationName: string): Observable<any> {
+    return this.restangular.one('organizations', organizationName)
+      .all(basePath)
+      .all(extensionPath)
+      .all(genericBasePath)
+      .all('tipos-nota-debito')
+      .get()
+      .map(response => response.json());
+  }
+
   getAllTiposDocumentEntidad(organizationName: string): Observable<any> {
     return this.restangular.one('organizations', organizationName)
       .all(basePath)

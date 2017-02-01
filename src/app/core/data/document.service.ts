@@ -11,7 +11,7 @@ export class DocumentService {
 
   constructor() { }
 
-  public findById(organization: Organization, id: string, queryParams?: URLSearchParams): Observable<Document> {
+  findById(organization: Organization, id: string, queryParams?: URLSearchParams): Observable<Document> {
     const restangular = organization.restangular.one('documents', id);
 
     return restangular
@@ -22,7 +22,22 @@ export class DocumentService {
       });
   }
 
-  public search(organization: Organization, criteria: SearchCriteria): Observable<SearchResults<Document>> {
+  getAll(organization: Organization, queryParams?: URLSearchParams): Observable<Document[]> {
+    const restangular = organization.restangular.all('documents');
+    return restangular
+      .get(queryParams)
+      .map(response => {
+        const json = response.json();
+        const result = new Array<Document>();
+        json.forEach(element => {
+          let document = new Document(restangular.all(element['id']));
+          result.push(Object.assign(document, element));
+        });
+        return result;
+      });
+  }
+
+  search(organization: Organization, criteria: SearchCriteria): Observable<SearchResults<Document>> {
     const restangular = organization.restangular.all('documents');
     return restangular
       .all('search')

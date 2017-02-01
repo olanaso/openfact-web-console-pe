@@ -137,7 +137,8 @@ export class CreditNoteCreateComponent implements OnInit, OnDestroy {
       valorUnitario: [null, Validators.compose([Validators.required, Validators.minLength(1)])],//valor del producto sin igv
       precioUnitario: [null, Validators.compose([Validators.required, Validators.minLength(1)])],//valor del producto con igv
       subtotal: [null, Validators.compose([Validators.required, Validators.minLength(1)])],
-      total: [null, Validators.compose([Validators.required, Validators.minLength(1)])]
+      total: [null, Validators.compose([Validators.required, Validators.minLength(1)])],
+      igv: [null, Validators.compose([Validators.required])]
     });
     this.loadDataDetalle(formGroup);
     this.detalle.push(formGroup);
@@ -316,6 +317,5 @@ export class CreditNoteCreateComponent implements OnInit, OnDestroy {
       }
     });
   }
-
 
 }

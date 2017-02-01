@@ -1,4 +1,4 @@
-import { IgvResolverService, TiposAfectacionIGVResolverService, TiposComprobantePagoResolverService, TiposDocumentoEntidadResolverService, TiposNotaCreditoResolverService } from './../core/resolvers/generic-type-resolver.service';
+import { IgvResolverService, TiposAfectacionIGVResolverService, TiposComprobantePagoResolverService, TiposDocumentoEntidadResolverService, TiposNotaCreditoResolverService, TiposNotaDebitoResolverService } from './../core/resolvers/generic-type-resolver.service';
 import { RouterModule, Routes } from '@angular/router';
 
 import { CreditNoteCreateComponent } from './documents/credit-notes/credit-note-create/credit-note-create.component';
@@ -209,7 +209,13 @@ const routes: Routes = [
       },
       {
         path: 'debit-notes/create',
-        component: DebitNoteCreateComponent
+        component: DebitNoteCreateComponent,
+        resolve: {
+          tiposNotaDebito: TiposNotaDebitoResolverService,
+          tiposDocumentEntidad: TiposDocumentoEntidadResolverService,
+          tiposDeAfectacionIgv: TiposAfectacionIGVResolverService,
+          igv: IgvResolverService
+        }
       },
       {
         path: 'debit-notes/upload',

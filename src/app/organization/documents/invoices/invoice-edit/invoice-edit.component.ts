@@ -95,15 +95,15 @@ export class InvoiceEditComponent implements OnInit, OnDestroy {
   }
 
   attachCreditNote() {
-    this.router.navigate(['../credit-notes', 'create', { Document: this.document.documentId }], { relativeTo: this.route.parent });
+    this.router.navigate(['../../credit-notes', 'create', { invoice: this.document.documentId }], { relativeTo: this.route });
   }
 
   attachDebitNote() {
-    this.router.navigate(['../debit-notes', 'create', { Document: this.document.documentId }], { relativeTo: this.route.parent });
+    this.router.navigate(['../../debit-notes', 'create', { invoice: this.document.documentId }], { relativeTo: this.route });
   }
 
   maskAsVoided() {
-    this.router.navigate(['../voideds', 'create', { Document: this.document.documentId }], { relativeTo: this.route.parent });
+    this.router.navigate(['../../voideds', 'create', { invoice: this.document.documentId }], { relativeTo: this.route });
   }
 
   delete() {

@@ -156,6 +156,7 @@
                 <td class="text-right">Precio Unitario</td>
                 <td class="text-right">Subtotal</td>
                 <td class="text-right">Total</td>
+                <td class="text-right">Igv</td>
                 <td class="text-center">Acciones</td>
               </tr>
             </thead>
@@ -202,6 +203,11 @@
                     <of-form-field-validation-messages [ofFormControl]="item.get('total')">
                     </of-form-field-validation-messages>
                   </td>
+                  <td [ofFormFieldValidationState]="item.get('igv')">
+                    <input formControlName="igv" [ofNumberMask]="numberMask" ofUblLineTaxAmount type="text" class="form-control text-right" readonly>
+                    <of-form-field-validation-messages [ofFormControl]="item.get('igv')">
+                    </of-form-field-validation-messages>
+                  </td>
                   <td class=" table-view-pf-actions">
                     <div class="table-view-pf-btn">
                       <button (click)="removeDetalleFormControl(i)" class="btn btn-default" type="button"><span class="fa fa-trash"></span></button>
@@ -212,7 +218,7 @@
             </tbody>
             <tfoot>
               <tr>
-                <td colspan="9" class="text-right">
+                <td colspan="10" class="text-right">
                   <button (click)="addDetalleFormControl()" type="button" class="btn btn-lg btn-default">Agregar Item
                   <span class="fa fa-plus"></span>
                 </button>

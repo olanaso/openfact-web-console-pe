@@ -10,7 +10,8 @@ export interface UblLine {
   unitValue: number,
   unitPrice: number,
   subtotal: number,
-  total: number
+  total: number,
+  taxAmount: number
 }
 
 @Directive({
@@ -36,6 +37,7 @@ export class UblLineDirective {
   private _unitPrice: number;
   private _subtotal: number;
   private _total: number;
+  private _taxAmount: number;
 
   constructor() { }
 
@@ -74,15 +76,17 @@ export class UblLineDirective {
     this._quantity = +this._quantity.toFixed(3);
     this._unitPrice = +(this._unitValue * this._tax).toFixed(2);
     this._unitValue = +this._unitValue.toFixed(2);
+    this._taxAmount = +(this._subtotal * (+(this._tax - 1).toFixed(2))).toFixed(2);
     this._subtotal = +this._subtotal.toFixed(2);
     this._total = +this._total.toFixed(2);
-
+    
     let result: UblLine = {
       quantity: this._quantity,
       unitValue: this._unitValue,
       unitPrice: this._unitPrice,
       subtotal: this._subtotal,
-      total: this._total
+      total: this._total,
+      taxAmount: this._taxAmount
     };
     return result;
   }
@@ -209,6 +213,21 @@ export class UblLineTotalDirective implements OnInit {
 
     this.line.notificator.subscribe((result: UblLine) => {
       this.control.control.setValue(result.total);
+    });
+  }
+
+}
+
+@Directive({
+  selector: '[ofUblLineTaxAmount]'
+})
+export class UblLineTaxAmountDirective implements OnInit {
+
+  constructor(public line: UblLineDirective, private control: NgControl) { }
+
+  ngOnInit() {
+    this.line.notificator.subscribe((result: UblLine) => {
+      this.control.control.setValue(result.taxAmount);
     });
   }
 

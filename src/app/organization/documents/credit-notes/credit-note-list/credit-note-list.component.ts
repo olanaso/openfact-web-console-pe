@@ -79,7 +79,7 @@ export class CreditNoteListComponent implements OnInit, OnDestroy {
       orders: [this.orderBy],
       paging: this.paging
     };
-    criteria.filters.push(new SearchCriteriaFilter('documentType', 'CREDIT-NOTE', 'eq'));
+    criteria.filters.push(new SearchCriteriaFilter('documentType', 'CREDIT_NOTE', 'eq'));
 
     this.dataService.documents().search(this.organization, criteria).subscribe(
       (data) => {

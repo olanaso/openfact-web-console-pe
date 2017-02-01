@@ -8,7 +8,7 @@ export class InvoiceService {
 
   constructor() { }
 
-  public getFileUpload(organization: Organization): FileUploader {
+  getFileUpload(organization: Organization): FileUploader {
     const restangular = organization.restangular.all('invoices').all('upload');
     const upload = new FileUploader({
       url: restangular.path,

@@ -21,9 +21,11 @@ import { OrganizationKeyResolverService } from './resolvers/organization-key-res
 import { OrganizationResolverService } from './resolvers/organization-resolver.service';
 import { OrganizationService } from './data/organization.service';
 import { OrganizationSunatService } from './data/organization-sunat.service';
+import { PerceptionService } from './data/perception.service';
 import { RequestOptions } from '@angular/http';
 import { RestangularService } from './data/restangular.service';
 import { RestangularServiceFactory } from './data/restangular.service';
+import { RetentionService } from './data/retention.service';
 import { Router } from '@angular/router';
 import { ServerInfoResolverService } from './resolvers/server-info-resolver.service';
 import { ServerInfoService } from './data/server-info.service';
@@ -68,6 +70,8 @@ import { XHRBackend } from '@angular/http';
     CreditNoteService,
     DebitNoteService,
     OrganizationSunatService,
+    PerceptionService,
+    RetentionService,
 
     OrganizationResolverService,
     OrganizationKeyResolverService,

@@ -33,6 +33,16 @@ import { SettingsTabsetComponent } from './settings/settings-tabset/settings-tab
 import { SettingsTasksComponent } from './settings/settings-tasks/settings-tasks.component';
 import { SettingsThemeComponent } from './settings/settings-theme/settings-theme.component';
 import { SharedModule } from './../shared/shared.module';
+import { PerceptionCreateComponent } from './documents/perceptions/perception-create/perception-create.component';
+import { PerceptionEditComponent } from './documents/perceptions/perception-edit/perception-edit.component';
+import { PerceptionEditOverviewComponent } from './documents/perceptions/perception-edit-overview/perception-edit-overview.component';
+import { PerceptionListComponent } from './documents/perceptions/perception-list/perception-list.component';
+import { PerceptionUploadComponent } from './documents/perceptions/perception-upload/perception-upload.component';
+import { RetentionCreateComponent } from './documents/retentions/retention-create/retention-create.component';
+import { RetentionEditComponent } from './documents/retentions/retention-edit/retention-edit.component';
+import { RetentionEditOverviewComponent } from './documents/retentions/retention-edit-overview/retention-edit-overview.component';
+import { RetentionListComponent } from './documents/retentions/retention-list/retention-list.component';
+import { RetentionUploadComponent } from './documents/retentions/retention-upload/retention-upload.component';
 
 @NgModule({
   imports: [
@@ -72,7 +82,17 @@ import { SharedModule } from './../shared/shared.module';
     CreditNoteEditComponent,
     DebitNoteEditComponent,
     DebitNoteEditOverviewComponent,
-    CreditNoteEditOverviewComponent
+    CreditNoteEditOverviewComponent,
+    PerceptionCreateComponent,
+    PerceptionEditComponent,
+    PerceptionEditOverviewComponent,
+    PerceptionListComponent,
+    PerceptionUploadComponent,
+    RetentionCreateComponent,
+    RetentionEditComponent,
+    RetentionEditOverviewComponent,
+    RetentionListComponent,
+    RetentionUploadComponent
   ]
 })
 export class OrganizationModule { }

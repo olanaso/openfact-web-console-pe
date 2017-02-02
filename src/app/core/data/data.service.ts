@@ -6,6 +6,8 @@ import { Injectable } from '@angular/core';
 import { InvoiceService } from './invoice.service';
 import { OrganizationService } from './organization.service';
 import { OrganizationSunatService } from './organization-sunat.service';
+import { PerceptionService } from './perception.service';
+import { RetentionService } from './retention.service';
 import { ServerInfoService } from './server-info.service';
 
 @Injectable()
@@ -19,7 +21,9 @@ export class DataService {
     private invoiceService: InvoiceService,
     private creditNoteService: CreditNoteService,
     private debitNoteService: DebitNoteService,
-    private organizationSunat: OrganizationSunatService) { }
+    private organizationSunat: OrganizationSunatService,
+    private retentionService: RetentionService,
+    private perceptionService: PerceptionService) { }
 
   organizations(): OrganizationService {
     return this.organizationService;
@@ -51,6 +55,14 @@ export class DataService {
 
   debitNotes(): DebitNoteService {
     return this.debitNoteService;
+  }
+
+  perceptions(): PerceptionService {
+    return this.perceptionService;
+  }
+
+  retentions(): RetentionService {
+    return this.retentionService;
   }
 
 }

@@ -22,6 +22,16 @@ import { OrganizationComponent } from './organization.component';
 import { OrganizationHeaderComponent } from './organization-header/organization-header.component';
 import { OrganizationRoutingModule } from './organization-routing.module';
 import { OrganizationSidebarComponent } from './organization-sidebar/organization-sidebar.component';
+import { PerceptionCreateComponent } from './documents/perceptions/perception-create/perception-create.component';
+import { PerceptionEditComponent } from './documents/perceptions/perception-edit/perception-edit.component';
+import { PerceptionEditOverviewComponent } from './documents/perceptions/perception-edit-overview/perception-edit-overview.component';
+import { PerceptionListComponent } from './documents/perceptions/perception-list/perception-list.component';
+import { PerceptionUploadComponent } from './documents/perceptions/perception-upload/perception-upload.component';
+import { RetentionCreateComponent } from './documents/retentions/retention-create/retention-create.component';
+import { RetentionEditComponent } from './documents/retentions/retention-edit/retention-edit.component';
+import { RetentionEditOverviewComponent } from './documents/retentions/retention-edit-overview/retention-edit-overview.component';
+import { RetentionListComponent } from './documents/retentions/retention-list/retention-list.component';
+import { RetentionUploadComponent } from './documents/retentions/retention-upload/retention-upload.component';
 import { SettingsActiveKeyComponent } from './settings/settings-active-key/settings-active-key.component';
 import { SettingsAdditionalInformationComponent } from './settings/settings-additional-information/settings-additional-information.component';
 import { SettingsAllKeysComponent } from './settings/settings-all-keys/settings-all-keys.component';
@@ -33,16 +43,11 @@ import { SettingsTabsetComponent } from './settings/settings-tabset/settings-tab
 import { SettingsTasksComponent } from './settings/settings-tasks/settings-tasks.component';
 import { SettingsThemeComponent } from './settings/settings-theme/settings-theme.component';
 import { SharedModule } from './../shared/shared.module';
-import { PerceptionCreateComponent } from './documents/perceptions/perception-create/perception-create.component';
-import { PerceptionEditComponent } from './documents/perceptions/perception-edit/perception-edit.component';
-import { PerceptionEditOverviewComponent } from './documents/perceptions/perception-edit-overview/perception-edit-overview.component';
-import { PerceptionListComponent } from './documents/perceptions/perception-list/perception-list.component';
-import { PerceptionUploadComponent } from './documents/perceptions/perception-upload/perception-upload.component';
-import { RetentionCreateComponent } from './documents/retentions/retention-create/retention-create.component';
-import { RetentionEditComponent } from './documents/retentions/retention-edit/retention-edit.component';
-import { RetentionEditOverviewComponent } from './documents/retentions/retention-edit-overview/retention-edit-overview.component';
-import { RetentionListComponent } from './documents/retentions/retention-list/retention-list.component';
-import { RetentionUploadComponent } from './documents/retentions/retention-upload/retention-upload.component';
+import { VoidedDocumentCreateComponent } from './documents/voided-document/voided-document-create/voided-document-create.component';
+import { VoidedDocumentEditComponent } from './documents/voided-document/voided-document-edit/voided-document-edit.component';
+import { VoidedDocumentEditOverviewComponent } from './documents/voided-document/voided-document-edit-overview/voided-document-edit-overview.component';
+import { VoidedDocumentListComponent } from './documents/voided-document/voided-document-list/voided-document-list.component';
+import { VoidedDocumentUploadComponent } from './documents/voided-document/voided-document-upload/voided-document-upload.component';
 
 @NgModule({
   imports: [
@@ -92,7 +97,12 @@ import { RetentionUploadComponent } from './documents/retentions/retention-uploa
     RetentionEditComponent,
     RetentionEditOverviewComponent,
     RetentionListComponent,
-    RetentionUploadComponent
+    RetentionUploadComponent,
+    VoidedDocumentCreateComponent,
+    VoidedDocumentEditComponent,
+    VoidedDocumentListComponent,
+    VoidedDocumentUploadComponent,
+    VoidedDocumentEditOverviewComponent
   ]
 })
 export class OrganizationModule { }

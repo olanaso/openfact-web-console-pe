@@ -45,6 +45,11 @@ import { SettingsKeyProvidersComponent } from './settings/settings-key-providers
 import { SettingsSmtpComponent } from './settings/settings-smtp/settings-smtp.component';
 import { SettingsTasksComponent } from './settings/settings-tasks/settings-tasks.component';
 import { SettingsThemeComponent } from './settings/settings-theme/settings-theme.component';
+import { VoidedDocumentCreateComponent } from './documents/voided-document/voided-document-create/voided-document-create.component';
+import { VoidedDocumentEditComponent } from './documents/voided-document/voided-document-edit/voided-document-edit.component';
+import { VoidedDocumentEditOverviewComponent } from './documents/voided-document/voided-document-edit-overview/voided-document-edit-overview.component';
+import { VoidedDocumentListComponent } from './documents/voided-document/voided-document-list/voided-document-list.component';
+import { VoidedDocumentUploadComponent } from './documents/voided-document/voided-document-upload/voided-document-upload.component';
 
 const routes: Routes = [
   {
@@ -319,6 +324,45 @@ const routes: Routes = [
           {
             path: '',
             component: RetentionEditOverviewComponent
+          },
+          {
+            path: 'send-events',
+            component: DocumentSendEventsComponent
+          },
+          {
+            path: 'attached-documents',
+            component: DocumentAttachedDocumentsComponent
+          }
+        ]
+      },
+      {
+        path: 'voided-documents',
+        component: VoidedDocumentListComponent
+      },
+      {
+        path: 'voided-documents/create',
+        component: VoidedDocumentCreateComponent,
+        // resolve: {
+        //   tiposRegimenRetencion: TiposRegimenRetencionResolverService,
+        //   documentosRelacionadosRetencion: DocumentosRelacionadosRetencionResolverService,
+        //   tiposDocumentEntidad: TiposDocumentoEntidadResolverService,
+        //   monedas: MonedasResolverService
+        // }
+      },
+      {
+        path: 'voided-documents/upload',
+        component: VoidedDocumentUploadComponent
+      },
+      {
+        path: 'voided-documents/:document',
+        component: VoidedDocumentEditComponent,
+        resolve: {
+          document: DocumentResolverService
+        },
+        children: [
+          {
+            path: '',
+            component: VoidedDocumentEditOverviewComponent
           },
           {
             path: 'send-events',

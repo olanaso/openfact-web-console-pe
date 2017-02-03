@@ -9,6 +9,7 @@ import { OrganizationSunatService } from './organization-sunat.service';
 import { PerceptionService } from './perception.service';
 import { RetentionService } from './retention.service';
 import { ServerInfoService } from './server-info.service';
+import { VoidedDocumentService } from './voided-document.service';
 
 @Injectable()
 export class DataService {
@@ -23,7 +24,8 @@ export class DataService {
     private debitNoteService: DebitNoteService,
     private organizationSunat: OrganizationSunatService,
     private retentionService: RetentionService,
-    private perceptionService: PerceptionService) { }
+    private perceptionService: PerceptionService,
+    private voidedDocumentService: VoidedDocumentService) { }
 
   organizations(): OrganizationService {
     return this.organizationService;
@@ -63,6 +65,10 @@ export class DataService {
 
   retentions(): RetentionService {
     return this.retentionService;
+  }
+
+  voidedDocuments(): VoidedDocumentService {
+    return this.voidedDocumentService;
   }
 
 }

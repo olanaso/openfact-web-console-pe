@@ -31,6 +31,7 @@ import { Router } from '@angular/router';
 import { ServerInfoResolverService } from './resolvers/server-info-resolver.service';
 import { ServerInfoService } from './data/server-info.service';
 import { SharedModule } from '../shared/shared.module';
+import { VoidedDocumentService } from './data/voided-document.service';
 import { XHRBackend } from '@angular/http';
 
 @NgModule({
@@ -73,6 +74,7 @@ import { XHRBackend } from '@angular/http';
     OrganizationSunatService,
     PerceptionService,
     RetentionService,
+    VoidedDocumentService,
 
     OrganizationResolverService,
     OrganizationKeyResolverService,

@@ -11,14 +11,14 @@
               <div class="input-group-btn" ngbDropdown>
                 <button type="button" ngbDropdownToggle class="btn btn-default dropdown-toggle" id="filter" data-toggle="dropdown" aria-haspopup="true"
                   aria-expanded="false">Filtros <span class="caret"></span></button>
-                <ul class="dropdown-menu">
-                  <li><a href="javascript:void(0);" (click)="addNoEnviadosSunatFilter()">No Enviados a Sunat</a></li>
-                  <li><a href="javascript:void(0);" (click)="addNoEnviadosClienteFilter()">No Enviados a Cliente</a></li>
-                  <li class="divider"></li>
-                  <li><a href="javascript:void(0);" (click)="addUltimaHoraFilter()">Ultima Hora</a></li>
-                  <li><a href="javascript:void(0);" (click)="addUltimas24HorasFilter()">Ultimas 24 Horas</a></li>
-                  <li><a href="javascript:void(0);" (click)="addUltimoMesFilter()">Ultimo Mes</a></li>
-                </ul>
+                  <ul class="dropdown-menu">
+                    <li><a href="javascript:void(0);" (click)="addNoEnviadosSunatFilter()">No Enviados a Sunat</a></li>
+                    <li><a href="javascript:void(0);" (click)="addNoEnviadosClienteFilter()">No Enviados a Cliente</a></li>
+                    <li class="divider"></li>
+                    <li><a href="javascript:void(0);" (click)="addUltimaHoraFilter()">Ultima Hora</a></li>
+                    <li><a href="javascript:void(0);" (click)="addUltimas24HorasFilter()">Ultimas 24 Horas</a></li>
+                    <li><a href="javascript:void(0);" (click)="addUltimoMesFilter()">Ultimo Mes</a></li>
+                  </ul>
               </div>
               <input id="filterText" [(ngModel)]="searchCriteria.filterText" name="filterText" #filterText="ngModel" type="text" class="form-control"
                 placeholder="Filter By DocumentId..." autocomplete="off">
@@ -121,9 +121,9 @@
             <td class="text-right">{{i+1}}</td>
             <td>{{item.documentId}}</td>
             <td>{{item.createdTimestamp | date: 'dd/MM/yyyy'}}</td>
-            <!--<td class="text-right">{{item.attributes.documentCurrencyCode}}</td>
-            <td class="text-right">{{item.attributes.requestedMonetaryTotalPayableAmount | firstElement | toNumber | number:'1.2-3'}}</td>
-            <td class="text-right">{{item.attributes.customerPartyRegistrationName}}</td>
+            <td class="text-right">{{item.attributes.sunatTotalCashedCurrencyID}}</td>
+            <td class="text-right">{{item.attributes.sunatTotalCashedAmount | toNumber | number:'1.2-3'}}</td>
+            <td class="text-right">{{item.attributes.receiverPartyRegistrationName}}</td>
             <td>
               <span>
                 <i *ngIf="!item.enabled" class="pficon-error-circle-o"></i>
@@ -143,7 +143,7 @@
                     {{!hasRequiredAction(item, 'SEND_TO_TRIRD_PARTY') | yesNo: ('yes-no' | translate)}}
               </span>
               <span *ngIf="!item.requiredActions || item.requiredActions.length == 0">{{'yes' | translate}}</span>
-            </td>-->
+            </td>
             <td class=" table-view-pf-actions">
               <div class="table-view-pf-btn">
                 <button (click)="editDocument(item)" class="btn btn-default" type="button">{{'edit' | translate}}</button>
@@ -154,40 +154,40 @@
                 <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
                   ngbDropdownToggle>
                   <span class="fa fa-ellipsis-v"></span>
-                </button>
-                <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownKebabRight">
-                  <li>
-                    <a href="javascript:void(0);" (click)="downloadPdf(item)">
-                      <span class="fa fa-file-pdf-o"></span> Pdf
-                    </a>
-                  </li>
-                  <li>
-                    <a href="javascript:void(0);" (click)="downloadXml(item)">
-                      <span class="fa fa-file-code-o"></span> Xml
-                    </a>
-                  </li>
-                  <li>
-                    <a href="javascript:void(0);" (click)="downloadCdr(item)">
-                      <span class="fa fa-file-code-o"></span> Cdr
-                    </a>
-                  </li>
-                  <li role="separator" class="divider"></li>
-                  <li>
-                    <a href="javascript:void(0);" (click)="sendToCustomer(item)">
-                      <span class="fa fa-child"></span> {{'send-to-customer' | translate}}
-                    </a>
-                  </li>
-                  <li>
-                    <a href="javascript:void(0);" (click)="sendToThirdParty(item)">
-                      <span class="fa fa-server"></span> {{'send-to-third-party' | translate}}
-                    </a>
-                  </li>
-                  <li>
-                    <a href="javascript:void(0);" (click)="sendToCustomThridPartyByEmail(item, sendToThirdPartyTemplateContent)">
-                      <span class="fa fa-share"></span> {{'send-to-custom-third-party-by-email' | translate}}
-                    </a>
-                  </li>
-                </ul>
+                  </button>
+                  <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownKebabRight">
+                    <li>
+                      <a href="javascript:void(0);" (click)="downloadPdf(item)">
+                        <span class="fa fa-file-pdf-o"></span> Pdf
+                      </a>
+                    </li>
+                    <li>
+                      <a href="javascript:void(0);" (click)="downloadXml(item)">
+                        <span class="fa fa-file-code-o"></span> Xml
+                      </a>
+                    </li>
+                    <li>
+                      <a href="javascript:void(0);" (click)="downloadCdr(item)">
+                        <span class="fa fa-file-code-o"></span> Cdr
+                      </a>
+                    </li>
+                    <li role="separator" class="divider"></li>
+                    <li>
+                      <a href="javascript:void(0);" (click)="sendToCustomer(item)">
+                        <span class="fa fa-child"></span> {{'send-to-customer' | translate}}
+                      </a>
+                    </li>
+                    <li>
+                      <a href="javascript:void(0);" (click)="sendToThirdParty(item)">
+                        <span class="fa fa-server"></span> {{'send-to-third-party' | translate}}
+                      </a>
+                    </li>
+                    <li>
+                      <a href="javascript:void(0);" (click)="sendToCustomThridPartyByEmail(item, sendToThirdPartyTemplateContent)">
+                        <span class="fa fa-share"></span> {{'send-to-custom-third-party-by-email' | translate}}
+                      </a>
+                    </li>
+                  </ul>
               </div>
             </td>
           </tr>

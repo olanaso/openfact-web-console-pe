@@ -239,17 +239,17 @@ export class PerceptionCreateComponent implements OnInit, OnDestroy {
     });
 
     // Calculo de totales
-    let totalDocumentoSunat = this.detalle.controls.map(formGroup => {
+    const totalDocumentoSunat: number = this.detalle.controls.map(formGroup => {
       return (formGroup.get('importeDocumentoSunat').value || 0)
     }).reduce((previousValue, currentValue) => previousValue + currentValue, 0);
 
-    let totalPago = this.detalle.controls.map(formGroup => {
+    const totalPago: number = this.detalle.controls.map(formGroup => {
       return (formGroup.get('importePago').value || 0)
     }).reduce((previousValue, currentValue) => previousValue + currentValue, 0);
 
     this.form.patchValue({
-      totalDocumentoSunat: totalDocumentoSunat,
-      totalPago: totalPago
+      totalDocumentoSunat: +totalDocumentoSunat.toFixed(2),
+      totalPago: +totalPago.toFixed(2)
     });
 
   }

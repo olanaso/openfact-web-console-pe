@@ -102,6 +102,30 @@ export class DocumentosRelacionadosPercepcionResolverService implements Resolve<
 }
 
 @Injectable()
+export class TiposRegimenRetencionResolverService implements Resolve<any> {
+
+  constructor(private dataService: DataService) { }
+
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Promise<any> {
+    const organizationId = findParam('organization', route);
+    return this.dataService.organizationsSunat().getTiposRegimenRetencion(organizationId);
+  }
+
+}
+
+@Injectable()
+export class DocumentosRelacionadosRetencionResolverService implements Resolve<any> {
+
+  constructor(private dataService: DataService) { }
+
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Promise<any> {
+    const organizationId = findParam('organization', route);
+    return this.dataService.organizationsSunat().getDocumentosRelacionadosRetencion(organizationId);
+  }
+
+}
+
+@Injectable()
 export class MonedasResolverService implements Resolve<any> {
 
   constructor(private dataService: DataService) { }

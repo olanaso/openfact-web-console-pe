@@ -1,4 +1,4 @@
-import { DocumentosRelacionadosPercepcionResolverService, IgvResolverService, MonedasResolverService, TiposAfectacionIGVResolverService, TiposComprobantePagoResolverService, TiposDocumentoEntidadResolverService, TiposNotaCreditoResolverService, TiposNotaDebitoResolverService, TiposRegimenPercepcionResolverService } from './../core/resolvers/generic-type-resolver.service';
+import { DocumentosRelacionadosPercepcionResolverService, DocumentosRelacionadosRetencionResolverService, IgvResolverService, MonedasResolverService, TiposAfectacionIGVResolverService, TiposComprobantePagoResolverService, TiposDocumentoEntidadResolverService, TiposNotaCreditoResolverService, TiposNotaDebitoResolverService, TiposRegimenPercepcionResolverService, TiposRegimenRetencionResolverService } from './../core/resolvers/generic-type-resolver.service';
 import { RouterModule, Routes } from '@angular/router';
 
 import { CreditNoteCreateComponent } from './documents/credit-notes/credit-note-create/credit-note-create.component';
@@ -299,10 +299,10 @@ const routes: Routes = [
         path: 'retentions/create',
         component: RetentionCreateComponent,
         resolve: {
-          // tiposComprobantePago: TiposComprobantePagoResolverService,
-          // tiposDocumentEntidad: TiposDocumentoEntidadResolverService,
-          // tiposDeAfectacionIgv: TiposAfectacionIGVResolverService,
-          // igv: IgvResolverService
+          tiposRegimenRetencion: TiposRegimenRetencionResolverService,
+          documentosRelacionadosRetencion: DocumentosRelacionadosRetencionResolverService,
+          tiposDocumentEntidad: TiposDocumentoEntidadResolverService,
+          monedas: MonedasResolverService
         }
       },
       {

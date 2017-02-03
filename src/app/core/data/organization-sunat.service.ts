@@ -92,6 +92,19 @@ export class OrganizationSunatService {
       });
   }
 
+  createRetention(organizationName: string, document: any): Observable<any> {
+    return this.restangular.one('organizations', organizationName)
+      .all(basePath)
+      .all('ubl-extensions/retentions')
+      .post(document)
+      .map(response => {
+        if (response.status === 201 || 204) {
+          return undefined;
+        }
+        return response.json();
+      });
+  }
+
   getAllTiposComprobantePago(organizationName: string): Observable<any> {
     return this.restangular.one('organizations', organizationName)
       .all(basePath)
@@ -168,6 +181,26 @@ export class OrganizationSunatService {
       .all(extensionPath)
       .all(genericBasePath)
       .all('documentos-relacionados-percepcion')
+      .get()
+      .map(response => response.json());
+  }
+
+  getTiposRegimenRetencion(organizationName: string): Observable<any> {
+    return this.restangular.one('organizations', organizationName)
+      .all(basePath)
+      .all(extensionPath)
+      .all(genericBasePath)
+      .all('tipos-regimen-retencion')
+      .get()
+      .map(response => response.json());
+  }
+
+  getDocumentosRelacionadosRetencion(organizationName: string): Observable<any> {
+    return this.restangular.one('organizations', organizationName)
+      .all(basePath)
+      .all(extensionPath)
+      .all(genericBasePath)
+      .all('documentos-relacionados-retencion')
       .get()
       .map(response => response.json());
   }

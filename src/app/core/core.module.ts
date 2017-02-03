@@ -1,4 +1,4 @@
-import { DocumentosRelacionadosPercepcionResolverService, IgvResolverService, MonedasResolverService, TiposAfectacionIGVResolverService, TiposComprobantePagoResolverService, TiposDocumentoEntidadResolverService, TiposNotaCreditoResolverService, TiposNotaDebitoResolverService, TiposRegimenPercepcionResolverService } from './resolvers/generic-type-resolver.service';
+import { DocumentosRelacionadosPercepcionResolverService, DocumentosRelacionadosRetencionResolverService, IgvResolverService, MonedasResolverService, TiposAfectacionIGVResolverService, TiposComprobantePagoResolverService, TiposDocumentoEntidadResolverService, TiposNotaCreditoResolverService, TiposNotaDebitoResolverService, TiposRegimenPercepcionResolverService, TiposRegimenRetencionResolverService } from './resolvers/generic-type-resolver.service';
 
 import { AlertComponent } from './alert/alert.component';
 import { AlertService } from './alert/alert.service';
@@ -87,6 +87,8 @@ import { XHRBackend } from '@angular/http';
     IgvResolverService,
     TiposRegimenPercepcionResolverService,
     DocumentosRelacionadosPercepcionResolverService,
+    TiposRegimenRetencionResolverService,
+    DocumentosRelacionadosRetencionResolverService,
     MonedasResolverService
   ]
 })

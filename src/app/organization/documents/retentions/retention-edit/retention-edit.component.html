@@ -1,3 +1,188 @@
-<p>
-  retention-edit works!
-</p>
+<div class="row">
+	<div class="col-lg-9">
+
+		<div>
+			<ol class="breadcrumb">
+				<li><a href="javascript:void(0);" routerLink="../../retentions">{{'retentions' | translate}}</a></li>
+				<li class="active"> {{document.documentId}}</li>
+			</ol>
+			<div>
+				<h3>{{'retention' | translate}} {{document.documentId}}				
+					<small>{{'created' | translate}} 
+						<span>
+							{{document.createdTimestamp | amTimeAgo}}
+						</span>
+					</small>
+
+					&nbsp;
+					<a href="javascript:void(0);" (click)="reloadDocument()">
+						<i class="pficon pficon-restart"></i>
+					</a>
+
+					<div class="pull-right">
+						<div class="btn-group">
+							<button class="btn btn-default" (click)="delete()">
+								<span class="pficon pficon-delete"></span> {{'delete' | translate}}
+							</button>
+						</div>
+						<div class="btn-group">
+							<div class="btn-group" ngbDropdown>
+								<button type="button" class="btn btn-default">
+									<span class="fa fa-download"></span> {{'download' | translate}}
+								</button>
+								<button class="btn btn-default" ngbDropdownToggle>
+									<span class="caret"></span><span class="sr-only">{{'download' | translate}}</span>
+								</button>
+								<ul class="dropdown-menu" aria-labelledby="dropdownMenu2" style="right: 0; left: auto;">
+									<li>
+										<a href="javascript:void(0);" (click)="downloadXml()">
+											<span class="fa fa-file-code-o"></span> Xml
+										</a>
+									</li>
+									<li>
+										<a href="javascript:void(0);" (click)="downloadCdr()">
+											<span class="fa fa-file-code-o"></span> Cdr
+										</a>
+									</li>
+									<li class="divider"></li>
+									<li>
+										<a href="javascript:void(0);" (click)="downloadPdf()">
+											<span class="fa fa-file-pdf-o"></span> Pdf
+										</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="btn-group">
+							<div class="btn-group" ngbDropdown>
+								<button type="button" class="btn btn-default">{{'actions' | translate}}</button>
+								<button class="btn btn-default" ngbDropdownToggle>
+									<span class="caret"></span><span class="sr-only">{{'actions' | translate}}</span>
+								</button>
+								<ul class="dropdown-menu" aria-labelledby="dropdownMenu2" style="right: 0; left: auto;">									
+									<li>
+										<a href="javascript:void(0);" (click)="sendToCustomer()">
+											<span class="fa fa-child"></span> {{'send-to-customer' | translate}}
+										</a>
+									</li>
+									<li>
+										<a href="javascript:void(0);" (click)="sendToThirdParty()">
+											<span class="fa fa-server"></span> {{'send-to-third-party' | translate}}
+										</a>
+									</li>
+									<li>
+										<a href="javascript:void(0);" (click)="sendToCustomThridPartyByEmail(sendToThirdPartyTemplateContent)">
+											<span class="fa fa-share"></span> {{'send-to-custom-third-party-by-email' | translate}}
+										</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</h3>
+				<span *ngIf="!document.enabled" class="label label-danger">{{'voided' | translate}}</span>&nbsp;
+				<template ngFor let-item [ngForOf]="document.requiredActions">
+					<span class="label label-warning">{{item | translate}}</span>&nbsp;
+				</template>
+			</div>
+		</div>
+
+		<br>
+		<div>
+			<div class="tab-container">
+				<ul class="nav nav-tabs">
+					<li routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"><a routerLink="./">{{'overview' | translate}}</a></li>
+					<li routerLinkActive="active"><a routerLink="./send-events">{{'send-events' | translate}}</a></li>
+					<li routerLinkActive="active"><a routerLink="./attached-documents">{{'attatched-documents' | translate}}</a></li>					
+				</ul>
+				<div class="tab-pane">
+					<div>
+						<router-outlet></router-outlet>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+  
+	<div class="col-lg-3 sidebar-right sidebar-pf sidebar-pf-right">
+		<div class="sidebar-header right-header">
+			<div>      
+				<h2>
+					<span class="events-sidebar-collapse">
+						<a href="javascript:void(0);" class="pficon pficon-info" >
+							<span class="sr-only">{{'attributes' | translate}}</span>
+						</a>
+					</span> {{'attributes' | translate}}
+					<small class="warning-count">
+						<span class="hidden-xs hidden-sm">
+							<span>{{'additional-info' | translate}}</span>
+						</span>
+					</small>
+      			</h2>
+    		</div>
+			<div *ngIf="document.attributes">
+				<dl class="dl-horizontal left" [ngbCollapse]="isAttributesCollapsed">
+					<template ngFor let-key [ngForOf]="document.attributes | keys">
+						<dt>{{key}}:</dt>
+						<dd>{{document.attributes[key]}}</dd>
+					</template>					
+				</dl>
+				<a href="javascript:void(0);" (click)="isAttributesCollapsed = !isAttributesCollapsed">{{'view-details' | translate}}</a>
+			</div>
+			<div *ngIf="!document.attributes">
+				<em>{{'not-registered' | translate}}</em>
+			</div>
+  		</div>
+		<div class="sidebar-header right-header">
+			<div>      
+				<h2>
+					<span class="events-sidebar-collapse">
+						<a href="javascript:void(0);" class="pficon pficon-info" >
+							<span class="sr-only">{{'attatched-documents' | translate}}</span>
+						</a>
+					</span> {{'attatched-documents' | translate}}
+      			</h2>
+    		</div>
+			<div *ngIf="document.attatchedDocuments && document.attatchedDocuments.length > 0">
+				<ul class="list-inline" [ngbCollapse]="isAttatchedDocumentsCollapsed">
+					<li *ngFor="let attatchedDocument of document.attatchedDocuments" class="text-right">
+						<dl class="dl-horizontal left">
+							<dt>documentType:</dt>
+							<dd>{{attatchedDocument.documentType}}</dd>
+							<template ngFor let-key [ngForOf]="attatchedDocument.attributes | keys">
+								<dt>{{key}}:</dt>
+								<dd>{{attatchedDocument.attributes[key]}}</dd>
+							</template>							
+						</dl>
+						<button (click)="viewAttatchedDocument(attatchedDocument)" type="button" class="btn btn-default">{{'view' | translate}}</button>
+					</li>
+				</ul>				
+				<a href="javascript:void(0);" (click)="isAttatchedDocumentsCollapsed = !isAttatchedDocumentsCollapsed">{{'view-details' | translate}}</a>
+			</div>
+			<div *ngIf="!document.attatchedDocuments || document.attatchedDocuments.length == 0">
+				<em>{{'not-registered' | translate}}</em>
+			</div>
+  		</div>
+	</div>
+</div>
+
+<template #sendToThirdPartyTemplateContent let-c="close" let-d="dismiss">
+	<form #f="ngForm" (ngSubmit)="c(f)" novalidate>
+		<div class="modal-body" ngModelGroup="thirdPartyByEmail">
+			<h3>Email</h3>
+			<input 			
+				id="email"
+				name="email"
+				type="email"
+				#email="ngModel"
+				[(ngModel)]="thirdPartyByEmail.email"				
+				class="form-control"
+				pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
+				required>
+		</div>
+		<div class="modal-footer">
+			<button type="submit" class="btn btn-primary" [disabled]="!f.valid">{{'send' | translate}}</button>
+			<button type="button" class="btn btn-default" (click)="d('Cancel')">{{'cancel' | translate}}</button>
+		</div>
+	</form>
+</template>

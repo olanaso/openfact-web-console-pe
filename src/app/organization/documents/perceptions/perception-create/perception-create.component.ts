@@ -10,6 +10,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Organization } from './../../../../core/model/organization.model';
 import { Subscription } from 'rxjs/Subscription';
 import { URLSearchParams } from '@angular/http';
+import { ofValidators } from './../../../../shared/validators/of-validators';
 
 @Component({
   selector: 'of-perception-create',
@@ -23,6 +24,11 @@ import { URLSearchParams } from '@angular/http';
     }
     .of-float-right {
       float: right;
+    }
+    
+    input[readonly] {
+      background-color: #d1d1d1 !important;
+      color: #363636 !important;
     }
   `]
 })
@@ -120,6 +126,12 @@ export class PerceptionCreateComponent implements OnInit, OnDestroy {
       }
     });
 
+    this.form.get('monedaDocumento').valueChanges.subscribe(value => {
+      this.recalcularDatos();
+    });
+    this.form.get('codigoDocumento').valueChanges.subscribe(value => {
+      this.recalcularDatos();
+    });
   }
 
   addDetalleFormControl(): void {
@@ -130,11 +142,11 @@ export class PerceptionCreateComponent implements OnInit, OnDestroy {
       monedaDocumentoRelacionado: [null, Validators.compose([Validators.required, Validators.maxLength(3)])],
       totalDocumentoRelacionado: [null, Validators.compose([Validators.required])],
 
-      tipoCambio: [null, Validators.compose([Validators.required])],
-      fechaCambio: [null, Validators.compose([Validators.required])],
+      tipoCambio: [null, Validators.compose([Validators.maxLength(20)])],
+      fechaCambio: [null, Validators.compose([Validators.maxLength(20)])],
 
-      pagoDocumentoSunat: [null, Validators.compose([Validators.required])],
-      numeroPago: [null, Validators.compose([Validators.required])],
+      pagoDocumentoSunat: [null, Validators.compose([Validators.required, ofValidators.minValue(1)])],
+      numeroPago: [null, Validators.compose([Validators.required, ofValidators.minValue(1)])],
 
       fechaDocumentoSunat: [null, Validators.compose([Validators.required])],
       importeDocumentoSunat: [null, Validators.compose([Validators.required])],
@@ -142,6 +154,13 @@ export class PerceptionCreateComponent implements OnInit, OnDestroy {
     });
     this.loadDataDetalle(formGroup);
     this.detalle.push(formGroup);
+
+    formGroup.get('tipoCambio').valueChanges.subscribe(value => {
+      this.recalcularDatos();
+    });
+    formGroup.get('pagoDocumentoSunat').valueChanges.subscribe(value => {
+      this.recalcularDatos();
+    });
   }
 
   removeDetalleFormControl(index: number) {
@@ -186,10 +205,12 @@ export class PerceptionCreateComponent implements OnInit, OnDestroy {
 
       this.dataService.documents().getAll(this.organization, queryParam).subscribe(
         data => {
-          if (data) {
+          if (data && data.length > 0) {
+            let dateString = data[0]['attributes']['issueDate'][0].split('-');
+
             formGroup.patchValue({
               totalDocumentoRelacionado: data[0]['attributes']['legalMonetaryTotalPayableAmount'][0],
-              fechaDocumentoRelacionado: data[0]['attributes']['issueDate'][0],
+              fechaDocumentoRelacionado: new Date(dateString[0], dateString[1] - 1, dateString[2]),
               tipoDocumentoRelacionado: data[0]['attributes']['invoiceTypeCode'][0],
               monedaDocumentoRelacionado: data[0]['attributes']['documentCurrencyCode'][0],
             });
@@ -199,6 +220,77 @@ export class PerceptionCreateComponent implements OnInit, OnDestroy {
         }
       );
     }
+  }
+
+  recalcularDatos() {
+    const tasaDocumento = this.form.get('tasaDocumento').value || 0;
+    this.detalle.controls.forEach(formControl => {
+      // Se debe de multiplicar nuevamente para no perder los redondeos y sumar con todos los digitos      
+      const tipoCambio = formControl.get('tipoCambio').value || 1;
+      const pagoDocumentoSunat = formControl.get('pagoDocumentoSunat').value || 0;
+
+      const importeDocumentoSunat = +(tipoCambio * pagoDocumentoSunat * tasaDocumento / 100).toFixed(2);
+      const importePago = +((tipoCambio * pagoDocumentoSunat) + (tipoCambio * pagoDocumentoSunat * tasaDocumento / 100)).toFixed(2);
+
+      formControl.patchValue({
+        importeDocumentoSunat: importeDocumentoSunat,
+        importePago: importePago
+      });
+    });
+
+    // Calculo de totales
+    let totalDocumentoSunat = this.detalle.controls.map(formGroup => {
+      return (formGroup.get('importeDocumentoSunat').value || 0)
+    }).reduce((previousValue, currentValue) => previousValue + currentValue, 0);
+
+    let totalPago = this.detalle.controls.map(formGroup => {
+      return (formGroup.get('importePago').value || 0)
+    }).reduce((previousValue, currentValue) => previousValue + currentValue, 0);
+
+    this.form.patchValue({
+      totalDocumentoSunat: totalDocumentoSunat,
+      totalPago: totalPago
+    });
+
+  }
+
+  save(form: FormGroup): void {
+    if (!form.value.detalle || form.value.detalle.length == 0) {
+      this.alertService.pop('warning', 'Warning', 'Warning! Is required to add at least one line.');
+      return;
+    }
+
+    this.dialogService.confirm('Confirm', 'Estas seguro de realizar esta operacion').result.then(
+      (redirect) => {
+        this.working = true;
+
+        form.value.detalle.forEach(detalle => {
+          const fechaDocumentoSunat = detalle.fechaDocumentoSunat;
+          detalle.fechaDocumentoSunat = new Date(fechaDocumentoSunat.year, fechaDocumentoSunat.month, fechaDocumentoSunat.day);
+
+          if (detalle.fechaCambio) {
+            const fechaCambio = detalle.fechaCambio;
+            detalle.fechaCambio = new Date(fechaCambio.year, fechaCambio.month, fechaCambio.day);
+          }
+        });
+
+        this.dataService.organizationsSunat().createPerception(this.organization.organization, form.value).subscribe(
+          response => {
+            this.working = false;
+            this.alertService.pop('success', 'Success', 'Success! The perception has been created.');
+            if (redirect) {
+              this.router.navigate(['../'], { relativeTo: this.route });
+            } else {
+              this.buildForm();
+            }
+          },
+          error => {
+            this.working = false;
+          }
+        );
+      },
+      (dissmiss) => { }
+    );
   }
 
   get detalle(): FormArray {

@@ -136,16 +136,16 @@
                 <th rowspan="3" class="text-right">Acciones</th>
               </tr>
               <tr>
-                <td>Tipo</td>
-                <td>Serie-Numero</td>
+                <td>Tipo Documento</td>
+                <td><label class="required-pf">Serie/Numero</label></td>
 
                 <td class="text-right">Tipo cambio</td>
 
-                <td class="text-right">Pago sin percepcion</td>
-                <td class="text-right">Numero de cobro</td>
+                <td class="text-right"><label class="required-pf">Pago sin percepcion</label></td>
+                <td class="text-right"><label class="required-pf">Numero de cobro</label></td>
 
-                <td class="text-right">Importe percibido</td>
-                <td>Importe cobrado</td>
+                <td class="text-right"><label class="required-pf">Importe percibido</label></td>
+                <td class="text-right"><label class="required-pf">Importe cobrado</label></td>
               </tr>
             </thead>
             <tbody formArrayName="detalle">
@@ -160,10 +160,15 @@
                     </of-form-field-validation-messages>
                   </td>
                   <td [ofFormFieldValidationState]="item.get('numeroDocumentoRelacionado')">
-                    <input formControlName="numeroDocumentoRelacionado" [textMask]="{mask: documentMask}" (keyup.enter)="findDocument(item)"
-                      type="text" class="form-control" placeholder="[B|F]000-0000000">
-                      <of-form-field-validation-messages [ofFormControl]="item.get('numeroDocumentoRelacionado')">
-                      </of-form-field-validation-messages>
+                    <div class="input-group">
+                      <input formControlName="numeroDocumentoRelacionado" [textMask]="{mask: documentMask}" (keyup.enter)="findDocument(item)"
+                        type="text" class="form-control" placeholder="[B|F]000-0000000">
+                        <span class="input-group-btn"> 
+                          <button (click)="findDocument(item)" type="button" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+                        </span>
+                    </div>
+                    <of-form-field-validation-messages [ofFormControl]="item.get('numeroDocumentoRelacionado')">
+                    </of-form-field-validation-messages>
                   </td>
                   <td [ofFormFieldValidationState]="item.get('tipoCambio')">
                     <input formControlName="tipoCambio" [ofNumberMask]="quantityMask" type="text" class="form-control text-right">
@@ -171,7 +176,7 @@
                     </of-form-field-validation-messages>
                   </td>
                   <td [ofFormFieldValidationState]="item.get('pagoDocumentoSunat')">
-                    <input formControlName="pagoDocumentoSunat" [ofNumberMask]="numberMask" type="text" class="form-control text-right">
+                    <input formControlName="pagoDocumentoSunat" [ofNumberMask]="quantityMask" type="text" class="form-control text-right">
                     <of-form-field-validation-messages [ofFormControl]="item.get('pagoDocumentoSunat')">
                     </of-form-field-validation-messages>
                   </td>
@@ -181,12 +186,12 @@
                     </of-form-field-validation-messages>
                   </td>
                   <td [ofFormFieldValidationState]="item.get('importeDocumentoSunat')">
-                    <input formControlName="importeDocumentoSunat" [ofNumberMask]="numberMask" type="text" class="form-control text-right">
+                    <input formControlName="importeDocumentoSunat" [ofNumberMask]="numberMask" type="text" class="form-control text-right" readonly>
                     <of-form-field-validation-messages [ofFormControl]="item.get('importeDocumentoSunat')">
                     </of-form-field-validation-messages>
                   </td>
                   <td [ofFormFieldValidationState]="item.get('importePago')">
-                    <input formControlName="importePago" [ofNumberMask]="numberMask" type="text" class="form-control text-right">
+                    <input formControlName="importePago" [ofNumberMask]="numberMask" type="text" class="form-control text-right" readonly>
                     <of-form-field-validation-messages [ofFormControl]="item.get('importePago')">
                     </of-form-field-validation-messages>
                   </td>
@@ -208,7 +213,7 @@
                       <li>
                         <dl class="of-no-bottom-margin">
                           <dt>Fecha: </dt>
-                          <dd>{{item.get('fechaDocumentoRelacionado').value}}</dd>
+                          <dd>{{item.get('fechaDocumentoRelacionado').value | date: 'dd/MM/yyyy'}}</dd>
                         </dl>
                       </li>
                     </ul>
@@ -216,12 +221,8 @@
                   <td class="text-right">
                     Fecha de T/C
                   </td>
-                  <td colspan="2" class="text-right">
-                    <!--Fecha de cobro-->
-                  </td>
-                  <td colspan="2" class="text-right">
-                    Fecha importe percibido
-                  </td>
+                  <td colspan="2" class="text-right"></td>
+                  <td colspan="2" class="text-right"><label class="required-pf">Fecha importe percibido</label></td>
                 </tr>
                 <tr [formGroupName]="i">
                   <td [ofFormFieldValidationState]="item.get('fechaCambio')">
@@ -271,7 +272,7 @@
 
       <br>
 
-      <!--<div class="row">
+      <div class="row">
         <div class="col-md-8">
           <div class="form-group" [ofFormFieldValidationState]="form.get('observaciones')">
             <label class="control-label" [ofFormRequiredLabel]="form.get('observaciones')">Observaciones
@@ -286,59 +287,17 @@
           <table class="table table-bordered table-striped">
             <tbody>
               <tr>
-                <td>% Porcentaje Descuento</td>
-                <td [ofFormFieldValidationState]="form.get('porcentajeDescuento')">
-                  <input formControlName="porcentajeDescuento" [ofNumberMask]="numberMask" *ngIf="!form.get('operacionGratuita').value" type="text"
-                    class="form-control text-right">
-                  <input *ngIf="form.get('operacionGratuita').value" type="text" class="form-control text-right" value="0.00" disabled>
-                  <of-form-field-validation-messages [ofFormControl]="form.get('operacionGratuita')">
-                  </of-form-field-validation-messages>
-                </td>
+                <td>Total Pagado</td>
+                <td>{{form.get('totalDocumentoSunat').value | number : '1.2-2'}}</td>
               </tr>
               <tr>
-                <td>Exonerada</td>
-                <td>{{form.get('totalExonerada').value | number : '1.2-2'}}</td>
-              </tr>
-              <tr>
-                <td>Inafecta</td>
-                <td>{{form.get('totalInafecta').value | number : '1.2-2'}}</td>
-              </tr>
-              <tr>
-                <td>Gravada</td>
-                <td>{{form.get('totalGravada').value | number : '1.2-2'}}</td>
-              </tr>
-              <tr>
-                <td>IGV</td>
-                <td>{{form.get('totalIgv').value | number : '1.2-2'}}</td>
-              </tr>
-              <tr>
-                <td>Gratuita</td>
-                <td>{{form.get('totalGratuita').value | number : '1.2-2'}}</td>
-              </tr>
-              <tr>
-                <td>Otros Cargos</td>
-                <td [ofFormFieldValidationState]="form.get('totalOtrosCargos')">
-                  <input formControlName="totalOtrosCargos" [ofNumberMask]="numberMask" *ngIf="!form.get('operacionGratuita').value" type="text"
-                    class="form-control text-right">
-                  <input *ngIf="form.get('operacionGratuita').value" type="text" class="form-control text-right" value="0.00" disabled>
-                  <of-form-field-validation-messages [ofFormControl]="form.get('totalOtrosCargos')">
-                  </of-form-field-validation-messages>
-                </td>
-              </tr>
-              <tr>
-                <td>Total Descuento Global</td>
-                <td>{{form.get('descuentoGlobal').value | number : '1.2-2'}}</td>
-              </tr>
-              <tr>
-                <td>Total</td>
-                <td>
-                  {{form.get('total').value | number : '1.2-2'}}
-                </td>
+                <td>Total Retenido</td>
+                <td>{{form.get('totalPago').value | number : '1.2-2'}}</td>
               </tr>
             </tbody>
           </table>
         </div>
-      </div>-->
+      </div>
       <!--/ Totales-->
 
       <of-button-save [ofForm]="form" [working]="working"></of-button-save>

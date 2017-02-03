@@ -17,6 +17,10 @@ import { Subscription } from 'rxjs/Subscription';
     .of-display-block {
       display: block;
     }
+    input[readonly] {
+      background-color: #d1d1d1 !important;
+      color: #363636 !important;
+    }
   `]
 })
 export class InvoiceCreateComponent implements OnInit, OnDestroy {

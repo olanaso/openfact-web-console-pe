@@ -121,7 +121,7 @@
             <td class="text-right">{{i+1}}</td>
             <td>{{item.documentId}}</td>
             <td>{{item.createdTimestamp | date: 'dd/MM/yyyy'}}</td>
-            <td class="text-right">{{item.attributes.documentCurrencyCode}}</td>
+            <!--<td class="text-right">{{item.attributes.documentCurrencyCode}}</td>
             <td class="text-right">{{item.attributes.requestedMonetaryTotalPayableAmount | firstElement | toNumber | number:'1.2-3'}}</td>
             <td class="text-right">{{item.attributes.customerPartyRegistrationName}}</td>
             <td>
@@ -143,7 +143,7 @@
                     {{!hasRequiredAction(item, 'SEND_TO_TRIRD_PARTY') | yesNo: ('yes-no' | translate)}}
               </span>
               <span *ngIf="!item.requiredActions || item.requiredActions.length == 0">{{'yes' | translate}}</span>
-            </td>
+            </td>-->
             <td class=" table-view-pf-actions">
               <div class="table-view-pf-btn">
                 <button (click)="editDocument(item)" class="btn btn-default" type="button">{{'edit' | translate}}</button>

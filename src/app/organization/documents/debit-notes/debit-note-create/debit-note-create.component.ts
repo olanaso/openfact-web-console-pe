@@ -15,7 +15,15 @@ import { URLSearchParams } from '@angular/http';
 @Component({
   selector: 'of-debit-note-create',
   templateUrl: './debit-note-create.component.html',
-  styles: []
+  styles: [`
+    .of-display-block {
+      display: block;
+    }
+    input[readonly] {
+      background-color: #d1d1d1 !important;
+      color: #363636 !important;
+    }
+  `]
 })
 export class DebitNoteCreateComponent implements OnInit {
 

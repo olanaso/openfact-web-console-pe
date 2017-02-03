@@ -1,4 +1,4 @@
-import { IgvResolverService, TiposAfectacionIGVResolverService, TiposComprobantePagoResolverService, TiposDocumentoEntidadResolverService, TiposNotaCreditoResolverService, TiposNotaDebitoResolverService } from './../core/resolvers/generic-type-resolver.service';
+import { DocumentosRelacionadosPercepcionResolverService, IgvResolverService, MonedasResolverService, TiposAfectacionIGVResolverService, TiposComprobantePagoResolverService, TiposDocumentoEntidadResolverService, TiposNotaCreditoResolverService, TiposNotaDebitoResolverService, TiposRegimenPercepcionResolverService } from './../core/resolvers/generic-type-resolver.service';
 import { RouterModule, Routes } from '@angular/router';
 
 import { CreditNoteCreateComponent } from './documents/credit-notes/credit-note-create/credit-note-create.component';
@@ -260,10 +260,10 @@ const routes: Routes = [
         path: 'perceptions/create',
         component: PerceptionCreateComponent,
         resolve: {
-          // tiposComprobantePago: TiposComprobantePagoResolverService,
-          // tiposDocumentEntidad: TiposDocumentoEntidadResolverService,
-          // tiposDeAfectacionIgv: TiposAfectacionIGVResolverService,
-          // igv: IgvResolverService
+          tiposRegimenPercepcion: TiposRegimenPercepcionResolverService,
+          documentosRelacionadosPercepcion: DocumentosRelacionadosPercepcionResolverService,
+          tiposDocumentEntidad: TiposDocumentoEntidadResolverService,
+          monedas: MonedasResolverService
         }
       },
       {

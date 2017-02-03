@@ -139,4 +139,34 @@ export class OrganizationSunatService {
       .map(response => response.json());
   }
 
+  getTiposRegimenPercepcion(organizationName: string): Observable<any> {
+    return this.restangular.one('organizations', organizationName)
+      .all(basePath)
+      .all(extensionPath)
+      .all(genericBasePath)
+      .all('tipos-regimen-percepcion')
+      .get()
+      .map(response => response.json());
+  }
+
+  getDocumentosRelacionadosPercepcion(organizationName: string): Observable<any> {
+    return this.restangular.one('organizations', organizationName)
+      .all(basePath)
+      .all(extensionPath)
+      .all(genericBasePath)
+      .all('documentos-relacionados-percepcion')
+      .get()
+      .map(response => response.json());
+  }
+
+  getMonedas(organizationName: string): Observable<any> {
+    return this.restangular.one('organizations', organizationName)
+      .all(basePath)
+      .all(extensionPath)
+      .all(genericBasePath)
+      .all('monedas')
+      .get()
+      .map(response => response.json());
+  }
+
 }

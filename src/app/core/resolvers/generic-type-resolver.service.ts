@@ -76,3 +76,39 @@ export class IgvResolverService implements Resolve<any> {
   }
 
 }
+
+@Injectable()
+export class TiposRegimenPercepcionResolverService implements Resolve<any> {
+
+  constructor(private dataService: DataService) { }
+
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Promise<any> {
+    const organizationId = findParam('organization', route);
+    return this.dataService.organizationsSunat().getTiposRegimenPercepcion(organizationId);
+  }
+
+}
+
+@Injectable()
+export class DocumentosRelacionadosPercepcionResolverService implements Resolve<any> {
+
+  constructor(private dataService: DataService) { }
+
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Promise<any> {
+    const organizationId = findParam('organization', route);
+    return this.dataService.organizationsSunat().getDocumentosRelacionadosPercepcion(organizationId);
+  }
+
+}
+
+@Injectable()
+export class MonedasResolverService implements Resolve<any> {
+
+  constructor(private dataService: DataService) { }
+
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Promise<any> {
+    const organizationId = findParam('organization', route);
+    return this.dataService.organizationsSunat().getMonedas(organizationId);
+  }
+
+}

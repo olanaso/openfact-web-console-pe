@@ -1,6 +1,7 @@
 import { DocumentosRelacionadosPercepcionResolverService, DocumentosRelacionadosRetencionResolverService, IgvResolverService, MonedasResolverService, TiposAfectacionIGVResolverService, TiposComprobantePagoResolverService, TiposDocumentoEntidadResolverService, TiposNotaCreditoResolverService, TiposNotaDebitoResolverService, TiposRegimenPercepcionResolverService, TiposRegimenRetencionResolverService } from './../core/resolvers/generic-type-resolver.service';
 import { RouterModule, Routes } from '@angular/router';
 
+import { AdminEventsComponent } from './events/admin-events/admin-events.component';
 import { CreditNoteCreateComponent } from './documents/credit-notes/credit-note-create/credit-note-create.component';
 import { CreditNoteEditComponent } from './documents/credit-notes/credit-note-edit/credit-note-edit.component';
 import { CreditNoteEditOverviewComponent } from './documents/credit-notes/credit-note-edit-overview/credit-note-edit-overview.component';
@@ -15,6 +16,8 @@ import { DebitNoteUploadComponent } from './documents/debit-notes/debit-note-upl
 import { DocumentAttachedDocumentsComponent } from './documents/document-attached-documents/document-attached-documents.component';
 import { DocumentResolverService } from './../core/resolvers/document-resolver.service';
 import { DocumentSendEventsComponent } from './documents/document-send-events/document-send-events.component';
+import { EventsConfigResolverService } from './../core/resolvers/events-config-resolver.service';
+import { EventsSettingsComponent } from './events/events-settings/events-settings.component';
 import { InvoiceCreateComponent } from './documents/invoices/invoice-create/invoice-create.component';
 import { InvoiceEditComponent } from './documents/invoices/invoice-edit/invoice-edit.component';
 import { InvoiceEditOverviewComponent } from './documents/invoices/invoice-edit-overview/invoice-edit-overview.component';
@@ -138,6 +141,18 @@ const routes: Routes = [
           organization: OrganizationResolverService,
           serverInfo: ServerInfoResolverService,
           instance: OrganizationComponentResolverService
+        }
+      },
+      {
+        path: 'events',
+        component: AdminEventsComponent
+      },
+      {
+        path: 'events-settings',
+        component: EventsSettingsComponent,
+        resolve: {          
+          serverInfo: ServerInfoResolverService,
+          eventsConfig: EventsConfigResolverService
         }
       },
       {

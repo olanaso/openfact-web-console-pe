@@ -24,6 +24,7 @@ import { NumberMaskDirective } from './directives/number-mask.directive';
 import { OnOffSwitchStringComponent } from './components/on-off-switch-string/on-off-switch-string.component';
 import { ReadFileComponent } from './components/read-file/read-file.component';
 import { RouterModule } from '@angular/router';
+import { SelectModule } from 'ng2-select';
 import { TextMaskModule } from 'angular2-text-mask';
 import { ToArrayPipe } from './pipes/to-array.pipe';
 import { ToDatePipe } from './pipes/to-date.pipe';
@@ -48,6 +49,7 @@ import { YesNoPipe } from './pipes/yes-no.pipe';
     MomentModule,
     FileUploadModule,
     TextMaskModule,
+    SelectModule,
   ],
   declarations: [
     FormFieldsStatusComponent,
@@ -96,6 +98,7 @@ import { YesNoPipe } from './pipes/yes-no.pipe';
     MomentModule,
     FileUploadModule,
     TextMaskModule,
+    SelectModule,
 
     FormFieldsStatusComponent,
     FormRequiredLabelDirective,

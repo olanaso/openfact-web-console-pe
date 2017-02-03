@@ -10,6 +10,7 @@ import { DialogComponent } from './dialog/dialog.component';
 import { DialogService } from './dialog/dialog.service';
 import { DocumentResolverService } from './resolvers/document-resolver.service';
 import { DocumentService } from './data/document.service';
+import { EventsConfigResolverService } from './resolvers/events-config-resolver.service';
 import { FileService } from './data/file.service';
 import { Http } from '@angular/http';
 import { InvoiceService } from './data/invoice.service';
@@ -77,6 +78,7 @@ import { XHRBackend } from '@angular/http';
     OrganizationKeyResolverService,
     OrganizationComponentResolverService,
     ServerInfoResolverService,
+    EventsConfigResolverService,
     DocumentResolverService,
 
     TiposComprobantePagoResolverService,

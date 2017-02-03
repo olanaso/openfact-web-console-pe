@@ -1,3 +1,4 @@
+import { AdminEventsComponent } from './events/admin-events/admin-events.component';
 import { ComponentConfigComponent } from './settings/component-config/component-config.component';
 import { CreditNoteCreateComponent } from './documents/credit-notes/credit-note-create/credit-note-create.component';
 import { CreditNoteEditComponent } from './documents/credit-notes/credit-note-edit/credit-note-edit.component';
@@ -12,6 +13,7 @@ import { DebitNoteListComponent } from './documents/debit-notes/debit-note-list/
 import { DebitNoteUploadComponent } from './documents/debit-notes/debit-note-upload/debit-note-upload.component';
 import { DocumentAttachedDocumentsComponent } from './documents/document-attached-documents/document-attached-documents.component';
 import { DocumentSendEventsComponent } from './documents/document-send-events/document-send-events.component';
+import { EventsSettingsComponent } from './events/events-settings/events-settings.component';
 import { InvoiceCreateComponent } from './documents/invoices/invoice-create/invoice-create.component';
 import { InvoiceEditComponent } from './documents/invoices/invoice-edit/invoice-edit.component';
 import { InvoiceEditOverviewComponent } from './documents/invoices/invoice-edit-overview/invoice-edit-overview.component';
@@ -102,7 +104,9 @@ import { VoidedDocumentUploadComponent } from './documents/voided-document/voide
     VoidedDocumentEditComponent,
     VoidedDocumentListComponent,
     VoidedDocumentUploadComponent,
-    VoidedDocumentEditOverviewComponent
+    VoidedDocumentEditOverviewComponent,
+    EventsSettingsComponent,
+    AdminEventsComponent
   ]
 })
 export class OrganizationModule { }

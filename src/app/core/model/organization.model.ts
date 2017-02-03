@@ -76,7 +76,7 @@ export class Organization extends Model {
             .put(config);
     }
 
-    clearAdminEvents(organization: Organization) {
+    clearAdminEvents() {
         return this.restangular
             .all('admin-events')
             .delete();

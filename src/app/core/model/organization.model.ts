@@ -89,6 +89,21 @@ export class Organization extends Model {
             .map(response => response.json());
     }
 
+    getTaskProviders(queryParams?: URLSearchParams): Observable<any> {
+        return this.restangular
+            .all('job-reports')
+            .all('providers')
+            .get(queryParams)
+            .map(response => response.json());
+    }
+
+    public getAllTasks(queryParams?: URLSearchParams): Observable<any[]> {
+        return this.restangular
+            .all('job-reports')
+            .get(queryParams)
+            .map(response => <any[]>response.json());
+    }
+
 }
 
 export interface SmtpServerConfig {

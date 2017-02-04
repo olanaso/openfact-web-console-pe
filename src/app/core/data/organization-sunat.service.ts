@@ -105,6 +105,19 @@ export class OrganizationSunatService {
       });
   }
 
+  createVoidedDocument(organizationName: string, document: any): Observable<any> {
+    return this.restangular.one('organizations', organizationName)
+      .all(basePath)
+      .all('ubl-extensions/voided-documents')
+      .post(document)
+      .map(response => {
+        if (response.status === 201 || 204) {
+          return undefined;
+        }
+        return response.json();
+      });
+  }
+
   getAllTiposComprobantePago(organizationName: string): Observable<any> {
     return this.restangular.one('organizations', organizationName)
       .all(basePath)

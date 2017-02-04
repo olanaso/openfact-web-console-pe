@@ -103,7 +103,7 @@ export class InvoiceEditComponent implements OnInit, OnDestroy {
   }
 
   maskAsVoided() {
-    this.router.navigate(['../../voideds', 'create', { invoice: this.document.documentId }], { relativeTo: this.route });
+    this.router.navigate(['../../voided-documents', 'create', { invoice: this.document.documentId }], { relativeTo: this.route });
   }
 
   delete() {

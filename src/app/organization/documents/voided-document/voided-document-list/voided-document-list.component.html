@@ -102,10 +102,7 @@
             <th class="sorting text-right">#</th>
             <th class="sorting">ID</th>
             <th class="sorting">{{'issue-date' | translate}}</th>
-            <th class="sorting">{{'currency-code' | translate}}</th>
-            <th class="sorting text-right">{{'payable-amount' | translate}}</th>
-            <th class="sorting text-right">{{'customer-registration-name' | translate}}</th>
-            <th class="text-right">{{'voided' | translate}}</th>
+            <th class="sorting">{{'currency-code' | translate}}</th>            
             <th class="text-right">{{'customer-sended' | translate}}</th>
             <th class="text-right">{{'third-party-sended' | translate}}</th>
             <th colspan="2" rowspan="1">{{'actions' | translate}}</th>
@@ -120,10 +117,7 @@
           <tr *ngFor="let item of searchResult.items; let i = index;">
             <td class="text-right">{{i+1}}</td>
             <td>{{item.documentId}}</td>
-            <td>{{item.createdTimestamp | date: 'dd/MM/yyyy'}}</td>
-            <td class="text-right">{{item.attributes.documentCurrencyCode}}</td>
-            <td class="text-right">{{item.attributes.requestedMonetaryTotalPayableAmount | firstElement | toNumber | number:'1.2-3'}}</td>
-            <td class="text-right">{{item.attributes.customerPartyRegistrationName}}</td>
+            <td>{{item.createdTimestamp | date: 'dd/MM/yyyy'}}</td>            
             <td>
               <span>
                 <i *ngIf="!item.enabled" class="pficon-error-circle-o"></i>

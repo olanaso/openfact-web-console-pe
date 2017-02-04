@@ -41,6 +41,7 @@ import { SettingsGeneralInformationComponent } from './settings/settings-general
 import { SettingsGenericKeystoreComponent } from './settings/settings-generic-keystore/settings-generic-keystore.component';
 import { SettingsKeyProvidersComponent } from './settings/settings-key-providers/settings-key-providers.component';
 import { SettingsSmtpComponent } from './settings/settings-smtp/settings-smtp.component';
+import { SettingsSunatComponent } from './settings/settings-sunat/settings-sunat.component';
 import { SettingsTabsetComponent } from './settings/settings-tabset/settings-tabset.component';
 import { SettingsTasksComponent } from './settings/settings-tasks/settings-tasks.component';
 import { SettingsThemeComponent } from './settings/settings-theme/settings-theme.component';
@@ -106,7 +107,8 @@ import { VoidedDocumentUploadComponent } from './documents/voided-document/voide
     VoidedDocumentUploadComponent,
     VoidedDocumentEditOverviewComponent,
     EventsSettingsComponent,
-    AdminEventsComponent
+    AdminEventsComponent,    
+    SettingsSunatComponent
   ]
 })
 export class OrganizationModule { }

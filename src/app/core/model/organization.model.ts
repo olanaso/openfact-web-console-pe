@@ -16,6 +16,8 @@ export class Organization extends Model {
     taskDelay: number;
     taskFirstTime: Date;
 
+    attributes: any;
+
     constructor(restangular: RestangularService) {
         super(restangular);
     }

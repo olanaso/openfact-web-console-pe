@@ -1,5 +1,3 @@
-import './polyfills.ts';
-
 import { AppModule } from './app/app.module';
 import { KeycloakService } from './app/core/keycloak.service';
 import { enableProdMode } from '@angular/core';

@@ -4,6 +4,7 @@ import { AlertComponent } from './alert/alert.component';
 import { AlertService } from './alert/alert.service';
 import { AlertsComponent } from './alert/alerts.component';
 import { CreditNoteService } from './data/credit-note.service';
+import { CurrentOrganizationService } from './services/current-organization.service';
 import { DataService } from './data/data.service';
 import { DebitNoteService } from './data/debit-note.service';
 import { DialogComponent } from './dialog/dialog.component';
@@ -93,7 +94,9 @@ import { XHRBackend } from '@angular/http';
     DocumentosRelacionadosPercepcionResolverService,
     TiposRegimenRetencionResolverService,
     DocumentosRelacionadosRetencionResolverService,
-    MonedasResolverService
+    MonedasResolverService,
+
+    CurrentOrganizationService
   ]
 })
 export class CoreModule { }

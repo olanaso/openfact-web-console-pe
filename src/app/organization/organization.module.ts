@@ -21,6 +21,7 @@ import { InvoiceListComponent } from './documents/invoices/invoice-list/invoice-
 import { InvoiceUploadComponent } from './documents/invoices/invoice-upload/invoice-upload.component';
 import { NgModule } from '@angular/core';
 import { OrganizationComponent } from './organization.component';
+import { OrganizationConfigGuardService } from './shared/organization-config-guard.service';
 import { OrganizationHeaderComponent } from './organization-header/organization-header.component';
 import { OrganizationRoutingModule } from './organization-routing.module';
 import { OrganizationSidebarComponent } from './organization-sidebar/organization-sidebar.component';
@@ -109,6 +110,9 @@ import { VoidedDocumentUploadComponent } from './documents/voided-document/voide
     EventsSettingsComponent,
     AdminEventsComponent,    
     SettingsSunatComponent
+  ],
+  providers: [    
+    OrganizationConfigGuardService
   ]
 })
 export class OrganizationModule { }

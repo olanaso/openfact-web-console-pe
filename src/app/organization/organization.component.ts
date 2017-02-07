@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import { ActivatedRoute } from '@angular/router';
 import { AlertService } from './../core/alert/alert.service';
+import { CurrentOrganizationService } from './../core/services/current-organization.service';
 import { DataService } from './../core/data/data.service';
 import { Organization } from './../core/model/organization.model';
 import { Subscription } from 'rxjs/Subscription';
@@ -27,12 +28,14 @@ export class OrganizationComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private dataService: DataService,
-    private alertService: AlertService) { }
+    private alertService: AlertService,
+    private currentOrganization: CurrentOrganizationService) { }
 
   ngOnInit() {
     this.dataSubscription = this.route.data.subscribe(
       (data) => {
         this.organization = data['organization'];
+        this.currentOrganization.changeOrganizationValue(this.organization);
       }
     );
     this.loadAllowedOrganizations();

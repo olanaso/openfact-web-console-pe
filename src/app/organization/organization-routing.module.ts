@@ -26,6 +26,7 @@ import { InvoiceUploadComponent } from './documents/invoices/invoice-upload/invo
 import { NgModule } from '@angular/core';
 import { OrganizationComponent } from './organization.component';
 import { OrganizationComponentResolverService } from './../core/resolvers/organization-component-resolver.service';
+import { OrganizationConfigGuardService } from './shared/organization-config-guard.service';
 import { OrganizationKeyResolverService } from './../core/resolvers/organization-key-resolver.service';
 import { OrganizationResolverService } from './../core/resolvers/organization-resolver.service';
 import { PerceptionCreateComponent } from './documents/perceptions/perception-create/perception-create.component';
@@ -175,7 +176,8 @@ const routes: Routes = [
           tiposDocumentEntidad: TiposDocumentoEntidadResolverService,
           tiposDeAfectacionIgv: TiposAfectacionIGVResolverService,
           igv: IgvResolverService
-        }
+        },
+        canActivate: [OrganizationConfigGuardService]
       },
       {
         path: 'invoices/upload',
@@ -214,7 +216,8 @@ const routes: Routes = [
           tiposDocumentEntidad: TiposDocumentoEntidadResolverService,
           tiposDeAfectacionIgv: TiposAfectacionIGVResolverService,
           igv: IgvResolverService
-        }
+        },
+        canActivate: [OrganizationConfigGuardService]
       },
       {
         path: 'credit-notes/upload',
@@ -253,7 +256,8 @@ const routes: Routes = [
           tiposDocumentEntidad: TiposDocumentoEntidadResolverService,
           tiposDeAfectacionIgv: TiposAfectacionIGVResolverService,
           igv: IgvResolverService
-        }
+        },
+        canActivate: [OrganizationConfigGuardService]
       },
       {
         path: 'debit-notes/upload',
@@ -292,7 +296,8 @@ const routes: Routes = [
           documentosRelacionadosPercepcion: DocumentosRelacionadosPercepcionResolverService,
           tiposDocumentEntidad: TiposDocumentoEntidadResolverService,
           monedas: MonedasResolverService
-        }
+        },
+        canActivate: [OrganizationConfigGuardService]
       },
       {
         path: 'perceptions/upload',
@@ -331,7 +336,8 @@ const routes: Routes = [
           documentosRelacionadosRetencion: DocumentosRelacionadosRetencionResolverService,
           tiposDocumentEntidad: TiposDocumentoEntidadResolverService,
           monedas: MonedasResolverService
-        }
+        },
+        canActivate: [OrganizationConfigGuardService]
       },
       {
         path: 'retentions/upload',
@@ -365,6 +371,7 @@ const routes: Routes = [
       {
         path: 'voided-documents/create',
         component: VoidedDocumentCreateComponent,
+        canActivate: [OrganizationConfigGuardService]
         // resolve: {
         //   tiposRegimenRetencion: TiposRegimenRetencionResolverService,
         //   documentosRelacionadosRetencion: DocumentosRelacionadosRetencionResolverService,

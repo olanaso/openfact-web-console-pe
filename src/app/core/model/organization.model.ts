@@ -18,6 +18,14 @@ export class Organization extends Model {
 
     attributes: any;
 
+
+    assignedIdentificationId: string;
+    additionalAccountId: string;
+    supplierName: string;
+    registrationName: string;
+    postalAddress: PostalAddressRepresentation;
+
+
     constructor(restangular: RestangularService) {
         super(restangular);
     }
@@ -117,4 +125,13 @@ export interface SmtpServerConfig {
     auth?: string;
     user?: string;
     password?: string;
+}
+
+export interface PostalAddressRepresentation {
+    streetName: string;
+    citySubdivisionName: string;
+    cityName: string;
+    countrySubentity: string;
+    district: string;
+    countryIdentificationCode: string;
 }

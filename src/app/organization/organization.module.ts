@@ -18,7 +18,6 @@ import { InvoiceCreateComponent } from './documents/invoices/invoice-create/invo
 import { InvoiceEditComponent } from './documents/invoices/invoice-edit/invoice-edit.component';
 import { InvoiceEditOverviewComponent } from './documents/invoices/invoice-edit-overview/invoice-edit-overview.component';
 import { InvoiceListComponent } from './documents/invoices/invoice-list/invoice-list.component';
-import { InvoiceUploadComponent } from './documents/invoices/invoice-upload/invoice-upload.component';
 import { NgModule } from '@angular/core';
 import { OrganizationComponent } from './organization.component';
 import { OrganizationConfigGuardService } from './shared/organization-config-guard.service';
@@ -81,7 +80,6 @@ import { VoidedDocumentUploadComponent } from './documents/voided-document/voide
     InvoiceCreateComponent,
     CreditNoteCreateComponent,
     DebitNoteCreateComponent,
-    InvoiceUploadComponent,
     CreditNoteUploadComponent,
     DebitNoteUploadComponent,
     InvoiceEditComponent,
@@ -108,10 +106,10 @@ import { VoidedDocumentUploadComponent } from './documents/voided-document/voide
     VoidedDocumentUploadComponent,
     VoidedDocumentEditOverviewComponent,
     EventsSettingsComponent,
-    AdminEventsComponent,    
+    AdminEventsComponent,
     SettingsSunatComponent
   ],
-  providers: [    
+  providers: [
     OrganizationConfigGuardService
   ]
 })

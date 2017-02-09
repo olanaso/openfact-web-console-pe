@@ -39,6 +39,8 @@ export class InvoiceCreateComponent implements OnInit, OnDestroy {
   igv: GenericType;
   monedasSoportadas = ['PEN', 'USD'];
 
+  documentSerieMask = [/[B|F|b|f]/, /\d/, /\d/, /\d/];
+  documentNumberMask = [/\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/];
   numberMask = { allowDecimal: true, decimalLimit: 2 };
   quantityMask = { allowDecimal: true, decimalLimit: 3 };
   percentMask = { allowDecimal: true, decimalLimit: 2, prefix: '% ' };
@@ -69,6 +71,9 @@ export class InvoiceCreateComponent implements OnInit, OnDestroy {
 
   buildForm() {
     this.form = this.formBuilder.group({
+      serie: [null, Validators.compose([Validators.minLength(4), Validators.maxLength(4)])],
+      numero: [null, Validators.compose([Validators.minLength(8), Validators.maxLength(8)])],
+
       tipo: [null, Validators.compose([Validators.required])],
       igv: [null, Validators.compose([Validators.required])],
 

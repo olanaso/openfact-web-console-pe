@@ -8,7 +8,6 @@ import { DebitNoteCreateComponent } from './documents/debit-notes/debit-note-cre
 import { DebitNoteEditComponent } from './documents/debit-notes/debit-note-edit/debit-note-edit.component';
 import { DebitNoteEditOverviewComponent } from './documents/debit-notes/debit-note-edit-overview/debit-note-edit-overview.component';
 import { DebitNoteListComponent } from './documents/debit-notes/debit-note-list/debit-note-list.component';
-import { DebitNoteUploadComponent } from './documents/debit-notes/debit-note-upload/debit-note-upload.component';
 import { DocumentActionsComponent } from './documents/document-actions/document-actions.component';
 import { DocumentAttachedDocumentsComponent } from './documents/document-attached-documents/document-attached-documents.component';
 import { DocumentEditHeaderComponent } from './documents/document-edit-header/document-edit-header.component';
@@ -80,7 +79,6 @@ import { VoidedDocumentUploadComponent } from './documents/voided-document/voide
     InvoiceCreateComponent,
     CreditNoteCreateComponent,
     DebitNoteCreateComponent,
-    DebitNoteUploadComponent,
     InvoiceEditComponent,
     DocumentSendEventsComponent,
     DocumentAttachedDocumentsComponent,

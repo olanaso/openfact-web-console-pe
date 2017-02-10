@@ -10,7 +10,6 @@ import { DebitNoteCreateComponent } from './documents/debit-notes/debit-note-cre
 import { DebitNoteEditComponent } from './documents/debit-notes/debit-note-edit/debit-note-edit.component';
 import { DebitNoteEditOverviewComponent } from './documents/debit-notes/debit-note-edit-overview/debit-note-edit-overview.component';
 import { DebitNoteListComponent } from './documents/debit-notes/debit-note-list/debit-note-list.component';
-import { DebitNoteUploadComponent } from './documents/debit-notes/debit-note-upload/debit-note-upload.component';
 import { DocumentAttachedDocumentsComponent } from './documents/document-attached-documents/document-attached-documents.component';
 import { DocumentResolverService } from './../core/resolvers/document-resolver.service';
 import { DocumentSendEventsComponent } from './documents/document-send-events/document-send-events.component';
@@ -234,29 +233,11 @@ const routes: Routes = [
         //canActivate: [OrganizationConfigGuardService]
       },
       {
-        path: 'debit-notes/upload',
-        component: DebitNoteUploadComponent
-      },
-      {
         path: 'debit-notes/:document',
         component: DebitNoteEditComponent,
         resolve: {
           document: DocumentResolverService
-        },
-        children: [
-          {
-            path: '',
-            component: DebitNoteEditOverviewComponent
-          },
-          {
-            path: 'send-events',
-            component: DocumentSendEventsComponent
-          },
-          {
-            path: 'attached-documents',
-            component: DocumentAttachedDocumentsComponent
-          }
-        ]
+        }
       },
       {
         path: 'perceptions',

@@ -11,14 +11,14 @@
               <div class="input-group-btn" ngbDropdown>
                 <button type="button" ngbDropdownToggle class="btn btn-default dropdown-toggle" id="filter" data-toggle="dropdown" aria-haspopup="true"
                   aria-expanded="false">Filtros <span class="caret"></span></button>
-                <ul class="dropdown-menu">
-                  <li><a href="javascript:void(0);" (click)="addNoEnviadosSunatFilter()">No Enviados a Sunat</a></li>
-                  <li><a href="javascript:void(0);" (click)="addNoEnviadosClienteFilter()">No Enviados a Cliente</a></li>
-                  <li class="divider"></li>
-                  <li><a href="javascript:void(0);" (click)="addUltimaHoraFilter()">Ultima Hora</a></li>
-                  <li><a href="javascript:void(0);" (click)="addUltimas24HorasFilter()">Ultimas 24 Horas</a></li>
-                  <li><a href="javascript:void(0);" (click)="addUltimoMesFilter()">Ultimo Mes</a></li>
-                </ul>
+                  <ul class="dropdown-menu">
+                    <li><a href="javascript:void(0);" (click)="addNoEnviadosSunatFilter()">No Enviados a Sunat</a></li>
+                    <li><a href="javascript:void(0);" (click)="addNoEnviadosClienteFilter()">No Enviados a Cliente</a></li>
+                    <li class="divider"></li>
+                    <li><a href="javascript:void(0);" (click)="addUltimaHoraFilter()">Ultima Hora</a></li>
+                    <li><a href="javascript:void(0);" (click)="addUltimas24HorasFilter()">Ultimas 24 Horas</a></li>
+                    <li><a href="javascript:void(0);" (click)="addUltimoMesFilter()">Ultimo Mes</a></li>
+                  </ul>
               </div>
               <input id="filterText" [(ngModel)]="searchCriteria.filterText" name="filterText" #filterText="ngModel" type="text" class="form-control"
                 placeholder="Filter By DocumentId..." autocomplete="off">
@@ -151,43 +151,7 @@
             </td>
             <td class=" table-view-pf-actions">
               <div class="dropdown dropdown-kebab-pf" ngbDropdown>
-                <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
-                  ngbDropdownToggle>
-                  <span class="fa fa-ellipsis-v"></span>
-                </button>
-                <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownKebabRight">
-                  <li>
-                    <a href="javascript:void(0);" (click)="downloadPdf(item)">
-                      <span class="fa fa-file-pdf-o"></span> Pdf
-                    </a>
-                  </li>
-                  <li>
-                    <a href="javascript:void(0);" (click)="downloadXml(item)">
-                      <span class="fa fa-file-code-o"></span> Xml
-                    </a>
-                  </li>
-                  <li>
-                    <a href="javascript:void(0);" (click)="downloadCdr(item)">
-                      <span class="fa fa-file-code-o"></span> Cdr
-                    </a>
-                  </li>
-                  <li role="separator" class="divider"></li>
-                  <li>
-                    <a href="javascript:void(0);" (click)="sendToCustomer(item)">
-                      <span class="fa fa-child"></span> {{'send-to-customer' | translate}}
-                    </a>
-                  </li>
-                  <li>
-                    <a href="javascript:void(0);" (click)="sendToThirdParty(item)">
-                      <span class="fa fa-server"></span> {{'send-to-third-party' | translate}}
-                    </a>
-                  </li>
-                  <li>
-                    <a href="javascript:void(0);" (click)="sendToCustomThridPartyByEmail(item, sendToThirdPartyTemplateContent)">
-                      <span class="fa fa-share"></span> {{'send-to-custom-third-party-by-email' | translate}}
-                    </a>
-                  </li>
-                </ul>
+                <of-document-actions [organization]="organization" [document]="item" [enableAssignCreditNote]="false" [enableAssignDebitNote]="false"></of-document-actions>
               </div>
             </td>
           </tr>

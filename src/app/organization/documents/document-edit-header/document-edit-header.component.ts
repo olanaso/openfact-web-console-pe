@@ -122,7 +122,7 @@ export class DocumentEditHeaderComponent implements OnInit {
   }
 
   maskAsVoided() {
-    this.router.navigate(['../../voided-documents', 'create', { invoice: this.document.documentId }], { relativeTo: this.route });
+    this.router.navigate(['../../voided-documents', 'create', { document: this.document.documentId, type: this.document.documentType }], { relativeTo: this.route });
   }
 
   delete() {

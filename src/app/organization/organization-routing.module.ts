@@ -4,7 +4,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { AdminEventsComponent } from './events/admin-events/admin-events.component';
 import { CreditNoteCreateComponent } from './documents/credit-notes/credit-note-create/credit-note-create.component';
 import { CreditNoteEditComponent } from './documents/credit-notes/credit-note-edit/credit-note-edit.component';
-import { CreditNoteEditOverviewComponent } from './documents/credit-notes/credit-note-edit-overview/credit-note-edit-overview.component';
 import { CreditNoteListComponent } from './documents/credit-notes/credit-note-list/credit-note-list.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DebitNoteCreateComponent } from './documents/debit-notes/debit-note-create/debit-note-create.component';
@@ -196,7 +195,7 @@ const routes: Routes = [
         resolve: {
           document: DocumentResolverService
         }
-      },      
+      },
       {
         path: 'credit-notes',
         component: CreditNoteListComponent
@@ -217,21 +216,7 @@ const routes: Routes = [
         component: CreditNoteEditComponent,
         resolve: {
           document: DocumentResolverService
-        },
-        children: [
-          {
-            path: '',
-            component: CreditNoteEditOverviewComponent
-          },
-          {
-            path: 'send-events',
-            component: DocumentSendEventsComponent
-          },
-          {
-            path: 'attached-documents',
-            component: DocumentAttachedDocumentsComponent
-          }
-        ]
+        }
       },
       {
         path: 'debit-notes',

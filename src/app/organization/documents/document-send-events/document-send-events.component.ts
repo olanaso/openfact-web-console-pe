@@ -29,6 +29,9 @@ export class DocumentSendEventsComponent implements OnInit, OnDestroy {
     { denomination: 'send-to-custom-third-party-by-email', value: 'THIRD_PARTY_BY_EMAIL' }
   ];
 
+  breadcrumb: string;
+  documentType: string;
+
   constructor(
     private route: ActivatedRoute,
     private dataService: DataService,
@@ -41,6 +44,8 @@ export class DocumentSendEventsComponent implements OnInit, OnDestroy {
     });
     this.dataSubscription = this.route.data.subscribe(data => {
       this.document = data['document'];
+      this.breadcrumb = this.document.documentType.toLowerCase().replace('_', '-') + 's';
+      this.documentType = this.document.documentType.toLowerCase().replace('_', '-');
       this.loadData(this.selectedDestinyType);
     });
   }

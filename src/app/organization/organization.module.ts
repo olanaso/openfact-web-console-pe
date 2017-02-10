@@ -2,7 +2,6 @@ import { AdminEventsComponent } from './events/admin-events/admin-events.compone
 import { ComponentConfigComponent } from './settings/component-config/component-config.component';
 import { CreditNoteCreateComponent } from './documents/credit-notes/credit-note-create/credit-note-create.component';
 import { CreditNoteEditComponent } from './documents/credit-notes/credit-note-edit/credit-note-edit.component';
-import { CreditNoteEditOverviewComponent } from './documents/credit-notes/credit-note-edit-overview/credit-note-edit-overview.component';
 import { CreditNoteListComponent } from './documents/credit-notes/credit-note-list/credit-note-list.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DebitNoteCreateComponent } from './documents/debit-notes/debit-note-create/debit-note-create.component';
@@ -88,7 +87,6 @@ import { VoidedDocumentUploadComponent } from './documents/voided-document/voide
     CreditNoteEditComponent,
     DebitNoteEditComponent,
     DebitNoteEditOverviewComponent,
-    CreditNoteEditOverviewComponent,
     PerceptionCreateComponent,
     PerceptionEditComponent,
     PerceptionEditOverviewComponent,

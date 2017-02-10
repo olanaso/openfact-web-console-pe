@@ -9,6 +9,7 @@ import { GenericType } from './../../../../core/model/genericType.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Organization } from './../../../../core/model/organization.model';
 import { Subscription } from 'rxjs/Subscription';
+import { ofValidators } from './../../../../shared/validators/of-validators';
 
 @Component({
   selector: 'of-invoice-create',
@@ -39,8 +40,7 @@ export class InvoiceCreateComponent implements OnInit, OnDestroy {
   igv: GenericType;
   monedasSoportadas = ['PEN', 'USD'];
 
-  documentSerieMask = [/[B|F|b|f]/, /\d/, /\d/, /\d/];
-  documentNumberMask = [/\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/];
+  documentSerieNumeroMask = { allowDecimal: false, thousandsSeparatorSymbol: '' };
   numberMask = { allowDecimal: true, decimalLimit: 2 };
   quantityMask = { allowDecimal: true, decimalLimit: 3 };
   percentMask = { allowDecimal: true, decimalLimit: 2, prefix: '% ' };
@@ -71,8 +71,8 @@ export class InvoiceCreateComponent implements OnInit, OnDestroy {
 
   buildForm() {
     this.form = this.formBuilder.group({
-      serie: [null, Validators.compose([Validators.minLength(4), Validators.maxLength(4)])],
-      numero: [null, Validators.compose([Validators.minLength(8), Validators.maxLength(8)])],
+      serie: [null, Validators.compose([Validators.maxLength(3)])],
+      numero: [null, Validators.compose([Validators.maxLength(8)])],
 
       tipo: [null, Validators.compose([Validators.required])],
       igv: [null, Validators.compose([Validators.required])],
@@ -315,6 +315,15 @@ export class InvoiceCreateComponent implements OnInit, OnDestroy {
     this.dialogService.confirm('Confirm', 'Estas seguro de realizar esta operacion').result.then(
       (redirect) => {
         this.working = true;
+
+        if (form.value.serie !== 'undefined' && form.value.serie != null) {
+          const pad = '000';
+          form.value.serie = 'F' + (pad + form.value.serie).slice(-pad.length);
+        }
+        if (form.value.numero !== 'undefined' && form.value.numero != null) {
+          const pad = '00000000';
+          form.value.numero = (pad + form.value.numero).slice(-pad.length);
+        }
 
         this.dataService.organizationsSunat().createInvoice(this.organization.organization, form.value).subscribe(
           response => {

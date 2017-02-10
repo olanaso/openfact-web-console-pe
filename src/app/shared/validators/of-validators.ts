@@ -9,4 +9,11 @@ export class ofValidators {
         };
     }
 
+    static maxValue(maxValue: number): any {
+        return (control: FormControl): { [key: string]: any } => {
+            var v: number = control.value;
+            return v > maxValue ? { 'maxValue': { 'maxValuePermited': maxValue, 'actualValue': v } } : null;
+        };
+    }
+
 }

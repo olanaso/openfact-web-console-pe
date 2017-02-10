@@ -37,7 +37,9 @@
             <label class="control-label" [ofFormRequiredLabel]="form.get('serie')">Serie
               <i class="fa fa-question-circle text-muted" ngbTooltip="Serie del documento" placement="right"></i>
             </label>
-            <input formControlName="serie" type="text" [textMask]="{mask: documentSerieMask}" class="form-control text-right">
+            <div class="input-group"> <span class="input-group-addon">F</span>
+              <input formControlName="serie" type="text" [ofNumberMask]="documentSerieNumeroMask" class="form-control text-left">
+            </div>
             <of-form-field-validation-messages [ofFormControl]="form.get('serie')">
             </of-form-field-validation-messages>
           </div>
@@ -47,7 +49,7 @@
             <label class="control-label" [ofFormRequiredLabel]="form.get('numero')">Numero
               <i class="fa fa-question-circle text-muted" ngbTooltip="Numero de documento" placement="right"></i>
             </label>
-            <input formControlName="numero" type="text" [textMask]="{mask: documentNumberMask}" class="form-control text-right">
+            <input formControlName="numero" type="text" [ofNumberMask]="documentSerieNumeroMask" class="form-control text-left">
             <of-form-field-validation-messages [ofFormControl]="form.get('numero')">
             </of-form-field-validation-messages>
           </div>

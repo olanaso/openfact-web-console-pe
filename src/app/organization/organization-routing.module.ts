@@ -6,7 +6,6 @@ import { CreditNoteCreateComponent } from './documents/credit-notes/credit-note-
 import { CreditNoteEditComponent } from './documents/credit-notes/credit-note-edit/credit-note-edit.component';
 import { CreditNoteEditOverviewComponent } from './documents/credit-notes/credit-note-edit-overview/credit-note-edit-overview.component';
 import { CreditNoteListComponent } from './documents/credit-notes/credit-note-list/credit-note-list.component';
-import { CreditNoteUploadComponent } from './documents/credit-notes/credit-note-upload/credit-note-upload.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DebitNoteCreateComponent } from './documents/debit-notes/debit-note-create/debit-note-create.component';
 import { DebitNoteEditComponent } from './documents/debit-notes/debit-note-edit/debit-note-edit.component';
@@ -212,10 +211,6 @@ const routes: Routes = [
           igv: IgvResolverService
         },
         //canActivate: [OrganizationConfigGuardService]
-      },
-      {
-        path: 'credit-notes/upload',
-        component: CreditNoteUploadComponent
       },
       {
         path: 'credit-notes/:document',

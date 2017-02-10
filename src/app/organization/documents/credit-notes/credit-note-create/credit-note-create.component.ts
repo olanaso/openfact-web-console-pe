@@ -94,7 +94,7 @@ export class CreditNoteCreateComponent implements OnInit, OnDestroy {
       enviarAutomaticamenteASunat: [true, Validators.compose([Validators.required])],
       enviarAutomaticamenteAlCliente: [true, Validators.compose([Validators.required])],
 
-      observaciones: [null, Validators.compose([Validators.maxLength(150)])],
+      observaciones: [null, Validators.compose([Validators.required, Validators.maxLength(150)])],
 
       totalGravada: [null, Validators.compose([Validators.required])],
       totalExonerada: [null, Validators.compose([Validators.required])],

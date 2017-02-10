@@ -4,15 +4,16 @@ import { CreditNoteCreateComponent } from './documents/credit-notes/credit-note-
 import { CreditNoteEditComponent } from './documents/credit-notes/credit-note-edit/credit-note-edit.component';
 import { CreditNoteEditOverviewComponent } from './documents/credit-notes/credit-note-edit-overview/credit-note-edit-overview.component';
 import { CreditNoteListComponent } from './documents/credit-notes/credit-note-list/credit-note-list.component';
-import { CreditNoteUploadComponent } from './documents/credit-notes/credit-note-upload/credit-note-upload.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DebitNoteCreateComponent } from './documents/debit-notes/debit-note-create/debit-note-create.component';
 import { DebitNoteEditComponent } from './documents/debit-notes/debit-note-edit/debit-note-edit.component';
 import { DebitNoteEditOverviewComponent } from './documents/debit-notes/debit-note-edit-overview/debit-note-edit-overview.component';
 import { DebitNoteListComponent } from './documents/debit-notes/debit-note-list/debit-note-list.component';
 import { DebitNoteUploadComponent } from './documents/debit-notes/debit-note-upload/debit-note-upload.component';
+import { DocumentActionsComponent } from './documents/document-actions/document-actions.component';
 import { DocumentAttachedDocumentsComponent } from './documents/document-attached-documents/document-attached-documents.component';
 import { DocumentEditHeaderComponent } from './documents/document-edit-header/document-edit-header.component';
+import { DocumentEditRightSidebarComponent } from './documents/document-edit-right-sidebar/document-edit-right-sidebar.component';
 import { DocumentSendEventsComponent } from './documents/document-send-events/document-send-events.component';
 import { EventsSettingsComponent } from './events/events-settings/events-settings.component';
 import { InvoiceCreateComponent } from './documents/invoices/invoice-create/invoice-create.component';
@@ -51,8 +52,6 @@ import { VoidedDocumentEditComponent } from './documents/voided-document/voided-
 import { VoidedDocumentEditOverviewComponent } from './documents/voided-document/voided-document-edit-overview/voided-document-edit-overview.component';
 import { VoidedDocumentListComponent } from './documents/voided-document/voided-document-list/voided-document-list.component';
 import { VoidedDocumentUploadComponent } from './documents/voided-document/voided-document-upload/voided-document-upload.component';
-import { DocumentEditRightSidebarComponent } from './documents/document-edit-right-sidebar/document-edit-right-sidebar.component';
-import { DocumentActionsComponent } from './documents/document-actions/document-actions.component';
 
 @NgModule({
   imports: [
@@ -82,7 +81,6 @@ import { DocumentActionsComponent } from './documents/document-actions/document-
     InvoiceCreateComponent,
     CreditNoteCreateComponent,
     DebitNoteCreateComponent,
-    CreditNoteUploadComponent,
     DebitNoteUploadComponent,
     InvoiceEditComponent,
     DocumentSendEventsComponent,

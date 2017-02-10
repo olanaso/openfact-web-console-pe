@@ -20,7 +20,6 @@ import { EventsConfigResolverService } from './../core/resolvers/events-config-r
 import { EventsSettingsComponent } from './events/events-settings/events-settings.component';
 import { InvoiceCreateComponent } from './documents/invoices/invoice-create/invoice-create.component';
 import { InvoiceEditComponent } from './documents/invoices/invoice-edit/invoice-edit.component';
-import { InvoiceEditOverviewComponent } from './documents/invoices/invoice-edit-overview/invoice-edit-overview.component';
 import { InvoiceListComponent } from './documents/invoices/invoice-list/invoice-list.component';
 import { NgModule } from '@angular/core';
 import { OrganizationComponent } from './organization.component';
@@ -183,21 +182,21 @@ const routes: Routes = [
         component: InvoiceEditComponent,
         resolve: {
           document: DocumentResolverService
-        },
-        children: [
-          {
-            path: '',
-            component: InvoiceEditOverviewComponent
-          },
-          {
-            path: 'send-events',
-            component: DocumentSendEventsComponent
-          },
-          {
-            path: 'attached-documents',
-            component: DocumentAttachedDocumentsComponent
-          }
-        ]
+        }
+      },
+      {
+        path: 'invoices/:document/send-events',
+        component: DocumentSendEventsComponent,
+        resolve: {
+          document: DocumentResolverService
+        }
+      },
+      {
+        path: 'invoices/:document/attached-documents',
+        component: DocumentAttachedDocumentsComponent,
+        resolve: {
+          document: DocumentResolverService
+        }
       },
       {
         path: 'credit-notes',

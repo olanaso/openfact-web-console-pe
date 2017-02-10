@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { InvoiceEditOverviewComponent } from './invoice-edit-overview.component';
+import { DocumentEditRightSidebarComponent } from './document-edit-right-sidebar.component';
 
-describe('InvoiceEditOverviewComponent', () => {
-  let component: InvoiceEditOverviewComponent;
-  let fixture: ComponentFixture<InvoiceEditOverviewComponent>;
+describe('DocumentEditRightSidebarComponent', () => {
+  let component: DocumentEditRightSidebarComponent;
+  let fixture: ComponentFixture<DocumentEditRightSidebarComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ InvoiceEditOverviewComponent ]
+      declarations: [ DocumentEditRightSidebarComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(InvoiceEditOverviewComponent);
+    fixture = TestBed.createComponent(DocumentEditRightSidebarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

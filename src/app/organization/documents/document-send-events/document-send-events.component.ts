@@ -36,10 +36,10 @@ export class DocumentSendEventsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.parentDataSubscription = this.route.parent.parent.data.subscribe(data => {
+    this.parentDataSubscription = this.route.parent.data.subscribe(data => {
       this.organization = data['organization'];
     });
-    this.dataSubscription = this.route.parent.data.subscribe(data => {
+    this.dataSubscription = this.route.data.subscribe(data => {
       this.document = data['document'];
       this.loadData(this.selectedDestinyType);
     });

@@ -1,0 +1,50 @@
+<div class="sidebar-header right-header">
+  <div>
+    <h2>
+      <span class="events-sidebar-collapse">
+						<a href="javascript:void(0);" class="pficon pficon-info" ><span class="sr-only">{{'attributes' | translate}}</span></a>
+      </span> {{'attributes' | translate}}
+      <small class="warning-count"><span class="hidden-xs hidden-sm"><span>{{'additional-info' | translate}}</span></span></small>
+    </h2>
+  </div>
+  <div *ngIf="document.attributes">
+    <dl class="dl-horizontal left" [ngbCollapse]="isAttributesCollapsed">
+      <template ngFor let-key [ngForOf]="document.attributes | keys">
+        <dt>{{key}}:</dt>
+        <dd>{{document.attributes[key]}}</dd>
+      </template>
+    </dl>
+    <a href="javascript:void(0);" (click)="isAttributesCollapsed = !isAttributesCollapsed">{{'view-details' | translate}}</a>
+  </div>
+  <div *ngIf="!document.attributes">
+    <em>{{'not-registered' | translate}}</em>
+  </div>
+</div>
+<div class="sidebar-header right-header">
+  <div>
+    <h2>
+      <span class="events-sidebar-collapse">
+        <a href="javascript:void(0);" class="pficon pficon-info" ><span class="sr-only">{{'attatched-documents' | translate}}</span></a>
+      </span> {{'attatched-documents' | translate}}
+    </h2>
+  </div>
+  <div *ngIf="document.attatchedDocuments && document.attatchedDocuments.length > 0">
+    <ul class="list-inline" [ngbCollapse]="isAttatchedDocumentsCollapsed">
+      <li *ngFor="let attatchedDocument of document.attatchedDocuments" class="text-right">
+        <dl class="dl-horizontal left">
+          <dt>documentType:</dt>
+          <dd>{{attatchedDocument.documentType}}</dd>
+          <template ngFor let-key [ngForOf]="attatchedDocument.attributes | keys">
+            <dt>{{key}}:</dt>
+            <dd>{{attatchedDocument.attributes[key]}}</dd>
+          </template>
+        </dl>
+        <button (click)="viewAttatchedDocument(attatchedDocument)" type="button" class="btn btn-default">{{'view' | translate}}</button>
+      </li>
+    </ul>
+    <a href="javascript:void(0);" (click)="isAttatchedDocumentsCollapsed = !isAttatchedDocumentsCollapsed">{{'view-details' | translate}}</a>
+  </div>
+  <div *ngIf="!document.attatchedDocuments || document.attatchedDocuments.length == 0">
+    <em>{{'not-registered' | translate}}</em>
+  </div>
+</div>

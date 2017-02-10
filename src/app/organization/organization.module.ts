@@ -12,11 +12,11 @@ import { DebitNoteEditOverviewComponent } from './documents/debit-notes/debit-no
 import { DebitNoteListComponent } from './documents/debit-notes/debit-note-list/debit-note-list.component';
 import { DebitNoteUploadComponent } from './documents/debit-notes/debit-note-upload/debit-note-upload.component';
 import { DocumentAttachedDocumentsComponent } from './documents/document-attached-documents/document-attached-documents.component';
+import { DocumentEditHeaderComponent } from './documents/document-edit-header/document-edit-header.component';
 import { DocumentSendEventsComponent } from './documents/document-send-events/document-send-events.component';
 import { EventsSettingsComponent } from './events/events-settings/events-settings.component';
 import { InvoiceCreateComponent } from './documents/invoices/invoice-create/invoice-create.component';
 import { InvoiceEditComponent } from './documents/invoices/invoice-edit/invoice-edit.component';
-import { InvoiceEditOverviewComponent } from './documents/invoices/invoice-edit-overview/invoice-edit-overview.component';
 import { InvoiceListComponent } from './documents/invoices/invoice-list/invoice-list.component';
 import { NgModule } from '@angular/core';
 import { OrganizationComponent } from './organization.component';
@@ -51,6 +51,7 @@ import { VoidedDocumentEditComponent } from './documents/voided-document/voided-
 import { VoidedDocumentEditOverviewComponent } from './documents/voided-document/voided-document-edit-overview/voided-document-edit-overview.component';
 import { VoidedDocumentListComponent } from './documents/voided-document/voided-document-list/voided-document-list.component';
 import { VoidedDocumentUploadComponent } from './documents/voided-document/voided-document-upload/voided-document-upload.component';
+import { DocumentEditRightSidebarComponent } from './documents/document-edit-right-sidebar/document-edit-right-sidebar.component';
 
 @NgModule({
   imports: [
@@ -83,7 +84,6 @@ import { VoidedDocumentUploadComponent } from './documents/voided-document/voide
     CreditNoteUploadComponent,
     DebitNoteUploadComponent,
     InvoiceEditComponent,
-    InvoiceEditOverviewComponent,
     DocumentSendEventsComponent,
     DocumentAttachedDocumentsComponent,
     CreditNoteEditComponent,
@@ -107,7 +107,9 @@ import { VoidedDocumentUploadComponent } from './documents/voided-document/voide
     VoidedDocumentEditOverviewComponent,
     EventsSettingsComponent,
     AdminEventsComponent,
-    SettingsSunatComponent
+    SettingsSunatComponent,
+    DocumentEditHeaderComponent,
+    DocumentEditRightSidebarComponent
   ],
   providers: [
     OrganizationConfigGuardService

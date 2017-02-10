@@ -2,6 +2,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import { Document } from './../../../core/model/document.model';
+import { Organization } from './../../../core/model/organization.model';
 import { Subscription } from 'rxjs/Subscription';
 
 @Component({
@@ -12,7 +13,9 @@ import { Subscription } from 'rxjs/Subscription';
 export class DocumentAttachedDocumentsComponent implements OnInit, OnDestroy {
 
   dataSubscription: Subscription;
+  parentDataSubscription: Subscription;
 
+  organization: Organization;
   document: Document;
 
   constructor(
@@ -21,12 +24,16 @@ export class DocumentAttachedDocumentsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.dataSubscription = this.route.parent.data.subscribe(data => {
+    this.parentDataSubscription = this.route.parent.data.subscribe(data => {
+      this.organization = data['organization'];
+    });
+    this.dataSubscription = this.route.data.subscribe(data => {
       this.document = data['document'];
     });
   }
 
   ngOnDestroy() {
+    this.parentDataSubscription.unsubscribe();
     this.dataSubscription.unsubscribe();
   }
 

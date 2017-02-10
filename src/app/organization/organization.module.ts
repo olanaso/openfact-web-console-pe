@@ -52,6 +52,7 @@ import { VoidedDocumentEditOverviewComponent } from './documents/voided-document
 import { VoidedDocumentListComponent } from './documents/voided-document/voided-document-list/voided-document-list.component';
 import { VoidedDocumentUploadComponent } from './documents/voided-document/voided-document-upload/voided-document-upload.component';
 import { DocumentEditRightSidebarComponent } from './documents/document-edit-right-sidebar/document-edit-right-sidebar.component';
+import { DocumentActionsComponent } from './documents/document-actions/document-actions.component';
 
 @NgModule({
   imports: [
@@ -109,7 +110,8 @@ import { DocumentEditRightSidebarComponent } from './documents/document-edit-rig
     AdminEventsComponent,
     SettingsSunatComponent,
     DocumentEditHeaderComponent,
-    DocumentEditRightSidebarComponent
+    DocumentEditRightSidebarComponent,
+    DocumentActionsComponent
   ],
   providers: [
     OrganizationConfigGuardService

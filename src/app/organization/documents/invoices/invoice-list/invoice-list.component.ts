@@ -27,9 +27,7 @@ export class InvoiceListComponent implements OnInit, OnDestroy {
   dataSubscription: Subscription;
 
   organization: Organization;
-  searchResult: SearchResults<Document> = new SearchResults<Document>();
-
-  thirdPartyByEmail: any = {};
+  searchResult: SearchResults<Document> = new SearchResults<Document>();  
 
   // Search Criteria
   searchCriteria: SearchCriteria = {
@@ -217,58 +215,6 @@ export class InvoiceListComponent implements OnInit, OnDestroy {
     filter.alias = 'Ultimo mes';
     this.filters.push(filter);
     this.search();
-  }
-
-  /**
-   * Actions
-   */
-  downloadXml(document: Document) {
-    document.downloadXml();
-  }
-
-  downloadCdr(document: Document) {
-    this.dataService.organizationsSunat().downloadDocumentCdr(this.organization.organization, document.id);
-  }
-
-  downloadPdf(document: Document) {
-    const queryParams: URLSearchParams = new URLSearchParams();
-    queryParams.set('format', 'pdf');
-    document.downloadReport(queryParams);
-  }
-
-  sendToCustomer(document: Document) {
-    document.sendToCustomer().subscribe(result => {
-      this.alertService.pop('success', 'Success', 'Success! Document sended to customer.');
-    });
-  }
-
-  sendToThirdParty(invoice: Document) {
-    invoice.sendToThirdParty().subscribe(result => {
-      this.alertService.pop('success', 'Success', 'Success! Document sended to third party.');
-    });
-  }
-
-  sendToCustomThridPartyByEmail(invoice: Document, content: any) {
-    this.modalService.open(content).result.then(
-      (form: NgForm) => {
-        if (form.valid) {
-          invoice.sendToThirdPartyByEmail({ email: form.value.thirdPartyByEmail.email }).subscribe(data => {
-            this.alertService.pop('success', 'Success', 'Success! Document sended to third party.');
-          });
-        }
-      }, (reason) => { });
-  }
-
-  attachCreditNote(document: Document) {
-    this.router.navigate(['../credit-notes', 'create', { invoice: document.documentId }], { relativeTo: this.route });
-  }
-
-  attachDebitNote(document: Document) {
-    this.router.navigate(['../debit-notes', 'create', { invoice: document.documentId }], { relativeTo: this.route });
-  }
-
-  markAsVoided(document: Document) {
-    this.router.navigate(['../voided-documents', 'create', { invoice: document.documentId }], { relativeTo: this.route });
   }
 
 }

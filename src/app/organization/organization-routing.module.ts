@@ -163,6 +163,20 @@ const routes: Routes = [
         }
       },
       {
+        path: 'documents/:document/send-events',
+        component: DocumentSendEventsComponent,
+        resolve: {
+          document: DocumentResolverService
+        }
+      },
+      {
+        path: 'documents/:document/attached-documents',
+        component: DocumentAttachedDocumentsComponent,
+        resolve: {
+          document: DocumentResolverService
+        }
+      },
+      {
         path: 'invoices',
         component: InvoiceListComponent
       },
@@ -183,21 +197,7 @@ const routes: Routes = [
         resolve: {
           document: DocumentResolverService
         }
-      },
-      {
-        path: 'invoices/:document/send-events',
-        component: DocumentSendEventsComponent,
-        resolve: {
-          document: DocumentResolverService
-        }
-      },
-      {
-        path: 'invoices/:document/attached-documents',
-        component: DocumentAttachedDocumentsComponent,
-        resolve: {
-          document: DocumentResolverService
-        }
-      },
+      },      
       {
         path: 'credit-notes',
         component: CreditNoteListComponent

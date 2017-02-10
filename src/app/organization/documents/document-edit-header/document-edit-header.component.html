@@ -77,8 +77,8 @@
 	<div class="tab-container">
 		<ul class="nav nav-tabs">
 			<li routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"><a [routerLink]="['/organizations', organization.organization, breadcrumb, document.id]">{{'overview' | translate}}</a></li>
-			<li routerLinkActive="active"><a [routerLink]="['/organizations', organization.organization, breadcrumb, document.id, 'send-events']">{{'send-events' | translate}}</a></li>
-			<li routerLinkActive="active"><a [routerLink]="['/organizations', organization.organization, breadcrumb, document.id, 'attached-documents']">{{'attatched-documents' | translate}}</a></li>
+			<li routerLinkActive="active"><a [routerLink]="['/organizations', organization.organization, 'documents', document.id, 'send-events']">{{'send-events' | translate}}</a></li>
+			<li routerLinkActive="active"><a [routerLink]="['/organizations', organization.organization, 'documents', document.id, 'attached-documents']">{{'attatched-documents' | translate}}</a></li>
 		</ul>
 	</div>
 </div>

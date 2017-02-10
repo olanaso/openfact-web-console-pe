@@ -2,19 +2,19 @@
   <div class="col-md-12">
 
     <ol class="breadcrumb">
-      <li><a routerLink="../">{{'perceptions' | translate}}</a></li>
-      <li>{{'create-perception' | translate}}</li>
+      <li><a routerLink="../">{{'retentions' | translate}}</a></li>
+      <li>{{'create-retention' | translate}}</li>
     </ol>
 
-    <h1>{{'create-perception' | translate}}</h1>
-    <ul class="nav nav-tabs">
+    <h1>{{'create-retention' | translate}}</h1>
+    <!--<ul class="nav nav-tabs">
       <li routerLinkActive="active">
         <a href="javascript:void(0);">{{'form' | translate}}</a>
       </li>
       <li routerLinkActive="active">
         <a routerLink="../upload">{{'upload' | translate}}</a>
       </li>
-    </ul>
+    </ul>-->
 
     <form [formGroup]="form" (ngSubmit)="save(form)">
       <of-form-fields-status [ofForm]="form"></of-form-fields-status>
@@ -36,8 +36,8 @@
         </div>
         <div class="col-md-4">
           <div class="form-group" [ofFormFieldValidationState]="form.get('codigoDocumento')">
-            <label class="control-label" [ofFormRequiredLabel]="form.get('codigoDocumento')">Tipo Percepcion
-              <i class="fa fa-question-circle text-muted" ngbTooltip="Tipo de percepcion" placement="right"></i>
+            <label class="control-label" [ofFormRequiredLabel]="form.get('codigoDocumento')">Tipo Retencion
+              <i class="fa fa-question-circle text-muted" ngbTooltip="Tipo de retencion" placement="right"></i>
             </label>
             <select formControlName="codigoDocumento" class="form-control" autofocus>
               <option *ngFor="let tipoRegimen of tiposRegimenRetencion" [value]="tipoRegimen.codigo">{{tipoRegimen.denominacion}}</option>
@@ -132,7 +132,7 @@
                 <th colspan="2" class="text-center">Documento Relacionado</th>
                 <th colspan="1" class="text-center">Tipo de Cambio</th>
                 <th colspan="2" class="text-center">Datos de Pago</th>
-                <th colspan="2" class="text-center">Datos de Percepcion</th>
+                <th colspan="2" class="text-center">Datos de Retencion</th>
                 <th rowspan="3" class="text-right">Acciones</th>
               </tr>
               <tr>
@@ -141,7 +141,7 @@
 
                 <td class="text-right">Tipo cambio</td>
 
-                <td class="text-right"><label class="required-pf">Pago sin percepcion</label></td>
+                <td class="text-right"><label class="required-pf">Pago sin retencion</label></td>
                 <td class="text-right"><label class="required-pf">Numero de cobro</label></td>
 
                 <td class="text-right"><label class="required-pf">Importe percibido</label></td>

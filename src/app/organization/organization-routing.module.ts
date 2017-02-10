@@ -28,9 +28,7 @@ import { PerceptionEditComponent } from './documents/perceptions/perception-edit
 import { PerceptionListComponent } from './documents/perceptions/perception-list/perception-list.component';
 import { RetentionCreateComponent } from './documents/retentions/retention-create/retention-create.component';
 import { RetentionEditComponent } from './documents/retentions/retention-edit/retention-edit.component';
-import { RetentionEditOverviewComponent } from './documents/retentions/retention-edit-overview/retention-edit-overview.component';
 import { RetentionListComponent } from './documents/retentions/retention-list/retention-list.component';
-import { RetentionUploadComponent } from './documents/retentions/retention-upload/retention-upload.component';
 import { ServerInfoResolverService } from './../core/resolvers/server-info-resolver.service';
 import { SettingsActiveKeyComponent } from './settings/settings-active-key/settings-active-key.component';
 import { SettingsAdditionalInformationComponent } from './settings/settings-additional-information/settings-additional-information.component';
@@ -274,29 +272,11 @@ const routes: Routes = [
         //canActivate: [OrganizationConfigGuardService]
       },
       {
-        path: 'retentions/upload',
-        component: RetentionUploadComponent
-      },
-      {
         path: 'retentions/:document',
         component: RetentionEditComponent,
         resolve: {
           document: DocumentResolverService
-        },
-        children: [
-          {
-            path: '',
-            component: RetentionEditOverviewComponent
-          },
-          {
-            path: 'send-events',
-            component: DocumentSendEventsComponent
-          },
-          {
-            path: 'attached-documents',
-            component: DocumentAttachedDocumentsComponent
-          }
-        ]
+        }
       },
       {
         path: 'voided-documents',

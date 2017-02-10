@@ -54,7 +54,8 @@ export class SettingsSunatComponent implements OnInit {
     this.form = this.formBuilder.group({
       sunatUsername: [undefined, Validators.compose([Validators.required, Validators.maxLength(40)])],
       sunatPassword: [undefined, Validators.compose([Validators.required, Validators.maxLength(200)])],
-      sunatAddress1: [undefined, Validators.compose([Validators.required, Validators.maxLength(200)])]    
+      sunatAddress1: [undefined, Validators.compose([Validators.required, Validators.maxLength(200)])],
+      sunatAddress2: [undefined, Validators.compose([Validators.required, Validators.maxLength(200)])]
     });
   }
 

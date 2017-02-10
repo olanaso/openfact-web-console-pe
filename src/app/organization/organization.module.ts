@@ -6,7 +6,6 @@ import { CreditNoteListComponent } from './documents/credit-notes/credit-note-li
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DebitNoteCreateComponent } from './documents/debit-notes/debit-note-create/debit-note-create.component';
 import { DebitNoteEditComponent } from './documents/debit-notes/debit-note-edit/debit-note-edit.component';
-import { DebitNoteEditOverviewComponent } from './documents/debit-notes/debit-note-edit-overview/debit-note-edit-overview.component';
 import { DebitNoteListComponent } from './documents/debit-notes/debit-note-list/debit-note-list.component';
 import { DocumentActionsComponent } from './documents/document-actions/document-actions.component';
 import { DocumentAttachedDocumentsComponent } from './documents/document-attached-documents/document-attached-documents.component';
@@ -25,9 +24,7 @@ import { OrganizationRoutingModule } from './organization-routing.module';
 import { OrganizationSidebarComponent } from './organization-sidebar/organization-sidebar.component';
 import { PerceptionCreateComponent } from './documents/perceptions/perception-create/perception-create.component';
 import { PerceptionEditComponent } from './documents/perceptions/perception-edit/perception-edit.component';
-import { PerceptionEditOverviewComponent } from './documents/perceptions/perception-edit-overview/perception-edit-overview.component';
 import { PerceptionListComponent } from './documents/perceptions/perception-list/perception-list.component';
-import { PerceptionUploadComponent } from './documents/perceptions/perception-upload/perception-upload.component';
 import { RetentionCreateComponent } from './documents/retentions/retention-create/retention-create.component';
 import { RetentionEditComponent } from './documents/retentions/retention-edit/retention-edit.component';
 import { RetentionEditOverviewComponent } from './documents/retentions/retention-edit-overview/retention-edit-overview.component';
@@ -84,12 +81,9 @@ import { VoidedDocumentUploadComponent } from './documents/voided-document/voide
     DocumentAttachedDocumentsComponent,
     CreditNoteEditComponent,
     DebitNoteEditComponent,
-    DebitNoteEditOverviewComponent,
     PerceptionCreateComponent,
     PerceptionEditComponent,
-    PerceptionEditOverviewComponent,
     PerceptionListComponent,
-    PerceptionUploadComponent,
     RetentionCreateComponent,
     RetentionEditComponent,
     RetentionEditOverviewComponent,

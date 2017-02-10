@@ -24,12 +24,22 @@
     </div>
   </div>
   <div class="form-group" [ofFormFieldValidationState]="form.get('sunatAddress1')">
-    <label class="col-md-2 control-label" [ofFormRequiredLabel]="form.get('sunatAddress1')">End point address
+    <label class="col-md-2 control-label" [ofFormRequiredLabel]="form.get('sunatAddress1')">End point
 			<i class="fa fa-question-circle text-muted" ngbTooltip="Sunat web service endpoint address." placement="right"></i>
     </label>
     <div class="col-md-4">
       <input formControlName="sunatAddress1" type="text" class="form-control" />
       <of-form-field-validation-messages [ofFormControl]="form.get('sunatAddress1')">
+      </of-form-field-validation-messages>
+    </div>
+  </div>
+  <div class="form-group" [ofFormFieldValidationState]="form.get('sunatAddress2')">
+    <label class="col-md-2 control-label" [ofFormRequiredLabel]="form.get('sunatAddress2')">End point Otros documentos
+			<i class="fa fa-question-circle text-muted" ngbTooltip="Sunat web service endpoint address." placement="right"></i>
+    </label>
+    <div class="col-md-4">
+      <input formControlName="sunatAddress2" type="text" class="form-control" />
+      <of-form-field-validation-messages [ofFormControl]="form.get('sunatAddress2')">
       </of-form-field-validation-messages>
     </div>
   </div>

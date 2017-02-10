@@ -7,14 +7,14 @@
     </ol>
 
     <h1>{{'create-perception' | translate}}</h1>
-    <ul class="nav nav-tabs">
+    <!--<ul class="nav nav-tabs">
       <li routerLinkActive="active">
         <a href="javascript:void(0);">{{'form' | translate}}</a>
       </li>
       <li routerLinkActive="active">
         <a routerLink="../upload">{{'upload' | translate}}</a>
       </li>
-    </ul>
+    </ul>-->
 
     <form [formGroup]="form" (ngSubmit)="save(form)">
       <of-form-fields-status [ofForm]="form"></of-form-fields-status>

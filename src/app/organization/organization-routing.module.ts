@@ -8,7 +8,6 @@ import { CreditNoteListComponent } from './documents/credit-notes/credit-note-li
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DebitNoteCreateComponent } from './documents/debit-notes/debit-note-create/debit-note-create.component';
 import { DebitNoteEditComponent } from './documents/debit-notes/debit-note-edit/debit-note-edit.component';
-import { DebitNoteEditOverviewComponent } from './documents/debit-notes/debit-note-edit-overview/debit-note-edit-overview.component';
 import { DebitNoteListComponent } from './documents/debit-notes/debit-note-list/debit-note-list.component';
 import { DocumentAttachedDocumentsComponent } from './documents/document-attached-documents/document-attached-documents.component';
 import { DocumentResolverService } from './../core/resolvers/document-resolver.service';
@@ -26,9 +25,7 @@ import { OrganizationKeyResolverService } from './../core/resolvers/organization
 import { OrganizationResolverService } from './../core/resolvers/organization-resolver.service';
 import { PerceptionCreateComponent } from './documents/perceptions/perception-create/perception-create.component';
 import { PerceptionEditComponent } from './documents/perceptions/perception-edit/perception-edit.component';
-import { PerceptionEditOverviewComponent } from './documents/perceptions/perception-edit-overview/perception-edit-overview.component';
 import { PerceptionListComponent } from './documents/perceptions/perception-list/perception-list.component';
-import { PerceptionUploadComponent } from './documents/perceptions/perception-upload/perception-upload.component';
 import { RetentionCreateComponent } from './documents/retentions/retention-create/retention-create.component';
 import { RetentionEditComponent } from './documents/retentions/retention-edit/retention-edit.component';
 import { RetentionEditOverviewComponent } from './documents/retentions/retention-edit-overview/retention-edit-overview.component';
@@ -255,29 +252,11 @@ const routes: Routes = [
         //canActivate: [OrganizationConfigGuardService]
       },
       {
-        path: 'perceptions/upload',
-        component: PerceptionUploadComponent
-      },
-      {
         path: 'perceptions/:document',
         component: PerceptionEditComponent,
         resolve: {
           document: DocumentResolverService
-        },
-        children: [
-          {
-            path: '',
-            component: PerceptionEditOverviewComponent
-          },
-          {
-            path: 'send-events',
-            component: DocumentSendEventsComponent
-          },
-          {
-            path: 'attached-documents',
-            component: DocumentAttachedDocumentsComponent
-          }
-        ]
+        }
       },
       {
         path: 'retentions',

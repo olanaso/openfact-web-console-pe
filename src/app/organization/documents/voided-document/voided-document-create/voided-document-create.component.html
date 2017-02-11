@@ -39,11 +39,11 @@
             <thead>
               <tr>
                 <td class="text-right">#</td>
+                <td class="text-right"><label class="required-pf">Tipo documento</label></td>
                 <td class="text-right"><label class="required-pf">Numero documento</label></td>
-                <td class="text-right"><label class="required-pf">Tipo</label></td>
+                <td class="text-right"><label class="required-pf">Codigo</label></td>
                 <td class="text-right"><label class="required-pf">Cliente</label></td>
-                <td class="text-right"><label class="required-pf">Moneda</label></td>
-                <td class="text-right"><label class="required-pf">Monto</label></td>
+                <td class="text-right"><label class="required-pf">Moneda</label></td>                
                 <td class="text-right"><label class="required-pf">Motivo</label></td>
                 <td class="text-center">Acciones</td>
               </tr>
@@ -52,21 +52,26 @@
               <template ngFor let-item [ngForOf]="detalle.controls" let-i="index">
                 <tr [formGroupName]="i">
                   <td class="text-right">{{i+1}}</td>
+                  <td [ofFormFieldValidationState]="item.get('tipoDocumentoRelacionado')">
+                    <select formControlName="tipoDocumentoRelacionado" class="form-control">
+                      <option *ngFor="let document of documentosRelacionadosVoid" [value]="document.codigo">{{document.denominacion}}</option>
+                    </select>
+                    <of-form-field-validation-messages [ofFormControl]="item.get('tipoDocumentoRelacionado')">
+                    </of-form-field-validation-messages>
+                  </td>
                   <td [ofFormFieldValidationState]="item.get('numeroDocumentoRelacionado')">
                     <div class="input-group">
-                      <input formControlName="numeroDocumentoRelacionado" [textMask]="{mask: documentMask}" (keyup.enter)="findInvoiceByDocumentId(item)"
+                      <input formControlName="numeroDocumentoRelacionado" [textMask]="{mask: documentMask}" (keyup.enter)="findFormDocument(item)"
                         type="text" class="form-control" placeholder="[B|F]000-0000000">
                         <span class="input-group-btn"> 
-                          <button (click)="findInvoiceByDocumentId(item)" type="button" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+                          <button (click)="findFormDocument(item)" type="button" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
                         </span>
                     </div>
                     <of-form-field-validation-messages [ofFormControl]="item.get('numeroDocumentoRelacionado')">
                     </of-form-field-validation-messages>
                   </td>
-                  <td [ofFormFieldValidationState]="item.get('tipoDocumentoRelacionado')">
-                    <input formControlName="tipoDocumentoRelacionado" type="text" class="form-control text-right" readonly>
-                    <of-form-field-validation-messages [ofFormControl]="item.get('tipoDocumentoRelacionado')">
-                    </of-form-field-validation-messages>
+                  <td>
+                    <span>{{item.get('tipoDocumentoRelacionado').value}}</span>
                   </td>
                   <td [ofFormFieldValidationState]="item.get('entidadDenominacionDocumentoRelacionado')">
                     <input formControlName="entidadDenominacionDocumentoRelacionado" type="text" class="form-control text-right" readonly>
@@ -77,13 +82,7 @@
                     <input formControlName="monedaDocumentoRelacionado" type="text" class="form-control text-right" readonly>
                     <of-form-field-validation-messages [ofFormControl]="item.get('monedaDocumentoRelacionado')">
                     </of-form-field-validation-messages>
-                  </td>
-                  <td [ofFormFieldValidationState]="item.get('montoDocumentoRelacionado')">
-                    <input formControlName="montoDocumentoRelacionado" [ofNumberMask]="numberMask" type="text" class="form-control text-right"
-                      readonly>
-                      <of-form-field-validation-messages [ofFormControl]="item.get('montoDocumentoRelacionado')">
-                      </of-form-field-validation-messages>
-                  </td>
+                  </td>                  
                   <td [ofFormFieldValidationState]="item.get('descripcionDocumentoRelacionado')">
                     <input formControlName="descripcionDocumentoRelacionado" type="text" class="form-control text-right">
                     <of-form-field-validation-messages [ofFormControl]="item.get('descripcionDocumentoRelacionado')">

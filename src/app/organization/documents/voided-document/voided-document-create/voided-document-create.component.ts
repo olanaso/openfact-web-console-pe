@@ -8,6 +8,7 @@ import { DialogService } from './../../../../core/dialog/dialog.service';
 import { Document } from './../../../../core/model/document.model';
 import { GenericType } from './../../../../core/model/genericType.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Observable } from 'rxjs/Rx';
 import { Organization } from './../../../../core/model/organization.model';
 import { Subscription } from 'rxjs/Subscription';
 import { URLSearchParams } from '@angular/http';
@@ -28,12 +29,14 @@ import { URLSearchParams } from '@angular/http';
 export class VoidedDocumentCreateComponent implements OnInit, OnDestroy {
 
   parentDataSubscription: Subscription;
+  dataSubscription: Subscription;
   paramsSubscription: Subscription;
 
   form: FormGroup;
   working: boolean = false;
 
   organization: Organization;
+  documentosRelacionadosVoid: GenericType[];
 
   documentMask = [/[B|F|b|f]/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/];
   numberMask = { allowDecimal: true, decimalLimit: 2 };
@@ -48,11 +51,22 @@ export class VoidedDocumentCreateComponent implements OnInit, OnDestroy {
     this.parentDataSubscription = this.route.parent.data.subscribe((data) => {
       this.organization = data['organization'];
     });
+    this.dataSubscription = this.route.data.subscribe((data) => {
+      this.documentosRelacionadosVoid = data['documentosRelacionadosVoid'];
+    });
     this.paramsSubscription = this.route.params.subscribe(params => {
-      let invoiceDocumentId = params['invoice'];
-      if (invoiceDocumentId) {
+      let documentId = params['document'];
+      let documentType = params['type'];
+
+      if (documentId && documentType) {
         const formGroup = this.addDetalleFormControl();
-        this.findInvoiceByDocumentId(formGroup, invoiceDocumentId);
+        this.findDocument(documentId, documentType).subscribe(data => {
+          if (data && data.length > 0) {
+            this.applyPatchForm(formGroup, data[0]);
+          } else {
+            this.alertService.pop('info', 'Info', 'Could not find Document.');
+          }
+        });
       }
     });
   }
@@ -82,10 +96,10 @@ export class VoidedDocumentCreateComponent implements OnInit, OnDestroy {
       numeroDocumentoRelacionado: [null, Validators.compose([Validators.required, Validators.maxLength(13)])],
       descripcionDocumentoRelacionado: [null, Validators.compose([Validators.required, Validators.maxLength(150)])],
 
-      montoDocumentoRelacionado: [null],
       monedaDocumentoRelacionado: [null],
       entidadDenominacionDocumentoRelacionado: [null]
     });
+
     this.detalle.push(formGroup);
 
     return formGroup;
@@ -110,7 +124,6 @@ export class VoidedDocumentCreateComponent implements OnInit, OnDestroy {
         this.working = true;
 
         form.value.detalle.forEach(detalle => {
-          detalle.montoDocumentoRelacionado = undefined;
           detalle.monedaDocumentoRelacionado = undefined;
           detalle.entidadDenominacionDocumentoRelacionado = undefined;
         });
@@ -138,33 +151,57 @@ export class VoidedDocumentCreateComponent implements OnInit, OnDestroy {
     this.router.navigate(['../'], { relativeTo: this.route });
   }
 
-  findInvoiceByDocumentId(formGroup: FormGroup, documentId?: string) {
-    if (!formGroup) {
-      return;
+  findDocument(documentId: string, documentType: string): Observable<Document[]> {
+    let queryParam: URLSearchParams = new URLSearchParams();
+    queryParam.set('documentId', documentId);
+    queryParam.set('documentType', documentType);
+    return this.dataService.documents().getAll(this.organization, queryParam);
+  }
+
+  findFormDocument(formGroup: FormGroup) {
+    const numeroDocumento = formGroup.get('numeroDocumentoRelacionado').value;
+    const tipoDocumentoCodigo = formGroup.get('tipoDocumentoRelacionado').value;
+
+    if (this.documentosRelacionadosVoid && this.documentosRelacionadosVoid.length > 0) {
+      const tipoDocumento = this.documentosRelacionadosVoid.find(f => f.codigo === tipoDocumentoCodigo);
+
+      this.findDocument(numeroDocumento, tipoDocumento.grupo).subscribe(data => {
+        if (data && data.length > 0) {
+          this.applyPatchForm(formGroup, data[0]);
+        } else {
+          this.alertService.pop('info', 'Info', 'Could not find Document.');
+        }
+      });
     }
-    if (!documentId) {
-      documentId = formGroup.get('numeroDocumentoRelacionado').value;
-    }
-    if (!documentId) {
-      return;
+  }
+
+  applyPatchForm(formGroup: FormGroup, document: Document) {
+    let type: GenericType;
+    if (document.documentType.toUpperCase() === 'INVOICE') {
+      if (document.documentId.toUpperCase().startsWith('F')) {
+        type = this.getDocumentoRelacionadoVoidByDenomination('FACTURA');
+      } else if (document.documentId.toUpperCase().startsWith('B')) {
+        type = this.getDocumentoRelacionadoVoidByDenomination('BOLETA');
+      }
+    } else if (document.documentType.toUpperCase() === 'CREDIT_NOTE') {
+      type = this.getDocumentoRelacionadoVoidByDenomination('CREDITO');
+    } else if (document.documentType.toUpperCase() === 'DEBIT_NOTE') {
+      type = this.getDocumentoRelacionadoVoidByDenomination('DEBITO');
     }
 
-    let queryParam: URLSearchParams = new URLSearchParams();
-    queryParam.set('documentType', 'INVOICE');
-    queryParam.set('documentId', documentId);
-    this.dataService.documents().getAll(this.organization, queryParam).subscribe(data => {
-      if (data && data.length > 0) {
-        formGroup.patchValue({
-          numeroDocumentoRelacionado: data[0]['documentId'],
-          tipoDocumentoRelacionado: data[0]['attributes']['invoiceTypeCode'][0],
-          montoDocumentoRelacionado: data[0]['attributes']['legalMonetaryTotalPayableAmount'][0],
-          monedaDocumentoRelacionado: data[0]['attributes']['documentCurrencyCode'][0],
-          entidadDenominacionDocumentoRelacionado: data[0]['customerRegistrationName']
-        });
-      } else {
-        this.alertService.pop('info', 'Info', 'Could not find Invoice.');
-      }
+    formGroup.patchValue({
+      tipoDocumentoRelacionado: type != null ? type.codigo : null,
+      numeroDocumentoRelacionado: document['documentId'],
+      monedaDocumentoRelacionado: document['documentCurrencyCode'],
+      entidadDenominacionDocumentoRelacionado: document['customerRegistrationName']
     });
+  }
+
+  getDocumentoRelacionadoVoidByDenomination(denomination: string): GenericType {
+    if (this.documentosRelacionadosVoid && this.documentosRelacionadosVoid.length > 0) {
+      return this.documentosRelacionadosVoid.find(f => f.denominacion.toUpperCase().indexOf(denomination.toUpperCase()) !== -1);
+    }
+    return null;
   }
 
 }

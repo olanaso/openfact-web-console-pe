@@ -285,12 +285,9 @@ const routes: Routes = [
         path: 'voided-documents/create',
         component: VoidedDocumentCreateComponent,
         //canActivate: [OrganizationConfigGuardService]
-        // resolve: {
-        //   tiposRegimenRetencion: TiposRegimenRetencionResolverService,
-        //   documentosRelacionadosRetencion: DocumentosRelacionadosRetencionResolverService,
-        //   tiposDocumentEntidad: TiposDocumentoEntidadResolverService,
-        //   monedas: MonedasResolverService
-        // }
+        resolve: {
+          documentosRelacionadosVoid: DocumentosRelacionadosPercepcionResolverService,
+        }
       },
       {
         path: 'voided-documents/:document',

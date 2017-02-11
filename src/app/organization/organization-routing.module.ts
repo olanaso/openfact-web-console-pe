@@ -294,21 +294,7 @@ const routes: Routes = [
         component: VoidedDocumentEditComponent,
         resolve: {
           document: DocumentResolverService
-        },
-        children: [
-          {
-            path: '',
-            component: VoidedDocumentEditOverviewComponent
-          },
-          {
-            path: 'send-events',
-            component: DocumentSendEventsComponent
-          },
-          {
-            path: 'attached-documents',
-            component: DocumentAttachedDocumentsComponent
-          }
-        ]
+        }
       },
     ]
   }

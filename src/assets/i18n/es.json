@@ -59,6 +59,7 @@
   "payable-amount": "Monto Total a Pagar",
   "customer-registration-name": "Nombre del Cliente",
   "voided": "Baja",
+  "voided-document": "Document Baja",
   "customer-sended": "Envio al Cliente",
   "third-party-sended": "Envio a Sunat",
   "actions": "Acciones",

@@ -5,48 +5,72 @@
 
     <br>
 
-    <table class="table table-bordered table-striped">
-      <thead>
-        <tr>
-          <td>#</td>
-          <td>Document Id</td>
-          <td>Document Type</td>
-          <td>Additional Information</td>
-          <td>Actions</td>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngIf="!document.attatchedDocuments || document.attatchedDocuments.length == 0">
-          <td colspan="5" class="text-center text-muted">
-            <span>{{'no-results-found' | translate}}.</span>
-          </td>
-        </tr>
-        <tr *ngFor="let attatchedDocument of document.attatchedDocuments; let i = index;">
-          <td>{{i+1}}</td>
-          <td>{{attatchedDocument.documentId}}</td>
-          <td>{{attatchedDocument.documentType}}</td>
-          <td>
-            <table class="table table-bordered table-striped">
-              <thead>
-                <tr>
-                  <td>{{'key' | translate}}</td>
-                  <td>{{'value' | translate}}</td>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let attribute of attatchedDocument.attributes | keys">
-                  <td>{{attribute}}</td>
-                  <td>{{attatchedDocument.attributes[attribute]}}</td>
-                </tr>
-              </tbody>
-            </table>
-          </td>
-          <td class="text-center">
-            <a href="javascript:void(0);" (click)="viewAttatchedDocument(attatchedDocument)">{{'view' | translate}}</a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="row">
+      <div class="col-md-6">
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <td colspan="4">Afecta</td>
+            </tr>
+            <tr>
+              <td>#</td>
+              <td>Document Id</td>
+              <td>Document Type</td>
+              <td>Actions</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngIf="!document.attachedDocumentsAsOrigin || document.attachedDocumentsAsOrigin.length == 0">
+              <td colspan="5" class="text-center text-muted">
+                <span>{{'no-results-found' | translate}}.</span>
+              </td>
+            </tr>
+            <tr *ngFor="let document of document.attachedDocumentsAsOrigin; let i = index;">
+              <td>{{i+1}}</td>
+              <td>{{document.documentId}}</td>
+              <td>{{document.documentType}}</td>
+              <td class=" table-view-pf-actions">
+                <div class="table-view-pf-btn">
+                  <button (click)="viewAttachedDocument(document)" class="btn btn-default" type="button">{{'view' | translate}}</button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-md-6">
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <td colspan="4">Afectado por</td>
+            </tr>
+            <tr>
+              <td>#</td>
+              <td>Document Id</td>
+              <td>Document Type</td>
+              <td>Actions</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngIf="!document.attachedDocumentsAsDestiny || document.attachedDocumentsAsDestiny.length == 0">
+              <td colspan="5" class="text-center text-muted">
+                <span>{{'no-results-found' | translate}}.</span>
+              </td>
+            </tr>
+            <tr *ngFor="let document of document.attachedDocumentsAsDestiny; let i = index;">
+              <td>{{i+1}}</td>
+              <td>{{document.documentId}}</td>
+              <td>{{document.documentType}}</td>
+              <td class=" table-view-pf-actions">
+                <div class="table-view-pf-btn">
+                  <button (click)="viewAttachedDocument(document)" class="btn btn-default" type="button">{{'view' | translate}}</button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
 
   </div>
 

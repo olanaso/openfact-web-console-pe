@@ -37,19 +37,19 @@ export class DocumentAttachedDocumentsComponent implements OnInit, OnDestroy {
     this.dataSubscription.unsubscribe();
   }
 
-  viewAttatchedDocument(attatchedDocument) {
-    if (attatchedDocument.documentType === 'INVOICE') {
-      this.router.navigate(['../../../invoices', attatchedDocument.documentId], { relativeTo: this.route });
-    } else if (attatchedDocument.documentType === 'CREDIT_NOTE') {
-      this.router.navigate(['../../../credit-notes', attatchedDocument.documentId], { relativeTo: this.route });
-    } else if (attatchedDocument.documentType === 'DEBIT_NOTE') {
-      this.router.navigate(['../../../debit-notes', attatchedDocument.documentId], { relativeTo: this.route });
-    } else if (attatchedDocument.documentType === 'PERCEPTION') {
-      this.router.navigate(['../../../perceptions', attatchedDocument.documentId], { relativeTo: this.route });
-    } else if (attatchedDocument.documentType === 'RETENTIONS') {
-      this.router.navigate(['../../../retentions', attatchedDocument.documentId], { relativeTo: this.route });
-    } else if (attatchedDocument.documentType === 'VOIDED') {
-      this.router.navigate(['../../../voideds', attatchedDocument.documentId], { relativeTo: this.route });
+  viewAttachedDocument(document: Document) {
+    if (document.documentType.toUpperCase() === 'INVOICE') {
+      this.router.navigate(['../../../invoices', document.id], { relativeTo: this.route });
+    } else if (document.documentType.toUpperCase() === 'CREDIT_NOTE') {
+      this.router.navigate(['../../../credit-notes', document.id], { relativeTo: this.route });
+    } else if (document.documentType.toUpperCase() === 'DEBIT_NOTE') {
+      this.router.navigate(['../../../debit-notes', document.id], { relativeTo: this.route });
+    } else if (document.documentType.toUpperCase() === 'PERCEPTION') {
+      this.router.navigate(['../../../perceptions', document.id], { relativeTo: this.route });
+    } else if (document.documentType.toUpperCase() === 'RETENTIONS') {
+      this.router.navigate(['../../../retentions', document.id], { relativeTo: this.route });
+    } else if (document.documentType.toUpperCase() === 'VOIDED') {
+      this.router.navigate(['../../../voided-documents', document.id], { relativeTo: this.route });
     }
   }
 

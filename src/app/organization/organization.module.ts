@@ -44,7 +44,6 @@ import { VoidedDocumentCreateComponent } from './documents/voided-document/voide
 import { VoidedDocumentEditComponent } from './documents/voided-document/voided-document-edit/voided-document-edit.component';
 import { VoidedDocumentEditOverviewComponent } from './documents/voided-document/voided-document-edit-overview/voided-document-edit-overview.component';
 import { VoidedDocumentListComponent } from './documents/voided-document/voided-document-list/voided-document-list.component';
-import { VoidedDocumentUploadComponent } from './documents/voided-document/voided-document-upload/voided-document-upload.component';
 
 @NgModule({
   imports: [
@@ -88,7 +87,6 @@ import { VoidedDocumentUploadComponent } from './documents/voided-document/voide
     VoidedDocumentCreateComponent,
     VoidedDocumentEditComponent,
     VoidedDocumentListComponent,
-    VoidedDocumentUploadComponent,
     VoidedDocumentEditOverviewComponent,
     EventsSettingsComponent,
     AdminEventsComponent,

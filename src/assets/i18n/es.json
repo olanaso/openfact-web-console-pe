@@ -140,6 +140,7 @@
   "create-debit-note": "Crear Nota de Debito",
   "create-perception": "Crear Percepcion",
   "create-retention": "Crear Retencion",
+  "create-voided-document": "Crear Baja",
   "send-to-custom-third-party-by-email": "Enviar a tercero por Email",
   "send": "Enviar",
   "read-more": "Leer mas...",

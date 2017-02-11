@@ -46,6 +46,10 @@ export class DocumentSendEventsComponent implements OnInit, OnDestroy {
       this.document = data['document'];
       this.breadcrumb = this.document.documentType.toLowerCase().replace('_', '-') + 's';
       this.documentType = this.document.documentType.toLowerCase().replace('_', '-');
+      if (this.breadcrumb.endsWith('ss')) {
+        this.breadcrumb = this.breadcrumb.slice(0, this.breadcrumb.length - 1);
+      }
+
       this.loadData(this.selectedDestinyType);
     });
   }

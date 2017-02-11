@@ -18,6 +18,9 @@ export class DocumentAttachedDocumentsComponent implements OnInit, OnDestroy {
   organization: Organization;
   document: Document;
 
+  breadcrumb: string;
+  documentType: string;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router) {
@@ -29,6 +32,11 @@ export class DocumentAttachedDocumentsComponent implements OnInit, OnDestroy {
     });
     this.dataSubscription = this.route.data.subscribe(data => {
       this.document = data['document'];
+      this.breadcrumb = this.document.documentType.toLowerCase().replace('_', '-') + 's';
+      this.documentType = this.document.documentType.toLowerCase().replace('_', '-');
+      if (this.breadcrumb.endsWith('ss')) {
+        this.breadcrumb = this.breadcrumb.slice(0, this.breadcrumb.length - 1);
+      }
     });
   }
 

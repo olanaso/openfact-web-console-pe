@@ -297,4 +297,8 @@ export class PerceptionCreateComponent implements OnInit, OnDestroy {
     return this.form.get('detalle') as FormArray;
   }
 
+  cancel() {
+    this.router.navigate(['../'], { relativeTo: this.route });
+  }
+
 }

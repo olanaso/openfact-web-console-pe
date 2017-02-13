@@ -42,7 +42,6 @@ import { SettingsThemeComponent } from './settings/settings-theme/settings-theme
 import { SharedModule } from './../shared/shared.module';
 import { VoidedDocumentCreateComponent } from './documents/voided-document/voided-document-create/voided-document-create.component';
 import { VoidedDocumentEditComponent } from './documents/voided-document/voided-document-edit/voided-document-edit.component';
-import { VoidedDocumentEditOverviewComponent } from './documents/voided-document/voided-document-edit-overview/voided-document-edit-overview.component';
 import { VoidedDocumentListComponent } from './documents/voided-document/voided-document-list/voided-document-list.component';
 
 @NgModule({
@@ -87,7 +86,6 @@ import { VoidedDocumentListComponent } from './documents/voided-document/voided-
     VoidedDocumentCreateComponent,
     VoidedDocumentEditComponent,
     VoidedDocumentListComponent,
-    VoidedDocumentEditOverviewComponent,
     EventsSettingsComponent,
     AdminEventsComponent,
     SettingsSunatComponent,

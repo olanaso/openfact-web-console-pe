@@ -42,7 +42,6 @@ import { SettingsTasksComponent } from './settings/settings-tasks/settings-tasks
 import { SettingsThemeComponent } from './settings/settings-theme/settings-theme.component';
 import { VoidedDocumentCreateComponent } from './documents/voided-document/voided-document-create/voided-document-create.component';
 import { VoidedDocumentEditComponent } from './documents/voided-document/voided-document-edit/voided-document-edit.component';
-import { VoidedDocumentEditOverviewComponent } from './documents/voided-document/voided-document-edit-overview/voided-document-edit-overview.component';
 import { VoidedDocumentListComponent } from './documents/voided-document/voided-document-list/voided-document-list.component';
 
 const routes: Routes = [

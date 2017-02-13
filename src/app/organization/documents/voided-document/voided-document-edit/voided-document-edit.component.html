@@ -2,7 +2,8 @@
 	<div class="col-lg-9">
 
 		<of-document-edit-header [organization]="organization" [document]="document" [breadcrumb]="'voided-documents'" [documentType]="'voided-document'"
-			[enableAssignCreditNote]="false" [enableAssignDebitNote]="false" [enableVoid]="false"></of-document-edit-header>
+			[enableDownloadPdf]="false" [enableDownloadCdr]="false" [enableAssignCreditNote]="false" [enableAssignDebitNote]="false"
+			[enableVoid]="false"></of-document-edit-header>
 
 			<br>
 			<div *ngIf="!documentJson">

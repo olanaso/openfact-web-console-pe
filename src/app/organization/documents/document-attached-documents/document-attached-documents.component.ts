@@ -58,6 +58,8 @@ export class DocumentAttachedDocumentsComponent implements OnInit, OnDestroy {
       this.router.navigate(['../../../retentions', document.id], { relativeTo: this.route });
     } else if (document.documentType.toUpperCase() === 'VOIDED_DOCUMENTS') {
       this.router.navigate(['../../../voided-documents', document.id], { relativeTo: this.route });
+    } else if (document.documentType.toUpperCase() === 'SUMMARY_DOCUMENTS') {
+      this.router.navigate(['../../../summary-documents', document.id], { relativeTo: this.route });
     }
   }
 

@@ -40,6 +40,8 @@ import { SettingsSmtpComponent } from './settings/settings-smtp/settings-smtp.co
 import { SettingsSunatComponent } from './settings/settings-sunat/settings-sunat.component';
 import { SettingsTasksComponent } from './settings/settings-tasks/settings-tasks.component';
 import { SettingsThemeComponent } from './settings/settings-theme/settings-theme.component';
+import { SummaryDocumentEditComponent } from './documents/summary-document/summary-document-edit/summary-document-edit.component';
+import { SummaryDocumentListComponent } from './documents/summary-document/summary-document-list/summary-document-list.component';
 import { VoidedDocumentCreateComponent } from './documents/voided-document/voided-document-create/voided-document-create.component';
 import { VoidedDocumentEditComponent } from './documents/voided-document/voided-document-edit/voided-document-edit.component';
 import { VoidedDocumentListComponent } from './documents/voided-document/voided-document-list/voided-document-list.component';
@@ -291,6 +293,17 @@ const routes: Routes = [
       {
         path: 'voided-documents/:document',
         component: VoidedDocumentEditComponent,
+        resolve: {
+          document: DocumentResolverService
+        }
+      },
+      {
+        path: 'summary-documents',
+        component: SummaryDocumentListComponent
+      },
+      {
+        path: 'summary-documents/:document',
+        component: SummaryDocumentEditComponent,
         resolve: {
           document: DocumentResolverService
         }

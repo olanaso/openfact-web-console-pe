@@ -40,6 +40,8 @@ import { SettingsTabsetComponent } from './settings/settings-tabset/settings-tab
 import { SettingsTasksComponent } from './settings/settings-tasks/settings-tasks.component';
 import { SettingsThemeComponent } from './settings/settings-theme/settings-theme.component';
 import { SharedModule } from './../shared/shared.module';
+import { SummaryDocumentEditComponent } from './documents/summary-document/summary-document-edit/summary-document-edit.component';
+import { SummaryDocumentListComponent } from './documents/summary-document/summary-document-list/summary-document-list.component';
 import { VoidedDocumentCreateComponent } from './documents/voided-document/voided-document-create/voided-document-create.component';
 import { VoidedDocumentEditComponent } from './documents/voided-document/voided-document-edit/voided-document-edit.component';
 import { VoidedDocumentListComponent } from './documents/voided-document/voided-document-list/voided-document-list.component';
@@ -91,7 +93,9 @@ import { VoidedDocumentListComponent } from './documents/voided-document/voided-
     SettingsSunatComponent,
     DocumentEditHeaderComponent,
     DocumentEditRightSidebarComponent,
-    DocumentActionsComponent
+    DocumentActionsComponent,
+    SummaryDocumentListComponent,
+    SummaryDocumentEditComponent
   ],
   providers: [
     OrganizationConfigGuardService

@@ -13,7 +13,7 @@ import { OrganizationModule } from './organization/organization.module';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from './shared/shared.module';
 
-export const BASE_URL = 'http://localhost:8081/openfact';
+export const BASE_URL = 'http://localhost:8080/openfact';
 
 export function createTranslateLoader(http: Http) {
   return new TranslateStaticLoader(http, './assets/i18n', '.json');

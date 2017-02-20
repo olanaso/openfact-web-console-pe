@@ -45,6 +45,16 @@
     </div>
 
     <div formGroupName="postalAddress">
+         <div class="form-group" [ofFormFieldValidationState]="form.get('postalAddress').get('postalAddressId')">
+            <label class="col-md-2 control-label" [ofFormRequiredLabel]="form.get('postalAddress').get('postalAddressId')">{{'postal-address-id' | translate}}
+				<i class="fa fa-question-circle text-muted" ngbTooltip="Postal Address Id name where the organization is located." placement="right"></i>
+          	</label>
+            <div class="col-md-4">
+                <input formControlName="postalAddressId" type="text" class="form-control" />
+                <of-form-field-validation-messages [ofFormControl]="form.get('postalAddress').get('postalAddressId')">
+                </of-form-field-validation-messages>
+            </div>
+        </div>
         <div class="form-group" [ofFormFieldValidationState]="form.get('postalAddress').get('cityName')">
             <label class="col-md-2 control-label" [ofFormRequiredLabel]="form.get('postalAddress').get('cityName')">{{'city-name' | translate}}
 				<i class="fa fa-question-circle text-muted" ngbTooltip="City name where the organization is located." placement="right"></i>

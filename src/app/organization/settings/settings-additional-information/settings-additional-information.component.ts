@@ -52,6 +52,7 @@ export class SettingsAdditionalInformationComponent implements OnInit, OnDestroy
       supplierName: [undefined, Validators.compose([Validators.required, Validators.maxLength(150)])],
       registrationName: [undefined, Validators.compose([Validators.required, Validators.maxLength(150)])],
       postalAddress: this.formBuilder.group({
+        postalAddressId: [undefined, Validators.compose([Validators.required, Validators.maxLength(10)])],
         cityName: [undefined, Validators.compose([Validators.required, Validators.maxLength(150)])],
         citySubdivisionName: [undefined, Validators.compose([Validators.required, Validators.maxLength(150)])],
         countryIdentificationCode: [undefined, Validators.compose([Validators.required, Validators.maxLength(150)])],

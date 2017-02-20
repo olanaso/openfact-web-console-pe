@@ -71,7 +71,7 @@ export class InvoiceCreateComponent implements OnInit, OnDestroy {
 
   buildForm() {
     this.form = this.formBuilder.group({
-      serie: [null, Validators.compose([Validators.maxLength(3)])],
+      serie: [null, Validators.compose([Validators.maxLength(4)])],
       numero: [null, Validators.compose([Validators.maxLength(8)])],
 
       tipo: [null, Validators.compose([Validators.required])],
@@ -316,14 +316,14 @@ export class InvoiceCreateComponent implements OnInit, OnDestroy {
       (redirect) => {
         this.working = true;
 
-        if (form.value.serie !== 'undefined' && form.value.serie != null) {
+        /*if (form.value.serie !== 'undefined' && form.value.serie != null) {
           const pad = '000';
           form.value.serie = 'F' + (pad + form.value.serie).slice(-pad.length);
         }
         if (form.value.numero !== 'undefined' && form.value.numero != null) {
           const pad = '00000000';
           form.value.numero = (pad + form.value.numero).slice(-pad.length);
-        }
+        }*/
 
         this.dataService.organizationsSunat().createInvoice(this.organization.organization, form.value).subscribe(
           response => {

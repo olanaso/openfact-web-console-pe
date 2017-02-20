@@ -41,6 +41,7 @@ export class CreditNoteCreateComponent implements OnInit, OnDestroy {
 
   igv: GenericType;
 
+  documentSerieNumeroMask = { allowDecimal: false, thousandsSeparatorSymbol: '' };
   documentMask = [/[B|F|b|f]/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/];
   numberMask = { allowDecimal: true, decimalLimit: 2 };
   quantityMask = { allowDecimal: true, decimalLimit: 3 };
@@ -79,6 +80,9 @@ export class CreditNoteCreateComponent implements OnInit, OnDestroy {
 
   buildForm() {
     this.form = this.formBuilder.group({
+      serie: [null, Validators.compose([Validators.maxLength(4)])],
+      numero: [null, Validators.compose([Validators.maxLength(8)])],
+
       documentoQueSeModifica: [null, Validators.compose([Validators.required])],
       tipoDeNotaDeCredito: [null, Validators.compose([Validators.required])],
       igv: [null, Validators.compose([Validators.required])],
@@ -108,7 +112,7 @@ export class CreditNoteCreateComponent implements OnInit, OnDestroy {
       totalOtrosCargos: [null, Validators.compose([])],
       total: [null, Validators.compose([Validators.required])],
 
-      detalle: this.formBuilder.array([], Validators.compose([]))
+      detalle: this.formBuilder.array([])
     });
 
     // Observer para cambiar longitud del tipo de documento
@@ -276,7 +280,7 @@ export class CreditNoteCreateComponent implements OnInit, OnDestroy {
 
     this.dialogService.confirm('Confirm', 'Estas seguro de realizar esta operacion').result.then(
       (redirect) => {
-        this.working = true;
+        this.working = true;    
 
         this.dataService.organizationsSunat().createCreditnote(this.organization.organization, form.value).subscribe(
           response => {

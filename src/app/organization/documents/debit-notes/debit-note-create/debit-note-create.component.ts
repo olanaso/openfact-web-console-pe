@@ -41,6 +41,7 @@ export class DebitNoteCreateComponent implements OnInit {
 
   igv: GenericType;
 
+  documentSerieNumeroMask = { allowDecimal: false, thousandsSeparatorSymbol: '' };
   documentMask = [/[B|F|b|f]/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/];
   numberMask = { allowDecimal: true, decimalLimit: 2 };
   quantityMask = { allowDecimal: true, decimalLimit: 3 };
@@ -79,6 +80,9 @@ export class DebitNoteCreateComponent implements OnInit {
 
   buildForm() {
     this.form = this.formBuilder.group({
+      serie: [null, Validators.compose([Validators.maxLength(4)])],
+      numero: [null, Validators.compose([Validators.maxLength(8)])],
+
       documentoQueSeModifica: [null, Validators.compose([Validators.required])],
       tipoDeNotaDeDebito: [null, Validators.compose([Validators.required])],
       igv: [null, Validators.compose([Validators.required])],

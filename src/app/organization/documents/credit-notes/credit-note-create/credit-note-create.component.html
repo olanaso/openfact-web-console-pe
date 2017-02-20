@@ -25,21 +25,41 @@
                         <label class="control-label" [ofFormRequiredLabel]="form.get('documentoQueSeModifica')">Boleta/Factura
                             <i class="fa fa-question-circle text-muted" ngbTooltip="Boleta/Factura" placement="right"></i>
                         </label>
-                        <input formControlName="documentoQueSeModifica" [textMask]="{mask: documentMask}" (keyup.enter)="findInvoiceByDocumentId()"
-                            type="text" class="form-control text-right" placeholder="[B|F]000-0000000">
+                        <input formControlName="documentoQueSeModifica" (keyup.enter)="findInvoiceByDocumentId()" type="text" class="form-control text-right"
+                            placeholder="[B|F]000-0000000">
                             <of-form-field-validation-messages [ofFormControl]="form.get('documentoQueSeModifica')">
                             </of-form-field-validation-messages>
                     </div>
                 </div>
                 <div class="col-md-2">
                     <div class="form-group" [ofFormFieldValidationState]="form.get('tipoDeNotaDeCredito')">
-                        <label class="control-label" [ofFormRequiredLabel]="form.get('tipoDeNotaDeCredito')">Boleta/Factura
+                        <label class="control-label" [ofFormRequiredLabel]="form.get('tipoDeNotaDeCredito')">Tipo Nota de Credito
                             <i class="fa fa-question-circle text-muted" ngbTooltip="Boleta/Factura" placement="right"></i>
                         </label>
                         <select formControlName="tipoDeNotaDeCredito" class="form-control" autofocus>
                             <option *ngFor="let tipoNotaCredito of tiposNotaCredito" [value]="tipoNotaCredito.codigo">{{tipoNotaCredito.denominacion}}</option>
                         </select>
                         <of-form-field-validation-messages [ofFormControl]="form.get('tipoDeNotaDeCredito')">
+                        </of-form-field-validation-messages>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group" [ofFormFieldValidationState]="form.get('serie')">
+                        <label class="control-label" [ofFormRequiredLabel]="form.get('serie')">Serie
+                            <i class="fa fa-question-circle text-muted" ngbTooltip="Serie del documento" placement="right"></i>
+                        </label>
+                        <input formControlName="serie" type="text" class="form-control text-left">
+                        <of-form-field-validation-messages [ofFormControl]="form.get('serie')">
+                        </of-form-field-validation-messages>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group" [ofFormFieldValidationState]="form.get('numero')">
+                        <label class="control-label" [ofFormRequiredLabel]="form.get('numero')">Numero
+                            <i class="fa fa-question-circle text-muted" ngbTooltip="Numero de documento" placement="right"></i>
+                        </label>
+                        <input formControlName="numero" type="text" [ofNumberMask]="documentSerieNumeroMask" class="form-control text-left">
+                        <of-form-field-validation-messages [ofFormControl]="form.get('numero')">
                         </of-form-field-validation-messages>
                     </div>
                 </div>

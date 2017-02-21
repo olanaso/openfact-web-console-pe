@@ -31,6 +31,7 @@ export class InvoiceCreateComponent implements OnInit, OnDestroy {
 
   form: FormGroup;
   working: boolean = false;
+  advanceMode: boolean = false;
 
   organization: Organization;
   tiposComprobantePago: GenericType[];

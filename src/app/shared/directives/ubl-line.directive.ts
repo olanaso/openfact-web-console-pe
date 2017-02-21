@@ -1,6 +1,51 @@
-import { Directive, ElementRef, EventEmitter, HostListener, Input, OnInit } from '@angular/core';
+import { AfterViewInit, OnInit } from '@angular/core';
+import { ChangeDetectorRef, ContentChild, Directive, Input, QueryList, ViewChild } from '@angular/core';
 
 import { NgControl } from '@angular/forms';
+
+@Directive({
+  selector: '[ofUblLineQuantity]'
+})
+export class UblLineQuantityDirective {
+  constructor(public control: NgControl) { }
+}
+
+// Precio sin igv
+@Directive({
+  selector: '[ofUblLineUnitValue]'
+})
+export class UblLineUnitValueDirective {
+  constructor(public control: NgControl) { }
+}
+
+//Precio con igv
+@Directive({
+  selector: '[ofUblLineUnitPrice]'
+})
+export class UblLineUnitPriceDirective {
+  constructor(public control: NgControl) { }
+}
+
+@Directive({
+  selector: '[ofUblLineSubtotal]'
+})
+export class UblLineSubtotalDirective {
+  constructor(public control: NgControl) { }
+}
+
+@Directive({
+  selector: '[ofUblLineTotal]'
+})
+export class UblLineTotalDirective {
+  constructor(public control: NgControl) { }
+}
+
+@Directive({
+  selector: '[ofUblLineTaxAmount]'
+})
+export class UblLineTaxAmountDirective {
+  constructor(public control: NgControl) { }
+}
 
 // al sacar subtotal y total se debe de redondear a dos digitos
 // Sin embargo para el calculo de total gravado, exonerado e inafecto se
@@ -17,7 +62,7 @@ export interface UblLine {
 @Directive({
   selector: '[ofUblLine]'
 })
-export class UblLineDirective {
+export class UblLineDirective implements OnInit, AfterViewInit {
 
   // Se debe de ingresar el factor de incremento ej. 0.18
   private _tax: number = 1;
@@ -30,7 +75,6 @@ export class UblLineDirective {
   }
 
   currentState: UblLine;
-  notificator: EventEmitter<UblLine> = new EventEmitter<UblLine>();
 
   private _quantity: number;
   private _unitValue: number;
@@ -39,7 +83,43 @@ export class UblLineDirective {
   private _total: number;
   private _taxAmount: number;
 
-  constructor() { }
+  @ContentChild(UblLineQuantityDirective)
+  quantityDirective: UblLineQuantityDirective;
+
+  @ContentChild(UblLineUnitValueDirective)
+  unitValueDirective: UblLineUnitValueDirective;
+
+  @ContentChild(UblLineUnitPriceDirective)
+  unitPriceDirective: UblLineUnitPriceDirective;
+
+  @ContentChild(UblLineSubtotalDirective)
+  subtotalDirective: UblLineSubtotalDirective;
+
+  @ContentChild(UblLineTotalDirective)
+  totalDirective: UblLineTotalDirective;
+
+  @ContentChild(UblLineTaxAmountDirective)
+  taxAmountDirective: UblLineTaxAmountDirective;
+
+
+  constructor(private _changeDetectionRef: ChangeDetectorRef) { }
+
+  ngOnInit() {
+    this._changeDetectionRef.detach();
+  }
+
+  ngAfterViewInit() {
+    if (this.quantityDirective) { this.quantity = this.quantityDirective.control.value; }
+    if (this.unitValueDirective) { this.unitValue = this.unitValueDirective.control.value; }
+    if (this.subtotalDirective) { this.subtotal = this.subtotalDirective.control.value; }
+    if (this.totalDirective) { this.total = this.totalDirective.control.value; }
+    setTimeout(() => this._changeDetectionRef.reattach());
+
+    this.quantityDirective.control.valueChanges.subscribe(controlValue => this.quantity = controlValue);
+    this.unitValueDirective.control.valueChanges.subscribe(controlValue => this.unitValue = controlValue);
+    this.subtotalDirective.control.valueChanges.subscribe(controlValue => this.subtotal = controlValue);
+    this.totalDirective.control.valueChanges.subscribe(controlValue => this.total = controlValue);
+  }
 
   refreshLeft() {
     if (this._quantity && this._unitValue && this.isFireAllowed()) {
@@ -47,7 +127,7 @@ export class UblLineDirective {
       this._total = this._subtotal * this._tax;
 
       this.currentState = this.getResult();
-      this.notificator.emit(this.currentState);
+      this.refreshChildren();
     }
   }
 
@@ -57,7 +137,7 @@ export class UblLineDirective {
       this._total = this._subtotal * this._tax;
 
       this.currentState = this.getResult();
-      this.notificator.emit(this.currentState);
+      this.refreshChildren();
     }
   }
 
@@ -67,8 +147,17 @@ export class UblLineDirective {
       this._subtotal = this._quantity * this._unitValue;
 
       this.currentState = this.getResult();
-      this.notificator.emit(this.currentState);
+      this.refreshChildren();
     }
+  }
+
+  refreshChildren() {
+    this.quantityDirective.control.control.setValue(this.currentState.quantity);
+    this.unitValueDirective.control.control.setValue(this.currentState.unitValue);
+    this.subtotalDirective.control.control.setValue(this.currentState.subtotal);
+    this.totalDirective.control.control.setValue(this.currentState.total);
+    this.unitPriceDirective.control.control.setValue(this.currentState.unitPrice);
+    this.taxAmountDirective.control.control.setValue(this.currentState.taxAmount);
   }
 
   // redondeos para evitar errores de multiplicacion con float y decimales indeterminados
@@ -79,7 +168,7 @@ export class UblLineDirective {
     this._taxAmount = +(this._subtotal * (+(this._tax - 1).toFixed(2))).toFixed(2);
     this._subtotal = +this._subtotal.toFixed(2);
     this._total = +this._total.toFixed(2);
-    
+
     let result: UblLine = {
       quantity: this._quantity,
       unitValue: this._unitValue,
@@ -92,8 +181,7 @@ export class UblLineDirective {
   }
 
   isFireAllowed(): boolean {
-    if (
-      this.currentState &&
+    if (this.currentState &&
       this._quantity == this.currentState.quantity &&
       this._unitValue == this.currentState.unitValue &&
       this._subtotal == this.currentState.subtotal &&
@@ -121,114 +209,6 @@ export class UblLineDirective {
   set total(total: number) {
     this._total = total;
     this.refreshRight();
-  }
-
-}
-
-@Directive({
-  selector: '[ofUblLineQuantity]'
-})
-export class UblLineQuantityDirective implements OnInit {
-
-  constructor(public line: UblLineDirective, private control: NgControl) { }
-
-  ngOnInit() {
-    this.control.valueChanges.subscribe(controlValue => {
-      this.line.quantity = controlValue;
-    });
-
-    this.line.notificator.subscribe((result: UblLine) => {
-      this.control.control.setValue(result.quantity);
-    });
-  }
-
-}
-
-// Precio sin igv
-@Directive({
-  selector: '[ofUblLineUnitValue]'
-})
-export class UblLineUnitValueDirective implements OnInit {
-
-  constructor(public line: UblLineDirective, private control: NgControl) { }
-
-  ngOnInit() {
-    this.control.valueChanges.subscribe(controlValue => {
-      this.line.unitValue = controlValue;
-    });
-
-    this.line.notificator.subscribe((result: UblLine) => {
-      this.control.control.setValue(result.unitValue);
-    });
-  }
-
-}
-
-//Precio con igv
-@Directive({
-  selector: '[ofUblLineUnitPrice]'
-})
-export class UblLineUnitPriceDirective implements OnInit {
-
-  constructor(public line: UblLineDirective, private control: NgControl) { }
-
-  ngOnInit() {
-    this.line.notificator.subscribe((result: UblLine) => {
-      this.control.control.setValue(result.unitPrice);
-    });
-  }
-
-}
-
-@Directive({
-  selector: '[ofUblLineSubtotal]'
-})
-export class UblLineSubtotalDirective implements OnInit {
-
-  constructor(public line: UblLineDirective, private control: NgControl) { }
-
-  ngOnInit() {
-    this.control.valueChanges.subscribe(controlValue => {
-      this.line.subtotal = controlValue;
-    });
-
-    this.line.notificator.subscribe((result: UblLine) => {
-      this.control.control.setValue(result.subtotal);
-    });
-  }
-
-}
-
-@Directive({
-  selector: '[ofUblLineTotal]'
-})
-export class UblLineTotalDirective implements OnInit {
-
-  constructor(public line: UblLineDirective, private control: NgControl) { }
-
-  ngOnInit() {
-    this.control.valueChanges.subscribe(controlValue => {
-      this.line.total = controlValue;
-    });
-
-    this.line.notificator.subscribe((result: UblLine) => {
-      this.control.control.setValue(result.total);
-    });
-  }
-
-}
-
-@Directive({
-  selector: '[ofUblLineTaxAmount]'
-})
-export class UblLineTaxAmountDirective implements OnInit {
-
-  constructor(public line: UblLineDirective, private control: NgControl) { }
-
-  ngOnInit() {
-    this.line.notificator.subscribe((result: UblLine) => {
-      this.control.control.setValue(result.taxAmount);
-    });
   }
 
 }

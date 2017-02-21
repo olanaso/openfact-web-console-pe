@@ -33,6 +33,7 @@ export class CreditNoteCreateComponent implements OnInit, OnDestroy {
 
   form: FormGroup;
   working: boolean = false;
+  advanceMode: boolean = false;
 
   organization: Organization;
   tiposNotaCredito: GenericType[];
@@ -140,7 +141,7 @@ export class CreditNoteCreateComponent implements OnInit, OnDestroy {
     });
   }
 
-  addDetalleFormControl(): void {
+  addDetalleFormControl(): FormGroup {
     const formGroup = this.formBuilder.group({
       unitCode: [null, Validators.compose([Validators.maxLength(150)])],
       descripcion: [null, Validators.compose([Validators.required, Validators.maxLength(150)])],
@@ -154,6 +155,7 @@ export class CreditNoteCreateComponent implements OnInit, OnDestroy {
     });
     this.loadDataDetalle(formGroup);
     this.detalle.push(formGroup);
+    return formGroup;
   }
 
   removeDetalleFormControl(index) {
@@ -280,7 +282,7 @@ export class CreditNoteCreateComponent implements OnInit, OnDestroy {
 
     this.dialogService.confirm('Confirm', 'Estas seguro de realizar esta operacion').result.then(
       (redirect) => {
-        this.working = true;    
+        this.working = true;
 
         this.dataService.organizationsSunat().createCreditnote(this.organization.organization, form.value).subscribe(
           response => {
@@ -324,6 +326,19 @@ export class CreditNoteCreateComponent implements OnInit, OnDestroy {
           entidadEmail: data[0]['customerElectronicMail'],
           documentoQueSeModifica: data[0]['documentId']
         });
+
+        if (data[0]['documentLines'] && data[0]['documentLines'].length > 0) {
+          for (let i = 0; i < data[0]['documentLines'].length; i++) {
+            const documentLine = data[0]['documentLines'][i];
+            const formGroup = this.addDetalleFormControl();
+            formGroup.patchValue({
+              cantidad: Number(documentLine.quantity),
+              descripcion: documentLine.itemDescription,
+              valorUnitario: Number(documentLine.priceAmount),
+              tipoDeIgv: documentLine.taxExemptionReasonCodeIGV
+            });
+          }
+        }
       } else {
         this.alertService.pop('info', 'Info', 'Could not find Invoice.');
       }

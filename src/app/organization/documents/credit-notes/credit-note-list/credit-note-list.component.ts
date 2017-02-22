@@ -163,7 +163,7 @@ export class CreditNoteListComponent implements OnInit, OnDestroy {
   }
 
   addNoEnviadosSunatFilter() {
-    const filter = new SearchCriteriaFilter('requiredActions', 'SEND_TO_TRIRD_PARTY', 'in');
+    const filter = new SearchCriteriaFilter('requiredActions', 'SEND_TO_THIRD_PARTY', 'in');
     filter.alias = 'No Enviados a Sunat';
     this.filters.push(filter);
     this.search();

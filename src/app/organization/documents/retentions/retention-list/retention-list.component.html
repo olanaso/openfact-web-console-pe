@@ -139,8 +139,8 @@
             </td>
             <td class="text-right">
               <span *ngIf="item.requiredActions && item.requiredActions.length > 0">
-                    <i *ngIf="hasRequiredAction(item, 'SEND_TO_TRIRD_PARTY')" class="pficon pficon-warning-triangle-o"></i>
-                    {{!hasRequiredAction(item, 'SEND_TO_TRIRD_PARTY') | yesNo: ('yes-no' | translate)}}
+                    <i *ngIf="hasRequiredAction(item, 'SEND_TO_THIRD_PARTY')" class="pficon pficon-warning-triangle-o"></i>
+                    {{!hasRequiredAction(item, 'SEND_TO_THIRD_PARTY') | yesNo: ('yes-no' | translate)}}
               </span>
               <span *ngIf="!item.requiredActions || item.requiredActions.length == 0">{{'yes' | translate}}</span>
             </td>

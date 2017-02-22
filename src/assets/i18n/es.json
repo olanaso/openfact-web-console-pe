@@ -76,7 +76,7 @@
   "edit": "Editar",
   "created": "Creado",
   "SEND_TO_CUSTOMER": "Enviar al Cliente",
-  "SEND_TO_TRIRD_PARTY": "Enviar a Sunat",
+  "SEND_TO_THIRD_PARTY": "Enviar a Sunat",
   "send-events": "Eventos de Envio",
   "general-information": "Informacion General",
   "legal-monetary-total": "Total Pago",
@@ -153,5 +153,8 @@
   "this-field-min-length-allowed-is": "Longitud minima permitida",
   "this-field-value-is-invalid": "El valor de este campo es invalido",
   "new-perception": "Nueva percepcion",
-  "new-retention": "Nueva retencion"
+  "new-retention": "Nueva retencion",
+  "to-customer": "Al Cliente",
+  "to-third-party": "A Sunat",
+  "to-custom-email": "A Email"
 }

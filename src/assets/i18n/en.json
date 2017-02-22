@@ -76,7 +76,7 @@
   "edit": "Edit",
   "created": "Created",
   "SEND_TO_CUSTOMER": "Send to Customer",
-  "SEND_TO_TRIRD_PARTY": "Send to Third Party",
+  "SEND_TO_THIRD_PARTY": "Send to Third Party",
   "send-events": "Send Events",
   "general-information": "General Information",
   "legal-monetary-total": "Legal Monetary Total",
@@ -153,5 +153,8 @@
   "this-field-min-length-allowed-is": "Min length allowed is",
   "this-field-value-is-invalid": "The value of this field is invalid",
   "new-perception": "New perception",
-  "new-retention": "New retention"
+  "new-retention": "New retention",
+  "to-customer": "To Customer",
+  "to-third-party": "To Third Party",
+  "to-custom-email": "To Custom Email"
 }

@@ -8,8 +8,8 @@
     <div class="text-right">
       <div name="destinyType" [(ngModel)]="selectedDestinyType" (ngModelChange)="loadData($event)" ngbRadioGroup>
         <label *ngFor="let destiny of destinyType" class="btn btn-default">
-      <input type="radio" [value]="destiny.value">{{destiny.denomination | translate}}
-    </label>
+          <input type="radio" [value]="destiny.value">{{destiny.denomination | translate}}
+        </label>
       </div>
     </div>
     <br>
@@ -41,7 +41,7 @@
                 <i *ngIf="event.result == 'SUCCESS'" class="pficon pficon-ok"></i>
                 <i *ngIf="event.result == 'ERROR'" class="pficon pficon-warning-triangle-o"></i>                               
                 {{event.result}}
-          </span>
+              </span>
               <div *ngIf="event.result == 'ON_PROCESS'">
                 <div class="spinner spinner-xs spinner-inline"></div>
                 {{event.result}}

@@ -66,8 +66,11 @@
 			</div>
 		</h3>
 		<span *ngIf="!document.enabled" class="label label-danger">{{'voided' | translate}}</span>&nbsp;
-		<template ngFor let-item [ngForOf]="document.requiredActions">
-			<span class="label label-warning">{{item | translate}}</span>&nbsp;
+		<template ngFor let-item let-i="index" [ngForOf]="document.requiredActions">			
+			<span class="label label-warning">
+  				<span>{{item | translate}}</span>
+				<a href="javascript:void(0)" (click)="removeRequiredAction(index, item)"><i class="pficon pficon-close"></i></a>
+			</span>&nbsp;
 		</template>
 	</div>
 </div>

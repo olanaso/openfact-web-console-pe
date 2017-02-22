@@ -11,6 +11,8 @@ export class Document extends Model {
     documentId: string;
     documentType: string;
 
+    requiredActions: string[];
+
     constructor(restangular: RestangularService) {
         super(restangular);
     }

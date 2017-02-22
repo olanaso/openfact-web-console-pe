@@ -75,6 +75,21 @@ export class DocumentEditHeaderComponent implements OnInit {
 
   ngOnInit() { }
 
+  removeRequiredAction(index: number, action: string) {
+    this.dialog.confirmDelete(action, 'Required Action').result.then(
+      (result) => {
+        let requiredActions = this.document.requiredActions.slice().splice(index, 1);
+        this.document.save({
+          requiredActions: requiredActions
+        }).subscribe(data => {
+          this.document.requiredActions.splice(index, 1);
+          this.alertService.pop('success', 'Success', 'Success! Document updated successfully.');
+        });
+      },
+      (cancel) => { }
+    );
+  }
+
   downloadXml() {
     this.document.downloadXml();
   }

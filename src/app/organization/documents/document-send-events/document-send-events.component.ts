@@ -26,7 +26,7 @@ export class DocumentSendEventsComponent implements OnInit, OnDestroy {
   destinyType = [
     { denomination: 'send-to-customer', value: 'CUSTOMER' },
     { denomination: 'send-to-third-party', value: 'THIRD_PARTY' },
-    { denomination: 'send-to-custom-third-party-by-email', value: 'THIRD_PARTY_BY_EMAIL' }
+    { denomination: 'send-to-custom-third-party-by-email', value: 'CUSTOM_EMAIL' }
   ];
 
   breadcrumb: string;

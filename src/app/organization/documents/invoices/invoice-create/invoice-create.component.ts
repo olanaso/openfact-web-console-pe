@@ -161,6 +161,13 @@ export class InvoiceCreateComponent implements OnInit, OnDestroy {
       }
     });
 
+    this.form.get('operacionGratuita').valueChanges.subscribe(value => {
+      this.form.patchValue({
+        porcentajeDescuento: null,
+        totalOtrosCargos: null
+      });
+      this.recalcularDatos();
+    });
     this.form.get('porcentajeDescuento').valueChanges.subscribe(value => {
       this.recalcularDatos();
     });
@@ -206,8 +213,13 @@ export class InvoiceCreateComponent implements OnInit, OnDestroy {
     let totalIgv = 0;
 
     const operacionGratuita = this.form.get('operacionGratuita').value;
-    const porcentajeDescuento = (this.form.get('porcentajeDescuento').value || 0) / 100;
-    const totalOtrosCargos = this.form.get('totalOtrosCargos').value || 0;
+    let porcentajeDescuento = (this.form.get('porcentajeDescuento').value || 0) / 100;
+    let totalOtrosCargos = this.form.get('totalOtrosCargos').value || 0;
+
+    if (operacionGratuita === true) {
+      porcentajeDescuento = 0;
+      totalOtrosCargos = 0;
+    }
 
     this.detalle.controls.forEach(formControl => {
 
@@ -219,6 +231,10 @@ export class InvoiceCreateComponent implements OnInit, OnDestroy {
       //Operacion gratuita
       if (operacionGratuita) {
         totalGratuita += subtotal;
+
+        if (tipoIgv.afectaIgv) {
+          totalGratuita += (subtotal * this.getIgvAsDecimal());
+        }
       } else {
         if (tipoIgv.grupo.toUpperCase() == 'GRAVADO') {
           totalGravado += subtotal;
@@ -229,11 +245,12 @@ export class InvoiceCreateComponent implements OnInit, OnDestroy {
         } else {
           throw new Error('Invalid IGV');
         }
+
+        if (tipoIgv.afectaIgv) {
+          totalIgv += (subtotal * this.getIgvAsDecimal());
+        }
       }
 
-      if (tipoIgv.afectaIgv) {
-        totalIgv += (subtotal * this.getIgvAsDecimal());
-      }
     });
 
     let totalGravadaConDescuento = totalGravado - (totalGravado * porcentajeDescuento);

@@ -17,6 +17,8 @@ import { Http } from '@angular/http';
 import { InvoiceService } from './data/invoice.service';
 import { KeycloakHttpFactory } from './keycloak.http';
 import { KeycloakService } from './keycloak.service';
+import { LoadingComponent } from './loading/loading.component';
+import { LoadingService } from './loading/loading.service';
 import { NgModule } from '@angular/core';
 import { OrganizationComponentResolverService } from './resolvers/organization-component-resolver.service';
 import { OrganizationKeyResolverService } from './resolvers/organization-key-resolver.service';
@@ -42,20 +44,22 @@ import { XHRBackend } from '@angular/http';
   declarations: [
     AlertsComponent,
     AlertComponent,
-    DialogComponent
+    DialogComponent,
+    LoadingComponent
   ],
   entryComponents: [
     DialogComponent
   ],
   exports: [
-    AlertsComponent
+    AlertsComponent,
+    LoadingComponent
   ],
   providers: [
     KeycloakService,
     {
       provide: Http,
       useFactory: KeycloakHttpFactory,
-      deps: [XHRBackend, RequestOptions, KeycloakService]
+      deps: [XHRBackend, RequestOptions, KeycloakService, LoadingService]
     },
     {
       provide: RestangularService,
@@ -64,6 +68,8 @@ import { XHRBackend } from '@angular/http';
     },
     AlertService,
     DialogService,
+    LoadingService,
+
     DataService,
     OrganizationService,
     ServerInfoService,

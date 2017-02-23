@@ -156,5 +156,6 @@
   "new-retention": "New retention",
   "to-customer": "To Customer",
   "to-third-party": "To Third Party",
-  "to-custom-email": "To Custom Email"
+  "to-custom-email": "To Custom Email",
+  "loading": "Loading..."
 }

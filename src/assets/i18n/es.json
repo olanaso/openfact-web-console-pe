@@ -156,5 +156,6 @@
   "new-retention": "Nueva retencion",
   "to-customer": "Al Cliente",
   "to-third-party": "A Sunat",
-  "to-custom-email": "A Email"
+  "to-custom-email": "A Email",
+  "loading": "Cargando..."
 }

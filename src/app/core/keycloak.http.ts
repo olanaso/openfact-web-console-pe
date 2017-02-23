@@ -2,10 +2,11 @@ import { ConnectionBackend, Headers, Http, Request, RequestOptions, RequestOptio
 
 import { Injectable } from '@angular/core';
 import { KeycloakService } from './keycloak.service';
+import { LoadingService } from './loading/loading.service';
 import { Observable } from 'rxjs/Rx';
 
-export function KeycloakHttpFactory(backend: XHRBackend, defaultOptions: RequestOptions, keycloakService: KeycloakService) {
-    return new KeycloakHttp(backend, defaultOptions, keycloakService);
+export function KeycloakHttpFactory(backend: XHRBackend, defaultOptions: RequestOptions, keycloakService: KeycloakService, loadingService: LoadingService) {
+    return new KeycloakHttp(backend, defaultOptions, keycloakService, loadingService);
 }
 
 export class KeycloakHttp extends Http {
@@ -17,7 +18,7 @@ export class KeycloakHttp extends Http {
         };
     }
 
-    constructor(_backend: ConnectionBackend, _defaultOptions: RequestOptions, private _keycloakService: KeycloakService) {
+    constructor(_backend: ConnectionBackend, _defaultOptions: RequestOptions, private _keycloakService: KeycloakService, private _loadingService: LoadingService) {
         super(_backend, _defaultOptions);
     }
 
@@ -84,12 +85,15 @@ export class KeycloakHttp extends Http {
                 result = f.apply(this, [url, options]);
             }
 
+            this._loadingService.incrementResourceRequests();
             result.subscribe(
                 (response) => {
+                    this._loadingService.reduceResourceRequests();
                     observer.next(response);
                     observer.complete();
                 },
                 (err) => {
+                    this._loadingService.reduceResourceRequests();
                     observer.error(err);
                 }
             );

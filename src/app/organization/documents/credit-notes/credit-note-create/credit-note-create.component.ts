@@ -162,6 +162,10 @@ export class CreditNoteCreateComponent implements OnInit, OnDestroy {
     this.detalle.removeAt(index);
   }
 
+  clearDetalleFormControl() {
+    this.form.controls['detalle'] = this.formBuilder.array([]);
+  }
+
   getIgvFactor(formControl: FormControl): number {
     const tipoAfectacionIgv = this.tiposDeAfectacionIgv.find(p => p.codigo == formControl.get('tipoDeIgv').value);
     if (tipoAfectacionIgv && tipoAfectacionIgv.afectaIgv) {
@@ -326,6 +330,8 @@ export class CreditNoteCreateComponent implements OnInit, OnDestroy {
           entidadEmail: data[0]['customerElectronicMail'],
           documentoQueSeModifica: data[0]['documentId']
         });
+
+        this.clearDetalleFormControl();
 
         if (data[0]['documentLines'] && data[0]['documentLines'].length > 0) {
           for (let i = 0; i < data[0]['documentLines'].length; i++) {

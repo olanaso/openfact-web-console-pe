@@ -60,6 +60,9 @@ export class DocumentEditHeaderComponent implements OnInit {
   @Input()
   enableVoid: boolean = true;
 
+  @Input()
+  enableCheckTicket: boolean = false;
+
   thirdPartyByEmail: any = {};
   isAttatchedDocumentsCollapsed: boolean;
   isAttributesCollapsed: boolean;
@@ -96,6 +99,10 @@ export class DocumentEditHeaderComponent implements OnInit {
 
   downloadCdr() {
     this.dataService.organizationsSunat().downloadDocumentCdr(this.organization.organization, this.document.id);
+  }
+
+  checkTicket() {
+    this.dataService.organizationsSunat().checkTicket(this.organization.organization, this.document.id);
   }
 
   downloadPdf() {

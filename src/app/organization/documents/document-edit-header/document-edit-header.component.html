@@ -26,6 +26,9 @@
 							<li *ngIf="enableDownloadCdr">
 								<a href="javascript:void(0);" (click)="downloadCdr()"> <span class="fa fa-file-code-o"></span> Cdr</a>
 							</li>
+							<li *ngIf="enableCheckTicket">
+								<a href="javascript:void(0);" (click)="checkTicket()"> <span class="fa fa-file-code-o"></span> Consultar Ticket</a>
+							</li>
 							<li class="divider"></li>
 							<li *ngIf="enableDownloadPdf">
 								<a href="javascript:void(0);" (click)="downloadPdf()"><span class="fa fa-file-pdf-o"></span> Pdf</a>

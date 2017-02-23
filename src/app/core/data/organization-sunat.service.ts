@@ -40,6 +40,29 @@ export class OrganizationSunatService {
       });
   }
 
+  checkTicket(organizationName: string, documentId: string) {
+    let options: RequestOptionsArgs = {
+      responseType: ResponseContentType.Blob
+    };
+
+    return this.restangular.one('organizations', organizationName)
+      .all(basePath)
+      .one('documents', documentId)
+      .all('check-ticket')
+      .get(null, options)
+      .map(response => {
+        let file = {
+          file: response.blob(),
+          fileName: 'ticket.zip'
+        };
+        return file;
+      }).subscribe(result => {
+        saveAs(result.file, result.fileName);
+      }, error => {
+        Observable.throw(error);
+      });
+  }
+
   createInvoice(organizationName: string, document: any): Observable<any> {
     return this.restangular.one('organizations', organizationName)
       .all(basePath)

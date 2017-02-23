@@ -102,7 +102,7 @@
             <th class="sorting text-right">#</th>
             <th class="sorting">ID</th>
             <th class="sorting">{{'issue-date' | translate}}</th>
-            <th class="sorting">{{'currency-code' | translate}}</th>
+            <th class="sorting">{{'voided' | translate}}</th>
             <th class="text-right">{{'customer-sended' | translate}}</th>
             <th class="text-right">{{'third-party-sended' | translate}}</th>
             <th colspan="2" rowspan="1">{{'actions' | translate}}</th>
@@ -144,8 +144,8 @@
               </div>
             </td>
             <td class=" table-view-pf-actions">
-              <of-document-actions [organization]="organization" [document]="item" [enableDownloadPdf]="false" [enableDownloadCdr]="false"
-                [enableAssignCreditNote]="false" [enableAssignDebitNote]="false" [enableVoid]="false"></of-document-actions>
+              <of-document-actions [organization]="organization" [document]="item" [enableDownloadCdr]="false" [enableAssignCreditNote]="false"
+                [enableAssignDebitNote]="false" [enableVoid]="false"></of-document-actions>
             </td>
           </tr>
         </tbody>

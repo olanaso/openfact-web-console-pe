@@ -164,6 +164,9 @@ export class DebitNoteCreateComponent implements OnInit {
 
   clearDetalleFormControl() {
     this.form.controls['detalle'] = this.formBuilder.array([]);
+    this.detalle.valueChanges.subscribe(value => {
+      this.recalcularDatos();
+    });
   }
 
   getIgvFactor(formControl: FormControl): number {

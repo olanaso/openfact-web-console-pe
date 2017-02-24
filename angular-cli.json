@@ -26,8 +26,8 @@
         "../node_modules/keycloak-js/dist/keycloak.min.js",
         "../node_modules/keycloak-js/dist/keycloak-authz.min.js"
       ],
-      "environments": {
-        "source": "environments/environment.ts",
+      "environmentSource": "environments/environment.ts",
+      "environments": {        
         "dev": "environments/environment.ts",
         "prod": "environments/environment.prod.ts"
       }

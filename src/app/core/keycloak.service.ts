@@ -9,7 +9,7 @@ export class KeycloakService {
   static auth: any = {};
 
   static init(): Promise<any> {
-    const keycloakAuth: any = new Keycloak('keycloak.json');
+    const keycloakAuth: any = new Keycloak('assets/keycloak.json');
 
     return new Promise((resolve, reject) => {
       keycloakAuth.init({ onLoad: 'login-required' })
@@ -39,7 +39,5 @@ export class KeycloakService {
       }
     });
   }
-
-
 
 }

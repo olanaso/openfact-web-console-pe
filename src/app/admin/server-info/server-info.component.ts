@@ -24,7 +24,7 @@ export class ServerInfoComponent implements OnInit {
   };
   spis = new Collections.Dictionary<String, any>();
 
-  tab: string = 'serverInfo';
+  tab = 'serverInfo';
 
   constructor(private dataService: DataService) { }
 

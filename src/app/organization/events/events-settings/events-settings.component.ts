@@ -20,7 +20,7 @@ export class EventsSettingsComponent implements OnInit, OnDestroy {
   parentDataSubscription: Subscription;
 
   form: FormGroup;
-  working: boolean = false;
+  working = false;
 
   organization: Organization;
   serverInfo: any;
@@ -70,8 +70,8 @@ export class EventsSettingsComponent implements OnInit, OnDestroy {
   }
 
   clearAdminEvents(content) {
-    this.dialogService.confirmDelete('', 'Events').result.then((result) => {
-      this.organization.clearAdminEvents().subscribe(result => {
+    this.dialogService.confirmDelete('', 'Events').result.then((data1) => {
+      this.organization.clearAdminEvents().subscribe(data2 => {
         this.alertService.pop('success', 'Success', 'The admin events has been cleared.');
       });
     }, (reason) => {

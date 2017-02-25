@@ -1,5 +1,13 @@
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { UblLineDirective, UblLineQuantityDirective, UblLineSubtotalDirective, UblLineTaxAmountDirective, UblLineTotalDirective, UblLineUnitPriceDirective, UblLineUnitValueDirective } from './directives/ubl-line.directive';
+import {
+  UblLineDirective,
+  UblLineQuantityDirective,
+  UblLineSubtotalDirective,
+  UblLineTaxAmountDirective,
+  UblLineTotalDirective,
+  UblLineUnitPriceDirective,
+  UblLineUnitValueDirective,
+} from './directives/ubl-line.directive';
 
 import { ButtonCancelComponent } from './components/button-cancel/button-cancel.component';
 import { ButtonDeleteComponent } from './components/button-delete/button-delete.component';

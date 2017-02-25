@@ -21,7 +21,7 @@ export class SettingsGenericKeystoreComponent implements OnInit, OnDestroy {
 
   form: FormGroup;
   create: boolean;
-  working: boolean = false;
+  working = false;
 
   providerFactory: any;
   instance: any;

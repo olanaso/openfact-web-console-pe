@@ -7,10 +7,10 @@ import { DataService } from './../../../../core/data/data.service';
 import { DialogService } from './../../../../core/dialog/dialog.service';
 import { GenericType } from './../../../../core/model/genericType.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { OfValidators } from './../../../../shared/validators/of-validators';
 import { Organization } from './../../../../core/model/organization.model';
 import { Subscription } from 'rxjs/Subscription';
 import { URLSearchParams } from '@angular/http';
-import { ofValidators } from './../../../../shared/validators/of-validators';
 
 @Component({
   selector: 'of-perception-create',
@@ -38,7 +38,7 @@ export class PerceptionCreateComponent implements OnInit, OnDestroy {
   dataSubscription: Subscription;
 
   form: FormGroup;
-  working: boolean = false;
+  working = false;
 
   organization: Organization;
   tiposRegimenPercepcion: GenericType[];
@@ -145,8 +145,8 @@ export class PerceptionCreateComponent implements OnInit, OnDestroy {
       tipoCambio: [null, Validators.compose([Validators.maxLength(20)])],
       fechaCambio: [null, Validators.compose([Validators.maxLength(20)])],
 
-      pagoDocumentoSunat: [null, Validators.compose([Validators.required, ofValidators.minValue(1)])],
-      numeroPago: [null, Validators.compose([Validators.required, ofValidators.minValue(1)])],
+      pagoDocumentoSunat: [null, Validators.compose([Validators.required, OfValidators.minValue(1)])],
+      numeroPago: [null, Validators.compose([Validators.required, OfValidators.minValue(1)])],
 
       fechaDocumentoSunat: [null, Validators.compose([Validators.required])],
       importeDocumentoSunat: [null, Validators.compose([Validators.required])],
@@ -199,14 +199,14 @@ export class PerceptionCreateComponent implements OnInit, OnDestroy {
       const codigoTipoDocumentoRelacionado = formGroup.get('tipoDocumentoRelacionado').value;
       const tipoDocumentoRelacionado = this.documentosRelacionadosPercepcion.find(f => f.codigo === codigoTipoDocumentoRelacionado);
 
-      let queryParam: URLSearchParams = new URLSearchParams();
+      const queryParam: URLSearchParams = new URLSearchParams();
       queryParam.set('documentType', tipoDocumentoRelacionado.grupo);
       queryParam.set('documentId', formGroup.get('numeroDocumentoRelacionado').value);
 
       this.dataService.documents().getAll(this.organization, queryParam).subscribe(
         data => {
           if (data && data.length > 0) {
-            let dateString = data[0]['attributes']['issueDate'][0].split('-');
+            const dateString = data[0]['attributes']['issueDate'][0].split('-');
 
             formGroup.patchValue({
               totalDocumentoRelacionado: data[0]['attributes']['legalMonetaryTotalPayableAmount'][0],
@@ -225,7 +225,7 @@ export class PerceptionCreateComponent implements OnInit, OnDestroy {
   recalcularDatos() {
     const tasaDocumento = this.form.get('tasaDocumento').value || 0;
     this.detalle.controls.forEach(formControl => {
-      // Se debe de multiplicar nuevamente para no perder los redondeos y sumar con todos los digitos      
+      // Se debe de multiplicar nuevamente para no perder los redondeos y sumar con todos los digitos
       const tipoCambio = formControl.get('tipoCambio').value || 1;
       const pagoDocumentoSunat = formControl.get('pagoDocumentoSunat').value || 0;
 
@@ -240,11 +240,11 @@ export class PerceptionCreateComponent implements OnInit, OnDestroy {
 
     // Calculo de totales
     const totalDocumentoSunat: number = this.detalle.controls.map(formGroup => {
-      return (formGroup.get('importeDocumentoSunat').value || 0)
+      return (formGroup.get('importeDocumentoSunat').value || 0);
     }).reduce((previousValue, currentValue) => previousValue + currentValue, 0);
 
     const totalPago: number = this.detalle.controls.map(formGroup => {
-      return (formGroup.get('importePago').value || 0)
+      return (formGroup.get('importePago').value || 0);
     }).reduce((previousValue, currentValue) => previousValue + currentValue, 0);
 
     this.form.patchValue({
@@ -255,7 +255,7 @@ export class PerceptionCreateComponent implements OnInit, OnDestroy {
   }
 
   save(form: FormGroup): void {
-    if (!form.value.detalle || form.value.detalle.length == 0) {
+    if (!form.value.detalle || form.value.detalle.length === 0) {
       this.alertService.pop('warning', 'Warning', 'Warning! Is required to add at least one line.');
       return;
     }

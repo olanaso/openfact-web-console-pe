@@ -1,4 +1,16 @@
-import { DocumentosRelacionadosPercepcionResolverService, DocumentosRelacionadosRetencionResolverService, IgvResolverService, MonedasResolverService, TiposAfectacionIGVResolverService, TiposComprobantePagoResolverService, TiposDocumentoEntidadResolverService, TiposNotaCreditoResolverService, TiposNotaDebitoResolverService, TiposRegimenPercepcionResolverService, TiposRegimenRetencionResolverService } from './../core/resolvers/generic-type-resolver.service';
+import {
+  DocumentosRelacionadosPercepcionResolverService,
+  DocumentosRelacionadosRetencionResolverService,
+  IgvResolverService,
+  MonedasResolverService,
+  TiposAfectacionIGVResolverService,
+  TiposComprobantePagoResolverService,
+  TiposDocumentoEntidadResolverService,
+  TiposNotaCreditoResolverService,
+  TiposNotaDebitoResolverService,
+  TiposRegimenPercepcionResolverService,
+  TiposRegimenRetencionResolverService,
+} from './../core/resolvers/generic-type-resolver.service';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AdminEventsComponent } from './events/admin-events/admin-events.component';
@@ -31,7 +43,9 @@ import { RetentionEditComponent } from './documents/retentions/retention-edit/re
 import { RetentionListComponent } from './documents/retentions/retention-list/retention-list.component';
 import { ServerInfoResolverService } from './../core/resolvers/server-info-resolver.service';
 import { SettingsActiveKeyComponent } from './settings/settings-active-key/settings-active-key.component';
-import { SettingsAdditionalInformationComponent } from './settings/settings-additional-information/settings-additional-information.component';
+import {
+  SettingsAdditionalInformationComponent,
+} from './settings/settings-additional-information/settings-additional-information.component';
 import { SettingsAllKeysComponent } from './settings/settings-all-keys/settings-all-keys.component';
 import { SettingsGeneralInformationComponent } from './settings/settings-general-information/settings-general-information.component';
 import { SettingsGenericKeystoreComponent } from './settings/settings-generic-keystore/settings-generic-keystore.component';
@@ -181,7 +195,6 @@ const routes: Routes = [
           tiposDeAfectacionIgv: TiposAfectacionIGVResolverService,
           igv: IgvResolverService
         },
-        //canActivate: [OrganizationConfigGuardService]
       },
       {
         path: 'invoices/:document',
@@ -203,7 +216,6 @@ const routes: Routes = [
           tiposDeAfectacionIgv: TiposAfectacionIGVResolverService,
           igv: IgvResolverService
         },
-        //canActivate: [OrganizationConfigGuardService]
       },
       {
         path: 'credit-notes/:document',
@@ -225,7 +237,7 @@ const routes: Routes = [
           tiposDeAfectacionIgv: TiposAfectacionIGVResolverService,
           igv: IgvResolverService
         },
-        //canActivate: [OrganizationConfigGuardService]
+
       },
       {
         path: 'debit-notes/:document',
@@ -247,7 +259,7 @@ const routes: Routes = [
           tiposDocumentEntidad: TiposDocumentoEntidadResolverService,
           monedas: MonedasResolverService
         },
-        //canActivate: [OrganizationConfigGuardService]
+
       },
       {
         path: 'perceptions/:document',
@@ -268,8 +280,7 @@ const routes: Routes = [
           documentosRelacionadosRetencion: DocumentosRelacionadosRetencionResolverService,
           tiposDocumentEntidad: TiposDocumentoEntidadResolverService,
           monedas: MonedasResolverService
-        },
-        //canActivate: [OrganizationConfigGuardService]
+        }
       },
       {
         path: 'retentions/:document',
@@ -285,7 +296,7 @@ const routes: Routes = [
       {
         path: 'voided-documents/create',
         component: VoidedDocumentCreateComponent,
-        //canActivate: [OrganizationConfigGuardService]
+
         resolve: {
           documentosRelacionadosVoid: DocumentosRelacionadosPercepcionResolverService,
         }
@@ -307,7 +318,7 @@ const routes: Routes = [
         resolve: {
           document: DocumentResolverService
         }
-      },
+      }
     ]
   }
 ];

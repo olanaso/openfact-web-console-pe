@@ -25,15 +25,15 @@ import { URLSearchParams } from '@angular/http';
     }
   `]
 })
-export class DebitNoteCreateComponent implements OnInit {
+export class DebitNoteCreateComponent implements OnInit, OnDestroy {
 
   parentDataSubscription: Subscription;
   dataSubscription: Subscription;
   paramsSubscription: Subscription;
 
   form: FormGroup;
-  working: boolean = false;
-  advanceMode: boolean = false;
+  working = false;
+  advanceMode = false;
 
   organization: Organization;
   tiposNotaDebito: GenericType[];
@@ -66,7 +66,7 @@ export class DebitNoteCreateComponent implements OnInit {
       this.loadDataForm();
     });
     this.paramsSubscription = this.route.params.subscribe(params => {
-      let invoiceDocumentId = params['invoice'];
+      const invoiceDocumentId = params['invoice'];
       if (invoiceDocumentId) {
         this.findInvoiceByDocumentId(invoiceDocumentId);
       }
@@ -147,8 +147,10 @@ export class DebitNoteCreateComponent implements OnInit {
       descripcion: [null, Validators.compose([Validators.required, Validators.maxLength(150)])],
       cantidad: [null, Validators.compose([Validators.required, Validators.minLength(1)])],
       tipoDeIgv: [null, Validators.compose([Validators.required, Validators.minLength(1)])],
-      valorUnitario: [null, Validators.compose([Validators.required, Validators.minLength(1)])],//valor del producto sin igv
-      precioUnitario: [null, Validators.compose([Validators.required, Validators.minLength(1)])],//valor del producto con igv
+      // valor del producto sin igv
+      valorUnitario: [null, Validators.compose([Validators.required, Validators.minLength(1)])],
+      // valor del producto con igv
+      precioUnitario: [null, Validators.compose([Validators.required, Validators.minLength(1)])],
       subtotal: [null, Validators.compose([Validators.required, Validators.minLength(1)])],
       total: [null, Validators.compose([Validators.required, Validators.minLength(1)])],
       igv: [null, Validators.compose([Validators.required])]
@@ -170,7 +172,7 @@ export class DebitNoteCreateComponent implements OnInit {
   }
 
   getIgvFactor(formControl: FormControl): number {
-    const tipoAfectacionIgv = this.tiposDeAfectacionIgv.find(p => p.codigo == formControl.get('tipoDeIgv').value);
+    const tipoAfectacionIgv = this.tiposDeAfectacionIgv.find(p => p.codigo === formControl.get('tipoDeIgv').value);
     if (tipoAfectacionIgv && tipoAfectacionIgv.afectaIgv) {
       return this.getIgvAsDecimal();
     }
@@ -193,15 +195,15 @@ export class DebitNoteCreateComponent implements OnInit {
       const total = subtotal * this.getIgvAsInteger();
       const tipoIgv = this.tiposDeAfectacionIgv.find(p => p.codigo === formControl.get('tipoDeIgv').value);
 
-      //Operacion gratuita
+      // Operacion gratuita
       if (operacionGratuita) {
         totalGratuita += subtotal;
       } else {
-        if (tipoIgv.grupo.toUpperCase() == 'GRAVADO') {
+        if (tipoIgv.grupo.toUpperCase() === 'GRAVADO') {
           totalGravado += subtotal;
-        } else if (tipoIgv.grupo.toUpperCase() == 'EXONERADO') {
+        } else if (tipoIgv.grupo.toUpperCase() === 'EXONERADO') {
           totalExonerado += subtotal;
-        } else if (tipoIgv.grupo.toUpperCase() == 'INAFECTO') {
+        } else if (tipoIgv.grupo.toUpperCase() === 'INAFECTO') {
           totalInafecto += subtotal;
         } else {
           throw new Error('Invalid IGV');
@@ -213,10 +215,10 @@ export class DebitNoteCreateComponent implements OnInit {
       }
     });
 
-    let totalGravadaConDescuento = totalGravado - (totalGravado * porcentajeDescuento);
-    let totalExoneradaConDescuento = totalExonerado - (totalExonerado * porcentajeDescuento);
-    let totalInafectaConDescuento = totalInafecto - (totalInafecto * porcentajeDescuento);
-    let totalIgvConDescuento = totalIgv - (totalIgv * porcentajeDescuento);
+    const totalGravadaConDescuento = totalGravado - (totalGravado * porcentajeDescuento);
+    const totalExoneradaConDescuento = totalExonerado - (totalExonerado * porcentajeDescuento);
+    const totalInafectaConDescuento = totalInafecto - (totalInafecto * porcentajeDescuento);
+    const totalIgvConDescuento = totalIgv - (totalIgv * porcentajeDescuento);
 
     // Descuento global
     const descuentoGlobal =
@@ -278,11 +280,11 @@ export class DebitNoteCreateComponent implements OnInit {
   }
 
   getIgvAsDecimal(): number {
-    return (this.form.get('igv').value || 0) / 100
+    return (this.form.get('igv').value || 0) / 100;
   }
 
   save(form: FormGroup): void {
-    if (!form.value.detalle || form.value.detalle.length == 0) {
+    if (!form.value.detalle || form.value.detalle.length === 0) {
       this.alertService.pop('warning', 'Warning', 'Warning! Is required to add at least one line.');
       return;
     }
@@ -319,7 +321,7 @@ export class DebitNoteCreateComponent implements OnInit {
       documentId = this.form.get('documentoQueSeModifica').value;
     }
 
-    let queryParam: URLSearchParams = new URLSearchParams();
+    const queryParam: URLSearchParams = new URLSearchParams();
     queryParam.set('documentType', 'INVOICE');
     queryParam.set('documentId', documentId);
     this.dataService.documents().getAll(this.organization, queryParam).subscribe(data => {

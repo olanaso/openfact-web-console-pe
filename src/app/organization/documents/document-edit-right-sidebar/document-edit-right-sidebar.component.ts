@@ -12,8 +12,8 @@ export class DocumentEditRightSidebarComponent implements OnInit {
   @Input()
   document: Document;
 
-  isAttributesCollapsed: boolean = false;
-  
+  isAttributesCollapsed = false;
+
   constructor() { }
 
   ngOnInit() {

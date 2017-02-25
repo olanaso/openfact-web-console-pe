@@ -15,15 +15,15 @@ export class InputService {
     }
 
     addNumber(keyCode: number): void {
-        let keyChar = String.fromCharCode(keyCode);
-        let selectionStart = this.inputSelection.selectionStart;
-        let selectionEnd = this.inputSelection.selectionEnd;
+        const keyChar = String.fromCharCode(keyCode);
+        const selectionStart = this.inputSelection.selectionStart;
+        const selectionEnd = this.inputSelection.selectionEnd;
         this.rawValue = this.rawValue.substring(0, selectionStart) + keyChar + this.rawValue.substring(selectionEnd, this.rawValue.length);
         this.updateFieldValue(selectionStart + 1);
     }
 
     applyMask(isNumber: boolean, rawValue: string): string {
-        let {allowNegative, decimalLimit, thousandsSeparatorSymbol, includeThousandsSeparator, decimalSymbol} = this.options;
+        const {allowNegative, decimalLimit, thousandsSeparatorSymbol, includeThousandsSeparator, decimalSymbol} = this.options;
 
         // New Start
         const prefixLength = this.options.prefix.length;
@@ -91,7 +91,7 @@ export class InputService {
     convertToMask(strNumber) {
         return strNumber
             .split(emptyString)
-            .map((char) => digitRegExp.test(char) ? digitRegExp : char)
+            .map((char) => digitRegExp.test(char) ? digitRegExp : char);
     }
 
     addThousandsSeparator(n, thousandsSeparatorSymbol) {
@@ -113,7 +113,7 @@ export class InputService {
     }
 
     changeToNegative(): void {
-        if (this.options.allowNegative && this.rawValue != '' && this.rawValue.charAt(0) != '-' && this.value != 0) {
+        if (this.options.allowNegative && this.rawValue !== '' && this.rawValue.charAt(0) !== '-' && this.value !== 0) {
             this.rawValue = '-' + this.rawValue;
         }
     }
@@ -126,9 +126,9 @@ export class InputService {
         let selectionStart = this.inputSelection.selectionStart;
         let selectionEnd = this.inputSelection.selectionEnd;
 
-        if (selectionStart == selectionEnd) {
+        if (selectionStart === selectionEnd) {
             if (keyCode === 8) {
-                let lastNumber = this.rawValue.split('').reverse().join('').search(/\d/);
+                const lastNumber = this.rawValue.split('').reverse().join('').search(/\d/);
                 selectionStart = this.rawValue.length - lastNumber - 1;
                 selectionEnd = selectionStart + 1;
             } else {
@@ -147,8 +147,8 @@ export class InputService {
     }
 
     updateFieldValue(selectionStart?: number): void {
-        let newRawValue = this.applyMask(false, this.rawValue || '');
-        selectionStart = selectionStart == undefined ? this.rawValue.length : selectionStart;
+        const newRawValue = this.applyMask(false, this.rawValue || '');
+        selectionStart = selectionStart === undefined ? this.rawValue.length : selectionStart;
         this.inputManager.updateValueAndCursor(newRawValue, this.rawValue.length, selectionStart);
     }
 

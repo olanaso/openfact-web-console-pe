@@ -33,7 +33,7 @@ export class VoidedDocumentCreateComponent implements OnInit, OnDestroy {
   paramsSubscription: Subscription;
 
   form: FormGroup;
-  working: boolean = false;
+  working = false;
 
   organization: Organization;
   documentosRelacionadosVoid: GenericType[];
@@ -55,8 +55,8 @@ export class VoidedDocumentCreateComponent implements OnInit, OnDestroy {
       this.documentosRelacionadosVoid = data['documentosRelacionadosVoid'];
     });
     this.paramsSubscription = this.route.params.subscribe(params => {
-      let documentId = params['document'];
-      let documentType = params['type'];
+      const documentId = params['document'];
+      const documentType = params['type'];
 
       if (documentId && documentType) {
         const formGroup = this.addDetalleFormControl();
@@ -114,7 +114,7 @@ export class VoidedDocumentCreateComponent implements OnInit, OnDestroy {
   }
 
   save(form: FormGroup): void {
-    if (!form.value.detalle || form.value.detalle.length == 0) {
+    if (!form.value.detalle || form.value.detalle.length === 0) {
       this.alertService.pop('warning', 'Warning', 'Warning! Is required to add at least one line.');
       return;
     }
@@ -152,7 +152,7 @@ export class VoidedDocumentCreateComponent implements OnInit, OnDestroy {
   }
 
   findDocument(documentId: string, documentType: string): Observable<Document[]> {
-    let queryParam: URLSearchParams = new URLSearchParams();
+    const queryParam: URLSearchParams = new URLSearchParams();
     queryParam.set('documentId', documentId);
     queryParam.set('documentType', documentType);
     return this.dataService.documents().getAll(this.organization, queryParam);
@@ -190,7 +190,7 @@ export class VoidedDocumentCreateComponent implements OnInit, OnDestroy {
     }
 
     formGroup.patchValue({
-      tipoDocumentoRelacionado: type != null ? type.codigo : null,
+      tipoDocumentoRelacionado: type !== null ? type.codigo : null,
       numeroDocumentoRelacionado: document['documentId'],
       monedaDocumentoRelacionado: document['documentCurrencyCode'],
       entidadDenominacionDocumentoRelacionado: document['customerRegistrationName']

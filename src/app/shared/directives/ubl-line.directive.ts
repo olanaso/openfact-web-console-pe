@@ -18,7 +18,7 @@ export class UblLineUnitValueDirective {
   constructor(public control: NgControl) { }
 }
 
-//Precio con igv
+// Precio con igv
 @Directive({
   selector: '[ofUblLineUnitPrice]'
 })
@@ -51,12 +51,12 @@ export class UblLineTaxAmountDirective {
 // Sin embargo para el calculo de total gravado, exonerado e inafecto se
 // debe debe de realizar la suma de subtotales y totales tomando en cuenta todos los decimales
 export interface UblLine {
-  quantity: number,
-  unitValue: number,
-  unitPrice: number,
-  subtotal: number,
-  total: number,
-  taxAmount: number
+  quantity: number;
+  unitValue: number;
+  unitPrice: number;
+  subtotal: number;
+  total: number;
+  taxAmount: number;
 }
 
 @Directive({
@@ -65,7 +65,7 @@ export interface UblLine {
 export class UblLineDirective implements OnInit, AfterViewInit {
 
   // Se debe de ingresar el factor de incremento ej. 0.18
-  private _tax: number = 1;
+  private _tax = 1;
 
   @Input('ofUblLine')
   set ofUblLine(ofUblLine: number) {
@@ -169,7 +169,7 @@ export class UblLineDirective implements OnInit, AfterViewInit {
     this._subtotal = +this._subtotal.toFixed(2);
     this._total = +this._total.toFixed(2);
 
-    let result: UblLine = {
+    const result: UblLine = {
       quantity: this._quantity,
       unitValue: this._unitValue,
       unitPrice: this._unitPrice,
@@ -182,10 +182,10 @@ export class UblLineDirective implements OnInit, AfterViewInit {
 
   isFireAllowed(): boolean {
     if (this.currentState &&
-      this._quantity == this.currentState.quantity &&
-      this._unitValue == this.currentState.unitValue &&
-      this._subtotal == this.currentState.subtotal &&
-      this._total == this.currentState.total) {
+      this._quantity === this.currentState.quantity &&
+      this._unitValue === this.currentState.unitValue &&
+      this._subtotal === this.currentState.subtotal &&
+      this._total === this.currentState.total) {
       return false;
     }
     return true;

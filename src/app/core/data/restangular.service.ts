@@ -7,15 +7,12 @@ import { KeycloakService } from './../keycloak.service';
 import { Observable } from 'rxjs/Rx';
 import { RequestOptionsArgs } from '@angular/http';
 import { Response } from '@angular/http';
+import { RestangularBasePath } from './restangular-base-path';
 import { Router } from '@angular/router';
 import { URLSearchParams } from '@angular/http';
 
 export function RestangularServiceFactory(http: Http, router: Router, alertService: AlertService) {
   return new RestangularService(http, router, alertService, { url: BASE_URL });
-}
-
-export interface RestangularBasePath {
-  url: string;
 }
 
 @Injectable()

@@ -24,7 +24,7 @@ export class SettingsThemeComponent implements OnInit, OnDestroy {
   serverInfo: any;
 
   form: FormGroup;
-  working: boolean = false;
+  working = false;
 
   supportedLocales = ['en', 'es'];
 

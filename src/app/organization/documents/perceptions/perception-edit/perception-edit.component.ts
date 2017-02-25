@@ -32,10 +32,10 @@ export class PerceptionEditComponent implements OnInit, OnDestroy {
     this.parentDataSubscription = this.activatedRoute.parent.data.subscribe(data => {
       this.organization = data['organization'];
     });
-    this.dataSubscription = this.activatedRoute.data.subscribe(data => {
-      this.document = data['document'];
-      this.document.getJsonRepresentation().subscribe(data => {
-        this.documentJson = data;
+    this.dataSubscription = this.activatedRoute.data.subscribe(data1 => {
+      this.document = data1['document'];
+      this.document.getJsonRepresentation().subscribe(data2 => {
+        this.documentJson = data2;
       });
     });
   }

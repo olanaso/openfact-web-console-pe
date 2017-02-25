@@ -18,7 +18,7 @@ export class LoadingService {
   }
 
   incrementResourceRequests() {
-    if (this.resourceRequests == 0) {
+    if (this.resourceRequests === 0) {
       this.loadingTimer = setTimeout(() => {
         this.loadingValue = true;
         this.loadingTimer = -1;
@@ -30,8 +30,8 @@ export class LoadingService {
 
   reduceResourceRequests() {
     this.resourceRequests--;
-    if (this.resourceRequests == 0) {
-      if (this.loadingTimer != -1) {
+    if (this.resourceRequests === 0) {
+      if (this.loadingTimer !== -1) {
         window.clearTimeout(this.loadingTimer);
         this.loadingTimer = -1;
       }

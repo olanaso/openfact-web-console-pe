@@ -27,7 +27,7 @@ export class InvoiceListComponent implements OnInit, OnDestroy {
   dataSubscription: Subscription;
 
   organization: Organization;
-  searchResult: SearchResults<Document> = new SearchResults<Document>();  
+  searchResult: SearchResults<Document> = new SearchResults<Document>();
 
   // Search Criteria
   searchCriteria: SearchCriteria = {
@@ -191,7 +191,7 @@ export class InvoiceListComponent implements OnInit, OnDestroy {
   }
 
   addUltimaHoraFilter() {
-    let date = new Date();
+    const date = new Date();
     date.setHours(date.getHours() - 1);
     const filter = new SearchCriteriaFilter('createdTimestamp', date, 'gt', 'DATETIME');
     filter.alias = 'Ultima Hora';
@@ -200,7 +200,7 @@ export class InvoiceListComponent implements OnInit, OnDestroy {
   }
 
   addUltimas24HorasFilter() {
-    let date = new Date();
+    const date = new Date();
     date.setHours(date.getHours() - 24);
     const filter = new SearchCriteriaFilter('createdTimestamp', date, 'gt', 'DATETIME');
     filter.alias = 'Ultimas 24 Horas';
@@ -209,7 +209,7 @@ export class InvoiceListComponent implements OnInit, OnDestroy {
   }
 
   addUltimoMesFilter() {
-    let date = new Date();
+    const date = new Date();
     date.setMonth(date.getMonth() - 1);
     const filter = new SearchCriteriaFilter('createdTimestamp', date, 'gt', 'DATETIME');
     filter.alias = 'Ultimo mes';

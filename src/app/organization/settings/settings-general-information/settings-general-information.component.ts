@@ -23,7 +23,7 @@ export class SettingsGeneralInformationComponent implements OnInit, OnDestroy {
   organization: Organization;
 
   form: FormGroup;
-  working: boolean = false;
+  working = false;
 
   constructor(
     private router: Router,

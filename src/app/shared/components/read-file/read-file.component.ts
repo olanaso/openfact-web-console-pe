@@ -12,7 +12,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 export class ReadFileComponent implements OnInit {
 
   @Input()
-  showFileName: boolean = false;
+  showFileName = false;
 
   @Output()
   complete: EventEmitter<any> = new EventEmitter<any>();

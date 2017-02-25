@@ -11,8 +11,8 @@ export class EventsConfigResolverService implements Resolve<any> {
   constructor(private dataService: DataService) { }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Promise<any> {
-    let organizationId = findParam('organization', route);
-    let organization = this.dataService.organizations().build(organizationId);
+    const organizationId = findParam('organization', route);
+    const organization = this.dataService.organizations().build(organizationId);
 
     return organization.getEventsConfig();
   }

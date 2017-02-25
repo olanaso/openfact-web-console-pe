@@ -39,8 +39,8 @@ export class OrganizationService {
           return undefined;
         }
         const json = response.json();
-        const organization = new Organization(organizationRestangular.one('', json[organizationIdName]));
-        return Object.assign(organization, json);
+        const result = new Organization(organizationRestangular.one('', json[organizationIdName]));
+        return Object.assign(result, json);
       });
   }
 

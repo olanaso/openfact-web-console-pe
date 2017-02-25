@@ -20,7 +20,7 @@ export class SettingsKeyProvidersComponent implements OnInit, OnDestroy {
 
   organization: Organization;
   serverInfo: any;
-  enableUpload: boolean = false;
+  enableUpload = false;
 
   providers: any;
   instances: any;

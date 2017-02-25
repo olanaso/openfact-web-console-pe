@@ -31,37 +31,37 @@ export class DocumentEditHeaderComponent implements OnInit {
   documentType: string;
 
   @Input()
-  enableDelete: boolean = true;
+  enableDelete = true;
 
   @Input()
-  enableDownloadXml: boolean = true;
+  enableDownloadXml = true;
 
   @Input()
-  enableDownloadCdr: boolean = true;
+  enableDownloadCdr = true;
 
   @Input()
-  enableDownloadPdf: boolean = true;
+  enableDownloadPdf = true;
 
   @Input()
-  enableAssignCreditNote: boolean = true;
+  enableAssignCreditNote = true;
 
   @Input()
-  enableAssignDebitNote: boolean = true;
+  enableAssignDebitNote = true;
 
   @Input()
-  enableSendToCustomer: boolean = true;
+  enableSendToCustomer = true;
 
   @Input()
-  enableSendToThirdParty: boolean = true;
+  enableSendToThirdParty = true;
 
   @Input()
-  enableSendToCustomThirdParty: boolean = true;
+  enableSendToCustomThirdParty = true;
 
   @Input()
-  enableVoid: boolean = true;
+  enableVoid = true;
 
   @Input()
-  enableCheckTicket: boolean = false;
+  enableCheckTicket = false;
 
   thirdPartyByEmail: any = {};
   isAttatchedDocumentsCollapsed: boolean;
@@ -81,7 +81,7 @@ export class DocumentEditHeaderComponent implements OnInit {
   removeRequiredAction(index: number, action: string) {
     this.dialog.confirmDelete(action, 'Required Action').result.then(
       (result) => {
-        let requiredActions = this.document.requiredActions.slice().splice(index, 1);
+        const requiredActions = this.document.requiredActions.slice().splice(index, 1);
         this.document.save({
           requiredActions: requiredActions
         }).subscribe(data => {
@@ -144,7 +144,10 @@ export class DocumentEditHeaderComponent implements OnInit {
   }
 
   maskAsVoided() {
-    this.router.navigate(['../../voided-documents', 'create', { document: this.document.documentId, type: this.document.documentType }], { relativeTo: this.route });
+    this.router.navigate(
+      ['../../voided-documents', 'create', { document: this.document.documentId, type: this.document.documentType }],
+      { relativeTo: this.route }
+    );
   }
 
   delete() {

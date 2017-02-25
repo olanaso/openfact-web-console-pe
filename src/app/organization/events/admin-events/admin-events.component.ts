@@ -43,10 +43,10 @@ export class AdminEventsComponent implements OnInit, OnDestroy {
   }
 
   loadEvents() {
-    let first = (this.pagination.page - 1) * this.pagination.size;
-    let max = this.pagination.page * this.pagination.size;
+    const first = (this.pagination.page - 1) * this.pagination.size;
+    const max = this.pagination.page * this.pagination.size;
 
-    let queryParams = new URLSearchParams();
+    const queryParams = new URLSearchParams();
     queryParams.set('first', first.toString());
     queryParams.set('max', max.toString());
 

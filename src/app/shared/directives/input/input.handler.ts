@@ -22,13 +22,13 @@ export class InputHandler {
     }
 
     handleInput(event: any): void {
-        let keyCode = this.inputService.rawValue.charCodeAt(this.inputService.rawValue.length - 1);
-        let rawValueLength = this.inputService.rawValue.length;
-        let rawValueSelectionStart = this.inputService.inputSelection.selectionStart;
-        let storedRawValueLength = this.inputService.storedRawValue.length;
+        const keyCode = this.inputService.rawValue.charCodeAt(this.inputService.rawValue.length - 1);
+        const rawValueLength = this.inputService.rawValue.length;
+        const rawValueSelectionStart = this.inputService.inputSelection.selectionStart;
+        const storedRawValueLength = this.inputService.storedRawValue.length;
         this.inputService.rawValue = this.inputService.storedRawValue;
 
-        if (rawValueLength != rawValueSelectionStart || Math.abs(rawValueLength - storedRawValueLength) != 1) {
+        if (rawValueLength !== rawValueSelectionStart || Math.abs(rawValueLength - storedRawValueLength) !== 1) {
             return;
         }
 
@@ -57,7 +57,7 @@ export class InputHandler {
     }
 
     handleKeydown(event: any): void {
-        let keyCode = event.which || event.charCode || event.keyCode;
+        const keyCode = event.which || event.charCode || event.keyCode;
 
         if (keyCode === undefined) {
             return;
@@ -71,7 +71,7 @@ export class InputHandler {
     }
 
     handleKeypress(event: any): void {
-        let keyCode = event.which || event.charCode || event.keyCode;
+        const keyCode = event.which || event.charCode || event.keyCode;
 
         switch (keyCode) {
             case undefined:

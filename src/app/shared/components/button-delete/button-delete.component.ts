@@ -34,11 +34,11 @@ export class ButtonDeleteComponent implements OnInit {
 
   // Set to true to disable the delete button.
   @Input()
-  disableDelete: boolean = false;
+  disableDelete = false;
 
   // Force the user to enter the name before we'll delete the resource (e.g. for projects).
   @Input()
-  typeNameToConfirm: boolean = false;
+  typeNameToConfirm = false;
 
   // Optional link label. Defaults to 'Delete'.
   @Input()
@@ -50,7 +50,7 @@ export class ButtonDeleteComponent implements OnInit {
 
   // Stay on the current page without redirecting to the resource list.
   @Input()
-  stayOnCurrentPage: boolean = true;
+  stayOnCurrentPage = true;
 
   // Optional callback when the delete succeeds
   @Output()
@@ -60,7 +60,7 @@ export class ButtonDeleteComponent implements OnInit {
   @Input()
   redirectUrl: string;
 
-  confirmName: string = '';
+  confirmName = '';
 
   constructor(
     private router: Router,

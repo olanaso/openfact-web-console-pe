@@ -16,7 +16,7 @@ export class SettingsAllKeysComponent implements OnInit, OnDestroy {
 
   dataSubscription: Subscription;
 
-  type: string = 'org.openfact.keys.KeyProvider';
+  type = 'org.openfact.keys.KeyProvider';
   keys: any;
 
   active: any = {};

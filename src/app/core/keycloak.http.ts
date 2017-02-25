@@ -5,7 +5,12 @@ import { KeycloakService } from './keycloak.service';
 import { LoadingService } from './loading/loading.service';
 import { Observable } from 'rxjs/Rx';
 
-export function KeycloakHttpFactory(backend: XHRBackend, defaultOptions: RequestOptions, keycloakService: KeycloakService, loadingService: LoadingService) {
+export function KeycloakHttpFactory(
+    backend: XHRBackend,
+    defaultOptions: RequestOptions,
+    keycloakService: KeycloakService,
+    loadingService: LoadingService
+) {
     return new KeycloakHttp(backend, defaultOptions, keycloakService, loadingService);
 }
 
@@ -18,7 +23,12 @@ export class KeycloakHttp extends Http {
         };
     }
 
-    constructor(_backend: ConnectionBackend, _defaultOptions: RequestOptions, private _keycloakService: KeycloakService, private _loadingService: LoadingService) {
+    constructor(
+        _backend: ConnectionBackend,
+        _defaultOptions: RequestOptions,
+        private _keycloakService: KeycloakService,
+        private _loadingService: LoadingService
+    ) {
         super(_backend, _defaultOptions);
     }
 

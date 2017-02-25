@@ -15,10 +15,10 @@ import { Validators } from '@angular/forms';
 export class OrganizationCreateComponent implements OnInit {
 
   form: FormGroup;
-  working: boolean = false;
+  working = false;
 
   organization: any;
-  importing: boolean = false;
+  importing = false;
 
   constructor(
     private router: Router,

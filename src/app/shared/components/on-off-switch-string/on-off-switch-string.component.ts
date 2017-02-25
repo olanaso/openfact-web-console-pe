@@ -7,16 +7,16 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class OnOffSwitchStringComponent implements OnInit {
 
-  _value: boolean = false;
+  _value = false;
 
   @Input()
-  onText: string = 'ON';
+  onText = 'ON';
 
   @Input()
-  offText: string = 'OFF';
+  offText = 'OFF';
 
   @Input()
-  ofDisable: boolean = false;
+  ofDisable = false;
 
   @Output()
   onChange = new EventEmitter<boolean>();

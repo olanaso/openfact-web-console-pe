@@ -18,7 +18,7 @@ export class OrganizationSunatService {
   constructor(private restangular: RestangularService) { }
 
   downloadDocumentCdr(organizationName: string, documentId: string) {
-    let options: RequestOptionsArgs = {
+    const options: RequestOptionsArgs = {
       responseType: ResponseContentType.Blob
     };
 
@@ -28,7 +28,7 @@ export class OrganizationSunatService {
       .all('cdr')
       .get(null, options)
       .map(response => {
-        let file = {
+        const file = {
           file: response.blob(),
           fileName: 'cdr.zip'
         };
@@ -41,7 +41,7 @@ export class OrganizationSunatService {
   }
 
   checkTicket(organizationName: string, documentId: string) {
-    let options: RequestOptionsArgs = {
+    const options: RequestOptionsArgs = {
       responseType: ResponseContentType.Blob
     };
 
@@ -51,7 +51,7 @@ export class OrganizationSunatService {
       .all('check-ticket')
       .get(null, options)
       .map(response => {
-        let file = {
+        const file = {
           file: response.blob(),
           fileName: 'ticket.zip'
         };

@@ -21,8 +21,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private dataService: DataService)
-  { }
+    private dataService: DataService
+  ) { }
 
   ngOnInit() {
     this.dataSubscription = this.activatedRoute.data.subscribe(data => {
@@ -36,16 +36,16 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   refreshData() {
-    this.organization.getTaskProviders().subscribe(data => {
-      this.providers = data;
+    this.organization.getTaskProviders().subscribe(data1 => {
+      this.providers = data1;
 
-      let queryParams: URLSearchParams = new URLSearchParams();
+      const queryParams: URLSearchParams = new URLSearchParams();
       queryParams.set('jobName', this.providers);
       queryParams.set('first', '0');
       queryParams.set('max', this.providers.length);
 
-      this.organization.getAllTasks(queryParams).subscribe(data => {
-        this.jobReports = data;
+      this.organization.getAllTasks(queryParams).subscribe(data2 => {
+        this.jobReports = data2;
       });
     });
   }

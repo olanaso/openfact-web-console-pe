@@ -29,7 +29,9 @@ import { RetentionCreateComponent } from './documents/retentions/retention-creat
 import { RetentionEditComponent } from './documents/retentions/retention-edit/retention-edit.component';
 import { RetentionListComponent } from './documents/retentions/retention-list/retention-list.component';
 import { SettingsActiveKeyComponent } from './settings/settings-active-key/settings-active-key.component';
-import { SettingsAdditionalInformationComponent } from './settings/settings-additional-information/settings-additional-information.component';
+import {
+  SettingsAdditionalInformationComponent,
+} from './settings/settings-additional-information/settings-additional-information.component';
 import { SettingsAllKeysComponent } from './settings/settings-all-keys/settings-all-keys.component';
 import { SettingsGeneralInformationComponent } from './settings/settings-general-information/settings-general-information.component';
 import { SettingsGenericKeystoreComponent } from './settings/settings-generic-keystore/settings-generic-keystore.component';

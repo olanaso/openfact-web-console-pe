@@ -17,12 +17,9 @@ export class UblLineGroupByDirective implements AfterContentChecked {
   constructor() { }
 
   ngAfterContentChecked() {
-    console.log(this.children);
-    console.log(this.children.map(f => f.ofUblLineGroup));
   }
 
   refreshValues() {
-    this.ofOnChange.emit("resfrescando");
   }
 
 }

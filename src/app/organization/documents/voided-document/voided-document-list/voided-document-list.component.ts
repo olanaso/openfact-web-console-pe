@@ -177,7 +177,7 @@ export class VoidedDocumentListComponent implements OnInit, OnDestroy {
   }
 
   addUltimaHoraFilter() {
-    let date = new Date();
+    const date = new Date();
     date.setHours(date.getHours() - 1);
     const filter = new SearchCriteriaFilter('createdTimestamp', date, 'gt', 'DATETIME');
     filter.alias = 'Ultima Hora';
@@ -186,7 +186,7 @@ export class VoidedDocumentListComponent implements OnInit, OnDestroy {
   }
 
   addUltimas24HorasFilter() {
-    let date = new Date();
+    const date = new Date();
     date.setHours(date.getHours() - 24);
     const filter = new SearchCriteriaFilter('createdTimestamp', date, 'gt', 'DATETIME');
     filter.alias = 'Ultimas 24 Horas';
@@ -195,7 +195,7 @@ export class VoidedDocumentListComponent implements OnInit, OnDestroy {
   }
 
   addUltimoMesFilter() {
-    let date = new Date();
+    const date = new Date();
     date.setMonth(date.getMonth() - 1);
     const filter = new SearchCriteriaFilter('createdTimestamp', date, 'gt', 'DATETIME');
     filter.alias = 'Ultimo mes';

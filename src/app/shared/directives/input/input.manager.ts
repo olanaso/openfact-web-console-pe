@@ -10,7 +10,7 @@ export class InputManager {
             this.htmlInputElement.focus();
             this.htmlInputElement.setSelectionRange(position, position);
         } else if (this.htmlInputElement.createTextRange) {
-            let textRange = this.htmlInputElement.createTextRange();
+            const textRange = this.htmlInputElement.createTextRange();
             textRange.collapse(true);
             textRange.moveEnd('character', position);
             textRange.moveStart('character', position);
@@ -20,17 +20,20 @@ export class InputManager {
 
     updateValueAndCursor(newRawValue: string, oldLength: number, selectionStart: number): void {
         this.rawValue = newRawValue;
-        let newLength = newRawValue.length;
+        const newLength = newRawValue.length;
         selectionStart = selectionStart - (oldLength - newLength);
         this.setCursorAt(selectionStart);
     }
 
     get canInputMoreNumbers(): boolean {
-        let haventReachedMaxLength = !(this.rawValue.length >= this.htmlInputElement.maxLength && this.htmlInputElement.maxLength >= 0);
-        let selectionStart = this.inputSelection.selectionStart;
-        let selectionEnd = this.inputSelection.selectionEnd;
-        let haveNumberSelected = (selectionStart != selectionEnd && this.htmlInputElement.value.substring(selectionStart, selectionEnd).match(/\d/)) ? true : false;
-        let startWithZero = (this.htmlInputElement.value.substring(0, 1) == '0');
+        const haventReachedMaxLength = !(this.rawValue.length >= this.htmlInputElement.maxLength && this.htmlInputElement.maxLength >= 0);
+        const selectionStart = this.inputSelection.selectionStart;
+        const selectionEnd = this.inputSelection.selectionEnd;
+        const haveNumberSelected = (
+            selectionStart !== selectionEnd
+            && this.htmlInputElement.value.substring(selectionStart, selectionEnd).match(/\d/)
+        ) ? true : false;
+        const startWithZero = (this.htmlInputElement.value.substring(0, 1) === '0');
         return haventReachedMaxLength || haveNumberSelected || startWithZero;
     }
 
@@ -38,18 +41,18 @@ export class InputManager {
         let selectionStart = 0;
         let selectionEnd = 0;
 
-        if (typeof this.htmlInputElement.selectionStart == 'number' && typeof this.htmlInputElement.selectionEnd == 'number') {
+        if (typeof this.htmlInputElement.selectionStart === 'number' && typeof this.htmlInputElement.selectionEnd === 'number') {
             selectionStart = this.htmlInputElement.selectionStart;
             selectionEnd = this.htmlInputElement.selectionEnd;
         } else {
-            let range = (<any>document).selection.createRange();
+            const range = (<any>document).selection.createRange();
 
-            if (range && range.parentElement() == this.htmlInputElement) {
-                let lenght = this.htmlInputElement.value.length;
-                let normalizedValue = this.htmlInputElement.value.replace(/\r\n/g, '\n');
-                let startRange = this.htmlInputElement.createTextRange();
+            if (range && range.parentElement() === this.htmlInputElement) {
+                const lenght = this.htmlInputElement.value.length;
+                const normalizedValue = this.htmlInputElement.value.replace(/\r\n/g, '\n');
+                const startRange = this.htmlInputElement.createTextRange();
                 startRange.moveToBookmark(range.getBookmark());
-                let endRange = this.htmlInputElement.createTextRange();
+                const endRange = this.htmlInputElement.createTextRange();
                 endRange.collapse(false);
 
                 if (startRange.compareEndPoints('StartToEnd', endRange) > -1) {

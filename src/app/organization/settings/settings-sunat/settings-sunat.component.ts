@@ -21,14 +21,14 @@ import { Subscription } from 'rxjs/Subscription';
     }
   `]
 })
-export class SettingsSunatComponent implements OnInit {
+export class SettingsSunatComponent implements OnInit, OnDestroy {
 
   dataSubscription: Subscription;
 
   organization: Organization;
 
   form: FormGroup;
-  working: boolean = false;
+  working = false;
 
   constructor(
     private router: Router,

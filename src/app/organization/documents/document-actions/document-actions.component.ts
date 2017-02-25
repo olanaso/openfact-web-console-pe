@@ -23,31 +23,31 @@ export class DocumentActionsComponent implements OnInit {
   document: Document;
 
   @Input()
-  enableDownloadXml: boolean = true;
+  enableDownloadXml = true;
 
   @Input()
-  enableDownloadCdr: boolean = true;
+  enableDownloadCdr = true;
 
   @Input()
-  enableDownloadPdf: boolean = true;
+  enableDownloadPdf = true;
 
   @Input()
-  enableAssignCreditNote: boolean = true;
+  enableAssignCreditNote = true;
 
   @Input()
-  enableAssignDebitNote: boolean = true;
+  enableAssignDebitNote = true;
 
   @Input()
-  enableSendToCustomer: boolean = true;
+  enableSendToCustomer = true;
 
   @Input()
-  enableSendToThirdParty: boolean = true;
+  enableSendToThirdParty = true;
 
   @Input()
-  enableSendToCustomThirdParty: boolean = true;
+  enableSendToCustomThirdParty = true;
 
   @Input()
-  enableVoid: boolean = true;
+  enableVoid = true;
 
   thirdPartyByEmail: any = {};
 
@@ -110,7 +110,10 @@ export class DocumentActionsComponent implements OnInit {
   }
 
   markAsVoided() {
-    this.router.navigate(['../voided-documents', 'create', { document: this.document.documentId, type: this.document.documentType }], { relativeTo: this.route });
+    this.router.navigate(
+      ['../voided-documents', 'create', { document: this.document.documentId, type: this.document.documentType }],
+      { relativeTo: this.route }
+    );
   }
 
 }

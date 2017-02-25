@@ -11,6 +11,6 @@ export class UblLineGroupDirective {
   @Input()
   ofUblLineGroup: string;
 
-  constructor(/*public control: NgControl*/) { }
+  constructor() { }
 
 }

@@ -7,9 +7,9 @@ import { DataService } from './../../../../core/data/data.service';
 import { DialogService } from './../../../../core/dialog/dialog.service';
 import { GenericType } from './../../../../core/model/genericType.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { OfValidators } from './../../../../shared/validators/of-validators';
 import { Organization } from './../../../../core/model/organization.model';
 import { Subscription } from 'rxjs/Subscription';
-import { ofValidators } from './../../../../shared/validators/of-validators';
 
 @Component({
   selector: 'of-invoice-create',
@@ -30,8 +30,8 @@ export class InvoiceCreateComponent implements OnInit, OnDestroy {
   dataSubscription: Subscription;
 
   form: FormGroup;
-  working: boolean = false;
-  advanceMode: boolean = false;
+  working = false;
+  advanceMode = false;
 
   organization: Organization;
   tiposComprobantePago: GenericType[];
@@ -185,8 +185,10 @@ export class InvoiceCreateComponent implements OnInit, OnDestroy {
       descripcion: [null, Validators.compose([Validators.required, Validators.maxLength(150)])],
       cantidad: [null, Validators.compose([Validators.required, Validators.minLength(1)])],
       tipoDeIgv: [null, Validators.compose([Validators.required, Validators.minLength(1)])],
-      valorUnitario: [null, Validators.compose([Validators.required, Validators.minLength(1)])],//valor del producto sin igv
-      precioUnitario: [null, Validators.compose([Validators.required, Validators.minLength(1)])],//valor del producto con igv
+      // valor del producto sin igv
+      valorUnitario: [null, Validators.compose([Validators.required, Validators.minLength(1)])],
+      // valor del producto con igv
+      precioUnitario: [null, Validators.compose([Validators.required, Validators.minLength(1)])],
       subtotal: [null, Validators.compose([Validators.required, Validators.minLength(1)])],
       total: [null, Validators.compose([Validators.required, Validators.minLength(1)])],
       igv: [null, Validators.compose([Validators.required])]
@@ -200,7 +202,7 @@ export class InvoiceCreateComponent implements OnInit, OnDestroy {
   }
 
   getIgvFactor(formControl: FormControl): number {
-    const tipoAfectacionIgv = this.tiposDeAfectacionIgv.find(p => p.codigo == formControl.get('tipoDeIgv').value);
+    const tipoAfectacionIgv = this.tiposDeAfectacionIgv.find(p => p.codigo === formControl.get('tipoDeIgv').value);
     if (tipoAfectacionIgv && tipoAfectacionIgv.afectaIgv) {
       return this.getIgvAsDecimal();
     }
@@ -228,7 +230,7 @@ export class InvoiceCreateComponent implements OnInit, OnDestroy {
       const total = subtotal * this.getIgvAsInteger();
       const tipoIgv = this.tiposDeAfectacionIgv.find(p => p.codigo === formControl.get('tipoDeIgv').value);
 
-      //Operacion gratuita
+      // Operacion gratuita
       if (operacionGratuita) {
         totalGratuita += subtotal;
 
@@ -236,11 +238,11 @@ export class InvoiceCreateComponent implements OnInit, OnDestroy {
           totalGratuita += (subtotal * this.getIgvAsDecimal());
         }
       } else {
-        if (tipoIgv.grupo.toUpperCase() == 'GRAVADO') {
+        if (tipoIgv.grupo.toUpperCase() === 'GRAVADO') {
           totalGravado += subtotal;
-        } else if (tipoIgv.grupo.toUpperCase() == 'EXONERADO') {
+        } else if (tipoIgv.grupo.toUpperCase() === 'EXONERADO') {
           totalExonerado += subtotal;
-        } else if (tipoIgv.grupo.toUpperCase() == 'INAFECTO') {
+        } else if (tipoIgv.grupo.toUpperCase() === 'INAFECTO') {
           totalInafecto += subtotal;
         } else {
           throw new Error('Invalid IGV');
@@ -253,10 +255,10 @@ export class InvoiceCreateComponent implements OnInit, OnDestroy {
 
     });
 
-    let totalGravadaConDescuento = totalGravado - (totalGravado * porcentajeDescuento);
-    let totalExoneradaConDescuento = totalExonerado - (totalExonerado * porcentajeDescuento);
-    let totalInafectaConDescuento = totalInafecto - (totalInafecto * porcentajeDescuento);
-    let totalIgvConDescuento = totalIgv - (totalIgv * porcentajeDescuento);
+    const totalGravadaConDescuento = totalGravado - (totalGravado * porcentajeDescuento);
+    const totalExoneradaConDescuento = totalExonerado - (totalExonerado * porcentajeDescuento);
+    const totalInafectaConDescuento = totalInafecto - (totalInafecto * porcentajeDescuento);
+    const totalIgvConDescuento = totalIgv - (totalIgv * porcentajeDescuento);
 
     // Descuento global
     const descuentoGlobal =
@@ -321,11 +323,11 @@ export class InvoiceCreateComponent implements OnInit, OnDestroy {
   }
 
   getIgvAsDecimal(): number {
-    return (this.form.get('igv').value || 0) / 100
+    return (this.form.get('igv').value || 0) / 100;
   }
 
   save(form: FormGroup): void {
-    if (!form.value.detalle || form.value.detalle.length == 0) {
+    if (!form.value.detalle || form.value.detalle.length === 0) {
       this.alertService.pop('warning', 'Warning', 'Warning! Is required to add at least one line.');
       return;
     }
@@ -334,11 +336,11 @@ export class InvoiceCreateComponent implements OnInit, OnDestroy {
       (redirect) => {
         this.working = true;
 
-        /*if (form.value.serie !== 'undefined' && form.value.serie != null) {
+        /*if (form.value.serie !== 'undefined' && form.value.serie !== null) {
           const pad = '000';
           form.value.serie = 'F' + (pad + form.value.serie).slice(-pad.length);
         }
-        if (form.value.numero !== 'undefined' && form.value.numero != null) {
+        if (form.value.numero !== 'undefined' && form.value.numero !== null) {
           const pad = '00000000';
           form.value.numero = (pad + form.value.numero).slice(-pad.length);
         }*/

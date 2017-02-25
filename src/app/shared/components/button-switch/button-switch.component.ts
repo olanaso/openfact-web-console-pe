@@ -24,7 +24,7 @@ export class ButtonSwitchComponent implements OnInit, ControlValueAccessor {
   @Input()
   disable;
 
-  _value: boolean = false;
+  _value = false;
 
   propagateChange = (_: any) => { };
 

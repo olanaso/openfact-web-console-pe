@@ -30,7 +30,7 @@ export class DocumentService {
         const json = response.json();
         const result = new Array<Document>();
         json.forEach(element => {
-          let document = new Document(restangular.all(element['id']));
+          const document = new Document(restangular.all(element['id']));
           result.push(Object.assign(document, element));
         });
         return result;

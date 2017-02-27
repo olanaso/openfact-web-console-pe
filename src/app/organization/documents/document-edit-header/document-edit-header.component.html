@@ -69,12 +69,16 @@
 			</div>
 		</h3>
 		<span *ngIf="!document.enabled" class="label label-danger">{{'voided' | translate}}</span>&nbsp;
-		<template ngFor let-item let-i="index" [ngForOf]="document.requiredActions">			
+		<template ngFor let-item let-i="index" [ngForOf]="document.requiredActions">
 			<span class="label label-warning">
   				<span>{{item | translate}}</span>
-				<a href="javascript:void(0)" (click)="removeRequiredAction(index, item)"><i class="pficon pficon-close"></i></a>
+			<a href="javascript:void(0)" (click)="removeRequiredAction(index, item)"><i class="pficon pficon-close"></i></a>
 			</span>&nbsp;
 		</template>
+		<button (click)="addRequiredAction(addRequiredActionTemplateContent)" class="btn btn-default" type="button">
+			<span class="fa fa-plus"></span>
+        </button>
+
 	</div>
 </div>
 
@@ -98,6 +102,19 @@
 		</div>
 		<div class="modal-footer">
 			<button type="submit" class="btn btn-primary" [disabled]="!f.valid">{{'send' | translate}}</button>
+			<button type="button" class="btn btn-default" (click)="d('Cancel')">{{'cancel' | translate}}</button>
+		</div>
+	</form>
+</template>
+
+<template #addRequiredActionTemplateContent let-c="close" let-d="dismiss">
+	<form novalidate>
+		<div class="modal-body">
+			<h3>Required action</h3>
+			<input type="text" #requiredAction class="form-control">
+		</div>
+		<div class="modal-footer">
+			<button type="submit" class="btn btn-primary" (click)="c(requiredAction.value)">{{'save' | translate}}</button>
 			<button type="button" class="btn btn-default" (click)="d('Cancel')">{{'cancel' | translate}}</button>
 		</div>
 	</form>

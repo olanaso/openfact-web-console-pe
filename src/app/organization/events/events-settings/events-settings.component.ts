@@ -45,7 +45,7 @@ export class EventsSettingsComponent implements OnInit, OnDestroy {
     this.dataSubscription = this.route.data.subscribe(data => {
       this.serverInfo = data['serverInfo'];
       this.eventsConfig = data['eventsConfig'];
-      this.eventListeners = Object.keys(this.serverInfo.providers.eventsListener.providers);
+      //this.eventListeners = Object.keys(this.serverInfo.providers.eventsListener.providers);
 
       this.loadData();
     });
@@ -81,11 +81,11 @@ export class EventsSettingsComponent implements OnInit, OnDestroy {
   save(form) {
     this.working = true;
 
-    this.organization.updateEventsConfig(Object.assign(this.eventsConfig, form)).subscribe(
-      result => {
-        this.working = false;
-        this.alertService.pop('success', 'Success', 'Your changes have been saved to the organization.');
-      }
+    this.organization.updateEventsConfig(Object.assign(this.eventsConfig || {}, form)).subscribe(
+        result => {
+          this.working = false;
+          this.alertService.pop('success', 'Success', 'Your changes have been saved to the organization.');
+        }
     );
   }
 

@@ -9,7 +9,7 @@ import { saveAs } from 'file-saver';
 
 export const genericIdName = 'id';
 export const basePath = 'sunat';
-export const extensionPath = 'ubl-extensions';
+export const extensionPath = 'ubl21-extensions';
 export const genericBasePath = 'generic-types';
 
 @Injectable()
@@ -22,7 +22,7 @@ export class OrganizationSunatService {
       responseType: ResponseContentType.Blob
     };
 
-    return this.restangular.one('organizations', organizationName)
+    return this.restangular.one('admin/organizations', organizationName)
       .all(basePath)
       .one('documents', documentId)
       .all('cdr')
@@ -45,7 +45,7 @@ export class OrganizationSunatService {
       responseType: ResponseContentType.Blob
     };
 
-    return this.restangular.one('organizations', organizationName)
+    return this.restangular.one('admin/organizations', organizationName)
       .all(basePath)
       .one('documents', documentId)
       .all('check-ticket')
@@ -64,9 +64,9 @@ export class OrganizationSunatService {
   }
 
   createInvoice(organizationName: string, document: any): Observable<any> {
-    return this.restangular.one('organizations', organizationName)
+    return this.restangular.one('admin/organizations', organizationName)
       .all(basePath)
-      .all('document-extensions/invoices')
+      .all('documents/invoices')
       .post(document)
       .map(response => {
         if (response.status === 201 || 204) {
@@ -77,9 +77,9 @@ export class OrganizationSunatService {
   }
 
   createCreditnote(organizationName: string, invoice: any): Observable<any> {
-    return this.restangular.one('organizations', organizationName)
+    return this.restangular.one('admin/organizations', organizationName)
       .all(basePath)
-      .all('document-extensions/credit-notes')
+      .all('documents/credit-notes')
       .post(invoice)
       .map(response => {
         if (response.status === 201 || 204) {
@@ -90,9 +90,9 @@ export class OrganizationSunatService {
   }
 
   createDebitNotes(organizationName: string, invoice: any): Observable<any> {
-    return this.restangular.one('organizations', organizationName)
+    return this.restangular.one('admin/organizations', organizationName)
       .all(basePath)
-      .all('document-extensions/debit-notes')
+      .all('documents/debit-notes')
       .post(invoice)
       .map(response => {
         if (response.status === 201 || 204) {
@@ -103,9 +103,9 @@ export class OrganizationSunatService {
   }
 
   createPerception(organizationName: string, document: any): Observable<any> {
-    return this.restangular.one('organizations', organizationName)
+    return this.restangular.one('admin/organizations', organizationName)
       .all(basePath)
-      .all('ubl-extensions/perceptions')
+      .all('documents/perceptions')
       .post(document)
       .map(response => {
         if (response.status === 201 || 204) {
@@ -116,9 +116,9 @@ export class OrganizationSunatService {
   }
 
   createRetention(organizationName: string, document: any): Observable<any> {
-    return this.restangular.one('organizations', organizationName)
+    return this.restangular.one('admin/organizations', organizationName)
       .all(basePath)
-      .all('ubl-extensions/retentions')
+      .all('documents/retentions')
       .post(document)
       .map(response => {
         if (response.status === 201 || 204) {
@@ -129,9 +129,9 @@ export class OrganizationSunatService {
   }
 
   createVoidedDocument(organizationName: string, document: any): Observable<any> {
-    return this.restangular.one('organizations', organizationName)
+    return this.restangular.one('admin/organizations', organizationName)
       .all(basePath)
-      .all('ubl-extensions/voided-documents')
+      .all('documents/voided-documents')
       .post(document)
       .map(response => {
         if (response.status === 201 || 204) {
@@ -144,7 +144,6 @@ export class OrganizationSunatService {
   getAllTiposComprobantePago(organizationName: string): Observable<any> {
     return this.restangular.one('organizations', organizationName)
       .all(basePath)
-      .all(extensionPath)
       .all(genericBasePath)
       .all('tipos-comprobante-pago')
       .get()
@@ -154,7 +153,6 @@ export class OrganizationSunatService {
   getAllTiposNotaCredito(organizationName: string): Observable<any> {
     return this.restangular.one('organizations', organizationName)
       .all(basePath)
-      .all(extensionPath)
       .all(genericBasePath)
       .all('tipos-nota-credito')
       .get()
@@ -164,7 +162,6 @@ export class OrganizationSunatService {
   getAllTiposNotaDebito(organizationName: string): Observable<any> {
     return this.restangular.one('organizations', organizationName)
       .all(basePath)
-      .all(extensionPath)
       .all(genericBasePath)
       .all('tipos-nota-debito')
       .get()
@@ -174,7 +171,6 @@ export class OrganizationSunatService {
   getAllTiposDocumentEntidad(organizationName: string): Observable<any> {
     return this.restangular.one('organizations', organizationName)
       .all(basePath)
-      .all(extensionPath)
       .all(genericBasePath)
       .all('tipos-documento-entidad')
       .get()
@@ -184,7 +180,6 @@ export class OrganizationSunatService {
   getAllTiposAfectacionIGV(organizationName: string): Observable<any> {
     return this.restangular.one('organizations', organizationName)
       .all(basePath)
-      .all(extensionPath)
       .all(genericBasePath)
       .all('tipos-afectacion-igv')
       .get()
@@ -194,7 +189,6 @@ export class OrganizationSunatService {
   getIgv(organizationName: string): Observable<any> {
     return this.restangular.one('organizations', organizationName)
       .all(basePath)
-      .all(extensionPath)
       .all(genericBasePath)
       .all('igv')
       .get()
@@ -204,7 +198,6 @@ export class OrganizationSunatService {
   getTiposRegimenPercepcion(organizationName: string): Observable<any> {
     return this.restangular.one('organizations', organizationName)
       .all(basePath)
-      .all(extensionPath)
       .all(genericBasePath)
       .all('tipos-regimen-percepcion')
       .get()
@@ -214,7 +207,6 @@ export class OrganizationSunatService {
   getDocumentosRelacionadosPercepcion(organizationName: string): Observable<any> {
     return this.restangular.one('organizations', organizationName)
       .all(basePath)
-      .all(extensionPath)
       .all(genericBasePath)
       .all('documentos-relacionados-percepcion')
       .get()
@@ -224,7 +216,6 @@ export class OrganizationSunatService {
   getTiposRegimenRetencion(organizationName: string): Observable<any> {
     return this.restangular.one('organizations', organizationName)
       .all(basePath)
-      .all(extensionPath)
       .all(genericBasePath)
       .all('tipos-regimen-retencion')
       .get()
@@ -234,7 +225,6 @@ export class OrganizationSunatService {
   getDocumentosRelacionadosRetencion(organizationName: string): Observable<any> {
     return this.restangular.one('organizations', organizationName)
       .all(basePath)
-      .all(extensionPath)
       .all(genericBasePath)
       .all('documentos-relacionados-retencion')
       .get()
@@ -244,7 +234,6 @@ export class OrganizationSunatService {
   getMonedas(organizationName: string): Observable<any> {
     return this.restangular.one('organizations', organizationName)
       .all(basePath)
-      .all(extensionPath)
       .all(genericBasePath)
       .all('monedas')
       .get()

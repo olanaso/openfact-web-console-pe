@@ -1,10 +1,10 @@
-import { OpenfactWebConsolePePage } from './app.po';
+import { OpenfactuiPage } from './app.po';
 
-describe('openfact-web-console-pe App', function() {
-  let page: OpenfactWebConsolePePage;
+describe('openfactui App', () => {
+  let page: OpenfactuiPage;
 
   beforeEach(() => {
-    page = new OpenfactWebConsolePePage();
+    page = new OpenfactuiPage();
   });
 
   it('should display message saying app works', () => {

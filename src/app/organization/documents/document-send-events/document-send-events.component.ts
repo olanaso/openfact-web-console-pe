@@ -11,7 +11,7 @@ import { URLSearchParams } from '@angular/http';
 @Component({
   selector: 'of-document-send-events',
   templateUrl: './document-send-events.component.html',
-  styleUrls: []
+  styles: [``]
 })
 export class DocumentSendEventsComponent implements OnInit, OnDestroy {
 
@@ -22,7 +22,7 @@ export class DocumentSendEventsComponent implements OnInit, OnDestroy {
   document: Document;
   sendEvents: Array<any>;
 
-  selectedDestinyType = 'CUSTOMER';
+  selectedDestinyType = 'THIRD_PARTY';
   destinyType = [
     { denomination: 'to-customer', value: 'CUSTOMER' },
     { denomination: 'to-third-party', value: 'THIRD_PARTY' },

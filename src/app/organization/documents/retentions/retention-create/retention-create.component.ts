@@ -194,7 +194,7 @@ export class RetentionCreateComponent implements OnInit, OnDestroy {
     }
   }
 
-  findDocument(formGroup: FormGroup) {
+  /*findDocument(formGroup: FormGroup) {
     if (formGroup.get('numeroDocumentoRelacionado').valid && formGroup.get('tipoDocumentoRelacionado').valid) {
       const codigoTipoDocumentoRelacionado = formGroup.get('tipoDocumentoRelacionado').value;
       const tipoDocumentoRelacionado = this.documentosRelacionadosRetencion.find(f => f.codigo === codigoTipoDocumentoRelacionado);
@@ -220,7 +220,7 @@ export class RetentionCreateComponent implements OnInit, OnDestroy {
         }
       );
     }
-  }
+  }*/
 
   recalcularDatos() {
     const tasaDocumento = this.form.get('tasaDocumento').value || 0;
@@ -228,10 +228,8 @@ export class RetentionCreateComponent implements OnInit, OnDestroy {
       // Se debe de multiplicar nuevamente para no perder los redondeos y sumar con todos los digitos
       const tipoCambio = formControl.get('tipoCambio').value || 1;
       const pagoDocumentoSunat = formControl.get('pagoDocumentoSunat').value || 0;
-
       const importeDocumentoSunat = +(tipoCambio * pagoDocumentoSunat * tasaDocumento / 100).toFixed(2);
       const importePago = +((tipoCambio * pagoDocumentoSunat) - (tipoCambio * pagoDocumentoSunat * tasaDocumento / 100)).toFixed(2);
-
       formControl.patchValue({
         importeDocumentoSunat: importeDocumentoSunat,
         importePago: importePago
@@ -242,11 +240,9 @@ export class RetentionCreateComponent implements OnInit, OnDestroy {
     const totalDocumentoSunat: number = this.detalle.controls.map(formGroup => {
       return (formGroup.get('importeDocumentoSunat').value || 0);
     }).reduce((previousValue, currentValue) => previousValue + currentValue, 0);
-
     const totalPago: number = this.detalle.controls.map(formGroup => {
       return (formGroup.get('importePago').value || 0);
     }).reduce((previousValue, currentValue) => previousValue + currentValue, 0);
-
     this.form.patchValue({
       totalDocumentoSunat: +totalDocumentoSunat.toFixed(2),
       totalPago: +totalPago.toFixed(2)

@@ -161,11 +161,11 @@
                   </td>
                   <td [ofFormFieldValidationState]="item.get('numeroDocumentoRelacionado')">
                     <div class="input-group">
-                      <input formControlName="numeroDocumentoRelacionado" [textMask]="{mask: documentMask}" (keyup.enter)="findDocument(item)"
+                      <input formControlName="numeroDocumentoRelacionado" [textMask]="{mask: documentMask}"
                         type="text" class="form-control" placeholder="[B|F]000-0000000">
-                        <span class="input-group-btn"> 
+                      <!--  <span class="input-group-btn">
                           <button (click)="findDocument(item)" type="button" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
-                        </span>
+                        </span>-->
                     </div>
                     <of-form-field-validation-messages [ofFormControl]="item.get('numeroDocumentoRelacionado')">
                     </of-form-field-validation-messages>
@@ -276,7 +276,7 @@
         <div class="col-md-8">
           <div class="form-group" [ofFormFieldValidationState]="form.get('observaciones')">
             <label class="control-label" [ofFormRequiredLabel]="form.get('observaciones')">Observaciones
-              <i class="fa fa-question-circle text-muted" ngbTooltip="Enabled of the organization" placement="right"></i>      
+              <i class="fa fa-question-circle text-muted" ngbTooltip="Enabled of the organization" placement="right"></i>
             </label>
             <textarea formControlName="observaciones" rows="5" class="form-control"></textarea>
             <of-form-field-validation-messages [ofFormControl]="form.get('observaciones')">

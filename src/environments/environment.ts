@@ -4,7 +4,5 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  production: false,
-  keykloakBaseUrl: 'http://localhost:8080/auth',
-  serviceBaseUrl: 'http://localhost:8080/openfact/rest'
+  production: false
 };

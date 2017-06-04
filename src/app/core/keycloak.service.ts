@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { environment } from '../../environments/environment';
 
 declare var Keycloak: any;
 
@@ -9,11 +8,7 @@ export class KeycloakService {
   static auth: any = {};
 
   static init(): Promise<any> {
-    const keycloakAuth: any = new Keycloak({
-      url: environment.keykloakBaseUrl,
-      realm: 'openfact',
-      clientId: 'openfactui',
-    });
+    const keycloakAuth: any = new Keycloak('/config/keycloak.json');
 
     return new Promise((resolve, reject) => {
       keycloakAuth.init({ onLoad: 'login-required' })

@@ -1,0 +1,7 @@
+{
+  "realm": "openfact",
+  "auth-server-url": "http://keycloak-algo.192.168.42.52.nip.io/auth",
+  "ssl-required": "external",
+  "resource": "openfact-web-console",
+  "public-client": true
+}

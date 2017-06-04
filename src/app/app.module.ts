@@ -1,5 +1,7 @@
+import { ConfigService, configServiceInitializer } from './config.service';
 import { TranslateLoader, TranslateModule, TranslateStaticLoader } from 'ng2-translate';
 
+import { APP_INITIALIZER } from '@angular/core';
 import { AboutComponent } from './pages/about/about.component';
 import { AdminModule } from './admin/admin.module';
 import { AppComponent } from './app.component';
@@ -37,7 +39,15 @@ export function createTranslateLoader(http: Http) {
     AdminModule,
     OrganizationModule,
   ],
-  providers: [],
+  providers: [
+    ConfigService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: configServiceInitializer,
+      deps: [ConfigService],
+      multi: true,
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

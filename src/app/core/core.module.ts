@@ -17,6 +17,7 @@ import { KEYCLOAK_HTTP_PROVIDER, KeycloakHttp } from './keycloak.http';
 import { AlertComponent } from './alert/alert.component';
 import { AlertService } from './alert/alert.service';
 import { AlertsComponent } from './alert/alerts.component';
+import { ConfigService } from './../config.service';
 import { CreditNoteService } from './data/credit-note.service';
 import { CurrentOrganizationService } from './services/current-organization.service';
 import { DataService } from './data/data.service';
@@ -72,8 +73,8 @@ import { XHRBackend } from '@angular/http';
     {
       provide: RestangularService,
       useFactory: RestangularServiceFactory,
-      deps: [Http, Router, AlertService]
-    },
+      deps: [Http, Router, AlertService, ConfigService]
+    },    
     AlertService,
     DialogService,
     LoadingService,

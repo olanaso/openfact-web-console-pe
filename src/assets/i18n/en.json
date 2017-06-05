@@ -157,5 +157,6 @@
   "to-customer": "To Customer",
   "to-third-party": "To Third Party",
   "to-custom-email": "To Custom Email",
-  "loading": "Loading..."
+  "loading": "Loading...",
+  "postal-address-id": "Postal Address ID"
 }

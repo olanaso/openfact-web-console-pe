@@ -157,5 +157,6 @@
   "to-customer": "Al Cliente",
   "to-third-party": "A Sunat",
   "to-custom-email": "A Email",
-  "loading": "Cargando..."
+  "loading": "Cargando...",
+  "postal-address-id": "Postal Address ID"
 }

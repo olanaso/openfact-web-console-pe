@@ -70,7 +70,9 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: DashboardComponent
+        // component: DashboardComponent,
+        redirectTo: 'invoices',
+        pathMatch: 'full'
       },
       {
         path: 'settings/general-information',

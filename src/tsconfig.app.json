@@ -5,6 +5,8 @@
     "module": "es2015",
     "baseUrl": "",
     "types": [
+      "file-saver",
+      "pluralize",
       "file-saver"
     ]
   },

@@ -20,9 +20,10 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "of",
       "styles": [
-        "styles.scss",
         "../node_modules/patternfly/dist/css/patternfly.min.css",
-        "../node_modules/patternfly/dist/css/patternfly-additions.min.css"
+        "../node_modules/patternfly/dist/css/patternfly-additions.min.css",
+        "../node_modules/ng2-toastr/bundles/ng2-toastr.min.css",
+        "styles.scss"
       ],
       "scripts": [
         "../node_modules/keycloak-js/dist/keycloak.min.js"

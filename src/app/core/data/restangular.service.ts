@@ -3,16 +3,17 @@ import { ConfigService } from './../../config.service';
 import { Headers } from '@angular/http';
 import { Http } from '@angular/http';
 import { Injectable } from '@angular/core';
-import { KeycloakService } from './../keycloak.service';
+import { KeycloakOAuthService } from '../../keycloak/keycloak.oauth.service';
 import { Observable } from 'rxjs/Rx';
 import { RequestOptionsArgs } from '@angular/http';
 import { Response } from '@angular/http';
 import { RestangularBasePath } from './restangular-base-path';
 import { Router } from '@angular/router';
 import { URLSearchParams } from '@angular/http';
+import { ToastsManager } from 'ng2-toastr';
 
-export function RestangularServiceFactory(http: Http, router: Router, alertService: AlertService, config: ConfigService) {
-  return new RestangularService(http, router, alertService, { url: config.getSettings().apiEndpoint });
+export function RestangularServiceFactory(http: Http, router: Router, toastr: ToastsManager, config: ConfigService) {
+  return new RestangularService(http, router, toastr, {url: config.getSettings().apiEndpoint});
 }
 
 @Injectable()
@@ -20,11 +21,10 @@ export class RestangularService {
 
   private _path: string;
 
-  constructor(
-    private _http: Http,
-    private router: Router,
-    private alertService: AlertService,
-    basePath: RestangularBasePath) {
+  constructor(private _http: Http,
+              private router: Router,
+              private toastr: ToastsManager,
+              basePath: RestangularBasePath) {
     this._path = basePath.url;
   }
 
@@ -91,12 +91,12 @@ export class RestangularService {
   }
 
   clone(): RestangularService {
-    return new RestangularService(this._http, this.router, this.alertService, { url: this._path });
+    return new RestangularService(this._http, this.router, this.toastr, {url: this._path});
   }
 
   handleError(error: any): Observable<Response> {
     if (error.status === 401) {
-      KeycloakService.auth.authz.logout();
+      KeycloakOAuthService.auth.authz.logout();
     } else if (error.status === 403) {
       this.router.navigate(['./forbidden']);
     } else if (error.status === 404) {
@@ -110,9 +110,9 @@ export class RestangularService {
       }
 
       if (data && data['errorMessage']) {
-        this.alertService.popAsync('error', 'Error', data['errorMessage']);
+        this.toastr.error('Error! ' + data['errorMessage']);
       } else {
-        this.alertService.popAsync('error', 'Error', 'An unexpected server error has occurred');
+        this.toastr.error('Error! An unexpected server error has occurred');
       }
     }
     return Observable.throw(error);

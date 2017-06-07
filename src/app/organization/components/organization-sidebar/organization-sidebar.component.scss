@@ -1,0 +1,55 @@
+.organization-selector{
+  color: #fff;
+  margin: 0px;
+  position: relative;
+}
+
+.organization-dropmenu{
+  display: none;
+  cursor: pointer;
+  position: absolute;
+  top: 60px;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  background: #fff;
+}
+
+.organization-selector:hover .organization-dropmenu{
+  display: block;
+}
+
+.organization-add{
+  padding: 10px;
+}
+
+.organization-selector h2{
+  font-size: 16px;
+  line-height: 60px;
+  padding: 0 20px;
+  margin: 0;
+  border-bottom: 1px solid #d5d5d6;
+}
+
+.organization-selector h2 i{
+  line-height: 60px;
+  float: right;
+}
+
+.organization-selector ul{
+  padding-left: 0;
+  margin: 0;
+  list-style: none;
+  max-height: 200px;
+  overflow-y:auto;
+}
+
+
+.organization-selector ul li a{
+  line-height: 60px;
+  padding: 0 20px;
+  border-bottom: 1px solid #d5d5d6;
+  line-height: 39px;
+  display: block;
+  font-size: 14px;
+}

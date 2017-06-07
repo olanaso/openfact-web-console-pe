@@ -1,6 +1,6 @@
 import { FileUploader } from 'ng2-file-upload';
 import { Injectable } from '@angular/core';
-import { KeycloakHttp } from './../keycloak.http';
+import { KeycloakHttp } from '../../keycloak/keycloak.http';
 import { Organization } from './../model/organization.model';
 
 @Injectable()

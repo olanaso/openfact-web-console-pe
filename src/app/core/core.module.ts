@@ -12,7 +12,7 @@ import {
   TiposRegimenRetencionResolverService,
 } from './resolvers/generic-type-resolver.service';
 import { ErrorHandler, NgModule } from '@angular/core';
-import { KEYCLOAK_HTTP_PROVIDER, KeycloakHttp } from './keycloak.http';
+import { KEYCLOAK_HTTP_PROVIDER, KeycloakHttp } from './../keycloak/keycloak.http';
 
 import { AlertComponent } from './alert/alert.component';
 import { AlertService } from './alert/alert.service';
@@ -30,7 +30,7 @@ import { EventsConfigResolverService } from './resolvers/events-config-resolver.
 import { FileService } from './data/file.service';
 import { Http } from '@angular/http';
 import { InvoiceService } from './data/invoice.service';
-import { KeycloakService } from './keycloak.service';
+import { KeycloakOAuthService } from '../keycloak/keycloak.oauth.service';
 import { LoadingComponent } from './loading/loading.component';
 import { LoadingService } from './loading/loading.service';
 import { OrganizationComponentResolverService } from './resolvers/organization-component-resolver.service';
@@ -39,7 +39,6 @@ import { OrganizationResolverService } from './resolvers/organization-resolver.s
 import { OrganizationService } from './data/organization.service';
 import { OrganizationSunatService } from './data/organization-sunat.service';
 import { PerceptionService } from './data/perception.service';
-import { RequestOptions } from '@angular/http';
 import { RestangularService } from './data/restangular.service';
 import { RestangularServiceFactory } from './data/restangular.service';
 import { RetentionService } from './data/retention.service';
@@ -48,10 +47,13 @@ import { ServerInfoResolverService } from './resolvers/server-info-resolver.serv
 import { ServerInfoService } from './data/server-info.service';
 import { SharedModule } from '../shared/shared.module';
 import { VoidedDocumentService } from './data/voided-document.service';
-import { XHRBackend } from '@angular/http';
+import { CommonModule } from '@angular/common';
+import { ToastsManager } from 'ng2-toastr';
 
 @NgModule({
   imports: [
+    CommonModule,
+
     SharedModule
   ],
   declarations: [
@@ -68,13 +70,13 @@ import { XHRBackend } from '@angular/http';
     LoadingComponent
   ],
   providers: [
-    KeycloakService,
+    KeycloakOAuthService,
     KEYCLOAK_HTTP_PROVIDER,
     {
       provide: RestangularService,
       useFactory: RestangularServiceFactory,
-      deps: [Http, Router, AlertService, ConfigService]
-    },    
+      deps: [Http, Router, ToastsManager, ConfigService]
+    },
     AlertService,
     DialogService,
     LoadingService,
@@ -114,4 +116,5 @@ import { XHRBackend } from '@angular/http';
     CurrentOrganizationService
   ]
 })
-export class CoreModule { }
+export class CoreModule {
+}

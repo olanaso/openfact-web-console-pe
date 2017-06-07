@@ -1,9 +1,10 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 
 import { AlertService } from './../../../core/alert/alert.service';
 import { Model } from '../../../core/model/model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
+import { ModalDirective } from "ngx-bootstrap";
 
 @Component({
   selector: 'of-button-delete',
@@ -11,6 +12,9 @@ import { Router } from '@angular/router';
   styles: [``]
 })
 export class ButtonDeleteComponent implements OnInit {
+
+  @ViewChild('deleteModal')
+  private modal: ModalDirective;
 
   // Object to be deleted
   @Input()
@@ -54,7 +58,7 @@ export class ButtonDeleteComponent implements OnInit {
 
   // Optional callback when the delete succeeds
   @Output()
-  success: EventEmitter<boolean> = new EventEmitter<boolean>();
+  onConfirm: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   // Optional redirect URL when the delete succeeds
   @Input()
@@ -62,11 +66,10 @@ export class ButtonDeleteComponent implements OnInit {
 
   confirmName = '';
 
-  constructor(
-    private router: Router,
-    private modalService: NgbModal,
-    private alertService: AlertService
-  ) { }
+  constructor(private router: Router,
+              private modalService: NgbModal,
+              private alertService: AlertService) {
+  }
 
   ngOnInit() {
   }
@@ -78,30 +81,12 @@ export class ButtonDeleteComponent implements OnInit {
     return false;
   }
 
-  openDeleteModal(confirmDeleteContent: any): void {
+  delete(): void {
     if (this.disableDelete) {
       return;
     }
-
-    // opening the modal with settings scope as parent
-    this.modalService.open(confirmDeleteContent).result.then(
-      (result) => {
-        this.model.restangular.delete().subscribe(
-          (data) => {
-            this.alertService.pop('success', 'Success', 'Success! The organization has been deleted.');
-
-            // callback
-            this.success.emit(true);
-
-            // navigate
-            if (!this.stayOnCurrentPage) {
-              this.router.navigate([this.redirectUrl]);
-            }
-          }
-        );
-      },
-      (reason) => { }
-    );
+    this.modal.hide();
+    this.onConfirm.emit(true);
   }
 
 }

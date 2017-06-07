@@ -1,0 +1,9 @@
+<div class="layout-pf layout-pf-fixed transitions">
+  <div class="cards-pf">
+    <of-organization-header [currentOrganization]="organization" [organizations]="organizations"></of-organization-header>
+    <of-organization-sidebar></of-organization-sidebar>
+    <of-organization-content>
+      <router-outlet></router-outlet>
+    </of-organization-content>
+  </div>
+</div>

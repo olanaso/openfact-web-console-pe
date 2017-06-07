@@ -15,7 +15,6 @@ import { ButtonResetComponent } from './components/button-reset/button-reset.com
 import { ButtonSaveComponent } from './components/button-save/button-save.component';
 import { ButtonSwitchComponent } from './components/button-switch/button-switch.component';
 import { CommonModule } from '@angular/common';
-import { FileSelectDirective } from 'ng2-file-upload';
 import { FileUploadModule } from 'ng2-file-upload';
 import { FirstElementPipe } from './pipes/first-element.pipe';
 import { FormFieldValidationMessagesComponent } from './components/form-field-validation-messages/form-field-validation-messages.component';
@@ -43,6 +42,11 @@ import { UblLineGroupDirective } from './directives/ubl-line-group.directive';
 import { ViewKeyComponent } from './components/view-key/view-key.component';
 import { ViewObjectComponent } from './components/view-object/view-object.component';
 import { YesNoPipe } from './pipes/yes-no.pipe';
+import { BsDropdownModule, ModalModule } from 'ngx-bootstrap';
+import { LocalStorageModule } from 'angular-2-local-storage';
+import { ToastModule } from 'ng2-toastr';
+import { JWBootstrapSwitchModule } from 'jw-bootstrap-switch-ng2';
+import { AccessDirective } from './directives/access.directive';
 
 @NgModule({
   imports: [
@@ -53,9 +57,14 @@ import { YesNoPipe } from './pipes/yes-no.pipe';
     ReactiveFormsModule,
 
     NgbModule,
-    TranslateModule,
+    BsDropdownModule,
+    ModalModule,
     MomentModule,
+    JWBootstrapSwitchModule,
     FileUploadModule,
+    LocalStorageModule,
+    ToastModule,
+    TranslateModule,
     TextMaskModule,
     SelectModule,
   ],
@@ -93,18 +102,19 @@ import { YesNoPipe } from './pipes/yes-no.pipe';
 
     UblLineGroupByDirective,
     UblLineGroupDirective,
+
+    AccessDirective,
   ],
   exports: [
-    CommonModule,
-    RouterModule,
-    HttpModule,
-    FormsModule,
-    ReactiveFormsModule,
-
     NgbModule,
-    TranslateModule,
+    BsDropdownModule,
+    ModalModule,
     MomentModule,
+    JWBootstrapSwitchModule,
     FileUploadModule,
+    LocalStorageModule,
+    ToastModule,
+    TranslateModule,
     TextMaskModule,
     SelectModule,
 
@@ -144,6 +154,9 @@ import { YesNoPipe } from './pipes/yes-no.pipe';
 
     UblLineGroupByDirective,
     UblLineGroupDirective,
+
+    AccessDirective,
   ]
 })
-export class SharedModule { }
+export class SharedModule {
+}

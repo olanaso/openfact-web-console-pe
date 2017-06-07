@@ -66,7 +66,7 @@ export class OrganizationSunatService {
   createInvoice(organizationName: string, document: any): Observable<any> {
     return this.restangular.one('admin/organizations', organizationName)
       .all(basePath)
-      .all('documents/invoices')
+      .all('document/invoices')
       .post(document)
       .map(response => {
         if (response.status === 201 || 204) {
@@ -79,7 +79,7 @@ export class OrganizationSunatService {
   createCreditnote(organizationName: string, invoice: any): Observable<any> {
     return this.restangular.one('admin/organizations', organizationName)
       .all(basePath)
-      .all('documents/credit-notes')
+      .all('document/credit-notes')
       .post(invoice)
       .map(response => {
         if (response.status === 201 || 204) {
@@ -92,7 +92,7 @@ export class OrganizationSunatService {
   createDebitNotes(organizationName: string, invoice: any): Observable<any> {
     return this.restangular.one('admin/organizations', organizationName)
       .all(basePath)
-      .all('documents/debit-notes')
+      .all('document/debit-notes')
       .post(invoice)
       .map(response => {
         if (response.status === 201 || 204) {
@@ -105,7 +105,7 @@ export class OrganizationSunatService {
   createPerception(organizationName: string, document: any): Observable<any> {
     return this.restangular.one('admin/organizations', organizationName)
       .all(basePath)
-      .all('documents/perceptions')
+      .all('document/perceptions')
       .post(document)
       .map(response => {
         if (response.status === 201 || 204) {
@@ -118,7 +118,7 @@ export class OrganizationSunatService {
   createRetention(organizationName: string, document: any): Observable<any> {
     return this.restangular.one('admin/organizations', organizationName)
       .all(basePath)
-      .all('documents/retentions')
+      .all('document/retentions')
       .post(document)
       .map(response => {
         if (response.status === 201 || 204) {
@@ -131,7 +131,7 @@ export class OrganizationSunatService {
   createVoidedDocument(organizationName: string, document: any): Observable<any> {
     return this.restangular.one('admin/organizations', organizationName)
       .all(basePath)
-      .all('documents/voided-documents')
+      .all('document/voided-document')
       .post(document)
       .map(response => {
         if (response.status === 201 || 204) {

@@ -16,6 +16,8 @@ import { DataService } from '../../../../core/data/data.service';
 })
 export class SettingsActiveKeyComponent implements OnInit, OnDestroy {
 
+  loading = false;
+
   dataSubscription: Subscription;
 
   type = 'org.openfact.keys.KeyProvider';
@@ -48,6 +50,8 @@ export class SettingsActiveKeyComponent implements OnInit, OnDestroy {
     queryParams.set('type', this.type);
     queryParams.set('parent', this.organization.id);
 
+    this.loading = true;
+
     this.organization.getComponents(queryParams).subscribe(
       data => {
         for (let i = 0; i < this.keys.keys.length; i++) {
@@ -76,6 +80,8 @@ export class SettingsActiveKeyComponent implements OnInit, OnDestroy {
         }
       }
     );
+
+    this.loading = false;
   }
 
 }

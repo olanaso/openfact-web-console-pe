@@ -21,6 +21,8 @@ import { AlertService } from '../../../../../core/alert/alert.service';
 })
 export class VoidedDocumentListComponent implements OnInit, OnDestroy {
 
+  loading = false;
+
   dataSubscription: Subscription;
 
   organization: Organization;
@@ -42,12 +44,11 @@ export class VoidedDocumentListComponent implements OnInit, OnDestroy {
     pageSize: 10
   };
 
-  constructor(
-    private router: Router,
-    private route: ActivatedRoute,
-    private modalService: NgbModal,
-    private dataService: DataService,
-    private alertService: AlertService) {
+  constructor(private router: Router,
+              private route: ActivatedRoute,
+              private modalService: NgbModal,
+              private dataService: DataService,
+              private alertService: AlertService) {
   }
 
   ngOnInit() {
@@ -80,9 +81,13 @@ export class VoidedDocumentListComponent implements OnInit, OnDestroy {
     };
     criteria.filters.push(new SearchCriteriaFilter('documentType', 'VOIDED_DOCUMENTS', 'eq'));
 
+    this.loading = true;
     this.dataService.documents().search(this.organization, criteria).subscribe(
       (data) => {
         this.searchResult = data;
+        this.loading = false;
+      }, () => {
+        this.loading = false;
       }
     );
   }
@@ -239,7 +244,8 @@ export class VoidedDocumentListComponent implements OnInit, OnDestroy {
             this.alertService.pop('success', 'Success', 'Success! Document sended to third party.');
           });
         }
-      }, (reason) => { });
+      }, (reason) => {
+      });
   }
 
 }

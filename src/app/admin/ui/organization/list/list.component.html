@@ -38,31 +38,35 @@
   </div>
 </div>
 
-<div class="container-fluid container-cards-pf">
-  <div class="row row-cards-pf">
-    <div *ngFor="let item of searchResult" class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-      <div class="card-pf card-pf-view card-pf-view-select card-pf-view-single-select">
-        <div class="card-pf-heading-kebab">
-          <div class="pull-right dropdown-kebab-pf">
-            <of-button-delete [model]="item" [kind]="'Organization'" [resourceName]="item.organization" [typeNameToConfirm]="true" [buttonOnly]="true"
-                              (onConfirm)="delete(item)"></of-button-delete>
+<of-loading [loading]="loading">
+
+  <div class="container-fluid container-cards-pf">
+    <div class="row row-cards-pf">
+      <div *ngFor="let item of searchResult" class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+        <div class="card-pf card-pf-view card-pf-view-select card-pf-view-single-select">
+          <div class="card-pf-heading-kebab">
+            <div class="pull-right dropdown-kebab-pf">
+              <of-button-delete [model]="item" [kind]="'Organization'" [resourceName]="item.organization" [typeNameToConfirm]="true" [buttonOnly]="true"
+                                (onConfirm)="delete(item)"></of-button-delete>
+            </div>
           </div>
-        </div>
-        <div class="card-pf-body" (click)="editOrganization(item)">
-          <div class="card-pf-top-element">
-            <span class="pficon pficon-enterprise card-pf-icon-circle"></span>
+          <div class="card-pf-body" (click)="editOrganization(item)">
+            <div class="card-pf-top-element">
+              <span class="pficon pficon-enterprise card-pf-icon-circle"></span>
+            </div>
+            <h2 class="card-pf-title text-center">{{item.organization}}</h2>
+            <p class="card-pf-info text-center">
+              <strong>{{'created-on' | translate}}</strong>&nbsp;
+              <span *ngIf="item.createdTimestamp">{{item.createdTimestamp | date}}</span>
+              <span *ngIf="!item.createdTimestamp" class="text-muted">Unknow</span>
+              <br/>
+              <span *ngIf="item.description">{{item.description}}</span>
+              <span *ngIf="!item.description" class="text-muted">{{'no-description-available' | translate}}</span>
+            </p>
           </div>
-          <h2 class="card-pf-title text-center">{{item.organization}}</h2>
-          <p class="card-pf-info text-center">
-            <strong>{{'created-on' | translate}}</strong>&nbsp;
-            <span *ngIf="item.createdTimestamp">{{item.createdTimestamp | date}}</span>
-            <span *ngIf="!item.createdTimestamp" class="text-muted">Unknow</span>
-            <br/>
-            <span *ngIf="item.description">{{item.description}}</span>
-            <span *ngIf="!item.description" class="text-muted">{{'no-description-available' | translate}}</span>
-          </p>
         </div>
       </div>
     </div>
   </div>
-</div>
+
+</of-loading>

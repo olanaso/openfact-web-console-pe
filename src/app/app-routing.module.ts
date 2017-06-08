@@ -16,7 +16,8 @@ const routes: Routes = [
   { path: 'not-found', component: Error404Component },
   { path: 'forbidden', component: Error403Component },
   { path: 'server-error', component: Error500Component },
-  { path: 'about', component: AboutComponent, outlet: 'popup' }
+  { path: 'about', component: AboutComponent, outlet: 'popup' },
+  { path: '**', component: Error404Component }
 ];
 
 @NgModule({

@@ -22,6 +22,8 @@ import { AlertService } from '../../../../../core/alert/alert.service';
 })
 export class DebitNoteListComponent implements OnInit, OnDestroy {
 
+  loading = false;
+
   dataSubscription: Subscription;
 
   organization: Organization;
@@ -81,9 +83,13 @@ export class DebitNoteListComponent implements OnInit, OnDestroy {
     };
     criteria.filters.push(new SearchCriteriaFilter('documentType', 'DEBIT_NOTE', 'eq'));
 
+    this.loading = true;
     this.dataService.documents().search(this.organization, criteria).subscribe(
       (data) => {
         this.searchResult = data;
+        this.loading = false;
+      }, () => {
+        this.loading = false;
       }
     );
   }

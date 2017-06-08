@@ -47,6 +47,7 @@ import { LocalStorageModule } from 'angular-2-local-storage';
 import { ToastModule } from 'ng2-toastr';
 import { JWBootstrapSwitchModule } from 'jw-bootstrap-switch-ng2';
 import { AccessDirective } from './directives/access.directive';
+import { LoadingComponent } from './components/loading/loading.component';
 
 @NgModule({
   imports: [
@@ -104,6 +105,7 @@ import { AccessDirective } from './directives/access.directive';
     UblLineGroupDirective,
 
     AccessDirective,
+    LoadingComponent,
   ],
   exports: [
     NgbModule,
@@ -156,6 +158,7 @@ import { AccessDirective } from './directives/access.directive';
     UblLineGroupDirective,
 
     AccessDirective,
+    LoadingComponent,
   ]
 })
 export class SharedModule {

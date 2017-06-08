@@ -16,6 +16,8 @@ import { ToastsManager } from 'ng2-toastr';
 })
 export class SettingsKeyProvidersComponent implements OnInit, OnDestroy {
 
+  loading = false;
+
   dataSubscription: Subscription;
 
   organization: Organization;
@@ -51,9 +53,14 @@ export class SettingsKeyProvidersComponent implements OnInit, OnDestroy {
     queryParams.set('type', 'org.openfact.keys.KeyProvider');
     queryParams.set('parent', this.organization.id);
 
+    this.loading = true;
+
     this.organization.getComponents(queryParams).subscribe(
       (data) => {
         this.instances = data;
+        this.loading = false;
+      }, () => {
+        this.loading = false;
       }
     );
   }

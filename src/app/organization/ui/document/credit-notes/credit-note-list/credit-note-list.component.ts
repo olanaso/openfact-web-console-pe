@@ -23,6 +23,8 @@ import { Document } from '../../../../../core/model/document.model';
 })
 export class CreditNoteListComponent implements OnInit, OnDestroy {
 
+  loading = false;
+
   dataSubscription: Subscription;
 
   organization: Organization;
@@ -82,9 +84,13 @@ export class CreditNoteListComponent implements OnInit, OnDestroy {
     };
     criteria.filters.push(new SearchCriteriaFilter('documentType', 'CREDIT_NOTE', 'eq'));
 
+    this.loading = true;
     this.dataService.documents().search(this.organization, criteria).subscribe(
       (data) => {
         this.searchResult = data;
+        this.loading = false;
+      }, ()=> {
+        this.loading = false;
       }
     );
   }

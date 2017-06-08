@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoadingService } from './loading.service';
 
 @Component({
-  selector: 'of-loading',
+  selector: 'of-waiting',
   templateUrl: './loading.component.html',
   styles: [`
     .loading {

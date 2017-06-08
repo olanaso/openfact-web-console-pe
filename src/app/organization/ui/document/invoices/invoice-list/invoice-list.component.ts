@@ -24,6 +24,8 @@ import { AlertService } from '../../../../../core/alert/alert.service';
 })
 export class InvoiceListComponent implements OnInit, OnDestroy {
 
+  loading = false;
+
   dataSubscription: Subscription;
 
   organization: Organization;
@@ -43,12 +45,11 @@ export class InvoiceListComponent implements OnInit, OnDestroy {
     pageSize: 10
   };
 
-  constructor(
-    private router: Router,
-    private route: ActivatedRoute,
-    private modalService: NgbModal,
-    private dataService: DataService,
-    private alertService: AlertService) {
+  constructor(private router: Router,
+              private route: ActivatedRoute,
+              private modalService: NgbModal,
+              private dataService: DataService,
+              private alertService: AlertService) {
   }
 
   ngOnInit() {
@@ -81,9 +82,13 @@ export class InvoiceListComponent implements OnInit, OnDestroy {
     };
     criteria.filters.push(new SearchCriteriaFilter('documentType', 'INVOICE', 'eq'));
 
+    this.loading = true;
     this.dataService.documents().search(this.organization, criteria).subscribe(
       (data) => {
         this.searchResult = data;
+        this.loading = false;
+      }, () => {
+        this.loading = false;
       }
     );
   }

@@ -12,6 +12,7 @@ import { ToastsManager } from 'ng2-toastr';
 })
 export class OrganizationsListComponent implements OnInit {
 
+  loading = false;
   searchResult: Array<Organization> = new Array<Organization>();
 
   filters: any = {
@@ -28,9 +29,13 @@ export class OrganizationsListComponent implements OnInit {
   }
 
   search(): void {
+    this.loading = true;
     this.dataService.organizations().getAll().subscribe(
       (data) => {
         this.searchResult = data;
+        this.loading = false;
+      }, () => {
+        this.loading = false;
       }
     );
   }

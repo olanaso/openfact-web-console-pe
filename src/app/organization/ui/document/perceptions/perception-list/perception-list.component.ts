@@ -12,8 +12,8 @@ import { OrderBy } from '../../../../../core/model/order-by.model';
 import { Paging } from '../../../../../core/model/paging.model';
 import { SearchCriteriaFilter } from '../../../../../core/model/search-criteria-filter.model';
 import { DataService } from '../../../../../core/data/data.service';
-import { AlertService } from '../../../../../core/alert/alert.service';
 import { Document } from '../../../../../core/model/document.model';
+import { ToastsManager } from 'ng2-toastr';
 
 @Component({
   selector: 'of-perception-list',
@@ -49,7 +49,7 @@ export class PerceptionListComponent implements OnInit, OnDestroy {
               private route: ActivatedRoute,
               private modalService: NgbModal,
               private dataService: DataService,
-              private alertService: AlertService) {
+              private toastr: ToastsManager) {
   }
 
   ngOnInit() {
@@ -227,13 +227,13 @@ export class PerceptionListComponent implements OnInit, OnDestroy {
 
   sendToCustomer(document: Document) {
     document.sendToCustomer().subscribe(result => {
-      this.alertService.pop('success', 'Success', 'Success! Document sended to customer.');
+      this.toastr.success('Success! Document sended to customer.');
     });
   }
 
   sendToThirdParty(invoice: Document) {
     invoice.sendToThirdParty().subscribe(result => {
-      this.alertService.pop('success', 'Success', 'Success! Document sended to third party.');
+      this.toastr.success('Success! Document sended to third party.');
     });
   }
 
@@ -242,7 +242,7 @@ export class PerceptionListComponent implements OnInit, OnDestroy {
       (form: NgForm) => {
         if (form.valid) {
           invoice.sendToThirdPartyByEmail({ email: form.value.thirdPartyByEmail.email }).subscribe(data => {
-            this.alertService.pop('success', 'Success', 'Success! Document sended to third party.');
+            this.toastr.success('Success! Document sended to third party.');
           });
         }
       }, (reason) => {

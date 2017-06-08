@@ -14,9 +14,6 @@ import {
 import { ErrorHandler, NgModule } from '@angular/core';
 import { KEYCLOAK_HTTP_PROVIDER, KeycloakHttp } from './../keycloak/keycloak.http';
 
-import { AlertComponent } from './alert/alert.component';
-import { AlertService } from './alert/alert.service';
-import { AlertsComponent } from './alert/alerts.component';
 import { ConfigService } from './../config.service';
 import { CreditNoteService } from './data/credit-note.service';
 import { CurrentOrganizationService } from './services/current-organization.service';
@@ -57,8 +54,6 @@ import { ToastsManager } from 'ng2-toastr';
     SharedModule
   ],
   declarations: [
-    AlertsComponent,
-    AlertComponent,
     DialogComponent,
     LoadingComponent
   ],
@@ -66,7 +61,6 @@ import { ToastsManager } from 'ng2-toastr';
     DialogComponent
   ],
   exports: [
-    AlertsComponent,
     LoadingComponent
   ],
   providers: [
@@ -77,7 +71,6 @@ import { ToastsManager } from 'ng2-toastr';
       useFactory: RestangularServiceFactory,
       deps: [Http, Router, ToastsManager, ConfigService]
     },
-    AlertService,
     DialogService,
     LoadingService,
 

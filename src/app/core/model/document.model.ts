@@ -7,108 +7,115 @@ import { saveAs } from 'file-saver';
 
 export class Document extends Model {
 
-    id: string;
-    documentId: string;
-    documentType: string;
+  id: string;
+  documentId: string;
+  documentType: string;
+  enabled: boolean;
+  createdTimestamp: Date;
 
-    requiredActions: string[];
+  attributes: any;
 
-    constructor(restangular: RestangularService) {
-        super(restangular);
-    }
+  requiredActions: string[];
 
-    build(): Document {
-        return new Document(this.restangular);
-    }
+  attachedDocumentsAsOrigin: any[];
+  attachedDocumentsAsDestiny: any[];
 
-    getJsonRepresentation(): Observable<any> {
-        return this.restangular
-            .all('representation/json')
-            .get()
-            .map(response => response.json());
-    }
+  constructor(restangular: RestangularService) {
+    super(restangular);
+  }
 
-    reload() {
-        return this.restangular.get()
-            .map(response => Object.assign(new Document(this.restangular), <Document>response.json()));
-    }
+  build(): Document {
+    return new Document(this.restangular);
+  }
 
-    getSendEvents(queryParams?: URLSearchParams): Observable<any> {
-        return this.restangular.all('send-events')
-            .get(queryParams)
-            .map(response => response.json());
-    }
+  getJsonRepresentation(): Observable<any> {
+    return this.restangular
+      .all('representation/json')
+      .get()
+      .map(response => response.json());
+  }
 
-    downloadXml() {
-        const restangular = this.restangular.all('representation/xml');
-        const url = restangular.path;
+  reload() {
+    return this.restangular.get()
+      .map(response => Object.assign(new Document(this.restangular), <Document>response.json()));
+  }
 
-        return restangular.http
-            .get(url, {
-                headers: new Headers(),
-                responseType: ResponseContentType.Blob
-            })
-            .map(response => {
-                const file = {
-                    file: response.blob(),
-                    fileName: (this['documentId'] || 'file') + '.xml'
-                };
-                return file;
-            }).subscribe(result => {
-                saveAs(result.file, result.fileName);
-            }, error => {
-                Observable.throw(error);
-            });
-    }
+  getSendEvents(queryParams?: URLSearchParams): Observable<any> {
+    return this.restangular.all('send-events')
+      .get(queryParams)
+      .map(response => response.json());
+  }
 
-    downloadReport(queryParams?: URLSearchParams) {
-        const restangular = this.restangular.all('report');
-        const url = restangular.path;
+  downloadXml() {
+    const restangular = this.restangular.all('representation/xml');
+    const url = restangular.path;
 
-        return restangular.http
-            .get(url, {
-                headers: new Headers(),
-                responseType: ResponseContentType.Blob,
-                search: queryParams
-            })
-            .map(response => {
-                let fileExtension = '';
-                if (queryParams.get('format')) {
-                    fileExtension = '.' + queryParams.get('format');
-                }
+    return restangular.http
+      .get(url, {
+        headers: new Headers(),
+        responseType: ResponseContentType.Blob
+      })
+      .map(response => {
+        const file = {
+          file: response.blob(),
+          fileName: (this['documentId'] || 'file') + '.xml'
+        };
+        return file;
+      }).subscribe(result => {
+        saveAs(result.file, result.fileName);
+      }, error => {
+        Observable.throw(error);
+      });
+  }
 
-                const file = {
-                    file: response.blob(),
-                    fileName: (this['documentId'] || 'file') + fileExtension
-                };
-                return file;
-            }).subscribe(result => {
-                saveAs(result.file, result.fileName);
-            }, error => {
-                Observable.throw(error);
-            });
-    }
+  downloadReport(queryParams?: URLSearchParams) {
+    const restangular = this.restangular.all('report');
+    const url = restangular.path;
 
-    sendToCustomer() {
-        return this.restangular.all('send-to-customer').post();
-    }
+    return restangular.http
+      .get(url, {
+        headers: new Headers(),
+        responseType: ResponseContentType.Blob,
+        search: queryParams
+      })
+      .map(response => {
+        let fileExtension = '';
+        if (queryParams.get('format')) {
+          fileExtension = '.' + queryParams.get('format');
+        }
 
-    sendToThirdParty() {
-        return this.restangular.all('send-to-third-party').post();
-    }
+        const file = {
+          file: response.blob(),
+          fileName: (this['documentId'] || 'file') + fileExtension
+        };
+        return file;
+      }).subscribe(result => {
+        saveAs(result.file, result.fileName);
+      }, error => {
+        Observable.throw(error);
+      });
+  }
 
-    sendToThirdPartyByEmail(obj: any) {
-        return this.restangular.all('send-to-third-party-by-email').post(obj);
-    }
+  sendToCustomer() {
+    return this.restangular.all('send-to-customer').post();
+  }
 
-    setId(id: string): Document {
-        this.id = id;
-        return this;
-    }
+  sendToThirdParty() {
+    return this.restangular.all('send-to-third-party').post();
+  }
 
-    setDocumentId(documentId: string): Document {
-        this.documentId = documentId;
-        return this;
-    }
+  sendToThirdPartyByEmail(obj: any) {
+    return this.restangular.all('send-to-third-party-by-email').post(obj);
+  }
+
+  setId(id: string): Document {
+    this.id = id;
+    return this;
+  }
+
+  setDocumentId(documentId: string): Document {
+    this.documentId = documentId;
+    return this;
+  }
 
 }

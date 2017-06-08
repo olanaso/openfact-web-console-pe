@@ -6,7 +6,6 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { URLSearchParams } from '@angular/http';
 import { Organization } from '../../../../../core/model/organization.model';
 import { DataService } from '../../../../../core/data/data.service';
-import { AlertService } from '../../../../../core/alert/alert.service';
 import { Document } from '../../../../../core/model/document.model';
 import { ToastsManager } from 'ng2-toastr';
 

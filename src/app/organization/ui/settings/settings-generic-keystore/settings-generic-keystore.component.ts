@@ -4,7 +4,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Subscription } from 'rxjs/Subscription';
 import { DataService } from '../../../../core/data/data.service';
-import { AlertService } from '../../../../core/alert/alert.service';
 import { findParam } from '../../../../core/resolvers/find-param';
 import { ToastsManager } from 'ng2-toastr';
 

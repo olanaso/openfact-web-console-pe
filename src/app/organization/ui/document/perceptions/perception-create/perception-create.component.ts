@@ -4,10 +4,8 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs/Subscription';
-import { URLSearchParams } from '@angular/http';
 import { Organization } from '../../../../../core/model/organization.model';
 import { GenericType } from '../../../../../core/model/genericType.model';
-import { AlertService } from '../../../../../core/alert/alert.service';
 import { DataService } from '../../../../../core/data/data.service';
 import { DialogService } from '../../../../../core/dialog/dialog.service';
 import { OfValidators } from '../../../../../shared/validators/of-validators';

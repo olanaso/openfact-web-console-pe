@@ -60,7 +60,7 @@ export class SettingsGeneralInformationComponent implements OnInit, OnDestroy {
     this.form.patchValue(this.organization);
   }
 
-  save(form: FormControl) {
+  save(form: FormGroup) {
     this.working = true;
 
     this.organization.save(form.value).subscribe(

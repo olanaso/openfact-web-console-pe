@@ -7,7 +7,6 @@ import { Subscription } from 'rxjs/Subscription';
 import { URLSearchParams } from '@angular/http';
 import { Organization } from '../../../../../core/model/organization.model';
 import { GenericType } from '../../../../../core/model/genericType.model';
-import { AlertService } from '../../../../../core/alert/alert.service';
 import { DialogService } from '../../../../../core/dialog/dialog.service';
 import { DataService } from '../../../../../core/data/data.service';
 import { ToastsManager } from 'ng2-toastr';
@@ -305,7 +304,7 @@ export class DebitNoteCreateComponent implements OnInit, OnDestroy {
               this.buildForm();
             }
           },
-          error => {
+          (error) => {
             this.working = false;
           }
         );

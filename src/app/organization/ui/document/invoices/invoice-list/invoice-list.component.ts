@@ -15,7 +15,6 @@ import { SearchCriteriaFilter } from '../../../../../core/model/search-criteria-
 import { OrderBy } from '../../../../../core/model/order-by.model';
 import { Paging } from '../../../../../core/model/paging.model';
 import { DataService } from '../../../../../core/data/data.service';
-import { AlertService } from '../../../../../core/alert/alert.service';
 
 @Component({
   selector: 'of-invoice-list',
@@ -48,8 +47,7 @@ export class InvoiceListComponent implements OnInit, OnDestroy {
   constructor(private router: Router,
               private route: ActivatedRoute,
               private modalService: NgbModal,
-              private dataService: DataService,
-              private alertService: AlertService) {
+              private dataService: DataService) {
   }
 
   ngOnInit() {

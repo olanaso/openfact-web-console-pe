@@ -25,7 +25,7 @@
                         <label class="control-label" [ofFormRequiredLabel]="form.get('documentoQueSeModifica')">Boleta/Factura
                             <i class="fa fa-question-circle text-muted" ngbTooltip="Boleta/Factura" placement="right"></i>
                         </label>
-                        <input formControlName="documentoQueSeModifica" (keyup.enter)="findInvoiceByDocumentId()" type="text" class="form-control text-right"
+                        <input formControlName="documentoQueSeModifica" (keyup.enter)="findInvoiceByDocumentId(null)" type="text" class="form-control text-right"
                             placeholder="[B|F]000-0000000">
                             <of-form-field-validation-messages [ofFormControl]="form.get('documentoQueSeModifica')">
                             </of-form-field-validation-messages>
@@ -250,7 +250,7 @@
                 <div class="col-md-8">
                     <div class="form-group" [ofFormFieldValidationState]="form.get('observaciones')">
                         <label class="control-label" [ofFormRequiredLabel]="form.get('observaciones')">Observaciones
-                            <i class="fa fa-question-circle text-muted" ngbTooltip="Enabled of the organization" placement="right"></i>      
+                            <i class="fa fa-question-circle text-muted" ngbTooltip="Enabled of the organization" placement="right"></i>
                         </label>
                         <textarea formControlName="observaciones" rows="5" class="form-control"></textarea>
                         <of-form-field-validation-messages [ofFormControl]="form.get('observaciones')">

@@ -5,8 +5,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 import { Organization } from '../../../../core/model/organization.model';
 import { DataService } from '../../../../core/data/data.service';
-import { AlertService } from '../../../../core/alert/alert.service';
 import { DialogService } from '../../../../core/dialog/dialog.service';
+import { ToastsManager } from "ng2-toastr";
 
 @Component({
   selector: 'of-events-settings',
@@ -27,13 +27,11 @@ export class EventsSettingsComponent implements OnInit, OnDestroy {
 
   eventListeners: any;
 
-  constructor(
-    private router: Router,
-    private route: ActivatedRoute,
-    private formBuilder: FormBuilder,
-    private dataService: DataService,
-    private alertService: AlertService,
-    private dialogService: DialogService) {
+  constructor(private router: Router,
+              private route: ActivatedRoute,
+              private formBuilder: FormBuilder,
+              private toastr: ToastsManager,
+              private dialogService: DialogService) {
   }
 
   ngOnInit() {
@@ -71,7 +69,7 @@ export class EventsSettingsComponent implements OnInit, OnDestroy {
   clearAdminEvents(content) {
     this.dialogService.confirmDelete('', 'Events').result.then((data1) => {
       this.organization.clearAdminEvents().subscribe(data2 => {
-        this.alertService.pop('success', 'Success', 'The admin events has been cleared.');
+        this.toastr.success('Success! The admin events has been cleared.');
       });
     }, (reason) => {
     });
@@ -81,10 +79,10 @@ export class EventsSettingsComponent implements OnInit, OnDestroy {
     this.working = true;
 
     this.organization.updateEventsConfig(Object.assign(this.eventsConfig || {}, form)).subscribe(
-        result => {
-          this.working = false;
-          this.alertService.pop('success', 'Success', 'Your changes have been saved to the organization.');
-        }
+      result => {
+        this.working = false;
+        this.toastr.success('Success! Your changes have been saved to the organization.');
+      }
     );
   }
 

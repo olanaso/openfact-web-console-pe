@@ -5,7 +5,6 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Subscription } from 'rxjs/Subscription';
 import { Organization } from '../../../../core/model/organization.model';
 import { DataService } from '../../../../core/data/data.service';
-import { AlertService } from '../../../../core/alert/alert.service';
 import { ToastsManager } from 'ng2-toastr';
 
 @Component({
@@ -67,7 +66,7 @@ export class SettingsAdditionalInformationComponent implements OnInit, OnDestroy
     this.form.patchValue(this.organization);
   }
 
-  save(form: FormControl) {
+  save(form: FormGroup) {
     this.working = true;
 
     this.organization.save(form.value).subscribe(

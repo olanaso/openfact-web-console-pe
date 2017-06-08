@@ -13,11 +13,11 @@ import { DataService } from '../../../core/data/data.service';
 })
 export class DashboardComponent implements OnInit, OnDestroy {
 
-  private dataSubscription: Subscription;
-  private organization: Organization;
+  dataSubscription: Subscription;
+  organization: Organization;
 
-  private providers = { remainingTime: -1, tasks: [] };
-  private jobReports: any[];
+  providers = { remainingTime: -1, tasks: [] };
+  jobReports: any[];
 
   constructor(
     private activatedRoute: ActivatedRoute,

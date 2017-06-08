@@ -38,7 +38,10 @@ const routes: Routes = [
     SharedModule,
     CoreModule
   ],
-  declarations: [],
+  declarations: [
+    AdminEventsComponent,
+    EventsSettingsComponent
+  ],
   entryComponents: [],
   exports: [],
   providers: []

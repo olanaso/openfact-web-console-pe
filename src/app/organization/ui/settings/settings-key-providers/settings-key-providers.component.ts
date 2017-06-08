@@ -5,7 +5,6 @@ import { Subscription } from 'rxjs/Subscription';
 import { URLSearchParams } from '@angular/http';
 import { Organization } from '../../../../core/model/organization.model';
 import { DataService } from '../../../../core/data/data.service';
-import { AlertService } from '../../../../core/alert/alert.service';
 import { DialogService } from '../../../../core/dialog/dialog.service';
 import { ToastsManager } from 'ng2-toastr';
 

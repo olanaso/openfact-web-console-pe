@@ -10,7 +10,6 @@ import { Organization } from '../../../../../core/model/organization.model';
 import { GenericType } from '../../../../../core/model/genericType.model';
 import { DataService } from '../../../../../core/data/data.service';
 import { DialogService } from '../../../../../core/dialog/dialog.service';
-import { AlertService } from '../../../../../core/alert/alert.service';
 import { Document } from '../../../../../core/model/document.model';
 import { ToastsManager } from 'ng2-toastr';
 

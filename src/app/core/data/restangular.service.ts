@@ -1,4 +1,3 @@
-import { AlertService } from './../alert/alert.service';
 import { ConfigService } from './../../config.service';
 import { Headers } from '@angular/http';
 import { Http } from '@angular/http';

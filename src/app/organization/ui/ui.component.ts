@@ -3,7 +3,6 @@ import { Subscription } from 'rxjs/Subscription';
 import { Organization } from '../../core/model/organization.model';
 import { ActivatedRoute } from '@angular/router';
 import { DataService } from '../../core/data/data.service';
-import { AlertService } from 'app/core/alert/alert.service';
 
 @Component({
   selector: 'openfact-ui',
@@ -19,8 +18,7 @@ export class OrganizationUIComponent implements OnInit, OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
-    private dataService: DataService,
-    private alertService: AlertService) { }
+    private dataService: DataService) { }
 
   ngOnInit() {
     this.dataSubscription = this.route.data.subscribe(

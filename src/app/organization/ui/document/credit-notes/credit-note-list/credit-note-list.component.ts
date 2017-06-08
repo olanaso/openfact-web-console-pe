@@ -13,8 +13,8 @@ import { SearchCriteriaFilter } from '../../../../../core/model/search-criteria-
 import { OrderBy } from '../../../../../core/model/order-by.model';
 import { Paging } from '../../../../../core/model/paging.model';
 import { DataService } from '../../../../../core/data/data.service';
-import { AlertService } from '../../../../../core/alert/alert.service';
 import { Document } from '../../../../../core/model/document.model';
+import { ToastsManager } from 'ng2-toastr';
 
 @Component({
   selector: 'of-credit-note-list',
@@ -46,12 +46,11 @@ export class CreditNoteListComponent implements OnInit, OnDestroy {
     pageSize: 10
   };
 
-  constructor(
-    private router: Router,
-    private route: ActivatedRoute,
-    private modalService: NgbModal,
-    private dataService: DataService,
-    private alertService: AlertService) {
+  constructor(private router: Router,
+              private route: ActivatedRoute,
+              private modalService: NgbModal,
+              private dataService: DataService,
+              private toastr: ToastsManager) {
   }
 
   ngOnInit() {
@@ -89,7 +88,7 @@ export class CreditNoteListComponent implements OnInit, OnDestroy {
       (data) => {
         this.searchResult = data;
         this.loading = false;
-      }, ()=> {
+      }, () => {
         this.loading = false;
       }
     );
@@ -229,13 +228,13 @@ export class CreditNoteListComponent implements OnInit, OnDestroy {
 
   sendToCustomer(document: Document) {
     document.sendToCustomer().subscribe(result => {
-      this.alertService.pop('success', 'Success', 'Success! Document sended to customer.');
+      this.toastr.success('Success! Document sended to customer.');
     });
   }
 
   sendToThirdParty(invoice: Document) {
     invoice.sendToThirdParty().subscribe(result => {
-      this.alertService.pop('success', 'Success', 'Success! Document sended to third party.');
+      this.toastr.success('Success! Document sended to third party.');
     });
   }
 
@@ -244,10 +243,11 @@ export class CreditNoteListComponent implements OnInit, OnDestroy {
       (form: NgForm) => {
         if (form.valid) {
           invoice.sendToThirdPartyByEmail({ email: form.value.thirdPartyByEmail.email }).subscribe(data => {
-            this.alertService.pop('success', 'Success', 'Success! Document sended to third party.');
+            this.toastr.success('Success! Document sended to third party.');
           });
         }
-      }, (reason) => { });
+      }, (reason) => {
+      });
   }
 
 }

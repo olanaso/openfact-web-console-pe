@@ -43,7 +43,7 @@ export class OrganizationsCreateComponent implements OnInit {
     this.importing = true;
   }
 
-  save(form: FormControl): void {
+  save(form: FormGroup): void {
     this.working = true;
     const organizationCopy = Object.assign(this.organization || {}, form.value);
 
@@ -52,7 +52,7 @@ export class OrganizationsCreateComponent implements OnInit {
         this.toastr.success('Success! The organization has been created.');
         this.router.navigate(['../']);
       },
-      error => {
+      () => {
         this.working = false;
       }
     );

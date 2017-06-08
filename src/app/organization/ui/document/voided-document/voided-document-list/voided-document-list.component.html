@@ -111,7 +111,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngIf="!searchResult || searchResult.items == 0">
+            <tr *ngIf="!searchResult || searchResult.items.length == 0">
               <td colspan="12" class="text-center text-muted">
                 <span>{{'no-results-found' | translate}}.</span>
               </td>

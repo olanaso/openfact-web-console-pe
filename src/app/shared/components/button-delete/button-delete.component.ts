@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 
-import { AlertService } from '../../../core/alert/alert.service';
 import { Model } from '../../../core/model/model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
@@ -67,8 +66,7 @@ export class ButtonDeleteComponent implements OnInit {
   confirmName = '';
 
   constructor(private router: Router,
-              private modalService: NgbModal,
-              private alertService: AlertService) {
+              private modalService: NgbModal) {
   }
 
   ngOnInit() {

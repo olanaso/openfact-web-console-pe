@@ -6,7 +6,6 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs/Subscription';
 import { URLSearchParams } from '@angular/http';
 import { DataService } from 'app/core/data/data.service';
-import { AlertService } from '../../../../../core/alert/alert.service';
 import { OrderBy } from 'app/core/model/order-by.model';
 import { Paging } from '../../../../../core/model/paging.model';
 import { SearchCriteriaFilter } from '../../../../../core/model/search-criteria-filter.model';
@@ -14,6 +13,7 @@ import { SearchCriteria } from '../../../../../core/model/search-criteria.model'
 import { Organization } from 'app/core/model/organization.model';
 import { SearchResults } from '../../../../../core/model/search-results.model';
 import { Document } from '../../../../../core/model/document.model';
+import { ToastsManager } from 'ng2-toastr';
 
 @Component({
   selector: 'of-summary-document-list',
@@ -49,7 +49,7 @@ export class SummaryDocumentListComponent implements OnInit, OnDestroy {
               private route: ActivatedRoute,
               private modalService: NgbModal,
               private dataService: DataService,
-              private alertService: AlertService) {
+              private toastr: ToastsManager) {
   }
 
   ngOnInit() {
@@ -227,13 +227,13 @@ export class SummaryDocumentListComponent implements OnInit, OnDestroy {
 
   sendToCustomer(document: Document) {
     document.sendToCustomer().subscribe(result => {
-      this.alertService.pop('success', 'Success', 'Success! Document sended to customer.');
+      this.toastr.success('Success! Document sended to customer.');
     });
   }
 
   sendToThirdParty(invoice: Document) {
     invoice.sendToThirdParty().subscribe(result => {
-      this.alertService.pop('success', 'Success', 'Success! Document sended to third party.');
+      this.toastr.success('Success! Document sended to third party.');
     });
   }
 
@@ -242,7 +242,7 @@ export class SummaryDocumentListComponent implements OnInit, OnDestroy {
       (form: NgForm) => {
         if (form.valid) {
           invoice.sendToThirdPartyByEmail({ email: form.value.thirdPartyByEmail.email }).subscribe(data => {
-            this.alertService.pop('success', 'Success', 'Success! Document sended to third party.');
+            this.toastr.success('Success! Document sended to third party.');
           });
         }
       }, (reason) => {

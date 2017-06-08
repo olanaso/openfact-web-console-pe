@@ -7,8 +7,8 @@ import { Subscription } from 'rxjs/Subscription';
 import { GenericType } from '../../../../../core/model/genericType.model';
 import { Organization } from '../../../../../core/model/organization.model';
 import { DataService } from '../../../../../core/data/data.service';
-import { AlertService } from '../../../../../core/alert/alert.service';
 import { DialogService } from '../../../../../core/dialog/dialog.service';
+import { ToastsManager } from 'ng2-toastr';
 
 @Component({
   selector: 'of-invoice-create',
@@ -47,12 +47,12 @@ export class InvoiceCreateComponent implements OnInit, OnDestroy {
 
   constructor(private router: Router, private route: ActivatedRoute,
     private formBuilder: FormBuilder, private modalService: NgbModal,
-    private dataService: DataService, private alertService: AlertService,
+    private dataService: DataService, private toastr: ToastsManager,
     private dialogService: DialogService) { }
 
   ngOnInit() {
     this.buildForm();
-    this.parentDataSubscription = this.route.parent.data.subscribe((data) => {
+    this.parentDataSubscription = this.route.parent.parent.parent.data.subscribe((data) => {
       this.organization = data['organization'];
     });
     this.dataSubscription = this.route.data.subscribe((data) => {
@@ -327,7 +327,7 @@ export class InvoiceCreateComponent implements OnInit, OnDestroy {
 
   save(form: FormGroup): void {
     if (!form.value.detalle || form.value.detalle.length === 0) {
-      this.alertService.pop('warning', 'Warning', 'Warning! Is required to add at least one line.');
+      this.toastr.warning('Warning! Is required to add at least one line.');
       return;
     }
 
@@ -347,7 +347,7 @@ export class InvoiceCreateComponent implements OnInit, OnDestroy {
         this.dataService.organizationsSunat().createInvoice(this.organization.organization, form.value).subscribe(
           response => {
             this.working = false;
-            this.alertService.pop('success', 'Success', 'Success! The invoice has been created.');
+            this.toastr.success('Success! The invoice has been created.');
             if (redirect) {
               this.router.navigate(['../'], { relativeTo: this.route });
             } else {

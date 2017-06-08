@@ -14,7 +14,7 @@ import { OrderBy } from '../../../../../core/model/order-by.model';
 import { Paging } from '../../../../../core/model/paging.model';
 import { DataService } from '../../../../../core/data/data.service';
 import { AlertService } from '../../../../../core/alert/alert.service';
-import { Document } from "../../../../../core/model/document.model";
+import { Document } from '../../../../../core/model/document.model';
 
 @Component({
   selector: 'of-credit-note-list',

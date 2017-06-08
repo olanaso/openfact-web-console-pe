@@ -16,7 +16,7 @@ import {
   TiposNotaDebitoResolverService,
   TiposAfectacionIGVResolverService, IgvResolverService
 } from '../../../../core/resolvers/generic-type-resolver.service';
-import { DocumentResolverService } from "app/core/resolvers/document-resolver.service";
+import { DocumentResolverService } from 'app/core/resolvers/document-resolver.service';
 
 const routes: Routes = [
   {

@@ -11,6 +11,7 @@ import { AlertService } from '../../../../../core/alert/alert.service';
 import { DataService } from '../../../../../core/data/data.service';
 import { DialogService } from '../../../../../core/dialog/dialog.service';
 import { OfValidators } from '../../../../../shared/validators/of-validators';
+import { ToastsManager } from 'ng2-toastr';
 
 @Component({
   selector: 'of-perception-create',
@@ -19,13 +20,15 @@ import { OfValidators } from '../../../../../shared/validators/of-validators';
     .of-display-block {
       display: block;
     }
+
     .of-no-bottom-margin {
       margin-bottom: 0px;
     }
+
     .of-float-right {
       float: right;
     }
-    
+
     input[readonly] {
       background-color: #d1d1d1 !important;
       color: #363636 !important;
@@ -54,13 +57,14 @@ export class PerceptionCreateComponent implements OnInit, OnDestroy {
   numberPEMask = { allowDecimal: true, decimalLimit: 2, prefix: 'PEN ' };
 
   constructor(private router: Router, private route: ActivatedRoute,
-    private formBuilder: FormBuilder, private modalService: NgbModal,
-    private dataService: DataService, private alertService: AlertService,
-    private dialogService: DialogService) { }
+              private formBuilder: FormBuilder, private modalService: NgbModal,
+              private dataService: DataService, private toastr: ToastsManager,
+              private dialogService: DialogService) {
+  }
 
   ngOnInit() {
     this.buildForm();
-    this.parentDataSubscription = this.route.parent.data.subscribe((data) => {
+    this.parentDataSubscription = this.route.parent.parent.parent.data.subscribe((data) => {
       this.organization = data['organization'];
     });
     this.dataSubscription = this.route.data.subscribe((data) => {
@@ -194,33 +198,33 @@ export class PerceptionCreateComponent implements OnInit, OnDestroy {
     }
   }
 
-/*  findDocument(formGroup: FormGroup) {
-    if (formGroup.get('numeroDocumentoRelacionado').valid && formGroup.get('tipoDocumentoRelacionado').valid) {
-      const codigoTipoDocumentoRelacionado = formGroup.get('tipoDocumentoRelacionado').value;
-      const tipoDocumentoRelacionado = this.documentosRelacionadosPercepcion.find(f => f.codigo === codigoTipoDocumentoRelacionado);
+  /*  findDocument(formGroup: FormGroup) {
+      if (formGroup.get('numeroDocumentoRelacionado').valid && formGroup.get('tipoDocumentoRelacionado').valid) {
+        const codigoTipoDocumentoRelacionado = formGroup.get('tipoDocumentoRelacionado').value;
+        const tipoDocumentoRelacionado = this.documentosRelacionadosPercepcion.find(f => f.codigo === codigoTipoDocumentoRelacionado);
 
-      const queryParam: URLSearchParams = new URLSearchParams();
-      queryParam.set('documentType', tipoDocumentoRelacionado.grupo);
-      queryParam.set('documentId', formGroup.get('numeroDocumentoRelacionado').value);
+        const queryParam: URLSearchParams = new URLSearchParams();
+        queryParam.set('documentType', tipoDocumentoRelacionado.grupo);
+        queryParam.set('documentId', formGroup.get('numeroDocumentoRelacionado').value);
 
-      this.dataService.document().getAll(this.organization, queryParam).subscribe(
-        data => {
-          if (data && data.length > 0) {
-            const dateString = data[0]['attributes']['issueDate'][0].split('-');
+        this.dataService.document().getAll(this.organization, queryParam).subscribe(
+          data => {
+            if (data && data.length > 0) {
+              const dateString = data[0]['attributes']['issueDate'][0].split('-');
 
-            formGroup.patchValue({
-              totalDocumentoRelacionado: data[0]['attributes']['legalMonetaryTotalPayableAmount'][0],
-              fechaDocumentoRelacionado: new Date(dateString[0], dateString[1] - 1, dateString[2]),
-              tipoDocumentoRelacionado: data[0]['attributes']['invoiceTypeCode'][0],
-              monedaDocumentoRelacionado: data[0]['attributes']['documentCurrencyCode'][0],
-            });
-          } else {
-            this.alertService.pop('info', 'Info', 'Could not find Document.');
+              formGroup.patchValue({
+                totalDocumentoRelacionado: data[0]['attributes']['legalMonetaryTotalPayableAmount'][0],
+                fechaDocumentoRelacionado: new Date(dateString[0], dateString[1] - 1, dateString[2]),
+                tipoDocumentoRelacionado: data[0]['attributes']['invoiceTypeCode'][0],
+                monedaDocumentoRelacionado: data[0]['attributes']['documentCurrencyCode'][0],
+              });
+            } else {
+              this.alertService.pop('info', 'Info', 'Could not find Document.');
+            }
           }
-        }
-      );
-    }
-  }*/
+        );
+      }
+    }*/
 
   recalcularDatos() {
     const tasaDocumento = this.form.get('tasaDocumento').value || 0;
@@ -255,7 +259,7 @@ export class PerceptionCreateComponent implements OnInit, OnDestroy {
 
   save(form: FormGroup): void {
     if (!form.value.detalle || form.value.detalle.length === 0) {
-      this.alertService.pop('warning', 'Warning', 'Warning! Is required to add at least one line.');
+      this.toastr.warning('Warning! Is required to add at least one line.');
       return;
     }
 
@@ -276,7 +280,7 @@ export class PerceptionCreateComponent implements OnInit, OnDestroy {
         this.dataService.organizationsSunat().createPerception(this.organization.organization, form.value).subscribe(
           response => {
             this.working = false;
-            this.alertService.pop('success', 'Success', 'Success! The perception has been created.');
+            this.toastr.success('Success! The perception has been created.');
             if (redirect) {
               this.router.navigate(['../'], { relativeTo: this.route });
             } else {
@@ -288,7 +292,8 @@ export class PerceptionCreateComponent implements OnInit, OnDestroy {
           }
         );
       },
-      (dissmiss) => { }
+      (dissmiss) => {
+      }
     );
   }
 

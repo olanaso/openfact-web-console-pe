@@ -1,10 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 
-import { AlertService } from './../../../core/alert/alert.service';
+import { AlertService } from '../../../core/alert/alert.service';
 import { Model } from '../../../core/model/model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
-import { ModalDirective } from "ngx-bootstrap";
+import { ModalDirective } from 'ngx-bootstrap';
 
 @Component({
   selector: 'of-button-delete',

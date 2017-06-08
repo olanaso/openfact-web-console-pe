@@ -11,6 +11,7 @@ import { DataService } from '../../../../../core/data/data.service';
 import { DialogService } from '../../../../../core/dialog/dialog.service';
 import { AlertService } from 'app/core/alert/alert.service';
 import { OfValidators } from '../../../../../shared/validators/of-validators';
+import { ToastsManager } from 'ng2-toastr';
 
 @Component({
   selector: 'of-retention-create',
@@ -19,13 +20,15 @@ import { OfValidators } from '../../../../../shared/validators/of-validators';
     .of-display-block {
       display: block;
     }
+
     .of-no-bottom-margin {
       margin-bottom: 0px;
     }
+
     .of-float-right {
       float: right;
     }
-    
+
     input[readonly] {
       background-color: #d1d1d1 !important;
       color: #363636 !important;
@@ -54,13 +57,14 @@ export class RetentionCreateComponent implements OnInit, OnDestroy {
   numberPEMask = { allowDecimal: true, decimalLimit: 2, prefix: 'PEN ' };
 
   constructor(private router: Router, private route: ActivatedRoute,
-    private formBuilder: FormBuilder, private modalService: NgbModal,
-    private dataService: DataService, private alertService: AlertService,
-    private dialogService: DialogService) { }
+              private formBuilder: FormBuilder, private modalService: NgbModal,
+              private dataService: DataService, private toastr: ToastsManager,
+              private dialogService: DialogService) {
+  }
 
   ngOnInit() {
     this.buildForm();
-    this.parentDataSubscription = this.route.parent.data.subscribe((data) => {
+    this.parentDataSubscription = this.route.parent.parent.parent.data.subscribe((data) => {
       this.organization = data['organization'];
     });
     this.dataSubscription = this.route.data.subscribe((data) => {
@@ -252,7 +256,7 @@ export class RetentionCreateComponent implements OnInit, OnDestroy {
 
   save(form: FormGroup): void {
     if (!form.value.detalle || form.value.detalle.length === 0) {
-      this.alertService.pop('warning', 'Warning', 'Warning! Is required to add at least one line.');
+      this.toastr.warning('Warning! Is required to add at least one line.');
       return;
     }
 
@@ -273,7 +277,7 @@ export class RetentionCreateComponent implements OnInit, OnDestroy {
         this.dataService.organizationsSunat().createRetention(this.organization.organization, form.value).subscribe(
           response => {
             this.working = false;
-            this.alertService.pop('success', 'Success', 'Success! The retention has been created.');
+            this.toastr.success('Success! The retention has been created.');
             if (redirect) {
               this.router.navigate(['../'], { relativeTo: this.route });
             } else {
@@ -285,7 +289,8 @@ export class RetentionCreateComponent implements OnInit, OnDestroy {
           }
         );
       },
-      (dissmiss) => { }
+      (dissmiss) => {
+      }
     );
   }
 

@@ -12,6 +12,7 @@ import { DataService } from '../../../../../core/data/data.service';
 import { DialogService } from '../../../../../core/dialog/dialog.service';
 import { AlertService } from '../../../../../core/alert/alert.service';
 import { Document } from '../../../../../core/model/document.model';
+import { ToastsManager } from 'ng2-toastr';
 
 @Component({
   selector: 'of-voided-document-create',
@@ -20,6 +21,7 @@ import { Document } from '../../../../../core/model/document.model';
     .of-display-block {
       display: block;
     }
+
     input[readonly] {
       background-color: #d1d1d1 !important;
       color: #363636 !important;
@@ -42,13 +44,14 @@ export class VoidedDocumentCreateComponent implements OnInit, OnDestroy {
   numberMask = { allowDecimal: true, decimalLimit: 2 };
 
   constructor(private router: Router, private route: ActivatedRoute,
-    private formBuilder: FormBuilder, private modalService: NgbModal,
-    private dataService: DataService, private alertService: AlertService,
-    private dialogService: DialogService) { }
+              private formBuilder: FormBuilder, private modalService: NgbModal,
+              private dataService: DataService, private toastr: ToastsManager,
+              private dialogService: DialogService) {
+  }
 
   ngOnInit() {
     this.buildForm();
-    this.parentDataSubscription = this.route.parent.data.subscribe((data) => {
+    this.parentDataSubscription = this.route.parent.parent.parent.data.subscribe((data) => {
       this.organization = data['organization'];
     });
     this.dataSubscription = this.route.data.subscribe((data) => {
@@ -64,7 +67,7 @@ export class VoidedDocumentCreateComponent implements OnInit, OnDestroy {
           if (data && data.length > 0) {
             this.applyPatchForm(formGroup, data[0]);
           } else {
-            this.alertService.pop('info', 'Info', 'Could not find Document.');
+            this.toastr.info('Info! Could not find Document.');
           }
         });
       }
@@ -115,7 +118,7 @@ export class VoidedDocumentCreateComponent implements OnInit, OnDestroy {
 
   save(form: FormGroup): void {
     if (!form.value.detalle || form.value.detalle.length === 0) {
-      this.alertService.pop('warning', 'Warning', 'Warning! Is required to add at least one line.');
+      this.toastr.warning('Warning! Is required to add at least one line.');
       return;
     }
 
@@ -131,7 +134,7 @@ export class VoidedDocumentCreateComponent implements OnInit, OnDestroy {
         this.dataService.organizationsSunat().createVoidedDocument(this.organization.organization, form.value).subscribe(
           response => {
             this.working = false;
-            this.alertService.pop('success', 'Success', 'Success! The voided document has been created.');
+            this.toastr.success('Success! The voided document has been created.');
             if (redirect) {
               this.router.navigate(['../'], { relativeTo: this.route });
             } else {
@@ -143,7 +146,8 @@ export class VoidedDocumentCreateComponent implements OnInit, OnDestroy {
           }
         );
       },
-      (dissmiss) => { }
+      (dissmiss) => {
+      }
     );
   }
 
@@ -169,7 +173,7 @@ export class VoidedDocumentCreateComponent implements OnInit, OnDestroy {
         if (data && data.length > 0) {
           this.applyPatchForm(formGroup, data[0]);
         } else {
-          this.alertService.pop('info', 'Info', 'Could not find Document.');
+          this.toastr.info('Info! Could not find Document.');
         }
       });
     }

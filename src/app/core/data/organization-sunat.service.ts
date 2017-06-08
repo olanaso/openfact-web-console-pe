@@ -66,7 +66,7 @@ export class OrganizationSunatService {
   createInvoice(organizationName: string, document: any): Observable<any> {
     return this.restangular.one('admin/organizations', organizationName)
       .all(basePath)
-      .all('document/invoices')
+      .all('documents/invoices')
       .post(document)
       .map(response => {
         if (response.status === 201 || 204) {
@@ -76,11 +76,11 @@ export class OrganizationSunatService {
       });
   }
 
-  createCreditnote(organizationName: string, invoice: any): Observable<any> {
+  createCreditnote(organizationName: string, creditNote: any): Observable<any> {
     return this.restangular.one('admin/organizations', organizationName)
       .all(basePath)
-      .all('document/credit-notes')
-      .post(invoice)
+      .all('documents/credit-notes')
+      .post(creditNote)
       .map(response => {
         if (response.status === 201 || 204) {
           return undefined;
@@ -89,11 +89,11 @@ export class OrganizationSunatService {
       });
   }
 
-  createDebitNotes(organizationName: string, invoice: any): Observable<any> {
+  createDebitNotes(organizationName: string, debitNote: any): Observable<any> {
     return this.restangular.one('admin/organizations', organizationName)
       .all(basePath)
-      .all('document/debit-notes')
-      .post(invoice)
+      .all('documents/debit-notes')
+      .post(debitNote)
       .map(response => {
         if (response.status === 201 || 204) {
           return undefined;

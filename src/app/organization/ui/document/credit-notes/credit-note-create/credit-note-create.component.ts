@@ -10,6 +10,7 @@ import { GenericType } from '../../../../../core/model/genericType.model';
 import { DataService } from '../../../../../core/data/data.service';
 import { AlertService } from '../../../../../core/alert/alert.service';
 import { DialogService } from '../../../../../core/dialog/dialog.service';
+import { ToastsManager } from 'ng2-toastr';
 
 @Component({
   selector: 'of-credit-note-create',
@@ -18,6 +19,7 @@ import { DialogService } from '../../../../../core/dialog/dialog.service';
     .of-display-block {
       display: block;
     }
+
     input[readonly] {
       background-color: #d1d1d1 !important;
       color: #363636 !important;
@@ -48,13 +50,14 @@ export class CreditNoteCreateComponent implements OnInit, OnDestroy {
   percentMask = { allowDecimal: true, decimalLimit: 2, prefix: '% ' };
 
   constructor(private router: Router, private route: ActivatedRoute,
-    private formBuilder: FormBuilder, private modalService: NgbModal,
-    private dataService: DataService, private alertService: AlertService,
-    private dialogService: DialogService) { }
+              private formBuilder: FormBuilder, private modalService: NgbModal,
+              private dataService: DataService, private toastr: ToastsManager,
+              private dialogService: DialogService) {
+  }
 
   ngOnInit() {
     this.buildForm();
-    this.parentDataSubscription = this.route.parent.data.subscribe((data) => {
+    this.parentDataSubscription = this.route.parent.parent.parent.data.subscribe((data) => {
       this.organization = data['organization'];
     });
     this.dataSubscription = this.route.data.subscribe((data) => {
@@ -284,7 +287,7 @@ export class CreditNoteCreateComponent implements OnInit, OnDestroy {
 
   save(form: FormGroup): void {
     if (!form.value.detalle || form.value.detalle.length === 0) {
-      this.alertService.pop('warning', 'Warning', 'Warning! Is required to add at least one line.');
+      this.toastr.warning('Warning! Is required to add at least one line.');
       return;
     }
 
@@ -295,7 +298,7 @@ export class CreditNoteCreateComponent implements OnInit, OnDestroy {
         this.dataService.organizationsSunat().createCreditnote(this.organization.organization, form.value).subscribe(
           response => {
             this.working = false;
-            this.alertService.pop('success', 'Success', 'Success! The credit note has been created.');
+            this.toastr.success('Success! The credit note has been created.');
             if (redirect) {
               this.router.navigate(['../'], { relativeTo: this.route });
             } else {
@@ -307,7 +310,8 @@ export class CreditNoteCreateComponent implements OnInit, OnDestroy {
           }
         );
       },
-      (dissmiss) => { }
+      (dissmiss) => {
+      }
     );
   }
 
@@ -350,7 +354,7 @@ export class CreditNoteCreateComponent implements OnInit, OnDestroy {
           }
         }
       } else {
-        this.alertService.pop('info', 'Info', 'Could not find Invoice.');
+        this.toastr.info('Info! Could not find Invoice.');
       }
     });
   }

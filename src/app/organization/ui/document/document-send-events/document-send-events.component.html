@@ -2,7 +2,7 @@
   <div class="col-lg-9">
 
     <of-document-edit-header [organization]="organization" [document]="document" [breadcrumb]="breadcrumb" [documentType]="documentType"
-      [documentNumberOfParents]="3"></of-document-edit-header>
+      [documentNumberOfParents]="2"></of-document-edit-header>
 
     <br>
 
@@ -40,7 +40,7 @@
             <td>
               <span *ngIf="event.result == 'SUCCESS' || event.result == 'ERROR'">
                 <i *ngIf="event.result == 'SUCCESS'" class="pficon pficon-ok"></i>
-                <i *ngIf="event.result == 'ERROR'" class="pficon pficon-warning-triangle-o"></i>                               
+                <i *ngIf="event.result == 'ERROR'" class="pficon pficon-warning-triangle-o"></i>
                 {{event.result}}
               </span>
               <div *ngIf="event.result == 'ON_PROCESS'">

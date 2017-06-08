@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { Organization } from '../../../../core/model/organization.model';
 import { DataService } from '../../../../core/data/data.service';
 import { AlertService } from '../../../../core/alert/alert.service';
+import { ToastsManager } from 'ng2-toastr';
 
 @Component({
   selector: 'of-settings-tasks',
@@ -25,12 +26,11 @@ export class SettingsTasksComponent implements OnInit, OnDestroy {
   form: FormGroup;
   working = false;
 
-  constructor(
-    private router: Router,
-    private route: ActivatedRoute,
-    private formBuilder: FormBuilder,
-    private dataService: DataService,
-    private alertService: AlertService) {
+  constructor(private router: Router,
+              private route: ActivatedRoute,
+              private formBuilder: FormBuilder,
+              private dataService: DataService,
+              private toastr: ToastsManager) {
   }
 
   ngOnInit() {
@@ -116,7 +116,7 @@ export class SettingsTasksComponent implements OnInit, OnDestroy {
       result => {
         this.working = false;
         this.form.markAsPristine();
-        this.alertService.pop('success', 'Success', 'Your changes have been saved to the organization.');
+        this.toastr.success('Your changes have been saved to the organization.');
       },
       error => {
         this.working = false;

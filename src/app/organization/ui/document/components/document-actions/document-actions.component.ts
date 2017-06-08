@@ -8,6 +8,7 @@ import { Organization } from '../../../../../core/model/organization.model';
 import { DataService } from '../../../../../core/data/data.service';
 import { AlertService } from '../../../../../core/alert/alert.service';
 import { Document } from '../../../../../core/model/document.model';
+import { ToastsManager } from 'ng2-toastr';
 
 @Component({
   selector: 'of-document-actions',
@@ -51,12 +52,12 @@ export class DocumentActionsComponent implements OnInit {
 
   thirdPartyByEmail: any = {};
 
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private modalService: NgbModal,
-    private dataService: DataService,
-    private alertService: AlertService) { }
+  constructor(private route: ActivatedRoute,
+              private router: Router,
+              private modalService: NgbModal,
+              private dataService: DataService,
+              private toastr: ToastsManager) {
+  }
 
   ngOnInit() {
   }
@@ -80,13 +81,13 @@ export class DocumentActionsComponent implements OnInit {
 
   sendToCustomer() {
     this.document.sendToCustomer().subscribe(result => {
-      this.alertService.pop('success', 'Success', 'Success! Document sended to customer.');
+      this.toastr.success('Success! Document sended to customer.');
     });
   }
 
   sendToThirdParty() {
     this.document.sendToThirdParty().subscribe(result => {
-      this.alertService.pop('success', 'Success', 'Success! Document sended to third party.');
+      this.toastr.success('Success! Document sended to third party.');
     });
   }
 
@@ -95,24 +96,25 @@ export class DocumentActionsComponent implements OnInit {
       (form: NgForm) => {
         if (form.valid) {
           this.document.sendToThirdPartyByEmail({ email: form.value.thirdPartyByEmail.email }).subscribe(data => {
-            this.alertService.pop('success', 'Success', 'Success! Document sended to third party.');
+            this.toastr.success('Success! Document sended to third party.');
           });
         }
-      }, (reason) => { });
+      }, (reason) => {
+      });
   }
 
   attachCreditNote() {
-    this.router.navigate(['../credit-notes', 'create', { invoice: this.document.documentId }], { relativeTo: this.route });
+    this.router.navigate(['../credit-notes', 'create', { invoice: this.document.documentId }], { relativeTo: this.route.parent });
   }
 
   attachDebitNote() {
-    this.router.navigate(['../debit-notes', 'create', { invoice: this.document.documentId }], { relativeTo: this.route });
+    this.router.navigate(['../debit-notes', 'create', { invoice: this.document.documentId }], { relativeTo: this.route.parent });
   }
 
   markAsVoided() {
     this.router.navigate(
-      ['../voided-document', 'create', { document: this.document.documentId, type: this.document.documentType }],
-      { relativeTo: this.route }
+      ['../voided-documents', 'create', { document: this.document.documentId, type: this.document.documentType }],
+      { relativeTo: this.route.parent }
     );
   }
 

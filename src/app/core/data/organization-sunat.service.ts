@@ -105,7 +105,7 @@ export class OrganizationSunatService {
   createPerception(organizationName: string, document: any): Observable<any> {
     return this.restangular.one('admin/organizations', organizationName)
       .all(basePath)
-      .all('document/perceptions')
+      .all('documents/perceptions')
       .post(document)
       .map(response => {
         if (response.status === 201 || 204) {
@@ -118,7 +118,7 @@ export class OrganizationSunatService {
   createRetention(organizationName: string, document: any): Observable<any> {
     return this.restangular.one('admin/organizations', organizationName)
       .all(basePath)
-      .all('document/retentions')
+      .all('documents/retentions')
       .post(document)
       .map(response => {
         if (response.status === 201 || 204) {
@@ -131,7 +131,7 @@ export class OrganizationSunatService {
   createVoidedDocument(organizationName: string, document: any): Observable<any> {
     return this.restangular.one('admin/organizations', organizationName)
       .all(basePath)
-      .all('document/voided-document')
+      .all('documents/voided-documents')
       .post(document)
       .map(response => {
         if (response.status === 201 || 204) {

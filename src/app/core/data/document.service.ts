@@ -29,7 +29,7 @@ export class DocumentService {
       .map(response => {
         const json = response.json();
         const result = new Array<Document>();
-        json.forEach(element => {
+        json.items.forEach(element => {
           const document = new Document(restangular.all(element['id']));
           result.push(Object.assign(document, element));
         });

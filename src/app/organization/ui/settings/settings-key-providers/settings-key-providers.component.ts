@@ -7,6 +7,7 @@ import { Organization } from '../../../../core/model/organization.model';
 import { DataService } from '../../../../core/data/data.service';
 import { AlertService } from '../../../../core/alert/alert.service';
 import { DialogService } from '../../../../core/dialog/dialog.service';
+import { ToastsManager } from 'ng2-toastr';
 
 @Component({
   selector: 'of-settings-key-providers',
@@ -24,13 +25,13 @@ export class SettingsKeyProvidersComponent implements OnInit, OnDestroy {
   providers: any;
   instances: any;
 
-  constructor(
-    private router: Router,
-    private route: ActivatedRoute,
-    private modalService: NgbModal,
-    private dataService: DataService,
-    private alertService: AlertService,
-    private dialogService: DialogService) { }
+  constructor(private router: Router,
+              private route: ActivatedRoute,
+              private modalService: NgbModal,
+              private dataService: DataService,
+              private toastr: ToastsManager,
+              private dialogService: DialogService) {
+  }
 
   ngOnInit() {
     this.dataSubscription = this.route.data.subscribe(data => {
@@ -70,7 +71,7 @@ export class SettingsKeyProvidersComponent implements OnInit, OnDestroy {
       (result) => {
         this.organization.removeComponent(instance.id).subscribe(
           (data) => {
-            this.alertService.pop('success', 'Success', 'The provider has been deleted.');
+            this.toastr.success('The provider has been deleted.');
             this.loadComponents();
           }
         );

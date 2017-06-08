@@ -3,13 +3,12 @@ import { Component, Input, OnDestroy, OnInit, Output } from '@angular/core';
 
 import { NgForm } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Subscription } from 'rxjs/Subscription';
 import { URLSearchParams } from '@angular/http';
 import { Organization } from '../../../../../core/model/organization.model';
 import { Document } from '../../../../../core/model/document.model';
-import { AlertService } from '../../../../../core/alert/alert.service';
 import { DataService } from '../../../../../core/data/data.service';
 import { DialogService } from '../../../../../core/dialog/dialog.service';
+import { ToastsManager } from 'ng2-toastr';
 
 @Component({
   selector: 'of-document-edit-header',
@@ -70,16 +69,16 @@ export class DocumentEditHeaderComponent implements OnInit {
   isAttatchedDocumentsCollapsed: boolean;
   isAttributesCollapsed: boolean;
 
-  constructor(
-    private router: Router,
-    private route: ActivatedRoute,
-    private modalService: NgbModal,
-    private dataService: DataService,
-    private alertService: AlertService,
-    private dialog: DialogService) {
+  constructor(private router: Router,
+              private route: ActivatedRoute,
+              private modalService: NgbModal,
+              private dataService: DataService,
+              private toastr: ToastsManager,
+              private dialog: DialogService) {
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+  }
 
   addRequiredAction(content: any) {
     this.modalService.open(content).result.then(
@@ -90,10 +89,11 @@ export class DocumentEditHeaderComponent implements OnInit {
           requiredActions: currentRequiredActions
         }).subscribe(data => {
           this.document.requiredActions.push(modalRequiredActions.toString());
-          this.alertService.pop('success', 'Success', 'Success! Document updated successfully.');
+          this.toastr.success('Success! Document updated successfully.');
         });
       },
-      (reason) => { });
+      (reason) => {
+      });
   }
 
   removeRequiredAction(index: number, action: string) {
@@ -104,10 +104,11 @@ export class DocumentEditHeaderComponent implements OnInit {
           requiredActions: requiredActions
         }).subscribe(data => {
           this.document.requiredActions.splice(index, 1);
-          this.alertService.pop('success', 'Success', 'Success! Document updated successfully.');
+          this.toastr.success('Success! Document updated successfully.');
         });
       },
-      (cancel) => { }
+      (cancel) => {
+      }
     );
   }
 
@@ -131,13 +132,13 @@ export class DocumentEditHeaderComponent implements OnInit {
 
   sendToCustomer() {
     this.document.sendToCustomer().subscribe(data => {
-      this.alertService.pop('success', 'Success', 'Success! Document sended to customer.');
+      this.toastr.success('Success! Document sended to customer.');
     });
   }
 
   sendToThirdParty() {
     this.document.sendToThirdParty().subscribe(data => {
-      this.alertService.pop('success', 'Success', 'Success! Document sended to third party.');
+      this.toastr.success('Success! Document sended to third party.');
     });
   }
 
@@ -146,11 +147,12 @@ export class DocumentEditHeaderComponent implements OnInit {
       (form: NgForm) => {
         if (form.valid) {
           this.document.sendToThirdPartyByEmail({ email: form.value.thirdPartyByEmail.email }).subscribe(data => {
-            this.alertService.pop('success', 'Success', 'Success! Document sended to third party.');
+            this.toastr.success('Success! Document sended to third party.');
           });
         }
       },
-      (reason) => { });
+      (reason) => {
+      });
   }
 
   attachCreditNote() {
@@ -180,7 +182,7 @@ export class DocumentEditHeaderComponent implements OnInit {
   }
 
   maskAsVoided() {
-    let base = 'voided-document';
+    let base = 'voided-documents';
     if (this.documentNumberOfParents) {
       for (let i = 0; i < this.documentNumberOfParents; i++) {
         base = '../' + base;
@@ -198,7 +200,7 @@ export class DocumentEditHeaderComponent implements OnInit {
     this.dialog.confirmDelete(this.document.documentId, 'Document').result.then(
       (result) => {
         this.document.delete().subscribe((data) => {
-          this.alertService.pop('success', 'Success', 'Success! Document deleted successfully.');
+          this.toastr.success('Success! Document deleted successfully.');
 
           let base = '';
           if (this.documentNumberOfParents) {
@@ -212,7 +214,8 @@ export class DocumentEditHeaderComponent implements OnInit {
           this.router.navigate([base], { relativeTo: this.route });
         });
       },
-      (cancel) => { }
+      (cancel) => {
+      }
     );
   }
 

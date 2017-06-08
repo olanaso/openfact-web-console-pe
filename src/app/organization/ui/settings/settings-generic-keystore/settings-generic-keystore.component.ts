@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { DataService } from '../../../../core/data/data.service';
 import { AlertService } from '../../../../core/alert/alert.service';
 import { findParam } from '../../../../core/resolvers/find-param';
+import { ToastsManager } from 'ng2-toastr';
 
 @Component({
   selector: 'of-settings-generic-keystore',
@@ -26,13 +27,12 @@ export class SettingsGenericKeystoreComponent implements OnInit, OnDestroy {
   providerFactory: any;
   instance: any;
 
-  constructor(
-    private router: Router,
-    private route: ActivatedRoute,
-    private formBuilder: FormBuilder,
-    private dataService: DataService,
-    private alertService: AlertService
-  ) { }
+  constructor(private router: Router,
+              private route: ActivatedRoute,
+              private formBuilder: FormBuilder,
+              private dataService: DataService,
+              private toastr: ToastsManager) {
+  }
 
   ngOnInit() {
     this.buildForm();
@@ -121,7 +121,7 @@ export class SettingsGenericKeystoreComponent implements OnInit, OnDestroy {
     if (this.create) {
       this.organization.createComponent(Object.assign(form, { config: config })).subscribe(
         result => {
-          this.alertService.pop('success', 'Success', 'Success! The organization has been created.');
+          this.toastr.success('Success! The organization has been created.');
           this.router.navigate(['../../'], { relativeTo: this.route });
         },
         error => {
@@ -131,7 +131,7 @@ export class SettingsGenericKeystoreComponent implements OnInit, OnDestroy {
     } else {
       this.organization.updateComponent(this.instance.id, Object.assign(form, { config: config })).subscribe(
         (data) => {
-          this.alertService.pop('success', 'Success', 'Success! The provider has been updated.');
+          this.toastr.success('Success! The provider has been updated.');
           this.router.navigate(['../../'], { relativeTo: this.route });
         },
         (error) => {

@@ -5,7 +5,6 @@ import { Subscription } from 'rxjs/Subscription';
 import { URLSearchParams } from '@angular/http';
 import { Organization } from '../../../../core/model/organization.model';
 import { DataService } from '../../../../core/data/data.service';
-import { AlertService } from '../../../../core/alert/alert.service';
 
 @Component({
   selector: 'of-settings-all-keys',
@@ -24,8 +23,7 @@ export class SettingsAllKeysComponent implements OnInit, OnDestroy {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private dataService: DataService,
-    private alertService: AlertService) {
+    private dataService: DataService) {
   }
 
   ngOnInit() {

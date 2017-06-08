@@ -5,7 +5,7 @@
 	</ol>
 	<div>
 		<h3>{{documentType | translate}} {{document.documentId}}
-			<small>{{'created' | translate}} 
+			<small>{{'created' | translate}}
 				<span>{{document.createdTimestamp | amTimeAgo}}</span>
 			</small> &nbsp;
 
@@ -86,7 +86,7 @@
 <div>
 	<div class="tab-container">
 		<ul class="nav nav-tabs">
-			<li routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"><a [routerLink]="['/organizations', organization.organization, breadcrumb, document.id]">{{'overview' | translate}}</a></li>
+			<li routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"><a [routerLink]="['/organizations', organization.organization, 'documents', breadcrumb, document.id]">{{'overview' | translate}}</a></li>
 			<li routerLinkActive="active"><a [routerLink]="['/organizations', organization.organization, 'documents', document.id, 'send-events']">{{'send-events' | translate}}</a></li>
 			<li routerLinkActive="active"><a [routerLink]="['/organizations', organization.organization, 'documents', document.id, 'attached-documents']">{{'attatched-documents' | translate}}</a></li>
 		</ul>

@@ -6,7 +6,6 @@ import { URLSearchParams } from '@angular/http';
 import { Organization } from '../../../../core/model/organization.model';
 import { Document } from '../../../../core/model/document.model';
 import { DataService } from '../../../../core/data/data.service';
-import { AlertService } from '../../../../core/alert/alert.service';
 
 @Component({
   selector: 'of-document-send-events',
@@ -34,12 +33,11 @@ export class DocumentSendEventsComponent implements OnInit, OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
-    private dataService: DataService,
-    private alertService: AlertService) {
+    private dataService: DataService) {
   }
 
   ngOnInit() {
-    this.parentDataSubscription = this.route.parent.data.subscribe(data => {
+    this.parentDataSubscription = this.route.parent.parent.data.subscribe(data => {
       this.organization = data['organization'];
     });
     this.dataSubscription = this.route.data.subscribe(data => {

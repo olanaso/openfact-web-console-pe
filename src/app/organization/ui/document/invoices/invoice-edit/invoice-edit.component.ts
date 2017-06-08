@@ -24,7 +24,7 @@ export class InvoiceEditComponent implements OnInit, OnDestroy {
   constructor(private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
-    this.parentDataSubscription = this.activatedRoute.parent.data.subscribe(data => {
+    this.parentDataSubscription = this.activatedRoute.parent.parent.parent.data.subscribe(data => {
       this.organization = data['organization'];
     });
     this.dataSubscription = this.activatedRoute.data.subscribe(data1 => {

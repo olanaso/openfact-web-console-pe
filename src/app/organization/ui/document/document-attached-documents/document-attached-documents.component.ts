@@ -27,7 +27,7 @@ export class DocumentAttachedDocumentsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.parentDataSubscription = this.route.parent.data.subscribe(data => {
+    this.parentDataSubscription = this.route.parent.parent.data.subscribe(data => {
       this.organization = data['organization'];
     });
     this.dataSubscription = this.route.data.subscribe(data => {
@@ -47,19 +47,19 @@ export class DocumentAttachedDocumentsComponent implements OnInit, OnDestroy {
 
   viewAttachedDocument(document: Document) {
     if (document.documentType.toUpperCase() === 'INVOICE') {
-      this.router.navigate(['../../../invoices', document.id], { relativeTo: this.route });
+      this.router.navigate(['../../invoices', document.id], { relativeTo: this.route });
     } else if (document.documentType.toUpperCase() === 'CREDIT_NOTE') {
-      this.router.navigate(['../../../credit-notes', document.id], { relativeTo: this.route });
+      this.router.navigate(['../../credit-notes', document.id], { relativeTo: this.route });
     } else if (document.documentType.toUpperCase() === 'DEBIT_NOTE') {
-      this.router.navigate(['../../../debit-notes', document.id], { relativeTo: this.route });
+      this.router.navigate(['../../debit-notes', document.id], { relativeTo: this.route });
     } else if (document.documentType.toUpperCase() === 'PERCEPTION') {
-      this.router.navigate(['../../../perceptions', document.id], { relativeTo: this.route });
+      this.router.navigate(['../../perceptions', document.id], { relativeTo: this.route });
     } else if (document.documentType.toUpperCase() === 'RETENTIONS') {
-      this.router.navigate(['../../../retentions', document.id], { relativeTo: this.route });
+      this.router.navigate(['../../retentions', document.id], { relativeTo: this.route });
     } else if (document.documentType.toUpperCase() === 'VOIDED_DOCUMENTS') {
-      this.router.navigate(['../../../voided-document', document.id], { relativeTo: this.route });
+      this.router.navigate(['../../voided-document', document.id], { relativeTo: this.route });
     } else if (document.documentType.toUpperCase() === 'SUMMARY_DOCUMENTS') {
-      this.router.navigate(['../../../summary-document', document.id], { relativeTo: this.route });
+      this.router.navigate(['../../summary-document', document.id], { relativeTo: this.route });
     }
   }
 

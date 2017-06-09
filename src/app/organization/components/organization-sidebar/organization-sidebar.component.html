@@ -54,7 +54,7 @@
         <span class="list-group-item-value">{{'events' | translate}}</span>
       </a>
     </li>-->
-    <li class="list-group-item" routerLinkActive="active">
+    <li class="list-group-item" routerLinkActive="active" *openfactAccess="'manageOrganizations'">
       <a [routerLink]="['settings', 'general-information']">
         <span class="fa fa-gear" title="{{'settings' | translate}}"></span>
         <span class="list-group-item-value">{{'settings' | translate}}</span>

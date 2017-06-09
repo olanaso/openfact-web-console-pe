@@ -1,6 +1,6 @@
 import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
 
-import { KeycloakOAuthService } from './../../keycloak/keycloak.oauth.service';
+import { KeycloakOAuthService } from '../../keycloak/keycloak.oauth.service';
 
 const openfactResource = 'openfact';
 const kcAccountResource = 'account';
@@ -11,11 +11,14 @@ const kcRealmManagementResource = 'realm-management';
 })
 export class AccessDirective {
 
-  constructor(private _viewContainer: ViewContainerRef, private _templateRef: TemplateRef<any>) { }
+  constructor(private _viewContainer: ViewContainerRef, private _templateRef: TemplateRef<any>) {
+  }
 
   @Input()
   set openfactAccess(access: string) {
-    if (access === 'organizationMenu') {
+    if (access === 'admin') {
+      this.updateView(this.isAdmin());
+    } else if (access === 'organizationMenu') {
       this.updateView(this.canAccessOrganizationsMenu());
     } else if (access === 'securityMenu') {
       this.updateView(this.canAccessSecurityMenu());
@@ -43,6 +46,10 @@ export class AccessDirective {
     if (state) {
       this._viewContainer.createEmbeddedView(this._templateRef);
     }
+  }
+
+  private isAdmin() {
+    return this.hasRole('admin', openfactResource);
   }
 
   // Menus

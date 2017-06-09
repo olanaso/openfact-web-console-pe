@@ -10,7 +10,7 @@
         <!-- /filter -->
 
         <div class="form-group">
-          <button class="btn btn-primary" type="button" routerLink="./create">{{'create-organization' | translate}}</button>
+          <button class="btn btn-primary" type="button" routerLink="./create" *openfactAccess="'createOrganizations'">{{'create-organization' | translate}}</button>
         </div>
         <!--/actions-->
 
@@ -45,7 +45,7 @@
       <div *ngFor="let item of searchResult" class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
         <div class="card-pf card-pf-view card-pf-view-select card-pf-view-single-select">
           <div class="card-pf-heading-kebab">
-            <div class="pull-right dropdown-kebab-pf">
+            <div class="pull-right dropdown-kebab-pf" *openfactAccess="'admin'">
               <of-button-delete [model]="item" [kind]="'Organization'" [resourceName]="item.organization" [typeNameToConfirm]="true" [buttonOnly]="true"
                                 (onConfirm)="delete(item)"></of-button-delete>
             </div>

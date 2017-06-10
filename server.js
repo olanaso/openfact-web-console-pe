@@ -28,15 +28,16 @@ app.get('/config/openfact.json', function (req, res, next) {
     res.json(openfactConfig);
 });
 
+// Use compresssion
+app.use(compression());
+
+// Add dist folder
 app.use(express.static(path.join(__dirname, '/dist')));
 
 // Catch all other routes and return the index file
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'dist/index.html'));
 });
-
-// Use compresssion
-app.use(compression());
 
 console.log("openfact config: " + JSON.stringify(openfactConfig));
 console.log("keycloak config: " + JSON.stringify(keycloakConfig));

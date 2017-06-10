@@ -12,6 +12,29 @@
   </div>
   <div class="collapse navbar-collapse navbar-collapse-1">
     <ul class="nav navbar-nav navbar-utility">
+      <li class="dropdown applauncher-pf dropdown-kebab-pf applauncher-pf-block-list" dropdown placement="bottom right" *openfactAccess="'admin'">
+        <a href="javascript:void(0);" class="dropdown-toggle drawer-pf-trigger-icon" data-toggle="dropdown" dropdownToggle>
+          <i class="fa fa-th applauncher-pf-icon" aria-hidden="true"></i>
+          <span class="applauncher-pf-title">
+            Application Launcher
+            <span class="caret" aria-hidden="true"></span>
+          </span>
+        </a>
+        <ul *dropdownMenu class="dropdown-menu dropdown-menu-right">
+          <li class="applauncher-pf-item">
+            <a class="applauncher-pf-link" routerLink="/">
+              <i class="applauncher-pf-link-icon pficon pficon-home"></i>
+              <span class="applauncher-pf-link-title">Home</span>
+            </a>
+          </li>
+          <li class="applauncher-pf-item">
+            <a class="applauncher-pf-link" href="javascript:void(0);" (click)="keycloak()">
+              <i class="applauncher-pf-link-icon pficon pficon-cloud-security"></i>
+              <span class="applauncher-pf-link-title">Security</span>
+            </a>
+          </li>
+        </ul>
+      </li>
       <li class="dropdown" dropdown placement="bottom right">
         <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" dropdownToggle>
           <span class="fa pficon-help"></span> <b class="caret"></b>

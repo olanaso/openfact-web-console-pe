@@ -14,12 +14,32 @@
     </div>
     <nav class="collapse navbar-collapse">
       <ul class="nav navbar-nav navbar-right navbar-iconic">
+        <li class="dropdown applauncher-pf dropdown-kebab-pf applauncher-pf-block-list" dropdown *openfactAccess="'admin'">
+          <a class="dropdown-toggle nav-item-iconic" href="javascript:void(0);" dropdownToggle style="padding: 21px 12px;">
+            <span title="Language" class="fa fa-th"></span>
+            <span class="caret"></span>
+          </a>
+          <ul *dropdownMenu class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu2">
+            <li class="applauncher-pf-item">
+              <a class="applauncher-pf-link" routerLink="/">
+                <i class="applauncher-pf-link-icon pficon pficon-home"></i>
+                <span class="applauncher-pf-link-title">Home</span>
+              </a>
+            </li>
+            <li class="applauncher-pf-item">
+              <a class="applauncher-pf-link" href="javascript:void(0);" (click)="keycloak()">
+                <i class="applauncher-pf-link-icon pficon pficon-cloud-security"></i>
+                <span class="applauncher-pf-link-title">Security</span>
+              </a>
+            </li>
+          </ul>
+        </li>
         <li class="dropdown" dropdown>
           <a class="dropdown-toggle nav-item-iconic" href="javascript:void(0);" dropdownToggle>
             <span title="Language" class="fa pficon-help"></span>
             <span class="caret"></span>
           </a>
-          <ul *dropdownMenu     class="dropdown-menu" aria-labelledby="dropdownMenu2">
+          <ul *dropdownMenu class="dropdown-menu" aria-labelledby="dropdownMenu2">
             <li>
               <a href="javascript:void(0);" (click)="about()">{{'about' | translate}}</a>
             </li>

@@ -27,6 +27,7 @@ import { LocalStorageModule } from 'angular-2-local-storage';
 import { ToastModule } from 'ng2-toastr';
 import { KeycloakOAuthService } from './keycloak/keycloak.oauth.service';
 import { KEYCLOAK_HTTP_PROVIDER } from './keycloak/keycloak.http';
+import { KeycloakConfigService, keycloakConfigServiceInitializer } from 'app/keycloak.config.service';
 
 export function restangularProviderConfigurer(restangularProvider: any, config: ConfigService) {
   restangularProvider.setBaseUrl(config.getSettings().apiEndpoint);
@@ -83,6 +84,13 @@ export function createTranslateLoader(http: Http) {
       provide: APP_INITIALIZER,
       useFactory: configServiceInitializer,
       deps: [ConfigService],
+      multi: true,
+    },
+    KeycloakConfigService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: keycloakConfigServiceInitializer,
+      deps: [KeycloakConfigService],
       multi: true,
     }
   ],

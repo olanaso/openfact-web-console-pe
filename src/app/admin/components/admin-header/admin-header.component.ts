@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { KeycloakOAuthService } from '../../../keycloak/keycloak.oauth.service';
 import { TranslateService } from 'ng2-translate';
+import { KeycloakConfigService } from '../../../keycloak.config.service';
 
 @Component({
   selector: 'of-admin-header',
@@ -20,10 +21,11 @@ export class AdminHeaderComponent implements OnInit {
   selectedLanguage: string;
   supportedLanguages: string[];
 
-  constructor(
-    private router: Router,
-    private route: ActivatedRoute,
-    private translate: TranslateService) { }
+  constructor(private router: Router,
+              private route: ActivatedRoute,
+              private translate: TranslateService,
+              private keycloakConfig: KeycloakConfigService) {
+  }
 
   ngOnInit() {
     this.authz = KeycloakOAuthService.auth.authz;
@@ -49,6 +51,10 @@ export class AdminHeaderComponent implements OnInit {
 
   logout() {
     this.authz.logout();
+  }
+
+  keycloak() {
+    window.open(this.keycloakConfig.getSettings()['auth-server-url'] + '/admin/' + this.keycloakConfig.getSettings().realm + '/console');
   }
 
 }

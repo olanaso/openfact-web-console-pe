@@ -1,5 +1,6 @@
 //  OpenShift sample Node application
-var express = require('express'),
+var compression = require('compression'),
+    express = require('express'),
     http = require('http'),
     request = require('request'),
     fs = require('fs'),
@@ -33,6 +34,9 @@ app.use(express.static(path.join(__dirname, '/dist')));
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'dist/index.html'));
 });
+
+// Use compresssion
+app.use(compression());
 
 console.log("openfact config: " + JSON.stringify(openfactConfig));
 console.log("keycloak config: " + JSON.stringify(keycloakConfig));

@@ -10,4 +10,4 @@ if (environment.production) {
 
 KeycloakOAuthService.init()
   .then(() => platformBrowserDynamic().bootstrapModule(AppModule))
-  .catch(e => console.log(e)/*window.location.reload()*/);
+  .catch(e => window.location.reload());

@@ -145,7 +145,7 @@ export class CreditNoteCreateComponent implements OnInit, OnDestroy {
   addDetalleFormControl(): FormGroup {
     const formGroup = this.formBuilder.group({
       unitCode: [null, Validators.compose([Validators.maxLength(150)])],
-      descripcion: [null, Validators.compose([Validators.required, Validators.maxLength(150)])],
+      descripcion: [null, Validators.compose([Validators.required, Validators.maxLength(600)])],
       cantidad: [null, Validators.compose([Validators.required, Validators.minLength(1)])],
       tipoDeIgv: [null, Validators.compose([Validators.required, Validators.minLength(1)])],
       // valor del producto sin igv

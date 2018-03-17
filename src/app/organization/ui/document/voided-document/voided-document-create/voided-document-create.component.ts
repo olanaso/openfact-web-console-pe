@@ -98,6 +98,8 @@ export class VoidedDocumentCreateComponent implements OnInit, OnDestroy {
       numeroDocumentoRelacionado: [null, Validators.compose([Validators.required, Validators.maxLength(13)])],
       descripcionDocumentoRelacionado: [null, Validators.compose([Validators.required, Validators.maxLength(150)])],
 
+      fechaEmision: [null, Validators.compose([Validators.required])],
+
       monedaDocumentoRelacionado: [null],
       entidadDenominacionDocumentoRelacionado: [null]
     });
@@ -118,6 +120,11 @@ export class VoidedDocumentCreateComponent implements OnInit, OnDestroy {
   save(form: FormGroup): void {
     if (!form.value.detalle || form.value.detalle.length === 0) {
       this.toastr.warning('Warning! Is required to add at least one line.');
+      return;
+    }
+
+    if (form.value.detalle.length > 1) {
+      this.toastr.warning('Warning! Solo puedes dar de baja a un documento a la vez.');
       return;
     }
 
@@ -196,7 +203,9 @@ export class VoidedDocumentCreateComponent implements OnInit, OnDestroy {
       tipoDocumentoRelacionado: type !== null ? type.codigo : null,
       numeroDocumentoRelacionado: document['documentId'],
       monedaDocumentoRelacionado: document['documentCurrencyCode'],
-      entidadDenominacionDocumentoRelacionado: document['customerRegistrationName']
+      entidadDenominacionDocumentoRelacionado: document['customerRegistrationName'],
+
+      fechaEmision: document['attributes']['issueDate'][0]
     });
   }
 

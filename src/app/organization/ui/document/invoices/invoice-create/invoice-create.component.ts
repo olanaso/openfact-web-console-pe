@@ -1,3 +1,4 @@
+import { SunatService } from './../../../../../sunat/sunat.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -48,7 +49,8 @@ export class InvoiceCreateComponent implements OnInit, OnDestroy {
   constructor(private router: Router, private route: ActivatedRoute,
     private formBuilder: FormBuilder, private modalService: NgbModal,
     private dataService: DataService, private toastr: ToastsManager,
-    private dialogService: DialogService) { }
+    private dialogService: DialogService,
+    private sunat: SunatService) { }
 
   ngOnInit() {
     this.buildForm();
@@ -81,6 +83,7 @@ export class InvoiceCreateComponent implements OnInit, OnDestroy {
       entidadNumeroDeDocumento: [null, Validators.compose([Validators.required, Validators.minLength(20), Validators.maxLength(20)])],
       entidadDenominacion: [null, Validators.compose([Validators.required, Validators.maxLength(150)])],
       entidadEmail: [null, Validators.compose([Validators.maxLength(150)])],
+      entidadDireccion: [null, Validators.compose([Validators.maxLength(150)])],
 
       moneda: [null, Validators.compose([Validators.required, Validators.maxLength(3)])],
       operacionGratuita: [false, Validators.compose([Validators.required])],
@@ -367,4 +370,22 @@ export class InvoiceCreateComponent implements OnInit, OnDestroy {
     this.router.navigate(['../'], { relativeTo: this.route });
   }
 
+  /**
+   * SUNAT
+  */
+  searchOnSunatAndReniec() {
+    let numeroDocumento = this.form.get('entidadNumeroDeDocumento');
+    if (numeroDocumento.valid) {
+      this.sunat.search(numeroDocumento.value).subscribe(
+        (val) => {
+          this.form.patchValue({
+            entidadDenominacion: val.razon_social,
+            entidadDireccion: val.direccion !== '-' ? val.direccion : null // - porque la libreria devuelve - si no existe
+          });
+        },
+        (err) => {
+          this.toastr.info('No se pudo encontrar el DNI o RUC');
+        });
+    }
+  }
 }

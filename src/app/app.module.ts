@@ -1,3 +1,4 @@
+import { SunatService } from './sunat/sunat.service';
 import { ConfigService, configServiceInitializer } from './config.service';
 import { TranslateLoader, TranslateModule, TranslateStaticLoader } from 'ng2-translate';
 
@@ -77,6 +78,8 @@ export function createTranslateLoader(http: Http) {
     CoreModule
   ],
   providers: [
+    SunatService,
+
     KeycloakOAuthService,
     KEYCLOAK_HTTP_PROVIDER,
     ConfigService,

@@ -1,23 +1,23 @@
 import { Injectable } from '@angular/core';
-import { W4TrackingUIConfig } from './w4tracking-ui-config';
+import { OpenfactUIConfig } from './openfact-ui-config';
 
 const DEFAULT_API_ENV_VAR_NAMES = new Map<string, string>(
   [
-    ['w4tracking', 'W4TRACKING_API_URL'],
-    ['sso', 'W4TRACKING_SSO_API_URL'],
-    ['realm', 'W4TRACKING_REALM'],
-    ['auth', 'W4TRACKING_AUTH_API_URL']
+    ['openfact', 'OPENFACT_API_URL'],
+    ['sso', 'OPENFACT_SSO_API_URL'],
+    ['realm', 'OPENFACT_REALM'],
+    ['auth', 'OPENFACT_AUTH_API_URL']
   ]
 );
 
 const DEFAULT_API_PREFIXES = new Map<string, string>([
-  ['w4tracking', 'api'],
+  ['openfact', 'api'],
   ['sso', 'sso'],
   ['auth', 'auth']
 ]);
 
 const DEFAULT_API_PATHS = new Map<string, string>([
-  ['w4tracking', 'api/'],
+  ['openfact', 'api/'],
   ['auth', 'api/']
 ]);
 
@@ -25,23 +25,19 @@ export class BaseApiLocatorService {
 
   private envVars = new Map<string, string>();
 
-  constructor(private config: W4TrackingUIConfig, private apiPrefixes: Map<String, String>, private apiPaths: Map<String, String>) {
+  constructor(private config: OpenfactUIConfig, private apiPrefixes: Map<String, String>, private apiPaths: Map<String, String>) {
   }
 
   get realm(): string {
-    return this.envVars.get('realm') || 'w4tracking';
+    return this.envVars.get('realm') || 'openfact';
   }
 
-  get w4trackingApiUrl(): string {
-    return this.config.w4trackingApiUrl || this.buildApiUrl('w4tracking');
+  get openfactApiUrl(): string {
+    return this.config.openfactApiUrl || this.buildApiUrl('openfact');
   }
 
   get ssoApiUrl(): string {
     return this.config.ssoApiUrl || this.buildApiUrl('sso');
-  }
-
-  get authApiUrl(): string {
-    return this.config.authApiUrl || this.buildApiUrl('auth');
   }
 
   protected loadEnvVar(key: string): void {
@@ -78,7 +74,7 @@ export class BaseApiLocatorService {
 @Injectable()
 export class ApiLocatorService extends BaseApiLocatorService {
 
-  constructor(config: W4TrackingUIConfig) {
+  constructor(config: OpenfactUIConfig) {
     super(config, DEFAULT_API_PREFIXES, DEFAULT_API_PATHS);
     DEFAULT_API_ENV_VAR_NAMES.forEach((value, key) => {
       this.loadEnvVar(key);

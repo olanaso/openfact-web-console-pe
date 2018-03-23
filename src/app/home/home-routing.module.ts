@@ -10,27 +10,11 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        loadChildren: '../documents/documents.module#DocumentsModule',
-      },
-      {
-        path: '_documents',
-        loadChildren: '../documents/documents.module#DocumentsModule',
+        loadChildren: '../companies/companies.module#CompaniesModule',
       },
       {
         path: '_companies',
         loadChildren: '../companies/companies.module#CompaniesModule',
-      },
-
-      // Profile
-      {
-        path: '_profile',
-        // resolve: {
-        //   context: ProfileResolver
-        // },
-        loadChildren: '../profile/profile.module#ProfileModule',
-        data: {
-          title: 'Profile'
-        }
       }
     ]
   }

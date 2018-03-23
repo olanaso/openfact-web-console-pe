@@ -9,15 +9,17 @@ if (environment.production) {
   enableProdMode();
 }
 
-const noLogin: boolean = true; // convenient for development
+// const noLogin: boolean = false; // convenient for development
 
-if (noLogin) {
+// if (noLogin) {
+//   platformBrowserDynamic().bootstrapModule(AppModule);
+// } else {
+
+KeycloakService.init({ onLoad: 'login-required' }).then(() => {
   platformBrowserDynamic().bootstrapModule(AppModule);
-} else {
-  KeycloakService.init({ onLoad: 'login-required' }).then(() => {
-    platformBrowserDynamic().bootstrapModule(AppModule);
-  }).catch((err: any) => {
-    console.log('Error in bootstrap: ' + JSON.stringify(err));
-  });
-}
+}).catch((err: any) => {
+  console.log('Error in bootstrap: ' + JSON.stringify(err));
+});
+
+// }
 

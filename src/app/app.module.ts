@@ -2,6 +2,7 @@ import './rxjs-extensions';
 
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -24,7 +25,9 @@ import { NgxBaseModule } from './ngx-base/ngx-base.module';
 import { NxgLoginModule } from './ngx-login-client/ngx-login.module';
 import { NgxOpenfactModule } from './ngx-openfact/ngx-openfact.module';
 
+import { ssoApiUrlProvider } from './shared/sso-api.provider';
 import { realmProvider } from './shared/realm-token.provider';
+import { authApiUrlProvider } from './shared/auth-api.provider';
 
 // Error
 import { ErrorService } from './layout/error/error.service';
@@ -36,6 +39,8 @@ import { ErrorService } from './layout/error/error.service';
   imports: [
     BrowserModule,
     AppRoutingModule,
+
+    HttpClientModule,
 
     // Bootstrap
     BsDropdownModule.forRoot(),
@@ -57,6 +62,10 @@ import { ErrorService } from './layout/error/error.service';
 
     // Error
     ErrorService,
+
+    ssoApiUrlProvider,
+    authApiUrlProvider,
+    realmProvider,
   ],
   bootstrap: [AppComponent],
 })

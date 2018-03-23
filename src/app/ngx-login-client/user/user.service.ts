@@ -46,7 +46,7 @@ export class UserService {
     this.usersUrl = apiUrl + '/users/search';
     this.loggedInUser = this.http
       .get(this.profileUrl, { headers: this.headers })
-      .map(response => cloneDeep(response['data'] as User))
+      .map(response => cloneDeep(response as User))
       .do(user => {
         this.currentLoggedInUser = user;
       })
@@ -62,7 +62,7 @@ export class UserService {
     return this.http
       .get(`${this.usersUrl}/${userId}`, { headers: this.headers })
       .map(response => {
-        return response['data'] as User;
+        return response as User;
       });
   }
 
@@ -73,7 +73,7 @@ export class UserService {
   getUserByUsername(username: string): Observable<User> {
     return this.filterUsersByUsername(username).map(val => {
       for (const u of val) {
-        if (username === u.attributes.username) {
+        if (username === u.username) {
           return u;
         }
       }
@@ -89,7 +89,7 @@ export class UserService {
       return this.http
         .get(`${this.usersUrl}/?filterText=${filterText}&limit=${limit}`, { headers: this.headers })
         .map(response => {
-          return response['data'] as User[];
+          return response as User[];
         });
     }
     return Observable.of([] as User[]);
@@ -105,7 +105,7 @@ export class UserService {
     return this.http
       .get(`${this.usersUrl}?username=${username}`, { headers: this.headers })
       .map(response => {
-        return response['data'] as User[];
+        return response as User[];
       });
   }
 

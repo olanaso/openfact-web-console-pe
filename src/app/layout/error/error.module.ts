@@ -9,8 +9,7 @@ import { NxgLoginModule } from '../../ngx-login-client/ngx-login.module';
 @NgModule({
   imports: [
     CommonModule,
-    ErrorRoutingModule,
-    NxgLoginModule
+    ErrorRoutingModule
   ],
   declarations: [ErrorComponent]
 })

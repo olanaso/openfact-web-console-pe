@@ -37,7 +37,7 @@ export class CompanyService {
     const url = `${this.companiesUrl}/${spaceId}`;
     return this.http.get(url, { headers: this.headers })
       .map((response) => {
-        return response['data'] as Company;
+        return response as Company;
       })
       .switchMap(val => this.resolveOwner(val))
       .catch((error) => {
@@ -55,7 +55,7 @@ export class CompanyService {
     return this.http
       .post(url, payload, { headers: this.headers })
       .map(response => {
-        return response['data'] as Company;
+        return response as Company;
       })
       .switchMap(val => {
         return this.resolveOwner(val);
@@ -71,7 +71,7 @@ export class CompanyService {
     return this.http
       .put(url, payload, { headers: this.headers })
       .map(response => {
-        return response['data'] as Company;
+        return response as Company;
       })
       .switchMap(val => {
         return this.resolveOwner(val);

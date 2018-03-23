@@ -1,11 +1,13 @@
 import { Entity } from './entity';
-import { Profile } from './profile';
 
 export class User implements Entity {
   id: string;
-  type: string;
-  attributes: Profile;
-  links?: {
-    self: string;
-  };
+  company?: string;
+  fullName: string;
+  imageURL: string;
+  username: string;
+  bio?: string;
+  url?: string;
+  email?: string;
+  defaultLanguage?: string;
 }

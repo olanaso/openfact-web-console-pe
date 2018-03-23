@@ -40,6 +40,10 @@ export class BaseApiLocatorService {
     return this.config.ssoApiUrl || this.buildApiUrl('sso');
   }
 
+  get authApiUrl(): string {
+    return this.config.authApiUrl || this.buildApiUrl('auth');
+  }
+
   protected loadEnvVar(key: string): void {
     // this.envVars.set(key, process.env[DEFAULT_API_ENV_VAR_NAMES.get(key)]);
   }

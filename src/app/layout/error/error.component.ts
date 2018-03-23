@@ -5,7 +5,6 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { AuthenticationService, UserService } from '../../ngx-login-client';
 import 'rxjs/operators/map';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -28,19 +27,14 @@ export class ErrorComponent implements OnDestroy {
 
   constructor(
     private errorService: ErrorService,
-    router: Router,
-    userService: UserService,
-    authService: AuthenticationService) {
+    router: Router) {
     this.subscription = this.errorService.update$.subscribe(
       message => {
         this.message = message;
       });
 
-    this.userSubscription = userService.loggedInUser.subscribe(val => {
-      if (val.id) {
-        this.companyLink = '/' + val.attributes.username + '/_companies';
-      }
-    });
+    this.companyLink = '/_companies'
+
   }
   ngOnDestroy() {
     if (this.userSubscription) {

@@ -39,10 +39,17 @@
   "clients": [
     {
       "clientId": "openfact-restful-api",
+      "secret": "secret",
       "enabled": true,
       "adminUrl": "/openfact-restful-api",
       "baseUrl": "/openfact-restful-api",
-      "bearerOnly": true
+      "authorizationServicesEnabled": true,
+      "redirectUris": [
+        "/clarksnut-restful-api/*"
+      ],
+      "webOrigins": [
+        "http://localhost:8080"
+      ]
     },
     {
       "clientId": "openfact-html5-client",

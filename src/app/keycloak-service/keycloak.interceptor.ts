@@ -10,6 +10,8 @@ import {
 } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { KeycloakService } from './keycloak.service';
+import { KeycloakIdentityService } from './keycloak-identity.service';
+
 import 'rxjs/add/observable/fromPromise';
 import 'rxjs/add/operator/concatMap';
 import 'rxjs/add/operator/map';
@@ -17,7 +19,10 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class KeycloakInterceptor implements HttpInterceptor {
 
-  constructor(private keycloakService: KeycloakService) { }
+  constructor(
+    private keycloakService: KeycloakService,
+    private keycloakIdentityService: KeycloakIdentityService
+  ) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (!this.keycloakService.authenticated()) { return next.handle(request); }
@@ -42,9 +47,23 @@ export class KeycloakInterceptor implements HttpInterceptor {
           },
           (err: any) => {
             if (err instanceof HttpErrorResponse) {
-              if (err.status === 400 || err.status === 401) {
-                this.keycloakService.login();
+              // if (err.status === 403 || err.status === 401) {
+              //   this.keycloakService.login();
+              // }
+
+              if (err.url.indexOf('/authorize') === -1) {
+                console.log(err.headers.get('WWW-Authenticate'));
+
+                // console.log(this.keycloakIdentityService.authorize());
+
+                let promise = this.keycloakIdentityService.authorize((err.headers.get('WWW-Authenticate')));
+
+                Observable.fromPromise(promise).subscribe(val => {
+                  console.log("rpt", promise);
+                });
+
               }
+
             }
           });
     });

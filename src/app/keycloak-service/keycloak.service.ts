@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { KeycloakIdentityService } from './keycloak-identity.service';
 
 // If using a local keycloak.js, uncomment this import.  With keycloak.js fetched
 // from the server, you get a compile-time warning on use of the Keycloak()
@@ -35,6 +36,7 @@ export class KeycloakService {
     return new Promise((resolve, reject) => {
       KeycloakService.keycloakAuth.init(initOptions)
         .success(() => {
+          KeycloakIdentityService.init(KeycloakService.keycloakAuth);
           resolve();
         })
         .error((errorData: any) => {

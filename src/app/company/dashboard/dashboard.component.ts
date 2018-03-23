@@ -4,7 +4,7 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { NavigationItemConfig } from 'patternfly-ng/navigation';
 
 @Component({
-  selector: 'w4-dashboard',
+  selector: 'of-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })

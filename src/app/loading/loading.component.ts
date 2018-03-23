@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { showStateTrigger } from './animations';
 
 @Component({
-  selector: 'w4-loading',
+  selector: 'of-loading',
   templateUrl: './loading.component.html',
   styleUrls: ['./loading.component.scss'],
   animations: [showStateTrigger]

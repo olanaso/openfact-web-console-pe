@@ -14,7 +14,7 @@ import { ErrorService } from './error.service';
 
 @Component({
   encapsulation: ViewEncapsulation.None,
-  selector: 'w4-error',
+  selector: 'of-error',
   templateUrl: './error.component.html',
   styleUrls: ['./error.component.scss']
 })

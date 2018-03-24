@@ -54,8 +54,6 @@ export class KeycloakInterceptor implements HttpInterceptor {
     let result: Observable<HttpEvent<any>>;
 
     if (this.keycloakService.authorization() && this.keycloakService.rpt() && request.url.indexOf('/authorize') === -1) {
-      alert('Rpt request');
-
       let retries = 0;
       request = request.clone({
         setHeaders: {
@@ -66,8 +64,6 @@ export class KeycloakInterceptor implements HttpInterceptor {
         return this.handleError(error, request, next);
       });
     } else {
-      alert('Normal request');
-
       const tokenPromise: Promise<string> = this.keycloakService.getToken();
       const tokenObservable: Observable<string> = Observable.fromPromise(tokenPromise);
 

@@ -11,38 +11,32 @@
 
       <div>
         <h3>Crear Organización</h3>
-        <form [formGroup]="form" (ngSubmit)="save(form)" class="form-horizontal">
+        <form [formGroup]="companyForm" class="form-horizontal">
           <p class="fields-status-pf">Los campos marcados con
             <span class="required-pf">*</span> son requeridos.
           </p>
 
-          <!-- <div class="form-group" [ofFormFieldValidationState]="form.get('organization')">
-            <label class="col-md-2 control-label" [ofFormRequiredLabel]="form.get('organization')">{{'name' | translate}}
-              <i class="fa fa-question-circle text-muted" ngbTooltip="Name of the organization." placement="right"></i>
-            </label>
-            <div class="col-md-9">
-              <input formControlName="organization" type="text" class="form-control" autofocus/>
-              <of-form-field-validation-messages [ofFormControl]="form.get('organization')">
-              </of-form-field-validation-messages>
+          <div class="form-group" ngxFormControlError="name">
+            <label class="col-md-3 control-label required-pf">Nombre</label>
+            <div class="col-md-3">
+              <input formControlName="name" type="text" class="form-control" autofocus/>
+              <ngx-form-help-block formControlHelp="name"></ngx-form-help-block>
             </div>
           </div>
-          <div class="form-group" [ofFormFieldValidationState]="form.get('description')">
-            <label class="col-md-2 control-label" [ofFormRequiredLabel]="form.get('description')">{{'description' | translate}}
-              <i class="fa fa-question-circle text-muted" ngbTooltip="Description of the organization." placement="right"></i>
-            </label>
-            <div class="col-md-9">
+          <div class="form-group" ngxFormControlError="description">
+            <label class="col-md-3 control-label">Descripción </label>
+            <div class="col-md-3">
               <textarea formControlName="description" type="text" class="form-control"></textarea>
-              <of-form-field-validation-messages [ofFormControl]="form.get('description')">
-              </of-form-field-validation-messages>
+              <ngx-form-help-block formControlHelp="description"></ngx-form-help-block>
             </div>
           </div>
 
           <div class="form-group">
             <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-md-offset-2 col-lg-offset-2">
-              <of-button-save [ofForm]="form" [working]="working"></of-button-save>
-              <of-button-cancel (ofOnCancel)="cancel()"></of-button-cancel>
+              <!-- <button type="submit" [disable]="working"></button>
+              <button (ofOnCancel)="cancel()"></button> -->
             </div>
-          </div> -->
+          </div>
 
         </form>
       </div>

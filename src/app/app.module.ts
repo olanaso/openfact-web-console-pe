@@ -11,7 +11,6 @@ import { AppComponent } from './app.component';
 // Keycloak
 import { KeycloakService } from './keycloak-service/keycloak.service';
 import { KEYCLOAK_HTTP_INTERCEPTOR } from './keycloak-service/keycloak.interceptor';
-import { KeycloakIdentityService } from './keycloak-service/keycloak-identity.service';
 
 // Bootstrap
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
@@ -56,7 +55,6 @@ import { ErrorService } from './layout/error/error.service';
     // Keycloak
     KeycloakService,
     KEYCLOAK_HTTP_INTERCEPTOR,
-    KeycloakIdentityService,
 
     // Api Config
     openfactUIConfigProvider,

@@ -6,13 +6,17 @@ import { Injectable } from '@angular/core';
 // to get keycloak.js from the server.
 //
 import * as Keycloak from './keycloak';
+import * as KeycloakAuthorization from './keycloak-authz';
 
 type KeycloakClient = Keycloak.KeycloakInstance;
 type InitOptions = Keycloak.KeycloakInitOptions;
 
+type KeycloakIdentity = KeycloakAuthorization.KeycloakAuthorizationInstance;
+
 @Injectable()
 export class KeycloakService {
   static keycloakAuth: KeycloakClient;
+  static keycloakAuthz: KeycloakIdentity;
 
   /**
    * Configure and initialize the Keycloak adapter.
@@ -23,7 +27,7 @@ export class KeycloakService {
    *                       for details.
    * @returns {Promise<T>}
    */
-  static init(initOptions?: InitOptions): Promise<any> {
+  static init(initOptions?: InitOptions, activateAuthz: boolean = false): Promise<any> {
     const configOptions: string | {} = {
       realm: window['OpenfactUIEnv']['realm'] || 'openfact',
       url: window['OpenfactUIEnv']['ssoApiUrl'],
@@ -31,6 +35,9 @@ export class KeycloakService {
     };
 
     KeycloakService.keycloakAuth = Keycloak(configOptions);
+    if (activateAuthz) {
+      KeycloakService.keycloakAuthz = new KeycloakAuthorization(KeycloakService.keycloakAuth);
+    }
 
     return new Promise((resolve, reject) => {
       KeycloakService.keycloakAuth.init(initOptions)
@@ -85,6 +92,24 @@ export class KeycloakService {
       } else {
         reject('Not loggen in');
       }
+    });
+  }
+
+  authorize(wwwAuthenticateHeader: string): Promise<string> {
+    return new Promise<string>((resolve, reject) => {
+      KeycloakService.keycloakAuthz
+        .authorize(wwwAuthenticateHeader)
+        .then(
+          () => {
+            resolve(<string>KeycloakService.keycloakAuthz.rpt);
+          },
+          () => {
+            reject('You can not access or perform the requested operation on this resource.');
+          },
+          () => {
+            reject('Unexpected error from server.');
+          }
+        );
     });
   }
 }

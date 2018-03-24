@@ -10,7 +10,6 @@ import {
 } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { KeycloakService } from './keycloak.service';
-import { KeycloakIdentityService } from './keycloak-identity.service';
 
 import 'rxjs/add/observable/fromPromise';
 import 'rxjs/add/operator/concatMap';
@@ -20,8 +19,7 @@ import 'rxjs/add/operator/map';
 export class KeycloakInterceptor implements HttpInterceptor {
 
   constructor(
-    private keycloakService: KeycloakService,
-    private keycloakIdentityService: KeycloakIdentityService
+    private keycloakService: KeycloakService
   ) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -53,7 +51,7 @@ export class KeycloakInterceptor implements HttpInterceptor {
 
               if (err.url.indexOf('/authorize') === -1) {
 
-                const rptPromise: Promise<string> = this.keycloakIdentityService.authorize((err.headers.get('WWW-Authenticate')));
+                const rptPromise: Promise<string> = this.keycloakService.authorize((err.headers.get('WWW-Authenticate')));
                 const rptObservable: Observable<string> = Observable.fromPromise(rptPromise);
 
                 rptObservable.subscribe((val) => {

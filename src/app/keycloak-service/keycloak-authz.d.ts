@@ -18,7 +18,7 @@
  * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-import * as Keycloak from 'keycloak';
+import * as Keycloak from './keycloak';
 
 export as namespace KeycloakAuthorization;
 
@@ -31,15 +31,15 @@ export = KeycloakAuthorization;
 declare function KeycloakAuthorization(keycloak: Keycloak.KeycloakInstance): KeycloakAuthorization.KeycloakAuthorizationInstance;
 
 declare namespace KeycloakAuthorization {
-	interface KeycloakAuthorizationPromise {
-		then(onGrant: (rpt: string) => void, onDeny: () => void, onError: () => void): void;
-	}
+  interface KeycloakAuthorizationPromise {
+    then(onGrant: (rpt: string) => void, onDeny: () => void, onError: () => void): void;
+  }
 
-	interface KeycloakAuthorizationInstance {
-		rpt: any;
-		config: { rpt_endpoint: string };
+  interface KeycloakAuthorizationInstance {
+    rpt: any;
+    config: { rpt_endpoint: string };
 
-		init(): void;
+    init(): void;
 
 		/**
 		 * This method enables client applications to better integrate with resource servers protected by a Keycloak
@@ -49,11 +49,11 @@ declare namespace KeycloakAuthorization {
 		 * necessary information to ask a Keycloak server for authorization data using both UMA and Entitlement protocol,
 		 * depending on how the policy enforcer at the resource server was configured.
 		 */
-		authorize(wwwAuthenticateHeader: string): KeycloakAuthorizationPromise;
+    authorize(wwwAuthenticateHeader: string): KeycloakAuthorizationPromise;
 
 		/**
 		 * Obtains all entitlements from a Keycloak server based on a given resourceServerId.
 		 */
-		entitlement(resourceServerId: string, entitlementRequest: {}): KeycloakAuthorizationPromise;
-	}
+    entitlement(resourceServerId: string, entitlementRequest: {}): KeycloakAuthorizationPromise;
+  }
 }

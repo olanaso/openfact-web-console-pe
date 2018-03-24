@@ -52,20 +52,18 @@ export class KeycloakInterceptor implements HttpInterceptor {
               // }
 
               if (err.url.indexOf('/authorize') === -1) {
-                console.log(err.headers.get('WWW-Authenticate'));
 
-                // console.log(this.keycloakIdentityService.authorize());
+                const rptPromise: Promise<string> = this.keycloakIdentityService.authorize((err.headers.get('WWW-Authenticate')));
+                const rptObservable: Observable<string> = Observable.fromPromise(rptPromise);
 
-                let promise = this.keycloakIdentityService.authorize((err.headers.get('WWW-Authenticate')));
-
-                Observable.fromPromise(promise).subscribe(val => {
-                  console.log("rpt", promise);
+                rptObservable.subscribe((val) => {
+                  console.log("rpt result", val);
                 });
 
               }
-
             }
-          });
+          }
+        );
     });
 
   }

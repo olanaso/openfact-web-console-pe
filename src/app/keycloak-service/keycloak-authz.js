@@ -167,6 +167,8 @@
         };
 
         this.init(this);
+
+        return this;
     };
 
     if ( typeof module === "object" && module && typeof module.exports === "object" ) {

@@ -5,7 +5,6 @@ import { Injectable } from '@angular/core';
 // method below.  I'm not sure how to fix this, but it's certainly cleaner
 // to get keycloak.js from the server.
 //
-import * as Keycloak from './keycloak';
 import * as KeycloakAuthz from './keycloak-authz';
 
 type KeycloakIdentity = KeycloakAuthz.KeycloakAuthorizationInstance;
@@ -13,20 +12,19 @@ type KeycloakIdentity = KeycloakAuthz.KeycloakAuthorizationInstance;
 @Injectable()
 export class KeycloakIdentityService {
 
-  static authorization: KeycloakIdentity;
+  static authz: KeycloakIdentity;
 
-  static init(keycloak: Keycloak.KeycloakInstance) {
-    console.log("init", KeycloakAuthz);
-    KeycloakIdentityService.authorization = KeycloakAuthz(keycloak);
+  static init(keycloak: any) {
+    KeycloakIdentityService.authz = KeycloakAuthz(keycloak);
   }
 
-  authorize(rpt: string): Promise<string> {
+  authorize(wwwAuthenticateHeader: string): Promise<string> {
     return new Promise<string>((resolve, reject) => {
-      KeycloakIdentityService.authorization
-        .authorize(rpt)
+      KeycloakIdentityService.authz
+        .authorize(wwwAuthenticateHeader)
         .then(
-          (rpt) => {
-            resolve(<string>KeycloakIdentityService.authorization.rpt);
+          () => {
+            resolve(<string>KeycloakIdentityService.authz.rpt);
           },
           () => {
             reject('You can not access or perform the requested operation on this resource.');
@@ -37,6 +35,5 @@ export class KeycloakIdentityService {
         );
     });
   }
-
 
 }

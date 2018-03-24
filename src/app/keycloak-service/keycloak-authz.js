@@ -167,6 +167,9 @@
     };
 
     this.init(this);
+
+    // Added to return a new Instance of Authorization
+    return this;
   };
 
   if (typeof module === "object" && module && typeof module.exports === "object") {

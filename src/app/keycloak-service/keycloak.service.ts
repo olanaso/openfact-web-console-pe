@@ -35,13 +35,13 @@ export class KeycloakService {
     };
 
     KeycloakService.keycloakAuth = Keycloak(configOptions);
-    if (activateAuthz) {
-      KeycloakService.keycloakAuthz = new KeycloakAuthorization(KeycloakService.keycloakAuth);
-    }
 
     return new Promise((resolve, reject) => {
       KeycloakService.keycloakAuth.init(initOptions)
         .success(() => {
+          if (activateAuthz) {
+            KeycloakService.keycloakAuthz = KeycloakAuthorization(KeycloakService.keycloakAuth);
+          }
           resolve();
         })
         .error((errorData: any) => {
@@ -95,6 +95,20 @@ export class KeycloakService {
     });
   }
 
+  // Authz
+
+  authorization(): boolean {
+    return KeycloakService.keycloakAuthz !== null;
+  }
+
+  rpt(): string {
+    return KeycloakService.keycloakAuthz.rpt;
+  }
+
+  /**
+   *
+   * @param wwwAuthenticateHeader
+   */
   authorize(wwwAuthenticateHeader: string): Promise<string> {
     return new Promise<string>((resolve, reject) => {
       KeycloakService.keycloakAuthz

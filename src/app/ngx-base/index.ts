@@ -4,6 +4,8 @@ export { NotificationAction } from './notifications/notification-action';
 export { Notifications } from './notifications/notifications';
 export { NotificationType } from './notifications/notification-type';
 
+export { NotificationsService } from './notifications/notifications.service';
+
 // Broadcaster
 export { Broadcaster } from './broadcaster.service';
 

@@ -18,9 +18,6 @@ export class CompanyService {
   private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
   private companiesUrl: string;
 
-  private nextLinkOwnedNamedSpaces: string = null;
-  private nextLinkOwnedCollaboratedSpaces: string = null;
-
   constructor(
     private http: HttpClient,
     private logger: Logger,
@@ -128,11 +125,15 @@ export class CompanyService {
   }
 
   private resolveOwners(companies: Company[]): Observable<Company[]> {
+    if (companies.length === 0) {
+      return Observable.of(companies);
+    }
+
     return Observable
-      // Get a stream of spaces
+      // Get a stream of companies
       .from(companies)
-      // Map to a stream of owner Ids of these spaces
-      .map(space => space.owner.id)
+      // Map to a stream of owner Ids of these companies
+      .map(company => company.owner.id)
       // Get only the unique owners in this stream of owner Ids
       .distinct()
       // Get the users from the server based on the owner Ids
@@ -143,13 +144,13 @@ export class CompanyService {
           return Observable.empty<User>();
         });
       })
-      // map the user objects back to the spaces to return a stream of spaces
+      // map the user objects back to the companies to return a stream of companies
       .map(owner => {
         if (owner) {
-          for (const space of companies) {
-            space.relationalData = space.relationalData || {};
-            if (owner.id === space.owner.id) {
-              space.relationalData.owner = owner;
+          for (const company of companies) {
+            company.relationalData = company.relationalData || {};
+            if (owner.id === company.owner.id) {
+              company.relationalData.owner = owner;
             }
           }
         }

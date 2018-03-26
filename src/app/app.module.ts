@@ -16,6 +16,9 @@ import { KEYCLOAK_HTTP_INTERCEPTOR } from './keycloak-service/keycloak.intercept
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 
+// Patternfly
+import { NotificationModule } from 'patternfly-ng/notification';
+
 // Api Config
 import { openfactUIConfigProvider } from './shared/openfact-ui-config.service';
 import { ApiLocatorService } from './shared/api-locator.service';
@@ -46,6 +49,9 @@ import { ErrorService } from './layout/error/error.service';
     // Bootstrap
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
+
+    // Patternfly
+    NotificationModule,
 
     // Ngx
     NgxBaseModule.forRoot(),

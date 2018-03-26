@@ -17,6 +17,15 @@ const routes: Routes = [
     }
   },
 
+  // Company
+  {
+    path: '_company/:company',
+    loadChildren: './company/company.module#CompanyModule',
+    data: {
+      title: 'Company'
+    }
+  },
+
   // Error Pages
   {
     path: '_error',

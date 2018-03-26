@@ -1,0 +1,27 @@
+<of-vertical-navigation [contextItems]="contextItems">
+  <ul class="nav navbar-nav navbar-right navbar-iconic navbar-utility">
+    <li dropdown class="dropdown">
+      <a dropdownToggle class="dropdown-toggle nav-item-iconic" id="dropdownMenu25" data-toggle="dropdown" aria-haspopup="true"
+        aria-expanded="true">
+        <span title="Username" class="fa pficon-user"></span>
+        Brian Johnson
+        <span class="caret"></span>
+      </a>
+      <ul *dropdownMenu class="dropdown-menu" aria-labelledby="dropdownMenu25">
+        <li>
+          <a href="#0">Administrar cuenta</a>
+        </li>
+        <li>
+          <a href="#0">Cerrar Session</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</of-vertical-navigation>
+
+<of-sidebar [items]="navigationItems" [persistentSecondary]="false" [pinnableMenus]="true" [showBadges]="true" [showIcons]="true"
+  [updateActiveItemsOnClick]="true" (onItemClickEvent)="onItemClicked($event)" (onNavigationEvent)="onNavigation($event)"></of-sidebar>
+
+<div class="container-fluid container-cards-pf container-pf-nav-pf-vertical">
+  <router-outlet></router-outlet>
+</div>

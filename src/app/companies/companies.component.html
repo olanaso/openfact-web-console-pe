@@ -47,12 +47,6 @@
           </div>
         </div>
       </form>
-      <div class="row toolbar-pf-results">
-        <div class="col-sm-12">
-          <h5>40 Results</h5>
-        </div>
-        <!-- /col -->
-      </div>
       <!-- /row -->
     </div>
     <!-- /col -->
@@ -61,20 +55,10 @@
 </div>
 
 
-
-
-
-
-
-
-
-
-
-
 <div class="container-fluid container-cards-pf">
   <div class="row row-cards-pf">
     <div *ngFor="let company of ownedCompanies" class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-      <div class="card-pf card-pf-view card-pf-view-select card-pf-view-single-select">
+      <div routerLink="/_company/{{company.id}}" class="card-pf card-pf-view card-pf-view-select card-pf-view-single-select">
         <div class="card-pf-body" style="height: 281px;">
           <div class="card-pf-top-element">
             <span class="fa pficon pficon-cluster card-pf-icon-circle"></span>

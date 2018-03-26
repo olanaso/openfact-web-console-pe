@@ -11,7 +11,7 @@
 
       <div>
         <h3>Crear Organización</h3>
-        <form [formGroup]="companyForm" class="form-horizontal">
+        <form [formGroup]="companyForm" (ngSubmit)="save()" class="form-horizontal">
           <p class="fields-status-pf">Los campos marcados con
             <span class="required-pf">*</span> son requeridos.
           </p>
@@ -32,9 +32,9 @@
           </div>
 
           <div class="form-group">
-            <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-md-offset-2 col-lg-offset-2">
-              <!-- <button type="submit" [disable]="working"></button>
-              <button (ofOnCancel)="cancel()"></button> -->
+            <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 col-md-offset-3 col-lg-offset-3">
+              <of-working-button [type]="'submit'" [active]="companyForm.valid" [working]="working"></of-working-button>
+              <button routerLink="/_home" type="button" class="btn btn-default">Cancelar</button>
             </div>
           </div>
 

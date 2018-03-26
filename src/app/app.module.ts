@@ -28,6 +28,7 @@ import { NgxOpenfactModule } from './ngx-openfact/ngx-openfact.module';
 import { ssoApiUrlProvider } from './shared/sso-api.provider';
 import { realmProvider } from './shared/realm-token.provider';
 import { authApiUrlProvider } from './shared/auth-api.provider';
+import { openfactApiUrlProvider } from './shared/openfact-api.provider';
 
 // Error
 import { ErrorService } from './layout/error/error.service';
@@ -66,6 +67,7 @@ import { ErrorService } from './layout/error/error.service';
     ssoApiUrlProvider,
     authApiUrlProvider,
     realmProvider,
+    openfactApiUrlProvider
   ],
   bootstrap: [AppComponent],
 })

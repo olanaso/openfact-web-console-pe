@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NewCompanyComponent } from './new-company.component';
 import { NewCompanyRoutingModule } from './new-company-routing.module';
 import { NgxFormsModule } from './../ngx-forms/ngx-forms.module';
+import { NgxButtonModule } from './../ngx-button/ngx-button.module';
 
 @NgModule({
   imports: [
@@ -11,7 +12,8 @@ import { NgxFormsModule } from './../ngx-forms/ngx-forms.module';
     NewCompanyRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    NgxFormsModule
+    NgxFormsModule,
+    NgxButtonModule
   ],
   declarations: [NewCompanyComponent]
 })

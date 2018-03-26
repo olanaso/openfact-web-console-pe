@@ -10,6 +10,7 @@ import { Company } from '../models/company';
 
 import 'rxjs/add/observable/from';
 import 'rxjs/add/operator/distinct';
+import 'rxjs/add/operator/mergeMap';
 
 @Injectable()
 export class CompanyService {
@@ -26,6 +27,25 @@ export class CompanyService {
     private userService: UserService,
     @Inject(OPENFACT_API_URL) apiUrl: string) {
     this.companiesUrl = apiUrl.endsWith('/') ? apiUrl + 'companies' : apiUrl + '/companies';
+  }
+
+  getCompanies(userId: string, mode: string = 'owned'): Observable<Company[]> {
+    const url = this.companiesUrl;
+    let params: HttpParams = new HttpParams();
+    params = params.set('userId', userId);
+    params = params.set('mode', mode);
+
+    return this.http
+      .get(url, { params: params, headers: this.headers })
+      .map(response => {
+        return response as Company[];
+      })
+      .switchMap(val => {
+        return this.resolveOwners(val);
+      })
+      .catch((error) => {
+        return this.handleError(error);
+      });
   }
 
   create(company: Company): Observable<Company> {
@@ -104,6 +124,36 @@ export class CompanyService {
       .map(owner => {
         company.relationalData.owner = owner;
         return company;
+      });
+  }
+
+  private resolveOwners(companies: Company[]): Observable<Company[]> {
+    return Observable
+      // Get a stream of spaces
+      .from(companies)
+      // Map to a stream of owner Ids of these spaces
+      .map(space => space.owner.id)
+      // Get only the unique owners in this stream of owner Ids
+      .distinct()
+      // Get the users from the server based on the owner Ids
+      // and flatten the resulting stream , observables are returned
+      .flatMap(ownerId => {
+        return this.userService.searchUserByUserId(ownerId).catch(err => {
+          console.log('Error fetching user', ownerId, err);
+          return Observable.empty<User>();
+        });
+      })
+      // map the user objects back to the spaces to return a stream of spaces
+      .map(owner => {
+        if (owner) {
+          for (const space of companies) {
+            space.relationalData = space.relationalData || {};
+            if (owner.id === space.owner.id) {
+              space.relationalData.owner = owner;
+            }
+          }
+        }
+        return companies;
       });
   }
 

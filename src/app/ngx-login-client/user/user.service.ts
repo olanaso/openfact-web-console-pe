@@ -43,7 +43,7 @@ export class UserService {
   ) {
     this.profileUrl = apiUrl + '/profile';
     this.usersUrl = apiUrl + '/users';
-    this.usersUrl = apiUrl + '/users/search';
+    this.searchUrl = apiUrl + '/users/search';
     this.loggedInUser = this.http
       .get(this.profileUrl, { headers: this.headers })
       .map(response => cloneDeep(response as User))
@@ -54,10 +54,6 @@ export class UserService {
       .refCount();
   }
 
-  /**
-   * Get the User object for a given user id, or null if no user is found
-   * @param userId the userId to search for
-   */
   getUserByUserId(userId: string): Observable<User> {
     return this.http
       .get(`${this.usersUrl}/${userId}`, { headers: this.headers })
@@ -66,11 +62,7 @@ export class UserService {
       });
   }
 
-  /**
-   * Get the User object for a given username, or null if no user is found
-   * @param username the username to search for
-   */
-  getUserByUsername(username: string): Observable<User> {
+  searchUserByUsername(username: string): Observable<User> {
     return this.filterUsersByUsername(username).map(val => {
       for (const u of val) {
         if (username === u.username) {
@@ -81,10 +73,21 @@ export class UserService {
     });
   }
 
+  searchUserByUserId(userId: string): Observable<User> {
+    return this.filterUsersByUserId(userId).map(val => {
+      for (const u of val) {
+        if (userId === u.id) {
+          return u;
+        }
+      }
+      return null;
+    });
+  }
+
   /**
    * Get users by a search string
    */
-  getUsersBySearchString(filterText: string, limit: number = 10): Observable<User[]> {
+  searchUserByFilterText(filterText: string, limit: number = 10): Observable<User[]> {
     if (filterText && filterText !== '') {
       return this.http
         .get(`${this.usersUrl}/?filterText=${filterText}&limit=${limit}`, { headers: this.headers })
@@ -95,15 +98,17 @@ export class UserService {
     return Observable.of([] as User[]);
   }
 
-  /**
-   *
-   * Filter users by username
-   *
-   * @returns Observable<User[]>
-   */
-  filterUsersByUsername(username: string): Observable<User[]> {
+  private filterUsersByUsername(username: string): Observable<User[]> {
     return this.http
       .get(`${this.usersUrl}?username=${username}`, { headers: this.headers })
+      .map(response => {
+        return response as User[];
+      });
+  }
+
+  private filterUsersByUserId(userId: string): Observable<User[]> {
+    return this.http
+      .get(`${this.usersUrl}?userId=${userId}`, { headers: this.headers })
       .map(response => {
         return response as User[];
       });

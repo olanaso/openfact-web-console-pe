@@ -10,14 +10,8 @@ export { ContextTypes } from './contexts/context-types';
 export { OPENFACT_API_URL } from './api/openfact-api';
 
 // Companies
-export {
-  Company,
-  CompanyAttributes,
-  CompanyLink,
-  CompanyRelationships,
-  RelationalData
-} from './models/company';
 export { Team } from './models/team';
+export { Company, CompanyOwner } from './models/company';
 export { CompanyService } from './companies/company.service';
 export { Companies } from './companies/companies';
 export { CompanyNamePipe } from './companies/company-name.pipe';

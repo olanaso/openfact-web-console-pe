@@ -25,33 +25,12 @@ export class CompanyService {
     private logger: Logger,
     private userService: UserService,
     @Inject(OPENFACT_API_URL) apiUrl: string) {
-    this.companiesUrl = apiUrl.endsWith('/') ? apiUrl + 'spaces' : apiUrl + '/spaces';
-    this.companiesUrl = apiUrl.endsWith('/') ? apiUrl + 'users' : apiUrl + '/users';
+    this.companiesUrl = apiUrl.endsWith('/') ? apiUrl + 'companies' : apiUrl + '/companies';
   }
 
-  /**
-   * Get public version of space
-   * @param spaceId spaceId
-   */
-  getSpaceById(spaceId: string): Observable<Company> {
-    const url = `${this.companiesUrl}/${spaceId}`;
-    return this.http.get(url, { headers: this.headers })
-      .map((response) => {
-        return response as Company;
-      })
-      .switchMap(val => this.resolveOwner(val))
-      .catch((error) => {
-        return this.handleError(error);
-      });
-  }
-
-  /**
-   * Create new company
-   * @param company company
-   */
   create(company: Company): Observable<Company> {
     const url = this.companiesUrl;
-    const payload = JSON.stringify({ data: company });
+    const payload = JSON.stringify(company);
     return this.http
       .post(url, payload, { headers: this.headers })
       .map(response => {
@@ -65,9 +44,21 @@ export class CompanyService {
       });
   }
 
+  getCompanyById(companyId: string): Observable<Company> {
+    const url = `${this.companiesUrl}/${companyId}`;
+    return this.http.get(url, { headers: this.headers })
+      .map((response) => {
+        return response as Company;
+      })
+      .switchMap(val => this.resolveOwner(val))
+      .catch((error) => {
+        return this.handleError(error);
+      });
+  }
+
   update(company: Company): Observable<Company> {
     const url = `${this.companiesUrl}/${company.id}`;
-    const payload = JSON.stringify({ data: company });
+    const payload = JSON.stringify(company);
     return this.http
       .put(url, payload, { headers: this.headers })
       .map(response => {
@@ -103,13 +94,13 @@ export class CompanyService {
   private resolveOwner(company: Company): Observable<Company> {
     company.relationalData = company.relationalData || {};
 
-    if (!company.relationships.ownedBy) {
+    if (!company.owner) {
       company.relationalData.owner = {} as User;
       return Observable.of(company);
     }
 
     return this.userService
-      .getUserByUserId(company.relationships.ownedBy.data.id)
+      .searchUserByUserId(company.owner.id)
       .map(owner => {
         company.relationalData.owner = owner;
         return company;

@@ -93,8 +93,8 @@ export class CompanyComponent implements OnInit {
 
   fetchCompanies() {
     Observable.forkJoin(
-      this.companyService.getCompanies(this.loggedInUser.id, 'owned'),
-      this.companyService.getCompanies(this.loggedInUser.id, 'collaborated')
+      this.companyService.getCompanies(this.loggedInUser.id, 'owner'),
+      this.companyService.getCompanies(this.loggedInUser.id, 'collaborator')
     ).subscribe((val) => {
       this.companies = val[0].concat(val[1]);
       this.initContextItems();

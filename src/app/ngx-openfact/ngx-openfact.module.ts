@@ -3,15 +3,22 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 
 import { NgxBaseModule } from '../ngx-base/ngx-base.module';
+import { NxgLoginModule } from './../ngx-login-client/ngx-login.module';
 
 import { CompanyNamePipe } from './companies/company-name.pipe';
 import { CompanyService } from './companies/company.service';
+
+import { UBLDocumentService } from './documents/ubl-document.service';
+
+import { Contexts } from './contexts/contexts';
+import { ContextService } from './context.service';
 
 @NgModule({
   imports: [
     CommonModule,
     HttpClientModule,
-    NgxBaseModule
+    NgxBaseModule,
+    NxgLoginModule
   ],
   declarations: [
     CompanyNamePipe,
@@ -27,7 +34,13 @@ export class NgxOpenfactModule {
     return {
       ngModule: NgxOpenfactModule,
       providers: [
-        CompanyService
+        CompanyService,
+        UBLDocumentService,
+        ContextService,
+        {
+          provide: Contexts,
+          useExisting: ContextService
+        }
       ]
     };
   }

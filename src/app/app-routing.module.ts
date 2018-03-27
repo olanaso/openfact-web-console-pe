@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { ContextResolver } from './shared/context-resolver.service';
 
 const routes: Routes = [
   {
@@ -21,6 +22,9 @@ const routes: Routes = [
   {
     path: '_company/:company',
     loadChildren: './company/company.module#CompanyModule',
+    resolve: {
+      context: ContextResolver
+    },
     data: {
       title: 'Company'
     }

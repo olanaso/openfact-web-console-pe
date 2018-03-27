@@ -16,6 +16,10 @@ export { CompanyService } from './companies/company.service';
 export { Companies } from './companies/companies';
 export { CompanyNamePipe } from './companies/company-name.pipe';
 
+// Documents
+export { UBLDocument } from './models/ubl-document';
+export { UBLDocumentService } from './documents/ubl-document.service';
+
 // Generic classes
 export {
   GenericLinks,
@@ -24,3 +28,9 @@ export {
 } from './models/generic';
 
 export { SearchResult } from './models/search-result';
+
+// Navigation
+export { Navigation } from './models/navigation';
+
+// Context
+export { ContextService } from './context.service';

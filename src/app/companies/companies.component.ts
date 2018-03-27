@@ -40,10 +40,10 @@ export class CompaniesComponent implements OnInit, OnDestroy {
   }
 
   search() {
-    this.companyService.getCompanies(this.loggedInUser.id, 'owned').subscribe((val) => {
+    this.companyService.getCompanies(this.loggedInUser.id, 'owner').subscribe((val) => {
       this.ownedCompanies = val;
     });
-    this.companyService.getCompanies(this.loggedInUser.id, 'collaborated').subscribe((val) => {
+    this.companyService.getCompanies(this.loggedInUser.id, 'collaborator').subscribe((val) => {
       this.collaboratedCompanies = val;
     });
   }

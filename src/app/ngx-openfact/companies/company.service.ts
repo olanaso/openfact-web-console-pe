@@ -26,11 +26,11 @@ export class CompanyService {
     this.companiesUrl = apiUrl.endsWith('/') ? apiUrl + 'companies' : apiUrl + '/companies';
   }
 
-  getCompanies(userId: string, mode: string = 'owned'): Observable<Company[]> {
+  getCompanies(userId: string, role: string = 'owner'): Observable<Company[]> {
     const url = this.companiesUrl;
     let params: HttpParams = new HttpParams();
     params = params.set('userId', userId);
-    params = params.set('mode', mode);
+    params = params.set('role', role);
 
     return this.http
       .get(url, { params: params, headers: this.headers })
@@ -43,6 +43,17 @@ export class CompanyService {
       .catch((error) => {
         return this.handleError(error);
       });
+  }
+
+  searchCompanyById(companyId: string): Observable<Company> {
+    return this.filterCompaniesById(companyId).map(val => {
+      for (const u of val) {
+        if (companyId === u.id) {
+          return u;
+        }
+      }
+      return null;
+    });
   }
 
   create(company: Company): Observable<Company> {
@@ -155,6 +166,14 @@ export class CompanyService {
           }
         }
         return companies;
+      });
+  }
+
+  private filterCompaniesById(companyId: string): Observable<Company[]> {
+    return this.http
+      .get(`${this.companiesUrl}?companyId=${companyId}`, { headers: this.headers })
+      .map(response => {
+        return response as Company[];
       });
   }
 

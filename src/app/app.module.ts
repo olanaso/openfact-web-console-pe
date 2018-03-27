@@ -36,6 +36,9 @@ import { openfactApiUrlProvider } from './shared/openfact-api.provider';
 // Error
 import { ErrorService } from './layout/error/error.service';
 
+// Context
+import { ContextResolver } from './shared/context-resolver.service';
+
 @NgModule({
   declarations: [
     AppComponent
@@ -70,10 +73,14 @@ import { ErrorService } from './layout/error/error.service';
     // Error
     ErrorService,
 
+    // Api
     ssoApiUrlProvider,
     authApiUrlProvider,
     realmProvider,
-    openfactApiUrlProvider
+    openfactApiUrlProvider,
+
+    // Context
+    ContextResolver
   ],
   bootstrap: [AppComponent],
 })

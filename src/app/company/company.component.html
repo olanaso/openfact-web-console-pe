@@ -1,18 +1,15 @@
-<of-vertical-navigation [contextItems]="contextItems">
+<of-vertical-navigation [contextLabel]="contextLabel" [contextItems]="contextItems">
   <ul class="nav navbar-nav navbar-right navbar-iconic navbar-utility">
     <li dropdown class="dropdown">
       <a dropdownToggle class="dropdown-toggle nav-item-iconic" id="dropdownMenu25" data-toggle="dropdown" aria-haspopup="true"
         aria-expanded="true">
         <span title="Username" class="fa pficon-user"></span>
-        Brian Johnson
+        {{loggedInUser?.username}}
         <span class="caret"></span>
       </a>
       <ul *dropdownMenu class="dropdown-menu" aria-labelledby="dropdownMenu25">
         <li>
-          <a href="#0">Administrar cuenta</a>
-        </li>
-        <li>
-          <a href="#0">Cerrar Session</a>
+          <a (click)="logout()" href="javascript:void(0)">Cerrar Session</a>
         </li>
       </ul>
     </li>

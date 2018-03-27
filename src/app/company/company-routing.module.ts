@@ -27,6 +27,10 @@ const routes: Routes = [
       {
         path: '_smtp-settings',
         loadChildren: './smtp/smtp.module#SmtpModule',
+      },
+      {
+        path: '_keys',
+        loadChildren: './keys/keys.module#KeysModule',
       }
     ]
   }

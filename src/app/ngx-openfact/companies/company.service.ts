@@ -110,6 +110,24 @@ export class CompanyService {
       });
   }
 
+  getKeys(companyId: string, params?: HttpParams): Observable<any> {
+    const url = `${this.companiesUrl}/${companyId}/keys`;
+    return this.http
+      .get(url, { params: params, headers: this.headers })
+      .catch((error) => {
+        return this.handleError(error);
+      });
+  }
+
+  getComponents(companyId: string, params?: HttpParams) {
+    const url = `${this.companiesUrl}/${companyId}/components`;
+    return this.http
+      .get(url, { params: params, headers: this.headers })
+      .catch((error) => {
+        return this.handleError(error);
+      });
+  }
+
   /**
    * Private
    */

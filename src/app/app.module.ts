@@ -3,6 +3,7 @@ import './rxjs-extensions';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -48,6 +49,8 @@ import { ContextResolver } from './shared/context-resolver.service';
     AppRoutingModule,
 
     HttpClientModule,
+
+    BrowserAnimationsModule,
 
     // Bootstrap
     BsDropdownModule.forRoot(),

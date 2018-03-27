@@ -27,9 +27,10 @@ export class SmtpComponent implements OnInit {
     private notifications: Notifications,
   ) {
     this.companyForm = this.formBuilder.group({
-      host: [undefined, Validators.compose([Validators.required, Validators.maxLength(150)])],
+      useCustomSmtpConfig: [false, Validators.compose([Validators.required])],
+      host: [undefined, Validators.compose([Validators.maxLength(150)])],
       port: [undefined, Validators.compose([Validators.maxLength(20)])],
-      from: [undefined, Validators.compose([Validators.required, Validators.maxLength(150)])],
+      from: [undefined, Validators.compose([Validators.maxLength(150)])],
       ssl: [false, Validators.compose([Validators.required])],
       starttls: [false, Validators.compose([Validators.required])],
       auth: [false],
@@ -56,6 +57,7 @@ export class SmtpComponent implements OnInit {
   syncForm() {
     this.companyService.getCompanyById(this.context.company.id).subscribe((val) => {
       this.companyForm.patchValue(val.smtpServer);
+      this.companyForm.patchValue(val);
     });
   }
 
@@ -68,6 +70,8 @@ export class SmtpComponent implements OnInit {
 
     const company = this.createTransientCompany();
     company.smtpServer = Object.assign({}, this.companyForm.value);
+    company.smtpServer['useCustomSmtpConfig'] = null;
+    company.useCustomSmtpConfig = this.companyForm.value.useCustomSmtpConfig;
 
     this.companyService.update(company).subscribe(
       (result) => {

@@ -115,11 +115,11 @@ export class CompanyComponent implements OnInit, OnDestroy {
           },
           {
             title: 'Certificados Digitales',
-            url: './keys'
+            url: '/_company/' + company.id + '/_smtp-settings'
           },
           {
             title: 'Servidor Correos SMTP',
-            url: './smtp'
+            url: '/_company/' + company.id + '/_smtp-settings'
           },
           {
             title: 'Impresion',

@@ -7,6 +7,7 @@ export interface Company {
   description: string;
   owner: CompanyOwner;
   relationalData?: RelationalData;
+  smtpServer?: SmtpServerConfig;
 }
 
 export class CompanyOwner {
@@ -15,4 +16,15 @@ export class CompanyOwner {
 
 export class RelationalData {
   owner?: User;
+}
+
+export interface SmtpServerConfig {
+  host: string;
+  port: string;
+  from?: string;
+  ssl?: string;
+  starttls?: string;
+  auth?: string;
+  user?: string;
+  password?: string;
 }

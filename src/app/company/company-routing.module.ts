@@ -23,6 +23,10 @@ const routes: Routes = [
       {
         path: '_additional-information',
         loadChildren: './additional-information/additional-information.module#AdditionalInformationModule',
+      },
+      {
+        path: '_smtp-settings',
+        loadChildren: './smtp/smtp.module#SmtpModule',
       }
     ]
   }

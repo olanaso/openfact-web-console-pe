@@ -1,9 +1,10 @@
-import { KeycloakService } from './../keycloak-service/keycloak.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2, Inject, OnDestroy } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 import { NavigationItemConfig } from 'patternfly-ng/navigation';
 import { ContextItemConfig } from '../layout/vertical-navigation/context-item-config';
 import { User, UserService } from './../ngx-login-client';
 import { Contexts, Context, Company, CompanyService } from './../ngx-openfact/';
+import { KeycloakService } from './../keycloak-service/keycloak.service';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -14,7 +15,7 @@ import 'rxjs/add/observable/forkJoin';
   templateUrl: './company.component.html',
   styleUrls: ['./company.component.scss']
 })
-export class CompanyComponent implements OnInit {
+export class CompanyComponent implements OnInit, OnDestroy {
 
   loggedInUser: User;
 
@@ -27,6 +28,8 @@ export class CompanyComponent implements OnInit {
   private subscriptions: Subscription[] = [];
 
   constructor(
+    private renderer: Renderer2,
+    @Inject(DOCUMENT) private document: Document,
     private userService: UserService,
     private companyService: CompanyService,
     private contexts: Contexts,
@@ -42,11 +45,45 @@ export class CompanyComponent implements OnInit {
     this.subscriptions.push(
       this.contexts.current.subscribe((val) => {
         this.context = val;
+        this.initSidebarItems();
       })
     );
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this.renderer.addClass(document.body.parentNode, 'layout-pf');
+    this.renderer.addClass(document.body.parentNode, 'layout-pf-fixed');
+    this.renderer.addClass(document.body.parentNode, 'transitions');
+  }
+
+  ngOnDestroy() {
+    this.renderer.removeClass(document.body.parentNode, 'layout-pf');
+    this.renderer.removeClass(document.body.parentNode, 'layout-pf-fixed');
+    this.renderer.removeClass(document.body.parentNode, 'transitions');
+  }
+
+  fetchCompanies() {
+    Observable.forkJoin(
+      this.companyService.getCompanies(this.loggedInUser.id, 'owner'),
+      this.companyService.getCompanies(this.loggedInUser.id, 'collaborator')
+    ).subscribe((val) => {
+      this.companies = val[0].concat(val[1]);
+      this.initContextItems();
+    });
+  }
+
+  initContextItems() {
+    this.contextItems = this.companies.map((company) => {
+      return {
+        title: company.name,
+        url: '/_company/' + company.id
+      };
+    });
+  }
+
+  initSidebarItems() {
+    const company = this.context.company;
+
     this.navigationItems = [
       {
         title: 'Documentos',
@@ -65,16 +102,16 @@ export class CompanyComponent implements OnInit {
         ]
       },
       {
-        title: 'Configuraciones',
+        title: 'Configuración',
         iconStyleClass: 'fa fa-space-shuttle',
         children: [
           {
             title: 'Información general',
-            url: './general-information'
+            url: '/_company/' + company.id + '/_general-information'
           },
           {
             title: 'Información adicional',
-            url: './additional-information'
+            url: '/_company/' + company.id + '/_additional-information'
           },
           {
             title: 'Certificados Digitales',
@@ -99,25 +136,6 @@ export class CompanyComponent implements OnInit {
         ]
       }
     ];
-  }
-
-  fetchCompanies() {
-    Observable.forkJoin(
-      this.companyService.getCompanies(this.loggedInUser.id, 'owner'),
-      this.companyService.getCompanies(this.loggedInUser.id, 'collaborator')
-    ).subscribe((val) => {
-      this.companies = val[0].concat(val[1]);
-      this.initContextItems();
-    });
-  }
-
-  initContextItems() {
-    this.contextItems = this.companies.map((company) => {
-      return {
-        title: company.name,
-        url: '/_company/' + company.id
-      };
-    });
   }
 
   onItemClicked($event: NavigationItemConfig): void {

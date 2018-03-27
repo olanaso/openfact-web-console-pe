@@ -17,8 +17,12 @@ const routes: Routes = [
         loadChildren: './draft-documents/draft-documents.module#DraftDocumentsModule',
       },
       {
-        path: '_settings',
-        loadChildren: './settings/settings.module#SettingsModule',
+        path: '_general-information',
+        loadChildren: './general-information/general-information.module#GeneralInformationModule',
+      },
+      {
+        path: '_additional-information',
+        loadChildren: './additional-information/additional-information.module#AdditionalInformationModule',
       }
     ]
   }

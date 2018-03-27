@@ -1,3 +1,4 @@
+import { PECompanyService } from './companies/pe-company.service';
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
@@ -40,7 +41,8 @@ export class NgxOpenfactModule {
         {
           provide: Contexts,
           useExisting: ContextService
-        }
+        },
+        PECompanyService
       ]
     };
   }

@@ -1,3 +1,4 @@
+
 export { NgxOpenfactModule } from './ngx-openfact.module';
 
 // Contexts
@@ -15,6 +16,9 @@ export { Company, CompanyOwner } from './models/company';
 export { CompanyService } from './companies/company.service';
 export { Companies } from './companies/companies';
 export { CompanyNamePipe } from './companies/company-name.pipe';
+
+export { PECompany } from './models/pe-company';
+export { PECompanyService } from './companies/pe-company.service';
 
 // Documents
 export { UBLDocument } from './models/ubl-document';

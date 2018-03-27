@@ -15,7 +15,7 @@ export class VerticalNavigationComponent implements OnInit {
   /**
    * Show top banner, default: true
    */
-  @Input() showTopBanner: boolean = true;
+  @Input() showTopBanner = true;
 
   /**
    * The navigation items used to build the menu
@@ -27,7 +27,7 @@ export class VerticalNavigationComponent implements OnInit {
    */
   @Input() contextItems: ContextItemConfig[];
 
-  private explicitCollapse: boolean = false;
+  private explicitCollapse = false;
 
   constructor() { }
 

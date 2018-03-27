@@ -28,22 +28,22 @@ export class SidebarComponent implements OnInit, OnDestroy {
   /**
    * Boolean to indicate whether or not to show badges, default: false
    */
-  @Input() showBadges: boolean = false;
+  @Input() showBadges = false;
 
   /**
    * Indicates whether or not to allow the secondary to persist, default: false
    */
-  @Input() persistentSecondary: boolean = false;
+  @Input() persistentSecondary = false;
 
   /**
    * Allow pinnable menus when they are open, default: false
    */
-  @Input() pinnableMenus: boolean = false;
+  @Input() pinnableMenus = false;
 
   /**
    * Show menu icons, default: true
    */
-  @Input() showIcons: boolean = true;
+  @Input() showIcons = true;
 
   /**
    * The navigation items used to build the menu
@@ -53,17 +53,17 @@ export class SidebarComponent implements OnInit, OnDestroy {
   /**
    * Sets an active flag on items when they are selected, default: false
    */
-  @Input() updateActiveItemsOnClick: boolean = false;
+  @Input() updateActiveItemsOnClick = false;
 
   /**
    * Indicates whether or not this is a mobile friendly navigation, default: false
    */
-  @Input() ignoreMobile: boolean = false;
+  @Input() ignoreMobile = false;
 
   /**
    * Show top banner, default: true
    */
-  @Input() showTopBanner: boolean = true;
+  @Input() showTopBanner = true;
 
   /**
    * This event is fired any time the user has initiated navigation
@@ -75,17 +75,17 @@ export class SidebarComponent implements OnInit, OnDestroy {
    */
   @Output('onItemClickEvent') itemClickEvent = new EventEmitter();
 
-  private _activeSecondary: boolean = false;
-  private _collapsedSecondaryNav: boolean = false;
-  private _collapsedTertiaryNav: boolean = false;
-  private _forceHidden: boolean = false;
-  private _hoverSecondaryNav: boolean = false;
-  private _hoverTertiaryNav: boolean = false;
+  private _activeSecondary = false;
+  private _collapsedSecondaryNav = false;
+  private _collapsedTertiaryNav = false;
+  private _forceHidden = false;
+  private _hoverSecondaryNav = false;
+  private _hoverTertiaryNav = false;
   private _inMobileState: boolean;
-  private _navCollapsed: boolean = false;
-  private _showMobileNav: boolean = false;
-  private _showMobileSecondary: boolean = false;
-  private _showMobileTertiary: boolean = false;
+  private _navCollapsed = false;
+  private _showMobileNav = false;
+  private _showMobileSecondary = false;
+  private _showMobileTertiary = false;
 
   // Private internal variables
   private hoverTimeout: number;
@@ -94,8 +94,8 @@ export class SidebarComponent implements OnInit, OnDestroy {
     'tablet': 768,
     'desktop': 1200
   };
-  private explicitCollapse: boolean = false;
-  private hoverDelay: number = 500;
+  private explicitCollapse = false;
+  private hoverDelay = 500;
   private hideDelay: number = this.hoverDelay + 200;
   private windowListener: any;
 
@@ -270,7 +270,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
    * Initialize the active items in the vertical navigation
    */
   public initActiveItems(): void {
-    let updatedRoute = this.router.url;
+    const updatedRoute = this.router.url;
     // //Setting active state on load
     this.items.forEach((topLevel) => {
       if (updatedRoute.indexOf(topLevel.url) > -1) {
@@ -504,12 +504,12 @@ export class SidebarComponent implements OnInit, OnDestroy {
 
   // Private
   private addClass(className: string): void {
-    let element = this.elementRef.nativeElement;
+    const element = this.elementRef.nativeElement;
     this.renderer.addClass(element, className);
   }
 
   private removeClass(className: string): void {
-    let element = this.elementRef.nativeElement;
+    const element = this.elementRef.nativeElement;
     this.renderer.removeClass(element, className);
   }
 
@@ -555,7 +555,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
   }
 
   private checkNavState() {
-    let width = this.windowRef.nativeWindow.innerWidth;
+    const width = this.windowRef.nativeWindow.innerWidth;
 
     // Check to see if we need to enter/exit the mobile state
     if (this.ignoreMobile !== true && width < this.breakpoints.tablet) {
@@ -680,7 +680,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
   }
 
   private navigateToItem(item: NavigationItemConfig): void {
-    let navItem = this.getFirstNavigateChild(item);
+    const navItem = this.getFirstNavigateChild(item);
     let navTo;
     if (navItem) {
       this._showMobileNav = false;

@@ -20,7 +20,7 @@ import 'rxjs/add/operator/switchMap';
 @Injectable()
 export class KeycloakInterceptor implements HttpInterceptor {
 
-  private MAX_UNAUTHORIZED_ATTEMPTS: number = 2;
+  private MAX_UNAUTHORIZED_ATTEMPTS = 2;
 
   constructor(
     private keycloakService: KeycloakService
@@ -54,7 +54,7 @@ export class KeycloakInterceptor implements HttpInterceptor {
     let result: Observable<HttpEvent<any>>;
 
     if (this.keycloakService.authorization() && this.keycloakService.rpt() && request.url.indexOf('/authorize') === -1) {
-      let retries = 0;
+      const retries = 0;
       request = request.clone({
         setHeaders: {
           Authorization: `Bearer ${this.keycloakService.rpt()}`

@@ -33,7 +33,7 @@ export class ErrorComponent implements OnDestroy {
         this.message = message;
       });
 
-    this.companyLink = '/_companies'
+    this.companyLink = '/_companies';
 
   }
   ngOnDestroy() {

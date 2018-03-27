@@ -33,7 +33,7 @@ export class CompanyComponent implements OnInit, OnDestroy {
     private userService: UserService,
     private companyService: CompanyService,
     private contexts: Contexts,
-    private KeycloakService: KeycloakService
+    private keycloakService: KeycloakService
   ) {
     this.subscriptions.push(
       this.userService.loggedInUser.subscribe((val) => {
@@ -151,7 +151,7 @@ export class CompanyComponent implements OnInit, OnDestroy {
   }
 
   logout() {
-    this.KeycloakService.logout();
+    this.keycloakService.logout();
   }
 
 }

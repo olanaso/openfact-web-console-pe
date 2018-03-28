@@ -36,7 +36,7 @@
 </div>
 
 
-<div class="container-fluid container-cards-pf">
+<div *ngIf="ownedCompanies.length > 0 || collaboratedCompanies.length > 0" class="container-fluid container-cards-pf">
   <div class="row row-cards-pf">
     <div *ngFor="let company of ownedCompanies" class="col-xs-12 col-sm-4 col-md-3 col-lg-2">
       <div routerLink="/_company/{{company.id}}" class="card-pf card-pf-view card-pf-view-select card-pf-view-single-select">
@@ -80,5 +80,25 @@
         </div>
       </div>
     </div>
+  </div>
+</div>
+
+<div *ngIf="ownedCompanies.length === 0 && collaboratedCompanies.length === 0" class="blank-slate-pf">
+  <div class="blank-slate-pf-icon">
+    <span class="pficon pficon pficon-add-circle-o"></span>
+  </div>
+  <h1>
+    Bienvenido!
+  </h1>
+  <p>
+    Parece que todavia no tiene una Empresa en la que pueda administrar sus documentos electrónicos. Usted puede crear su propia
+    empresa o solicitar a la empresa donde labora que sea registrado como colaborador.
+  </p>
+  <p>
+    Aprender más acerca de esto en
+    <a href="javascript:void(0)">la documentación</a>.
+  </p>
+  <div class="blank-slate-pf-main-action">
+    <button routerLink="/_home/_newcompany" class="btn btn-primary btn-lg"> Crear Organización </button>
   </div>
 </div>

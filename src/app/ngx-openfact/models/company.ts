@@ -8,6 +8,7 @@ export interface Company {
   owner: CompanyOwner;
   relationalData?: RelationalData;
   useCustomSmtpConfig: boolean;
+  useCustomCertificates: boolean;
   smtpServer?: SmtpServerConfig;
 }
 

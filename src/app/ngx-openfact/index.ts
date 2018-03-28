@@ -40,4 +40,4 @@ export { Navigation } from './models/navigation';
 export { ContextService } from './context.service';
 
 // Server Info
-import { ServerInfoService } from './serverinfo/server-info';
+export { ServerInfoService } from './serverinfo/server-info';

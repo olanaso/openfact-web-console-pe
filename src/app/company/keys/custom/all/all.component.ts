@@ -1,8 +1,7 @@
-import { HttpParams } from '@angular/common/http';
-import { Contexts } from './../../../ngx-openfact/contexts/contexts';
-import { Subscription } from 'rxjs/Subscription';
-import { Company, CompanyService } from './../../../ngx-openfact/';
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { HttpParams } from '@angular/common/http';
+import { Subscription } from 'rxjs/Subscription';
+import { Contexts, Company, CompanyService } from './../../../../ngx-openfact';
 import 'rxjs/add/operator/publish';
 
 @Component({

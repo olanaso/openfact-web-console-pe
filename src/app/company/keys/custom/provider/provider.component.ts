@@ -1,14 +1,11 @@
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Observable } from 'rxjs/Observable';
-import { Router, ActivatedRoute } from '@angular/router';
-import { ServerInfoService } from './../../../ngx-openfact/serverinfo/server-info';
-import { Company } from './../../../ngx-openfact/models/company';
-import { Contexts } from './../../../ngx-openfact/contexts/contexts';
-import { CompanyService } from './../../../ngx-openfact/companies/company.service';
-import { Subscription } from 'rxjs/Subscription';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Notification, NotificationType, Notifications } from './../../../ngx-base';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
+import { ServerInfoService ,Company, CompanyService, Contexts } from './../../../../ngx-openfact';
+import { Notification, NotificationType, Notifications } from './../../../../ngx-base';
 
+import { Subscription } from 'rxjs/Subscription';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/merge';
 import 'rxjs/add/observable/concat';
 

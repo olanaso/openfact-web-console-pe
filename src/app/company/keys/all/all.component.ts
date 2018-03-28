@@ -3,6 +3,7 @@ import { Contexts } from './../../../ngx-openfact/contexts/contexts';
 import { Subscription } from 'rxjs/Subscription';
 import { Company, CompanyService } from './../../../ngx-openfact/';
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import 'rxjs/add/operator/publish';
 
 @Component({
   selector: 'of-all',
@@ -29,7 +30,6 @@ export class AllComponent implements OnInit, OnDestroy {
       contexts.current
         .map((val) => val.company)
         .do((company) => {
-          console.log("doing");
           this.loading = true;
           this.company = company;
         })

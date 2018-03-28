@@ -16,6 +16,8 @@ export class ActiveComponent implements OnInit {
 
   loading = false;
   active: any = {};
+  activeMap: Map<string, any>;
+  activeMapKeys;
 
   keys: any;
   type = 'org.openfact.keys.KeyProvider';
@@ -59,6 +61,15 @@ export class ActiveComponent implements OnInit {
               }
             }
           }
+
+          this.activeMap = new Map<string, any>();
+          for (const key in this.active) {
+            if (this.active[key]) {
+              this.activeMap.set(key, this.active[key]);
+            }
+          }
+
+          this.activeMapKeys = Array.from(this.activeMap.keys());
         })
         .do(() => {
           this.loading = false;

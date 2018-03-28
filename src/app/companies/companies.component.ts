@@ -10,12 +10,8 @@ import { Subscription } from 'rxjs/Subscription';
 })
 export class CompaniesComponent implements OnInit, OnDestroy {
 
-  filterText: string;
   ownedCompanies: Company[] = [];
   collaboratedCompanies: Company[] = [];
-
-  private offset = 0;
-  private limit = 10;
 
   private loggedInUser: User;
   private subscriptions: Subscription[] = [];
@@ -25,7 +21,7 @@ export class CompaniesComponent implements OnInit, OnDestroy {
     private companyService: CompanyService
   ) {
     this.subscriptions.push(
-      this.userService.loggedInUser.subscribe((val) => {
+      userService.loggedInUser.subscribe((val) => {
         this.loggedInUser = val;
         this.search();
       })
@@ -40,24 +36,12 @@ export class CompaniesComponent implements OnInit, OnDestroy {
   }
 
   search() {
-    this.companyService.getCompanies(this.loggedInUser.id, 'owner').subscribe((val) => {
+    this.companyService.getCompaniesByUserId(this.loggedInUser.id, 'owner').subscribe((val) => {
       this.ownedCompanies = val;
     });
-    this.companyService.getCompanies(this.loggedInUser.id, 'collaborator').subscribe((val) => {
+    this.companyService.getCompaniesByUserId(this.loggedInUser.id, 'collaborator').subscribe((val) => {
       this.collaboratedCompanies = val;
     });
-  }
-
-  nextPage() {
-    this.offset = this.offset + this.limit;
-  }
-
-  previousPage() {
-    this.offset = this.offset - this.limit;
-  }
-
-  get page() {
-    return (this.offset + this.limit) / this.limit;
   }
 
 }

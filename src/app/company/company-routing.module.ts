@@ -10,7 +10,8 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        loadChildren: './documents/documents.module#DocumentsModule',
+        redirectTo: '_documents',
+        pathMatch: 'full'
       },
       {
         path: '_documents',
@@ -21,15 +22,15 @@ const routes: Routes = [
         loadChildren: './draft-documents/draft-documents.module#DraftDocumentsModule',
       },
       {
-        path: '_general-information',
+        path: '_generalinformation',
         loadChildren: './general-information/general-information.module#GeneralInformationModule',
       },
       {
-        path: '_additional-information',
+        path: '_additionalinformation',
         loadChildren: './additional-information/additional-information.module#AdditionalInformationModule',
       },
       {
-        path: '_smtp-settings',
+        path: '_smtp',
         loadChildren: './smtp/smtp.module#SmtpModule',
       },
       {

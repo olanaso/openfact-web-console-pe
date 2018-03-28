@@ -26,7 +26,7 @@ export class CompanyService {
     this.companiesUrl = apiUrl.endsWith('/') ? apiUrl + 'companies' : apiUrl + '/companies';
   }
 
-  getCompanies(userId: string, role: string = 'owner'): Observable<Company[]> {
+  getCompaniesByUserId(userId: string, role: string = 'owner'): Observable<Company[]> {
     const url = this.companiesUrl;
     let params: HttpParams = new HttpParams();
     params = params.set('userId', userId);

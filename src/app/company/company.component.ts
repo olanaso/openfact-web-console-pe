@@ -64,8 +64,8 @@ export class CompanyComponent implements OnInit, OnDestroy {
 
   fetchCompanies() {
     Observable.forkJoin(
-      this.companyService.getCompanies(this.loggedInUser.id, 'owner'),
-      this.companyService.getCompanies(this.loggedInUser.id, 'collaborator')
+      this.companyService.getCompaniesByUserId(this.loggedInUser.id, 'owner'),
+      this.companyService.getCompaniesByUserId(this.loggedInUser.id, 'collaborator')
     ).subscribe((val) => {
       this.companies = val[0].concat(val[1]);
       this.initContextItems();
@@ -87,13 +87,13 @@ export class CompanyComponent implements OnInit, OnDestroy {
     this.navigationItems = [
       {
         title: 'Documentos',
-        iconStyleClass: 'fa fa-dashboard',
-        url: './documents'
+        iconStyleClass: 'fa fa-file-code-o',
+        url: '/_company/' + company.id + '/_documents'
       },
       {
         title: 'Observados',
-        iconStyleClass: 'fa fa-shield',
-        url: './drafts',
+        iconStyleClass: 'fa fa-edit',
+        url: '/_company/' + company.id + '/_drafts',
         badges: [
           {
             count: 1283,
@@ -103,34 +103,26 @@ export class CompanyComponent implements OnInit, OnDestroy {
       },
       {
         title: 'Configuración',
-        iconStyleClass: 'fa fa-space-shuttle',
+        iconStyleClass: 'pficon pficon-settings',
         children: [
           {
-            title: 'Información general',
-            url: '/_company/' + company.id + '/_general-information'
+            title: 'Información General',
+            url: '/_company/' + company.id + '/_generalinformation'
           },
           {
-            title: 'Información adicional',
-            url: '/_company/' + company.id + '/_additional-information'
+            title: 'Información Adicional',
+            url: '/_company/' + company.id + '/_additionalinformation'
           },
           {
             title: 'Certificados Digitales',
             url: '/_company/' + company.id + '/_keys'
           },
           {
-            title: 'Servidor Correos SMTP',
-            url: '/_company/' + company.id + '/_smtp-settings'
+            title: 'Correos Electrónicos',
+            url: '/_company/' + company.id + '/_smtp'
           },
           {
-            title: 'Impresion',
-            url: './smtp'
-          },
-          {
-            title: 'Envíos automáticos',
-            url: './smtp'
-          },
-          {
-            title: 'Servicios Web SUNAT',
+            title: 'Envíos a la SUNAT',
             url: './web-services-sunat'
           }
         ]

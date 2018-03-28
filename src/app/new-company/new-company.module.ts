@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { NewCompanyComponent } from './new-company.component';
 import { NewCompanyRoutingModule } from './new-company-routing.module';
 import { NgxBaseModule } from './../ngx-base/ngx-base.module';
@@ -11,7 +11,6 @@ import { NgxButtonModule } from './../ngx-button/ngx-button.module';
   imports: [
     CommonModule,
     NewCompanyRoutingModule,
-    FormsModule,
     ReactiveFormsModule,
     NgxBaseModule,
     NgxFormsModule,

@@ -16,7 +16,7 @@ export class NewCompanyComponent implements OnInit, OnDestroy {
   working = false;
   companyForm: FormGroup;
 
-  public loggedInUser: User;
+  private loggedInUser: User;
   private subscriptions: Subscription[] = [];
 
   constructor(

@@ -95,7 +95,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
     'desktop': 1200
   };
   private explicitCollapse = false;
-  private hoverDelay = 100;
+  private hoverDelay = 200;
   private hideDelay: number = this.hoverDelay + 200;
   private windowListener: any;
 

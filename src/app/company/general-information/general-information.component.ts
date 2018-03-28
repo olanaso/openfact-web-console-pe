@@ -32,7 +32,7 @@ export class GeneralInformationComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       contexts.current.subscribe((val) => {
         this.context = val;
-        this.companyForm.patchValue(val.company);
+        this.syncForm();
       })
     );
   }
@@ -43,6 +43,12 @@ export class GeneralInformationComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscriptions.forEach((subs) => subs.unsubscribe());
+  }
+
+  syncForm() {
+    this.companyService.getCompanyById(this.context.company.id).subscribe((val) => {
+      this.companyForm.patchValue(val);
+    });
   }
 
   save() {

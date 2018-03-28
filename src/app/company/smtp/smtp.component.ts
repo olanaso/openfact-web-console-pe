@@ -4,7 +4,7 @@ import { CompanyService } from './../../ngx-openfact/companies/company.service';
 import { Subscription } from 'rxjs/Subscription';
 import { Context } from './../../ngx-openfact/contexts/context';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Notification, NotificationType, Notifications } from './../../ngx-base';
 
 @Component({
@@ -12,7 +12,7 @@ import { Notification, NotificationType, Notifications } from './../../ngx-base'
   templateUrl: './smtp.component.html',
   styleUrls: ['./smtp.component.scss']
 })
-export class SmtpComponent implements OnInit {
+export class SmtpComponent implements OnInit, OnDestroy {
 
   working = false;
   companyForm: FormGroup;

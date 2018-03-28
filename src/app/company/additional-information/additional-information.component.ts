@@ -5,14 +5,14 @@ import { Subscription } from 'rxjs/Subscription';
 import { Context } from './../../ngx-openfact/contexts/context';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { PECompany } from './../../ngx-openfact/models/pe-company';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 @Component({
   selector: 'of-additional-information',
   templateUrl: './additional-information.component.html',
   styleUrls: ['./additional-information.component.scss']
 })
-export class AdditionalInformationComponent implements OnInit {
+export class AdditionalInformationComponent implements OnInit, OnDestroy {
 
   working = false;
   companyForm: FormGroup;

@@ -68,7 +68,7 @@ export class ProvidersComponent implements OnInit, OnDestroy {
 
   addProvider(provider) {
     this.router.navigate(['./', provider], { relativeTo: this.route });
-  };
+  }
 
   editInstance(instance) {
     this.router.navigate(['./', instance.providerId, instance.id], { relativeTo: this.route });

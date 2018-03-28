@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ServerInfoService ,Company, CompanyService, Contexts } from './../../../../ngx-openfact';
+import { ServerInfoService , Company, CompanyService, Contexts } from './../../../../ngx-openfact';
 import { Notification, NotificationType, Notifications } from './../../../../ngx-base';
 
 import { Subscription } from 'rxjs/Subscription';
@@ -186,7 +186,7 @@ export class ProviderComponent implements OnInit, OnDestroy {
         }
       );
     }
-  };
+  }
 
   cancel() {
     if (this.create) {
@@ -194,6 +194,6 @@ export class ProviderComponent implements OnInit, OnDestroy {
     } else {
       this.router.navigate(['../../_providers'], { relativeTo: this.route });
     }
-  };
+  }
 
 }

@@ -30,7 +30,7 @@ export class KeysComponent implements OnInit, OnDestroy {
         .do((company) => {
           this.company = company;
           this.useCustomCertificates = company.useCustomCertificates;
-          this.routeToKeyConfigPage()
+          this.routeToKeyConfigPage();
         })
         .publish().connect()
     );
@@ -55,7 +55,13 @@ export class KeysComponent implements OnInit, OnDestroy {
     const updatedCompany = this.createTransientCompany();
     updatedCompany.useCustomCertificates = event.currentValue;
     this.companyService.update(updatedCompany).subscribe((val) => {
-      // this.company = val;
+      this.company = val;
+
+      if (!val.useCustomCertificates) {
+        this.router.navigate(['/_company/' + this.company.id + '/_keys/_default']);
+      } else {
+        this.router.navigate(['/_company/' + this.company.id + '/_keys/_custom']);
+      }
     });
   }
 

@@ -10,7 +10,7 @@ import 'rxjs/add/operator/publish';
   templateUrl: './active.component.html',
   styleUrls: ['./active.component.scss']
 })
-export class ActiveComponent implements OnInit {
+export class ActiveComponent implements OnInit, OnDestroy {
 
   company: Company;
 

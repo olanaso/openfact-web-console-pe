@@ -146,7 +146,7 @@ export class CompanyService {
       });
   }
 
-  updateComponent(companyId: string, componentId:string, component: any): Observable<any> {
+  updateComponent(companyId: string, componentId: string, component: any): Observable<any> {
     const url = `${this.companiesUrl}/${companyId}/components/${componentId}`;
     return this.http
       .put(url, component, { headers: this.headers })

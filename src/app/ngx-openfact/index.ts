@@ -38,3 +38,6 @@ export { Navigation } from './models/navigation';
 
 // Context
 export { ContextService } from './context.service';
+
+// Server Info
+import { ServerInfoService } from './serverinfo/server-info';

@@ -1,3 +1,4 @@
+import { ServerInfoService } from './serverinfo/server-info';
 import { PECompanyService } from './companies/pe-company.service';
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -42,6 +43,7 @@ export class NgxOpenfactModule {
           provide: Contexts,
           useExisting: ContextService
         },
+        ServerInfoService,
         PECompanyService
       ]
     };

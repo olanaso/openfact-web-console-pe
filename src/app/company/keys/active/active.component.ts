@@ -1,3 +1,4 @@
+import { Router, ActivatedRoute } from '@angular/router';
 import { HttpParams } from '@angular/common/http';
 import { Contexts } from './../../../ngx-openfact/contexts/contexts';
 import { Subscription } from 'rxjs/Subscription';
@@ -25,6 +26,8 @@ export class ActiveComponent implements OnInit {
   private subscriptions: Subscription[] = [];
 
   constructor(
+    private router: Router,
+    private route: ActivatedRoute,
     private companyService: CompanyService,
     private contexts: Contexts
   ) {

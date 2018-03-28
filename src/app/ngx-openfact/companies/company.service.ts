@@ -128,6 +128,33 @@ export class CompanyService {
       });
   }
 
+  getComponentById(companyId: string, componentId: string, params?: HttpParams) {
+    const url = `${this.companiesUrl}/${companyId}/components/${componentId}`;
+    return this.http
+      .get(url, { params: params, headers: this.headers })
+      .catch((error) => {
+        return this.handleError(error);
+      });
+  }
+
+  createComponent(companyId: string, component: any): Observable<any> {
+    const url = `${this.companiesUrl}/${companyId}/components`;
+    return this.http
+      .post(url, component, { headers: this.headers })
+      .catch((error) => {
+        return this.handleError(error);
+      });
+  }
+
+  updateComponent(companyId: string, componentId:string, component: any): Observable<any> {
+    const url = `${this.companiesUrl}/${companyId}/components/${componentId}`;
+    return this.http
+      .put(url, component, { headers: this.headers })
+      .catch((error) => {
+        return this.handleError(error);
+      });
+  }
+
   /**
    * Private
    */

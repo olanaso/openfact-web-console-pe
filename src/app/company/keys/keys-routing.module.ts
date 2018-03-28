@@ -19,6 +19,14 @@ const routes: Routes = [
           {
             path: '_providers',
             loadChildren: './providers/providers.module#ProvidersModule',
+          },
+          {
+            path: '_providers/:provider',
+            loadChildren: './provider/provider.module#ProviderModule',
+          },
+          {
+            path: '_providers/:provider/:component',
+            loadChildren: './provider/provider.module#ProviderModule',
           }
         ]
     }

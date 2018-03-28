@@ -13,6 +13,10 @@ const routes: Routes = [
         loadChildren: './documents/documents.module#DocumentsModule',
       },
       {
+        path: '_documents',
+        loadChildren: './documents/documents.module#DocumentsModule',
+      },
+      {
         path: '_drafts',
         loadChildren: './draft-documents/draft-documents.module#DraftDocumentsModule',
       },

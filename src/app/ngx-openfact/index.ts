@@ -1,4 +1,3 @@
-
 export { NgxOpenfactModule } from './ngx-openfact.module';
 
 // Contexts
@@ -41,3 +40,8 @@ export { ContextService } from './context.service';
 
 // Server Info
 export { ServerInfoService } from './serverinfo/server-info';
+
+
+// SUNAT
+export { SUNATGenericType } from './models/pe-sunat-generic-type';
+export { PESUNATService } from './pe-sunat/pe-sunat';

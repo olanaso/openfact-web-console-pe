@@ -1,3 +1,4 @@
+import { PESUNATService } from './pe-sunat/pe-sunat';
 import { ServerInfoService } from './serverinfo/server-info';
 import { PECompanyService } from './companies/pe-company.service';
 import { NgModule, ModuleWithProviders } from '@angular/core';
@@ -44,7 +45,8 @@ export class NgxOpenfactModule {
           useExisting: ContextService
         },
         ServerInfoService,
-        PECompanyService
+        PECompanyService,
+        PESUNATService
       ]
     };
   }

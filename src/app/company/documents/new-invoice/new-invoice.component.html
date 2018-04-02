@@ -1,3 +1,120 @@
-<p>
-  new-invoice works!
-</p>
+<div class="row">
+  <div class="col-md-12">
+
+    <ol class="breadcrumb">
+      <li>
+        <a routerLink="../">Boletas/Facturas</a>
+      </li>
+      <li>Crear Boleta/Factura</li>
+    </ol>
+
+    <h1>Crear Boleta/Factura</h1>
+
+    <form [formGroup]="form" (ngSubmit)="save(form)">
+      <div class="row">
+        <div class="col-md-2">
+          <div class="form-group" ngxFormControlError="tipoInvoice">
+            <label class="control-label">Boleta/Factura
+              <i class="fa fa-question-circle text-muted" ngbTooltip="Boleta/Factura" placement="right"></i>
+            </label>
+            <select formControlName="tipoInvoice" class="form-control" autofocus>
+              <option *ngFor="let item of tiposInvoice" [value]="item">{{item.denominacion}}</option>
+            </select>
+            <ngx-form-help-block formControlHelp="tipoInvoice"></ngx-form-help-block>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="form-group" ngxFormControlError="serie">
+            <label class="control-label">Serie
+              <i class="fa fa-question-circle text-muted" ngbTooltip="Serie del documento" placement="right"></i>
+            </label>
+            <input formControlName="serie" type="text" class="form-control text-left">
+            <ngx-form-help-block formControlHelp="serie"></ngx-form-help-block>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="form-group" ngxFormControlError="serie">
+            <label class="control-label">Numero
+              <i class="fa fa-question-circle text-muted" ngbTooltip="Numero de documento" placement="right"></i>
+            </label>
+            <input formControlName="numero" type="number" class="form-control text-left">
+            <ngx-form-help-block formControlHelp="numero"></ngx-form-help-block>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="form-group" ngxFormControlError="moneda">
+            <label class="control-label">Moneda
+              <i class="fa fa-question-circle text-muted" ngbTooltip="Moneda de emision" placement="right"></i>
+            </label>
+            <div class="btn-group" btnRadioGroup formControlName="moneda" style="display: block;">
+              <label *ngFor="let item of monedas" btnRadio="{{item.codigo}}" class="btn btn-default">{{item.codigo}}</label>
+            </div>
+            <ngx-form-help-block formControlHelp="moneda"></ngx-form-help-block>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-2">
+          <div class="form-group" ngxFormControlError="tipoDocumentoIdentidadCliente">
+            <label class="control-label">Boleta/Factura
+              <i class="fa fa-question-circle text-muted" ngbTooltip="Boleta/Factura" placement="right"></i>
+            </label>
+            <select formControlName="tipoDocumentoIdentidadCliente" class="form-control" autofocus>
+              <option *ngFor="let item of tiposDocumentoIdentidad" [value]="item">{{item.abreviatura}} ({{item.denominacion | lowercase}})</option>
+            </select>
+            <ngx-form-help-block formControlHelp="tipoDocumentoIdentidadCliente"></ngx-form-help-block>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="form-group" ngxFormControlError="numeroDocumentoCliente">
+            <label class="control-label">Nro. Documento
+              <i class="fa fa-question-circle text-muted" ngbTooltip="Serie del documento" placement="right"></i>
+            </label>
+            <input formControlName="numeroDocumentoCliente" type="text" class="form-control text-left">
+            <ngx-form-help-block formControlHelp="numeroDocumentoCliente"></ngx-form-help-block>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group" ngxFormControlError="nombreCliente">
+            <label class="control-label">Nombre/R.Social
+              <i class="fa fa-question-circle text-muted" ngbTooltip="Serie del documento" placement="right"></i>
+            </label>
+            <input formControlName="nombreCliente" type="text" class="form-control text-left">
+            <ngx-form-help-block formControlHelp="nombreCliente"></ngx-form-help-block>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group" ngxFormControlError="direccionCliente">
+            <label class="control-label">Direccion cliente
+              <i class="fa fa-question-circle text-muted" ngbTooltip="Boleta/Factura" placement="right"></i>
+            </label>
+            <input formControlName="direccionCliente" type="text" class="form-control text-left">
+            <ngx-form-help-block formControlHelp="direccionCliente"></ngx-form-help-block>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="form-group" ngxFormControlError="emailCliente">
+            <label class="control-label">Email cliente
+              <i class="fa fa-question-circle text-muted" ngbTooltip="Serie del documento" placement="right"></i>
+            </label>
+            <input formControlName="emailCliente" type="text" class="form-control text-left">
+            <ngx-form-help-block formControlHelp="emailCliente"></ngx-form-help-block>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-md-12">
+          <of-document-table-lines [tiposDeAfectacionIGV]="tiposDeAfectacionIGV" [IGV]="IGV?.valor"></of-document-table-lines>
+        </div>
+      </div>
+
+
+    </form>
+  </div>
+</div>

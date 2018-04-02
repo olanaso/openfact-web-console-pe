@@ -1,3 +1,4 @@
+import { SearchRoutingModule } from './search-routing.module';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -8,7 +9,8 @@ import { RouterModule } from '@angular/router';
   imports: [
     CommonModule,
     RouterModule,
-    BsDropdownModule
+    BsDropdownModule,
+    SearchRoutingModule
   ],
   declarations: [SearchComponent]
 })

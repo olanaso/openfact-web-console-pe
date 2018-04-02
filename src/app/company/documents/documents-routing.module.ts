@@ -9,20 +9,25 @@ const routes: Routes = [
     path: '',
     component: DocumentsComponent,
     children: [
-      {
+       {
         path: '',
-        component: SearchComponent
+        redirectTo: '_search',
+        pathMatch: 'full'
       },
       {
-        path: '_new-invoice',
+        path: '_search',
+        loadChildren: './search/search.module#SearchModule',
+      },
+      {
+        path: '_newinvoice',
         loadChildren: './new-invoice/new-invoice.module#NewInvoiceModule',
       },
       {
-        path: '_new-creditnote',
+        path: '_newcreditnote',
         loadChildren: './new-creditnote/new-creditnote.module#NewCreditnoteModule',
       },
       {
-        path: '_new-debitnote',
+        path: '_newdebitnote',
         loadChildren: './new-debitnote/new-debitnote.module#NewDebitnoteModule',
       },
       {

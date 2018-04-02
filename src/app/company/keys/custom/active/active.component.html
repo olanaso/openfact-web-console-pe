@@ -16,18 +16,22 @@
       <td>{{activeMap.get(item).type}}</td>
       <td>{{activeMap.get(item).kid}}</td>
       <td>
-        <a [routerLink]="['./providers', activeMap.get(item).provider.providerId, activeMap.get(item).provider.id]">{{activeMap.get(item).provider.name}}</a>
+        <a [routerLink]="['../_providers', activeMap.get(item).provider.providerId, activeMap.get(item).provider.id]">
+          {{activeMap.get(item).provider.name}}
+        </a>
       </td>
 
       <td *ngIf="activeMap.get(item).publicKey" class="kc-action-cell">
-        <!-- <of-view-key [key]="activeMap.get(item).publicKey" [label]="'view' | translate" [isLink]="true"></of-view-key> -->
+        <button class="btn btn-default" (click)="viewKey.open(activeMap.get(item).publicKey)">Ver</button>
       </td>
       <td *ngIf="!activeMap.get(item).publicKey"></td>
 
       <td *ngIf="activeMap.get(item).certificate" class="kc-action-cell">
-        <!-- <of-view-key [key]="activeMap.get(item).certificate" [label]="'view' | translate" [isLink]="true"></of-view-key> -->
+        <button class="btn btn-default" (click)="viewKey.open(activeMap.get(item).certificate)">Ver</button>
       </td>
       <td *ngIf="!activeMap.get(item).certificate"></td>
     </tr>
   </tbody>
 </table>
+
+<of-view-key #viewKey></of-view-key>

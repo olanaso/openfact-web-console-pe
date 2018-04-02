@@ -23,7 +23,7 @@
     <div class="col-md-6" *ngIf="option.type == 'File'">
       <div class="input-group">
         <input class="form-control" type="text" [(ngModel)]="config[option.name][0]">
-        <!-- <of-read-file [showFileName]="false" (complete)="onFileChange(option, $event)"></of-read-file> -->
+        <of-read-file [showFileName]="false" (complete)="onFileChange(option, $event)"></of-read-file>
       </div>
     </div>
 

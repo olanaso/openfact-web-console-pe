@@ -8,6 +8,7 @@ import { NgxButtonModule } from './../../../../ngx-button/ngx-button.module';
 import { ComponentConfigComponent } from './component-config/component-config.component';
 import { ProviderComponent } from './provider.component';
 import { ProviderRoutingModule } from './provider-routing.module';
+import { ReadFileModule } from './../read-file/read-file.module';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { ProviderRoutingModule } from './provider-routing.module';
     ReactiveFormsModule,
     FormsModule,
     JWBootstrapSwitchModule,
-    NgxButtonModule
+    NgxButtonModule,
+    ReadFileModule
   ],
   declarations: [
     ProviderComponent,

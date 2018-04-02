@@ -20,18 +20,22 @@
       <td>{{item.kid}}</td>
       <td>{{item.providerPriority}}</td>
       <td>
-        <a *ngIf="item.provider" [routerLink]="['../providers', item.provider.providerId, item.provider.id]">{{item.provider.name}}</a>
+        <a *ngIf="item.provider" [routerLink]="['../_providers', item.provider.providerId, item.provider.id]">{{item.provider.name}}</a>
       </td>
 
       <td *ngIf="item.publicKey" class="kc-action-cell">
         <!-- <of-view-key [key]="item.publicKey" [label]="'view' | translate" [isLink]="true"></of-view-key> -->
+        <button class="btn btn-default" (click)="viewKey.open(item.publicKey)">Ver</button>
       </td>
       <td *ngIf="!item.publicKey"></td>
 
       <td *ngIf="item.certificate" class="kc-action-cell">
         <!-- <of-view-key [key]="item.certificate" [label]="'view' | translate" [isLink]="true"></of-view-key> -->
+        <button class="btn btn-default" (click)="viewKey.open(item.certificate)">Ver</button>
       </td>
       <td *ngIf="!item.certificate"></td>
     </tr>
   </tbody>
 </table>
+
+<of-view-key #viewKey></of-view-key>

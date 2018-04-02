@@ -16,6 +16,7 @@ import { KEYCLOAK_HTTP_INTERCEPTOR } from './keycloak-service/keycloak.intercept
 // Bootstrap
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 // Patternfly
 import { NotificationModule } from 'patternfly-ng/notification';
@@ -55,6 +56,7 @@ import { ContextResolver } from './shared/context-resolver.service';
     // Bootstrap
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
+    ModalModule.forRoot(),
 
     // Patternfly
     NotificationModule,

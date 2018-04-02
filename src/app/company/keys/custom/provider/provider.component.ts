@@ -157,7 +157,7 @@ export class ProviderComponent implements OnInit, OnDestroy {
             message: `El componente fue creado!`,
             type: NotificationType.SUCCESS
           } as Notification);
-          this.router.navigate(['../../'], { relativeTo: this.route });
+          this.router.navigate(['../'], { relativeTo: this.route.parent });
         },
         (error) => {
           this.working = false;
@@ -175,7 +175,7 @@ export class ProviderComponent implements OnInit, OnDestroy {
             message: `El componente fue actualizado!`,
             type: NotificationType.SUCCESS
           } as Notification);
-          this.router.navigate(['../../'], { relativeTo: this.route });
+          this.router.navigate(['../../'], { relativeTo: this.route.parent });
         },
         (error) => {
           this.working = false;
@@ -190,9 +190,9 @@ export class ProviderComponent implements OnInit, OnDestroy {
 
   cancel() {
     if (this.create) {
-      this.router.navigate(['../_providers'], { relativeTo: this.route });
+      this.router.navigate(['../'], { relativeTo: this.route.parent });
     } else {
-      this.router.navigate(['../../_providers'], { relativeTo: this.route });
+      this.router.navigate(['../../'], { relativeTo: this.route.parent });
     }
   }
 

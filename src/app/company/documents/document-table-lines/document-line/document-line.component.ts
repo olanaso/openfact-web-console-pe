@@ -1,7 +1,12 @@
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
-import { SUNATGenericType } from './../../../../ngx-openfact';
-import { DocumentLine } from './../document-table-lines.component';
+import {
+  Component,
+  OnInit,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
+import { DocumentLine } from './../document-line';
+import { TipoIGV } from './../tipos-igv';
 
 @Component({
   selector: 'tr[of-document-line]',
@@ -10,59 +15,93 @@ import { DocumentLine } from './../document-table-lines.component';
 })
 export class DocumentLineComponent implements OnInit {
 
-  @Input()
-  index: number;
+  _valor: DocumentLine = {} as DocumentLine;
+  _valorIGV: number;
+  _tiposIGV: TipoIGV[] = [];
 
   @Input()
-  IGV: number;
+  indice: number;
 
   @Input()
-  formularioDetallado: boolean;
+  esDetallado: boolean;
 
   @Input()
-  tiposDeAfectacionIGV: SUNATGenericType[] = [];
+  desabilitado: boolean;
 
   @Output()
-  documentLineValue = new EventEmitter<DocumentLine>();
+  cambiaValor = new EventEmitter<DocumentLine>();
 
   @Output()
-  documentLineRemoved = new EventEmitter<boolean>();
+  eliminarFila = new EventEmitter<boolean>();
 
-  documentLine = {
-    unidadMedida: 'NIO',
-    descripcion: null,
-    cantidad: null,
-    valorUnitario: null
-  } as DocumentLine;
+  @Input()
+  set valor(valor: DocumentLine) {
+    this._valor = valor;
+    this.recalcularYEmitirNuevoValor();
+  }
+
+  @Input()
+  set valorIGV(valorIGV: number) {
+    this._valorIGV = valorIGV;
+    this.recalcularYEmitirNuevoValor();
+  }
+
+  @Input()
+  set tiposIGV(tiposIGV: TipoIGV[]) {
+    this._tiposIGV = tiposIGV;
+    this.recalcularYEmitirNuevoValor();
+  }
+
+  get valor(): DocumentLine {
+    return this._valor;
+  }
+
+  get valorIGV(): number {
+    return this._valorIGV;
+  }
+
+  get tiposIGV(): TipoIGV[] {
+    return this._tiposIGV;
+  }
 
   constructor() { }
 
   ngOnInit() {
-    this.documentLine.tipoIGV = this.tiposDeAfectacionIGV[0];
+
   }
 
-  remove() {
-    this.documentLineRemoved.emit(true);
+  onRemoveClick() {
+    this.eliminarFila.emit(true);
   }
 
-  recalcularALaDerecha() {
-    const cantidad: number = this.documentLine.cantidad;
-    const valorUnitario: number = this.documentLine.valorUnitario;
+  recalcularYEmitirNuevoValor() {
+    const cantidad: number = this._valor.cantidad || 0;
+    const valorUnitario: number = this._valor.valorUnitario || 0;
 
-    const factorIGV: number = this.documentLine.tipoIGV.afectaIgv ? this.IGV + 1 : 1;
+    const tipoIGV: TipoIGV = this.encontrarTipoIGVSegunCodigo(this._valor.tipoIGV);
+    const factorIGV: number = tipoIGV && tipoIGV.afectaIGV ? this._valorIGV + 1 : 1;
 
-    const precioUnitario = valorUnitario * factorIGV;
+    const precioUnitario = (valorUnitario * factorIGV);
     const subtotal = cantidad * valorUnitario;
     const total = subtotal * factorIGV;
-    const totalIGV = subtotal * factorIGV;
+    const totalIGV = subtotal * (factorIGV - 1);
 
     // patch
-    this.documentLine.precioUnitario = precioUnitario;
-    this.documentLine.subtotal = subtotal;
-    this.documentLine.total = total;
-    this.documentLine.totalIGV = totalIGV;
 
-    this.documentLineValue.emit(this.documentLine);
+    this._valor.precioUnitario = precioUnitario;
+    this._valor.subtotal = subtotal;
+    this._valor.total = total;
+    this._valor.totalIGV = totalIGV;
+
+    this.emitirNuevoValor();
+  }
+
+  emitirNuevoValor() {
+    this.cambiaValor.emit(this._valor);
+  }
+
+  encontrarTipoIGVSegunCodigo(codigo: string): TipoIGV {
+    return this._tiposIGV.find((val) => val.codigo === codigo);
   }
 
 }

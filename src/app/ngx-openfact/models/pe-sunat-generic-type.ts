@@ -5,6 +5,6 @@ export interface SUNATGenericType {
   denominacion: string;
   grupo: string;
   longitud: number;
-  afectaIgv: boolean;
+  afectaIGV: boolean;
   valor: number;
 }

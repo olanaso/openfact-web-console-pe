@@ -10,7 +10,7 @@
 
     <h1>Crear Boleta/Factura</h1>
 
-    <form [formGroup]="form" (ngSubmit)="save(form)">
+    <form [formGroup]="documentForm" (ngSubmit)="save()">
       <div class="row">
         <div class="col-md-2">
           <div class="form-group" ngxFormControlError="tipoInvoice">
@@ -110,11 +110,27 @@
 
       <div class="row">
         <div class="col-md-12">
-          <of-document-table-lines [tiposDeAfectacionIGV]="tiposDeAfectacionIGV" [IGV]="IGV?.valor"></of-document-table-lines>
+          <of-document-table-lines formControlName="detalle" [tiposIGV]="tiposDeAfectacionIGV" [valorIGV]="IGV?.valor" [esDetallado]="modoAvanzado">
+          </of-document-table-lines>
         </div>
       </div>
 
 
+
+
     </form>
+
+
+    <tr>
+      <td colspan="10">
+        <div class="checkbox pull-right">
+          <label>
+            <input type="checkbox" [(ngModel)]="modoAvanzado"> Detallado</label>
+        </div>
+      </td>
+    </tr>
+
+
+
   </div>
 </div>

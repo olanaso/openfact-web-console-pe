@@ -1,36 +1,28 @@
 <table class="table table-striped table-bordered table-hover dataTable no-footer">
   <thead>
     <tr>
-      <td colspan="10">
-        <div class="checkbox pull-right">
-          <label>
-            <input type="checkbox" [(ngModel)]="formularioDetallado"> Detallado</label>
-        </div>
-      </td>
-    </tr>
-    <tr>
-      <td class="text-right" width="20">#</td>
-      <td class="text-right" *ngIf="formularioDetallado">Unidad Medida</td>
-      <td class="text-right" width="40%">Producto/Servicio</td>
-      <td class="text-right" width="100">Cantidad</td>
-      <td class="text-right" width="300">Tipo IGV</td>
+      <td class="text-right">#</td>
+      <td class="text-right" *ngIf="esDetallado">Unidad Medida</td>
+      <td class="text-right">Producto/Servicio</td>
+      <td class="text-right">Cantidad</td>
+      <td class="text-right">Tipo IGV</td>
       <td class="text-right">Valor Unitario</td>
-      <td class="text-right" *ngIf="formularioDetallado">Precio Unitario</td>
-      <td class="text-right" *ngIf="formularioDetallado">Subtotal</td>
+      <td class="text-right" *ngIf="esDetallado">Precio Unitario</td>
+      <td class="text-right" *ngIf="esDetallado">Subtotal</td>
       <td class="text-right">Total</td>
-      <td class="text-right" *ngIf="formularioDetallado">Igv</td>
+      <td class="text-right" *ngIf="esDetallado">Igv</td>
       <td class="text-center">Acciones</td>
     </tr>
   </thead>
   <tbody>
-    <ng-container *ngFor="let item of items; let i = index;">
-      <tr of-document-line [index]=[i+1] [tiposDeAfectacionIGV]="tiposDeAfectacionIGV" [formularioDetallado]="formularioDetallado"
-        [IGV]="IGV" (documentLineValue)="onDocumentLineChange($event)" (documentLineRemoved)="onDocumentLineRemoved(i)"></tr>
+    <ng-container *ngFor="let item of value; let i = index;">
+      <tr of-document-line [indice]=[i+1] [valor]="item" [tiposIGV]="tiposIGV" [valorIGV]="valorIGV" [esDetallado]="esDetallado"
+        (cambiaValor)="changedRow(i, $event)" (eliminarFila)="removeRow(i)"></tr>
     </ng-container>
   </tbody>
   <tfoot>
     <tr>
-      <td colspan="10" class="text-right">
+      <td colspan="11" class="text-right">
         <button (click)="addRow()" type="button" class="btn btn-lg btn-default">Agregar Item
           <span class="fa fa-plus"></span>
         </button>

@@ -1,42 +1,48 @@
 <td class="text-right">
   {{index}}
 </td>
-<td *ngIf="formularioDetallado">
-  <input type="text" [(ngModel)]="documentLine.unidadMedida" class="form-control" placeholder="NIO" />
+<td *ngIf="esDetallado">
+  <input type="text" [(ngModel)]="valor.unidadMedida" (ngModelChange)="emitirNuevoValor()" class="form-control" placeholder="Unidad Medida"
+  />
 </td>
 <td>
-  <input type="text" [(ngModel)]="documentLine.descripcion" class="form-control" placeholder="Descripcion" />
+  <input type="text" [(ngModel)]="valor.descripcion" (ngModelChange)="emitirNuevoValor()" class="form-control" placeholder="Descripción"
+  />
 </td>
 <td>
-  <input type="text" [(ngModel)]="documentLine.cantidad" (ngModelChange)="recalcularALaDerecha()" class="form-control text-right"
-    placeholder="0.000">
+  <input type="text" [(ngModel)]="valor.cantidad" (ngModelChange)="recalcularYEmitirNuevoValor()" currencyMask [options]="{ prefix: '', allowNegative: false, precision: 3}"
+    class="form-control text-right" placeholder="0.000">
 </td>
 <td>
-  <select class="form-control" [(ngModel)]="documentLine.tipoIGV" (ngModelChange)="recalcularALaDerecha()">
-    <option *ngFor="let item of tiposDeAfectacionIGV" [ngValue]="item">
+  <select class="form-control" [(ngModel)]="valor.tipoIGV" (ngModelChange)="recalcularYEmitirNuevoValor()">
+    <option *ngFor="let item of tiposIGV" [ngValue]="item.codigo">
       {{item.denominacion}}
     </option>
   </select>
 </td>
 <td>
-  <input type="text" [(ngModel)]="documentLine.valorUnitario" (ngModelChange)="recalcularALaDerecha()" class="form-control text-right"
-    placeholder="0.00">
+  <input type="text" [(ngModel)]="valor.valorUnitario" (ngModelChange)="recalcularYEmitirNuevoValor()" currencyMask [options]="{ prefix: '', allowNegative: false}"
+    class="form-control text-right" placeholder="0.00">
 </td>
-<td *ngIf="formularioDetallado">
-  <input type="text" [(ngModel)]="documentLine.precioUnitario" class="form-control text-right" readonly>
+<td *ngIf="esDetallado">
+  <input type="text" [(ngModel)]="valor.precioUnitario" currencyMask [options]="{ prefix: '', allowNegative: false}" class="form-control text-right"
+    readonly>
 </td>
-<td *ngIf="formularioDetallado">
-  <input type="text" [(ngModel)]="documentLine.subtotal" class="form-control text-right" readonly>
+<td *ngIf="esDetallado">
+  <input type="text" [(ngModel)]="valor.subtotal" currencyMask [options]="{ prefix: '', allowNegative: false}" class="form-control text-right"
+    readonly>
 </td>
 <td>
-  <input type="text" [(ngModel)]="documentLine.total" class="form-control text-right" readonly>
+  <input type="text" [(ngModel)]="valor.total" currencyMask [options]="{ prefix: '', allowNegative: false}" class="form-control text-right"
+    readonly>
 </td>
-<td *ngIf="formularioDetallado">
-  <input type="text" [(ngModel)]="documentLine.totalIGV" class="form-control text-right" placeholder="0.00" readonly>
+<td *ngIf="esDetallado">
+  <input type="text" [(ngModel)]="valor.totalIGV" currencyMask [options]="{ prefix: '', allowNegative: false}" class="form-control text-right"
+    placeholder="0.00" readonly>
 </td>
 <td class="table-view-pf-actions">
   <span class="table-view-pf-btn">
-    <button (click)="remove()" class="btn btn-default" type="button">
+    <button (click)="onRemoveClick()" class="btn btn-default" type="button">
       <span class="fa fa-trash"></span>
     </button>
   </span>

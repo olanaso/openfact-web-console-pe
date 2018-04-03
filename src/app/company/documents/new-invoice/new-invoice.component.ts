@@ -11,8 +11,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class NewInvoiceComponent implements OnInit {
 
-  form: FormGroup;
   working = false;
+  documentForm: FormGroup;
 
   monedas = [{ codigo: 'PEN', alias: 'S/.' }, { codigo: 'USD', alias: '$' }];
 
@@ -21,7 +21,7 @@ export class NewInvoiceComponent implements OnInit {
   tiposDocumentoIdentidad: SUNATGenericType[] = [];
   tiposDeAfectacionIGV: SUNATGenericType[] = [];
 
-  formularioDetallado;
+  modoAvanzado: boolean;
 
   constructor(
     private router: Router,
@@ -52,7 +52,7 @@ export class NewInvoiceComponent implements OnInit {
   }
 
   buildForm() {
-    this.form = this.formBuilder.group({
+    this.documentForm = this.formBuilder.group({
       tipoInvoice: [null, Validators.compose([Validators.required])],
       serie: [null, Validators.compose([Validators.maxLength(4)])],
       numero: [null, Validators.compose([Validators.maxLength(8)])],
@@ -83,16 +83,21 @@ export class NewInvoiceComponent implements OnInit {
       totalOtrosCargos: [null, Validators.compose([])],
       total: [null, Validators.compose([Validators.required])],
 
-      detalle: this.formBuilder.array([], Validators.compose([]))
+      detalle: [null, Validators.compose([Validators.required])]
+    });
+
+    this.documentForm.get('detalle').valueChanges.subscribe((val) => {
+      console.log("detalle validez", this.documentForm.get('detalle').valid);
+      console.log("detalle", val);
     });
   }
 
   changeToMonedaNacional() {
-    this.form.removeControl('tipoDeCambio');
+    this.documentForm.removeControl('tipoDeCambio');
   }
 
   changeToMonedaExtrangera() {
-    this.form.addControl('tipoDeCambio', this.formBuilder.control(null, Validators.compose([Validators.required])));
+    this.documentForm.addControl('tipoDeCambio', this.formBuilder.control(null, Validators.compose([Validators.required])));
   }
 
 }

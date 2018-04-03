@@ -22,14 +22,14 @@ export class SearchComponent implements OnInit {
   ) {
     this.contexts.current.subscribe((val) => {
       this.company = val.company;
-    })
+    });
   }
 
   ngOnInit() {
   }
 
   newInvoice() {
-    this.router.navigate(['_company', this.company.id, '_documents', '_newinvoice']);
+    this.router.navigate(['_company', this.company.id, '_documents', '_invoice']);
   }
 
   newCreditNote() {

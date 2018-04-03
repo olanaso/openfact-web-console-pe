@@ -3,11 +3,24 @@ import { CommonModule } from '@angular/common';
 import { DocumentsComponent } from './documents.component';
 import { DocumentsRoutingModule } from './documents-routing.module';
 
+import { DocumentContextService } from './documents-context.service';
+import { TiposInvoiceResolver } from './resolvers/tipos-invoice.resolver';
+import { TiposDocumentosIdentidadResolver } from './resolvers/tipos-documentos-identidad.resolver';
+import { TiposIGVResolver } from './resolvers/tipos-igv.resolver';
+import { IgvResolver } from './resolvers/igv.resolver';
+
 @NgModule({
   imports: [
     CommonModule,
     DocumentsRoutingModule,
   ],
-  declarations: [DocumentsComponent]
+  declarations: [DocumentsComponent],
+  providers: [
+    DocumentContextService,
+    IgvResolver,
+    TiposIGVResolver,
+    TiposDocumentosIdentidadResolver,
+    TiposInvoiceResolver
+  ]
 })
 export class DocumentsModule { }

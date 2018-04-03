@@ -9,16 +9,19 @@
     </ol>
 
     <h1>Crear Boleta/Factura</h1>
+    <p class="fields-status-pf">Los campos marcados con
+      <span class="required-pf">*</span> son obligatorios.
+    </p>
 
     <form [formGroup]="documentForm" (ngSubmit)="save()">
       <div class="row">
         <div class="col-md-2">
           <div class="form-group" ngxFormControlError="tipoInvoice">
-            <label class="control-label">Boleta/Factura
+            <label class="control-label required-pf">Boleta/Factura
               <i class="fa fa-question-circle text-muted" ngbTooltip="Boleta/Factura" placement="right"></i>
             </label>
             <select formControlName="tipoInvoice" class="form-control" autofocus>
-              <option *ngFor="let item of tiposInvoice" [value]="item">{{item.denominacion}}</option>
+              <option *ngFor="let item of tiposInvoice" [ngValue]="item">{{item.denominacion}}</option>
             </select>
             <ngx-form-help-block formControlHelp="tipoInvoice"></ngx-form-help-block>
           </div>
@@ -56,14 +59,14 @@
 
       <div class="row">
         <div class="col-md-2">
-          <div class="form-group" ngxFormControlError="tipoDocumentoIdentidadCliente">
+          <div class="form-group" ngxFormControlError="documentoIdentidadCliente">
             <label class="control-label">Boleta/Factura
               <i class="fa fa-question-circle text-muted" ngbTooltip="Boleta/Factura" placement="right"></i>
             </label>
-            <select formControlName="tipoDocumentoIdentidadCliente" class="form-control" autofocus>
-              <option *ngFor="let item of tiposDocumentoIdentidad" [value]="item">{{item.abreviatura}} ({{item.denominacion | lowercase}})</option>
+            <select formControlName="documentoIdentidadCliente" class="form-control" autofocus>
+              <option *ngFor="let item of tiposDocumentoIdentidad" [ngValue]="item">{{item.abreviatura}} ({{item.denominacion | lowercase}})</option>
             </select>
-            <ngx-form-help-block formControlHelp="tipoDocumentoIdentidadCliente"></ngx-form-help-block>
+            <ngx-form-help-block formControlHelp="documentoIdentidadCliente"></ngx-form-help-block>
           </div>
         </div>
         <div class="col-md-2">
@@ -110,7 +113,7 @@
 
       <div class="row">
         <div class="col-md-12">
-          <of-document-table-lines formControlName="detalle" [tiposIGV]="tiposDeAfectacionIGV" [valorIGV]="IGV?.valor" [esDetallado]="modoAvanzado">
+          <of-document-table-lines formControlName="detalle" [tiposIGV]="tiposIGV" [valorIGV]="IGV?.valor" [esDetallado]="modoAvanzado">
           </of-document-table-lines>
         </div>
       </div>

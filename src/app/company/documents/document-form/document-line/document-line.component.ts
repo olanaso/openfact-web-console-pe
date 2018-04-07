@@ -6,7 +6,7 @@ import {
   Output,
 } from '@angular/core';
 import { DocumentLine } from './../document-line';
-import { TipoIGV } from './../tipos-igv';
+import { TipoIGV } from '../tipos-igv';
 
 @Component({
   selector: 'tr[of-document-line]',
@@ -49,6 +49,9 @@ export class DocumentLineComponent implements OnInit {
   @Input()
   set tiposIGV(tiposIGV: TipoIGV[]) {
     this._tiposIGV = tiposIGV;
+    if (!this._valor.tipoIGV) {
+      this._valor.tipoIGV = this._tiposIGV[0];
+    }
     this.recalcularYEmitirNuevoValor();
   }
 
@@ -78,7 +81,7 @@ export class DocumentLineComponent implements OnInit {
     const cantidad: number = this._valor.cantidad || 0;
     const valorUnitario: number = this._valor.valorUnitario || 0;
 
-    const tipoIGV: TipoIGV = this.encontrarTipoIGVSegunCodigo(this._valor.tipoIGV);
+    const tipoIGV: TipoIGV = this._valor.tipoIGV;
     const factorIGV: number = tipoIGV && tipoIGV.afectaIGV ? this._valorIGV + 1 : 1;
 
     const precioUnitario = (valorUnitario * factorIGV);
@@ -98,10 +101,6 @@ export class DocumentLineComponent implements OnInit {
 
   emitirNuevoValor() {
     this.cambiaValor.emit(this._valor);
-  }
-
-  encontrarTipoIGVSegunCodigo(codigo: string): TipoIGV {
-    return this._tiposIGV.find((val) => val.codigo === codigo);
   }
 
 }

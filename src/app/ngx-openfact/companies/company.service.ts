@@ -23,7 +23,7 @@ export class CompanyService {
     private logger: Logger,
     private userService: UserService,
     @Inject(OPENFACT_API_URL) apiUrl: string) {
-    this.companiesUrl = apiUrl.endsWith('/') ? apiUrl + 'companies' : apiUrl + '/companies';
+    this.companiesUrl = apiUrl.endsWith('/') ? apiUrl + 'organizations' : apiUrl + '/organizations';
   }
 
   getCompaniesByUserId(userId: string, role: string = 'owner'): Observable<Company[]> {
@@ -216,7 +216,7 @@ export class CompanyService {
 
   private filterCompaniesById(companyId: string): Observable<Company[]> {
     return this.http
-      .get(`${this.companiesUrl}?companyId=${companyId}`, { headers: this.headers })
+      .get(`${this.companiesUrl}?organizationId=${companyId}`, { headers: this.headers })
       .map(response => {
         return response as Company[];
       });

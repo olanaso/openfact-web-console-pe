@@ -20,10 +20,14 @@ export class InvoiceComponent implements OnInit {
   UBLDocument: UBLDocument;
 
   working = false;
-  modoAvanzado: boolean;
+  modoAvanzado = false;
   documentForm: FormGroup;
 
-  monedas = [{ codigo: 'PEN', alias: 'S/.' }, { codigo: 'USD', alias: '$' }];
+  monedas = [
+    { codigo: 'PEN', alias: 'S/.' },
+    { codigo: 'USD', alias: '$' },
+    { codigo: 'EUR', alias: '€' }
+  ];
 
   IGV: SUNATGenericType;
   tiposIGV: SUNATGenericType[] = [];
@@ -71,6 +75,7 @@ export class InvoiceComponent implements OnInit {
       serie: [null, Validators.compose([Validators.maxLength(4)])],
       numero: [null, Validators.compose([Validators.maxLength(8)])],
       moneda: [null, Validators.compose([Validators.required, Validators.maxLength(3)])],
+      tipoCambio: [null, Validators.compose([Validators.required])],
       igv: [null, Validators.compose([Validators.required])],
 
       operacionGratuita: [false, Validators.compose([Validators.required])],
@@ -85,25 +90,13 @@ export class InvoiceComponent implements OnInit {
       enviarSUNAT: [true, Validators.compose([Validators.required])],
       enviarEmailCliente: [true, Validators.compose([Validators.required])],
 
-      totalGravada: [null, Validators.compose([Validators.required])],
-      totalExonerada: [null, Validators.compose([Validators.required])],
-      totalInafecta: [null, Validators.compose([Validators.required])],
-      totalGratuita: [null, Validators.compose([Validators.required])],
-      totalIgv: [null, Validators.compose([Validators.required])],
-
-      porcentajeDescuento: [null, Validators.compose([])],
-      descuentoGlobal: [null, Validators.compose([Validators.required])],
-
-      totalOtrosCargos: [null, Validators.compose([])],
-      total: [null, Validators.compose([Validators.required])],
-
-      detalle: [null, Validators.compose([Validators.required])]
+      detalle: [null, Validators.compose([Validators.required])],
+      informacionAdicional: [null, Validators.compose([Validators.required])]
     });
 
 
+    // Watch tipo invoice changes
     this.subscriptions.push(
-
-      // Watch tipo invoice changes
       this.documentForm.get('tipoInvoice').valueChanges
         .filter((val) => val !== undefined && val !== null)
         .subscribe((val: SUNATGenericType) => {
@@ -117,15 +110,26 @@ export class InvoiceComponent implements OnInit {
             documentoIdentidadCliente: documentoIdentidad
           });
         })
-      // End
-
     );
 
+    // Watch tipo documento changes
+    this.subscriptions.push(
+      this.documentForm.get('documentoIdentidadCliente').valueChanges
+        .filter((val) => val !== undefined && val !== null)
+        .subscribe((val: SUNATGenericType) => {
+          this.documentForm.get('numeroDocumentoCliente').setValidators(Validators.compose([
+            Validators.required,
+            Validators.minLength(val.longitud),
+            Validators.maxLength(val.longitud)
+          ]));
+        })
+    );
   }
 
   patchFormWithDefaults() {
     this.documentForm.patchValue({
-      tipoInvoice: this.tiposInvoice[0]
+      tipoInvoice: this.tiposInvoice[0],
+      moneda: this.monedas[0].codigo
     });
   }
 
@@ -135,14 +139,6 @@ export class InvoiceComponent implements OnInit {
 
   save() {
 
-  }
-
-  changeToMonedaNacional() {
-    this.documentForm.removeControl('tipoDeCambio');
-  }
-
-  changeToMonedaExtrangera() {
-    this.documentForm.addControl('tipoDeCambio', this.formBuilder.control(null, Validators.compose([Validators.required])));
   }
 
   findDocumentoIdentidad(codigo: string) {

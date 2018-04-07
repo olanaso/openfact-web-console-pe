@@ -15,7 +15,7 @@
 </td>
 <td>
   <select class="form-control" [(ngModel)]="valor.tipoIGV" (ngModelChange)="recalcularYEmitirNuevoValor()">
-    <option *ngFor="let item of tiposIGV" [ngValue]="item.codigo">
+    <option *ngFor="let item of tiposIGV" [ngValue]="item">
       {{item.denominacion}}
     </option>
   </select>

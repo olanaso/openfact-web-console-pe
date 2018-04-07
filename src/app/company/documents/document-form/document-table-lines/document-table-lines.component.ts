@@ -1,9 +1,11 @@
 import { Component, OnInit, Input, Output, forwardRef } from '@angular/core';
 import { ControlValueAccessor, Validator, AbstractControl, NG_VALUE_ACCESSOR, NG_VALIDATORS } from '@angular/forms';
-import { SUNATGenericType } from './../../../ngx-openfact';
+import { SUNATGenericType } from '../../../../ngx-openfact';
 
-import { TipoIGV } from './tipos-igv';
-import { DocumentLine } from './document-line';
+import { TipoIGV } from '../tipos-igv';
+import { DocumentLine } from '../document-line';
+
+import { cloneDeep } from 'lodash';
 
 const callback = () => { };
 
@@ -102,7 +104,8 @@ export class DocumentTableLinesComponent implements OnInit, ControlValueAccessor
     this.tieneDetallesInvalidos = invalido;
 
     // tieneDetallesInvalidos
-    this._onChangeCallback(this._value);
+    const result = cloneDeep(this._value as DocumentLine[]);
+    this._onChangeCallback(result);
   }
 
   // Form Control

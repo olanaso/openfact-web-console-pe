@@ -23,7 +23,7 @@ export class PECompanyService {
     private http: HttpClient,
     private logger: Logger,
     @Inject(OPENFACT_API_URL) apiUrl: string) {
-    this.companiesUrl = apiUrl.endsWith('/') ? apiUrl + 'companies' : apiUrl + '/companies';
+    this.companiesUrl = apiUrl.endsWith('/') ? apiUrl + 'organizations' : apiUrl + '/organizations';
   }
 
   get(companyId: string): Observable<PECompany> {

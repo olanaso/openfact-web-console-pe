@@ -13,13 +13,16 @@
       <span class="required-pf">*</span> son obligatorios.
     </p>
 
+    <p class="fields-status-pf">Modo Avanzado:</p>
+    <p>
+      <bSwitch [(ngModel)]="modoAvanzado"></bSwitch>
+    </p>
+
     <form [formGroup]="documentForm" (ngSubmit)="save()">
       <div class="row">
         <div class="col-md-2">
           <div class="form-group" ngxFormControlError="tipoInvoice">
-            <label class="control-label required-pf">Boleta/Factura
-              <i class="fa fa-question-circle text-muted" ngbTooltip="Boleta/Factura" placement="right"></i>
-            </label>
+            <label class="control-label required-pf">Boleta/Factura</label>
             <select formControlName="tipoInvoice" class="form-control" autofocus>
               <option *ngFor="let item of tiposInvoice" [ngValue]="item">{{item.denominacion}}</option>
             </select>
@@ -27,32 +30,58 @@
           </div>
         </div>
         <div class="col-md-2">
-          <div class="form-group" ngxFormControlError="serie">
-            <label class="control-label">Serie
-              <i class="fa fa-question-circle text-muted" ngbTooltip="Serie del documento" placement="right"></i>
-            </label>
-            <input formControlName="serie" type="text" class="form-control text-left">
-            <ngx-form-help-block formControlHelp="serie"></ngx-form-help-block>
-          </div>
-        </div>
-        <div class="col-md-2">
-          <div class="form-group" ngxFormControlError="serie">
-            <label class="control-label">Numero
-              <i class="fa fa-question-circle text-muted" ngbTooltip="Numero de documento" placement="right"></i>
-            </label>
-            <input formControlName="numero" type="number" class="form-control text-left">
-            <ngx-form-help-block formControlHelp="numero"></ngx-form-help-block>
+          <div class="form-group" ngxFormControlError="tipoInvoice">
+            <label class="control-label required-pf">Tipo Operación</label>
+            <select formControlName="tipoInvoice" class="form-control">
+              <option *ngFor="let item of tiposInvoice" [ngValue]="item">{{item.denominacion}}</option>
+            </select>
+            <ngx-form-help-block formControlHelp="tipoInvoice"></ngx-form-help-block>
           </div>
         </div>
         <div class="col-md-2">
           <div class="form-group" ngxFormControlError="moneda">
-            <label class="control-label">Moneda
-              <i class="fa fa-question-circle text-muted" ngbTooltip="Moneda de emision" placement="right"></i>
-            </label>
-            <div class="btn-group" btnRadioGroup formControlName="moneda" style="display: block;">
-              <label *ngFor="let item of monedas" btnRadio="{{item.codigo}}" class="btn btn-default">{{item.codigo}}</label>
+            <label class="control-label required-pf">Moneda</label>
+            <div *ngIf="!modoAvanzado" class="input-group">
+              <div class="input-group-btn" btnRadioGroup formControlName="moneda">
+                <label *ngFor="let item of monedas" [btnRadio]="item.codigo" class="btn btn-default">
+                  {{item.codigo}}
+                </label>
+              </div>
+              <input type="text" [value]="documentForm.get('moneda').value" class="form-control" readonly>
             </div>
+            <input *ngIf="modoAvanzado" formControlName="moneda" type="text" class="form-control">
             <ngx-form-help-block formControlHelp="moneda"></ngx-form-help-block>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="form-group" ngxFormControlError="tipoCambio">
+            <label class="control-label">Tipo de cambio</label>
+            <input formControlName="tipoCambio" currencyMask [options]="{ prefix: '', allowNegative: false, precision: 3}" type="text"
+              class="form-control text-left">
+            <ngx-form-help-block formControlHelp="tipoCambio"></ngx-form-help-block>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="modoAvanzado" class="row">
+        <div class="col-md-2">
+          <div class="form-group" ngxFormControlError="serie">
+            <label class="control-label">Serie</label>
+            <input formControlName="serie" type="text" class="form-control">
+            <ngx-form-help-block formControlHelp="serie"></ngx-form-help-block>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="form-group" ngxFormControlError="numero">
+            <label class="control-label">Número</label>
+            <input formControlName="numero" type="number" class="form-control">
+            <ngx-form-help-block formControlHelp="numero"></ngx-form-help-block>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="form-group" ngxFormControlError="igv">
+            <label class="control-label">IGV</label>
+            <input formControlName="igv" type="number" class="form-control text-left">
+            <ngx-form-help-block formControlHelp="igv"></ngx-form-help-block>
           </div>
         </div>
       </div>
@@ -60,10 +89,8 @@
       <div class="row">
         <div class="col-md-2">
           <div class="form-group" ngxFormControlError="documentoIdentidadCliente">
-            <label class="control-label">Boleta/Factura
-              <i class="fa fa-question-circle text-muted" ngbTooltip="Boleta/Factura" placement="right"></i>
-            </label>
-            <select formControlName="documentoIdentidadCliente" class="form-control" autofocus>
+            <label class="control-label required-pf">Tipo documento</label>
+            <select formControlName="documentoIdentidadCliente" class="form-control">
               <option *ngFor="let item of tiposDocumentoIdentidad" [ngValue]="item">{{item.abreviatura}} ({{item.denominacion | lowercase}})</option>
             </select>
             <ngx-form-help-block formControlHelp="documentoIdentidadCliente"></ngx-form-help-block>
@@ -71,41 +98,54 @@
         </div>
         <div class="col-md-2">
           <div class="form-group" ngxFormControlError="numeroDocumentoCliente">
-            <label class="control-label">Nro. Documento
-              <i class="fa fa-question-circle text-muted" ngbTooltip="Serie del documento" placement="right"></i>
-            </label>
+            <label class="control-label required-pf">Nro. Documento</label>
             <input formControlName="numeroDocumentoCliente" type="text" class="form-control text-left">
             <ngx-form-help-block formControlHelp="numeroDocumentoCliente"></ngx-form-help-block>
           </div>
         </div>
         <div class="col-md-4">
           <div class="form-group" ngxFormControlError="nombreCliente">
-            <label class="control-label">Nombre/R.Social
-              <i class="fa fa-question-circle text-muted" ngbTooltip="Serie del documento" placement="right"></i>
-            </label>
+            <label class="control-label required-pf">Nombre/R. Social</label>
             <input formControlName="nombreCliente" type="text" class="form-control text-left">
             <ngx-form-help-block formControlHelp="nombreCliente"></ngx-form-help-block>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="form-group">
+            <label class="control-label" style="display: inherit;">Operacion Gratuita</label>
+            <bSwitch formControlName="operacionGratuita"></bSwitch>
+            <ngx-form-help-block formControlHelp="operacionGratuita"></ngx-form-help-block>
           </div>
         </div>
       </div>
 
       <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-6">
           <div class="form-group" ngxFormControlError="direccionCliente">
-            <label class="control-label">Direccion cliente
-              <i class="fa fa-question-circle text-muted" ngbTooltip="Boleta/Factura" placement="right"></i>
-            </label>
+            <label class="control-label">Direccion cliente</label>
             <input formControlName="direccionCliente" type="text" class="form-control text-left">
             <ngx-form-help-block formControlHelp="direccionCliente"></ngx-form-help-block>
           </div>
         </div>
         <div class="col-md-2">
           <div class="form-group" ngxFormControlError="emailCliente">
-            <label class="control-label">Email cliente
-              <i class="fa fa-question-circle text-muted" ngbTooltip="Serie del documento" placement="right"></i>
-            </label>
+            <label class="control-label">Email cliente</label>
             <input formControlName="emailCliente" type="text" class="form-control text-left">
             <ngx-form-help-block formControlHelp="emailCliente"></ngx-form-help-block>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="form-group" ngxFormControlError="enviarSUNAT">
+            <label class="control-label" style="display: inherit;">Enviar SUNAT</label>
+            <bSwitch formControlName="enviarSUNAT"></bSwitch>
+            <ngx-form-help-block formControlHelp="enviarSUNAT"></ngx-form-help-block>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="form-group" ngxFormControlError="enviarEmailCliente">
+            <label class="control-label" style="display: inherit;">Enviar Cliente</label>
+            <bSwitch formControlName="enviarEmailCliente"></bSwitch>
+            <ngx-form-help-block formControlHelp="enviarEmailCliente"></ngx-form-help-block>
           </div>
         </div>
       </div>
@@ -118,20 +158,25 @@
         </div>
       </div>
 
+      <br/>
 
+      <div class="row">
+        <div class="col-md-8">
+          <div class="form-group" ngxFormControlError="observaciones">
+            <label class="control-label">Observaciones</label>
+            <textarea formControlName="observaciones" rows="5" class="form-control"></textarea>
+            <ngx-form-help-block formControlHelp="observaciones"></ngx-form-help-block>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <of-document-total-additional-information formControlName="informacionAdicional" [detalle]="documentForm.get('detalle').value" [operacionGratuita]="documentForm.get('operacionGratuita').value"></of-document-total-additional-information>
+        </div>
+      </div>
 
+      <button class="btn btn-primary">Guardar</button>
+      <button class="btn btn-default">Cancelar</button>
 
     </form>
-
-
-    <tr>
-      <td colspan="10">
-        <div class="checkbox pull-right">
-          <label>
-            <input type="checkbox" [(ngModel)]="modoAvanzado"> Detallado</label>
-        </div>
-      </td>
-    </tr>
 
 
 

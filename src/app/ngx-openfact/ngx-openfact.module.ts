@@ -1,4 +1,3 @@
-import { PESUNATService } from './pe-sunat/pe-sunat';
 import { ServerInfoService } from './serverinfo/server-info';
 import { PECompanyService } from './companies/pe-company.service';
 import { NgModule, ModuleWithProviders } from '@angular/core';
@@ -15,6 +14,9 @@ import { UBLDocumentService } from './documents/ubl-document.service';
 
 import { Contexts } from './contexts/contexts';
 import { ContextService } from './context.service';
+
+import { PEUBLDocumentService } from './pe-sunat/pe-ubl-document.service';
+import { PESUNATService } from './pe-sunat/pe-sunat';
 
 @NgModule({
   imports: [
@@ -46,7 +48,8 @@ export class NgxOpenfactModule {
         },
         ServerInfoService,
         PECompanyService,
-        PESUNATService
+        PESUNATService,
+        PEUBLDocumentService
       ]
     };
   }

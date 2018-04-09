@@ -8,6 +8,7 @@ import { InvoiceRoutingModule } from './invoice-routing.module';
 import { JWBootstrapSwitchModule } from 'jw-bootstrap-switch-ng2';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { NgxButtonModule } from './../../../ngx-button/ngx-button.module';
 import { NgxFormsModule } from './../../../ngx-forms/ngx-forms.module';
 import { DocumentFormModule } from './../document-form/document-form.module';
@@ -21,12 +22,18 @@ import { DocumentFormModule } from './../document-form/document-form.module';
     JWBootstrapSwitchModule,
     CurrencyMaskModule,
     ButtonsModule,
+    BsDatepickerModule,
     NgxFormsModule,
     NgxButtonModule,
     DocumentFormModule,
 
     InvoiceRoutingModule,
   ],
-  declarations: [InvoiceComponent]
+  declarations: [
+    InvoiceComponent
+  ],
+  providers: [
+
+  ]
 })
 export class InvoiceModule { }

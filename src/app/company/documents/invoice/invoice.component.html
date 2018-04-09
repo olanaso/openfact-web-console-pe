@@ -29,7 +29,7 @@
             <ngx-form-help-block formControlHelp="tipoInvoice"></ngx-form-help-block>
           </div>
         </div>
-        <div class="col-md-2">
+        <!-- <div class="col-md-2">
           <div class="form-group" ngxFormControlError="tipoInvoice">
             <label class="control-label required-pf">Tipo Operación</label>
             <select formControlName="tipoInvoice" class="form-control">
@@ -37,7 +37,7 @@
             </select>
             <ngx-form-help-block formControlHelp="tipoInvoice"></ngx-form-help-block>
           </div>
-        </div>
+        </div> -->
         <div class="col-md-2">
           <div class="form-group" ngxFormControlError="moneda">
             <label class="control-label required-pf">Moneda</label>
@@ -61,6 +61,20 @@
             <ngx-form-help-block formControlHelp="tipoCambio"></ngx-form-help-block>
           </div>
         </div>
+        <div class="col-md-2">
+          <div class="form-group" ngxFormControlError="fechaEmision">
+            <label class="control-label">Fecha emisión</label>
+            <input formControlName="fechaEmision" bsDatepicker [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" type="text" class="form-control">
+            <ngx-form-help-block formControlHelp="fechaEmision"></ngx-form-help-block>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="form-group" ngxFormControlError="fechaVencimiento">
+            <label class="control-label">Fecha vencimiento</label>
+            <input formControlName="fechaVencimiento" bsDatepicker [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" type="text" class="form-control">
+            <ngx-form-help-block formControlHelp="fechaVencimiento"></ngx-form-help-block>
+          </div>
+        </div>
       </div>
       <div *ngIf="modoAvanzado" class="row">
         <div class="col-md-2">
@@ -80,7 +94,7 @@
         <div class="col-md-2">
           <div class="form-group" ngxFormControlError="igv">
             <label class="control-label">IGV</label>
-            <input formControlName="igv" type="number" class="form-control text-left">
+            <input formControlName="igv" currencyMask [options]="{ prefix: '', allowNegative: false, precision: 2}" type="text" class="form-control text-left">
             <ngx-form-help-block formControlHelp="igv"></ngx-form-help-block>
           </div>
         </div>
@@ -88,12 +102,12 @@
 
       <div class="row">
         <div class="col-md-2">
-          <div class="form-group" ngxFormControlError="documentoIdentidadCliente">
+          <div class="form-group" ngxFormControlError="tipoDocumentoCliente">
             <label class="control-label required-pf">Tipo documento</label>
-            <select formControlName="documentoIdentidadCliente" class="form-control">
+            <select formControlName="tipoDocumentoCliente" class="form-control">
               <option *ngFor="let item of tiposDocumentoIdentidad" [ngValue]="item">{{item.abreviatura}} ({{item.denominacion | lowercase}})</option>
             </select>
-            <ngx-form-help-block formControlHelp="documentoIdentidadCliente"></ngx-form-help-block>
+            <ngx-form-help-block formControlHelp="tipoDocumentoCliente"></ngx-form-help-block>
           </div>
         </div>
         <div class="col-md-2">
@@ -169,11 +183,12 @@
           </div>
         </div>
         <div class="col-md-4">
-          <of-document-total-additional-information formControlName="informacionAdicional" [detalle]="documentForm.get('detalle').value" [operacionGratuita]="documentForm.get('operacionGratuita').value"></of-document-total-additional-information>
+          <of-document-total-additional-information formControlName="informacionAdicional" [detalle]="documentForm.get('detalle').value"
+            [operacionGratuita]="documentForm.get('operacionGratuita').value"></of-document-total-additional-information>
         </div>
       </div>
 
-      <button class="btn btn-primary">Guardar</button>
+      <of-working-button [type]="'submit'" [active]="documentForm.valid" [working]="working"></of-working-button>
       <button class="btn btn-default">Cancelar</button>
 
     </form>

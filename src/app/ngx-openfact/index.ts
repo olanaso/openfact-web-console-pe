@@ -45,3 +45,14 @@ export { ServerInfoService } from './serverinfo/server-info';
 // SUNAT
 export { SUNATGenericType } from './models/pe-sunat-generic-type';
 export { PESUNATService } from './pe-sunat/pe-sunat';
+export { PEUBLDocumentService } from './pe-sunat/pe-ubl-document.service';
+
+export {
+  Invoice,
+  Fecha,
+  Cliente,
+  Total,
+  Moneda,
+  TotalImpuestos,
+  TotalInformacionAdicional
+} from './models/invoice';

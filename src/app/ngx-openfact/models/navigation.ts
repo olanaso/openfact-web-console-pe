@@ -1,6 +1,6 @@
 export class Navigation {
   url: string;
   user: string;
-  company: string;
+  organization: string;
   document: string;
 }

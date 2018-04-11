@@ -21,7 +21,7 @@ export class SearchComponent implements OnInit {
     private contexts: Contexts
   ) {
     this.contexts.current.subscribe((val) => {
-      this.company = val.company;
+      this.company = val.organization;
     });
   }
 

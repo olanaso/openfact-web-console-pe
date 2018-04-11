@@ -18,15 +18,15 @@ const routes: Routes = [
     }
   },
 
-  // Company
+  // Organization
   {
-    path: '_company/:company',
-    loadChildren: './company/company.module#CompanyModule',
+    path: '_organization/:organization',
+    loadChildren: './organization/organization.module#OrganizationModule',
     resolve: {
       context: ContextResolver
     },
     data: {
-      title: 'Company'
+      title: 'Organization'
     }
   },
 

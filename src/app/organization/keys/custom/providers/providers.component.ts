@@ -31,7 +31,7 @@ export class ProvidersComponent implements OnInit, OnDestroy {
   ) {
     this.subscriptions.push(
       contexts.current
-        .map((val) => val.company)
+        .map((val) => val.organization)
         .do((company) => {
           this.loading = true;
           this.company = company;

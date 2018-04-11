@@ -35,13 +35,13 @@
   <!-- /row -->
 </div>
 
-<div *ngIf="ownedCompanies.length > 0 || collaboratedCompanies.length > 0 || masterCompany; then organizationsPage else emptyOrganizations"></div>
+<div *ngIf="ownedOrganizations.length > 0 || collaboratedOrganizations.length > 0 || masterOrganization; then organizationsPage else emptyOrganizations"></div>
 
 <ng-template #organizationsPage>
   <div class="container-fluid container-cards-pf">
     <div class="row row-cards-pf">
-      <div *ngIf="masterCompany" class="col-xs-12 col-sm-4 col-md-3 col-lg-2 experimental-pf">
-        <div routerLink="/_company/{{masterCompany.id}}" class="card-pf card-pf-view card-pf-view-select card-pf-view-single-select">
+      <div *ngIf="masterOrganization" class="col-xs-12 col-sm-4 col-md-3 col-lg-2 experimental-pf">
+        <div routerLink="/_organization/{{masterOrganization.id}}" class="card-pf card-pf-view card-pf-view-select card-pf-view-single-select">
           <div class="experimental-pf-bar">
             <button class="experimental-pf-more-info">Master
               <i class="fa fa-flask"></i>
@@ -52,7 +52,7 @@
               <span class="pficon pficon-virtual-machine card-pf-icon-circle"></span>
             </div>
             <h2 class="card-pf-title text-center">
-              {{masterCompany.name}}
+              {{masterOrganization.name}}
             </h2>
             <div class="card-pf-items text-center">
               <div class="card-pf-item">
@@ -66,14 +66,14 @@
           </div>
         </div>
       </div>
-      <div *ngFor="let company of ownedCompanies" class="col-xs-12 col-sm-4 col-md-3 col-lg-2">
-        <div routerLink="/_company/{{company.id}}" class="card-pf card-pf-view card-pf-view-select card-pf-view-single-select">
+      <div *ngFor="let organization of ownedOrganizations" class="col-xs-12 col-sm-4 col-md-3 col-lg-2">
+        <div routerLink="/_organization/{{organization.id}}" class="card-pf card-pf-view card-pf-view-select card-pf-view-single-select">
           <div class="card-pf-body" style="height: 224px;">
             <div class="card-pf-top-element">
               <span class="fa pficon pficon-cluster card-pf-icon-circle"></span>
             </div>
             <h2 class="card-pf-title text-center">
-              {{company.name}}
+              {{organization.name}}
             </h2>
             <div class="card-pf-items text-center">
               <div class="card-pf-item">
@@ -87,14 +87,14 @@
           </div>
         </div>
       </div>
-      <div *ngFor="let company of collaboratedCompanies" class="col-xs-12 col-sm-4 col-md-3 col-lg-2">
-        <div class="card-pf card-pf-view card-pf-view-select card-pf-view-single-select">
+      <div *ngFor="let organization of collaboratedOrganizations" class="col-xs-12 col-sm-4 col-md-3 col-lg-2">
+        <div routerLink="/_organization/{{organization.id}}" class="card-pf card-pf-view card-pf-view-select card-pf-view-single-select">
           <div class="card-pf-body" style="height: 224px;">
             <div class="card-pf-top-element">
               <span class="fa pficon pficon-cluster card-pf-icon-circle"></span>
             </div>
             <h2 class="card-pf-title text-center">
-              {{company.name}}
+              {{organization.name}}
             </h2>
             <div class="card-pf-items text-center">
               <div class="card-pf-item">

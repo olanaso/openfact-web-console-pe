@@ -10,9 +10,9 @@ export class ContextTypes {
       } as ContextType
     ],
     [
-      'company',
+      'organization',
       {
-        name: 'Company',
+        name: 'Organization',
         icon: 'fa fa-cubes'
       } as ContextType
     ]

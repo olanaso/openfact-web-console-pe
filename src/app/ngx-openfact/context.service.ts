@@ -33,7 +33,7 @@ import 'rxjs/add/operator/distinctUntilKeyChanged';
 
 interface RawContext {
   user: any;
-  company: any;
+  organization: any;
   document: any;
   url: string;
 }
@@ -53,7 +53,7 @@ export class ContextService implements Contexts {
   constructor(
     private router: Router,
     private broadcaster: Broadcaster,
-    private companyService: OrganizationService,
+    private organizationService: OrganizationService,
     private userService: UserService,
     private notifications: Notifications,
     private route: ActivatedRoute,
@@ -122,14 +122,14 @@ export class ContextService implements Contexts {
     const res = navigation
       // Fetch the objects from the REST API
       .switchMap(val => {
-        if (val.company) {
+        if (val.organization) {
           // If it's a space that's been requested then load the space creator as the owner
           return this
-            .loadCompany(val.company)
-            .map(company => {
+            .loadOrganization(val.organization)
+            .map(organization => {
               return {
                 user: null,
-                company: company,
+                organization: organization,
                 document: null
               } as RawContext;
             })
@@ -138,8 +138,8 @@ export class ContextService implements Contexts {
                 message: `${val.url} not found`,
                 type: NotificationType.WARNING
               } as Notification);
-              console.log(`Company with id ${val.company} from path ${val.url} was not found because of ${err}`);
-              return Observable.throw(`Company with id ${val.company} from path ${val.url} was not found because of ${err}`);
+              console.log(`Organization with id ${val.organization} from path ${val.url} was not found because of ${err}`);
+              return Observable.throw(`Organization with id ${val.organization} from path ${val.url} was not found because of ${err}`);
             });
         } else if (val.document) {
           // If it's a document that's been requested then load the document
@@ -148,7 +148,7 @@ export class ContextService implements Contexts {
             .map(document => {
               return {
                 user: null,
-                company: null,
+                organization: null,
                 document: document
               } as RawContext;
             })
@@ -167,7 +167,7 @@ export class ContextService implements Contexts {
             .map(user => {
               return {
                 user: user,
-                company: null,
+                organization: null,
                 document: null
               } as RawContext;
             })
@@ -192,9 +192,9 @@ export class ContextService implements Contexts {
         }
       })
       .do(val => {
-        if (val && val.company) {
-          console.log('Company Changed to', val);
-          this.broadcaster.broadcast('companyChanged', val.company);
+        if (val && val.organization) {
+          console.log('Organization Changed to', val);
+          this.broadcaster.broadcast('organizationChanged', val.organization);
         }
       })
       .do(val => {
@@ -214,17 +214,17 @@ export class ContextService implements Contexts {
   private buildContext(val: RawContext) {
     // TODO Support other types of user
     let c: Context;
-    if (val.company) {
+    if (val.organization) {
       c = {
         'user': null,
-        'company': val.company,
+        'organization': val.organization,
         'type': null,
         'name': null,
         'path': null
       } as Context;
-      c.type = ContextTypes.BUILTIN.get('company');
-      c.path = '/_company/' + c.company.id;
-      c.name = c.company.name;
+      c.type = ContextTypes.BUILTIN.get('organization');
+      c.path = '/_organization/' + c.organization.id;
+      c.name = c.organization.name;
     } else if (val.document) {
       c = {
         'user': null,
@@ -281,9 +281,9 @@ export class ContextService implements Contexts {
       });
   }
 
-  private loadCompany(spaceId: string): Observable<Organization> {
-    if (spaceId) {
-      return this.companyService.filterOrganizationById(spaceId);
+  private loadOrganization(organizationId: string): Observable<Organization> {
+    if (organizationId) {
+      return this.organizationService.filterOrganizationById(organizationId);
     } else {
       return Observable.of({} as Organization);
     }

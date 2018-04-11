@@ -29,7 +29,7 @@ export class DraftDocumentsComponent implements OnInit {
   ) {
     this.subscriptions.push(
       contexts.current.subscribe((val) => {
-        this.company = val.company;
+        this.company = val.organization;
         this.loadFacturas();
       })
     );

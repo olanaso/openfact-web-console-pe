@@ -40,7 +40,7 @@ export class ContextResolver implements Resolve<Context> {
       .changeContext(Observable.of({
         url: state.url,
         user: route.params['entity'],
-        company: route.params['company'],
+        organization: route.params['organization'],
         document: route.params['document']
       } as Navigation)).first()
       .catch((err: any, caught: Observable<Context>) => {

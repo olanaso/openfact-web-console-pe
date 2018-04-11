@@ -62,7 +62,7 @@ export class InvoiceComponent implements OnInit {
     this.subscriptions.push(
       contexts.current
         .do((val) => {
-          this.company = val.company;
+          this.company = val.organization;
           this.UBLDocument = val.document;
         })
         .switchMap((val) => documentContext.IGV).do((val) => this.IGV = val)

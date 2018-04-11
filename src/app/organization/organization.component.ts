@@ -11,11 +11,11 @@ import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/observable/forkJoin';
 
 @Component({
-  selector: 'of-company',
-  templateUrl: './company.component.html',
-  styleUrls: ['./company.component.scss']
+  selector: 'of-organization',
+  templateUrl: './organization.component.html',
+  styleUrls: ['./organization.component.scss']
 })
-export class CompanyComponent implements OnInit, OnDestroy {
+export class OrganizationComponent implements OnInit, OnDestroy {
 
   loggedInUser: User;
 
@@ -31,7 +31,7 @@ export class CompanyComponent implements OnInit, OnDestroy {
     private renderer: Renderer2,
     @Inject(DOCUMENT) private document: Document,
     private userService: UserService,
-    private companyService: OrganizationService,
+    private organizationService: OrganizationService,
     private contexts: Contexts,
     private keycloakService: KeycloakService
   ) {
@@ -63,7 +63,7 @@ export class CompanyComponent implements OnInit, OnDestroy {
   }
 
   fetchCompanies() {
-    this.companyService.searchCompaniesByUserid(this.loggedInUser.id).subscribe((val) => {
+    this.organizationService.searchCompaniesByUserid(this.loggedInUser.id).subscribe((val) => {
       const master = val.master;
       const owned = val.owned;
       const collaborated = val.collaborated;
@@ -77,24 +77,24 @@ export class CompanyComponent implements OnInit, OnDestroy {
     this.contextItems = this.companies.map((company) => {
       return {
         title: company.name,
-        url: '/_company/' + company.id
+        url: '/_organization/' + company.id
       };
     });
   }
 
   initSidebarItems() {
-    const company = this.context.company;
+    const company = this.context.organization;
 
     this.navigationItems = [
       {
         title: 'Documentos',
         iconStyleClass: 'fa fa-file-code-o',
-        url: '/_company/' + company.id + '/_documents'
+        url: '/_organization/' + company.id + '/_documents'
       },
       {
         title: 'Observados',
         iconStyleClass: 'fa fa-edit',
-        url: '/_company/' + company.id + '/_drafts',
+        url: '/_organization/' + company.id + '/_drafts',
         badges: [
           {
             count: 1283,
@@ -108,19 +108,19 @@ export class CompanyComponent implements OnInit, OnDestroy {
         children: [
           {
             title: 'Información General',
-            url: '/_company/' + company.id + '/_generalinformation'
+            url: '/_organization/' + company.id + '/_generalinformation'
           },
           {
             title: 'Información Adicional',
-            url: '/_company/' + company.id + '/_additionalinformation'
+            url: '/_organization/' + company.id + '/_additionalinformation'
           },
           {
             title: 'Certificados Digitales',
-            url: '/_company/' + company.id + '/_keys'
+            url: '/_organization/' + company.id + '/_keys'
           },
           {
             title: 'Correos Electrónicos',
-            url: '/_company/' + company.id + '/_smtp'
+            url: '/_organization/' + company.id + '/_smtp'
           },
           {
             title: 'Envíos a la SUNAT',
@@ -140,7 +140,7 @@ export class CompanyComponent implements OnInit, OnDestroy {
   }
 
   get contextLabel() {
-    return this.context.company.name;
+    return this.context.organization.name;
   }
 
   logout() {

@@ -6,7 +6,7 @@ import { UBLDocument } from '../models/ubl-document';
 export interface Context {
   // The entity that this context is for
   user: User;
-  company?: Organization;
+  organization?: Organization;
   document?: UBLDocument;
   type: ContextType;
   path: string;

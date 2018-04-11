@@ -56,7 +56,7 @@ export class AdditionalInformationComponent implements OnInit, OnDestroy {
   }
 
   syncForm() {
-    this.peCompanyService.get(this.context.company.id).subscribe((val) => {
+    this.peCompanyService.get(this.context.organization.id).subscribe((val) => {
       this.companyForm.patchValue(val);
     });
   }
@@ -91,7 +91,7 @@ export class AdditionalInformationComponent implements OnInit, OnDestroy {
 
   createTransientCompany(): PECompany {
     const company = {
-      id: this.context.company.id
+      id: this.context.organization.id
     } as PECompany;
 
     return company;

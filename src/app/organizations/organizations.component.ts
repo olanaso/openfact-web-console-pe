@@ -10,16 +10,16 @@ import { Subscription } from 'rxjs/Subscription';
 })
 export class OrganizationsComponent implements OnInit, OnDestroy {
 
-  masterCompany: Organization;
-  ownedCompanies: Organization[] = [];
-  collaboratedCompanies: Organization[] = [];
+  masterOrganization: Organization;
+  ownedOrganizations: Organization[] = [];
+  collaboratedOrganizations: Organization[] = [];
 
   private loggedInUser: User;
   private subscriptions: Subscription[] = [];
 
   constructor(
     private userService: UserService,
-    private companyService: OrganizationService
+    private organizationService: OrganizationService
   ) {
     this.subscriptions.push(
       userService.loggedInUser.subscribe((val) => {
@@ -37,10 +37,10 @@ export class OrganizationsComponent implements OnInit, OnDestroy {
   }
 
   search() {
-    this.companyService.searchCompaniesByUserid(this.loggedInUser.id).subscribe((val) => {
-      this.masterCompany = val.master;
-      this.ownedCompanies = val.owned;
-      this.collaboratedCompanies = val.collaborated;
+    this.organizationService.searchCompaniesByUserid(this.loggedInUser.id).subscribe((val) => {
+      this.masterOrganization = val.master;
+      this.ownedOrganizations = val.owned;
+      this.collaboratedOrganizations = val.collaborated;
     });
   }
 

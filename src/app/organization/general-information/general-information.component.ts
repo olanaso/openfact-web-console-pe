@@ -1,18 +1,16 @@
 import { Organization } from './../../ngx-openfact';
-import { Contexts } from './../../ngx-openfact/contexts/contexts';
-import { OrganizationService } from './../../ngx-openfact';
 import { Subscription } from 'rxjs/Subscription';
-import { Context } from './../../ngx-openfact/contexts/context';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { OrganizationService, Contexts, Context } from './../../ngx-openfact';
 import { Notification, NotificationType, Notifications } from './../../ngx-base';
 
 @Component({
-  selector: 'of-smtp',
-  templateUrl: './smtp.component.html',
-  styleUrls: ['./smtp.component.scss']
+  selector: 'of-general-information',
+  templateUrl: './general-information.component.html',
+  styleUrls: ['./general-information.component.scss']
 })
-export class SmtpComponent implements OnInit, OnDestroy {
+export class GeneralInformationComponent implements OnInit, OnDestroy {
 
   working = false;
   companyForm: FormGroup;
@@ -27,15 +25,8 @@ export class SmtpComponent implements OnInit, OnDestroy {
     private notifications: Notifications,
   ) {
     this.companyForm = this.formBuilder.group({
-      useCustomSmtpConfig: [false, Validators.compose([Validators.required])],
-      host: [undefined, Validators.compose([Validators.maxLength(150)])],
-      port: [undefined, Validators.compose([Validators.maxLength(20)])],
-      from: [undefined, Validators.compose([Validators.maxLength(150)])],
-      ssl: [false, Validators.compose([Validators.required])],
-      starttls: [false, Validators.compose([Validators.required])],
-      auth: [false],
-      user: [undefined, Validators.compose([Validators.maxLength(150)])],
-      password: [undefined, Validators.compose([Validators.maxLength(150)])]
+      name: [null, Validators.compose([Validators.required, Validators.maxLength(250)])],
+      description: [null, Validators.compose([Validators.maxLength(250)])]
     });
 
     this.subscriptions.push(
@@ -55,8 +46,7 @@ export class SmtpComponent implements OnInit, OnDestroy {
   }
 
   syncForm() {
-    this.companyService.getOrganization(this.context.company.id).subscribe((val) => {
-      this.companyForm.patchValue(val.smtpServer);
+    this.companyService.getOrganization(this.context.organization.id).subscribe((val) => {
       this.companyForm.patchValue(val);
     });
   }
@@ -69,9 +59,8 @@ export class SmtpComponent implements OnInit, OnDestroy {
     this.working = true;
 
     const company = this.createTransientCompany();
-    company.smtpServer = Object.assign({}, this.companyForm.value);
-    company.smtpServer['useCustomSmtpConfig'] = null;
-    company.useCustomSmtpConfig = this.companyForm.value.useCustomSmtpConfig;
+    company.name = this.companyForm.value.name;
+    company.description = this.companyForm.value.description;
 
     this.companyService.update(company).subscribe(
       (result) => {
@@ -93,9 +82,9 @@ export class SmtpComponent implements OnInit, OnDestroy {
 
   createTransientCompany(): Organization {
     const company = {
-      id: this.context.company.id,
+      id: this.context.organization.id,
       owner: {
-        id: this.context.company.owner.id
+        id: this.context.organization.owner.id
       }
     } as Organization;
 

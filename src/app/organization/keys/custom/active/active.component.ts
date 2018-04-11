@@ -1,20 +1,23 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { HttpParams } from '@angular/common/http';
-import { Subscription } from 'rxjs/Subscription';
 import { Contexts, Organization, OrganizationService } from './../../../../ngx-openfact';
+import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/publish';
 
 @Component({
-  selector: 'of-all',
-  templateUrl: './all.component.html',
-  styleUrls: ['./all.component.scss']
+  selector: 'of-active',
+  templateUrl: './active.component.html',
+  styleUrls: ['./active.component.scss']
 })
-export class AllComponent implements OnInit, OnDestroy {
+export class ActiveComponent implements OnInit, OnDestroy {
 
   company: Organization;
 
   loading = false;
   active: any = {};
+  activeMap: Map<string, any>;
+  activeMapKeys;
 
   keys: any;
   type = 'org.openfact.keys.KeyProvider';
@@ -22,12 +25,14 @@ export class AllComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
 
   constructor(
+    private router: Router,
+    private route: ActivatedRoute,
     private companyService: OrganizationService,
     private contexts: Contexts
   ) {
     this.subscriptions.push(
       contexts.current
-        .map((val) => val.company)
+        .map((val) => val.organization)
         .do((company) => {
           this.loading = true;
           this.company = company;
@@ -58,6 +63,15 @@ export class AllComponent implements OnInit, OnDestroy {
               }
             }
           }
+
+          this.activeMap = new Map<string, any>();
+          for (const key in this.active) {
+            if (this.active[key]) {
+              this.activeMap.set(key, this.active[key]);
+            }
+          }
+
+          this.activeMapKeys = Array.from(this.activeMap.keys());
         })
         .do(() => {
           this.loading = false;

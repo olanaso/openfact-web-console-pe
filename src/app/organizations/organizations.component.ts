@@ -4,11 +4,11 @@ import { User, UserService } from './../ngx-login-client';
 import { Subscription } from 'rxjs/Subscription';
 
 @Component({
-  selector: 'of-companies',
-  templateUrl: './companies.component.html',
-  styleUrls: ['./companies.component.scss']
+  selector: 'of-organizations',
+  templateUrl: './organizations.component.html',
+  styleUrls: ['./organizations.component.scss']
 })
-export class CompaniesComponent implements OnInit, OnDestroy {
+export class OrganizationsComponent implements OnInit, OnDestroy {
 
   masterCompany: Organization;
   ownedCompanies: Organization[] = [];

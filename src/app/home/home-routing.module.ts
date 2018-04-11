@@ -10,14 +10,10 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        loadChildren: '../companies/companies.module#CompaniesModule',
+        loadChildren: '../organizations/organizations.module#OrganizationsModule',
       },
       {
-        path: '_companies',
-        loadChildren: '../companies/companies.module#CompaniesModule',
-      },
-      {
-        path: '_newcompany',
+        path: '_neworganization',
         loadChildren: '../new-company/new-company.module#NewCompanyModule',
       }
     ]

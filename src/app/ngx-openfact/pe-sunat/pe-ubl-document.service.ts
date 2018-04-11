@@ -39,4 +39,22 @@ export class PEUBLDocumentService {
       });
   }
 
+  getFacturas(organizationId: string, estado: string, offset: number, limit: number = 10): Observable<Invoice[]> {
+    const url = `${this.organizationUrl}/${organizationId}/pe/documentos/facturas?estado=${estado}&offset=${offset}&limit=${limit}`;
+    return this.http
+      .get(url, { headers: this.headers })
+      .map(response => {
+        return response as Invoice[];
+      });
+  }
+
+  getBoletas(organizationId: string, estado: string, offset: number, limit: number = 10): Observable<Invoice[]> {
+    const url = `${this.organizationUrl}/${organizationId}/pe/documentos/boletas?estado=${estado}&offset=${offset}&limit=${limit}`;
+    return this.http
+      .get(url, { headers: this.headers })
+      .map(response => {
+        return response as Invoice[];
+      });
+  }
+
 }

@@ -106,7 +106,7 @@ export class InvoiceComponent implements OnInit {
       operacionGratuita: [false, Validators.compose([Validators.required])],
 
       enviarSUNAT: [true, Validators.compose([Validators.required])],
-      enviarEmailCliente: [true, Validators.compose([Validators.required])],
+      enviarCliente: [true, Validators.compose([Validators.required])],
 
       observaciones: [null, Validators.compose([Validators.maxLength(150)])],
 
@@ -152,7 +152,9 @@ export class InvoiceComponent implements OnInit {
       moneda: this.monedas[0].codigo,
       igv: this.IGV.valor,
       fechaEmision: new Date(),
-      fechaVencimiento: new Date()
+      fechaVencimiento: new Date(),
+      enviarSUNAT: true,
+      enviarCliente: true,
     });
   }
 

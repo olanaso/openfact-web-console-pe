@@ -40,11 +40,16 @@
 <ng-template #organizationsPage>
   <div class="container-fluid container-cards-pf">
     <div class="row row-cards-pf">
-      <div *ngIf="masterCompany" class="col-xs-12 col-sm-4 col-md-3 col-lg-2">
+      <div *ngIf="masterCompany" class="col-xs-12 col-sm-4 col-md-3 col-lg-2 experimental-pf">
         <div routerLink="/_company/{{masterCompany.id}}" class="card-pf card-pf-view card-pf-view-select card-pf-view-single-select">
+          <div class="experimental-pf-bar">
+            <button class="experimental-pf-more-info">Master
+              <i class="fa fa-flask"></i>
+            </button>
+          </div>
           <div class="card-pf-body" style="height: 224px;">
             <div class="card-pf-top-element">
-              <span class="fa pficon pficon-cluster card-pf-icon-circle"></span>
+              <span class="pficon pficon-virtual-machine card-pf-icon-circle"></span>
             </div>
             <h2 class="card-pf-title text-center">
               {{masterCompany.name}}

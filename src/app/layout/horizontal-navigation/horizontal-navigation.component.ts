@@ -31,7 +31,12 @@ export class HorizontalNavigationComponent implements OnInit, OnDestroy {
     this.subcriptions.forEach((val) => val.unsubscribe());
   }
 
+  manageAccount() {
+    this.keycloakService.manageAccount();
+  }
+
   logout() {
     this.keycloakService.logout();
   }
+
 }

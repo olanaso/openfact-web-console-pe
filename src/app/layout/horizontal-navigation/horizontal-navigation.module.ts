@@ -1,14 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { HorizontalNavigationComponent } from './horizontal-navigation.component';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { AboutModalModule } from './../about-modal/about-modal.module';
+
+import { HorizontalNavigationComponent } from './horizontal-navigation.component';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule,
-    BsDropdownModule
+    BsDropdownModule,
+    AboutModalModule
   ],
   declarations: [
     HorizontalNavigationComponent

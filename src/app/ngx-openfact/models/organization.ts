@@ -1,18 +1,18 @@
 import { Team } from './team';
 import { User } from '../../ngx-login-client';
 
-export interface Company {
+export interface Organization {
   id: string;
   name: string;
   description: string;
-  owner: CompanyOwner;
+  owner: OrganizationOwner;
   relationalData?: RelationalData;
   useCustomSmtpConfig: boolean;
   useCustomCertificates: boolean;
   smtpServer?: SmtpServerConfig;
 }
 
-export class CompanyOwner {
+export class OrganizationOwner {
   id: string;
 }
 

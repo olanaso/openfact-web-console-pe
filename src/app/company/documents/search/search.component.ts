@@ -1,6 +1,6 @@
 import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { Contexts, Company } from './../../../ngx-openfact';
+import { Contexts, Organization } from './../../../ngx-openfact';
 
 import { Subscription } from 'rxjs/Subscription';
 
@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs/Subscription';
 })
 export class SearchComponent implements OnInit {
 
-  company: Company;
+  company: Organization;
 
   private subscriptions: Subscription[] = [];
 

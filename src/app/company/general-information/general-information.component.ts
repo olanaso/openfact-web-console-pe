@@ -1,8 +1,8 @@
-import { Company } from './../../ngx-openfact/models/company';
+import { Organization } from './../../ngx-openfact';
 import { Subscription } from 'rxjs/Subscription';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { CompanyService, Contexts, Context } from './../../ngx-openfact';
+import { OrganizationService, Contexts, Context } from './../../ngx-openfact';
 import { Notification, NotificationType, Notifications } from './../../ngx-base';
 
 @Component({
@@ -20,7 +20,7 @@ export class GeneralInformationComponent implements OnInit, OnDestroy {
 
   constructor(
     private formBuilder: FormBuilder,
-    private companyService: CompanyService,
+    private companyService: OrganizationService,
     private contexts: Contexts,
     private notifications: Notifications,
   ) {
@@ -46,7 +46,7 @@ export class GeneralInformationComponent implements OnInit, OnDestroy {
   }
 
   syncForm() {
-    this.companyService.getCompanyById(this.context.company.id).subscribe((val) => {
+    this.companyService.getOrganization(this.context.company.id).subscribe((val) => {
       this.companyForm.patchValue(val);
     });
   }
@@ -80,13 +80,13 @@ export class GeneralInformationComponent implements OnInit, OnDestroy {
     );
   }
 
-  createTransientCompany(): Company {
+  createTransientCompany(): Organization {
     const company = {
       id: this.context.company.id,
       owner: {
         id: this.context.company.owner.id
       }
-    } as Company;
+    } as Organization;
 
     return company;
   }

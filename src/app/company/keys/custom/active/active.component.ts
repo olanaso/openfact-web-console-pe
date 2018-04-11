@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpParams } from '@angular/common/http';
-import { Contexts, Company, CompanyService } from './../../../../ngx-openfact';
+import { Contexts, Organization, OrganizationService } from './../../../../ngx-openfact';
 import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/publish';
 
@@ -12,7 +12,7 @@ import 'rxjs/add/operator/publish';
 })
 export class ActiveComponent implements OnInit, OnDestroy {
 
-  company: Company;
+  company: Organization;
 
   loading = false;
   active: any = {};
@@ -27,7 +27,7 @@ export class ActiveComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private companyService: CompanyService,
+    private companyService: OrganizationService,
     private contexts: Contexts
   ) {
     this.subscriptions.push(

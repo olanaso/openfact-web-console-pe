@@ -7,7 +7,7 @@ import {
   PESUNATService,
   SUNATGenericType,
   Context, Contexts,
-  Company, UBLDocument,
+  Organization, UBLDocument,
   UBLDocumentService,
   PEUBLDocumentService,
   Invoice,
@@ -28,7 +28,7 @@ import 'rxjs/add/operator/publish';
 })
 export class InvoiceComponent implements OnInit {
 
-  company: Company;
+  company: Organization;
   UBLDocument: UBLDocument;
 
   working = false;

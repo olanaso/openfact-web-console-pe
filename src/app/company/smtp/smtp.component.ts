@@ -1,6 +1,6 @@
-import { Company } from './../../ngx-openfact/models/company';
+import { Organization } from './../../ngx-openfact';
 import { Contexts } from './../../ngx-openfact/contexts/contexts';
-import { CompanyService } from './../../ngx-openfact/companies/company.service';
+import { OrganizationService } from './../../ngx-openfact';
 import { Subscription } from 'rxjs/Subscription';
 import { Context } from './../../ngx-openfact/contexts/context';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -22,7 +22,7 @@ export class SmtpComponent implements OnInit, OnDestroy {
 
   constructor(
     private formBuilder: FormBuilder,
-    private companyService: CompanyService,
+    private companyService: OrganizationService,
     private contexts: Contexts,
     private notifications: Notifications,
   ) {
@@ -55,7 +55,7 @@ export class SmtpComponent implements OnInit, OnDestroy {
   }
 
   syncForm() {
-    this.companyService.getCompanyById(this.context.company.id).subscribe((val) => {
+    this.companyService.getOrganization(this.context.company.id).subscribe((val) => {
       this.companyForm.patchValue(val.smtpServer);
       this.companyForm.patchValue(val);
     });
@@ -91,13 +91,13 @@ export class SmtpComponent implements OnInit, OnDestroy {
     );
   }
 
-  createTransientCompany(): Company {
+  createTransientCompany(): Organization {
     const company = {
       id: this.context.company.id,
       owner: {
         id: this.context.company.owner.id
       }
-    } as Company;
+    } as Organization;
 
     return company;
   }

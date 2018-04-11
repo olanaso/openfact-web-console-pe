@@ -35,70 +35,96 @@
   <!-- /row -->
 </div>
 
+<div *ngIf="ownedCompanies.length > 0 || collaboratedCompanies.length > 0 || masterCompany; then organizationsPage else emptyOrganizations"></div>
 
-<div *ngIf="ownedCompanies.length > 0 || collaboratedCompanies.length > 0" class="container-fluid container-cards-pf">
-  <div class="row row-cards-pf">
-    <div *ngFor="let company of ownedCompanies" class="col-xs-12 col-sm-4 col-md-3 col-lg-2">
-      <div routerLink="/_company/{{company.id}}" class="card-pf card-pf-view card-pf-view-select card-pf-view-single-select">
-        <div class="card-pf-body" style="height: 224px;">
-          <div class="card-pf-top-element">
-            <span class="fa pficon pficon-cluster card-pf-icon-circle"></span>
-          </div>
-          <h2 class="card-pf-title text-center">
-            {{company.name}}
-          </h2>
-          <div class="card-pf-items text-center">
-            <div class="card-pf-item">
-              <span class="pficon pficon-user"></span>
-              <span class="card-pf-item-text">Dueño</span>
+<ng-template #organizationsPage>
+  <div class="container-fluid container-cards-pf">
+    <div class="row row-cards-pf">
+      <div *ngIf="masterCompany" class="col-xs-12 col-sm-4 col-md-3 col-lg-2">
+        <div routerLink="/_company/{{masterCompany.id}}" class="card-pf card-pf-view card-pf-view-select card-pf-view-single-select">
+          <div class="card-pf-body" style="height: 224px;">
+            <div class="card-pf-top-element">
+              <span class="fa pficon pficon-cluster card-pf-icon-circle"></span>
             </div>
-            <div class="card-pf-item">
-              <span class="fa fa-shield"></span>
+            <h2 class="card-pf-title text-center">
+              {{masterCompany.name}}
+            </h2>
+            <div class="card-pf-items text-center">
+              <div class="card-pf-item">
+                <span class="pficon pficon-user"></span>
+                <span class="card-pf-item-text">Admin</span>
+              </div>
+              <div class="card-pf-item">
+                <span class="fa fa-shield"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngFor="let company of ownedCompanies" class="col-xs-12 col-sm-4 col-md-3 col-lg-2">
+        <div routerLink="/_company/{{company.id}}" class="card-pf card-pf-view card-pf-view-select card-pf-view-single-select">
+          <div class="card-pf-body" style="height: 224px;">
+            <div class="card-pf-top-element">
+              <span class="fa pficon pficon-cluster card-pf-icon-circle"></span>
+            </div>
+            <h2 class="card-pf-title text-center">
+              {{company.name}}
+            </h2>
+            <div class="card-pf-items text-center">
+              <div class="card-pf-item">
+                <span class="pficon pficon-user"></span>
+                <span class="card-pf-item-text">Dueño</span>
+              </div>
+              <div class="card-pf-item">
+                <span class="fa fa-shield"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngFor="let company of collaboratedCompanies" class="col-xs-12 col-sm-4 col-md-3 col-lg-2">
+        <div class="card-pf card-pf-view card-pf-view-select card-pf-view-single-select">
+          <div class="card-pf-body" style="height: 224px;">
+            <div class="card-pf-top-element">
+              <span class="fa pficon pficon-cluster card-pf-icon-circle"></span>
+            </div>
+            <h2 class="card-pf-title text-center">
+              {{company.name}}
+            </h2>
+            <div class="card-pf-items text-center">
+              <div class="card-pf-item">
+                <span class="pficon pficon-users"></span>
+                <span class="card-pf-item-text">Colaborador</span>
+              </div>
+              <div class="card-pf-item">
+                <span class="fa fa-shield"></span>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div *ngFor="let company of collaboratedCompanies" class="col-xs-12 col-sm-4 col-md-3 col-lg-2">
-      <div class="card-pf card-pf-view card-pf-view-select card-pf-view-single-select">
-        <div class="card-pf-body" style="height: 224px;">
-          <div class="card-pf-top-element">
-            <span class="fa pficon pficon-cluster card-pf-icon-circle"></span>
-          </div>
-          <h2 class="card-pf-title text-center">
-            {{company.name}}
-          </h2>
-          <div class="card-pf-items text-center">
-            <div class="card-pf-item">
-              <span class="pficon pficon-users"></span>
-              <span class="card-pf-item-text">Colaborador</span>
-            </div>
-            <div class="card-pf-item">
-              <span class="fa fa-shield"></span>
-            </div>
-          </div>
-        </div>
-      </div>
+  </div>
+</ng-template>
+
+<ng-template #emptyOrganizations>
+  <div class="blank-slate-pf">
+    <div class="blank-slate-pf-icon">
+      <span class="pficon pficon pficon-add-circle-o"></span>
+    </div>
+    <h1>
+      Bienvenido!
+    </h1>
+    <p>
+      Parece que todavia no tiene una Empresa en la que pueda administrar sus documentos electrónicos. Usted puede crear su propia
+      empresa o solicitar a la empresa donde labora que sea registrado como colaborador.
+    </p>
+    <p>
+      Aprender más acerca de esto en
+      <a href="javascript:void(0)">la documentación</a>.
+    </p>
+    <div class="blank-slate-pf-main-action">
+      <button routerLink="/_home/_newcompany" class="btn btn-primary btn-lg"> Crear Organización </button>
     </div>
   </div>
-</div>
-
-<div *ngIf="ownedCompanies.length === 0 && collaboratedCompanies.length === 0" class="blank-slate-pf">
-  <div class="blank-slate-pf-icon">
-    <span class="pficon pficon pficon-add-circle-o"></span>
-  </div>
-  <h1>
-    Bienvenido!
-  </h1>
-  <p>
-    Parece que todavia no tiene una Empresa en la que pueda administrar sus documentos electrónicos. Usted puede crear su propia
-    empresa o solicitar a la empresa donde labora que sea registrado como colaborador.
-  </p>
-  <p>
-    Aprender más acerca de esto en
-    <a href="javascript:void(0)">la documentación</a>.
-  </p>
-  <div class="blank-slate-pf-main-action">
-    <button routerLink="/_home/_newcompany" class="btn btn-primary btn-lg"> Crear Organización </button>
-  </div>
-</div>
+</ng-template>

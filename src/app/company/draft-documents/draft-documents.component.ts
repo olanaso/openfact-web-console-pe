@@ -1,7 +1,7 @@
 import { Subscription } from 'rxjs/Subscription';
 import { PEUBLDocumentService } from './../../ngx-openfact/pe-sunat/pe-ubl-document.service';
 import { Component, OnInit } from '@angular/core';
-import { Contexts, Company, Invoice } from './../../ngx-openfact';
+import { Contexts, Organization, Invoice } from './../../ngx-openfact';
 
 @Component({
   selector: 'of-draft-documents',
@@ -10,7 +10,7 @@ import { Contexts, Company, Invoice } from './../../ngx-openfact';
 })
 export class DraftDocumentsComponent implements OnInit {
 
-  company: Company;
+  company: Organization;
 
   facturas: Invoice[] = [];
   facturasColumns: any[] = [];

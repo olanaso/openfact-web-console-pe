@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ServerInfoService , Company, CompanyService, Contexts } from './../../../../ngx-openfact';
+import { ServerInfoService , Organization, OrganizationService, Contexts } from './../../../../ngx-openfact';
 import { Notification, NotificationType, Notifications } from './../../../../ngx-base';
 
 import { Subscription } from 'rxjs/Subscription';
@@ -16,7 +16,7 @@ import 'rxjs/add/observable/concat';
 })
 export class ProviderComponent implements OnInit, OnDestroy {
 
-  company: Company;
+  company: Organization;
   loading = false;
   create: boolean;
 
@@ -35,7 +35,7 @@ export class ProviderComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private companyService: CompanyService,
+    private companyService: OrganizationService,
     private contexts: Contexts,
     private formBuilder: FormBuilder,
     private serverInfoService: ServerInfoService,

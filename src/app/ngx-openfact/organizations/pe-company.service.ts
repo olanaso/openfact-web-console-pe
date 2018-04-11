@@ -7,7 +7,7 @@ import { Logger } from '../../ngx-base';
 import { Observable } from 'rxjs/Observable';
 
 import { OPENFACT_API_URL } from '../api/openfact-api';
-import { Company } from '../models/company';
+import { Organization } from '../models/organization';
 
 import 'rxjs/add/observable/from';
 import 'rxjs/add/operator/distinct';

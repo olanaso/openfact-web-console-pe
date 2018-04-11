@@ -1,7 +1,7 @@
 import { Router } from '@angular/router';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Company, CompanyService } from './../ngx-openfact';
+import { Organization, OrganizationService } from './../ngx-openfact';
 import { User, UserService } from './../ngx-login-client';
 import { Notification, NotificationType, Notifications } from './../ngx-base';
 import { Subscription } from 'rxjs/Subscription';
@@ -23,7 +23,7 @@ export class NewCompanyComponent implements OnInit, OnDestroy {
     private router: Router,
     private formBuilder: FormBuilder,
     private userService: UserService,
-    private companyService: CompanyService,
+    private companyService: OrganizationService,
     private notifications: Notifications,
   ) {
     this.subscriptions.push(
@@ -72,12 +72,12 @@ export class NewCompanyComponent implements OnInit, OnDestroy {
     );
   }
 
-  createTransientCompany(): Company {
+  createTransientCompany(): Organization {
     const company = {
       owner: {
         id: this.loggedInUser.id
       }
-    } as Company;
+    } as Organization;
 
     return company;
   }

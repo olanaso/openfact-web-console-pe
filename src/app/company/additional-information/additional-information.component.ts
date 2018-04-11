@@ -1,6 +1,6 @@
 import { Notification, NotificationType, Notifications } from './../../ngx-base';
 import { Contexts } from './../../ngx-openfact/contexts/contexts';
-import { PECompanyService } from './../../ngx-openfact/companies/pe-company.service';
+import { PECompanyService } from './../../ngx-openfact';
 import { Subscription } from 'rxjs/Subscription';
 import { Context } from './../../ngx-openfact/contexts/context';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';

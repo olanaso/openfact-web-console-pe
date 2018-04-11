@@ -1,6 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs/Subscription';
+
 import { UserService, User } from './../../ngx-login-client';
+import { KeycloakService } from './../../keycloak-service/keycloak.service';
+
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'of-horizontal-navigation',
@@ -12,7 +15,10 @@ export class HorizontalNavigationComponent implements OnInit, OnDestroy {
   loggedInUser: User;
   private subcriptions: Subscription[] = [];
 
-  constructor(private userService: UserService) {
+  constructor(
+    private userService: UserService,
+    private keycloakService: KeycloakService,
+  ) {
     this.subcriptions.push(
       userService.loggedInUser.subscribe((val) => this.loggedInUser = val)
     );
@@ -25,4 +31,7 @@ export class HorizontalNavigationComponent implements OnInit, OnDestroy {
     this.subcriptions.forEach((val) => val.unsubscribe());
   }
 
+  logout() {
+    this.keycloakService.logout();
+  }
 }

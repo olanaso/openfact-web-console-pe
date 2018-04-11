@@ -1,5 +1,5 @@
 import { ServerInfoService } from './serverinfo/server-info';
-import { PECompanyService } from './companies/pe-company.service';
+import { PECompanyService } from './organizations/pe-company.service';
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
@@ -7,8 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgxBaseModule } from '../ngx-base/ngx-base.module';
 import { NxgLoginModule } from './../ngx-login-client/ngx-login.module';
 
-import { CompanyNamePipe } from './companies/company-name.pipe';
-import { CompanyService } from './companies/company.service';
+import { OrganizationService } from './organizations/organization.service';
 
 import { UBLDocumentService } from './documents/ubl-document.service';
 
@@ -26,10 +25,8 @@ import { PESUNATService } from './pe-sunat/pe-sunat';
     NxgLoginModule
   ],
   declarations: [
-    CompanyNamePipe,
   ],
   exports: [
-    CompanyNamePipe,
   ],
   providers: []
 })
@@ -39,7 +36,7 @@ export class NgxOpenfactModule {
     return {
       ngModule: NgxOpenfactModule,
       providers: [
-        CompanyService,
+        OrganizationService,
         UBLDocumentService,
         ContextService,
         {

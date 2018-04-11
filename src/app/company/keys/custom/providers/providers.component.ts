@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpParams } from '@angular/common/http';
 
-import { Company, CompanyService, ServerInfoService, Contexts } from './../../../../ngx-openfact';
+import { Organization, OrganizationService, ServerInfoService, Contexts } from './../../../../ngx-openfact';
 import { Subscription } from 'rxjs/Subscription';
 
 @Component({
@@ -12,7 +12,7 @@ import { Subscription } from 'rxjs/Subscription';
 })
 export class ProvidersComponent implements OnInit, OnDestroy {
 
-  company: Company;
+  company: Organization;
   loading = false;
 
   type = 'org.openfact.keys.KeyProvider';
@@ -25,7 +25,7 @@ export class ProvidersComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private companyService: CompanyService,
+    private companyService: OrganizationService,
     private serverInfoService: ServerInfoService,
     private contexts: Contexts
   ) {

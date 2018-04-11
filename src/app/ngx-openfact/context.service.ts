@@ -16,8 +16,8 @@ import {
 import { Context } from './contexts/context';
 import { Contexts } from './contexts/contexts';
 import { ContextTypes } from './contexts/context-types';
-import { Company } from './models/company';
-import { CompanyService } from './companies/company.service';
+import { Organization } from './models/organization';
+import { OrganizationService } from './organizations/organization.service';
 import { UBLDocument } from './models/ubl-document';
 import { UBLDocumentService } from './documents/ubl-document.service';
 
@@ -53,7 +53,7 @@ export class ContextService implements Contexts {
   constructor(
     private router: Router,
     private broadcaster: Broadcaster,
-    private companyService: CompanyService,
+    private companyService: OrganizationService,
     private userService: UserService,
     private notifications: Notifications,
     private route: ActivatedRoute,
@@ -281,11 +281,11 @@ export class ContextService implements Contexts {
       });
   }
 
-  private loadCompany(spaceId: string): Observable<Company> {
+  private loadCompany(spaceId: string): Observable<Organization> {
     if (spaceId) {
-      return this.companyService.searchCompanyById(spaceId);
+      return this.companyService.filterOrganizationById(spaceId);
     } else {
-      return Observable.of({} as Company);
+      return Observable.of({} as Organization);
     }
   }
 

@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Contexts, Company, CompanyService } from './../../ngx-openfact';
+import { Contexts, Organization, OrganizationService } from './../../ngx-openfact';
 import { Subscription } from 'rxjs/Subscription';
 
 import 'rxjs/add/operator/publish';
@@ -12,7 +12,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class KeysComponent implements OnInit, OnDestroy {
 
-  company: Company;
+  company: Organization;
   useCustomCertificates: boolean;
 
   private subscriptions: Subscription[] = [];
@@ -21,12 +21,12 @@ export class KeysComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private contexts: Contexts,
-    private companyService: CompanyService
+    private companyService: OrganizationService
   ) {
     this.subscriptions.push(
       contexts.current
         .map((val) => val.company)
-        .switchMap((company) => this.companyService.getCompanyById(company.id))
+        .switchMap((company) => this.companyService.getOrganization(company.id))
         .do((company) => {
           this.company = company;
           this.useCustomCertificates = company.useCustomCertificates;
@@ -65,10 +65,10 @@ export class KeysComponent implements OnInit, OnDestroy {
     });
   }
 
-  createTransientCompany(): Company {
+  createTransientCompany(): Organization {
     const company = {
       id: this.company.id,
-    } as Company;
+    } as Organization;
 
     return company;
   }

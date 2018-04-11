@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpParams } from '@angular/common/http';
 import { Subscription } from 'rxjs/Subscription';
-import { Contexts, Company, CompanyService } from './../../../../ngx-openfact';
+import { Contexts, Organization, OrganizationService } from './../../../../ngx-openfact';
 import 'rxjs/add/operator/publish';
 
 @Component({
@@ -11,7 +11,7 @@ import 'rxjs/add/operator/publish';
 })
 export class AllComponent implements OnInit, OnDestroy {
 
-  company: Company;
+  company: Organization;
 
   loading = false;
   active: any = {};
@@ -22,7 +22,7 @@ export class AllComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
 
   constructor(
-    private companyService: CompanyService,
+    private companyService: OrganizationService,
     private contexts: Contexts
   ) {
     this.subscriptions.push(

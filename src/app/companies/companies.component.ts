@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Company, CompanyService } from './../ngx-openfact';
+import { Organization, OrganizationService } from './../ngx-openfact';
 import { User, UserService } from './../ngx-login-client';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -10,15 +10,16 @@ import { Subscription } from 'rxjs/Subscription';
 })
 export class CompaniesComponent implements OnInit, OnDestroy {
 
-  ownedCompanies: Company[] = [];
-  collaboratedCompanies: Company[] = [];
+  masterCompany: Organization;
+  ownedCompanies: Organization[] = [];
+  collaboratedCompanies: Organization[] = [];
 
   private loggedInUser: User;
   private subscriptions: Subscription[] = [];
 
   constructor(
     private userService: UserService,
-    private companyService: CompanyService
+    private companyService: OrganizationService
   ) {
     this.subscriptions.push(
       userService.loggedInUser.subscribe((val) => {
@@ -36,11 +37,10 @@ export class CompaniesComponent implements OnInit, OnDestroy {
   }
 
   search() {
-    this.companyService.getCompaniesByUserId(this.loggedInUser.id, 'owner').subscribe((val) => {
-      this.ownedCompanies = val;
-    });
-    this.companyService.getCompaniesByUserId(this.loggedInUser.id, 'collaborator').subscribe((val) => {
-      this.collaboratedCompanies = val;
+    this.companyService.searchCompaniesByUserid(this.loggedInUser.id).subscribe((val) => {
+      this.masterCompany = val.master;
+      this.ownedCompanies = val.owned;
+      this.collaboratedCompanies = val.collaborated;
     });
   }
 

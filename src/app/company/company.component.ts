@@ -3,7 +3,7 @@ import { DOCUMENT } from '@angular/common';
 import { NavigationItemConfig } from 'patternfly-ng/navigation';
 import { ContextItemConfig } from '../layout/vertical-navigation/context-item-config';
 import { User, UserService } from './../ngx-login-client';
-import { Contexts, Context, Company, CompanyService } from './../ngx-openfact/';
+import { Contexts, Context, Organization, OrganizationService } from './../ngx-openfact/';
 import { KeycloakService } from './../keycloak-service/keycloak.service';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
@@ -22,7 +22,7 @@ export class CompanyComponent implements OnInit, OnDestroy {
   contextItems: ContextItemConfig[];
   navigationItems: NavigationItemConfig[];
 
-  companies: Company[] = [];
+  companies: Organization[] = [];
 
   private context: Context;
   private subscriptions: Subscription[] = [];
@@ -31,7 +31,7 @@ export class CompanyComponent implements OnInit, OnDestroy {
     private renderer: Renderer2,
     @Inject(DOCUMENT) private document: Document,
     private userService: UserService,
-    private companyService: CompanyService,
+    private companyService: OrganizationService,
     private contexts: Contexts,
     private keycloakService: KeycloakService
   ) {
@@ -63,11 +63,12 @@ export class CompanyComponent implements OnInit, OnDestroy {
   }
 
   fetchCompanies() {
-    Observable.forkJoin(
-      this.companyService.getCompaniesByUserId(this.loggedInUser.id, 'owner'),
-      this.companyService.getCompaniesByUserId(this.loggedInUser.id, 'collaborator')
-    ).subscribe((val) => {
-      this.companies = val[0].concat(val[1]);
+    this.companyService.searchCompaniesByUserid(this.loggedInUser.id).subscribe((val) => {
+      const master = val.master;
+      const owned = val.owned;
+      const collaborated = val.collaborated;
+      this.companies = (master ? [master] : []).concat(owned).concat(collaborated);
+
       this.initContextItems();
     });
   }

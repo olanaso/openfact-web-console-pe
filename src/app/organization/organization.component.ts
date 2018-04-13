@@ -125,8 +125,8 @@ export class OrganizationComponent implements OnInit, OnDestroy {
             url: '/_organization/' + company.id + '/_smtp'
           },
           {
-            title: 'Envíos a la SUNAT',
-            url: './web-services-sunat'
+            title: 'Información SUNAT',
+            url: '/_organization/' + company.id + '/_sunatinformation'
           }
         ]
       },

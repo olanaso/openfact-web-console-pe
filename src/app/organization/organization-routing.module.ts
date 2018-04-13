@@ -36,6 +36,10 @@ const routes: Routes = [
       {
         path: '_keys',
         loadChildren: './keys/keys.module#KeysModule',
+      },
+      {
+        path: '_sunatinformation',
+        loadChildren: './sunat-information/sunat-information.module#SunatInformationModule',
       }
     ]
   }

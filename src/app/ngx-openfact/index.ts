@@ -17,6 +17,7 @@ export { ExtendedOrganization } from './models/extended-organization';
 export { OrganizationService } from './organizations/organization.service';
 export { Organizations } from './organizations/organizations';
 
+export { OrganizationSunatInformation } from './models/organization-sunat-information';
 export { OrganizationAdditionalInformation } from './models/organization-additional-information';
 export { OrganizationPeruService } from './organizations/organization-peru.service';
 

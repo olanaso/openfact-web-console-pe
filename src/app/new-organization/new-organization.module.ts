@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
-import { NewCompanyComponent } from './new-company.component';
-import { NewCompanyRoutingModule } from './new-company-routing.module';
+import { NewOrganizationComponent } from './new-organization.component';
+import { NewOrganizationRoutingModule } from './new-organization-routing.module';
 import { NgxBaseModule } from './../ngx-base/ngx-base.module';
 import { NgxFormsModule } from './../ngx-forms/ngx-forms.module';
 import { NgxButtonModule } from './../ngx-button/ngx-button.module';
@@ -10,12 +10,12 @@ import { NgxButtonModule } from './../ngx-button/ngx-button.module';
 @NgModule({
   imports: [
     CommonModule,
-    NewCompanyRoutingModule,
+    NewOrganizationRoutingModule,
     ReactiveFormsModule,
     NgxBaseModule,
     NgxFormsModule,
     NgxButtonModule
   ],
-  declarations: [NewCompanyComponent]
+  declarations: [NewOrganizationComponent]
 })
-export class NewCompanyModule { }
+export class NewOrganizationModule { }

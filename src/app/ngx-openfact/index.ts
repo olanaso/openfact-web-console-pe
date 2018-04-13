@@ -12,7 +12,8 @@ export { OPENFACT_API_URL } from './api/openfact-api';
 
 // Organizations
 export { Team } from './models/team';
-export { Organization, OrganizationOwner } from './models/organization';
+export { Organization } from './models/organization';
+export { ExtendedOrganization } from './models/extended-organization';
 export { OrganizationService } from './organizations/organization.service';
 export { Organizations } from './organizations/organizations';
 

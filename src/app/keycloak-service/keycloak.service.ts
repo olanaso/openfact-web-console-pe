@@ -1,4 +1,21 @@
+/*
+ * Copyright 2017 Red Hat, Inc. and/or its affiliates
+ * and other contributors as indicated by the @author tags.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 import { Injectable } from '@angular/core';
+import { KeycloakLoginOptions } from './keycloak.d';
 
 // If using a local keycloak.js, uncomment this import.  With keycloak.js fetched
 // from the server, you get a compile-time warning on use of the Keycloak()
@@ -6,17 +23,13 @@ import { Injectable } from '@angular/core';
 // to get keycloak.js from the server.
 //
 import * as Keycloak from './keycloak';
-import * as KeycloakAuthorization from './keycloak-authz';
 
-type KeycloakClient = Keycloak.KeycloakInstance;
+export type KeycloakClient = Keycloak.KeycloakInstance;
 type InitOptions = Keycloak.KeycloakInitOptions;
-
-type KeycloakIdentity = KeycloakAuthorization.KeycloakAuthorizationInstance;
 
 @Injectable()
 export class KeycloakService {
   static keycloakAuth: KeycloakClient;
-  static keycloakAuthz: KeycloakIdentity;
 
   /**
    * Configure and initialize the Keycloak adapter.
@@ -27,7 +40,8 @@ export class KeycloakService {
    *                       for details.
    * @returns {Promise<T>}
    */
-  static init(initOptions?: InitOptions, activateAuthz: boolean = false): Promise<any> {
+  static init(initOptions?: InitOptions): Promise<any> {
+
     const configOptions: string | {} = {
       realm: window['OpenfactUIEnv']['realm'] || 'openfact',
       url: window['OpenfactUIEnv']['ssoApiUrl'],
@@ -39,9 +53,6 @@ export class KeycloakService {
     return new Promise((resolve, reject) => {
       KeycloakService.keycloakAuth.init(initOptions)
         .success(() => {
-          if (activateAuthz) {
-            KeycloakService.keycloakAuthz = KeycloakAuthorization(KeycloakService.keycloakAuth);
-          }
           resolve();
         })
         .error((errorData: any) => {
@@ -50,16 +61,23 @@ export class KeycloakService {
     });
   }
 
+  /**
+   * Expose the underlying Keycloak javascript adapter.
+   */
+  client(): KeycloakClient {
+    return KeycloakService.keycloakAuth;
+  }
+
   authenticated(): boolean {
     return KeycloakService.keycloakAuth.authenticated;
   }
 
-  login() {
-    KeycloakService.keycloakAuth.login();
+  login(options?: KeycloakLoginOptions) {
+    KeycloakService.keycloakAuth.login(options);
   }
 
-  logout() {
-    KeycloakService.keycloakAuth.logout();
+  logout(redirectUri?: string) {
+    KeycloakService.keycloakAuth.logout({ redirectUri: redirectUri });
   }
 
   account() {
@@ -72,10 +90,6 @@ export class KeycloakService {
 
   realm(): string {
     return KeycloakService.keycloakAuth.realm;
-  }
-
-  manageAccount(): void {
-    KeycloakService.keycloakAuth.accountManagement();
   }
 
   getToken(): Promise<string> {
@@ -92,38 +106,6 @@ export class KeycloakService {
       } else {
         reject('Not loggen in');
       }
-    });
-  }
-
-  // Authz
-
-  authorization(): boolean {
-    return KeycloakService.keycloakAuthz !== null;
-  }
-
-  rpt(): string {
-    return KeycloakService.keycloakAuthz.rpt;
-  }
-
-  /**
-   *
-   * @param wwwAuthenticateHeader
-   */
-  authorize(wwwAuthenticateHeader: string): Promise<string> {
-    return new Promise<string>((resolve, reject) => {
-      KeycloakService.keycloakAuthz
-        .authorize(wwwAuthenticateHeader)
-        .then(
-          () => {
-            resolve(<string>KeycloakService.keycloakAuthz.rpt);
-          },
-          () => {
-            reject('You can not access or perform the requested operation on this resource.');
-          },
-          () => {
-            reject('Unexpected error from server.');
-          }
-        );
     });
   }
 }

@@ -93,10 +93,7 @@ export class SmtpComponent implements OnInit, OnDestroy {
 
   createTransientCompany(): Organization {
     const company = {
-      id: this.context.organization.id,
-      owner: {
-        id: this.context.organization.owner.id
-      }
+      id: this.context.organization.id
     } as Organization;
 
     return company;

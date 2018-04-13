@@ -7,14 +7,14 @@ import { Notification, NotificationType, Notifications } from './../ngx-base';
 import { Subscription } from 'rxjs/Subscription';
 
 @Component({
-  selector: 'of-new-company',
-  templateUrl: './new-company.component.html',
-  styleUrls: ['./new-company.component.scss']
+  selector: 'of-new-organization',
+  templateUrl: './new-organization.component.html',
+  styleUrls: ['./new-organization.component.scss']
 })
-export class NewCompanyComponent implements OnInit, OnDestroy {
+export class NewOrganizationComponent implements OnInit, OnDestroy {
 
   working = false;
-  companyForm: FormGroup;
+  organizationForm: FormGroup;
 
   private loggedInUser: User;
   private subscriptions: Subscription[] = [];
@@ -32,7 +32,7 @@ export class NewCompanyComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.companyForm = this.formBuilder.group({
+    this.organizationForm = this.formBuilder.group({
       name: [null, Validators.compose([Validators.required, Validators.maxLength(250)])],
       description: [null, Validators.compose([Validators.maxLength(250)])]
     });
@@ -43,15 +43,15 @@ export class NewCompanyComponent implements OnInit, OnDestroy {
   }
 
   save() {
-    if (!this.companyForm.valid || this.working) {
+    if (!this.organizationForm.valid || this.working) {
       return;
     }
 
     this.working = true;
 
     const company = this.createTransientCompany();
-    company.name = this.companyForm.value.name;
-    company.description = this.companyForm.value.description;
+    company.name = this.organizationForm.value.name;
+    company.description = this.organizationForm.value.description;
 
     this.companyService.create(company).subscribe(
       (result) => {
@@ -73,11 +73,7 @@ export class NewCompanyComponent implements OnInit, OnDestroy {
   }
 
   createTransientCompany(): Organization {
-    const company = {
-      owner: {
-        id: this.loggedInUser.id
-      }
-    } as Organization;
+    const company = {} as Organization;
 
     return company;
   }

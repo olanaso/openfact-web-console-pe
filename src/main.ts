@@ -10,12 +10,12 @@ if (environment.production) {
 }
 
 // const noLogin: boolean = false; // convenient for development
-
+//
 // if (noLogin) {
 //   platformBrowserDynamic().bootstrapModule(AppModule);
 // } else {
 
-KeycloakService.init({ onLoad: 'login-required' }, true).then(() => {
+KeycloakService.init({ onLoad: 'login-required' }).then(() => {
   platformBrowserDynamic().bootstrapModule(AppModule);
 }).catch((err: any) => {
   console.log('Error in bootstrap: ' + JSON.stringify(err));

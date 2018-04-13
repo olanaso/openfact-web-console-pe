@@ -14,7 +14,7 @@ const routes: Routes = [
       },
       {
         path: '_neworganization',
-        loadChildren: '../new-company/new-company.module#NewCompanyModule',
+        loadChildren: '../new-organization/new-organization.module#NewOrganizationModule',
       }
     ]
   }

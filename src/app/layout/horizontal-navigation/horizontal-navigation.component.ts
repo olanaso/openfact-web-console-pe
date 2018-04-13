@@ -32,7 +32,7 @@ export class HorizontalNavigationComponent implements OnInit, OnDestroy {
   }
 
   manageAccount() {
-    this.keycloakService.manageAccount();
+    this.keycloakService.client().accountManagement();
   }
 
   logout() {

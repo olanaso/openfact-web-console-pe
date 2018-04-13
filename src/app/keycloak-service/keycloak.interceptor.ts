@@ -1,3 +1,20 @@
+/*
+ * Copyright 2017 Red Hat, Inc. and/or its affiliates
+ * and other contributors as indicated by the @author tags.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 import { Injectable } from '@angular/core';
 import {
   HttpRequest,
@@ -10,82 +27,32 @@ import {
 } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { KeycloakService } from './keycloak.service';
-
 import 'rxjs/add/observable/fromPromise';
 import 'rxjs/add/operator/concatMap';
 import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/retryWhen';
-import 'rxjs/add/operator/switchMap';
 
 @Injectable()
 export class KeycloakInterceptor implements HttpInterceptor {
 
-  private MAX_UNAUTHORIZED_ATTEMPTS = 2;
-
-  constructor(
-    private keycloakService: KeycloakService
-  ) { }
-
-  private handleError(err: any, request: HttpRequest<any>, next: HttpHandler) {
-    if (err instanceof HttpErrorResponse) {
-      const wwwAuthenticateHeader = err.headers.get('WWW-Authenticate');
-
-      const rptPromise: Promise<string> = this.keycloakService.authorize(wwwAuthenticateHeader);
-      const rptObservable: Observable<string> = Observable.fromPromise(rptPromise);
-
-      // return next.handle(request);
-      return rptObservable.switchMap(() => {
-        const newReq = request.clone({
-          setHeaders: {
-            Authorization: `Bearer ${this.keycloakService.rpt()}`
-          }
-        });
-
-        return next.handle(newReq);
-      });
-    } else {
-      return Observable.throw(err);
-    }
-  }
+  constructor(private _keycloakService: KeycloakService) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    if (!this.keycloakService.authenticated()) { return next.handle(request); }
+    if (!this._keycloakService.authenticated()) { return next.handle(request); }
 
-    let result: Observable<HttpEvent<any>>;
+    const tokenPromise: Promise<string> = this._keycloakService.getToken();
+    const tokenObservable: Observable<string> = Observable.fromPromise(tokenPromise);
 
-    if (this.keycloakService.authorization() && this.keycloakService.rpt() && request.url.indexOf('/authorize') === -1) {
-      const retries = 0;
+    return tokenObservable.map((token) => {
       request = request.clone({
         setHeaders: {
-          Authorization: `Bearer ${this.keycloakService.rpt()}`
+          Authorization: `Bearer ${token}`
         }
       });
-      result = next.handle(request)
-        .catch((error) => {
-          return this.handleError(error, request, next);
-        });
-    } else {
-      const tokenPromise: Promise<string> = this.keycloakService.getToken();
-      const tokenObservable: Observable<string> = Observable.fromPromise(tokenPromise);
+      return request;
+    }).concatMap((newRequest) => {
+      return next.handle(newRequest);
+    });
 
-      result = tokenObservable
-        .map((token) => {
-          request = request.clone({
-            setHeaders: {
-              Authorization: `Bearer ${token}`
-            }
-          });
-          return request;
-        })
-        .concatMap((newRequest) => {
-          return next.handle(newRequest);
-        })
-        .catch((error) => {
-          return this.handleError(error, request, next);
-        });
-    }
-
-    return result;
   }
 }
 

@@ -3,7 +3,7 @@ import { DOCUMENT } from '@angular/common';
 import { NavigationItemConfig } from 'patternfly-ng/navigation';
 import { ContextItemConfig } from '../layout/vertical-navigation/context-item-config';
 import { User, UserService } from './../ngx-login-client';
-import { Contexts, Context, Organization, OrganizationService } from './../ngx-openfact/';
+import { Contexts, Context, Organization, ExtendedOrganization, OrganizationService } from './../ngx-openfact/';
 import { KeycloakService } from './../keycloak-service/keycloak.service';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
@@ -22,7 +22,7 @@ export class OrganizationComponent implements OnInit, OnDestroy {
   contextItems: ContextItemConfig[];
   navigationItems: NavigationItemConfig[];
 
-  companies: Organization[] = [];
+  organizations: ExtendedOrganization[] = [];
 
   private context: Context;
   private subscriptions: Subscription[] = [];
@@ -64,17 +64,13 @@ export class OrganizationComponent implements OnInit, OnDestroy {
 
   fetchCompanies() {
     this.organizationService.searchCompaniesByUserid(this.loggedInUser.id).subscribe((val) => {
-      const master = val.master;
-      const owned = val.owned;
-      const collaborated = val.collaborated;
-      this.companies = (master ? [master] : []).concat(owned).concat(collaborated);
-
+      this.organizations = val;
       this.initContextItems();
     });
   }
 
   initContextItems() {
-    this.contextItems = this.companies.map((company) => {
+    this.contextItems = this.organizations.map((company) => {
       return {
         title: company.name,
         url: '/_organization/' + company.id

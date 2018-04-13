@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Organization, OrganizationService } from './../ngx-openfact';
+import { ExtendedOrganization, OrganizationService } from './../ngx-openfact';
 import { User, UserService } from './../ngx-login-client';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -10,9 +10,7 @@ import { Subscription } from 'rxjs/Subscription';
 })
 export class OrganizationsComponent implements OnInit, OnDestroy {
 
-  masterOrganization: Organization;
-  ownedOrganizations: Organization[] = [];
-  collaboratedOrganizations: Organization[] = [];
+  organizations: ExtendedOrganization[] = [];
 
   private loggedInUser: User;
   private subscriptions: Subscription[] = [];
@@ -38,9 +36,7 @@ export class OrganizationsComponent implements OnInit, OnDestroy {
 
   search() {
     this.organizationService.searchCompaniesByUserid(this.loggedInUser.id).subscribe((val) => {
-      this.masterOrganization = val.master;
-      this.ownedOrganizations = val.owned;
-      this.collaboratedOrganizations = val.collaborated;
+      this.organizations = val;
     });
   }
 

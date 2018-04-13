@@ -6,7 +6,7 @@ import { User, UserService } from '../../ngx-login-client';
 
 import { OPENFACT_API_URL } from '../api/openfact-api';
 import { Organization } from '../models/organization';
-import { OrganizationSearchResult } from './../models/organization-search-result';
+import { ExtendedOrganization } from '../models/extended-organization';
 
 import { Observable } from 'rxjs/Observable';
 
@@ -62,9 +62,6 @@ export class OrganizationService {
       .map(response => {
         return response as Organization;
       })
-      .switchMap(val => {
-        return this.resolveOwner(val);
-      })
       .catch((error) => {
         return this.handleError(error);
       });
@@ -93,12 +90,12 @@ export class OrganizationService {
     });
   }
 
-  searchCompaniesByUserid(userId: string): Observable<OrganizationSearchResult> {
+  searchCompaniesByUserid(userId: string): Observable<ExtendedOrganization[]> {
     const url = `${this.organizationUrl}/search`;
     return this.http
       .post(url, { userId: userId }, { headers: this.headers })
       .map(response => {
-        return response as OrganizationSearchResult;
+        return response as ExtendedOrganization[];
       })
       .catch((error) => {
         return this.handleError(error);
@@ -161,56 +158,6 @@ export class OrganizationService {
   private handleError(error: any) {
     this.logger.error(error);
     return Observable.throw(error.message || error);
-  }
-
-  private resolveOwner(organization: Organization): Observable<Organization> {
-    organization.relationalData = organization.relationalData || {};
-
-    if (!organization.owner) {
-      organization.relationalData.owner = {} as User;
-      return Observable.of(organization);
-    }
-
-    return this.userService
-      .searchUserByUserId(organization.owner.id)
-      .map(owner => {
-        organization.relationalData.owner = owner;
-        return organization;
-      });
-  }
-
-  private resolveOwners(companies: Organization[]): Observable<Organization[]> {
-    if (companies.length === 0) {
-      return Observable.of(companies);
-    }
-
-    return Observable
-      // Get a stream of companies
-      .from(companies)
-      // Map to a stream of owner Ids of these companies
-      .map(organization => organization.owner.id)
-      // Get only the unique owners in this stream of owner Ids
-      .distinct()
-      // Get the users from the server based on the owner Ids
-      // and flatten the resulting stream , observables are returned
-      .flatMap(ownerId => {
-        return this.userService.searchUserByUserId(ownerId).catch(err => {
-          console.log('Error fetching user', ownerId, err);
-          return Observable.empty<User>();
-        });
-      })
-      // map the user objects back to the companies to return a stream of companies
-      .map(owner => {
-        if (owner) {
-          for (const organization of companies) {
-            organization.relationalData = organization.relationalData || {};
-            if (owner.id === organization.owner.id) {
-              organization.relationalData.owner = owner;
-            }
-          }
-        }
-        return companies;
-      });
   }
 
   private filterCompaniesById(organizationId: string): Observable<Organization[]> {

@@ -17,7 +17,7 @@ export class AllComponent implements OnInit, OnDestroy {
   active: any = {};
 
   keys: any;
-  type = 'org.openfact.keys.KeyProvider';
+  type = 'org.openfact.core.keys.KeyProvider';
 
   private subscriptions: Subscription[] = [];
 

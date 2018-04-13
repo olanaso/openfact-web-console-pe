@@ -15,7 +15,7 @@ export class ProvidersComponent implements OnInit, OnDestroy {
   company: Organization;
   loading = false;
 
-  type = 'org.openfact.keys.KeyProvider';
+  type = 'org.openfact.core.keys.KeyProvider';
 
   providers: any;
   instances: any;
@@ -54,7 +54,7 @@ export class ProvidersComponent implements OnInit, OnDestroy {
 
     this.subscriptions.push(
       serverInfoService.getServerInfo().subscribe((val) => {
-        this.providers = val.componentTypes['org.openfact.keys.KeyProvider'];
+        this.providers = val.componentTypes['org.openfact.core.keys.KeyProvider'];
       })
     );
   }

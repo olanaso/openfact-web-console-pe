@@ -27,15 +27,15 @@ export class AdditionalInformationComponent implements OnInit, OnDestroy {
   ) {
     this.organizationForm = this.formBuilder.group({
       assignedId: [null, Validators.compose([Validators.required, Validators.minLength(11), Validators.maxLength(11)])],
-      additionalAssignedId: ['6', Validators.compose([Validators.maxLength(2)])],
-      razonSocial: [null, Validators.compose([Validators.maxLength(250)])],
-      nombreComercial: [null, Validators.compose([Validators.maxLength(250)])],
-      region: [null, Validators.compose([Validators.maxLength(250)])],
-      provincia: [null, Validators.compose([Validators.maxLength(250)])],
-      distrito: [null, Validators.compose([Validators.maxLength(250)])],
-      codigoPostal: [null, Validators.compose([Validators.minLength(6), Validators.maxLength(6)])],
-      codigoPais: ['PE', Validators.compose([Validators.minLength(2), Validators.maxLength(2)])],
-      direccion: [null, Validators.compose([Validators.maxLength(250)])]
+      additionalAssignedId: ['6', Validators.compose([Validators.required, Validators.maxLength(2)])],
+      razonSocial: [null, Validators.compose([Validators.required, Validators.maxLength(250)])],
+      nombreComercial: [null, Validators.compose([Validators.required, Validators.maxLength(250)])],
+      region: [null, Validators.compose([Validators.required, Validators.maxLength(250)])],
+      provincia: [null, Validators.compose([Validators.required, Validators.maxLength(250)])],
+      distrito: [null, Validators.compose([Validators.required, Validators.maxLength(250)])],
+      codigoPostal: [null, Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(6)])],
+      codigoPais: ['PE', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(2)])],
+      direccion: [null, Validators.compose([Validators.required, Validators.maxLength(250)])]
     });
 
     this.subscriptions.push(
@@ -89,7 +89,7 @@ export class AdditionalInformationComponent implements OnInit, OnDestroy {
   }
 
   createTransientCompany(): OrganizationAdditionalInformation {
-    return  {
+    return {
       id: this.context.organization.id
     } as OrganizationAdditionalInformation;
   }

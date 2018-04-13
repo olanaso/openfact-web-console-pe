@@ -20,7 +20,7 @@ export class ActiveComponent implements OnInit, OnDestroy {
   activeMapKeys;
 
   keys: any;
-  type = 'org.openfact.keys.KeyProvider';
+  type = 'org.openfact.core.keys.KeyProvider';
 
   private subscriptions: Subscription[] = [];
 

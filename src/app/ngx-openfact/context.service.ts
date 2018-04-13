@@ -26,6 +26,8 @@ import { Observable } from 'rxjs/Observable';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { ConnectableObservable } from 'rxjs/observable/ConnectableObservable';
 
+
+import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/first';
 import 'rxjs/add/operator/multicast';
 import 'rxjs/add/operator/distinctUntilChanged';

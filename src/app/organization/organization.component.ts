@@ -1,4 +1,5 @@
-import { Component, OnInit, Renderer2, Inject, OnDestroy } from '@angular/core';
+import { SidebarComponent } from './sidebar/sidebar.component';
+import { Component, OnInit, Renderer2, Inject, OnDestroy, ViewChild, TemplateRef } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { NavigationItemConfig } from 'patternfly-ng/navigation';
 import { ContextItemConfig } from '../layout/vertical-navigation/context-item-config';
@@ -23,6 +24,11 @@ export class OrganizationComponent implements OnInit, OnDestroy {
   navigationItems: NavigationItemConfig[];
 
   organizations: ExtendedOrganization[] = [];
+
+  sidebarCollapsed: boolean;
+
+  @ViewChild(SidebarComponent)
+  sidebar: SidebarComponent;
 
   private context: Context;
   private subscriptions: Subscription[] = [];
@@ -123,7 +129,12 @@ export class OrganizationComponent implements OnInit, OnDestroy {
             url: './web-services-sunat'
           }
         ]
-      }
+      },
+      {
+        title: 'Home',
+        iconStyleClass: 'pficon pficon-home',
+        url: '/'
+      },
     ];
   }
 
@@ -143,4 +154,8 @@ export class OrganizationComponent implements OnInit, OnDestroy {
     this.keycloakService.logout();
   }
 
+  toggleSidebar($event: boolean) {
+    this.sidebarCollapsed = $event;
+    this.sidebar.handleNavBarToggleClick();
+  }
 }

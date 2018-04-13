@@ -2,6 +2,8 @@ import {
   Component,
   OnInit,
   Input,
+  Output,
+  EventEmitter
 } from '@angular/core';
 import { ContextItemConfig } from './context-item-config';
 
@@ -27,7 +29,9 @@ export class VerticalNavigationComponent implements OnInit {
    */
   @Input() contextItems: ContextItemConfig[];
 
-  private explicitCollapse = false;
+  @Output() toggleNavBar: EventEmitter<boolean> = new EventEmitter<boolean>();
+
+  private collapsed = false;
 
   constructor() { }
 
@@ -38,7 +42,8 @@ export class VerticalNavigationComponent implements OnInit {
   * Handles the navbar hamburger toggle click
   */
   public handleNavBarToggleClick(): void {
-
+    this.collapsed = !this.collapsed;
+    this.toggleNavBar.emit(this.collapsed);
   }
 
   selectContextItem(contextItem: ContextItemConfig) {

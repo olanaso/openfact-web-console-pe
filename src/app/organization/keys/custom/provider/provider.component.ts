@@ -94,7 +94,7 @@ export class ProviderComponent implements OnInit, OnDestroy {
 
     this.create = !this.instance.providerId;
 
-    const providers = this.serverInfo.componentTypes['org.openfact.keys.KeyProvider'];
+    const providers = this.serverInfo.componentTypes['org.openfact.core.keys.KeyProvider'];
     let providerFactory = null;
     for (let i = 0; i < providers.length; i++) {
       const p = providers[i];
@@ -109,7 +109,7 @@ export class ProviderComponent implements OnInit, OnDestroy {
       this.instance = {
         name: providerFactory.id,
         providerId: providerFactory.id,
-        providerType: 'org.openfact.keys.KeyProvider',
+        providerType: 'org.openfact.core.keys.KeyProvider',
         parentId: this.company.id,
         config: {
           'priority': ['0']

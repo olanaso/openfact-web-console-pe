@@ -13,18 +13,18 @@ import { Notification, NotificationType, Notifications } from './../../ngx-base'
 export class GeneralInformationComponent implements OnInit, OnDestroy {
 
   working = false;
-  companyForm: FormGroup;
+  organizationForm: FormGroup;
 
   private context: Context;
   private subscriptions: Subscription[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
-    private companyService: OrganizationService,
+    private organizationService: OrganizationService,
     private contexts: Contexts,
     private notifications: Notifications,
   ) {
-    this.companyForm = this.formBuilder.group({
+    this.organizationForm = this.formBuilder.group({
       name: [null, Validators.compose([Validators.required, Validators.maxLength(250)])],
       description: [null, Validators.compose([Validators.maxLength(250)])]
     });
@@ -46,23 +46,23 @@ export class GeneralInformationComponent implements OnInit, OnDestroy {
   }
 
   syncForm() {
-    this.companyService.getOrganization(this.context.organization.id).subscribe((val) => {
-      this.companyForm.patchValue(val);
+    this.organizationService.getOrganization(this.context.organization.id).subscribe((val) => {
+      this.organizationForm.patchValue(val);
     });
   }
 
   save() {
-    if (!this.companyForm.valid || this.working) {
+    if (!this.organizationForm.valid || this.working) {
       return;
     }
 
     this.working = true;
 
-    const company = this.createTransientCompany();
-    company.name = this.companyForm.value.name;
-    company.description = this.companyForm.value.description;
+    const organization = this.createTransientCompany();
+    organization.name = this.organizationForm.value.name;
+    organization.description = this.organizationForm.value.description;
 
-    this.companyService.update(company).subscribe(
+    this.organizationService.update(organization).subscribe(
       (result) => {
         this.working = false;
         this.notifications.message({
@@ -82,10 +82,7 @@ export class GeneralInformationComponent implements OnInit, OnDestroy {
 
   createTransientCompany(): Organization {
     const company = {
-      id: this.context.organization.id,
-      owner: {
-        id: this.context.organization.owner.id
-      }
+      id: this.context.organization.id
     } as Organization;
 
     return company;

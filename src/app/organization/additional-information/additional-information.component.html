@@ -8,7 +8,7 @@
 
 <div>
   <h3>Actualizar Organización</h3>
-  <form [formGroup]="companyForm" (ngSubmit)="save()" class="form-horizontal">
+  <form [formGroup]="organizationForm" (ngSubmit)="save()" class="form-horizontal">
     <p class="fields-status-pf">Los campos marcados con
       <span class="required-pf">*</span> son requeridos.
     </p>
@@ -86,7 +86,7 @@
 
     <div class="form-group">
       <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-md-offset-2 col-lg-offset-2">
-        <of-working-button [type]="'submit'" [active]="companyForm.valid" [working]="working"></of-working-button>
+        <of-working-button [type]="'submit'" [active]="organizationForm.valid" [working]="working"></of-working-button>
       </div>
     </div>
 

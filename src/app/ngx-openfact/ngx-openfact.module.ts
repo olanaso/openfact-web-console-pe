@@ -1,5 +1,5 @@
 import { ServerInfoService } from './serverinfo/server-info';
-import { PECompanyService } from './organizations/pe-company.service';
+import { OrganizationPeruService } from './organizations/organization-peru.service';
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
@@ -44,7 +44,7 @@ export class NgxOpenfactModule {
           useExisting: ContextService
         },
         ServerInfoService,
-        PECompanyService,
+        OrganizationPeruService,
         PESUNATService,
         PEUBLDocumentService
       ]

@@ -29,14 +29,14 @@ export class SearchComponent implements OnInit {
   }
 
   newInvoice() {
-    this.router.navigate(['_company', this.company.id, '_documents', '_invoice']);
+    this.router.navigate(['_organization', this.company.id, '_documents', '_invoice']);
   }
 
   newCreditNote() {
-    this.router.navigate(['_company', this.company.id, '_documents', '_newcreditnote']);
+    this.router.navigate(['_organization', this.company.id, '_documents', '_newcreditnote']);
   }
 
   newDebitNote() {
-    this.router.navigate(['_company', this.company.id, '_documents', '_newdebitnote']);
+    this.router.navigate(['_organization', this.company.id, '_documents', '_newdebitnote']);
   }
 }

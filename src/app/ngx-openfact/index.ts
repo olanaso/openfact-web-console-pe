@@ -1,3 +1,4 @@
+import { OrganizationAdditionalInformation } from './models/organization-additional-information';
 export { NgxOpenfactModule } from './ngx-openfact.module';
 
 // Contexts
@@ -15,8 +16,8 @@ export { Organization, OrganizationOwner } from './models/organization';
 export { OrganizationService } from './organizations/organization.service';
 export { Organizations } from './organizations/organizations';
 
-export { PECompany } from './models/pe-company';
-export { PECompanyService } from './organizations/pe-company.service';
+export { OrganizationAdditionalInformation } from './models/organization-additional-information';
+export { OrganizationPeruService } from './organizations/organization-peru.service';
 
 // Documents
 export { UBLDocument } from './models/ubl-document';

@@ -60,9 +60,10 @@ export class KeycloakInterceptor implements HttpInterceptor {
           Authorization: `Bearer ${this.keycloakService.rpt()}`
         }
       });
-      result = next.handle(request).catch(error => {
-        return this.handleError(error, request, next);
-      });
+      result = next.handle(request)
+        .catch((error) => {
+          return this.handleError(error, request, next);
+        });
     } else {
       const tokenPromise: Promise<string> = this.keycloakService.getToken();
       const tokenObservable: Observable<string> = Observable.fromPromise(tokenPromise);
@@ -85,17 +86,6 @@ export class KeycloakInterceptor implements HttpInterceptor {
     }
 
     return result;
-
-    // if (err.url.indexOf('/authorize') === -1) {
-    //   const rptPromise: Promise<string> = this.keycloakService.authorize((err.headers.get('WWW-Authenticate')));
-    //   const rptObservable: Observable<string> = Observable.fromPromise(rptPromise);
-
-    //   // return next.handle(request);
-    //   rptObservable.subscribe((val) => {
-    //     console.log("rpt result", val);
-    //   });
-    // }
-
   }
 }
 

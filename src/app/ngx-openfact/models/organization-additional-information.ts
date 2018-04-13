@@ -1,4 +1,4 @@
-export interface PECompany {
+export interface OrganizationAdditionalInformation {
   id: string;
   assignedId: string;
   additionalAssignedId: string;

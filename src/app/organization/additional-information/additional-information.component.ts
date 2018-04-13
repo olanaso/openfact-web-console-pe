@@ -1,10 +1,9 @@
 import { Notification, NotificationType, Notifications } from './../../ngx-base';
 import { Contexts } from './../../ngx-openfact/contexts/contexts';
-import { PECompanyService } from './../../ngx-openfact';
 import { Subscription } from 'rxjs/Subscription';
 import { Context } from './../../ngx-openfact/contexts/context';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { PECompany } from './../../ngx-openfact/models/pe-company';
+import { OrganizationAdditionalInformation, OrganizationPeruService } from './../../ngx-openfact';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
 @Component({
@@ -15,18 +14,18 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 export class AdditionalInformationComponent implements OnInit, OnDestroy {
 
   working = false;
-  companyForm: FormGroup;
+  organizationForm: FormGroup;
 
   private context: Context;
   private subscriptions: Subscription[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
-    private peCompanyService: PECompanyService,
+    private organizationPeruService: OrganizationPeruService,
     private contexts: Contexts,
     private notifications: Notifications,
   ) {
-    this.companyForm = this.formBuilder.group({
+    this.organizationForm = this.formBuilder.group({
       assignedId: [null, Validators.compose([Validators.required, Validators.minLength(11), Validators.maxLength(11)])],
       additionalAssignedId: ['6', Validators.compose([Validators.maxLength(2)])],
       razonSocial: [null, Validators.compose([Validators.maxLength(250)])],
@@ -56,22 +55,22 @@ export class AdditionalInformationComponent implements OnInit, OnDestroy {
   }
 
   syncForm() {
-    this.peCompanyService.get(this.context.organization.id).subscribe((val) => {
-      this.companyForm.patchValue(val);
+    this.organizationPeruService.getInformacionAdicional(this.context.organization.id).subscribe((val) => {
+      this.organizationForm.patchValue(val);
     });
   }
 
   save() {
-    if (!this.companyForm.valid || this.working) {
+    if (!this.organizationForm.valid || this.working) {
       return;
     }
 
     this.working = true;
 
     let company = this.createTransientCompany();
-    company = Object.assign(company, this.companyForm.value);
+    company = Object.assign(company, this.organizationForm.value);
 
-    this.peCompanyService.update(company).subscribe(
+    this.organizationPeruService.update(company).subscribe(
       (result) => {
         this.working = false;
         this.notifications.message({
@@ -89,12 +88,10 @@ export class AdditionalInformationComponent implements OnInit, OnDestroy {
     );
   }
 
-  createTransientCompany(): PECompany {
-    const company = {
+  createTransientCompany(): OrganizationAdditionalInformation {
+    return  {
       id: this.context.organization.id
-    } as PECompany;
-
-    return company;
+    } as OrganizationAdditionalInformation;
   }
 
 }

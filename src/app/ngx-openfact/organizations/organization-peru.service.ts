@@ -1,4 +1,3 @@
-import { PECompany } from './../models/pe-company';
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { cloneDeep } from 'lodash';
@@ -8,13 +7,14 @@ import { Observable } from 'rxjs/Observable';
 
 import { OPENFACT_API_URL } from '../api/openfact-api';
 import { Organization } from '../models/organization';
+import { OrganizationAdditionalInformation } from './../models/organization-additional-information';
 
 import 'rxjs/add/observable/from';
 import 'rxjs/add/operator/distinct';
 import 'rxjs/add/operator/mergeMap';
 
 @Injectable()
-export class PECompanyService {
+export class OrganizationPeruService {
 
   private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
   private companiesUrl: string;
@@ -26,25 +26,25 @@ export class PECompanyService {
     this.companiesUrl = apiUrl.endsWith('/') ? apiUrl + 'organizations' : apiUrl + '/organizations';
   }
 
-  get(companyId: string): Observable<PECompany> {
-    const url = `${this.companiesUrl}/${companyId}/pe`;
+  getInformacionAdicional(organizationId: string): Observable<OrganizationAdditionalInformation> {
+    const url = `${this.companiesUrl}/${organizationId}/peru/informacion-adicional`;
     return this.http
       .get(url, { headers: this.headers })
       .map(response => {
-        return response as PECompany;
+        return response as OrganizationAdditionalInformation;
       })
       .catch((error) => {
         return this.handleError(error);
       });
   }
 
-  update(company: PECompany): Observable<PECompany> {
-    const url = `${this.companiesUrl}/${company.id}/pe`;
-    const payload = JSON.stringify(company);
+  update(organization: OrganizationAdditionalInformation): Observable<OrganizationAdditionalInformation> {
+    const url = `${this.companiesUrl}/${organization.id}/peru/informacion-adicional`;
+    const payload = JSON.stringify(organization);
     return this.http
       .put(url, payload, { headers: this.headers })
       .map(response => {
-        return response as PECompany;
+        return response as OrganizationAdditionalInformation;
       })
       .catch((error) => {
         return this.handleError(error);

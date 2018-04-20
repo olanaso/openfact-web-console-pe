@@ -51,6 +51,7 @@ export { PEUBLDocumentService } from './pe-sunat/pe-ubl-document.service';
 
 export {
   Invoice,
+  InvoiceLine,
   Fecha,
   Cliente,
   Total,

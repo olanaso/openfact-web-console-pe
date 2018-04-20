@@ -66,7 +66,7 @@ export class DocumentTableLinesComponent implements OnInit, ControlValueAccessor
 
   addRow() {
     this._value.push({
-      unidadMedida: 'NIO',
+      unidadMedida: 'NIU',
       cantidad: 1
     } as DocumentLine);
     this.refreshComponent();

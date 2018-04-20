@@ -136,6 +136,7 @@ export class DocumentTotalAdditionalInformationComponent implements OnInit, Cont
     this.formulario.totalInafecto = totalInafectaConDescuento;
     this.formulario.totalIGV = totalIgvConDescuento;
     this.formulario.totalDescuento = descuentoGlobal;
+    this.formulario.otrosCargos = totalOtrosCargos;
     this.formulario.total = total;
 
     const result = cloneDeep(this.formulario);

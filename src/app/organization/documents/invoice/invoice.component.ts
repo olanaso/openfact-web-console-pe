@@ -1,3 +1,6 @@
+import { TotalAdditionalInformation } from './../document-form/total-additional-information';
+import { InvoiceLine } from './../../../ngx-openfact/models/invoice';
+import { DocumentLine } from './../document-form/document-line';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -105,7 +108,7 @@ export class InvoiceComponent implements OnInit {
 
       operacionGratuita: [false, Validators.compose([Validators.required])],
 
-      enviarSUNAT: [true, Validators.compose([Validators.required])],
+      enviarSunat: [true, Validators.compose([Validators.required])],
       enviarCliente: [true, Validators.compose([Validators.required])],
 
       observaciones: [null, Validators.compose([Validators.maxLength(150)])],
@@ -153,7 +156,7 @@ export class InvoiceComponent implements OnInit {
       igv: this.IGV.valor,
       fechaEmision: new Date(),
       fechaVencimiento: new Date(),
-      enviarSUNAT: true,
+      enviarSunat: true,
       enviarCliente: true,
     });
   }
@@ -196,7 +199,43 @@ export class InvoiceComponent implements OnInit {
     } as Moneda;
 
     invoice.enviarCliente = this.documentForm.value.enviarCliente;
-    invoice.enviarSUNAT = this.documentForm.value.enviarSUNAT;
+    invoice.enviarSunat = this.documentForm.value.enviarSunat;
+
+    // Informacion adicional
+    const informacionAdicional: TotalAdditionalInformation = this.documentForm.value.informacionAdicional;
+    invoice.total = {
+      pagar: Math.round(informacionAdicional.total * 100) / 100,
+      otrosCargos: Math.round(informacionAdicional.otrosCargos * 100) / 100,
+      descuentoGlobal: Math.round(informacionAdicional.totalDescuento * 100) / 100
+    };
+
+    invoice.totalImpuestos = {
+      igv: Math.round(informacionAdicional.totalIGV * 100) / 100,
+      isc: null
+    };
+
+    invoice.totalInformacionAdicional = {
+      totalGravado: Math.round(informacionAdicional.totalGravado * 100) / 100,
+      totalGratuito: Math.round(informacionAdicional.totalGratuito * 100) / 100,
+      totalInafecto: Math.round(informacionAdicional.totalInafecto * 100) / 100,
+      totalExonerado: Math.round(informacionAdicional.totalExonerado * 100) / 100
+    };
+
+    // Detalle
+    invoice.detalle = (this.documentForm.value.detalle as DocumentLine[]).map((value) => {
+      let invoiceLine: InvoiceLine = {} as InvoiceLine;
+      invoiceLine.unidadMedida = value.unidadMedida;
+      invoiceLine.descripcion = value.descripcion;
+      invoiceLine.tipoIGV = value.tipoIGV.codigo;
+      invoiceLine.cantidad = value.cantidad;
+      invoiceLine.valorUnitario = value.valorUnitario;
+      invoiceLine.precioUnitario = Math.round(value.precioUnitario * 100) / 100;
+      invoiceLine.subtotal = Math.round(value.subtotal * 100) / 100;
+      invoiceLine.total = Math.round(value.total * 100) / 100;
+      invoiceLine.totalIGV = Math.round(value.totalIGV * 100) / 100;
+      invoiceLine.totalISC = null;
+      return invoiceLine;
+    });
 
     const tipoInvoice: SUNATGenericType = this.documentForm.value.tipoInvoice;
     let creationSubscription: Observable<any>;

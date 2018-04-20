@@ -8,8 +8,22 @@ export interface Invoice {
   moneda: Moneda;
   totalImpuestos: TotalImpuestos;
   totalInformacionAdicional: TotalInformacionAdicional;
-  enviarSUNAT: boolean;
+  enviarSunat: boolean;
   enviarCliente: boolean;
+  detalle: InvoiceLine[];
+}
+
+export interface InvoiceLine {
+  unidadMedida: string;
+  descripcion: string;
+  tipoIGV: string;
+  cantidad: number;
+  valorUnitario: number;
+  precioUnitario: number;
+  subtotal: number;
+  total: number;
+  totalIGV: number;
+  totalISC: number;
 }
 
 export interface Fecha {
@@ -37,8 +51,8 @@ export interface Moneda {
 }
 
 export interface TotalImpuestos {
-  IGV: number;
-  ISC: number;
+  igv: number;
+  isc?: number;
 }
 
 export interface TotalInformacionAdicional {

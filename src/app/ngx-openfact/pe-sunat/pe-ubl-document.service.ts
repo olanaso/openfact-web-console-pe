@@ -57,4 +57,22 @@ export class PEUBLDocumentService {
       });
   }
 
+  getBoleta(organizationId: string, boletaId: string): Observable<Invoice> {
+    const url = `${this.organizationUrl}/${organizationId}/pe/documentos/boletas/${boletaId}`;
+    return this.http
+      .get(url, { headers: this.headers })
+      .map(response => {
+        return response as Invoice;
+      });
+  }
+
+  getFactura(organizationId: string, facturaId: string): Observable<Invoice> {
+    const url = `${this.organizationUrl}/${organizationId}/pe/documentos/facturas/${facturaId}`;
+    return this.http
+      .get(url, { headers: this.headers })
+      .map(response => {
+        return response as Invoice;
+      });
+  }
+
 }

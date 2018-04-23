@@ -9,6 +9,8 @@ import { TiposDocumentosIdentidadResolver } from './resolvers/tipos-documentos-i
 import { TiposIGVResolver } from './resolvers/tipos-igv.resolver';
 import { IgvResolver } from './resolvers/igv.resolver';
 
+import { InvoiceResolver } from './resolvers/invoice.resolver';
+
 const routes: Routes = [
   {
     path: '',
@@ -30,13 +32,18 @@ const routes: Routes = [
           tiposInvoice: TiposInvoiceResolver,
           tiposDocumentosIdentidad: TiposDocumentosIdentidadResolver,
           tiposIGV: TiposIGVResolver,
-          IGV: IgvResolver
+          IGV: IgvResolver,
+          invoice: InvoiceResolver
         }
       },
       {
-        path: '_invoice/:document',
+        path: '_invoice/:invoice',
         resolve: {
-          context: ContextResolver
+          tiposInvoice: TiposInvoiceResolver,
+          tiposDocumentosIdentidad: TiposDocumentosIdentidadResolver,
+          tiposIGV: TiposIGVResolver,
+          IGV: IgvResolver,
+          invoice: InvoiceResolver
         },
         loadChildren: './invoice/invoice.module#InvoiceModule',
       },

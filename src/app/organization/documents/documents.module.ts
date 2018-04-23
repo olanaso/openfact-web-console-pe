@@ -8,6 +8,7 @@ import { TiposInvoiceResolver } from './resolvers/tipos-invoice.resolver';
 import { TiposDocumentosIdentidadResolver } from './resolvers/tipos-documentos-identidad.resolver';
 import { TiposIGVResolver } from './resolvers/tipos-igv.resolver';
 import { IgvResolver } from './resolvers/igv.resolver';
+import { InvoiceResolver } from './resolvers/invoice.resolver';
 
 @NgModule({
   imports: [
@@ -20,7 +21,8 @@ import { IgvResolver } from './resolvers/igv.resolver';
     IgvResolver,
     TiposIGVResolver,
     TiposDocumentosIdentidadResolver,
-    TiposInvoiceResolver
+    TiposInvoiceResolver,
+    InvoiceResolver
   ]
 })
 export class DocumentsModule { }

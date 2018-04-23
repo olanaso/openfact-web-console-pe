@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { SUNATGenericType, PESUNATService } from './../../ngx-openfact';
+import { SUNATGenericType, PESUNATService, PEUBLDocumentService, Invoice } from './../../ngx-openfact';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
@@ -18,7 +18,11 @@ export class DocumentContextService {
   tiposIGV: Subject<SUNATGenericType[]> = new ReplaySubject<SUNATGenericType[]>(1);;
   tiposInvoice: Subject<SUNATGenericType[]> = new ReplaySubject<SUNATGenericType[]>(1);
 
-  constructor(private sunatService: PESUNATService) { }
+  invoice: Subject<Invoice> = new ReplaySubject<Invoice>(1);
+
+  constructor(
+    private sunatService: PESUNATService,
+    private documentService: PEUBLDocumentService) { }
 
   loadIGV(): Observable<SUNATGenericType> {
     return this.sunatService.getIGV()
@@ -40,4 +44,13 @@ export class DocumentContextService {
       .do((val) => this.tiposIGV.next(val));
   }
 
+  loadInvoice(organization: string, invoice: string): Observable<Invoice> {
+    if (organization && invoice) {
+      return this.documentService.getBoleta(organization, invoice)
+        .do((val) => this.invoice.next(val));
+    } else {
+      return Observable.of({} as Invoice)
+        .do((val) => this.invoice.next(val));
+    }
+  }
 }

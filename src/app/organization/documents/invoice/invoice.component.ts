@@ -32,7 +32,7 @@ import 'rxjs/add/operator/publish';
 export class InvoiceComponent implements OnInit {
 
   company: Organization;
-  UBLDocument: UBLDocument;
+  invoice: Invoice;
 
   working = false;
   modoAvanzado = false;
@@ -66,15 +66,15 @@ export class InvoiceComponent implements OnInit {
       contexts.current
         .do((val) => {
           this.company = val.organization;
-          this.UBLDocument = val.document;
         })
         .switchMap((val) => documentContext.IGV).do((val) => this.IGV = val)
         .switchMap((val) => documentContext.tiposIGV).do((val) => this.tiposIGV = val)
         .switchMap((val) => documentContext.tiposInvoice).do((val) => this.tiposInvoice = val)
         .switchMap((val) => documentContext.tiposDocumentosIdentidad).do((val) => this.tiposDocumentoIdentidad = val)
+        .switchMap((val) => documentContext.invoice).do((val) => this.invoice = val)
         .do(() => {
           this.patchFormWithDefaults();
-          if (this.UBLDocument) {
+          if (this.invoice && this.invoice.id) {
             this.patchFormWithDocument();
           }
         })
@@ -162,11 +162,14 @@ export class InvoiceComponent implements OnInit {
   }
 
   patchFormWithDocument() {
+    console.log('vall', this.invoice);
+    // this.documentForm.patchValue({
 
+    // });
   }
 
   save() {
-    if (!this.UBLDocument) {
+    if (!this.invoice || !this.invoice.id) {
       this.create();
     } else {
       this.update();

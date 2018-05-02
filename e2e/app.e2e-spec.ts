@@ -1,14 +1,14 @@
-import { OpenfactuiPage } from './app.po';
+import { AppPage } from './app.po';
 
-describe('openfactui App', () => {
-  let page: OpenfactuiPage;
+describe('openfact-web-console-pe App', () => {
+  let page: AppPage;
 
   beforeEach(() => {
-    page = new OpenfactuiPage();
+    page = new AppPage();
   });
 
-  it('should display message saying app works', () => {
+  it('should display welcome message', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('of works!');
+    expect(page.getParagraphText()).toEqual('Welcome to of!');
   });
 });

@@ -1,0 +1,53 @@
+<ol class="breadcrumb">
+  <li>
+    <a href="javascript:void(0);">Observados</a>
+  </li>
+  <li class="active">Documentos</li>
+</ol>
+
+<tabset>
+  <tab heading="Facturas" (select)="loadFacturas()">
+
+  </tab>
+  <tab heading="Boletas" (select)="loadBoletas()">
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Documento</th>
+          <th>Cliente</th>
+          <th>Total</th>
+          <th>Estado</th>
+          <th>Errores</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let boleta of boletas; let i = index;">
+          <td>{{i+1}}</td>
+          <td>{{boleta.cliente?.tipoDocumentoAlias}}: {{boleta.cliente?.numeroDocumento}}</td>
+          <td>{{boleta.cliente?.nombre}}</td>
+          <td>{{boleta.moneda?.codigo}} {{boleta.total?.pagar | number}}</td>
+          <td>
+            <span *ngIf="boleta.validacion?.estado === true; else errorSpan">
+              <i class="pficon pficon-ok"></i> Ok
+            </span>
+            <ng-template #errorSpan>
+              <span>
+                <i class="pficon pficon-warning-triangle-o"></i> Warning
+              </span>
+            </ng-template>
+          </td>
+          <td>
+              <strong>{{boleta.validacion?.error}}</strong>: <p>{{boleta.validacion?.errorDescripcion | truncate: 150}}</p>
+          </td>
+          <th>
+            <button (click)="editarBoleta(boleta)" type="button" class="btn btn-default">Editar</button>
+          </th>
+        </tr>
+      </tbody>
+    </table>
+  </tab>
+  <tab heading="Notas de Credito">Basic content 2</tab>
+  <tab heading="Notas de Debito">Basic content 2</tab>
+</tabset>

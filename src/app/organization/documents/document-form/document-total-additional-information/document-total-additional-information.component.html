@@ -1,0 +1,60 @@
+<table class="table table-bordered table-striped">
+  <tbody>
+    <tr>
+      <td>% Porcentaje Descuento</td>
+      <td>
+        <input [(ngModel)]="formulario.porcentajeDescuento" (ngModelChange)="recalcular()" [readonly]="operacionGratuita" currencyMask
+          [options]="{ prefix: '%', allowNegative: false, precision: 0}" type="text" class="form-control text-right">
+      </td>
+    </tr>
+    <tr>
+      <td>Exonerada</td>
+      <td>
+        <span class="pull-right">{{formulario.totalExonerado | number : '1.2-2'}}</span>
+      </td>
+    </tr>
+    <tr>
+      <td>Inafecto</td>
+      <td>
+        <span class="pull-right">{{formulario.totalInafecto | number : '1.2-2'}}</span>
+      </td>
+    </tr>
+    <tr>
+      <td>Gravado</td>
+      <td>
+        <span class="pull-right">{{formulario.totalGravado | number : '1.2-2'}}</span>
+      </td>
+    </tr>
+    <tr>
+      <td>IGV</td>
+      <td>
+        <span class="pull-right">{{formulario.totalIGV | number : '1.2-2'}}</span>
+      </td>
+    </tr>
+    <tr>
+      <td>Gratuito</td>
+      <td>
+        <span class="pull-right">{{formulario.totalGratuito | number : '1.2-2'}}</span>
+      </td>
+    </tr>
+    <tr>
+      <td>Otros Cargos</td>
+      <td>
+        <input [(ngModel)]="formulario.otrosCargos" (ngModelChange)="recalcular()" [readonly]="operacionGratuita" currencyMask [options]="{ prefix: '', allowNegative: false, precision: 2}"
+          type="text" class="form-control text-right">
+      </td>
+    </tr>
+    <tr>
+      <td>Total Descuento</td>
+      <td>
+        <span class="pull-right">{{formulario.totalDescuento | number : '1.2-2'}}</span>
+      </td>
+    </tr>
+    <tr>
+      <td>Total</td>
+      <td>
+        <span class="pull-right">{{formulario.total | number : '1.2-2'}}</span>
+      </td>
+    </tr>
+  </tbody>
+</table>

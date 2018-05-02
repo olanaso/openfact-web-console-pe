@@ -1,0 +1,13 @@
+$master-color: #ec7a08;
+
+.experimental-pf>* {
+  border: 2px solid $master-color;
+}
+
+.experimental-pf-bar {
+  background-color: $master-color;
+}
+
+.experimental-pf-more-info {
+  background-color: $master-color;
+}

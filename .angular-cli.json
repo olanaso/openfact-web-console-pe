@@ -1,7 +1,7 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "project": {
-    "name": "openfact-web-console-pe"
+    "name": "openfactui"
   },
   "apps": [
     {
@@ -9,9 +9,8 @@
       "outDir": "dist",
       "assets": [
         "assets",
-        "favicon.ico",
         "config",
-        "config-local"
+        "favicon.ico"
       ],
       "index": "index.html",
       "main": "main.ts",
@@ -21,24 +20,19 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "of",
       "styles": [
-        "styles.scss",
         "../node_modules/patternfly/dist/css/patternfly.min.css",
         "../node_modules/patternfly/dist/css/patternfly-additions.min.css",
-        "../node_modules/patternfly-ng/dist/css/patternfly-ng.min.css",
-        "../node_modules/ngx-bootstrap/datepicker/bs-datepicker.css"
+        "../node_modules/ng2-toastr/bundles/ng2-toastr.min.css",
+        "styles.scss"
       ],
-      "scripts": [],
+      "scripts": [
+        "../node_modules/keycloak-js/dist/keycloak.min.js",
+        "./sunat.js"
+      ],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",
         "prod": "environments/environment.prod.ts"
-      },
-      "stylePreprocessorOptions": {
-        "includePaths": [
-          "../node_modules/bootstrap-sass/assets/stylesheets",
-          "../node_modules/font-awesome-sass/assets/stylesheets",
-          "styles"
-        ]
       }
     }
   ],
@@ -49,16 +43,13 @@
   },
   "lint": [
     {
-      "project": "src/tsconfig.app.json",
-      "exclude": "**/node_modules/**"
+      "project": "src/tsconfig.app.json"
     },
     {
-      "project": "src/tsconfig.spec.json",
-      "exclude": "**/node_modules/**"
+      "project": "src/tsconfig.spec.json"
     },
     {
-      "project": "e2e/tsconfig.e2e.json",
-      "exclude": "**/node_modules/**"
+      "project": "e2e/tsconfig.e2e.json"
     }
   ],
   "test": {

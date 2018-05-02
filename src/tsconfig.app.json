@@ -2,9 +2,13 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "outDir": "../out-tsc/app",
-    "baseUrl": "./",
     "module": "es2015",
-    "types": []
+    "baseUrl": "",
+    "types": [
+      "file-saver",
+      "pluralize",
+      "file-saver"
+    ]
   },
   "exclude": [
     "test.ts",

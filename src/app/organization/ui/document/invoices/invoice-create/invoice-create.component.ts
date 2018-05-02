@@ -91,7 +91,7 @@ export class InvoiceCreateComponent implements OnInit, OnDestroy {
       enviarAutomaticamenteASunat: [true, Validators.compose([Validators.required])],
       enviarAutomaticamenteAlCliente: [true, Validators.compose([Validators.required])],
 
-      observaciones: [null, Validators.compose([Validators.maxLength(150)])],
+      observaciones: [null, Validators.compose([Validators.maxLength(600)])],
 
       totalGravada: [null, Validators.compose([Validators.required])],
       totalExonerada: [null, Validators.compose([Validators.required])],

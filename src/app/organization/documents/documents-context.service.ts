@@ -44,9 +44,9 @@ export class DocumentContextService {
       .do((val) => this.tiposIGV.next(val));
   }
 
-  loadInvoice(organization: string, invoice: string): Observable<Invoice> {
-    if (organization && invoice) {
-      return this.documentService.getBoleta(organization, invoice)
+  loadInvoice(organization: string, invoiceId: string): Observable<Invoice> {
+    if (organization && invoiceId) {
+      return this.documentService.getInvoice(organization, invoiceId)
         .do((val) => this.invoice.next(val));
     } else {
       return Observable.of({} as Invoice)

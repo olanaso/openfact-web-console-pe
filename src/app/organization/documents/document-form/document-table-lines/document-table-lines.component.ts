@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, forwardRef } from '@angular/core';
 import { ControlValueAccessor, Validator, AbstractControl, NG_VALUE_ACCESSOR, NG_VALIDATORS } from '@angular/forms';
 import { SUNATGenericType } from '../../../../ngx-openfact';
 
-import { TipoIGV } from '../tipos-igv';
+import { TipoIgv } from '../tipos-igv';
 import { DocumentLine } from '../document-line';
 
 import { cloneDeep } from 'lodash';
@@ -32,7 +32,7 @@ export class DocumentTableLinesComponent implements OnInit, ControlValueAccessor
   valorIGV: number;
 
   @Input()
-  tiposIGV: TipoIGV[] = [];
+  tiposIGV: TipoIgv[] = [];
 
   @Input()
   esDetallado: boolean;
@@ -90,7 +90,7 @@ export class DocumentTableLinesComponent implements OnInit, ControlValueAccessor
         !item.unidadMedida ||
         !item.descripcion ||
         !item.cantidad ||
-        !item.tipoIGV ||
+        !item.tipoIgv ||
         !item.precioUnitario ||
         !item.valorUnitario ||
         !item.subtotal ||

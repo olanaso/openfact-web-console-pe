@@ -162,10 +162,12 @@ export class InvoiceComponent implements OnInit {
   }
 
   patchFormWithDocument() {
-    console.log('vall', this.invoice);
-    // this.documentForm.patchValue({
+    this.documentForm.patchValue({
+      nombreCliente: this.invoice.cliente.nombre,
+      numeroDocumentoCliente: this.invoice.cliente.numeroDocumento,
+      tipoDocumentoCliente: this.invoice.cliente.tipoDocumento,
 
-    // });
+    });
   }
 
   save() {
@@ -182,6 +184,7 @@ export class InvoiceComponent implements OnInit {
     const invoice = {} as Invoice;
     invoice.serie = this.documentForm.value.serie;
     invoice.numero = this.documentForm.value.serie;
+    invoice.codigoTipoComprobante = this.documentForm.value.tipoInvoice.codigo;
 
     invoice.fecha = {
       emision: this.documentForm.value.fechaEmision,
@@ -229,26 +232,19 @@ export class InvoiceComponent implements OnInit {
       let invoiceLine: InvoiceLine = {} as InvoiceLine;
       invoiceLine.unidadMedida = value.unidadMedida;
       invoiceLine.descripcion = value.descripcion;
-      invoiceLine.tipoIGV = value.tipoIGV.codigo;
+      invoiceLine.tipoIgv = value.tipoIgv.codigo;
       invoiceLine.cantidad = value.cantidad;
       invoiceLine.valorUnitario = value.valorUnitario;
       invoiceLine.precioUnitario = Math.round(value.precioUnitario * 100) / 100;
       invoiceLine.subtotal = Math.round(value.subtotal * 100) / 100;
       invoiceLine.total = Math.round(value.total * 100) / 100;
-      invoiceLine.totalIGV = Math.round(value.totalIGV * 100) / 100;
-      invoiceLine.totalISC = null;
+      invoiceLine.totalIgv = Math.round(value.totalIGV * 100) / 100;
+      invoiceLine.totalIsc = null;
       return invoiceLine;
     });
 
     const tipoInvoice: SUNATGenericType = this.documentForm.value.tipoInvoice;
-    let creationSubscription: Observable<any>;
-    if (tipoInvoice.codigo === '01') {
-      creationSubscription = this.documentService.createFactura(this.company.id, invoice);
-    } else if (tipoInvoice.codigo === '03') {
-      creationSubscription = this.documentService.createBoleta(this.company.id, invoice);
-    } else {
-      alert('Tipo de Invoice Inválido');
-    }
+    let creationSubscription = this.documentService.createInvoice(this.company.id, invoice);
 
     creationSubscription.subscribe(
       (val) => {

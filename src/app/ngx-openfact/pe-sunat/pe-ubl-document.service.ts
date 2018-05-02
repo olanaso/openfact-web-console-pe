@@ -23,24 +23,16 @@ export class PEUBLDocumentService {
     this.organizationUrl = apiUrl.endsWith('/') ? apiUrl + 'organizations' : apiUrl + '/organizations';
   }
 
-  createFactura(organizationId: string, document: Invoice): Observable<Invoice> {
+  createInvoice(organizationId: string, invoice: Invoice): Observable<Invoice> {
     return this.http
-      .post(`${this.organizationUrl}/${organizationId}/pe/documentos/facturas`, document, { headers: this.headers })
+      .post(`${this.organizationUrl}/${organizationId}/pe/documentos/invoices`, invoice, { headers: this.headers })
       .map(response => {
         return response as Invoice;
       });
   }
 
-  createBoleta(organizationId: string, document: Invoice): Observable<Invoice> {
-    return this.http
-      .post(`${this.organizationUrl}/${organizationId}/pe/documentos/boletas`, document, { headers: this.headers })
-      .map(response => {
-        return response as Invoice;
-      });
-  }
-
-  getFacturas(organizationId: string, estado: string, offset: number, limit: number = 10): Observable<Invoice[]> {
-    const url = `${this.organizationUrl}/${organizationId}/pe/documentos/facturas?estado=${estado}&offset=${offset}&limit=${limit}`;
+  getInvoices(organizationId: string, estado: string, offset: number, limit: number = 10): Observable<Invoice[]> {
+    const url = `${this.organizationUrl}/${organizationId}/pe/documentos/invoices?estado=${estado}&offset=${offset}&limit=${limit}`;
     return this.http
       .get(url, { headers: this.headers })
       .map(response => {
@@ -48,26 +40,8 @@ export class PEUBLDocumentService {
       });
   }
 
-  getBoletas(organizationId: string, estado: string, offset: number, limit: number = 10): Observable<Invoice[]> {
-    const url = `${this.organizationUrl}/${organizationId}/pe/documentos/boletas?estado=${estado}&offset=${offset}&limit=${limit}`;
-    return this.http
-      .get(url, { headers: this.headers })
-      .map(response => {
-        return response as Invoice[];
-      });
-  }
-
-  getBoleta(organizationId: string, boletaId: string): Observable<Invoice> {
-    const url = `${this.organizationUrl}/${organizationId}/pe/documentos/boletas/${boletaId}`;
-    return this.http
-      .get(url, { headers: this.headers })
-      .map(response => {
-        return response as Invoice;
-      });
-  }
-
-  getFactura(organizationId: string, facturaId: string): Observable<Invoice> {
-    const url = `${this.organizationUrl}/${organizationId}/pe/documentos/facturas/${facturaId}`;
+  getInvoice(organizationId: string, invoiceId: string): Observable<Invoice> {
+    const url = `${this.organizationUrl}/${organizationId}/pe/documentos/facturas/${invoiceId}`;
     return this.http
       .get(url, { headers: this.headers })
       .map(response => {

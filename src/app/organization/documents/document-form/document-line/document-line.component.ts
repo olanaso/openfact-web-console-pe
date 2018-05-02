@@ -6,7 +6,7 @@ import {
   Output,
 } from '@angular/core';
 import { DocumentLine } from './../document-line';
-import { TipoIGV } from '../tipos-igv';
+import { TipoIgv } from '../tipos-igv';
 
 @Component({
   selector: 'tr[of-document-line]',
@@ -17,7 +17,7 @@ export class DocumentLineComponent implements OnInit {
 
   _valor: DocumentLine = {} as DocumentLine;
   _valorIGV: number;
-  _tiposIGV: TipoIGV[] = [];
+  _tiposIGV: TipoIgv[] = [];
 
   @Input()
   indice: number;
@@ -47,10 +47,10 @@ export class DocumentLineComponent implements OnInit {
   }
 
   @Input()
-  set tiposIGV(tiposIGV: TipoIGV[]) {
+  set tiposIGV(tiposIGV: TipoIgv[]) {
     this._tiposIGV = tiposIGV;
-    if (!this._valor.tipoIGV) {
-      this._valor.tipoIGV = this._tiposIGV[0];
+    if (!this._valor.tipoIgv) {
+      this._valor.tipoIgv = this._tiposIGV[0];
     }
     this.recalcularYEmitirNuevoValor();
   }
@@ -63,7 +63,7 @@ export class DocumentLineComponent implements OnInit {
     return this._valorIGV;
   }
 
-  get tiposIGV(): TipoIGV[] {
+  get tiposIGV(): TipoIgv[] {
     return this._tiposIGV;
   }
 
@@ -81,8 +81,8 @@ export class DocumentLineComponent implements OnInit {
     const cantidad: number = this._valor.cantidad || 0;
     const valorUnitario: number = this._valor.valorUnitario || 0;
 
-    const tipoIGV: TipoIGV = this._valor.tipoIGV;
-    const factorIGV: number = tipoIGV && tipoIGV.afectaIGV ? this._valorIGV + 1 : 1;
+    const tipoIgv: TipoIgv = this._valor.tipoIgv;
+    const factorIGV: number = tipoIgv && tipoIgv.afectaIGV ? this._valorIGV + 1 : 1;
 
     const precioUnitario = (valorUnitario * factorIGV);
     const subtotal = cantidad * valorUnitario;

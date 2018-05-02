@@ -2,6 +2,7 @@ export interface Invoice {
   id: string;
   serie: string;
   numero: number;
+  codigoTipoComprobante: string;
   fecha: Fecha;
   cliente: Cliente;
   total: Total;
@@ -16,14 +17,14 @@ export interface Invoice {
 export interface InvoiceLine {
   unidadMedida: string;
   descripcion: string;
-  tipoIGV: string;
+  tipoIgv: string;
   cantidad: number;
   valorUnitario: number;
   precioUnitario: number;
   subtotal: number;
   total: number;
-  totalIGV: number;
-  totalISC: number;
+  totalIgv: number;
+  totalIsc: number;
 }
 
 export interface Fecha {

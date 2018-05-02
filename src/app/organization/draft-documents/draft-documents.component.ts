@@ -40,15 +40,15 @@ export class DraftDocumentsComponent implements OnInit {
   }
 
   loadFacturas() {
-    this.documentService.getFacturas(this.organization.id, 'abierto', this.offset, this.limit).subscribe((val) => {
+    this.documentService.getInvoices(this.organization.id, 'abierto', this.offset, this.limit).subscribe((val) => {
       this.facturas = val;
     });
   }
 
   loadBoletas() {
-    this.documentService.getBoletas(this.organization.id, 'abierto', this.offset, this.limit).subscribe((val) => {
-      this.boletas = val;
-    });
+    // this.documentService.getBoletas(this.organization.id, 'abierto', this.offset, this.limit).subscribe((val) => {
+    //   this.boletas = val;
+    // });
   }
 
   editarBoleta(invoice: Invoice) {

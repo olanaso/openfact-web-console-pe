@@ -1,5 +1,5 @@
 import { ControlValueAccessor, Validator, AbstractControl, NG_VALUE_ACCESSOR, NG_VALIDATORS } from '@angular/forms';
-import { TipoIGV } from './../tipos-igv';
+import { TipoIgv } from './../tipos-igv';
 import { TotalAdditionalInformation } from './../total-additional-information';
 import { Component, OnInit, Input, Output, EventEmitter, DoCheck, OnChanges, forwardRef } from '@angular/core';
 import { DocumentLine } from './../document-line';
@@ -80,30 +80,30 @@ export class DocumentTotalAdditionalInformationComponent implements OnInit, Cont
     let totalOtrosCargos = this.formulario.otrosCargos || 0;
 
     this.detalle.forEach((line) => {
-      const tipoIGV: TipoIGV = line.tipoIGV;
+      const tipoIgv: TipoIgv = line.tipoIgv;
 
-      if (!tipoIGV) {
+      if (!tipoIgv) {
         return;
       }
 
       if (this._operacionGratuita) {
-        if (tipoIGV.afectaIGV) {
+        if (tipoIgv.afectaIGV) {
           totalGratuita += line.total;
         } else {
           totalGratuita += line.subtotal;
         }
       } else {
-        if (tipoIGV.grupo.toUpperCase() === 'GRAVADO') {
+        if (tipoIgv.grupo.toUpperCase() === 'GRAVADO') {
           totalGravado += line.subtotal;
-        } else if (tipoIGV.grupo.toUpperCase() === 'EXONERADO') {
+        } else if (tipoIgv.grupo.toUpperCase() === 'EXONERADO') {
           totalExonerado += line.subtotal;
-        } else if (tipoIGV.grupo.toUpperCase() === 'INAFECTO') {
+        } else if (tipoIgv.grupo.toUpperCase() === 'INAFECTO') {
           totalInafecto += line.subtotal;
         } else {
-          throw new Error('Grupo de igv invalido:' + tipoIGV.grupo);
+          throw new Error('Grupo de igv invalido:' + tipoIgv.grupo);
         }
 
-        if (tipoIGV.afectaIGV) {
+        if (tipoIgv.afectaIGV) {
           totalIGV += line.totalIGV;
         }
       }

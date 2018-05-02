@@ -14,7 +14,7 @@
     class="form-control text-right" placeholder="0.000">
 </td>
 <td>
-  <select class="form-control" [(ngModel)]="valor.tipoIGV" (ngModelChange)="recalcularYEmitirNuevoValor()">
+  <select class="form-control" [(ngModel)]="valor.tipoIgv" (ngModelChange)="recalcularYEmitirNuevoValor()">
     <option *ngFor="let item of tiposIGV" [ngValue]="item">
       {{item.denominacion}}
     </option>

@@ -157,7 +157,7 @@ export class CreditNoteCreateComponent implements OnInit, OnDestroy {
       igv: [null, Validators.compose([Validators.required])]
     });
     this.loadDataDetalle(formGroup);
-    this.detalle.push(formGroup);
+    this.detalle.push(formGroup);  
     return formGroup;
   }
 
@@ -191,10 +191,14 @@ export class CreditNoteCreateComponent implements OnInit, OnDestroy {
 
     this.detalle.controls.forEach(formControl => {
 
-      // Se debe de multiplicar nuevamente para no perder los redondeos y sumar con todos los digitos
-      const subtotal = (formControl.get('cantidad').value || 0) * (formControl.get('valorUnitario').value || 0);
-      const total = subtotal * this.getIgvAsInteger();
-      const tipoIgv = this.tiposDeAfectacionIgv.find(p => p.codigo === formControl.get('tipoDeIgv').value);
+    // Se debe de multiplicar nuevamente para no perder los redondeos y sumar con todos los digitos
+    const precioUnitario = (formControl.get('precioUnitario').value || 0);
+    const cantidad = (formControl.get('cantidad').value || 0);
+    const valorUnitario = precioUnitario / (1 + (this.getIgvAsInteger() / 100));
+    const subtotal = precioUnitario * cantidad;
+    const igv = subtotal * (this.getIgvAsInteger() / 100);
+    const total = subtotal * (1 + (this.getIgvAsInteger() / 100));
+    const tipoIgv = this.tiposDeAfectacionIgv.find(p => p.codigo === formControl.get('tipoDeIgv').value);
 
       // Operacion gratuita
       if (operacionGratuita) {
@@ -263,6 +267,34 @@ export class CreditNoteCreateComponent implements OnInit, OnDestroy {
         tipoDeIgv: this.tiposDeAfectacionIgv[0].codigo
       });
     }
+
+    formGroup.get("cantidad").valueChanges.subscribe(value => {
+      const precioUnitario = (formGroup.get('precioUnitario').value || 0);
+      const valorUnitario = precioUnitario / (1 + (this.getIgvAsInteger() / 100));
+      const subtotal = precioUnitario * value;
+      const igv = subtotal * this.getIgvAsInteger() / 100;
+      const total = subtotal * (1 + (this.getIgvAsInteger() / 100));
+      formGroup.patchValue({
+        valorUnitario: +valorUnitario.toFixed(2),
+        subtotal: +subtotal.toFixed(2),
+        total: +total.toFixed(2),
+        igv: +igv.toFixed(2)
+      });
+    });
+
+    formGroup.get("precioUnitario").valueChanges.subscribe(value => {
+      const cantidad = (formGroup.get('cantidad').value || 0);
+      const valorUnitario = value / (1 + (this.getIgvAsInteger() / 100));
+      const subtotal = value * cantidad;
+      const igv = subtotal * this.getIgvAsInteger() / 100;
+      const total = subtotal * (1 + (this.getIgvAsInteger() / 100));
+      formGroup.patchValue({
+        valorUnitario: +valorUnitario.toFixed(2),
+        subtotal: +subtotal.toFixed(2),
+        total: +total.toFixed(2),
+        igv: +igv.toFixed(2)
+      });
+    });
   }
 
   round(value: number, spaces?: number): number {

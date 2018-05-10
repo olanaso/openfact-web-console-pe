@@ -231,7 +231,7 @@ export class InvoiceCreateComponent implements OnInit, OnDestroy {
       const precioUnitario = (formControl.get('precioUnitario').value || 0);
       const cantidad = (formControl.get('cantidad').value || 0);
       const valorUnitario = precioUnitario / (1 + (this.getIgvAsInteger() / 100));
-      const subtotal = precioUnitario * cantidad;
+      const subtotal = valorUnitario * cantidad;
       const igv = subtotal * (this.getIgvAsInteger() / 100);
       const total = subtotal * (1 + (this.getIgvAsInteger() / 100));
       const tipoIgv = this.tiposDeAfectacionIgv.find(p => p.codigo === formControl.get('tipoDeIgv').value);
@@ -314,7 +314,7 @@ export class InvoiceCreateComponent implements OnInit, OnDestroy {
     formGroup.get("cantidad").valueChanges.subscribe(value => {
       const precioUnitario = (formGroup.get('precioUnitario').value || 0);
       const valorUnitario = precioUnitario / (1 + (this.getIgvAsInteger() / 100));
-      const subtotal = precioUnitario * value;
+      const subtotal = valorUnitario * value;
       const igv = subtotal * this.getIgvAsInteger() / 100;
       const total = subtotal * (1 + (this.getIgvAsInteger() / 100));
       formGroup.patchValue({
@@ -328,7 +328,7 @@ export class InvoiceCreateComponent implements OnInit, OnDestroy {
     formGroup.get("precioUnitario").valueChanges.subscribe(value => {
       const cantidad = (formGroup.get('cantidad').value || 0);
       const valorUnitario = value / (1 + (this.getIgvAsInteger() / 100));
-      const subtotal = value * cantidad;
+      const subtotal = valorUnitario * cantidad;
       const igv = subtotal * this.getIgvAsInteger() / 100;
       const total = subtotal * (1 + (this.getIgvAsInteger() / 100));
       formGroup.patchValue({

@@ -158,5 +158,6 @@
   "to-third-party": "To Third Party",
   "to-custom-email": "To Custom Email",
   "loading": "Loading...",
-  "postal-address-id": "Postal Address ID"
+  "postal-address-id": "Postal Address ID",
+  "advance-mode":"Advance Mode"
 }

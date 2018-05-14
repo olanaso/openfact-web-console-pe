@@ -158,5 +158,6 @@
   "to-third-party": "A Sunat",
   "to-custom-email": "A Email",
   "loading": "Cargando...",
-  "postal-address-id": "Postal Address ID"
+  "postal-address-id": "Postal Address ID",
+  "advance-mode":"Modo avanzado"
 }

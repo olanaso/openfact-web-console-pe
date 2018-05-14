@@ -378,7 +378,7 @@ export class DebitNoteCreateComponent implements OnInit, OnDestroy {
             formGroup.patchValue({
               cantidad: Number(documentLine.quantity),
               descripcion: documentLine.itemDescription,
-              valorUnitario: Number(documentLine.priceAmount),
+              precioUnitario: Number(documentLine.alternativePriceAmount),
               tipoDeIgv: documentLine.taxExemptionReasonCodeIGV
             });
           }

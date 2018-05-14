@@ -2,7 +2,9 @@
     <div class="col-md-12">
 
         <ol class="breadcrumb">
-            <li><a routerLink="../">{{'credit-notes' | translate}}</a></li>
+            <li>
+                <a routerLink="../">{{'credit-notes' | translate}}</a>
+            </li>
             <li>{{'create-credit-note' | translate}}</li>
         </ol>
 
@@ -27,8 +29,8 @@
                         </label>
                         <input formControlName="documentoQueSeModifica" (keyup.enter)="findInvoiceByDocumentId(null)" type="text" class="form-control text-right"
                             placeholder="[B|F]000-0000000">
-                            <of-form-field-validation-messages [ofFormControl]="form.get('documentoQueSeModifica')">
-                            </of-form-field-validation-messages>
+                        <of-form-field-validation-messages [ofFormControl]="form.get('documentoQueSeModifica')">
+                        </of-form-field-validation-messages>
                     </div>
                 </div>
                 <div class="col-md-2">
@@ -130,7 +132,7 @@
                 <div class="col-md-2">
                     <div class="form-group" [ofFormFieldValidationState]="form.get('enviarAutomaticamenteASunat')">
                         <label class="control-label" [ofFormRequiredLabel]="form.get('enviarAutomaticamenteASunat')">Enviar Sunat
-						  <i class="fa fa-question-circle text-muted" ngbTooltip="Tru/false si quiere enviar inmediatamente a la SUNAT" placement="right"></i>
+                            <i class="fa fa-question-circle text-muted" ngbTooltip="Tru/false si quiere enviar inmediatamente a la SUNAT" placement="right"></i>
                         </label>
                         <of-button-switch formControlName="enviarAutomaticamenteASunat" [onText]="'SI'" [offText]="'NO'"></of-button-switch>
                         <of-form-field-validation-messages [ofFormControl]="form.get('enviarAutomaticamenteASunat')">
@@ -140,7 +142,7 @@
                 <div class="col-md-2">
                     <div class="form-group" [ofFormFieldValidationState]="form.get('enviarAutomaticamenteAlCliente')">
                         <label class="control-label" [ofFormRequiredLabel]="form.get('enviarAutomaticamenteAlCliente')">Enviar Cliente
-					        <i class="fa fa-question-circle text-muted" ngbTooltip="True/false si quiere enviar inmediatamente al cliente" placement="right"></i>
+                            <i class="fa fa-question-circle text-muted" ngbTooltip="True/false si quiere enviar inmediatamente al cliente" placement="right"></i>
                         </label>
                         <of-button-switch formControlName="enviarAutomaticamenteAlCliente" [onText]="'SI'" [offText]="'NO'"></of-button-switch>
                         <of-form-field-validation-messages [ofFormControl]="form.get('enviarAutomaticamenteAlCliente')">
@@ -157,35 +159,36 @@
                             <tr>
                                 <td colspan="10">
                                     <div class="checkbox pull-right">
-                                        <label><input type="checkbox" [(ngModel)]="advanceMode" [ngModelOptions]="{standalone: true}"> Advance mode</label>
+                                        <label>
+                                            <input type="checkbox" [(ngModel)]="advanceMode" [ngModelOptions]="{standalone: true}"> Advance mode</label>
                                     </div>
                                 </td>
                             </tr>
                             <tr>
                                 <td class="text-right">#</td>
-                                <td class="text-right">Producto/Servicio</td>
-                                <td class="text-right">Cantidad</td>
-                                <td class="text-right">Tipo IGV</td>
-                                <td class="text-right">Precio Unitario</td>
-                                <td class="text-right" *ngIf="advanceMode">Valor Unitario</td>
-                                <td class="text-right">Sub Total</td>
-                                <td class="text-right">Total</td>
-                                <td class="text-right" *ngIf="advanceMode">Igv</td>
-                                <td class="text-center">Acciones</td>
+                                <td class="col-md-1 text-right">Cantidad</td>
+                                <td [ngClass]="{'col-md-3':advanceMode,'col-md-5':!advanceMode }" class="text-left">Producto/Servicio</td>
+                                <td class="col-md-2 text-left">Tipo IGV</td>
+                                <td class="col-md-1 text-right">Precio Unitario</td>
+                                <td class="col-md-1 text-right" *ngIf="advanceMode">Valor Unitario</td>
+                                <td class="col-md-1 text-right">Sub Total</td>
+                                <td class="col-md-1 text-right" *ngIf="advanceMode">Igv</td>
+                                <td class="col-md-1 text-right">Total</td>
+                                <td class="col-md-1 text-center">Acciones</td>
                             </tr>
                         </thead>
                         <tbody formArrayName="detalle">
                             <template ngFor let-item [ngForOf]="detalle.controls" let-i="index">
                                 <tr [formGroupName]="i">
                                     <td class="text-right">{{i+1}}</td>
-                                    <td [ofFormFieldValidationState]="item.get('descripcion')">
-                                        <input formControlName="descripcion" type="text" class="form-control" placeholder="Descripcion" />
-                                        <of-form-field-validation-messages [ofFormControl]="item.get('descripcion')">
-                                        </of-form-field-validation-messages>
-                                    </td>
                                     <td [ofFormFieldValidationState]="item.get('cantidad')">
                                         <input formControlName="cantidad" [ofNumberMask]="quantityMask" type="text" class="form-control text-right">
                                         <of-form-field-validation-messages [ofFormControl]="item.get('cantidad')">
+                                        </of-form-field-validation-messages>
+                                    </td>
+                                    <td [ofFormFieldValidationState]="item.get('descripcion')">
+                                        <input formControlName="descripcion" type="text" class="form-control" placeholder="Descripcion" />
+                                        <of-form-field-validation-messages [ofFormControl]="item.get('descripcion')">
                                         </of-form-field-validation-messages>
                                     </td>
                                     <td [ofFormFieldValidationState]="item.get('tipoDeIgv')">
@@ -197,23 +200,17 @@
                                     </td>
                                     <td [ofFormFieldValidationState]="item.get('precioUnitario')">
                                         <input formControlName="precioUnitario" [ofNumberMask]="numberMask" type="text" class="form-control text-right">
-                                            <of-form-field-validation-messages [ofFormControl]="item.get('precioUnitario')">
-                                            </of-form-field-validation-messages>
+                                        <of-form-field-validation-messages [ofFormControl]="item.get('precioUnitario')">
+                                        </of-form-field-validation-messages>
                                     </td>
                                     <td [ofFormFieldValidationState]="item.get('valorUnitario')" [hidden]="!advanceMode">
                                         <input formControlName="valorUnitario" [ofNumberMask]="numberMask" type="text" class="form-control text-right" readonly>
                                         <of-form-field-validation-messages [ofFormControl]="item.get('valorUnitario')">
                                         </of-form-field-validation-messages>
-                                    </td>                                 
-                                    <td [ofFormFieldValidationState]="item.get('subtotal')">
-                                        <input formControlName="subtotal" [ofNumberMask]="numberMask" type="text" class="form-control text-right"
-                                            readonly>
-                                            <of-form-field-validation-messages [ofFormControl]="item.get('subtotal')">
-                                            </of-form-field-validation-messages>
                                     </td>
-                                    <td [ofFormFieldValidationState]="item.get('total')">
-                                        <input formControlName="total" [ofNumberMask]="numberMask" type="text" class="form-control text-right" readonly>
-                                        <of-form-field-validation-messages [ofFormControl]="item.get('total')">
+                                    <td [ofFormFieldValidationState]="item.get('subtotal')">
+                                        <input formControlName="subtotal" [ofNumberMask]="numberMask" type="text" class="form-control text-right" readonly>
+                                        <of-form-field-validation-messages [ofFormControl]="item.get('subtotal')">
                                         </of-form-field-validation-messages>
                                     </td>
                                     <td [ofFormFieldValidationState]="item.get('igv')" [hidden]="!advanceMode">
@@ -221,9 +218,16 @@
                                         <of-form-field-validation-messages [ofFormControl]="item.get('igv')">
                                         </of-form-field-validation-messages>
                                     </td>
+                                    <td [ofFormFieldValidationState]="item.get('total')">
+                                        <input formControlName="total" [ofNumberMask]="numberMask" type="text" class="form-control text-right" readonly>
+                                        <of-form-field-validation-messages [ofFormControl]="item.get('total')">
+                                        </of-form-field-validation-messages>
+                                    </td>
                                     <td class=" table-view-pf-actions">
                                         <div class="table-view-pf-btn">
-                                            <button (click)="removeDetalleFormControl(i)" class="btn btn-default" type="button"><span class="fa fa-trash"></span></button>
+                                            <button (click)="removeDetalleFormControl(i)" class="btn btn-default" type="button">
+                                                <span class="fa fa-trash"></span>
+                                            </button>
                                         </div>
                                     </td>
                                 </tr>
@@ -264,48 +268,62 @@
                                 <td [ofFormFieldValidationState]="form.get('porcentajeDescuento')">
                                     <input formControlName="porcentajeDescuento" [ofNumberMask]="numberMask" *ngIf="!form.get('operacionGratuita').value" type="text"
                                         class="form-control text-right">
-                                        <input *ngIf="form.get('operacionGratuita').value" type="text" class="form-control text-right" value="0.00" disabled>
-                                        <of-form-field-validation-messages [ofFormControl]="form.get('operacionGratuita')">
-                                        </of-form-field-validation-messages>
+                                    <input *ngIf="form.get('operacionGratuita').value" type="text" class="form-control text-right" value="0.00" disabled>
+                                    <of-form-field-validation-messages [ofFormControl]="form.get('operacionGratuita')">
+                                    </of-form-field-validation-messages>
                                 </td>
                             </tr>
                             <tr>
                                 <td>Exonerada</td>
-                                <td>{{form.get('totalExonerada').value | number : '1.2-2'}} <span class="pull-right">{{form.get('moneda').value}}</span></td>
+                                <td>{{form.get('totalExonerada').value | number : '1.2-2'}}
+                                    <span class="pull-right">{{form.get('moneda').value}}</span>
+                                </td>
                             </tr>
                             <tr>
                                 <td>Inafecta</td>
-                                <td>{{form.get('totalInafecta').value | number : '1.2-2'}} <span class="pull-right">{{form.get('moneda').value}}</span></td>
+                                <td>{{form.get('totalInafecta').value | number : '1.2-2'}}
+                                    <span class="pull-right">{{form.get('moneda').value}}</span>
+                                </td>
                             </tr>
                             <tr>
                                 <td>Gravada</td>
-                                <td>{{form.get('totalGravada').value | number : '1.2-2'}} <span class="pull-right">{{form.get('moneda').value}}</span></td>
+                                <td>{{form.get('totalGravada').value | number : '1.2-2'}}
+                                    <span class="pull-right">{{form.get('moneda').value}}</span>
+                                </td>
                             </tr>
                             <tr>
                                 <td>IGV</td>
-                                <td>{{form.get('totalIgv').value | number : '1.2-2'}} <span class="pull-right">{{form.get('moneda').value}}</span></td>
+                                <td>{{form.get('totalIgv').value | number : '1.2-2'}}
+                                    <span class="pull-right">{{form.get('moneda').value}}</span>
+                                </td>
                             </tr>
                             <tr>
                                 <td>Gratuita</td>
-                                <td>{{form.get('totalGratuita').value | number : '1.2-2'}} <span class="pull-right">{{form.get('moneda').value}}</span></td>
+                                <td>{{form.get('totalGratuita').value | number : '1.2-2'}}
+                                    <span class="pull-right">{{form.get('moneda').value}}</span>
+                                </td>
                             </tr>
                             <tr>
                                 <td>Otros Cargos</td>
                                 <td [ofFormFieldValidationState]="form.get('totalOtrosCargos')">
                                     <input formControlName="totalOtrosCargos" [ofNumberMask]="numberMask" *ngIf="!form.get('operacionGratuita').value" type="text"
                                         class="form-control text-right">
-                                        <input *ngIf="form.get('operacionGratuita').value" type="text" class="form-control text-right" value="0.00" disabled>
-                                        <of-form-field-validation-messages [ofFormControl]="form.get('totalOtrosCargos')">
-                                        </of-form-field-validation-messages>
+                                    <input *ngIf="form.get('operacionGratuita').value" type="text" class="form-control text-right" value="0.00" disabled>
+                                    <of-form-field-validation-messages [ofFormControl]="form.get('totalOtrosCargos')">
+                                    </of-form-field-validation-messages>
                                 </td>
                             </tr>
                             <tr>
                                 <td>Total Descuento Global</td>
-                                <td>{{form.get('descuentoGlobal').value | number : '1.2-2'}} <span class="pull-right">{{form.get('moneda').value}}</span></td>
+                                <td>{{form.get('descuentoGlobal').value | number : '1.2-2'}}
+                                    <span class="pull-right">{{form.get('moneda').value}}</span>
+                                </td>
                             </tr>
                             <tr>
                                 <td>Total</td>
-                                <td>{{form.get('total').value | number : '1.2-2'}} <span class="pull-right">{{form.get('moneda').value}}</span></td>
+                                <td>{{form.get('total').value | number : '1.2-2'}}
+                                    <span class="pull-right">{{form.get('moneda').value}}</span>
+                                </td>
                             </tr>
                         </tbody>
                     </table>

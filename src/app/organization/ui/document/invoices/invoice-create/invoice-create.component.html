@@ -191,31 +191,31 @@
               </tr>
               <tr>
                 <td class="text-right">#</td>
-                <td class="text-right">Producto/Servicio</td>
-                <td class="text-right">Cantidad</td>
-                <td class="text-right">Tipo IGV</td>
-                <td class="text-right">Precio Unitario</td>
-                <td class="text-right" *ngIf="advanceMode">Valor Unitario</td>
-                <td class="text-right">Sub Total</td>
-                <td class="text-right">Total</td>
-                <td class="text-right" *ngIf="advanceMode">Igv</td>
-                <td class="text-center">Acciones</td>
-              </tr>
+                <td class="col-md-1 text-right">Cantidad</td>
+                <td [ngClass]="{'col-md-3':advanceMode,'col-md-5':!advanceMode }" class="text-left">Producto/Servicio</td>           
+                <td class="col-md-2 text-left">Tipo IGV</td>
+                <td class="col-md-1 text-right">Precio Unitario</td>
+                <td class="col-md-1 text-right" *ngIf="advanceMode">Valor Unitario</td>
+                <td class="col-md-1 text-right">Sub Total</td>
+                <td class="col-md-1 text-right" *ngIf="advanceMode">Igv</td>
+                <td class="col-md-1 text-right">Total</td>              
+                <td class="col-md-1 text-center">Acciones</td>
+              </tr>              
             </thead>
             <tbody formArrayName="detalle">
               <template ngFor let-item [ngForOf]="detalle.controls" let-i="index">
                 <tr [formGroupName]="i" >
                   <td class="text-right">{{i+1}}</td>
-                  <td [ofFormFieldValidationState]="item.get('descripcion')">
-                    <input formControlName="descripcion" type="text" class="form-control" placeholder="Descripcion" />
-                    <of-form-field-validation-messages [ofFormControl]="item.get('descripcion')">
-                    </of-form-field-validation-messages>
-                  </td>
                   <td [ofFormFieldValidationState]="item.get('cantidad')">
                     <input formControlName="cantidad" [ofNumberMask]="quantityMask"  type="text" class="form-control text-right">
                     <of-form-field-validation-messages [ofFormControl]="item.get('cantidad')">
                     </of-form-field-validation-messages>
                   </td>
+                  <td [ofFormFieldValidationState]="item.get('descripcion')">
+                    <input formControlName="descripcion" type="text" class="form-control" placeholder="Descripcion" />
+                    <of-form-field-validation-messages [ofFormControl]="item.get('descripcion')">
+                    </of-form-field-validation-messages>
+                  </td>              
                   <td [ofFormFieldValidationState]="item.get('tipoDeIgv')">
                     <select formControlName="tipoDeIgv" class="form-control">
                       <option *ngFor="let igv of tiposDeAfectacionIgv" [value]="igv.codigo">{{igv.denominacion}}</option>
@@ -239,16 +239,16 @@
                     <of-form-field-validation-messages [ofFormControl]="item.get('subtotal')">
                     </of-form-field-validation-messages>
                   </td>
-                  <td [ofFormFieldValidationState]="item.get('total')">
-                    <input formControlName="total" [ofNumberMask]="numberMask"  type="text" class="form-control text-right" readonly>
-                    <of-form-field-validation-messages [ofFormControl]="item.get('total')">
-                    </of-form-field-validation-messages>
-                  </td>
                   <td [ofFormFieldValidationState]="item.get('igv')" [hidden]="!advanceMode">
                     <input formControlName="igv" [ofNumberMask]="numberMask"  type="text" class="form-control text-right" readonly>
                     <of-form-field-validation-messages [ofFormControl]="item.get('igv')">
                     </of-form-field-validation-messages>
                   </td>
+                  <td [ofFormFieldValidationState]="item.get('total')">
+                    <input formControlName="total" [ofNumberMask]="numberMask"  type="text" class="form-control text-right" readonly>
+                    <of-form-field-validation-messages [ofFormControl]="item.get('total')">
+                    </of-form-field-validation-messages>
+                  </td>              
                   <td class=" table-view-pf-actions">
                     <div class="table-view-pf-btn">
                       <button (click)="removeDetalleFormControl(i)" class="btn btn-default" type="button">

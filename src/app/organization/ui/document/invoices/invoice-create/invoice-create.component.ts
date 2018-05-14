@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs/Subscription';
 import { GenericType } from '../../../../../core/model/genericType.model';
 import { Organization } from '../../../../../core/model/organization.model';
@@ -32,6 +32,7 @@ export class InvoiceCreateComponent implements OnInit, OnDestroy {
   form: FormGroup;
   working = false;
   advanceMode = false;
+  advanceModeHeader = false;
 
   organization: Organization;
   tiposComprobantePago: GenericType[];
@@ -40,7 +41,9 @@ export class InvoiceCreateComponent implements OnInit, OnDestroy {
 
   igv: GenericType;
   monedasSoportadas = ['PEN', 'USD'];
-
+  
+  fecha; 
+  
   documentSerieNumeroMask = { allowDecimal: false, thousandsSeparatorSymbol: '' };
   numberMask = { allowDecimal: true, decimalLimit: 2 };
   quantityMask = { allowDecimal: true, decimalLimit: 3 };
@@ -53,7 +56,9 @@ export class InvoiceCreateComponent implements OnInit, OnDestroy {
     private sunat: SunatService) { }
 
   ngOnInit() {
-    this.buildForm();
+    const now = new Date();
+    this.fecha = {year: now.getFullYear(), month: now.getMonth() + 1, day: now.getDate()};
+    this.buildForm();        
     this.parentDataSubscription = this.route.parent.parent.parent.data.subscribe((data) => {
       this.organization = data['organization'];
     });
@@ -82,14 +87,15 @@ export class InvoiceCreateComponent implements OnInit, OnDestroy {
       entidadTipoDeDocumento: [null, Validators.compose([Validators.required])],
       entidadNumeroDeDocumento: [null, Validators.compose([Validators.required, Validators.minLength(20), Validators.maxLength(20)])],
       entidadDenominacion: [null, Validators.compose([Validators.required, Validators.maxLength(150)])],
-      entidadEmail: [null, Validators.compose([Validators.maxLength(150)])],
       entidadDireccion: [null, Validators.compose([Validators.maxLength(150)])],
 
       moneda: [null, Validators.compose([Validators.required, Validators.maxLength(3)])],
       operacionGratuita: [false, Validators.compose([Validators.required])],
 
+      fechaDeEmision: [this.fecha, Validators.compose([Validators.required,Validators.maxLength(20)])],
+
       enviarAutomaticamenteASunat: [true, Validators.compose([Validators.required])],
-      enviarAutomaticamenteAlCliente: [true, Validators.compose([Validators.required])],
+      enviarAutomaticamenteAlCliente: [false, Validators.compose([Validators.required])],
 
       observaciones: [null, Validators.compose([Validators.maxLength(600)])],
 
@@ -104,6 +110,7 @@ export class InvoiceCreateComponent implements OnInit, OnDestroy {
 
       totalOtrosCargos: [null, Validators.compose([])],
       total: [null, Validators.compose([Validators.required])],
+    
 
       detalle: this.formBuilder.array([], Validators.compose([]))
     });
@@ -169,6 +176,13 @@ export class InvoiceCreateComponent implements OnInit, OnDestroy {
         totalOtrosCargos: null
       });
       this.recalcularDatos();
+    });
+    this.form.get('enviarAutomaticamenteAlCliente').valueChanges.subscribe(value => {
+      if (value) {
+        this.form.addControl('entidadEmail', this.formBuilder.control(null, Validators.compose([Validators.required])));
+      } else {
+        this.form.removeControl('entidadEmail');
+      }
     });
     this.form.get('porcentajeDescuento').valueChanges.subscribe(value => {
       this.recalcularDatos();
@@ -378,7 +392,10 @@ export class InvoiceCreateComponent implements OnInit, OnDestroy {
           const pad = '00000000';
           form.value.numero = (pad + form.value.numero).slice(-pad.length);
         }*/
-
+        if (this.form.value.fechaDeEmision) {
+          const fecha = this.form.value.fechaDeEmision;
+          this.form.value.fechaDeEmision = new Date(fecha.year, fecha.month-1, fecha.day);
+        }
         this.dataService.organizationsSunat().createInvoice(this.organization.organization, form.value).subscribe(
           response => {
             this.working = false;

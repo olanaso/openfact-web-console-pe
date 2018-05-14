@@ -67,7 +67,7 @@ import { LoadingComponent } from './components/loading/loading.component';
     ToastModule,
     TranslateModule,
     TextMaskModule,
-    SelectModule,
+    SelectModule    
   ],
   declarations: [
     FormFieldsStatusComponent,

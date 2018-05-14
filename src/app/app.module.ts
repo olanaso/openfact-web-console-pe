@@ -67,7 +67,6 @@ export function createTranslateLoader(http: Http) {
     ToastModule.forRoot(),
     AppRoutingModule,
 
-    NgbModule.forRoot(),
     TranslateModule.forRoot({
       provide: TranslateLoader,
       useFactory: (createTranslateLoader),
@@ -75,7 +74,7 @@ export function createTranslateLoader(http: Http) {
     }),
 
     SharedModule,
-    CoreModule
+    CoreModule    
   ],
   providers: [
     SunatService,

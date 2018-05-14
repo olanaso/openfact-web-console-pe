@@ -34,6 +34,7 @@ export class DebitNoteCreateComponent implements OnInit, OnDestroy {
   form: FormGroup;
   working = false;
   advanceMode = false;
+  advanceModeHeader = false;
 
   organization: Organization;
   tiposNotaDebito: GenericType[];
@@ -41,6 +42,7 @@ export class DebitNoteCreateComponent implements OnInit, OnDestroy {
   tiposDeAfectacionIgv: GenericType[];
 
   igv: GenericType;
+  fecha;
 
   documentSerieNumeroMask = { allowDecimal: false, thousandsSeparatorSymbol: '' };
   documentMask = [/[B|F|b|f]/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/];
@@ -49,12 +51,14 @@ export class DebitNoteCreateComponent implements OnInit, OnDestroy {
   percentMask = { allowDecimal: true, decimalLimit: 2, prefix: '% ' };
 
   constructor(private router: Router, private route: ActivatedRoute,
-              private formBuilder: FormBuilder, private modalService: NgbModal,
-              private dataService: DataService, private toastr: ToastsManager,
-              private dialogService: DialogService) {
+    private formBuilder: FormBuilder, private modalService: NgbModal,
+    private dataService: DataService, private toastr: ToastsManager,
+    private dialogService: DialogService) {
   }
 
   ngOnInit() {
+    const now = new Date();
+    this.fecha = {year: now.getFullYear(), month: now.getMonth() + 1, day: now.getDate()};
     this.buildForm();
     this.parentDataSubscription = this.route.parent.parent.parent.data.subscribe((data) => {
       this.organization = data['organization'];
@@ -93,12 +97,13 @@ export class DebitNoteCreateComponent implements OnInit, OnDestroy {
       entidadNumeroDeDocumento: [null, Validators.compose([Validators.required, Validators.minLength(20), Validators.maxLength(20)])],
       entidadDenominacion: [null, Validators.compose([Validators.required, Validators.maxLength(150)])],
       entidadEmail: [null, Validators.compose([Validators.maxLength(150)])],
+      fechaDeEmision: [this.fecha, Validators.compose([Validators.required, Validators.maxLength(20)])],
 
       moneda: [null, Validators.compose([Validators.required, Validators.maxLength(3)])],
       operacionGratuita: [false, Validators.compose([Validators.required])],
 
       enviarAutomaticamenteASunat: [true, Validators.compose([Validators.required])],
-      enviarAutomaticamenteAlCliente: [true, Validators.compose([Validators.required])],
+      enviarAutomaticamenteAlCliente: [false, Validators.compose([Validators.required])],
 
       observaciones: [null, Validators.compose([Validators.required, Validators.maxLength(600)])],
 
@@ -130,7 +135,13 @@ export class DebitNoteCreateComponent implements OnInit, OnDestroy {
         }
       }
     });
-
+    this.form.get('enviarAutomaticamenteAlCliente').valueChanges.subscribe(value => {
+      if (value) {
+        this.form.addControl('entidadEmail', this.formBuilder.control(null, Validators.compose([Validators.required])));
+      } else {
+        this.form.removeControl('entidadEmail');
+      }
+    });
     this.form.get('porcentajeDescuento').valueChanges.subscribe(value => {
       this.recalcularDatos();
     });
@@ -324,7 +335,10 @@ export class DebitNoteCreateComponent implements OnInit, OnDestroy {
     this.dialogService.confirm('Confirm', 'Estas seguro de realizar esta operacion').result.then(
       (redirect) => {
         this.working = true;
-
+        if (this.form.value.fechaDeEmision) {
+          const fecha = this.form.value.fechaDeEmision;
+          this.form.value.fechaDeEmision = new Date(fecha.year, fecha.month - 1, fecha.day);
+        }
         this.dataService.organizationsSunat().createDebitNotes(this.organization.organization, form.value).subscribe(
           response => {
             this.working = false;

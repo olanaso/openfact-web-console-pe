@@ -106,7 +106,14 @@
                             <label class="control-label" [ofFormRequiredLabel]="form.get('entidadNumeroDeDocumento')">Nro.Documento
                                 <i class="fa fa-question-circle text-muted" ngbTooltip="Numero de documento del cliente" placement="right"></i>
                             </label>
-                            <input formControlName="entidadNumeroDeDocumento" type="text" class="form-control">
+                            <div class="input-group of-float-right">
+                                <input formControlName="entidadNumeroDeDocumento" type="text" class="form-control">
+                                <span class="input-group-btn">
+                                    <button (click)="searchOnSunatAndReniec()" type="button" class="btn btn-default" ngbTooltip="Buscar en Sunat o Reniec">
+                                        <span class="glyphicon glyphicon-search"></span>
+                                    </button>
+                                </span>
+                            </div>
                             <of-form-field-validation-messages [ofFormControl]="form.get('entidadNumeroDeDocumento')">
                             </of-form-field-validation-messages>
                         </div>
@@ -146,7 +153,7 @@
                             <label class="control-label" [ofFormRequiredLabel]="form.get('serie')">Serie
                                 <i class="fa fa-question-circle text-muted" ngbTooltip="Serie del documento" placement="right"></i>
                             </label>
-                            <input formControlName="serie" type="text" class="form-control text-left"  placeholder="[B|F]000">
+                            <input formControlName="serie" type="text" class="form-control text-left" placeholder="[B|F]000">
                             <of-form-field-validation-messages [ofFormControl]="form.get('serie')">
                             </of-form-field-validation-messages>
                         </div>
@@ -200,7 +207,7 @@
                                 <td colspan="10">
                                     <div class="checkbox pull-right">
                                         <label>
-                                            <input type="checkbox" [(ngModel)]="advanceMode" [ngModelOptions]="{standalone: true}">  {{'advance-mode' | translate}}</label>
+                                            <input type="checkbox" [(ngModel)]="advanceMode" [ngModelOptions]="{standalone: true}"> {{'advance-mode' | translate}}</label>
                                     </div>
                                 </td>
                             </tr>

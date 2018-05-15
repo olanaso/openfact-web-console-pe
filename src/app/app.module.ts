@@ -1,4 +1,3 @@
-import { SunatService } from './sunat/sunat.service';
 import { ConfigService, configServiceInitializer } from './config.service';
 import { TranslateLoader, TranslateModule, TranslateStaticLoader } from 'ng2-translate';
 
@@ -29,6 +28,8 @@ import { ToastModule } from 'ng2-toastr';
 import { KeycloakOAuthService } from './keycloak/keycloak.oauth.service';
 import { KEYCLOAK_HTTP_PROVIDER } from './keycloak/keycloak.http';
 import { KeycloakConfigService, keycloakConfigServiceInitializer } from 'app/keycloak.config.service';
+import { SurenService } from './sunat/suren.service';
+import { Configuration } from './app.suren';
 
 export function restangularProviderConfigurer(restangularProvider: any, config: ConfigService) {
   restangularProvider.setBaseUrl(config.getSettings().apiEndpoint);
@@ -74,11 +75,11 @@ export function createTranslateLoader(http: Http) {
     }),
 
     SharedModule,
-    CoreModule    
+    CoreModule
   ],
   providers: [
-    SunatService,
-
+    SurenService,
+    Configuration,
     KeycloakOAuthService,
     KEYCLOAK_HTTP_PROVIDER,
     ConfigService,

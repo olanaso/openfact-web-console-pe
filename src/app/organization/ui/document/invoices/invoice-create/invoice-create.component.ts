@@ -1,4 +1,3 @@
-import { SunatService } from './../../../../../sunat/sunat.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -10,6 +9,7 @@ import { Organization } from '../../../../../core/model/organization.model';
 import { DataService } from '../../../../../core/data/data.service';
 import { DialogService } from '../../../../../core/dialog/dialog.service';
 import { ToastsManager } from 'ng2-toastr';
+import { SurenService } from '../../../../../sunat/suren.service';
 
 @Component({
   selector: 'of-invoice-create',
@@ -41,9 +41,9 @@ export class InvoiceCreateComponent implements OnInit, OnDestroy {
 
   igv: GenericType;
   monedasSoportadas = ['PEN', 'USD'];
-  
-  fecha; 
-  
+
+  fecha;
+
   documentSerieNumeroMask = { allowDecimal: false, thousandsSeparatorSymbol: '' };
   numberMask = { allowDecimal: true, decimalLimit: 2 };
   quantityMask = { allowDecimal: true, decimalLimit: 3 };
@@ -53,12 +53,12 @@ export class InvoiceCreateComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder, private modalService: NgbModal,
     private dataService: DataService, private toastr: ToastsManager,
     private dialogService: DialogService,
-    private sunat: SunatService) { }
+    private sunat: SurenService) { }
 
   ngOnInit() {
     const now = new Date();
-    this.fecha = {year: now.getFullYear(), month: now.getMonth() + 1, day: now.getDate()};
-    this.buildForm();        
+    this.fecha = { year: now.getFullYear(), month: now.getMonth() + 1, day: now.getDate() };
+    this.buildForm();
     this.parentDataSubscription = this.route.parent.parent.parent.data.subscribe((data) => {
       this.organization = data['organization'];
     });
@@ -92,7 +92,7 @@ export class InvoiceCreateComponent implements OnInit, OnDestroy {
       moneda: [null, Validators.compose([Validators.required, Validators.maxLength(3)])],
       operacionGratuita: [false, Validators.compose([Validators.required])],
 
-      fechaDeEmision: [this.fecha, Validators.compose([Validators.required,Validators.maxLength(20)])],
+      fechaDeEmision: [this.fecha, Validators.compose([Validators.required, Validators.maxLength(20)])],
 
       enviarAutomaticamenteASunat: [true, Validators.compose([Validators.required])],
       enviarAutomaticamenteAlCliente: [false, Validators.compose([Validators.required])],
@@ -110,7 +110,7 @@ export class InvoiceCreateComponent implements OnInit, OnDestroy {
 
       totalOtrosCargos: [null, Validators.compose([])],
       total: [null, Validators.compose([Validators.required])],
-    
+
 
       detalle: this.formBuilder.array([], Validators.compose([]))
     });
@@ -394,7 +394,7 @@ export class InvoiceCreateComponent implements OnInit, OnDestroy {
         }*/
         if (this.form.value.fechaDeEmision) {
           const fecha = this.form.value.fechaDeEmision;
-          this.form.value.fechaDeEmision = new Date(fecha.year, fecha.month-1, fecha.day);
+          this.form.value.fechaDeEmision = new Date(fecha.year, fecha.month - 1, fecha.day);
         }
         this.dataService.organizationsSunat().createInvoice(this.organization.organization, form.value).subscribe(
           response => {
@@ -427,14 +427,23 @@ export class InvoiceCreateComponent implements OnInit, OnDestroy {
     if (numeroDocumento.valid) {
       this.sunat.search(numeroDocumento.value).subscribe(
         (val) => {
-          this.form.patchValue({
-            entidadDenominacion: val.razon_social,
-            entidadDireccion: val.direccion !== '-' ? val.direccion : null // - porque la libreria devuelve - si no existe
-          });
+          if (val.estado) {
+            this.setData(val);
+          } else {
+            this.setData(val);
+            this.toastr.warning(val.error);
+          }
         },
         (err) => {
-          this.toastr.info('No se pudo encontrar el DNI o RUC');
+          this.setData({ razonsocial: "", direccion: "" });
+          this.toastr.warning('No se pudo encontrar el DNI o RUC');
         });
     }
+  }
+  setData(data) {
+    this.form.patchValue({
+      entidadDenominacion: data.razonsocial,
+      entidadDireccion: data.direccion !== '-' ? data.direccion : null
+    });
   }
 }

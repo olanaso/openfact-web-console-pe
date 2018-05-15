@@ -10,6 +10,7 @@ import { GenericType } from '../../../../../core/model/genericType.model';
 import { DataService } from '../../../../../core/data/data.service';
 import { DialogService } from '../../../../../core/dialog/dialog.service';
 import { ToastsManager } from 'ng2-toastr';
+import { SurenService } from 'app/sunat/suren.service';
 
 @Component({
   selector: 'of-credit-note-create',
@@ -53,7 +54,8 @@ export class CreditNoteCreateComponent implements OnInit, OnDestroy {
   constructor(private router: Router, private route: ActivatedRoute,
     private formBuilder: FormBuilder, private modalService: NgbModal,
     private dataService: DataService, private toastr: ToastsManager,
-    private dialogService: DialogService) {
+    private dialogService: DialogService,
+    private sunat: SurenService) {
   }
 
   ngOnInit() {
@@ -403,5 +405,31 @@ export class CreditNoteCreateComponent implements OnInit, OnDestroy {
       }
     });
   }
-
+/**
+   * SUNAT
+  */
+ searchOnSunatAndReniec() {
+  let numeroDocumento = this.form.get('entidadNumeroDeDocumento');
+  if (numeroDocumento.valid) {
+    this.sunat.search(numeroDocumento.value).subscribe(
+      (val) => {
+        if (val.estado) {
+          this.setData(val);
+        } else {
+          this.setData(val);
+          this.toastr.warning(val.error);
+        }
+      },
+      (err) => {
+        this.setData({ razonsocial: "", direccion: "" });
+        this.toastr.warning('No se pudo encontrar el DNI o RUC');
+      });
+  }
+}
+setData(data) {
+  this.form.patchValue({
+    entidadDenominacion: data.razonsocial,
+    entidadDireccion: data.direccion !== '-' ? data.direccion : null
+  });
+}
 }

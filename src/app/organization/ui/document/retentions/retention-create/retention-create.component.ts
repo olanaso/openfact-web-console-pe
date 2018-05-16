@@ -50,7 +50,7 @@ export class RetentionCreateComponent implements OnInit, OnDestroy {
   tiposDocumentEntidad: GenericType[];
   monedasSoportadas: GenericType[];
 
-  documentMask = [/[B|F|b|f|E|e]/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/];
+  //documentMask = [/[B|F|b|f|E|e]/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/];
   integerMask = { allowDecimal: false };
   numberMask = { allowDecimal: true, decimalLimit: 2 };
   quantityMask = { allowDecimal: true, decimalLimit: 3 };

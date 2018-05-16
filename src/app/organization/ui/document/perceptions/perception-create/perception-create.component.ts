@@ -10,6 +10,7 @@ import { DataService } from '../../../../../core/data/data.service';
 import { DialogService } from '../../../../../core/dialog/dialog.service';
 import { OfValidators } from '../../../../../shared/validators/of-validators';
 import { ToastsManager } from 'ng2-toastr';
+import { SurenService } from 'app/sunat/suren.service';
 
 @Component({
   selector: 'of-perception-create',
@@ -41,13 +42,15 @@ export class PerceptionCreateComponent implements OnInit, OnDestroy {
   form: FormGroup;
   working = false;
 
+  fecha;
+
   organization: Organization;
   tiposRegimenPercepcion: GenericType[];
   documentosRelacionadosPercepcion: GenericType[];
   tiposDocumentEntidad: GenericType[];
   monedasSoportadas: GenericType[];
 
-  documentMask = [/[B|F|b|f]/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/];
+  documentMask = [/[B|F|b|f|E|e]/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/];
   integerMask = { allowDecimal: false };
   numberMask = { allowDecimal: true, decimalLimit: 2 };
   quantityMask = { allowDecimal: true, decimalLimit: 3 };
@@ -55,12 +58,15 @@ export class PerceptionCreateComponent implements OnInit, OnDestroy {
   numberPEMask = { allowDecimal: true, decimalLimit: 2, prefix: 'PEN ' };
 
   constructor(private router: Router, private route: ActivatedRoute,
-              private formBuilder: FormBuilder, private modalService: NgbModal,
-              private dataService: DataService, private toastr: ToastsManager,
-              private dialogService: DialogService) {
+    private formBuilder: FormBuilder, private modalService: NgbModal,
+    private dataService: DataService, private toastr: ToastsManager,
+    private dialogService: DialogService,
+    private sunat: SurenService) {
   }
 
   ngOnInit() {
+    const now = new Date();
+    this.fecha = { year: now.getFullYear(), month: now.getMonth() + 1, day: now.getDate() };
     this.buildForm();
     this.parentDataSubscription = this.route.parent.parent.parent.data.subscribe((data) => {
       this.organization = data['organization'];
@@ -85,16 +91,16 @@ export class PerceptionCreateComponent implements OnInit, OnDestroy {
       entidadNumeroDeDocumento: [null, Validators.compose([Validators.required, Validators.pattern('[0-9]{1,20}')])],
       entidadDenominacion: [null, Validators.compose([Validators.required, Validators.maxLength(150)])],
       entidadDireccion: [null, Validators.compose([Validators.maxLength(150)])],
-      entidadEmail: [null, Validators.compose([Validators.maxLength(150)])],
 
       serieDocumento: [null, Validators.compose([Validators.maxLength(4), Validators.pattern('[P]{1}[0-9]{3}')])],
       numeroDocumento: [null, Validators.compose([Validators.maxLength(8), Validators.pattern('[0-9]{1,8}')])],
       monedaDocumento: [null, Validators.compose([Validators.required, Validators.maxLength(3)])],
-      codigoDocumento: [null, Validators.compose([Validators.required, Validators.required])],
-      tasaDocumento: [null, Validators.compose([Validators.required, Validators.required])],
+      codigoDocumento: [null, Validators.compose([Validators.required])],
+      tasaDocumento: [null, Validators.compose([Validators.required])],
+      fechaDeEmision: [this.fecha, Validators.compose([Validators.required])],
 
       enviarAutomaticamenteASunat: [true, Validators.compose([Validators.required])],
-      enviarAutomaticamenteAlCliente: [true, Validators.compose([Validators.required])],
+      enviarAutomaticamenteAlCliente: [false, Validators.compose([Validators.required])],
 
       observaciones: [null, Validators.compose([Validators.required, Validators.maxLength(150)])],
       totalPago: [0, Validators.compose([Validators.required])],
@@ -113,7 +119,21 @@ export class PerceptionCreateComponent implements OnInit, OnDestroy {
         }
       }
     });
-
+    this.form.get('fechaDeEmision').valueChanges.subscribe(value => {
+      this.detalle.controls.forEach(formControl => {
+        formControl.patchValue({
+          fechaCambio: value,
+          fechaDocumentoSunat: value
+        });
+      });
+    });
+    this.form.get('enviarAutomaticamenteAlCliente').valueChanges.subscribe(value => {
+      if (value) {
+        this.form.addControl('entidadEmail', this.formBuilder.control(null, Validators.compose([Validators.required])));
+      } else {
+        this.form.removeControl('entidadEmail');
+      }
+    });
     // Observer para cambiar longitud del tipo de documento
     this.form.get('entidadTipoDeDocumento').valueChanges.subscribe(value => {
       if (value) {
@@ -150,7 +170,7 @@ export class PerceptionCreateComponent implements OnInit, OnDestroy {
       pagoDocumentoSunat: [null, Validators.compose([Validators.required, OfValidators.minValue(1)])],
       numeroPago: [null, Validators.compose([Validators.required, OfValidators.minValue(1)])],
 
-      fechaDocumentoSunat: [null, Validators.compose([Validators.required])],
+      fechaDocumentoSunat: [this.fecha, Validators.compose([Validators.required])],
       importeDocumentoSunat: [null, Validators.compose([Validators.required])],
       importePago: [null, Validators.compose([Validators.required])]
     });
@@ -163,6 +183,22 @@ export class PerceptionCreateComponent implements OnInit, OnDestroy {
     formGroup.get('pagoDocumentoSunat').valueChanges.subscribe(value => {
       this.recalcularDatos();
     });
+    formGroup.get('monedaDocumentoRelacionado').valueChanges.subscribe(value => {
+      let tipoCambio = 0;
+      if (value == "PEN") {
+        tipoCambio = 1;
+      }
+      formGroup.patchValue({
+        tipoCambio: tipoCambio
+      });
+      this.recalcularDatos();
+    });
+    formGroup.get('totalDocumentoRelacionado').valueChanges.subscribe(value => {
+      formGroup.patchValue({
+        pagoDocumentoSunat: value,
+        numeroPago: 1
+      });
+    });
   }
 
   removeDetalleFormControl(index: number) {
@@ -173,6 +209,7 @@ export class PerceptionCreateComponent implements OnInit, OnDestroy {
     const formValue: any = {};
     if (this.tiposRegimenPercepcion && this.tiposRegimenPercepcion.length > 0) {
       formValue.codigoDocumento = this.tiposRegimenPercepcion[0].codigo;
+      formValue.tasaDocumento=this.tiposRegimenPercepcion[0].valor;
     }
     if (this.monedasSoportadas && this.monedasSoportadas.length > 0) {
       formValue.monedaDocumento = this.monedasSoportadas[0].codigo;
@@ -183,15 +220,17 @@ export class PerceptionCreateComponent implements OnInit, OnDestroy {
         tipoDocumentoEntidad = this.tiposDocumentEntidad[0];
       }
       formValue.entidadTipoDeDocumento = tipoDocumentoEntidad.codigo;
-    }
-
+    }   
     this.form.patchValue(formValue);
   }
 
   loadDataDetalle(formGroup: FormGroup) {
     if (this.documentosRelacionadosPercepcion && this.documentosRelacionadosPercepcion.length > 0) {
       formGroup.patchValue({
-        tipoDocumentoRelacionado: this.documentosRelacionadosPercepcion[0].codigo
+        tipoDocumentoRelacionado: this.documentosRelacionadosPercepcion[0].codigo,
+        monedaDocumentoRelacionado: this.monedasSoportadas[0].codigo,
+        tipoCambio: 1,
+        fechaCambio: this.fecha
       });
     }
   }
@@ -228,7 +267,7 @@ export class PerceptionCreateComponent implements OnInit, OnDestroy {
     const tasaDocumento = this.form.get('tasaDocumento').value || 0;
     this.detalle.controls.forEach(formControl => {
       // Se debe de multiplicar nuevamente para no perder los redondeos y sumar con todos los digitos
-      const tipoCambio = formControl.get('tipoCambio').value || 1;
+      const tipoCambio = formControl.get('tipoCambio').value || 0;
       const pagoDocumentoSunat = formControl.get('pagoDocumentoSunat').value || 0;
       const importeDocumentoSunat = +(tipoCambio * pagoDocumentoSunat * tasaDocumento / 100).toFixed(2);
       const importePago = +((tipoCambio * pagoDocumentoSunat) + (tipoCambio * pagoDocumentoSunat * tasaDocumento / 100)).toFixed(2);
@@ -265,13 +304,19 @@ export class PerceptionCreateComponent implements OnInit, OnDestroy {
       (redirect) => {
         this.working = true;
 
+        const fechaDeEmision = form.value.fechaDeEmision;
+        form.value.fechaDeEmision = new Date(fechaDeEmision.year, fechaDeEmision.month - 1, fechaDeEmision.day);
+
         form.value.detalle.forEach(detalle => {
           const fechaDocumentoSunat = detalle.fechaDocumentoSunat;
-          detalle.fechaDocumentoSunat = new Date(fechaDocumentoSunat.year, fechaDocumentoSunat.month, fechaDocumentoSunat.day);
+          detalle.fechaDocumentoSunat = new Date(fechaDocumentoSunat.year, fechaDocumentoSunat.month - 1, fechaDocumentoSunat.day);
+
+          const fechaDocumentoRelacionado = detalle.fechaDocumentoRelacionado;
+          detalle.fechaDocumentoRelacionado = new Date(fechaDocumentoRelacionado.year, fechaDocumentoRelacionado.month - 1, fechaDocumentoRelacionado.day);
 
           if (detalle.fechaCambio) {
             const fechaCambio = detalle.fechaCambio;
-            detalle.fechaCambio = new Date(fechaCambio.year, fechaCambio.month, fechaCambio.day);
+            detalle.fechaCambio = new Date(fechaCambio.year, fechaCambio.month - 1, fechaCambio.day);
           }
         });
 
@@ -302,5 +347,28 @@ export class PerceptionCreateComponent implements OnInit, OnDestroy {
   cancel() {
     this.router.navigate(['../'], { relativeTo: this.route });
   }
-
+  searchOnSunatAndReniec() {
+    let numeroDocumento = this.form.get('entidadNumeroDeDocumento');
+    if (numeroDocumento.valid) {
+      this.sunat.search(numeroDocumento.value).subscribe(
+        (val) => {
+          if (val.estado) {
+            this.setData(val);
+          } else {
+            this.setData(val);
+            this.toastr.warning(val.error);
+          }
+        },
+        (err) => {
+          this.setData({ razonsocial: "", direccion: "" });
+          this.toastr.warning('No se pudo encontrar el DNI o RUC');
+        });
+    }
+  }
+  setData(data) {
+    this.form.patchValue({
+      entidadDenominacion: data.razonsocial,
+      entidadDireccion: data.direccion !== '-' ? data.direccion : null
+    });
+  }
 }

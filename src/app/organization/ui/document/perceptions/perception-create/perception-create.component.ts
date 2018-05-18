@@ -38,9 +38,10 @@ export class PerceptionCreateComponent implements OnInit, OnDestroy {
 
   parentDataSubscription: Subscription;
   dataSubscription: Subscription;
-
+  
   form: FormGroup;
   working = false;
+  advanceModeHeader = false;
 
   fecha: Date = new Date();
 
@@ -206,7 +207,7 @@ export class PerceptionCreateComponent implements OnInit, OnDestroy {
     const formValue: any = {};
     if (this.tiposRegimenPercepcion && this.tiposRegimenPercepcion.length > 0) {
       formValue.codigoDocumento = this.tiposRegimenPercepcion[0].codigo;
-      formValue.tasaDocumento=this.tiposRegimenPercepcion[0].valor;
+      formValue.tasaDocumento = this.tiposRegimenPercepcion[0].valor;
     }
     if (this.monedasSoportadas && this.monedasSoportadas.length > 0) {
       formValue.monedaDocumento = this.monedasSoportadas[0].codigo;
@@ -217,7 +218,7 @@ export class PerceptionCreateComponent implements OnInit, OnDestroy {
         tipoDocumentoEntidad = this.tiposDocumentEntidad[0];
       }
       formValue.entidadTipoDeDocumento = tipoDocumentoEntidad.codigo;
-    }   
+    }
     this.form.patchValue(formValue);
   }
 

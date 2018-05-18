@@ -41,7 +41,8 @@ export class RetentionCreateComponent implements OnInit, OnDestroy {
 
   form: FormGroup;
   working = false;
-
+  advanceModeHeader = false;
+  
   fecha: Date = new Date();
 
   organization: Organization;

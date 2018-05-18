@@ -9,153 +9,168 @@
     </ol>
 
     <h1>{{'create-perception' | translate}}</h1>
-    <!--<ul class="nav nav-tabs">
-      <li routerLinkActive="active">
-        <a href="javascript:void(0);">{{'form' | translate}}</a>
-      </li>
-      <li routerLinkActive="active">
-        <a routerLink="../upload">{{'upload' | translate}}</a>
-      </li>
-    </ul>-->
-
+    <div class="checkbox pull-right">
+      <label>
+        <input type="checkbox" [(ngModel)]="advanceModeHeader" [ngModelOptions]="{standalone: true}">
+        <span>{{'advance-mode' | translate}}</span>
+      </label>
+    </div>
     <form [formGroup]="form" (ngSubmit)="save(form)">
       <of-form-fields-status [ofForm]="form"></of-form-fields-status>
-      <div class="row">
-        <div class="col-md-2">
-          <div class="form-group" [ofFormFieldValidationState]="form.get('codigoDocumento')">
-            <label class="control-label" [ofFormRequiredLabel]="form.get('codigoDocumento')">Tipo Percepcion
-              <i class="fa fa-question-circle text-muted" ngbTooltip="Tipo de percepcion" placement="right"></i>
-            </label>
-            <select formControlName="codigoDocumento" class="form-control" autofocus>
-              <option *ngFor="let tipoRegimen of tiposRegimenPercepcion" [value]="tipoRegimen.codigo">{{tipoRegimen.denominacion}}</option>
-            </select>
-            <of-form-field-validation-messages [ofFormControl]="form.get('codigoDocumento')">
-            </of-form-field-validation-messages>
-          </div>
-        </div>
-        <div class="col-md-2">
-          <div class="form-group" [ofFormFieldValidationState]="form.get('fechaDeEmision')">
-            <label class="control-label" [ofFormRequiredLabel]="form.get('fechaDeEmision')">Fecha Emision
-              <i class="fa fa-question-circle text-muted" ngbTooltip="Fecha Emision del documento" placement="right"></i>
-            </label>
-            <div class="input-group">
-              <input formControlName="fechaDeEmision" class="form-control" placeholder="mm/dd/yyyy" bsDatepicker #dp="bsDatepicker">
-              <div class="input-group-addon" (click)="dp.show()">
-                <span class="glyphicon glyphicon-calendar"></span>
-              </div>
-            </div>
-            <of-form-field-validation-messages [ofFormControl]="form.get('fechaDeEmision')">
-            </of-form-field-validation-messages>
-          </div>
-        </div>
-        <div class="col-md-1">
-          <div class="form-group" [ofFormFieldValidationState]="form.get('serieDocumento')">
-            <label class="control-label" [ofFormRequiredLabel]="form.get('serieDocumento')">Serie
-              <i class="fa fa-question-circle text-muted" ngbTooltip="Serie del documento" placement="right"></i>
-            </label>
-            <input formControlName="serieDocumento" type="text" class="form-control text-left" placeholder="[P]000">
-            <of-form-field-validation-messages [ofFormControl]="form.get('serieDocumento')">
-            </of-form-field-validation-messages>
-          </div>
-        </div>
-        <div class="col-md-1">
-          <div class="form-group" [ofFormFieldValidationState]="form.get('numeroDocumento')">
-            <label class="control-label" [ofFormRequiredLabel]="form.get('numeroDocumento')">Numero
-              <i class="fa fa-question-circle text-muted" ngbTooltip="Numero de documento" placement="right"></i>
-            </label>
-            <input formControlName="numeroDocumento" type="text" placeholder="0000000" class="form-control text-left">
-            <of-form-field-validation-messages [ofFormControl]="form.get('numeroDocumento')">
-            </of-form-field-validation-messages>
-          </div>
-        </div>
-
-        <div class="col-md-2">
-          <div class="form-group" [ofFormFieldValidationState]="form.get('monedaDocumento')">
-            <label class="control-label" [ofFormRequiredLabel]="form.get('monedaDocumento')">Moneda
-              <i class="fa fa-question-circle text-muted" ngbTooltip="Moneda de emision" placement="right"></i>
-            </label>
-            <div formControlName="monedaDocumento" ngbRadioGroup class="of-display-block">
-              <label *ngFor="let moneda of monedasSoportadas" class="btn btn-default">
-                <input type="radio" [value]="moneda.codigo">{{moneda.codigo}}
+      <div [ngClass]="{'col-lg-10':advanceModeHeader,'col-lg-12':!advanceModeHeader }">
+        <fieldset>
+          <legend>
+            <h3>{{'general-information' | translate}} </h3>
+          </legend>
+        </fieldset>
+        <div class="row">
+          <div class="col-md-2">
+            <div class="form-group" [ofFormFieldValidationState]="form.get('codigoDocumento')">
+              <label class="control-label" [ofFormRequiredLabel]="form.get('codigoDocumento')">Tipo Percepcion
+                <i class="fa fa-question-circle text-muted" ngbTooltip="Tipo de percepcion" placement="right"></i>
               </label>
+              <select formControlName="codigoDocumento" class="form-control" autofocus>
+                <option *ngFor="let tipoRegimen of tiposRegimenPercepcion" [value]="tipoRegimen.codigo">{{tipoRegimen.denominacion}}</option>
+              </select>
+              <of-form-field-validation-messages [ofFormControl]="form.get('codigoDocumento')">
+              </of-form-field-validation-messages>
             </div>
-            <of-form-field-validation-messages [ofFormControl]="form.get('monedaDocumento')">
-            </of-form-field-validation-messages>
+          </div>
+          <div class="col-md-2">
+            <div class="form-group" [ofFormFieldValidationState]="form.get('fechaDeEmision')">
+              <label class="control-label" [ofFormRequiredLabel]="form.get('fechaDeEmision')">Fecha Emision
+                <i class="fa fa-question-circle text-muted" ngbTooltip="Fecha Emision del documento" placement="right"></i>
+              </label>
+              <div class="input-group">
+                <input formControlName="fechaDeEmision" class="form-control" placeholder="mm/dd/yyyy" bsDatepicker #dp="bsDatepicker">
+                <div class="input-group-addon" (click)="dp.show()">
+                  <span class="glyphicon glyphicon-calendar"></span>
+                </div>
+              </div>
+              <of-form-field-validation-messages [ofFormControl]="form.get('fechaDeEmision')">
+              </of-form-field-validation-messages>
+            </div>
+          </div>         
+          <div class="col-md-2">
+            <div class="form-group" [ofFormFieldValidationState]="form.get('monedaDocumento')">
+              <label class="control-label" [ofFormRequiredLabel]="form.get('monedaDocumento')">Moneda
+                <i class="fa fa-question-circle text-muted" ngbTooltip="Moneda de emision" placement="right"></i>
+              </label>
+              <div formControlName="monedaDocumento" ngbRadioGroup class="of-display-block">
+                <label *ngFor="let moneda of monedasSoportadas" class="btn btn-default">
+                  <input type="radio" [value]="moneda.codigo">{{moneda.codigo}}
+                </label>
+              </div>
+              <of-form-field-validation-messages [ofFormControl]="form.get('monedaDocumento')">
+              </of-form-field-validation-messages>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="form-group" [ofFormFieldValidationState]="form.get('enviarAutomaticamenteASunat')">
+              <label class="control-label" [ofFormRequiredLabel]="form.get('enviarAutomaticamenteASunat')">Enviar Sunat
+                <i class="fa fa-question-circle text-muted" ngbTooltip="Tru/false si quiere enviar inmediatamente a la SUNAT" placement="right"></i>
+              </label>
+              <of-button-switch formControlName="enviarAutomaticamenteASunat" [onText]="'SI'" [offText]="'NO'"></of-button-switch>
+              <of-form-field-validation-messages [ofFormControl]="form.get('enviarAutomaticamenteASunat')">
+              </of-form-field-validation-messages>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="form-group" [ofFormFieldValidationState]="form.get('enviarAutomaticamenteAlCliente')">
+              <label class="control-label" [ofFormRequiredLabel]="form.get('enviarAutomaticamenteAlCliente')">Enviar Cliente
+                <i class="fa fa-question-circle text-muted" ngbTooltip="True/false si quiere enviar inmediatamente al cliente" placement="right"></i>
+              </label>
+              <of-button-switch formControlName="enviarAutomaticamenteAlCliente" [onText]="'SI'" [offText]="'NO'"></of-button-switch>
+              <of-form-field-validation-messages [ofFormControl]="form.get('enviarAutomaticamenteAlCliente')">
+              </of-form-field-validation-messages>
+            </div>
           </div>
         </div>
-        <div class="col-md-2">
-          <div class="form-group" [ofFormFieldValidationState]="form.get('enviarAutomaticamenteASunat')">
-            <label class="control-label" [ofFormRequiredLabel]="form.get('enviarAutomaticamenteASunat')">Enviar Sunat
-              <i class="fa fa-question-circle text-muted" ngbTooltip="Tru/false si quiere enviar inmediatamente a la SUNAT" placement="right"></i>
-            </label>
-            <of-button-switch formControlName="enviarAutomaticamenteASunat" [onText]="'SI'" [offText]="'NO'"></of-button-switch>
-            <of-form-field-validation-messages [ofFormControl]="form.get('enviarAutomaticamenteASunat')">
-            </of-form-field-validation-messages>
+        <div class="row">
+          <div class="col-md-2">
+            <div class="form-group" [ofFormFieldValidationState]="form.get('entidadTipoDeDocumento')">
+              <label class="control-label" [ofFormRequiredLabel]="form.get('entidadTipoDeDocumento')">DNI/RUC
+                <i class="fa fa-question-circle text-muted" ngbTooltip="Tipo documento del cliente" placement="right"></i>
+              </label>
+              <select formControlName="entidadTipoDeDocumento" class="form-control">
+                <option *ngFor="let documentEntidad of tiposDocumentEntidad" [value]="documentEntidad.codigo">{{documentEntidad.denominacion}}</option>
+              </select>
+              <of-form-field-validation-messages [ofFormControl]="form.get('entidadTipoDeDocumento')">
+              </of-form-field-validation-messages>
+            </div>
           </div>
-        </div>
-        <div class="col-md-2">
-          <div class="form-group" [ofFormFieldValidationState]="form.get('enviarAutomaticamenteAlCliente')">
-            <label class="control-label" [ofFormRequiredLabel]="form.get('enviarAutomaticamenteAlCliente')">Enviar Cliente
-              <i class="fa fa-question-circle text-muted" ngbTooltip="True/false si quiere enviar inmediatamente al cliente" placement="right"></i>
-            </label>
-            <of-button-switch formControlName="enviarAutomaticamenteAlCliente" [onText]="'SI'" [offText]="'NO'"></of-button-switch>
-            <of-form-field-validation-messages [ofFormControl]="form.get('enviarAutomaticamenteAlCliente')">
-            </of-form-field-validation-messages>
+          <div class="col-md-2">
+            <div class="form-group" [ofFormFieldValidationState]="form.get('entidadNumeroDeDocumento')">
+              <label class="control-label" [ofFormRequiredLabel]="form.get('entidadNumeroDeDocumento')">Nro.Documento
+                <i class="fa fa-question-circle text-muted" ngbTooltip="Numero de documento del cliente" placement="right"></i>
+              </label>
+              <div class="input-group of-float-right">
+                <input formControlName="entidadNumeroDeDocumento" type="text" class="form-control">
+                <span class="input-group-btn">
+                  <button (click)="searchOnSunatAndReniec()" type="button" class="btn btn-default" ngbTooltip="Buscar en Sunat o Reniec">
+                    <span class="glyphicon glyphicon-search"></span>
+                  </button>
+                </span>
+              </div>
+              <of-form-field-validation-messages [ofFormControl]="form.get('entidadNumeroDeDocumento')">
+              </of-form-field-validation-messages>
+            </div>
+          </div>
+          <div class="col-md-5">
+            <div class="form-group" [ofFormFieldValidationState]="form.get('entidadDenominacion')">
+              <label class="control-label" [ofFormRequiredLabel]="form.get('entidadDenominacion')">Nombre/R.Social
+                <i class="fa fa-question-circle text-muted" ngbTooltip="Nombre o razon social del cliente" placement="right"></i>
+              </label>
+              <input formControlName="entidadDenominacion" type="text" class="form-control">
+              <of-form-field-validation-messages [ofFormControl]="form.get('entidadDenominacion')">
+              </of-form-field-validation-messages>
+            </div>
+          </div>
+          <div class="col-md-3" *ngIf="form.get('enviarAutomaticamenteAlCliente').value">
+            <div class="form-group" [ofFormFieldValidationState]="form.get('entidadEmail')">
+              <label class="control-label" [ofFormRequiredLabel]="form.get('entidadEmail')">Email
+                <i class="fa fa-question-circle text-muted" ngbTooltip="Email del cliente" placement="right"></i>
+              </label>
+              <input formControlName="entidadEmail" type="email" class="form-control" placeholder="email@domain.com" />
+              <of-form-field-validation-messages [ofFormControl]="form.get('entidadEmail')">
+              </of-form-field-validation-messages>
+            </div>
           </div>
         </div>
       </div>
-      <div class="row">
-        <div class="col-md-2">
-          <div class="form-group" [ofFormFieldValidationState]="form.get('entidadTipoDeDocumento')">
-            <label class="control-label" [ofFormRequiredLabel]="form.get('entidadTipoDeDocumento')">DNI/RUC
-              <i class="fa fa-question-circle text-muted" ngbTooltip="Tipo documento del cliente" placement="right"></i>
-            </label>
-            <select formControlName="entidadTipoDeDocumento" class="form-control">
-              <option *ngFor="let documentEntidad of tiposDocumentEntidad" [value]="documentEntidad.codigo">{{documentEntidad.denominacion}}</option>
-            </select>
-            <of-form-field-validation-messages [ofFormControl]="form.get('entidadTipoDeDocumento')">
-            </of-form-field-validation-messages>
-          </div>
-        </div>
-        <div class="col-md-2">
-          <div class="form-group" [ofFormFieldValidationState]="form.get('entidadNumeroDeDocumento')">
-            <label class="control-label" [ofFormRequiredLabel]="form.get('entidadNumeroDeDocumento')">Nro.Documento
-              <i class="fa fa-question-circle text-muted" ngbTooltip="Numero de documento del cliente" placement="right"></i>
-            </label>
-            <div class="input-group of-float-right">
-              <input formControlName="entidadNumeroDeDocumento" type="text" class="form-control">
-              <span class="input-group-btn">
-                <button (click)="searchOnSunatAndReniec()" type="button" class="btn btn-default" ngbTooltip="Buscar en Sunat o Reniec">
-                  <span class="glyphicon glyphicon-search"></span>
-                </button>
-              </span>
+      <div *ngIf="advanceModeHeader" class="col-lg-2 sidebar-right sidebar-pf sidebar-pf-right">
+        <fieldset>
+          <legend>
+            <h3>{{'advance-mode' | translate}}</h3>
+          </legend>
+        </fieldset>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group" [ofFormFieldValidationState]="form.get('serieDocumento')">
+              <label class="control-label" [ofFormRequiredLabel]="form.get('serieDocumento')">Serie
+                <i class="fa fa-question-circle text-muted" ngbTooltip="Serie del documento" placement="right"></i>
+              </label>
+              <input formControlName="serieDocumento" type="text" class="form-control text-left" placeholder="[P]000">
+              <of-form-field-validation-messages [ofFormControl]="form.get('serieDocumento')">
+              </of-form-field-validation-messages>
             </div>
-            <of-form-field-validation-messages [ofFormControl]="form.get('entidadNumeroDeDocumento')">
-            </of-form-field-validation-messages>
           </div>
+
         </div>
-        <div class="col-md-5">
-          <div class="form-group" [ofFormFieldValidationState]="form.get('entidadDenominacion')">
-            <label class="control-label" [ofFormRequiredLabel]="form.get('entidadDenominacion')">Nombre/R.Social
-              <i class="fa fa-question-circle text-muted" ngbTooltip="Nombre o razon social del cliente" placement="right"></i>
-            </label>
-            <input formControlName="entidadDenominacion" type="text" class="form-control">
-            <of-form-field-validation-messages [ofFormControl]="form.get('entidadDenominacion')">
-            </of-form-field-validation-messages>
-          </div>
-        </div>
-        <div class="col-md-3" *ngIf="form.get('enviarAutomaticamenteAlCliente').value">
-          <div class="form-group" [ofFormFieldValidationState]="form.get('entidadEmail')">
-            <label class="control-label" [ofFormRequiredLabel]="form.get('entidadEmail')">Email
-              <i class="fa fa-question-circle text-muted" ngbTooltip="Email del cliente" placement="right"></i>
-            </label>
-            <input formControlName="entidadEmail" type="email" class="form-control" placeholder="email@domain.com" />
-            <of-form-field-validation-messages [ofFormControl]="form.get('entidadEmail')">
-            </of-form-field-validation-messages>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group" [ofFormFieldValidationState]="form.get('numeroDocumento')">
+              <label class="control-label" [ofFormRequiredLabel]="form.get('numeroDocumento')">Numero
+                <i class="fa fa-question-circle text-muted" ngbTooltip="Numero de documento" placement="right"></i>
+              </label>
+              <input formControlName="numeroDocumento" type="text" placeholder="0000000" class="form-control text-left">
+              <of-form-field-validation-messages [ofFormControl]="form.get('numeroDocumento')">
+              </of-form-field-validation-messages>
+            </div>
           </div>
         </div>
       </div>
-      <!--/Entidad-->
+
 
       <div class="row">
         <div class="col-md-12">
@@ -243,8 +258,7 @@
                   </td>
                   <td [ofFormFieldValidationState]="item.get('fechaCambio')">
                     <div class="input-group">
-                      <input formControlName="fechaCambio" class="form-control" placeholder="mm/dd/yyyy" bsDatepicker #dpc="bsDatepicker"
-                        readonly>
+                      <input formControlName="fechaCambio" class="form-control" placeholder="mm/dd/yyyy" bsDatepicker #dpc="bsDatepicker" readonly>
                       <div class="input-group-addon" (click)="dpc.show()">
                         <span class="glyphicon glyphicon-calendar"></span>
                       </div>
@@ -284,7 +298,7 @@
           </table>
         </div>
       </div>
-      <!--/Detalle-->
+
 
       <br>
 

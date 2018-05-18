@@ -46,7 +46,6 @@ export class CreditNoteCreateComponent implements OnInit, OnDestroy {
   fecha: Date = new Date();
 
   documentSerieNumeroMask = { allowDecimal: false, thousandsSeparatorSymbol: '' };
-  documentMask = [/[B|F|b|f]/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/];
   numberMask = { allowDecimal: true, decimalLimit: 2 };
   quantityMask = { allowDecimal: true, decimalLimit: 3 };
   percentMask = { allowDecimal: true, decimalLimit: 2, prefix: '% ' };

@@ -11,6 +11,7 @@ import { DialogService } from '../../../../../core/dialog/dialog.service';
 import { ToastsManager } from 'ng2-toastr';
 import { SurenService } from '../../../../../sunat/suren.service';
 
+
 @Component({
   selector: 'of-invoice-create',
   templateUrl: './invoice-create.component.html',
@@ -42,7 +43,7 @@ export class InvoiceCreateComponent implements OnInit, OnDestroy {
   igv: GenericType;
   monedasSoportadas = ['PEN', 'USD'];
 
-  fecha: Date = new Date();
+  fecha: any;
 
   documentSerieNumeroMask = { allowDecimal: false, thousandsSeparatorSymbol: '' };
   numberMask = { allowDecimal: true, decimalLimit: 2 };

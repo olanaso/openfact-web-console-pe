@@ -19,7 +19,7 @@ import { ServerInfoComponent } from './common/server-info/server-info.component'
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RestangularModule } from 'ngx-restangular';
-import { BsDropdownModule,BsDatepickerModule, ModalModule } from 'ngx-bootstrap';
+import { BsDropdownModule, ModalModule } from 'ngx-bootstrap';
 import { MomentModule } from 'angular2-moment';
 import { FileUploadModule } from 'ng2-file-upload';
 import { JWBootstrapSwitchModule } from 'jw-bootstrap-switch-ng2';
@@ -57,7 +57,7 @@ export function createTranslateLoader(http: Http) {
     RestangularModule.forRoot([ConfigService], restangularProviderConfigurer),
     NgbModule.forRoot(),
     BsDropdownModule.forRoot(),
-    BsDatepickerModule.forRoot(),
+    // BsDatepickerModule.forRoot(),
     ModalModule.forRoot(),
     MomentModule,
     JWBootstrapSwitchModule,

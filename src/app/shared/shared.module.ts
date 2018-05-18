@@ -42,7 +42,7 @@ import { UblLineGroupDirective } from './directives/ubl-line-group.directive';
 import { ViewKeyComponent } from './components/view-key/view-key.component';
 import { ViewObjectComponent } from './components/view-object/view-object.component';
 import { YesNoPipe } from './pipes/yes-no.pipe';
-import { BsDropdownModule, BsDatepickerModule,ModalModule } from 'ngx-bootstrap';
+import { BsDropdownModule,ModalModule } from 'ngx-bootstrap';
 import { LocalStorageModule } from 'angular-2-local-storage';
 import { ToastModule } from 'ng2-toastr';
 import { JWBootstrapSwitchModule } from 'jw-bootstrap-switch-ng2';
@@ -59,7 +59,7 @@ import { LoadingComponent } from './components/loading/loading.component';
 
     NgbModule,
     BsDropdownModule,
-    BsDatepickerModule,
+    // BsDatepickerModule,
     ModalModule,
     MomentModule,
     JWBootstrapSwitchModule,
@@ -111,7 +111,7 @@ import { LoadingComponent } from './components/loading/loading.component';
   exports: [
     NgbModule,
     BsDropdownModule,
-    BsDatepickerModule,
+    // BsDatepickerModule,
     ModalModule,
     MomentModule,
     JWBootstrapSwitchModule,

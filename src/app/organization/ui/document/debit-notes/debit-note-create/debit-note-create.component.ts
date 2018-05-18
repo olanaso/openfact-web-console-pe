@@ -11,7 +11,6 @@ import { DialogService } from '../../../../../core/dialog/dialog.service';
 import { DataService } from '../../../../../core/data/data.service';
 import { ToastsManager } from 'ng2-toastr';
 import { SurenService } from 'app/sunat/suren.service';
-import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 
 @Component({
   selector: 'of-debit-note-create',
@@ -45,7 +44,6 @@ export class DebitNoteCreateComponent implements OnInit, OnDestroy {
 
   igv: GenericType;
   fecha: Date = new Date();
-   bsConfig: Partial<BsDatepickerConfig>;
 
   documentSerieNumeroMask = { allowDecimal: false, thousandsSeparatorSymbol: '' };
   documentMask = [/[B|F|b|f]/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/];
@@ -78,7 +76,6 @@ export class DebitNoteCreateComponent implements OnInit, OnDestroy {
         this.findInvoiceByDocumentId(invoiceDocumentId);
       }
     });
-    this.bsConfig = Object.assign({}, { containerClass: 'theme-default'});
   }
 
   ngOnDestroy() {

@@ -10,7 +10,6 @@ import { DataService } from '../../../../../core/data/data.service';
 import { DialogService } from '../../../../../core/dialog/dialog.service';
 import { ToastsManager } from 'ng2-toastr';
 import { SurenService } from '../../../../../sunat/suren.service';
-import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 
 @Component({
   selector: 'of-invoice-create',
@@ -44,7 +43,6 @@ export class InvoiceCreateComponent implements OnInit, OnDestroy {
   monedasSoportadas = ['PEN', 'USD'];
 
   fecha: Date = new Date();
-  bsConfig: Partial<BsDatepickerConfig>;
 
   documentSerieNumeroMask = { allowDecimal: false, thousandsSeparatorSymbol: '' };
   numberMask = { allowDecimal: true, decimalLimit: 2 };
@@ -69,7 +67,6 @@ export class InvoiceCreateComponent implements OnInit, OnDestroy {
       this.igv = data['igv'];
       this.loadDataForm();
     });
-    this.bsConfig = Object.assign({}, { containerClass: 'theme-default'});
   }
 
   ngOnDestroy() {

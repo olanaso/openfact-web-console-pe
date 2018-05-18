@@ -198,7 +198,7 @@
                 <i class="fa fa-question-circle text-muted" ngbTooltip="Fecha Emision del documento" placement="right"></i>
               </label>
               <div class="input-group">
-                <input formControlName="fechaDeEmision" class="form-control" placeholder="mm/dd/yyyy" bsDatepicker #dp="bsDatepicker" [bsConfig]="bsConfig">
+                <input formControlName="fechaDeEmision" class="form-control" placeholder="mm/dd/yyyy" bsDatepicker #dp="bsDatepicker">
                 <div class="input-group-addon" (click)="dp.show()">
                   <span class="glyphicon glyphicon-calendar"></span>
                 </div>

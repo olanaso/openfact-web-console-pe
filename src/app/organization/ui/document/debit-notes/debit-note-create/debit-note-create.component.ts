@@ -11,6 +11,7 @@ import { DialogService } from '../../../../../core/dialog/dialog.service';
 import { DataService } from '../../../../../core/data/data.service';
 import { ToastsManager } from 'ng2-toastr';
 import { SurenService } from 'app/sunat/suren.service';
+import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 
 @Component({
   selector: 'of-debit-note-create',
@@ -43,7 +44,8 @@ export class DebitNoteCreateComponent implements OnInit, OnDestroy {
   tiposDeAfectacionIgv: GenericType[];
 
   igv: GenericType;
-  fecha;
+  fecha: Date = new Date();
+   bsConfig: Partial<BsDatepickerConfig>;
 
   documentSerieNumeroMask = { allowDecimal: false, thousandsSeparatorSymbol: '' };
   documentMask = [/[B|F|b|f]/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/];
@@ -58,9 +60,7 @@ export class DebitNoteCreateComponent implements OnInit, OnDestroy {
     private sunat: SurenService) {
   }
 
-  ngOnInit() {
-    const now = new Date();
-    this.fecha = { year: now.getFullYear(), month: now.getMonth() + 1, day: now.getDate() };
+  ngOnInit() { 
     this.buildForm();
     this.parentDataSubscription = this.route.parent.parent.parent.data.subscribe((data) => {
       this.organization = data['organization'];
@@ -78,6 +78,7 @@ export class DebitNoteCreateComponent implements OnInit, OnDestroy {
         this.findInvoiceByDocumentId(invoiceDocumentId);
       }
     });
+    this.bsConfig = Object.assign({}, { containerClass: 'theme-default'});
   }
 
   ngOnDestroy() {
@@ -336,11 +337,7 @@ export class DebitNoteCreateComponent implements OnInit, OnDestroy {
 
     this.dialogService.confirm('Confirm', 'Estas seguro de realizar esta operacion').result.then(
       (redirect) => {
-        this.working = true;
-        if (this.form.value.fechaDeEmision) {
-          const fecha = this.form.value.fechaDeEmision;
-          this.form.value.fechaDeEmision = new Date(fecha.year, fecha.month - 1, fecha.day);
-        }
+        this.working = true;       
         this.dataService.organizationsSunat().createDebitNotes(this.organization.organization, form.value).subscribe(
           response => {
             this.working = false;

@@ -174,12 +174,11 @@
                             <label class="control-label" [ofFormRequiredLabel]="form.get('fechaDeEmision')">Fecha Emision
                                 <i class="fa fa-question-circle text-muted" ngbTooltip="Fecha Emision del documento" placement="right"></i>
                             </label>
-                            <div class="input-group of-float-right">
-                                <input formControlName="fechaDeEmision" class="form-control" placeholder="yyyy-mm-dd" ngbDatepicker>
-                                <!-- #d="ngbDatepicker">
-                                    <div class="input-group-addon" (click)="d.toggle()">
-                                      <span class="glyphicon glyphicon-calendar"></span>
-                                    </div> -->
+                            <div class="input-group">
+                                <input formControlName="fechaDeEmision" class="form-control" placeholder="mm/dd/yyyy" bsDatepicker #dp="bsDatepicker" [bsConfig]="bsConfig">
+                                <div class="input-group-addon" (click)="dp.show()">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </div>
                             </div>
                             <of-form-field-validation-messages [ofFormControl]="form.get('fechaDeEmision')">
                             </of-form-field-validation-messages>

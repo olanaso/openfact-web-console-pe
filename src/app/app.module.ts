@@ -31,12 +31,27 @@ import { KeycloakConfigService, keycloakConfigServiceInitializer } from 'app/key
 import { SurenService } from './sunat/suren.service';
 import { Configuration } from './app.suren';
 
+import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
+import { defineLocale } from 'ngx-bootstrap/bs-moment';
+import { es } from 'ngx-bootstrap/locale';
+defineLocale('es', es);
+
 export function restangularProviderConfigurer(restangularProvider: any, config: ConfigService) {
   restangularProvider.setBaseUrl(config.getSettings().apiEndpoint);
 }
 
 export function createTranslateLoader(http: Http) {
   return new TranslateStaticLoader(http, './assets/i18n', '.json');
+}
+
+export function getDatepickerConfig(): BsDatepickerConfig {
+  return Object.assign(new BsDatepickerConfig(), {
+    locale: 'es',
+    containerClass: 'theme-default',
+    dateInputFormat: 'MM/DD/YYYY',
+    selectDay: true,
+    showWeekNumbers: false
+  });
 }
 
 @NgModule({
@@ -96,7 +111,8 @@ export function createTranslateLoader(http: Http) {
       useFactory: keycloakConfigServiceInitializer,
       deps: [KeycloakConfigService],
       multi: true,
-    }
+    },
+    { provide: BsDatepickerConfig, useFactory: getDatepickerConfig }
   ],
   bootstrap: [AppComponent]
 })

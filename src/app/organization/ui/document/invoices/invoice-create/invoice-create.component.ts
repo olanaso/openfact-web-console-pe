@@ -43,7 +43,7 @@ export class InvoiceCreateComponent implements OnInit, OnDestroy {
   igv: GenericType;
   monedasSoportadas = ['PEN', 'USD'];
 
-  fecha: any;
+  fecha: Date = new Date();
 
   documentSerieNumeroMask = { allowDecimal: false, thousandsSeparatorSymbol: '' };
   numberMask = { allowDecimal: true, decimalLimit: 2 };
@@ -56,7 +56,7 @@ export class InvoiceCreateComponent implements OnInit, OnDestroy {
     private dialogService: DialogService,
     private sunat: SurenService) { }
 
-  ngOnInit() {  
+  ngOnInit() {
     this.buildForm();
     this.parentDataSubscription = this.route.parent.parent.parent.data.subscribe((data) => {
       this.organization = data['organization'];
@@ -391,7 +391,7 @@ export class InvoiceCreateComponent implements OnInit, OnDestroy {
           const pad = '00000000';
           form.value.numero = (pad + form.value.numero).slice(-pad.length);
         }*/
-        
+
         this.dataService.organizationsSunat().createInvoice(this.organization.organization, form.value).subscribe(
           response => {
             this.working = false;

@@ -38,7 +38,12 @@
             <label class="control-label" [ofFormRequiredLabel]="form.get('fechaDeEmision')">Fecha Emision
               <i class="fa fa-question-circle text-muted" ngbTooltip="Fecha Emision del documento" placement="right"></i>
             </label>
-            <input formControlName="fechaDeEmision" class="form-control" placeholder="yyyy-mm-dd" ngbDatepicker>
+            <div class="input-group">
+              <input formControlName="fechaDeEmision" class="form-control" placeholder="mm/dd/yyyy" bsDatepicker #dp="bsDatepicker">
+              <div class="input-group-addon" (click)="dp.show()">
+                <span class="glyphicon glyphicon-calendar"></span>
+              </div>
+            </div>
             <of-form-field-validation-messages [ofFormControl]="form.get('fechaDeEmision')">
             </of-form-field-validation-messages>
           </div>
@@ -194,13 +199,18 @@
                   </td>
                   <td [ofFormFieldValidationState]="item.get('numeroDocumentoRelacionado')">
                     <div class="input-group">
-                      <input formControlName="numeroDocumentoRelacionado"  type="text" class="form-control" placeholder="[B|F]000-0000000">
+                      <input formControlName="numeroDocumentoRelacionado" type="text" class="form-control" placeholder="[B|F]000-0000000">
                     </div>
                     <of-form-field-validation-messages [ofFormControl]="item.get('numeroDocumentoRelacionado')">
                     </of-form-field-validation-messages>
                   </td>
                   <td [ofFormFieldValidationState]="item.get('fechaDocumentoRelacionado')">
-                    <input formControlName="fechaDocumentoRelacionado" class="form-control" placeholder="yyyy-mm-dd" ngbDatepicker>
+                    <div class="input-group">
+                      <input formControlName="fechaDocumentoRelacionado" class="form-control" placeholder="mm/dd/yyyy" bsDatepicker #dpd="bsDatepicker">
+                      <div class="input-group-addon" (click)="dpd.show()">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                      </div>
+                    </div>
                     <of-form-field-validation-messages [ofFormControl]="item.get('fechaDocumentoRelacionado')" class="text-right">
                     </of-form-field-validation-messages>
                   </td>
@@ -217,25 +227,31 @@
                     </of-form-field-validation-messages>
                   </td>
                   <td [ofFormFieldValidationState]="item.get('numeroPago')">
-                      <input formControlName="numeroPago" [ofNumberMask]="integerMask" type="text" class="form-control text-right">
-                      <of-form-field-validation-messages [ofFormControl]="item.get('numeroPago')">
-                      </of-form-field-validation-messages>
-                    </td>
-                    <td [ofFormFieldValidationState]="item.get('pagoDocumentoSunat')">
-                        <input formControlName="pagoDocumentoSunat" [ofNumberMask]="quantityMask" type="text" class="form-control text-right">
-                        <of-form-field-validation-messages [ofFormControl]="item.get('pagoDocumentoSunat')">
-                        </of-form-field-validation-messages>
-                      </td>                      
+                    <input formControlName="numeroPago" [ofNumberMask]="integerMask" type="text" class="form-control text-right">
+                    <of-form-field-validation-messages [ofFormControl]="item.get('numeroPago')">
+                    </of-form-field-validation-messages>
+                  </td>
+                  <td [ofFormFieldValidationState]="item.get('pagoDocumentoSunat')">
+                    <input formControlName="pagoDocumentoSunat" [ofNumberMask]="quantityMask" type="text" class="form-control text-right">
+                    <of-form-field-validation-messages [ofFormControl]="item.get('pagoDocumentoSunat')">
+                    </of-form-field-validation-messages>
+                  </td>
                   <td [ofFormFieldValidationState]="item.get('tipoCambio')">
                     <input formControlName="tipoCambio" [ofNumberMask]="quantityMask" type="text" class="form-control text-right">
                     <of-form-field-validation-messages [ofFormControl]="item.get('tipoCambio')">
                     </of-form-field-validation-messages>
                   </td>
                   <td [ofFormFieldValidationState]="item.get('fechaCambio')">
-                      <input formControlName="fechaCambio" class="form-control" placeholder="yyyy-mm-dd" ngbDatepicker readonly>
-                      <of-form-field-validation-messages [ofFormControl]="item.get('fechaCambio')" class="text-right">
-                      </of-form-field-validation-messages>
-                    </td>                 
+                    <div class="input-group">
+                      <input formControlName="fechaCambio" class="form-control" placeholder="mm/dd/yyyy" bsDatepicker #dpc="bsDatepicker"
+                        readonly>
+                      <div class="input-group-addon" (click)="dpc.show()">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                      </div>
+                    </div>
+                    <of-form-field-validation-messages [ofFormControl]="item.get('fechaCambio')" class="text-right">
+                    </of-form-field-validation-messages>
+                  </td>
                   <td [ofFormFieldValidationState]="item.get('importeDocumentoSunat')">
                     <input formControlName="importeDocumentoSunat" [ofNumberMask]="numberMask" type="text" class="form-control text-right" readonly>
                     <of-form-field-validation-messages [ofFormControl]="item.get('importeDocumentoSunat')">
@@ -253,7 +269,7 @@
                       </button>
                     </div>
                   </td>
-                </tr>    
+                </tr>
               </template>
             </tbody>
             <tfoot>
@@ -287,11 +303,11 @@
           <table class="table table-bordered table-striped">
             <tbody>
               <tr>
-                <td>Total Pagado</td>
+                <td>Total Percepcion</td>
                 <td>{{form.get('totalDocumentoSunat').value | number : '1.2-2'}}</td>
               </tr>
               <tr>
-                <td>Total Retenido</td>
+                <td>Total Pagado</td>
                 <td>{{form.get('totalPago').value | number : '1.2-2'}}</td>
               </tr>
             </tbody>

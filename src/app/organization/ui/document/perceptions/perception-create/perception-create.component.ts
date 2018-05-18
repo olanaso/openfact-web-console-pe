@@ -42,7 +42,7 @@ export class PerceptionCreateComponent implements OnInit, OnDestroy {
   form: FormGroup;
   working = false;
 
-  fecha;
+  fecha: Date = new Date();
 
   organization: Organization;
   tiposRegimenPercepcion: GenericType[];
@@ -50,7 +50,6 @@ export class PerceptionCreateComponent implements OnInit, OnDestroy {
   tiposDocumentEntidad: GenericType[];
   monedasSoportadas: GenericType[];
 
-  //documentMask = [/[B|F|b|f|E|e]/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/];
   integerMask = { allowDecimal: false };
   numberMask = { allowDecimal: true, decimalLimit: 2 };
   quantityMask = { allowDecimal: true, decimalLimit: 3 };
@@ -65,8 +64,6 @@ export class PerceptionCreateComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    const now = new Date();
-    this.fecha = { year: now.getFullYear(), month: now.getMonth() + 1, day: now.getDate() };
     this.buildForm();
     this.parentDataSubscription = this.route.parent.parent.parent.data.subscribe((data) => {
       this.organization = data['organization'];
@@ -165,7 +162,7 @@ export class PerceptionCreateComponent implements OnInit, OnDestroy {
       totalDocumentoRelacionado: [null, Validators.compose([Validators.required])],
 
       tipoCambio: [null, Validators.compose([Validators.maxLength(20)])],
-      fechaCambio: [null, Validators.compose([Validators.maxLength(20)])],
+      fechaCambio: [this.fecha, Validators.compose([Validators.maxLength(20)])],
 
       pagoDocumentoSunat: [null, Validators.compose([Validators.required, OfValidators.minValue(1)])],
       numeroPago: [null, Validators.compose([Validators.required, OfValidators.minValue(1)])],
@@ -303,23 +300,6 @@ export class PerceptionCreateComponent implements OnInit, OnDestroy {
     this.dialogService.confirm('Confirm', 'Estas seguro de realizar esta operacion').result.then(
       (redirect) => {
         this.working = true;
-
-        const fechaDeEmision = form.value.fechaDeEmision;
-        form.value.fechaDeEmision = new Date(fechaDeEmision.year, fechaDeEmision.month - 1, fechaDeEmision.day);
-
-        form.value.detalle.forEach(detalle => {
-          const fechaDocumentoSunat = detalle.fechaDocumentoSunat;
-          detalle.fechaDocumentoSunat = new Date(fechaDocumentoSunat.year, fechaDocumentoSunat.month - 1, fechaDocumentoSunat.day);
-
-          const fechaDocumentoRelacionado = detalle.fechaDocumentoRelacionado;
-          detalle.fechaDocumentoRelacionado = new Date(fechaDocumentoRelacionado.year, fechaDocumentoRelacionado.month - 1, fechaDocumentoRelacionado.day);
-
-          if (detalle.fechaCambio) {
-            const fechaCambio = detalle.fechaCambio;
-            detalle.fechaCambio = new Date(fechaCambio.year, fechaCambio.month - 1, fechaCambio.day);
-          }
-        });
-
         this.dataService.organizationsSunat().createPerception(this.organization.organization, form.value).subscribe(
           response => {
             this.working = false;

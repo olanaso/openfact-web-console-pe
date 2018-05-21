@@ -55,6 +55,7 @@
   "new-debit-note": "New Debit Note",
   "search-results": "Search Results",
   "issue-date": "Issue Date",
+  "issue-create-date": "Issue Create Date",
   "issue-time": "Issue Time",
   "invoice-type-code": "Invoice Type Code",
   "currency-code": "Currency Code",
@@ -159,5 +160,5 @@
   "to-custom-email": "To Custom Email",
   "loading": "Loading...",
   "postal-address-id": "Postal Address ID",
-  "advance-mode":"Advance Mode"
+  "advance-mode": "Advance Mode"
 }

@@ -5,7 +5,8 @@
 
   <div class="form-group" [ofFormFieldValidationState]="form.get('tasksEnabled')">
     <label class="col-md-2 control-label" [ofFormRequiredLabel]="form.get('tasksEnabled')">{{'enabled' | translate}}
-				<i class="fa fa-question-circle text-muted" ngbTooltip="True/false if the tasks is enable or disabled for the current organization." placement="right"></i>
+      <i class="fa fa-question-circle text-muted" ngbTooltip="True/false if the tasks is enable or disabled for the current organization."
+        placement="right"></i>
     </label>
     <div class="col-md-4">
       <of-button-switch formControlName="tasksEnabled"></of-button-switch>
@@ -15,7 +16,7 @@
   </div>
   <div *ngIf="form.get('tasksEnabled').value" class="form-group" [ofFormFieldValidationState]="form.get('taskDelay')">
     <label class="col-md-2 control-label" [ofFormRequiredLabel]="form.get('taskDelay')">Delay
-				<i class="fa fa-question-circle text-muted" ngbTooltip="Time beetween one and another tasks in miliseconds." placement="right"></i>
+      <i class="fa fa-question-circle text-muted" ngbTooltip="Time beetween one and another tasks in miliseconds." placement="right"></i>
     </label>
     <div class="col-md-3">
       <input formControlName="taskDelay" type="number" class="form-control" placeholder="Milliseconds" />
@@ -25,12 +26,12 @@
   </div>
   <div *ngIf="form.get('tasksEnabled').value" class="form-group" [ofFormFieldValidationState]="form.get('taskFirstDate')">
     <label class="col-md-2 control-label" [ofFormRequiredLabel]="form.get('taskFirstDate')">First Time Date
-				<i class="fa fa-question-circle text-muted" ngbTooltip="Date when the tasks will be executed the first time." placement="right"></i>
+      <i class="fa fa-question-circle text-muted" ngbTooltip="Date when the tasks will be executed the first time." placement="right"></i>
     </label>
     <div class="col-md-3">
       <div class="input-group">
-        <input formControlName="taskFirstDate" class="form-control" placeholder="yyyy-mm-dd" ngbDatepicker #d="ngbDatepicker">
-        <div class="input-group-addon" (click)="d.toggle()">
+        <input formControlName="taskFirstDate" class="form-control" placeholder="mm/dd/yyyy" bsDatepicker #d="bsDatepicker">
+        <div class="input-group-addon" (click)="d.show()">
           <span class="glyphicon glyphicon-calendar"></span>
         </div>
       </div>
@@ -40,7 +41,7 @@
   </div>
   <div *ngIf="form.get('tasksEnabled').value" class="form-group" [ofFormFieldValidationState]="form.get('taskFirstTime')">
     <label class="col-md-2 control-label" [ofFormRequiredLabel]="form.get('taskFirstTime')">First Time
-				<i class="fa fa-question-circle text-muted" ngbTooltip="Time when the tasks will be executed the first time." placement="right"></i>
+      <i class="fa fa-question-circle text-muted" ngbTooltip="Time when the tasks will be executed the first time." placement="right"></i>
     </label>
     <div class="col-md-3">
       <ngb-timepicker formControlName="taskFirstTime"></ngb-timepicker>

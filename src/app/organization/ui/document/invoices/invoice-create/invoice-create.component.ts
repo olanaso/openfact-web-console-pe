@@ -148,7 +148,7 @@ export class InvoiceCreateComponent implements OnInit, OnDestroy {
             });
           } else if (tipoComprobante.abreviatura.toUpperCase() === 'BOLETA') {
             this.form.patchValue({
-              enviarAutomaticamenteASunat: false
+              enviarAutomaticamenteASunat: true
             });
           }
         }

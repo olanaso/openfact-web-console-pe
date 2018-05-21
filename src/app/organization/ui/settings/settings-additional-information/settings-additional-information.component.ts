@@ -6,6 +6,8 @@ import { Subscription } from 'rxjs/Subscription';
 import { Organization } from '../../../../core/model/organization.model';
 import { DataService } from '../../../../core/data/data.service';
 import { ToastsManager } from 'ng2-toastr';
+import { GenericType } from './../../../../core/model/genericType.model';
+import { SurenService } from 'app/sunat/suren.service';
 
 @Component({
   selector: 'of-settings-additional-information',
@@ -19,17 +21,17 @@ import { ToastsManager } from 'ng2-toastr';
 export class SettingsAdditionalInformationComponent implements OnInit, OnDestroy {
 
   dataSubscription: Subscription;
-
   organization: Organization;
+  tiposDocumentEntidad: GenericType[];
 
   form: FormGroup;
   working = false;
-
   constructor(private router: Router,
-              private activatedRoute: ActivatedRoute,
-              private formBuilder: FormBuilder,
-              private dataService: DataService,
-              private toastr: ToastsManager) {
+    private activatedRoute: ActivatedRoute,
+    private formBuilder: FormBuilder,
+    private dataService: DataService,
+    private sunat: SurenService,
+    private toastr: ToastsManager) {
   }
 
   ngOnInit() {
@@ -64,11 +66,17 @@ export class SettingsAdditionalInformationComponent implements OnInit, OnDestroy
 
   loadData() {
     this.form.patchValue(this.organization);
+    this.dataService.organizationsSunat().getAllTiposDocumentEntidad(this.organization.organization).subscribe(
+      response => {
+        this.tiposDocumentEntidad = response || [];
+      },
+      error => {
+      }
+    );
   }
 
   save(form: FormGroup) {
     this.working = true;
-
     this.organization.save(form.value).subscribe(
       result => {
         this.working = false;
@@ -80,5 +88,35 @@ export class SettingsAdditionalInformationComponent implements OnInit, OnDestroy
       }
     );
   }
+  searchOnSunatAndReniec() {
+    let numeroDocumento = this.form.get('assignedIdentificationId');
+    if (numeroDocumento.valid) {
+      this.sunat.search(numeroDocumento.value).subscribe(
+        (val) => {
+          if (val.estado) {
+            this.setData(val);
+          } else {
+            this.setData(val);
+            this.toastr.warning(val.error);
+          }
+        },
+        (err) => {
+          this.setData({ razonsocial: "", direccion: "", departamento: "", provincia: "", distrito: "" });
+          this.toastr.warning('No se pudo encontrar el DNI o RUC');
+        });
+    }
+  }
+  setData(data) {
+    this.form.patchValue({ supplierName: data.razonsocial });
+    this.form.controls.postalAddress.patchValue({
+      countrySubentity: data.departamento,
+      cityName: data.provincia,
+      district: data.distrito,
+      streetName: data.direccion !== '-' ? data.direccion : null
+    });
+  }
 
+  postalAddress() {
+    window.open("http://codigopostal.gob.pe/");
+  }
 }

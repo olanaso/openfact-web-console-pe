@@ -90,7 +90,7 @@ export class RetentionCreateComponent implements OnInit, OnDestroy {
       entidadDenominacion: [null, Validators.compose([Validators.required, Validators.maxLength(150)])],
       entidadDireccion: [null, Validators.compose([Validators.maxLength(150)])],
 
-      serieDocumento: [null, Validators.compose([Validators.maxLength(4), Validators.pattern('[P|p]{1}[0-9]{3}')])],
+      serieDocumento: [null, Validators.compose([Validators.maxLength(4), Validators.pattern('[R|r]{1}[0-9]{3}')])],
       numeroDocumento: [null, Validators.compose([Validators.maxLength(8), Validators.pattern('[0-9]{1,8}')])],
       monedaDocumento:[null, Validators.compose([Validators.required,Validators.maxLength(150)])],
       codigoDocumento: [null, Validators.compose([Validators.required])],

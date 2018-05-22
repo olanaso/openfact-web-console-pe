@@ -38,7 +38,7 @@ export class PerceptionCreateComponent implements OnInit, OnDestroy {
 
   parentDataSubscription: Subscription;
   dataSubscription: Subscription;
-  
+
   form: FormGroup;
   working = false;
   advanceModeHeader = false;
@@ -100,7 +100,7 @@ export class PerceptionCreateComponent implements OnInit, OnDestroy {
       enviarAutomaticamenteASunat: [true, Validators.compose([Validators.required])],
       enviarAutomaticamenteAlCliente: [false, Validators.compose([Validators.required])],
 
-      observaciones: [null, Validators.compose([Validators.required, Validators.maxLength(150)])],
+      observaciones: ['N.', Validators.compose([Validators.required, Validators.maxLength(150)])],
       totalPago: [0, Validators.compose([Validators.required])],
       totalDocumentoSunat: [0, Validators.compose([Validators.required])],
       detalle: this.formBuilder.array([], Validators.compose([]))
@@ -168,7 +168,7 @@ export class PerceptionCreateComponent implements OnInit, OnDestroy {
       pagoDocumentoSunat: [null, Validators.compose([Validators.required, OfValidators.minValue(1)])],
       numeroPago: [null, Validators.compose([Validators.required, OfValidators.minValue(1)])],
 
-      fechaDocumentoSunat: [this.fecha, Validators.compose([Validators.required])],
+      fechaDocumentoSunat: [this.fecha, Validators.compose([Validators.maxLength(20)])],
       importeDocumentoSunat: [null, Validators.compose([Validators.required])],
       importePago: [null, Validators.compose([Validators.required])]
     });
@@ -301,6 +301,10 @@ export class PerceptionCreateComponent implements OnInit, OnDestroy {
     this.dialogService.confirm('Confirm', 'Estas seguro de realizar esta operacion').result.then(
       (redirect) => {
         this.working = true;
+        form.value.detalle.forEach(detalle => {
+          const fechaDocumentoSunat = form.value.fechaDeEmision;
+          detalle.fechaDocumentoSunat = fechaDocumentoSunat;
+        });
         this.dataService.organizationsSunat().createPerception(this.organization.organization, form.value).subscribe(
           response => {
             this.working = false;

@@ -42,7 +42,7 @@ export class RetentionCreateComponent implements OnInit, OnDestroy {
   form: FormGroup;
   working = false;
   advanceModeHeader = false;
-  
+
   fecha: Date = new Date();
 
   organization: Organization;
@@ -92,15 +92,15 @@ export class RetentionCreateComponent implements OnInit, OnDestroy {
 
       serieDocumento: [null, Validators.compose([Validators.maxLength(4), Validators.pattern('[R|r]{1}[0-9]{3}')])],
       numeroDocumento: [null, Validators.compose([Validators.maxLength(8), Validators.pattern('[0-9]{1,8}')])],
-      monedaDocumento:[null, Validators.compose([Validators.required,Validators.maxLength(150)])],
+      monedaDocumento: [null, Validators.compose([Validators.required, Validators.maxLength(150)])],
       codigoDocumento: [null, Validators.compose([Validators.required])],
       tasaDocumento: [null, Validators.compose([Validators.required])],
-      fechaDeEmision: [this.fecha, Validators.compose([Validators.required])],    
+      fechaDeEmision: [this.fecha, Validators.compose([Validators.required])],
 
       enviarAutomaticamenteASunat: [true, Validators.compose([Validators.required])],
       enviarAutomaticamenteAlCliente: [false, Validators.compose([Validators.required])],
 
-      observaciones: [null, Validators.compose([Validators.required, Validators.maxLength(150)])],
+      observaciones: ['N.', Validators.compose([Validators.required, Validators.maxLength(150)])],
       totalPago: [0, Validators.compose([Validators.required])],
       totalDocumentoSunat: [0, Validators.compose([Validators.required])],
       detalle: this.formBuilder.array([], Validators.compose([]))
@@ -168,7 +168,7 @@ export class RetentionCreateComponent implements OnInit, OnDestroy {
       tipoCambio: [null, Validators.compose([Validators.maxLength(20)])],
       fechaCambio: [this.fecha, Validators.compose([Validators.maxLength(20)])],
 
-      fechaDocumentoSunat: [this.fecha, Validators.compose([Validators.required])],
+      fechaDocumentoSunat: [null, Validators.compose([Validators.maxLength(20)])],
       importeDocumentoSunat: [null, Validators.compose([Validators.required])],
       importePago: [null, Validators.compose([Validators.required])]
     });
@@ -228,7 +228,7 @@ export class RetentionCreateComponent implements OnInit, OnDestroy {
         tipoDocumentoRelacionado: this.documentosRelacionadosRetencion[0].codigo,
         monedaDocumentoRelacionado: this.monedasSoportadas[0].codigo,
         tipoCambio: 1,
-        fechaCambio:this.fecha
+        fechaCambio: this.fecha
       });
     }
   }
@@ -298,9 +298,13 @@ export class RetentionCreateComponent implements OnInit, OnDestroy {
     this.dialogService.confirm('Confirm', 'Estas seguro de realizar esta operacion').result.then(
       (redirect) => {
         this.working = true;
+        form.value.detalle.forEach(detalle => {
+          const fechaDocumentoSunat = form.value.fechaDeEmision;
+          detalle.fechaDocumentoSunat = fechaDocumentoSunat;
+        });
         this.dataService.organizationsSunat().createRetention(this.organization.organization, form.value).subscribe(
           response => {
-            this.working = false;
+            this.working = false;   
             this.toastr.success('Success! The retention has been created.');
             if (redirect) {
               this.router.navigate(['../'], { relativeTo: this.route });

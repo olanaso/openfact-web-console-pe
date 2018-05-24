@@ -4,7 +4,7 @@
     <of-form-fields-status [ofForm]="form"></of-form-fields-status>
     <div class="form-group" [ofFormFieldValidationState]="form.get('additionalAccountId')">
         <label class="col-md-2 control-label" [ofFormRequiredLabel]="form.get('additionalAccountId')">{{'additional-account-id' | translate}}
-            <i class="fa fa-question-circle text-muted" ngbTooltip="Tipo Documento de la empresa." placement="right"></i>
+            <i class="fa fa-question-circle text-muted" ngbTooltip="{{'additional-account-id' | translate}}." placement="right"></i>
         </label>
         <div class="col-md-3">
             <select formControlName="additionalAccountId" class="form-control">
@@ -16,7 +16,7 @@
     </div>
     <div class="form-group" [ofFormFieldValidationState]="form.get('assignedIdentificationId')">
         <label class="col-md-2 control-label" [ofFormRequiredLabel]="form.get('assignedIdentificationId')">{{'document-id' | translate}}
-            <i class="fa fa-question-circle text-muted" ngbTooltip="Ruc de la empresa." placement="right"></i>
+            <i class="fa fa-question-circle text-muted" ngbTooltip="{{'document-id' | translate}}." placement="right"></i>
         </label>
         <div class="col-md-3">
             <div class="input-group">
@@ -31,19 +31,9 @@
             </div>
         </div>
     </div>
-    <div class="form-group" [ofFormFieldValidationState]="form.get('supplierName')">
-        <label class="col-md-2 control-label" [ofFormRequiredLabel]="form.get('supplierName')">{{'supplier-name' | translate}}
-            <i class="fa fa-question-circle text-muted" ngbTooltip="Razon social." placement="right"></i>
-        </label>
-        <div class="col-md-4">
-            <input formControlName="supplierName" type="text" class="form-control" />
-            <of-form-field-validation-messages [ofFormControl]="form.get('supplierName')">
-            </of-form-field-validation-messages>
-        </div>
-    </div>
     <div class="form-group" [ofFormFieldValidationState]="form.get('registrationName')">
-        <label class="col-md-2 control-label" [ofFormRequiredLabel]="form.get('registrationName')">{{'registration-name' | translate}}
-            <i class="fa fa-question-circle text-muted" ngbTooltip="Nombre comercial" placement="right"></i>
+        <label class="col-md-2 control-label" [ofFormRequiredLabel]="form.get('registrationName')">{{'supplier-name' | translate}}
+            <i class="fa fa-question-circle text-muted" ngbTooltip="{{'supplier-name' | translate}}" placement="right"></i>
         </label>
         <div class="col-md-4">
             <input formControlName="registrationName" type="text" class="form-control" />
@@ -51,7 +41,16 @@
             </of-form-field-validation-messages>
         </div>
     </div>
-
+    <div class="form-group" [ofFormFieldValidationState]="form.get('supplierName')">
+        <label class="col-md-2 control-label" [ofFormRequiredLabel]="form.get('supplierName')">{{'registration-name' | translate}}
+            <i class="fa fa-question-circle text-muted" ngbTooltip="{{'registration-name' | translate}}." placement="right"></i>
+        </label>
+        <div class="col-md-4">
+            <input formControlName="supplierName" type="text" class="form-control" />
+            <of-form-field-validation-messages [ofFormControl]="form.get('supplierName')">
+            </of-form-field-validation-messages>
+        </div>
+    </div>
     <div formGroupName="postalAddress">
         <div class="form-group" [ofFormFieldValidationState]="form.get('postalAddress').get('countryIdentificationCode')">
             <label class="col-md-2 control-label" [ofFormRequiredLabel]="form.get('postalAddress').get('countryIdentificationCode')">{{'country-identification-code' | translate}}

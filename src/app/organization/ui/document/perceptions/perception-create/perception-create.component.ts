@@ -233,34 +233,6 @@ export class PerceptionCreateComponent implements OnInit, OnDestroy {
     }
   }
 
-  /*  findDocument(formGroup: FormGroup) {
-      if (formGroup.get('numeroDocumentoRelacionado').valid && formGroup.get('tipoDocumentoRelacionado').valid) {
-        const codigoTipoDocumentoRelacionado = formGroup.get('tipoDocumentoRelacionado').value;
-        const tipoDocumentoRelacionado = this.documentosRelacionadosPercepcion.find(f => f.codigo === codigoTipoDocumentoRelacionado);
-
-        const queryParam: URLSearchParams = new URLSearchParams();
-        queryParam.set('documentType', tipoDocumentoRelacionado.grupo);
-        queryParam.set('documentId', formGroup.get('numeroDocumentoRelacionado').value);
-
-        this.dataService.document().getAll(this.organization, queryParam).subscribe(
-          data => {
-            if (data && data.length > 0) {
-              const dateString = data[0]['attributes']['issueDate'][0].split('-');
-
-              formGroup.patchValue({
-                totalDocumentoRelacionado: data[0]['attributes']['legalMonetaryTotalPayableAmount'][0],
-                fechaDocumentoRelacionado: new Date(dateString[0], dateString[1] - 1, dateString[2]),
-                tipoDocumentoRelacionado: data[0]['attributes']['invoiceTypeCode'][0],
-                monedaDocumentoRelacionado: data[0]['attributes']['documentCurrencyCode'][0],
-              });
-            } else {
-              this.alertService.pop('info', 'Info', 'Could not find Document.');
-            }
-          }
-        );
-      }
-    }*/
-
   recalcularDatos() {
     const tasaDocumento = this.form.get('tasaDocumento').value || 0;
     this.detalle.controls.forEach(formControl => {

@@ -107,7 +107,7 @@ export class SettingsAdditionalInformationComponent implements OnInit, OnDestroy
     }
   }
   setData(data) {
-    this.form.patchValue({ supplierName: data.razonsocial });
+    this.form.patchValue({ registrationName: data.razonsocial });
     this.form.controls.postalAddress.patchValue({
       countrySubentity: data.departamento,
       cityName: data.provincia,

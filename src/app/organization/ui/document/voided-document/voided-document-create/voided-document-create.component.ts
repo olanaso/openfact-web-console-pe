@@ -43,9 +43,9 @@ export class VoidedDocumentCreateComponent implements OnInit, OnDestroy {
   numberMask = { allowDecimal: true, decimalLimit: 2 };
 
   constructor(private router: Router, private route: ActivatedRoute,
-              private formBuilder: FormBuilder, private modalService: NgbModal,
-              private dataService: DataService, private toastr: ToastsManager,
-              private dialogService: DialogService) {
+    private formBuilder: FormBuilder, private modalService: NgbModal,
+    private dataService: DataService, private toastr: ToastsManager,
+    private dialogService: DialogService) {
   }
 
   ngOnInit() {
@@ -197,6 +197,10 @@ export class VoidedDocumentCreateComponent implements OnInit, OnDestroy {
       type = this.getDocumentoRelacionadoVoidByDenomination('CREDITO');
     } else if (document.documentType.toUpperCase() === 'DEBIT_NOTE') {
       type = this.getDocumentoRelacionadoVoidByDenomination('DEBITO');
+    } else if (document.documentType.toUpperCase() === 'RETENTION') {
+      type = this.getDocumentoRelacionadoVoidByDenomination('RETENTION');
+    } else if (document.documentType.toUpperCase() === 'PERCEPTION') {
+      type = this.getDocumentoRelacionadoVoidByDenomination('PERCEPTION');
     }
 
     formGroup.patchValue({

@@ -1,153 +1,205 @@
 <div class="row">
-	<div class="col-lg-9">
+	<div class="col-lg-12">
 
 		<of-document-edit-header [organization]="organization" [document]="document" [breadcrumb]="'retentions'" [documentType]="'retention'"
-			[enableAssignCreditNote]="false" [enableAssignDebitNote]="false" [enableVoid]="false"></of-document-edit-header>
+		 [enableAssignCreditNote]="false" [enableAssignDebitNote]="false" [enableVoid]="true"></of-document-edit-header>
 
-			<br>
-			<div *ngIf="!documentJson">
-				<div class="spinner"></div>
-			</div>
+		<br>
+		<div *ngIf="!documentJson">
+			<div class="spinner"></div>
+		</div>
 
-			<div *ngIf="documentJson">
-				<div class="row">
-					<div class="col-lg-6">
-						<fieldset>
-							<legend>
-								<h3>{{'general-information' | translate}}</h3>
-							</legend>
-						</fieldset>
-						<dl class="dl-horizontal left">
-							<dt>
-								{{'issue-date' | translate}}:
-								<span ngbTooltip="Issue Date." placement="right" class="pficon pficon-help text-muted small"></span>
-							</dt>
-							<dd *ngIf="documentJson.IssueDate">{{documentJson.IssueDate}}</dd>
-							<dd *ngIf="!documentJson.IssueDate"><em>{{'not-registered' | translate}}</em></dd>
-							<dt>
-								Porcentaje percepcion
-								<span ngbTooltip="SUNATRetentionPercent." placement="right" class="pficon pficon-help text-muted small"></span>
-							</dt>
-							<dd *ngIf="documentJson.SUNATRetentionPercent">%{{documentJson.SUNATRetentionPercent}}</dd>
-							<dd *ngIf="!documentJson.SUNATRetentionPercent"><em>{{'not-registered' | translate}}</em></dd>
-							<dt>
-								Codigo percepcion
-								<span ngbTooltip="SUNATRetentionSystemCode." placement="right" class="pficon pficon-help text-muted small"></span>
-							</dt>
-							<dd *ngIf="documentJson.SUNATRetentionSystemCode">{{documentJson.SUNATRetentionSystemCode}}</dd>
-							<dd *ngIf="!documentJson.SUNATRetentionSystemCode"><em>{{'not-registered' | translate}}</em></dd>
-							<dt>
-								Nota
-								<span ngbTooltip="Note." placement="right" class="pficon pficon-help text-muted small"></span>
-							</dt>
-							<dd *ngIf="documentJson.Note">{{documentJson.Note}}</dd>
-							<dd *ngIf="!documentJson.Note"><em>{{'not-registered' | translate}}</em></dd>
-						</dl>
-					</div>
-					<div class="col-lg-6">
-						<fieldset>
-							<legend>
-								<h3>Total</h3>
-							</legend>
-						</fieldset>
-						<dl class="dl-horizontal left">
-							<dt>
-								SUNATTotalPaid:
-								<span ngbTooltip="SUNATTotalPaid." placement="right" class="pficon pficon-help text-muted small"></span>
-							</dt>
-							<dd>{{documentJson.SUNATTotalPaid.currencyID}} {{documentJson.SUNATTotalPaid.content | number:'1.2-3'}}</dd>
-							<dt>
-								TotalInvoiceAmount:
-								<span ngbTooltip="TotalInvoiceAmount." placement="right" class="pficon pficon-help text-muted small"></span>
-							</dt>
-							<dd>{{documentJson.TotalInvoiceAmount.currencyID}} {{documentJson.TotalInvoiceAmount.content | number:'1.2-3'}}</dd>
-						</dl>
-					</div>
-					<div class="col-lg-6">
-						<fieldset>
-							<legend>
-								<h3>Cliente</h3>
-							</legend>
-						</fieldset>
-						<dl class="dl-horizontal left">
-							<dt>
-								Identification ID:
-								<span ngbTooltip="ReceiverParty / PartyIdentification / ID." placement="right" class="pficon pficon-help text-muted small"></span>
-							</dt>
-							<dd>{{documentJson.ReceiverParty.PartyIdentification.ID.content}}</dd>
-							<dt>
-								Registration Name:
-								<span ngbTooltip="ReceiverParty / PartyLegalEntity / RegistrationName." placement="right" class="pficon pficon-help text-muted small"></span>
-							</dt>
-							<dd>{{documentJson.ReceiverParty.PartyLegalEntity.RegistrationName}}</dd>
-						</dl>
-					</div>
-					<div class="col-lg-6">
-						<fieldset>
-							<legend>
-								<h3>{{'supplier-party' | translate}}</h3>
-							</legend>
-						</fieldset>
-						<dl class="dl-horizontal left">
-							<dt>
-								{{'assigned-account-id' | translate}}:
-								<span ngbTooltip="AgentParty / PartyIdentification ID." placement="right" class="pficon pficon-help text-muted small"></span>
-							</dt>
-							<dd>{{documentJson.AgentParty.PartyIdentification.ID.content}}</dd>
-							<template ngIf="documentJson.AgentParty.PartyLegalEntity">
+		<div *ngIf="documentJson">
+			<div class="row">
+				<div class="col-lg-9">
+					<div class="row">
+						<div class="col-lg-6">
+							<fieldset>
+								<legend>
+									<h3>{{'general-information' | translate}}</h3>
+								</legend>
+							</fieldset>
+							<dl class="dl-horizontal left">
 								<dt>
-									{{'registration-name' | translate}}:
-									<span ngbTooltip="AgentParty / Party Legal Entity / Registration Name." placement="right" class="pficon pficon-help text-muted small"></span>
+									{{'id' | translate}}
+									<span ngbTooltip="{{'id' | translate}}" placement="right" class="pficon pficon-help text-muted small"></span>
 								</dt>
-								<dd>
-									<ul class="list-unstyled" style="margin-bottom: 0px;">
-										<li *ngFor="let partyLegalEntity of (documentJson.AgentParty.PartyLegalEntity | toArray)">{{partyLegalEntity.RegistrationName}}</li>
-									</ul>
+								<dd *ngIf="documentJson.ID">{{documentJson.ID}}</dd>
+								<dd *ngIf="!documentJson.ID">
+									<em>{{'not-registered' | translate}}</em>
 								</dd>
-							</template>
-						</dl>
+								<dt>
+									{{'issue-date' | translate}}
+									<span ngbTooltip="{{'issue-date' | translate}}" placement="right" class="pficon pficon-help text-muted small"></span>
+								</dt>
+								<dd *ngIf="documentJson.IssueDate">{{documentJson.IssueDate}}</dd>
+								<dd *ngIf="!documentJson.IssueDate">
+									<em>{{'not-registered' | translate}}</em>
+								</dd>
+								<dt>
+									{{'note' | translate}}
+									<span ngbTooltip="{{'note' | translate}}" placement="right" class="pficon pficon-help text-muted small"></span>
+								</dt>
+								<dd *ngIf="documentJson.Note">{{documentJson.Note}}</dd>
+								<dd *ngIf="!documentJson.Note">
+									<em>{{'not-registered' | translate}}</em>
+								</dd>
+							</dl>
+						</div>
+						<div class="col-lg-6">
+							<fieldset>
+								<legend>
+									<h3>{{'retention-info' | translate}}</h3>
+								</legend>
+							</fieldset>
+							<dl class="dl-horizontal left">
+								<dt>
+									{{'retention-percent' | translate}}
+									<span ngbTooltip="{{'retention-percent' | translate}}" placement="right" class="pficon pficon-help text-muted small"></span>
+								</dt>
+								<dd *ngIf="documentJson.SUNATRetentionPercent">{{documentJson.SUNATRetentionPercent}} %</dd>
+								<dd *ngIf="!documentJson.SUNATRetentionPercent">
+									<em>{{'not-registered' | translate}}</em>
+								</dd>
+								<dt>
+									{{'total-paid' | translate}}
+									<span ngbTooltip="{{'total-paid' | translate}}." placement="right" class="pficon pficon-help text-muted small"></span>
+								</dt>
+								<dd *ngIf="documentJson.SUNATTotalPaid.currencyID">{{documentJson.SUNATTotalPaid.currencyID}} {{documentJson.SUNATTotalPaid.content | number:'1.2-3'}}</dd>
+								<dd *ngIf="!documentJson.SUNATTotalPaid.currencyID">
+									<em>{{'not-registered' | translate}}</em>
+								</dd>
+								<dt>
+									{{'total-retention-amount' | translate}}
+									<span ngbTooltip="{{'total-retention-amount' | translate}}." placement="right" class="pficon pficon-help text-muted small"></span>
+								</dt>
+								<dd *ngIf="documentJson.TotalInvoiceAmount.currencyID">{{documentJson.TotalInvoiceAmount.currencyID}} {{documentJson.TotalInvoiceAmount.content | number:'1.2-3'}}</dd>
+								<dd *ngIf="!documentJson.TotalInvoiceAmount.currencyID">
+									<em>{{'not-registered' | translate}}</em>
+								</dd>
+							</dl>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-6">
+							<fieldset>
+								<legend>
+									<h3>{{'supplier-party' | translate}}</h3>
+								</legend>
+							</fieldset>
+							<dl class="dl-horizontal left">
+								<dt>
+									{{'assigned-account-id' | translate}}
+									<span ngbTooltip="{{'assigned-account-id' | translate}}." placement="right" class="pficon pficon-help text-muted small"></span>
+								</dt>
+								<dd>{{documentJson.AgentParty.PartyIdentification.ID.content}}</dd>
+								<dt>
+									{{'registration-name' | translate}}
+									<span ngbTooltip="{{'registration-name' | translate}}." placement="right" class="pficon pficon-help text-muted small"></span>
+								</dt>
+								<dd>{{documentJson.AgentParty.PartyLegalEntity.RegistrationName}}</dd>
+								<dt>
+									{{'street-name' | translate}}
+									<span ngbTooltip="{{'street-name' | translate}}." placement="right" class="pficon pficon-help text-muted small"></span>
+								</dt>
+								<dd>{{documentJson.AgentParty.PostalAddress.StreetName}}</dd>
+							</dl>
+						</div>
+						<div class="col-lg-6">
+							<fieldset>
+								<legend>
+									<h3>{{'customer-party' | translate}}</h3>
+								</legend>
+							</fieldset>
+							<dl class="dl-horizontal left">
+								<dt>
+									{{'assigned-account-id' | translate}}
+									<span ngbTooltip="{{'assigned-account-id' | translate}}" placement="right" class="pficon pficon-help text-muted small"></span>
+								</dt>
+								<dd>{{documentJson.ReceiverParty.PartyIdentification.ID.content}}</dd>
+								<dt>
+									{{'additional-account-id' | translate}}:
+									<span ngbTooltip="{{'assigned-account-id' | translate}}" placement="right" class="pficon pficon-help text-muted small"></span>
+								</dt>
+								<dd>{{documentJson.ReceiverParty.PartyIdentification.ID.schemeID}}</dd>
+								<dt>
+									{{'registration-name' | translate}}
+									<span ngbTooltip="{{'registration-name' | translate}}." placement="right" class="pficon pficon-help text-muted small"></span>
+								</dt>
+								<dd>{{documentJson.ReceiverParty.PartyLegalEntity.RegistrationName}}</dd>
+							</dl>
+						</div>
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-md-12">
-						<div>
-							<h3>Detalle</h3>
-						</div>
-						<div>
-							<div class="table-responsive">
-								<table class="datatable table table-striped table-bordered dataTable no-footer table-mobile">
-									<thead>
-										<tr>
-											<th class="text-right">#</th>
-											<th class="text-right">ID</th>
-											<th class="text-right">PaidAmount</th>
-											<th class="text-right">SUNATNetTotalPaid</th>
-											<th class="text-right">SUNATRetentionAmount</th>
-											<th class="text-right">TotalInvoiceAmount</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr *ngFor="let documentReference of (documentJson.SUNATRetentionDocumentReference | toArray); let i = index;">
-											<td class="text-right">{{i+1}}</td>
-											<td class="text-right">{{documentReference.ID.content}}</td>
-											<td class="text-right">{{documentReference.Payment.PaidAmount.content | number:'1.2-3'}}</td>
-											<td class="text-right">{{documentReference.SUNATRetentionInformation.SUNATNetTotalPaid.content | number:'1.2-3'}}</td>
-											<td class="text-right">{{documentReference.SUNATRetentionInformation.SUNATRetentionAmount.content | number:'1.2-3'}}</td>
-											<td class="text-right">{{documentReference.TotalInvoiceAmount.content | number:'1.2-3'}}</td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
+				<div class="col-lg-3">
+					<div class="col-lg-12 sidebar-right sidebar-pf sidebar-pf-right">
+						<of-document-edit-right-sidebar [document]="document"></of-document-edit-right-sidebar>
+					</div>
+				</div>
+
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div>
+						<h3> {{'details' | translate}}</h3>
+					</div>
+					<div>
+						<div class="table-responsive">
+							<table class="datatable table table-striped table-bordered dataTable no-footer table-mobile">
+								<thead>
+									<tr>
+										<td rowspan="2" class="text-right">#</td>
+										<th colspan="4" class="text-center">{{'related-document' | translate}}</th>
+										<th colspan="3" class="text-center">{{'payment-information' | translate}}</th>
+										<th colspan="3" class="text-center">{{'exchange-rate' | translate}}</th>
+										<th colspan="2" class="text-center">{{'retention-data' | translate}}</th>
+									</tr>
+									<tr>
+										<td class="col-md-1">{{'ID' | translate}}</td>
+										<td class="col-md-1">{{'document-date' | translate}} </td>
+										<td class="col-md-1">{{'currency' | translate}}</td>
+										<td class="col-md-1 text-right">{{'amount' | translate}}</td>
+
+										<td class="col-md-1 text-right">{{'payment' | translate}}</td>
+										<td class="col-md-1 text-right">{{'payment-amount' | translate}}</td>
+										<td class="col-md-1">{{'pay-day' | translate}}</td>
+
+										<td class="col-md-1 text-right">{{'change-type' | translate}}</td>
+										<td class="col-md-1">{{'source-target' | translate}}</td>
+										<td class="col-md-1">{{'date-type-change' | translate}}</td>
+
+										<td class="col-md-1 text-right">{{'retained-amount' | translate}}</td>
+										<td class="col-md-1 text-right">{{'amount-paid' | translate}}</td>
+									</tr>
+								</thead>
+								<tbody>
+									<tr *ngFor="let documentReference of (documentJson.SUNATRetentionDocumentReference | toArray); let i = index;">
+										<td class="text-right">{{i+1}}</td>
+										<td>{{documentReference.ID.content}}</td>
+										<td>{{documentReference.IssueDate}}</td>
+										<td>{{documentReference.TotalInvoiceAmount.currencyID}}</td>
+										<td class="text-right">{{documentReference.TotalInvoiceAmount.content | number:'1.2-3'}}</td>
+
+										<td class="text-right">{{documentReference.Payment.ID}}</td>
+										<td class="text-right">{{documentReference.Payment.PaidAmount.content | number:'1.2-3'}}</td>
+										<td>{{documentReference.Payment.PaidDate}}</td>
+
+										<td class="text-right">{{documentReference.SUNATRetentionInformation.ExchangeRate.CalculationRate | number:'1.2-3'}}</td>
+										<td>{{documentReference.SUNATRetentionInformation.ExchangeRate.SourceCurrencyCode}}/{{documentReference.SUNATRetentionInformation.ExchangeRate.TargetCurrencyCode}}</td>
+										<td>{{documentReference.SUNATRetentionInformation.ExchangeRate.Date}}</td>
+
+
+										<td class="text-right">{{documentReference.SUNATRetentionInformation.SUNATRetentionAmount.content | number:'1.2-3'}}</td>
+										<td class="text-right">{{documentReference.SUNATRetentionInformation.SUNATNetTotalPaid.content | number:'1.2-3'}}</td>
+
+									</tr>
+								</tbody>
+							</table>
 						</div>
 					</div>
 				</div>
 			</div>
-
-	</div>
-
-	<div class="col-lg-3 sidebar-right sidebar-pf sidebar-pf-right">
-		<of-document-edit-right-sidebar [document]="document"></of-document-edit-right-sidebar>
+		</div>
 	</div>
 </div>
-
 <br>

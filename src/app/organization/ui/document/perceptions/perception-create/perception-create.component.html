@@ -26,8 +26,8 @@
         <div class="row">
           <div class="col-md-2">
             <div class="form-group" [ofFormFieldValidationState]="form.get('codigoDocumento')">
-              <label class="control-label" [ofFormRequiredLabel]="form.get('codigoDocumento')">Tipo Percepcion
-                <i class="fa fa-question-circle text-muted" ngbTooltip="Tipo de percepcion" placement="right"></i>
+              <label class="control-label" [ofFormRequiredLabel]="form.get('codigoDocumento')">{{'perception-type' | translate}}
+                <i class="fa fa-question-circle text-muted" ngbTooltip="{{'perception-type' | translate}}" placement="right"></i>
               </label>
               <select formControlName="codigoDocumento" class="form-control" autofocus>
                 <option *ngFor="let tipoRegimen of tiposRegimenPercepcion" [value]="tipoRegimen.codigo">{{tipoRegimen.denominacion}}</option>
@@ -38,8 +38,8 @@
           </div>
           <div class="col-md-2">
             <div class="form-group" [ofFormFieldValidationState]="form.get('fechaDeEmision')">
-              <label class="control-label" [ofFormRequiredLabel]="form.get('fechaDeEmision')">Fecha Emision
-                <i class="fa fa-question-circle text-muted" ngbTooltip="Fecha Emision del documento" placement="right"></i>
+              <label class="control-label" [ofFormRequiredLabel]="form.get('fechaDeEmision')">{{'issue-date' | translate}}
+                <i class="fa fa-question-circle text-muted" ngbTooltip="{{'issue-date' | translate}}" placement="right"></i>
               </label>
               <div class="input-group">
                 <input formControlName="fechaDeEmision" class="form-control" placeholder="mm/dd/yyyy" bsDatepicker #dp="bsDatepicker">
@@ -53,8 +53,8 @@
           </div>         
           <div class="col-md-2">
             <div class="form-group" [ofFormFieldValidationState]="form.get('monedaDocumento')">
-              <label class="control-label" [ofFormRequiredLabel]="form.get('monedaDocumento')">Moneda
-                <i class="fa fa-question-circle text-muted" ngbTooltip="Moneda de emision" placement="right"></i>
+              <label class="control-label" [ofFormRequiredLabel]="form.get('monedaDocumento')">{{'currency' | translate}}
+                <i class="fa fa-question-circle text-muted" ngbTooltip="{{'currency' | translate}}" placement="right"></i>
               </label>
               <div formControlName="monedaDocumento" ngbRadioGroup class="of-display-block">
                 <label *ngFor="let moneda of monedasSoportadas" class="btn btn-default">
@@ -67,8 +67,8 @@
           </div>
           <div class="col-md-2">
             <div class="form-group" [ofFormFieldValidationState]="form.get('enviarAutomaticamenteASunat')">
-              <label class="control-label" [ofFormRequiredLabel]="form.get('enviarAutomaticamenteASunat')">Enviar Sunat
-                <i class="fa fa-question-circle text-muted" ngbTooltip="Tru/false si quiere enviar inmediatamente a la SUNAT" placement="right"></i>
+              <label class="control-label" [ofFormRequiredLabel]="form.get('enviarAutomaticamenteASunat')">{{'send-to-third-party' | translate}}
+                <i class="fa fa-question-circle text-muted" ngbTooltip="{{'send-to-third-party' | translate}}" placement="right"></i>
               </label>
               <of-button-switch formControlName="enviarAutomaticamenteASunat" [onText]="'SI'" [offText]="'NO'"></of-button-switch>
               <of-form-field-validation-messages [ofFormControl]="form.get('enviarAutomaticamenteASunat')">
@@ -77,8 +77,8 @@
           </div>
           <div class="col-md-2">
             <div class="form-group" [ofFormFieldValidationState]="form.get('enviarAutomaticamenteAlCliente')">
-              <label class="control-label" [ofFormRequiredLabel]="form.get('enviarAutomaticamenteAlCliente')">Enviar Cliente
-                <i class="fa fa-question-circle text-muted" ngbTooltip="True/false si quiere enviar inmediatamente al cliente" placement="right"></i>
+              <label class="control-label" [ofFormRequiredLabel]="form.get('enviarAutomaticamenteAlCliente')">{{'send-to-customer' | translate}}
+                <i class="fa fa-question-circle text-muted" ngbTooltip="{{'send-to-customer' | translate}}" placement="right"></i>
               </label>
               <of-button-switch formControlName="enviarAutomaticamenteAlCliente" [onText]="'SI'" [offText]="'NO'"></of-button-switch>
               <of-form-field-validation-messages [ofFormControl]="form.get('enviarAutomaticamenteAlCliente')">
@@ -89,8 +89,8 @@
         <div class="row">
           <div class="col-md-2">
             <div class="form-group" [ofFormFieldValidationState]="form.get('entidadTipoDeDocumento')">
-              <label class="control-label" [ofFormRequiredLabel]="form.get('entidadTipoDeDocumento')">DNI/RUC
-                <i class="fa fa-question-circle text-muted" ngbTooltip="Tipo documento del cliente" placement="right"></i>
+              <label class="control-label" [ofFormRequiredLabel]="form.get('entidadTipoDeDocumento')">{{'type-id-third-party' | translate}}
+                <i class="fa fa-question-circle text-muted" ngbTooltip="{{'type-id-third-party' | translate}}" placement="right"></i>
               </label>
               <select formControlName="entidadTipoDeDocumento" class="form-control">
                 <option *ngFor="let documentEntidad of tiposDocumentEntidad" [value]="documentEntidad.codigo">{{documentEntidad.denominacion}}</option>
@@ -101,8 +101,8 @@
           </div>
           <div class="col-md-2">
             <div class="form-group" [ofFormFieldValidationState]="form.get('entidadNumeroDeDocumento')">
-              <label class="control-label" [ofFormRequiredLabel]="form.get('entidadNumeroDeDocumento')">Nro.Documento
-                <i class="fa fa-question-circle text-muted" ngbTooltip="Numero de documento del cliente" placement="right"></i>
+              <label class="control-label" [ofFormRequiredLabel]="form.get('entidadNumeroDeDocumento')">{{'id-third-party' | translate}}
+                <i class="fa fa-question-circle text-muted" ngbTooltip="{{'id-third-party' | translate}}" placement="right"></i>
               </label>
               <div class="input-group of-float-right">
                 <input formControlName="entidadNumeroDeDocumento" type="text" class="form-control">
@@ -118,8 +118,8 @@
           </div>
           <div class="col-md-5">
             <div class="form-group" [ofFormFieldValidationState]="form.get('entidadDenominacion')">
-              <label class="control-label" [ofFormRequiredLabel]="form.get('entidadDenominacion')">Nombre/R.Social
-                <i class="fa fa-question-circle text-muted" ngbTooltip="Nombre o razon social del cliente" placement="right"></i>
+              <label class="control-label" [ofFormRequiredLabel]="form.get('entidadDenominacion')">{{'registration-name' | translate}}
+                <i class="fa fa-question-circle text-muted" ngbTooltip="{{'registration-name' | translate}}" placement="right"></i>
               </label>
               <input formControlName="entidadDenominacion" type="text" class="form-control">
               <of-form-field-validation-messages [ofFormControl]="form.get('entidadDenominacion')">
@@ -128,8 +128,8 @@
           </div>
           <div class="col-md-3" *ngIf="form.get('enviarAutomaticamenteAlCliente').value">
             <div class="form-group" [ofFormFieldValidationState]="form.get('entidadEmail')">
-              <label class="control-label" [ofFormRequiredLabel]="form.get('entidadEmail')">Email
-                <i class="fa fa-question-circle text-muted" ngbTooltip="Email del cliente" placement="right"></i>
+              <label class="control-label" [ofFormRequiredLabel]="form.get('entidadEmail')">{{'email' | translate}}
+                <i class="fa fa-question-circle text-muted" ngbTooltip="{{'email' | translate}}" placement="right"></i>
               </label>
               <input formControlName="entidadEmail" type="email" class="form-control" placeholder="email@domain.com" />
               <of-form-field-validation-messages [ofFormControl]="form.get('entidadEmail')">
@@ -147,8 +147,8 @@
         <div class="row">
           <div class="col-md-12">
             <div class="form-group" [ofFormFieldValidationState]="form.get('serieDocumento')">
-              <label class="control-label" [ofFormRequiredLabel]="form.get('serieDocumento')">Serie
-                <i class="fa fa-question-circle text-muted" ngbTooltip="Serie del documento" placement="right"></i>
+              <label class="control-label" [ofFormRequiredLabel]="form.get('serieDocumento')">{{'first-id' | translate}}
+                <i class="fa fa-question-circle text-muted" ngbTooltip="{{'first-id' | translate}}" placement="right"></i>
               </label>
               <input formControlName="serieDocumento" type="text" class="form-control text-left" placeholder="[P]000">
               <of-form-field-validation-messages [ofFormControl]="form.get('serieDocumento')">
@@ -160,8 +160,8 @@
         <div class="row">
           <div class="col-md-12">
             <div class="form-group" [ofFormFieldValidationState]="form.get('numeroDocumento')">
-              <label class="control-label" [ofFormRequiredLabel]="form.get('numeroDocumento')">Numero
-                <i class="fa fa-question-circle text-muted" ngbTooltip="Numero de documento" placement="right"></i>
+              <label class="control-label" [ofFormRequiredLabel]="form.get('numeroDocumento')">{{'last-id' | translate}}
+                <i class="fa fa-question-circle text-muted" ngbTooltip="{{'last-id' | translate}}" placement="right"></i>
               </label>
               <input formControlName="numeroDocumento" type="text" placeholder="0000000" class="form-control text-left">
               <of-form-field-validation-messages [ofFormControl]="form.get('numeroDocumento')">
@@ -177,28 +177,33 @@
           <table class="table table-striped table-bordered dataTable no-footer">
             <thead>
               <tr>
-                <td rowspan="2" class="text-right">#</td>
-                <th colspan="5" class="text-center">Documento Relacionado</th>
-                <th colspan="2" class="text-center">Datos de Pago</th>
-                <th colspan="2" class="text-center">Tipo de Cambio</th>
-                <th colspan="2" class="text-center">Datos de Percepcion</th>
-                <th rowspan="3" class="text-right">Acciones</th>
+                <td class="text-center">
+                  <button (click)="addDetalleFormControl()" type="button" class="btn btn-lg btn-default" ngbTooltip="{{'add-item' | translate}}" placement="top">
+                    <span class="fa fa-plus"></span>
+                  </button>
+                </td>
+                <th colspan="5" class="text-center">{{'related-document' | translate}}</th>
+                <th colspan="2" class="text-center">{{'cashed-information' | translate}}</th>
+                <th colspan="2" class="text-center">{{'exchange-rate' | translate}}</th>
+                <th colspan="2" class="text-center">{{'perception-data' | translate}}</th>
+                <th rowspan="3" class="text-right">{{'actions' | translate}}</th>
               </tr>
               <tr>
-                <td class="col-md-2">Tipo Documento</td>
-                <td class="col-md-1">Serie/Numero</td>
-                <td class="col-md-1">Fecha DR</td>
-                <td class="col-md-1">Moneda</td>
-                <td class="col-md-1 text-right">Total</td>
+                <td>#</td>
+                <td class="col-md-2">{{'document-type' | translate}}</td>
+                <td class="col-md-1">{{'ID' | translate}}</td>
+                <td class="col-md-1">{{'document-date' | translate}}</td>
+                <td class="col-md-1">{{'currency' | translate}}</td>
+                <td class="col-md-1 text-right">{{'amount' | translate}}</td>
 
-                <td class="col-md-1 text-right">Numero de cobro</td>
-                <td class="col-md-1 text-right">Monto cobrado </td>
+                <td class="col-md-1 text-right">{{'cashed' | translate}}</td>
+                <td class="col-md-1 text-right">{{'amount-cashed' | translate}} </td>
 
-                <td class="col-md-1 text-right">Tipo cambio</td>
-                <td class="col-md-1">Fecha de T/C</td>
+                <td class="col-md-1 text-right">{{'change-type' | translate}}</td>
+                <td class="col-md-1">{{'date-type-change' | translate}}</td>
 
-                <td class="col-md-1 text-right">Importe percibido</td>
-                <td class="col-md-1 text-right">Importe cobrado</td>
+                <td class="col-md-1 text-right">{{'perceived-amount' | translate}}</td>
+                <td class="col-md-1 text-right">{{'amount-net-cashed' | translate}}</td>
               </tr>
             </thead>
             <tbody formArrayName="detalle">
@@ -289,7 +294,7 @@
             <tfoot>
               <tr>
                 <td colspan="13" class="text-right">
-                  <button (click)="addDetalleFormControl()" type="button" class="btn btn-lg btn-default">Agregar Item
+                  <button (click)="addDetalleFormControl()" type="button" class="btn btn-lg btn-default btn-block">{{'add-item' | translate}}
                     <span class="fa fa-plus"></span>
                   </button>
                 </td>
@@ -305,8 +310,8 @@
       <div class="row">
         <div class="col-md-8">
           <div class="form-group" [ofFormFieldValidationState]="form.get('observaciones')">
-            <label class="control-label" [ofFormRequiredLabel]="form.get('observaciones')">Observaciones
-              <i class="fa fa-question-circle text-muted" ngbTooltip="Enabled of the organization" placement="right"></i>
+            <label class="control-label" [ofFormRequiredLabel]="form.get('observaciones')">{{'description' |translate}}
+              <i class="fa fa-question-circle text-muted" ngbTooltip="{{'description' |translate}}" placement="right"></i>
             </label>
             <textarea formControlName="observaciones" rows="5" class="form-control"></textarea>
             <of-form-field-validation-messages [ofFormControl]="form.get('observaciones')">
@@ -317,11 +322,11 @@
           <table class="table table-bordered table-striped">
             <tbody>
               <tr>
-                <td>Total Percepcion</td>
+                <td>{{'total-perception-amount' | translate}}</td>
                 <td>{{form.get('totalDocumentoSunat').value | number : '1.2-2'}}</td>
               </tr>
               <tr>
-                <td>Total Pagado</td>
+                <td>{{'total-cashed' | translate}}</td>
                 <td>{{form.get('totalPago').value | number : '1.2-2'}}</td>
               </tr>
             </tbody>

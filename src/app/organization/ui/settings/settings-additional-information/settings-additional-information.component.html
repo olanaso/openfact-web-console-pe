@@ -57,7 +57,9 @@
                 <i class="fa fa-question-circle text-muted" ngbTooltip="Codigo Pais." placement="right"></i>
             </label>
             <div class="col-md-2">
-                <input formControlName="countryIdentificationCode" type="text" class="form-control" />
+                <select formControlName="countryIdentificationCode" class="form-control">
+                    <option *ngFor="let identificationCode of countryIdentifications" [value]="identificationCode.codigo">{{identificationCode.denominacion}}</option>
+                </select>
                 <of-form-field-validation-messages [ofFormControl]="form.get('postalAddress').get('countryIdentificationCode')">
                 </of-form-field-validation-messages>
             </div>

@@ -49,7 +49,7 @@ export class InvoiceCreateComponent implements OnInit, OnDestroy {
   numberMask = { allowDecimal: true, decimalLimit: 2 };
   quantityMask = { allowDecimal: true, decimalLimit: 3 };
   percentMask = { allowDecimal: true, decimalLimit: 2, prefix: '% ' };
-
+  emailRegex = '^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$';
   constructor(private router: Router, private route: ActivatedRoute,
     private formBuilder: FormBuilder, private modalService: NgbModal,
     private dataService: DataService, private toastr: ToastsManager,
@@ -86,6 +86,7 @@ export class InvoiceCreateComponent implements OnInit, OnDestroy {
       entidadTipoDeDocumento: [null, Validators.compose([Validators.required])],
       entidadNumeroDeDocumento: [null, Validators.compose([Validators.required, Validators.minLength(20), Validators.maxLength(20)])],
       entidadDenominacion: [null, Validators.compose([Validators.required, Validators.maxLength(150)])],
+      entidadEmail: [null, Validators.compose([Validators.maxLength(150), Validators.pattern(this.emailRegex)])],
       entidadDireccion: [null, Validators.compose([Validators.maxLength(150)])],
 
       moneda: [null, Validators.compose([Validators.required, Validators.maxLength(3)])],
@@ -178,7 +179,7 @@ export class InvoiceCreateComponent implements OnInit, OnDestroy {
     });
     this.form.get('enviarAutomaticamenteAlCliente').valueChanges.subscribe(value => {
       if (value) {
-        this.form.addControl('entidadEmail', this.formBuilder.control(null, Validators.compose([Validators.required])));
+        this.form.addControl('entidadEmail', this.formBuilder.control(null, Validators.compose([Validators.required,Validators.pattern(this.emailRegex)])));
       } else {
         this.form.removeControl('entidadEmail');
       }

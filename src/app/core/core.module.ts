@@ -44,13 +44,13 @@ import { ServerInfoResolverService } from './resolvers/server-info-resolver.serv
 import { ServerInfoService } from './data/server-info.service';
 import { SharedModule } from '../shared/shared.module';
 import { VoidedDocumentService } from './data/voided-document.service';
+import { CountryService } from './data/country.service';
 import { CommonModule } from '@angular/common';
 import { ToastsManager } from 'ng2-toastr';
 
 @NgModule({
   imports: [
     CommonModule,
-
     SharedModule
   ],
   declarations: [
@@ -78,6 +78,7 @@ import { ToastsManager } from 'ng2-toastr';
     OrganizationService,
     ServerInfoService,
     DocumentService,
+    CountryService,
     FileService,
     InvoiceService,
     CreditNoteService,
@@ -86,6 +87,7 @@ import { ToastsManager } from 'ng2-toastr';
     PerceptionService,
     RetentionService,
     VoidedDocumentService,
+    CountryService,
 
     OrganizationResolverService,
     OrganizationKeyResolverService,

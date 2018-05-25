@@ -46,6 +46,7 @@ export class DebitNoteCreateComponent implements OnInit, OnDestroy {
   fecha: Date = new Date();
 
   documentSerieNumeroMask = { allowDecimal: false, thousandsSeparatorSymbol: '' };
+  emailRegex = '^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$';
   documentMask = [/[B|F|b|f]/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/];
   numberMask = { allowDecimal: true, decimalLimit: 2 };
   quantityMask = { allowDecimal: true, decimalLimit: 3 };
@@ -58,7 +59,7 @@ export class DebitNoteCreateComponent implements OnInit, OnDestroy {
     private sunat: SurenService) {
   }
 
-  ngOnInit() { 
+  ngOnInit() {
     this.buildForm();
     this.parentDataSubscription = this.route.parent.parent.parent.data.subscribe((data) => {
       this.organization = data['organization'];
@@ -96,7 +97,7 @@ export class DebitNoteCreateComponent implements OnInit, OnDestroy {
       entidadTipoDeDocumento: [null, Validators.compose([Validators.required])],
       entidadNumeroDeDocumento: [null, Validators.compose([Validators.required, Validators.minLength(20), Validators.maxLength(20)])],
       entidadDenominacion: [null, Validators.compose([Validators.required, Validators.maxLength(150)])],
-      entidadEmail: [null, Validators.compose([Validators.maxLength(150)])],
+      entidadEmail: [null, Validators.compose([Validators.maxLength(150), Validators.pattern(this.emailRegex)])],
       fechaDeEmision: [this.fecha, Validators.compose([Validators.required, Validators.maxLength(20)])],
 
       moneda: [null, Validators.compose([Validators.required, Validators.maxLength(3)])],
@@ -137,7 +138,7 @@ export class DebitNoteCreateComponent implements OnInit, OnDestroy {
     });
     this.form.get('enviarAutomaticamenteAlCliente').valueChanges.subscribe(value => {
       if (value) {
-        this.form.addControl('entidadEmail', this.formBuilder.control(null, Validators.compose([Validators.required])));
+        this.form.addControl('entidadEmail', this.formBuilder.control(null, Validators.compose([Validators.required,Validators.pattern(this.emailRegex)])));
       } else {
         this.form.removeControl('entidadEmail');
       }
@@ -334,7 +335,7 @@ export class DebitNoteCreateComponent implements OnInit, OnDestroy {
 
     this.dialogService.confirm('Confirm', 'Estas seguro de realizar esta operacion').result.then(
       (redirect) => {
-        this.working = true;       
+        this.working = true;
         this.dataService.organizationsSunat().createDebitNotes(this.organization.organization, form.value).subscribe(
           response => {
             this.working = false;

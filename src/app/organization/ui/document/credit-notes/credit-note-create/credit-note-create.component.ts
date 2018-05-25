@@ -44,7 +44,7 @@ export class CreditNoteCreateComponent implements OnInit, OnDestroy {
 
   igv: GenericType;
   fecha: Date = new Date();
-
+  emailRegex = '^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$';
   documentSerieNumeroMask = { allowDecimal: false, thousandsSeparatorSymbol: '' };
   numberMask = { allowDecimal: true, decimalLimit: 2 };
   quantityMask = { allowDecimal: true, decimalLimit: 3 };
@@ -95,8 +95,8 @@ export class CreditNoteCreateComponent implements OnInit, OnDestroy {
       entidadTipoDeDocumento: [null, Validators.compose([Validators.required])],
       entidadNumeroDeDocumento: [null, Validators.compose([Validators.required, Validators.minLength(20), Validators.maxLength(20)])],
       entidadDenominacion: [null, Validators.compose([Validators.required, Validators.maxLength(150)])],
-      entidadEmail: [null, Validators.compose([Validators.maxLength(150)])],
-      fechaDeEmision: [this.fecha, Validators.compose([Validators.required,Validators.maxLength(20)])],
+      entidadEmail: [null, Validators.compose([Validators.maxLength(150), Validators.pattern(this.emailRegex)])],
+      fechaDeEmision: [this.fecha, Validators.compose([Validators.required, Validators.maxLength(20)])],
 
       moneda: [null, Validators.compose([Validators.required, Validators.maxLength(3)])],
       operacionGratuita: [false, Validators.compose([Validators.required])],
@@ -136,7 +136,7 @@ export class CreditNoteCreateComponent implements OnInit, OnDestroy {
     });
     this.form.get('enviarAutomaticamenteAlCliente').valueChanges.subscribe(value => {
       if (value) {
-        this.form.addControl('entidadEmail', this.formBuilder.control(null, Validators.compose([Validators.required])));
+        this.form.addControl('entidadEmail', this.formBuilder.control(null, Validators.compose([Validators.required, Validators.pattern(this.emailRegex)])));
       } else {
         this.form.removeControl('entidadEmail');
       }
@@ -334,7 +334,7 @@ export class CreditNoteCreateComponent implements OnInit, OnDestroy {
 
     this.dialogService.confirm('Confirm', 'Estas seguro de realizar esta operacion').result.then(
       (redirect) => {
-        this.working = true;       
+        this.working = true;
         this.dataService.organizationsSunat().createCreditnote(this.organization.organization, form.value).subscribe(
           response => {
             this.working = false;
@@ -398,31 +398,31 @@ export class CreditNoteCreateComponent implements OnInit, OnDestroy {
       }
     });
   }
-/**
-   * SUNAT
-  */
- searchOnSunatAndReniec() {
-  let numeroDocumento = this.form.get('entidadNumeroDeDocumento');
-  if (numeroDocumento.valid) {
-    this.sunat.search(numeroDocumento.value).subscribe(
-      (val) => {
-        if (val.estado) {
-          this.setData(val);
-        } else {
-          this.setData(val);
-          this.toastr.warning(val.error);
-        }
-      },
-      (err) => {
-        this.setData({ razonsocial: "", direccion: "" });
-        this.toastr.warning('No se pudo encontrar el DNI o RUC');
-      });
+  /**
+     * SUNAT
+    */
+  searchOnSunatAndReniec() {
+    let numeroDocumento = this.form.get('entidadNumeroDeDocumento');
+    if (numeroDocumento.valid) {
+      this.sunat.search(numeroDocumento.value).subscribe(
+        (val) => {
+          if (val.estado) {
+            this.setData(val);
+          } else {
+            this.setData(val);
+            this.toastr.warning(val.error);
+          }
+        },
+        (err) => {
+          this.setData({ razonsocial: "", direccion: "" });
+          this.toastr.warning('No se pudo encontrar el DNI o RUC');
+        });
+    }
   }
-}
-setData(data) {
-  this.form.patchValue({
-    entidadDenominacion: data.razonsocial,
-    entidadDireccion: data.direccion !== '-' ? data.direccion : null
-  });
-}
+  setData(data) {
+    this.form.patchValue({
+      entidadDenominacion: data.razonsocial,
+      entidadDireccion: data.direccion !== '-' ? data.direccion : null
+    });
+  }
 }

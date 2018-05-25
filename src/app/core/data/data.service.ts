@@ -10,6 +10,7 @@ import { PerceptionService } from './perception.service';
 import { RetentionService } from './retention.service';
 import { ServerInfoService } from './server-info.service';
 import { VoidedDocumentService } from './voided-document.service';
+import { CountryService } from './country.service';
 
 @Injectable()
 export class DataService {
@@ -25,7 +26,8 @@ export class DataService {
     private organizationSunat: OrganizationSunatService,
     private retentionService: RetentionService,
     private perceptionService: PerceptionService,
-    private voidedDocumentService: VoidedDocumentService) { }
+    private voidedDocumentService: VoidedDocumentService,
+    private countryService: CountryService) { }
 
   organizations(): OrganizationService {
     return this.organizationService;
@@ -70,5 +72,8 @@ export class DataService {
   voidedDocuments(): VoidedDocumentService {
     return this.voidedDocumentService;
   }
-
+  
+  country(): CountryService {
+    return this.countryService;
+  }
 }

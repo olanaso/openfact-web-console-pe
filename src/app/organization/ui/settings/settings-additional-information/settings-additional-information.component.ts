@@ -23,7 +23,7 @@ export class SettingsAdditionalInformationComponent implements OnInit, OnDestroy
   dataSubscription: Subscription;
   organization: Organization;
   tiposDocumentEntidad: GenericType[];
-
+  countryIdentifications: GenericType[];
   form: FormGroup;
   working = false;
   constructor(private router: Router,
@@ -71,8 +71,9 @@ export class SettingsAdditionalInformationComponent implements OnInit, OnDestroy
         this.tiposDocumentEntidad = response || [];
       },
       error => {
-      }
-    );
+      });
+    this.countryIdentifications = this.dataService.country().getAll();
+
   }
 
   save(form: FormGroup) {
@@ -117,6 +118,6 @@ export class SettingsAdditionalInformationComponent implements OnInit, OnDestroy
   }
 
   postalAddress() {
-    window.open("http://codigopostal.gob.pe/");
+    window.open("http://www.geodir.co/recursos/Ubigeo.html");
   }
 }

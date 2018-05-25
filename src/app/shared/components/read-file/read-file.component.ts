@@ -30,7 +30,6 @@ export class ReadFileComponent implements OnInit {
   changeListener($event: any) {
     const inputValue = $event.target;
     const files: File = inputValue.files;
-
     const self = this;
     const reader: FileReader = new FileReader();
 
@@ -41,5 +40,4 @@ export class ReadFileComponent implements OnInit {
     };
     reader.readAsText(files[0]);
   }
-
 }

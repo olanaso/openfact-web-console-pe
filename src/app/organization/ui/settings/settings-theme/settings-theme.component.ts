@@ -22,6 +22,7 @@ export class SettingsThemeComponent implements OnInit, OnDestroy {
 
   organization: Organization;
   serverInfo: any;
+  companyImageView: any;
 
   form: FormGroup;
   working = false;
@@ -29,10 +30,10 @@ export class SettingsThemeComponent implements OnInit, OnDestroy {
   supportedLocales = ['en', 'es'];
 
   constructor(private router: Router,
-              private route: ActivatedRoute,
-              private formBuilder: FormBuilder,
-              private dataService: DataService,
-              private toastr: ToastsManager) {
+    private route: ActivatedRoute,
+    private formBuilder: FormBuilder,
+    private dataService: DataService,
+    private toastr: ToastsManager) {
   }
 
   ngOnInit() {
@@ -54,7 +55,9 @@ export class SettingsThemeComponent implements OnInit, OnDestroy {
       reportTheme: [''],
       internationalizationEnabled: [false, Validators.compose([Validators.required])],
       supportedLocales: [],
-      defaultLocale: ['en', Validators.compose([Validators.maxLength(3)])]
+      defaultLocale: ['en', Validators.compose([Validators.maxLength(3)])],
+      companyImage: [''],
+      reportTitle: ['']
     });
   }
 
@@ -67,6 +70,18 @@ export class SettingsThemeComponent implements OnInit, OnDestroy {
     this.form.patchValue({
       supportedLocales: values.map(f => f.id)
     });
+  }
+  onFileChange($event) {
+    let regex = new RegExp("(.*?)\.(jpg|png|jpeg|gif)$");
+    let correctfile = regex.test($event.fileName);
+    if (!correctfile) {
+      this.toastr.warning('Warning! The file extension is not as required.');
+      return;
+    }   
+    this.form.patchValue({
+      companyImage: $event.data
+    });
+    this.companyImageView = $event.data;
   }
 
   save(form: FormGroup) {

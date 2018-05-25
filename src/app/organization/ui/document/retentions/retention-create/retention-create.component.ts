@@ -56,7 +56,7 @@ export class RetentionCreateComponent implements OnInit, OnDestroy {
   quantityMask = { allowDecimal: true, decimalLimit: 3 };
   percentMask = { allowDecimal: true, decimalLimit: 2, prefix: '% ' };
   numberPEMask = { allowDecimal: true, decimalLimit: 2, prefix: 'PEN ' };
-
+  emailRegex = '^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$';
   constructor(private router: Router, private route: ActivatedRoute,
     private formBuilder: FormBuilder, private modalService: NgbModal,
     private dataService: DataService, private toastr: ToastsManager,
@@ -88,6 +88,7 @@ export class RetentionCreateComponent implements OnInit, OnDestroy {
       entidadTipoDeDocumento: [null, Validators.compose([Validators.required])],
       entidadNumeroDeDocumento: [null, Validators.compose([Validators.required, Validators.pattern('[0-9]{1,20}')])],
       entidadDenominacion: [null, Validators.compose([Validators.required, Validators.maxLength(150)])],
+      entidadEmail: [null, Validators.compose([Validators.maxLength(150), Validators.pattern(this.emailRegex)])],
       entidadDireccion: [null, Validators.compose([Validators.maxLength(150)])],
 
       serieDocumento: [null, Validators.compose([Validators.maxLength(4), Validators.pattern('[R|r]{1}[0-9]{3}')])],
@@ -128,7 +129,7 @@ export class RetentionCreateComponent implements OnInit, OnDestroy {
     });
     this.form.get('enviarAutomaticamenteAlCliente').valueChanges.subscribe(value => {
       if (value) {
-        this.form.addControl('entidadEmail', this.formBuilder.control(null, Validators.compose([Validators.required])));
+        this.form.addControl('entidadEmail', this.formBuilder.control(null, Validators.compose([Validators.required,Validators.pattern(this.emailRegex)])));
       } else {
         this.form.removeControl('entidadEmail');
       }

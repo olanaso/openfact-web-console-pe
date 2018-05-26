@@ -1,5 +1,6 @@
 import {
   DocumentosRelacionadosPercepcionResolverService,
+  DocumentosRelacionadosBajasResolverService,
   DocumentosRelacionadosRetencionResolverService,
   IgvResolverService,
   MonedasResolverService,
@@ -104,6 +105,7 @@ import { ToastsManager } from 'ng2-toastr';
     IgvResolverService,
     TiposRegimenPercepcionResolverService,
     DocumentosRelacionadosPercepcionResolverService,
+    DocumentosRelacionadosBajasResolverService,
     TiposRegimenRetencionResolverService,
     DocumentosRelacionadosRetencionResolverService,
     MonedasResolverService,

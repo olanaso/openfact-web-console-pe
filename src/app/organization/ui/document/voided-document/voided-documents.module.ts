@@ -11,7 +11,7 @@ import { CoreModule } from '../../../../core/core.module';
 import { VoidedDocumentCreateComponent } from './voided-document-create/voided-document-create.component';
 import { VoidedDocumentEditComponent } from './voided-document-edit/voided-document-edit.component';
 import { VoidedDocumentListComponent } from './voided-document-list/voided-document-list.component';
-import { DocumentosRelacionadosPercepcionResolverService } from '../../../../core/resolvers/generic-type-resolver.service';
+import { DocumentosRelacionadosBajasResolverService } from '../../../../core/resolvers/generic-type-resolver.service';
 import { DocumentResolverService } from '../../../../core/resolvers/document-resolver.service';
 
 const routes: Routes = [
@@ -23,7 +23,7 @@ const routes: Routes = [
     path: 'create',
     component: VoidedDocumentCreateComponent,
     resolve: {
-      documentosRelacionadosVoid: DocumentosRelacionadosPercepcionResolverService,
+      documentosRelacionadosVoid: DocumentosRelacionadosBajasResolverService,
     }
   },
   {

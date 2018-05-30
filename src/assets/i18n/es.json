@@ -17,6 +17,7 @@
   "description": "Descripcion",
   "select-file": "Seleccionar Archivo",
   "save": "Guardar",
+  "save-new": "Guardar y Nuevo",
   "saving": "Guardando...",
   "delete": "Eliminar",
   "cancel": "Cancelar",

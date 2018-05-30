@@ -14,6 +14,18 @@ export class ReadFileComponent implements OnInit {
   @Input()
   showFileName = false;
 
+  @Input()
+  asText = true;
+
+  @Input()
+  asArrayBuffer = false;
+
+  @Input()
+  asDataUrl = false; 
+  
+  @Input()
+  asBinaryString = false;
+
   @Output()
   complete: EventEmitter<any> = new EventEmitter<any>();
 
@@ -38,6 +50,13 @@ export class ReadFileComponent implements OnInit {
       self.file.data = reader.result;
       self.complete.next(self.file);
     };
-    reader.readAsText(files[0]);
+    if (this.asText)
+      reader.readAsText(files[0]);
+    if (this.asDataUrl)
+      reader.readAsDataURL(files[0]);
+    if (this.asArrayBuffer)
+      reader.readAsArrayBuffer(files[0]);
+      if (this.asBinaryString)
+      reader.readAsBinaryString(files[0]);
   }
 }

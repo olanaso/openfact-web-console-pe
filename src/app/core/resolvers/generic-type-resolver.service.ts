@@ -102,6 +102,18 @@ export class DocumentosRelacionadosPercepcionResolverService implements Resolve<
 }
 
 @Injectable()
+export class DocumentosRelacionadosBajasResolverService implements Resolve<any> {
+
+  constructor(private dataService: DataService) { }
+
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Promise<any> {
+    const organizationId = findParam('organization', route);
+    return this.dataService.organizationsSunat().getDocumentosRelacionadosBajas(organizationId);
+  }
+
+}
+
+@Injectable()
 export class TiposRegimenRetencionResolverService implements Resolve<any> {
 
   constructor(private dataService: DataService) { }

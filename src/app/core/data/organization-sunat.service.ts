@@ -213,6 +213,15 @@ export class OrganizationSunatService {
       .map(response => response.json());
   }
 
+  getDocumentosRelacionadosBajas(organizationName: string): Observable<any> {
+    return this.restangular.one('organizations', organizationName)
+      .all(basePath)
+      .all(genericBasePath)
+      .all('documentos-relacionados-bajas')
+      .get()
+      .map(response => response.json());
+  }
+
   getTiposRegimenRetencion(organizationName: string): Observable<any> {
     return this.restangular.one('organizations', organizationName)
       .all(basePath)

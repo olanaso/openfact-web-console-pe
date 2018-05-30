@@ -189,18 +189,18 @@ export class VoidedDocumentCreateComponent implements OnInit, OnDestroy {
     let type: GenericType;
     if (document.documentType.toUpperCase() === 'INVOICE') {
       if (document.documentId.toUpperCase().startsWith('F')) {
-        type = this.getDocumentoRelacionadoVoidByDenomination('FACTURA');
+        type = this.getDocumentoRelacionadoVoidByDenomination('01');
       } else if (document.documentId.toUpperCase().startsWith('B')) {
-        type = this.getDocumentoRelacionadoVoidByDenomination('BOLETA');
+        type = this.getDocumentoRelacionadoVoidByDenomination('03');
       }
     } else if (document.documentType.toUpperCase() === 'CREDIT_NOTE') {
-      type = this.getDocumentoRelacionadoVoidByDenomination('CREDITO');
+      type = this.getDocumentoRelacionadoVoidByDenomination('07');
     } else if (document.documentType.toUpperCase() === 'DEBIT_NOTE') {
-      type = this.getDocumentoRelacionadoVoidByDenomination('DEBITO');
+      type = this.getDocumentoRelacionadoVoidByDenomination('08');
     } else if (document.documentType.toUpperCase() === 'RETENTION') {
-      type = this.getDocumentoRelacionadoVoidByDenomination('RETENTION');
+      type = this.getDocumentoRelacionadoVoidByDenomination('20');
     } else if (document.documentType.toUpperCase() === 'PERCEPTION') {
-      type = this.getDocumentoRelacionadoVoidByDenomination('PERCEPTION');
+      type = this.getDocumentoRelacionadoVoidByDenomination('40');
     }
 
     formGroup.patchValue({
@@ -213,9 +213,9 @@ export class VoidedDocumentCreateComponent implements OnInit, OnDestroy {
     });
   }
 
-  getDocumentoRelacionadoVoidByDenomination(denomination: string): GenericType {
+  getDocumentoRelacionadoVoidByDenomination(codigo: string): GenericType {
     if (this.documentosRelacionadosVoid && this.documentosRelacionadosVoid.length > 0) {
-      return this.documentosRelacionadosVoid.find(f => f.denominacion.toUpperCase().indexOf(denomination.toUpperCase()) !== -1);
+      return this.documentosRelacionadosVoid.find(f => f.codigo.toUpperCase().indexOf(codigo.toUpperCase()) !== -1);
     }
     return null;
   }

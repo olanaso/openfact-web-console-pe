@@ -36,6 +36,7 @@ export class InvoiceCreateComponent implements OnInit, OnDestroy {
   advanceMode = false;
   advanceModeHeader = false;
   newInvoice = false;
+  finding = false;
 
   organization: Organization;
   tiposComprobantePago: GenericType[];
@@ -410,6 +411,7 @@ export class InvoiceCreateComponent implements OnInit, OnDestroy {
 
   reloadForm() {
     this.newInvoice = false;
+    this.finding = false;
     this.loadDataForm();
     this.form.patchValue({
       serie: '',
@@ -437,22 +439,27 @@ export class InvoiceCreateComponent implements OnInit, OnDestroy {
   searchOnSunatAndReniec() {
     let numeroDocumento = this.form.get('entidadNumeroDeDocumento');
     if (numeroDocumento.valid) {
+      this.finding = true;
       this.sunat.search(numeroDocumento.value).subscribe(
         (val) => {
+          this.finding = false;
           if (val.estado) {
             this.setData(val);
           } else {
-            this.setData(val);
+            this.setData(val);           
             this.toastr.warning(val.error);
           }
         },
         (err) => {
+          this.finding = false;
           this.setData({ razonsocial: "", direccion: "" });
           this.toastr.warning('No se pudo encontrar el DNI o RUC');
         });
+    }else{
+      this.toastr.warning('Ingrese numero de documento para buscar');
     }
   }
-  
+
   setData(data) {
     this.form.patchValue({
       entidadDenominacion: data.razonsocial,

@@ -43,6 +43,7 @@ export class RetentionCreateComponent implements OnInit, OnDestroy {
   working = false;
   advanceModeHeader = false;
   newInvoice = false;
+  finding = false;
 
   fecha: Date = new Date();
 
@@ -308,6 +309,7 @@ export class RetentionCreateComponent implements OnInit, OnDestroy {
 
   reloadForm() {
     this.newInvoice = false;
+    this.finding = false;
     this.loadDataForm();
     this.form.patchValue({
       serieDocumento: '',
@@ -330,8 +332,10 @@ export class RetentionCreateComponent implements OnInit, OnDestroy {
   searchOnSunatAndReniec() {
     let numeroDocumento = this.form.get('entidadNumeroDeDocumento');
     if (numeroDocumento.valid) {
+      this.finding = true;
       this.sunat.search(numeroDocumento.value).subscribe(
         (val) => {
+          this.finding = false;
           if (val.estado) {
             this.setData(val);
           } else {
@@ -340,15 +344,18 @@ export class RetentionCreateComponent implements OnInit, OnDestroy {
           }
         },
         (err) => {
+          this.finding = false;
           this.setData({ razonsocial: "", direccion: "" });
           this.toastr.warning('No se pudo encontrar el DNI o RUC');
         });
+    } else {
+      this.toastr.warning('Ingrese numero de documento para buscar');
     }
   }
   setData(data) {
     this.form.patchValue({
-      entidadDenominacion: data.razonsocial,
-      entidadDireccion: data.direccion !== '-' ? data.direccion : null
+      entidadDenominacion: data.razonsocial
+    /*  entidadDireccion: data.direccion !== '-' ? data.direccion : null*/
     });
   }
 

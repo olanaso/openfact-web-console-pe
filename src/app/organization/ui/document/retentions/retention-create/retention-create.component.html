@@ -106,11 +106,14 @@
                 <i class="fa fa-question-circle text-muted" ngbTooltip="{{'id-third-party' | translate}}" placement="right"></i>
               </label>
               <div class="input-group of-float-right">
-                <input formControlName="entidadNumeroDeDocumento" type="text" class="form-control">
+                <input formControlName="entidadNumeroDeDocumento" type="text" class="form-control" [readonly]="finding">
                 <span class="input-group-btn">
-                  <button (click)="searchOnSunatAndReniec()" type="button" class="btn btn-default" ngbTooltip="Buscar en Sunat o Reniec">
-                    <span class="glyphicon glyphicon-search"></span>
-                  </button>
+                    <button *ngIf="!finding" (click)="searchOnSunatAndReniec()" type="button" class="btn btn-default" ngbTooltip="Buscar en Sunat o Reniec">
+                        <span class="glyphicon glyphicon-search"></span>
+                      </button>
+                      <button *ngIf="finding" disabled type="button" class="btn btn-default" ngbTooltip="Buscando...">
+                        <span class="glyphicon glyphicon-refresh"></span>
+                      </button>
                 </span>
               </div>
               <of-form-field-validation-messages [ofFormControl]="form.get('entidadNumeroDeDocumento')">

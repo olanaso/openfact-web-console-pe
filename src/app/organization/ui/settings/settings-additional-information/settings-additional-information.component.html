@@ -20,10 +20,13 @@
         </label>
         <div class="col-md-3">
             <div class="input-group">
-                <input formControlName="assignedIdentificationId" type="text" class="form-control" />
+                <input formControlName="assignedIdentificationId" type="text" class="form-control" [readonly]="finding" />
                 <span class="input-group-btn">
-                    <button (click)="searchOnSunatAndReniec()" type="button" class="btn btn-default" ngbTooltip="Buscar en Sunat o Reniec" placement="right">
+                    <button *ngIf="!finding" (click)="searchOnSunatAndReniec()" type="button" class="btn btn-default" ngbTooltip="Buscar en Sunat o Reniec">
                         <span class="glyphicon glyphicon-search"></span>
+                    </button>
+                    <button *ngIf="finding" disabled type="button" class="btn btn-default" ngbTooltip="Buscando...">
+                        <span class="glyphicon glyphicon-refresh"></span>
                     </button>
                 </span>
                 <of-form-field-validation-messages [ofFormControl]="form.get('assignedIdentificationId')">

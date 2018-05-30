@@ -36,6 +36,7 @@ export class DebitNoteCreateComponent implements OnInit, OnDestroy {
   working = false;
   advanceMode = false;
   advanceModeHeader = false;
+  finding = false;
 
   organization: Organization;
   tiposNotaDebito: GenericType[];
@@ -138,7 +139,7 @@ export class DebitNoteCreateComponent implements OnInit, OnDestroy {
     });
     this.form.get('enviarAutomaticamenteAlCliente').valueChanges.subscribe(value => {
       if (value) {
-        this.form.addControl('entidadEmail', this.formBuilder.control(null, Validators.compose([Validators.required,Validators.pattern(this.emailRegex)])));
+        this.form.addControl('entidadEmail', this.formBuilder.control(null, Validators.compose([Validators.required, Validators.pattern(this.emailRegex)])));
       } else {
         this.form.removeControl('entidadEmail');
       }
@@ -405,8 +406,10 @@ export class DebitNoteCreateComponent implements OnInit, OnDestroy {
   searchOnSunatAndReniec() {
     let numeroDocumento = this.form.get('entidadNumeroDeDocumento');
     if (numeroDocumento.valid) {
+      this.finding = true;
       this.sunat.search(numeroDocumento.value).subscribe(
         (val) => {
+          this.finding = false;
           if (val.estado) {
             this.setData(val);
           } else {
@@ -415,15 +418,18 @@ export class DebitNoteCreateComponent implements OnInit, OnDestroy {
           }
         },
         (err) => {
+          this.finding = false;
           this.setData({ razonsocial: "", direccion: "" });
           this.toastr.warning('No se pudo encontrar el DNI o RUC');
         });
+    } else {
+      this.toastr.warning('Ingrese numero de documento para buscar');
     }
   }
   setData(data) {
     this.form.patchValue({
-      entidadDenominacion: data.razonsocial,
-      entidadDireccion: data.direccion !== '-' ? data.direccion : null
+      entidadDenominacion: data.razonsocial
+      /*entidadDireccion: data.direccion !== '-' ? data.direccion : null*/
     });
   }
 }

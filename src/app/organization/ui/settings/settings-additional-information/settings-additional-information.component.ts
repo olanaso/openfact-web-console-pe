@@ -25,7 +25,10 @@ export class SettingsAdditionalInformationComponent implements OnInit, OnDestroy
   tiposDocumentEntidad: GenericType[];
   countryIdentifications: GenericType[];
   form: FormGroup;
+
   working = false;
+  finding = false;
+
   constructor(private router: Router,
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
@@ -96,8 +99,10 @@ export class SettingsAdditionalInformationComponent implements OnInit, OnDestroy
   searchOnSunatAndReniec() {
     let numeroDocumento = this.form.get('assignedIdentificationId');
     if (numeroDocumento.valid) {
+      this.finding = true;
       this.sunat.search(numeroDocumento.value).subscribe(
         (val) => {
+          this.finding = false;
           if (val.estado) {
             this.setData(val);
           } else {
@@ -106,9 +111,12 @@ export class SettingsAdditionalInformationComponent implements OnInit, OnDestroy
           }
         },
         (err) => {
+          this.finding = false;
           this.setData({ razonsocial: "", direccion: "", departamento: "", provincia: "", distrito: "" });
           this.toastr.warning('No se pudo encontrar el DNI o RUC');
         });
+    } else {
+      this.toastr.warning('Ingrese numero de documento para buscar');
     }
   }
   setData(data) {

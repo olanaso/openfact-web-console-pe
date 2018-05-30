@@ -27,7 +27,7 @@
         <div class="row">
           <div class="col-md-2">
             <div class="form-group" [ofFormFieldValidationState]="form.get('codigoDocumento')">
-              <label class="control-label" [ofFormRequiredLabel]="form.get('codigoDocumento')">{{'retention-type' | translate}}               
+              <label class="control-label" [ofFormRequiredLabel]="form.get('codigoDocumento')">{{'retention-type' | translate}}
                 <i class="fa fa-question-circle text-muted" ngbTooltip="{{'retention-type' | translate}}" placement="right"></i>
               </label>
               <select formControlName="codigoDocumento" class="form-control" autofocus>
@@ -58,8 +58,8 @@
                 <i class="fa fa-question-circle text-muted" ngbTooltip="{{'currency' | translate}}" placement="right"></i>
               </label>
               <div formControlName="monedaDocumento" ngbRadioGroup class="of-display-block">
-                <label *ngFor="let moneda of monedasSoportadas" class="btn btn-default">
-                  <input type="radio" [value]="moneda.codigo">{{moneda.codigo}}
+                <label *ngFor="let moneda of monedasDocumento" class="btn btn-default">
+                  <input type="radio" [value]="moneda">{{moneda}}
                 </label>
               </div>
               <of-form-field-validation-messages [ofFormControl]="form.get('monedaDocumento')">
@@ -179,11 +179,13 @@
           <table class="table table-striped table-bordered dataTable no-footer">
             <thead>
               <tr>
-                  <td class="text-center">
-                      <button (click)="addDetalleFormControl()" type="button" class="btn btn-lg btn-default" ngbTooltip="{{'add-item' | translate}}" placement="top">
-                        <span class="fa fa-plus"></span>
-                      </button>
-                    </td>
+                <td class="table-view-pf-actions">
+                  <div class="table-view-pf-btn">
+                    <button (click)="addDetalleFormControl()" class="btn btn-default" type="button" ngbTooltip="{{'add-item' | translate}}" placement="top">
+                      <span class="fa fa-plus"></span>
+                    </button>
+                  </div>
+                </td>
                 <th colspan="5" class="text-center">{{'related-document' | translate}}</th>
                 <th colspan="2" class="text-center">{{'payment-information' | translate}}</th>
                 <th colspan="2" class="text-center">{{'exchange-rate' | translate}}</th>
@@ -191,7 +193,7 @@
                 <th rowspan="2" class="text-right">{{'actions' | translate}}</th>
               </tr>
               <tr>
-                  <td>#</td>
+                <td>#</td>
                 <td class="col-md-2">{{'document-type' | translate}}</td>
                 <td class="col-md-1">{{'ID' | translate}} </td>
                 <td class="col-md-1">{{'document-date' | translate}}</td>
@@ -295,10 +297,21 @@
             </tbody>
             <tfoot>
               <tr>
-                <td colspan="13" class="text-right">
-                  <button (click)="addDetalleFormControl()" type="button" class="btn btn-lg btn-default  btn-block">{{'add-item' | translate}}
-                    <span class="fa fa-plus"></span>
-                  </button>
+                <td class="table-view-pf-actions">
+                  <div class="table-view-pf-btn">
+                    <button (click)="addDetalleFormControl()" class="btn btn-default" type="button" ngbTooltip="{{'add-item' | translate}}" placement="top">
+                      <span class="fa fa-plus"></span>
+                    </button>
+                  </div>
+                </td>
+                <td colspan="11">
+                </td>
+                <td class="table-view-pf-actions">
+                  <div class="table-view-pf-btn">
+                    <button (click)="addDetalleFormControl()" class="btn btn-default" type="button">
+                      <span class="fa fa-plus"></span>
+                    </button>
+                  </div>
                 </td>
               </tr>
             </tfoot>
@@ -336,10 +349,12 @@
         </div>
       </div>
       <!--/ Totales-->
-
+      <of-button-save-new [ofForm]="form" [working]="working" (pressed)="changeEvent($event)"></of-button-save-new>
       <of-button-save [ofForm]="form" [working]="working"></of-button-save>
       <of-button-cancel (ofOnCancel)="cancel()"></of-button-cancel>
 
     </form>
+    <br>
+    <br>
   </div>
 </div>

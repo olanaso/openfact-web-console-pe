@@ -74,6 +74,10 @@ export class SettingsAdditionalInformationComponent implements OnInit, OnDestroy
       });
     this.countryIdentifications = this.dataService.country().getAll();
 
+    this.form.controls.postalAddress.patchValue({
+      countryIdentificationCode: "PE"
+    });
+
   }
 
   save(form: FormGroup) {

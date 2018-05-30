@@ -226,7 +226,14 @@
           <table class="table table-striped table-bordered table-hover dataTable no-footer">
             <thead>
               <tr>
-                <td colspan="10">
+                <td class="table-view-pf-actions">
+                  <div class="table-view-pf-btn">
+                    <button (click)="addDetalleFormControl()" class="btn btn-default" type="button" ngbTooltip="{{'add-item' | translate}}" placement="top">
+                      <span class="fa fa-plus"></span>
+                    </button>
+                  </div>
+                </td>
+                <td colspan="9">
                   <div class="checkbox pull-right">
                     <label>
                       <input type="checkbox" [(ngModel)]="advanceMode" [ngModelOptions]="{standalone: true}"> {{'advance-mode' | translate}}</label>
@@ -236,14 +243,14 @@
               <tr>
                 <td class="text-right">#</td>
                 <td class="col-md-1 text-right">Cantidad</td>
-                <td [ngClass]="{'col-md-3':advanceMode,'col-md-5':!advanceMode }" class="text-left">Producto/Servicio</td>
+                <td [ngClass]="{'col-md-4':advanceMode,'col-md-6':!advanceMode }" class="text-left">Producto/Servicio</td>
                 <td class="col-md-2 text-left">Tipo IGV</td>
                 <td class="col-md-1 text-right">Precio Unitario</td>
                 <td class="col-md-1 text-right" *ngIf="advanceMode">Valor Unitario</td>
                 <td class="col-md-1 text-right">Sub Total</td>
                 <td class="col-md-1 text-right" *ngIf="advanceMode">Igv</td>
                 <td class="col-md-1 text-right">Total</td>
-                <td class="col-md-1 text-center">Acciones</td>
+                <td class="text-center">Acciones</td>
               </tr>
             </thead>
             <tbody formArrayName="detalle">
@@ -304,10 +311,23 @@
             </tbody>
             <tfoot>
               <tr>
-                <td colspan="10" class="text-right">
-                  <button (click)="addDetalleFormControl()" type="button" class="btn btn-lg btn-default">Agregar Item
-                    <span class="fa fa-plus"></span>
-                  </button>
+                <td class="table-view-pf-actions">
+                  <div class="table-view-pf-btn">
+                    <button (click)="addDetalleFormControl()" class="btn btn-default" type="button" ngbTooltip="{{'add-item' | translate}}" placement="top">
+                      <span class="fa fa-plus"></span>
+                    </button>
+                  </div>
+                </td>
+                <td *ngIf="!advanceMode" colspan="6">
+                </td>
+                <td *ngIf="advanceMode" colspan="8">
+                </td>
+                <td class="table-view-pf-actions">
+                  <div class="table-view-pf-btn">
+                    <button (click)="addDetalleFormControl()" class="btn btn-default" type="button">
+                      <span class="fa fa-plus"></span>
+                    </button>
+                  </div>
                 </td>
               </tr>
             </tfoot>
@@ -399,10 +419,11 @@
         </div>
       </div>
       <!--/ Totales-->
-
+      <of-button-save-new [ofForm]="form" [working]="working" (pressed)="changeEvent($event)"></of-button-save-new>
       <of-button-save [ofForm]="form" [working]="working"></of-button-save>
       <of-button-cancel (ofOnCancel)="cancel()"></of-button-cancel>
-
     </form>
+    <br>
+    <br>
   </div>
 </div>

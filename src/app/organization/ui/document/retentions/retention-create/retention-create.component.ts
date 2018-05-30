@@ -42,6 +42,7 @@ export class RetentionCreateComponent implements OnInit, OnDestroy {
   form: FormGroup;
   working = false;
   advanceModeHeader = false;
+  newInvoice = false;
 
   fecha: Date = new Date();
 
@@ -50,6 +51,7 @@ export class RetentionCreateComponent implements OnInit, OnDestroy {
   documentosRelacionadosRetencion: GenericType[];
   tiposDocumentEntidad: GenericType[];
   monedasSoportadas: GenericType[];
+  monedasDocumento = ["PEN"];
 
   integerMask = { allowDecimal: false };
   numberMask = { allowDecimal: true, decimalLimit: 2 };
@@ -129,7 +131,7 @@ export class RetentionCreateComponent implements OnInit, OnDestroy {
     });
     this.form.get('enviarAutomaticamenteAlCliente').valueChanges.subscribe(value => {
       if (value) {
-        this.form.addControl('entidadEmail', this.formBuilder.control(null, Validators.compose([Validators.required,Validators.pattern(this.emailRegex)])));
+        this.form.addControl('entidadEmail', this.formBuilder.control(null, Validators.compose([Validators.required, Validators.pattern(this.emailRegex)])));
       } else {
         this.form.removeControl('entidadEmail');
       }
@@ -202,6 +204,7 @@ export class RetentionCreateComponent implements OnInit, OnDestroy {
 
   removeDetalleFormControl(index: number) {
     this.detalle.removeAt(index);
+    this.recalcularDatos();
   }
 
   loadDataForm() {
@@ -277,12 +280,12 @@ export class RetentionCreateComponent implements OnInit, OnDestroy {
         });
         this.dataService.organizationsSunat().createRetention(this.organization.organization, form.value).subscribe(
           response => {
-            this.working = false;   
+            this.working = false;
             this.toastr.success('Success! The retention has been created.');
-            if (redirect) {
-              this.router.navigate(['../'], { relativeTo: this.route });
+            if (this.newInvoice) {
+              this.reloadForm();
             } else {
-              this.buildForm();
+              this.router.navigate(['../'], { relativeTo: this.route });
             }
           },
           error => {
@@ -301,6 +304,25 @@ export class RetentionCreateComponent implements OnInit, OnDestroy {
 
   cancel() {
     this.router.navigate(['../'], { relativeTo: this.route });
+  }
+
+  reloadForm() {
+    this.newInvoice = false;
+    this.loadDataForm();
+    this.form.patchValue({
+      serieDocumento: '',
+      numeroDocumento: '',
+      entidadNumeroDeDocumento: '',
+      entidadDenominacion: '',
+      entidadEmail: '',
+      entidadDireccion: '',
+      enviarAutomaticamenteASunat: true,
+      enviarAutomaticamenteAlCliente: false,
+      fechaDeEmision: this.fecha,
+      totalPago: 0,
+      totalDocumentoSunat: 0
+    });
+    this.detalle.controls = [];
   }
   /**
     * SUNAT
@@ -328,5 +350,9 @@ export class RetentionCreateComponent implements OnInit, OnDestroy {
       entidadDenominacion: data.razonsocial,
       entidadDireccion: data.direccion !== '-' ? data.direccion : null
     });
+  }
+
+  changeEvent(data) {
+    this.newInvoice = data;
   }
 }

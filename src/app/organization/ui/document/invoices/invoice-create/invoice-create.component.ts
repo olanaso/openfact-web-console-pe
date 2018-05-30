@@ -10,6 +10,7 @@ import { DataService } from '../../../../../core/data/data.service';
 import { DialogService } from '../../../../../core/dialog/dialog.service';
 import { ToastsManager } from 'ng2-toastr';
 import { SurenService } from '../../../../../sunat/suren.service';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 
 @Component({
@@ -34,6 +35,7 @@ export class InvoiceCreateComponent implements OnInit, OnDestroy {
   working = false;
   advanceMode = false;
   advanceModeHeader = false;
+  newInvoice = false;
 
   organization: Organization;
   tiposComprobantePago: GenericType[];
@@ -179,7 +181,7 @@ export class InvoiceCreateComponent implements OnInit, OnDestroy {
     });
     this.form.get('enviarAutomaticamenteAlCliente').valueChanges.subscribe(value => {
       if (value) {
-        this.form.addControl('entidadEmail', this.formBuilder.control(null, Validators.compose([Validators.required,Validators.pattern(this.emailRegex)])));
+        this.form.addControl('entidadEmail', this.formBuilder.control(null, Validators.compose([Validators.required, Validators.pattern(this.emailRegex)])));
       } else {
         this.form.removeControl('entidadEmail');
       }
@@ -383,24 +385,14 @@ export class InvoiceCreateComponent implements OnInit, OnDestroy {
     this.dialogService.confirm('Confirm', 'Estas seguro de realizar esta operacion').result.then(
       (redirect) => {
         this.working = true;
-
-        /*if (form.value.serie !== 'undefined' && form.value.serie !== null) {
-          const pad = '000';
-          form.value.serie = 'F' + (pad + form.value.serie).slice(-pad.length);
-        }
-        if (form.value.numero !== 'undefined' && form.value.numero !== null) {
-          const pad = '00000000';
-          form.value.numero = (pad + form.value.numero).slice(-pad.length);
-        }*/
-
         this.dataService.organizationsSunat().createInvoice(this.organization.organization, form.value).subscribe(
           response => {
             this.working = false;
             this.toastr.success('Success! The invoice has been created.');
-            if (redirect) {
-              this.router.navigate(['../'], { relativeTo: this.route });
+            if (this.newInvoice) {
+              this.reloadForm();
             } else {
-              this.buildForm();
+              this.router.navigate(['../'], { relativeTo: this.route });
             }
           },
           error => {
@@ -414,6 +406,29 @@ export class InvoiceCreateComponent implements OnInit, OnDestroy {
 
   cancel() {
     this.router.navigate(['../'], { relativeTo: this.route });
+  }
+
+  reloadForm() {
+    this.newInvoice = false;
+    this.loadDataForm();
+    this.form.patchValue({
+      serie: '',
+      numero: '',
+      entidadNumeroDeDocumento: '',
+      entidadDenominacion: '',
+      entidadDireccion: '',
+      entidadEmail: '',
+      enviarAutomaticamenteASunat: true,
+      enviarAutomaticamenteAlCliente: false,
+      totalGratuita: 0,
+      totalGravada: 0,
+      totalExonerada: 0,
+      totalInafecta: 0,
+      totalIgv: 0,
+      descuentoGlobal: 0,
+      total: 0
+    });
+    this.detalle.controls = [];
   }
 
   /**
@@ -437,10 +452,15 @@ export class InvoiceCreateComponent implements OnInit, OnDestroy {
         });
     }
   }
+  
   setData(data) {
     this.form.patchValue({
       entidadDenominacion: data.razonsocial,
       entidadDireccion: data.direccion !== '-' ? data.direccion : null
     });
+  }
+
+  changeEvent(data) {
+    this.newInvoice = data;
   }
 }

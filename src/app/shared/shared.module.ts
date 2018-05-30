@@ -48,6 +48,7 @@ import { ToastModule } from 'ng2-toastr';
 import { JWBootstrapSwitchModule } from 'jw-bootstrap-switch-ng2';
 import { AccessDirective } from './directives/access.directive';
 import { LoadingComponent } from './components/loading/loading.component';
+import { ButtonSaveNewComponent } from './components/button-save-new/button-save-new.component';
 
 @NgModule({
   imports: [
@@ -80,7 +81,7 @@ import { LoadingComponent } from './components/loading/loading.component';
     ButtonSaveComponent,
     ButtonCancelComponent,
     ButtonResetComponent,
-    ButtonSwitchComponent,
+    ButtonSwitchComponent,    
     ReadFileComponent,
     ViewObjectComponent,
     ToArrayPipe,
@@ -107,6 +108,7 @@ import { LoadingComponent } from './components/loading/loading.component';
 
     AccessDirective,
     LoadingComponent,
+    ButtonSaveNewComponent
   ],
   exports: [
     NgbModule,
@@ -161,6 +163,7 @@ import { LoadingComponent } from './components/loading/loading.component';
 
     AccessDirective,
     LoadingComponent,
+    ButtonSaveNewComponent
   ]
 })
 export class SharedModule {

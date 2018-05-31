@@ -189,7 +189,7 @@
                 </td>
                 <th colspan="5" class="text-center">{{'related-document' | translate}}</th>
                 <th colspan="2" class="text-center">{{'cashed-information' | translate}}</th>
-                <th colspan="2" class="text-center">{{'exchange-rate' | translate}}</th>
+                <th rowspan="2" class="text-center">{{'exchange-rate' | translate}}</th>
                 <th colspan="2" class="text-center">{{'perception-data' | translate}}</th>
                 <th rowspan="3" class="text-right">{{'actions' | translate}}</th>
               </tr>
@@ -203,10 +203,7 @@
 
                 <td class="col-md-1 text-right">{{'cashed' | translate}}</td>
                 <td class="col-md-1 text-right">{{'amount-cashed' | translate}} </td>
-
-                <td class="col-md-1 text-right">{{'change-type' | translate}}</td>
-                <td class="col-md-1">{{'date-type-change' | translate}}</td>
-
+                
                 <td class="col-md-1 text-right">{{'perceived-amount' | translate}}</td>
                 <td class="col-md-1 text-right">{{'amount-net-cashed' | translate}}</td>
               </tr>
@@ -262,20 +259,10 @@
                     </of-form-field-validation-messages>
                   </td>
                   <td [ofFormFieldValidationState]="item.get('tipoCambio')">
-                    <input formControlName="tipoCambio" [ofNumberMask]="quantityMask" type="text" class="form-control text-right">
+                    <input formControlName="tipoCambio" [ofNumberMask]="quantityMask" type="text" class="form-control text-right" [readonly]="item.get('monedaDocumentoRelacionado').value=='PEN'">
                     <of-form-field-validation-messages [ofFormControl]="item.get('tipoCambio')">
                     </of-form-field-validation-messages>
-                  </td>
-                  <td [ofFormFieldValidationState]="item.get('fechaCambio')">
-                    <div class="input-group">
-                      <input formControlName="fechaCambio" class="form-control" placeholder="mm/dd/yyyy" bsDatepicker #dpc="bsDatepicker" readonly>
-                      <div class="input-group-addon" (click)="dpc.show()">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                      </div>
-                    </div>
-                    <of-form-field-validation-messages [ofFormControl]="item.get('fechaCambio')" class="text-right">
-                    </of-form-field-validation-messages>
-                  </td>
+                  </td>         
                   <td [ofFormFieldValidationState]="item.get('importeDocumentoSunat')">
                     <input formControlName="importeDocumentoSunat" [ofNumberMask]="numberMask" type="text" class="form-control text-right" readonly>
                     <of-form-field-validation-messages [ofFormControl]="item.get('importeDocumentoSunat')">
@@ -305,7 +292,7 @@
                     </button>
                   </div>
                 </td>
-                <td colspan="11">
+                <td colspan="10">
                 </td>
                 <td class="table-view-pf-actions">
                   <div class="table-view-pf-btn">

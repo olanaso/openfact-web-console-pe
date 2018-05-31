@@ -60,6 +60,7 @@ export class PerceptionCreateComponent implements OnInit, OnDestroy {
   percentMask = { allowDecimal: true, decimalLimit: 2, prefix: '% ' };
   numberPEMask = { allowDecimal: true, decimalLimit: 2, prefix: 'PEN ' };
   emailRegex = '^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$';
+  numeroDocumentoRegex = '^[a-zA-Z]{1,2}[0-9]{2,3}-[0-9]{1,8}$';
   constructor(private router: Router, private route: ActivatedRoute,
     private formBuilder: FormBuilder, private modalService: NgbModal,
     private dataService: DataService, private toastr: ToastsManager,
@@ -161,7 +162,7 @@ export class PerceptionCreateComponent implements OnInit, OnDestroy {
   addDetalleFormControl(): void {
     const formGroup = this.formBuilder.group({
       tipoDocumentoRelacionado: [null, Validators.compose([Validators.required])],
-      numeroDocumentoRelacionado: [null, Validators.compose([Validators.required, Validators.maxLength(13)])],
+      numeroDocumentoRelacionado: [null, Validators.compose([Validators.required, Validators.maxLength(13), Validators.pattern(this.numeroDocumentoRegex)])],
       fechaDocumentoRelacionado: [null, Validators.compose([Validators.required])],
       monedaDocumentoRelacionado: [null, Validators.compose([Validators.required, Validators.maxLength(3)])],
       totalDocumentoRelacionado: [null, Validators.compose([Validators.required])],
@@ -356,7 +357,7 @@ export class PerceptionCreateComponent implements OnInit, OnDestroy {
   setData(data) {
     this.form.patchValue({
       entidadDenominacion: data.razonsocial
-     /* entidadDireccion: data.direccion !== '-' ? data.direccion : null*/
+      /* entidadDireccion: data.direccion !== '-' ? data.direccion : null*/
     });
   }
 

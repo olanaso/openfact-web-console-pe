@@ -11,7 +11,7 @@
 
 			<div class="pull-right">
 				<div *ngIf="enableDelete" class="btn-group">
-					<button class="btn btn-default" (click)="delete()">
+					<button *openfactAccess="'admin'" class="btn btn-default" (click)="delete()">
 						<span class="pficon pficon-delete"></span> {{'delete' | translate}}
 					</button>
 				</div>

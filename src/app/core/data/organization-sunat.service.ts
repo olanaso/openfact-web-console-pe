@@ -59,6 +59,9 @@ export class OrganizationSunatService {
       }).subscribe(result => {
         saveAs(result.file, result.fileName);
       }, error => {
+        if (error.status == 400) {
+          alert('Ticket en proceso, inténtelo más tarde. El proceso de baja suele demorar 24 Horas');
+        }
         Observable.throw(error);
       });
   }

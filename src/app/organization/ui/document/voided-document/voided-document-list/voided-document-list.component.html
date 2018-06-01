@@ -107,6 +107,7 @@
               <th class="sorting">{{'voided' | translate}}</th>
               <th class="text-right">{{'customer-sended' | translate}}</th>
               <th class="text-right">{{'third-party-sended' | translate}}</th>
+              <th class="text-right">Consultar Ticket</th>
               <th colspan="2" rowspan="1">{{'actions' | translate}}</th>
             </tr>
           </thead>
@@ -137,6 +138,13 @@
                 <span *ngIf="item.requiredActions && item.requiredActions.length > 0">
                       <i *ngIf="hasRequiredAction(item, 'SEND_TO_THIRD_PARTY')" class="pficon pficon-warning-triangle-o"></i>
                       {{!hasRequiredAction(item, 'SEND_TO_THIRD_PARTY') | yesNo: ('yes-no' | translate)}}
+                </span>
+                <span *ngIf="!item.requiredActions || item.requiredActions.length == 0">{{'yes' | translate}}</span>
+              </td>
+              <td class="text-right">
+                <span *ngIf="item.requiredActions && item.requiredActions.length > 0">
+                      <i *ngIf="hasRequiredAction(item, 'CONSULTAR_TICKET')" class="pficon pficon-warning-triangle-o"></i>
+                      {{!hasRequiredAction(item, 'CONSULTAR_TICKET') | yesNo: ('yes-no' | translate)}}
                 </span>
                 <span *ngIf="!item.requiredActions || item.requiredActions.length == 0">{{'yes' | translate}}</span>
               </td>

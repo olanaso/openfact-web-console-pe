@@ -70,11 +70,11 @@ export class DocumentEditHeaderComponent implements OnInit {
   isAttributesCollapsed: boolean;
 
   constructor(private router: Router,
-              private route: ActivatedRoute,
-              private modalService: NgbModal,
-              private dataService: DataService,
-              private toastr: ToastsManager,
-              private dialog: DialogService) {
+    private route: ActivatedRoute,
+    private modalService: NgbModal,
+    private dataService: DataService,
+    private toastr: ToastsManager,
+    private dialog: DialogService) {
   }
 
   ngOnInit() {
@@ -127,7 +127,17 @@ export class DocumentEditHeaderComponent implements OnInit {
   downloadPdf() {
     const queryParams: URLSearchParams = new URLSearchParams();
     queryParams.set('format', 'pdf');
-    this.document.downloadReport(queryParams);
+    this.document.getPdf(queryParams).subscribe(result => {
+      let file = new Uint8Array(result.file);
+      this.dialog.preview(result.fileName, file).result.then((data) => {
+        if (data === 'download') {
+          this.document.downloadReport(queryParams);
+        }
+      });
+    }, error => {
+      this.toastr.error('Error! Document download fail.');
+    });
+
   }
 
   sendToCustomer() {

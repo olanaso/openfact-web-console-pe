@@ -2,6 +2,7 @@ import { NgbActiveModal, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstra
 
 import { DialogComponent } from './dialog.component';
 import { Injectable } from '@angular/core';
+import { DialogPreviewComponent } from '../dialog-preview/dialog-preview.component';
 
 @Injectable()
 export class DialogService {
@@ -31,4 +32,11 @@ export class DialogService {
     return modalRef;
   }
 
+  preview(title: string, file: any): NgbModalRef {
+    const modalRef = this.modalService.open(DialogPreviewComponent, { size: 'lg' });
+
+    modalRef.componentInstance.title = title;
+    modalRef.componentInstance.pdfSrc = file;
+    return modalRef;
+  }
 }

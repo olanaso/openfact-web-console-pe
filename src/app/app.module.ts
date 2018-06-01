@@ -67,7 +67,9 @@ export function getDatepickerConfig(): BsDatepickerConfig {
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule,
+    HttpModule,  
+
+    
     BrowserAnimationsModule,
     RestangularModule.forRoot([ConfigService], restangularProviderConfigurer),
     NgbModule.forRoot(),

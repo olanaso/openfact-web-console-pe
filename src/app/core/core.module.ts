@@ -48,18 +48,24 @@ import { VoidedDocumentService } from './data/voided-document.service';
 import { CountryService } from './data/country.service';
 import { CommonModule } from '@angular/common';
 import { ToastsManager } from 'ng2-toastr';
+import { DialogPreviewComponent } from './dialog-preview/dialog-preview.component';
+
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 @NgModule({
   imports: [
     CommonModule,
-    SharedModule
+    SharedModule,
+    PdfViewerModule,
   ],
   declarations: [
     DialogComponent,
-    LoadingComponent
+    LoadingComponent,
+    DialogPreviewComponent
   ],
   entryComponents: [
-    DialogComponent
+    DialogComponent,
+    DialogPreviewComponent
   ],
   exports: [
     LoadingComponent

@@ -96,6 +96,25 @@ export class Document extends Model {
       });
   }
 
+  getPdf(queryParams?: URLSearchParams) {
+    const restangular = this.restangular.all('report');
+    const url = restangular.path;
+    return restangular.http.get(url, {
+      headers: new Headers(),
+      responseType: ResponseContentType.ArrayBuffer,
+      search: queryParams
+    }).map(response => {
+      let fileExtension = '';
+      if (queryParams.get('format')) {
+        fileExtension = '.' + queryParams.get('format');
+      }
+      const file = {
+        file: response.arrayBuffer(),
+        fileName: (this['documentId'] || 'file') + fileExtension
+      };
+      return file;
+    });
+  }
   sendToCustomer() {
     return this.restangular.all('send-to-customer').post();
   }

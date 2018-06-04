@@ -22,7 +22,7 @@ export class SettingsThemeComponent implements OnInit, OnDestroy {
 
   organization: Organization;
   serverInfo: any;
-  companyImageView: any;
+  companyImageView: any = "/assets/img/your-logo-here.png";
   imageData = true;
 
   form: FormGroup;
@@ -108,7 +108,17 @@ export class SettingsThemeComponent implements OnInit, OnDestroy {
   }
 
   loadImage() {
-
+    this.organization.restangular.all('avatars').all('logo').get()
+      .map(response => { return response["_body"]; })
+      .subscribe(result => {
+        if (result) {
+          this.companyImageView = 'data:image/png;base64,' + result;
+          this.formup.patchValue({
+            file: this.companyImageView,
+            fileName: this.organization.organization + ".png"
+          });
+        }
+      });
   }
 
   upload(form: FormGroup) {

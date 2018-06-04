@@ -23,8 +23,10 @@ export class SettingsThemeComponent implements OnInit, OnDestroy {
   organization: Organization;
   serverInfo: any;
   companyImageView: any;
+  imageData = true;
 
   form: FormGroup;
+  formup: FormGroup;
   working = false;
 
   supportedLocales = ['en', 'es'];
@@ -41,6 +43,7 @@ export class SettingsThemeComponent implements OnInit, OnDestroy {
     this.dataSubscription = this.route.data.subscribe(data => {
       this.organization = data['organization'];
       this.serverInfo = data['serverInfo'];
+      this.loadImage();
       this.loadData();
     });
   }
@@ -56,8 +59,12 @@ export class SettingsThemeComponent implements OnInit, OnDestroy {
       internationalizationEnabled: [false, Validators.compose([Validators.required])],
       supportedLocales: [],
       defaultLocale: ['en', Validators.compose([Validators.maxLength(3)])],
-      companyImage: [''],
       reportTitle: ['']
+    });
+
+    this.formup = this.formBuilder.group({
+      fileName: [''],
+      file: ['']
     });
   }
 
@@ -72,14 +79,15 @@ export class SettingsThemeComponent implements OnInit, OnDestroy {
     });
   }
   onFileChange($event) {
-    let regex = new RegExp("(.*?)\.(jpg|png|jpeg|gif)$");
+    let regex = new RegExp("(.*?)\.(jpg|png|jpeg)$");
     let correctfile = regex.test($event.fileName);
     if (!correctfile) {
       this.toastr.warning('Warning! The file extension is not as required.');
       return;
-    }   
-    this.form.patchValue({
-      companyImage: $event.data
+    }
+    this.formup.patchValue({
+      file: $event.data,
+      fileName: $event.fileName
     });
     this.companyImageView = $event.data;
   }
@@ -91,6 +99,24 @@ export class SettingsThemeComponent implements OnInit, OnDestroy {
       result => {
         this.working = false;
         this.form.markAsPristine();
+        this.toastr.success('Success! Your changes have been saved to the organization.');
+      },
+      error => {
+        this.working = false;
+      }
+    );
+  }
+
+  loadImage() {
+
+  }
+
+  upload(form: FormGroup) {
+    this.working = true;
+    this.organization.restangular.all('avatars').all('logo').post(form.value).subscribe(
+      result => {
+        this.working = false;
+        this.formup.markAsPristine();
         this.toastr.success('Success! Your changes have been saved to the organization.');
       },
       error => {

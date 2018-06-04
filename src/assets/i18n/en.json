@@ -203,7 +203,9 @@
   "id-third-party": "ID Third Party",
   "first-id": "Invoice ID",
   "last-id": "Invoice Sequence",
-  "document-type":"Invoice type",
-  "add-item":"Add New Item",
-  "retention-type":"Retention Type"
+  "document-type": "Invoice type",
+  "add-item": "Add New Item",
+  "retention-type": "Retention Type",
+  "upload": "Upload picture",
+  "uploading": "Uploading..."
 }

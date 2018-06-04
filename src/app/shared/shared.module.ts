@@ -49,6 +49,7 @@ import { JWBootstrapSwitchModule } from 'jw-bootstrap-switch-ng2';
 import { AccessDirective } from './directives/access.directive';
 import { LoadingComponent } from './components/loading/loading.component';
 import { ButtonSaveNewComponent } from './components/button-save-new/button-save-new.component';
+import { ButtonUploadComponent } from './components/button-upload/button-upload.component';
 
 @NgModule({
   imports: [
@@ -108,7 +109,8 @@ import { ButtonSaveNewComponent } from './components/button-save-new/button-save
 
     AccessDirective,
     LoadingComponent,
-    ButtonSaveNewComponent
+    ButtonSaveNewComponent,
+    ButtonUploadComponent
   ],
   exports: [
     NgbModule,
@@ -131,6 +133,7 @@ import { ButtonSaveNewComponent } from './components/button-save-new/button-save
 
     ButtonDeleteComponent,
     ButtonSaveComponent,
+    ButtonUploadComponent,
     ButtonCancelComponent,
     ButtonResetComponent,
     ButtonSwitchComponent,

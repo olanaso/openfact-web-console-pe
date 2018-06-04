@@ -1,115 +1,125 @@
 <of-settings-tabset [organization]="organization"></of-settings-tabset>
 
-<form [formGroup]="form" (ngSubmit)="save(form)" class="form-horizontal">
-    <of-form-fields-status [ofForm]="form"></of-form-fields-status>
-    <div class="row">
-        <div class="col-md-12">
-            <fieldset>
-                <legend>
-                    <h3>Themes </h3>
-                </legend>
-                <div class="form-group" [ofFormFieldValidationState]="form.get('emailTheme')">
-                    <label class="col-md-2 control-label" [ofFormRequiredLabel]="form.get('emailTheme')">Email Theme
-                        <i class="fa fa-question-circle text-muted" ngbTooltip="Email theme for the current organization." placement="right"></i>
-                    </label>
-                    <div class="col-md-3">
-                        <select formControlName="emailTheme" class="form-control">
-                            <option value="" disabled>Select One...</option>
-                            <option *ngFor="let emailTheme of serverInfo.themes.email" [value]="emailTheme.name">{{emailTheme.name}}</option>
-                        </select>
-                        <of-form-field-validation-messages [ofFormControl]="form.get('emailTheme')">
-                        </of-form-field-validation-messages>
-                    </div>
-                </div>
-                <div class="form-group" [ofFormFieldValidationState]="form.get('reportTheme')">
-                    <label class="col-md-2 control-label" [ofFormRequiredLabel]="form.get('reportTheme')">Report Theme
-                        <i class="fa fa-question-circle text-muted" ngbTooltip="Report theme for the current organization." placement="right"></i>
-                    </label>
-                    <div class="col-md-3">
-                        <select formControlName="reportTheme" class="form-control">
-                            <option value="" disabled>Select One...</option>
-                            <option *ngFor="let reportTheme of serverInfo.reports.admin" [value]="reportTheme.name">{{reportTheme.name}}</option>
-                        </select>
-                        <of-form-field-validation-messages [ofFormControl]="form.get('reportTheme')">
-                        </of-form-field-validation-messages>
-                    </div>
-                </div>
-            </fieldset>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <fieldset>
-                <legend>
-                    <h3>Internationalization</h3>
-                </legend>
-                <div class="form-group" [ofFormFieldValidationState]="form.get('internationalizationEnabled')">
-                    <label class="col-md-2 control-label" [ofFormRequiredLabel]="form.get('internationalizationEnabled')">Internationalization Enabled
-                        <i class="fa fa-question-circle text-muted" ngbTooltip="Set true to enable internationalization on current organization."
-                            placement="right"></i>
-                    </label>
-                    <div class="col-md-3">
-                        <of-button-switch formControlName="internationalizationEnabled"></of-button-switch>
-                        <of-form-field-validation-messages [ofFormControl]="form.get('internationalizationEnabled')">
-                        </of-form-field-validation-messages>
-                    </div>
-                </div>
-                <div [hidden]="!form.get('internationalizationEnabled').value" class="form-group" [ofFormFieldValidationState]="form.get('defaultLocale')">
-                    <label class="col-md-2 control-label" [ofFormRequiredLabel]="form.get('defaultLocale')">Default Locale
-                        <i class="fa fa-question-circle text-muted" ngbTooltip="Default locale for the current organization. This is important for reports which are generated from the backend."
-                            placement="right"></i>
-                    </label>
-                    <div class="col-md-3">
-                        <select formControlName="defaultLocale" class="form-control">
-                            <option value="" disabled>Select One...</option>
-                            <option *ngFor="let locale of supportedLocales" [value]="locale">{{locale}}</option>
-                        </select>
-                        <of-form-field-validation-messages [ofFormControl]="form.get('defaultLocale')">
-                        </of-form-field-validation-messages>
-                    </div>
-                </div>
-            </fieldset>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <fieldset>
-                <legend>
-                    <h3>Custom Reports</h3>
-                </legend>
-                <div class="form-group" [ofFormFieldValidationState]="form.get('reportTitle')">
-                    <label class="col-md-2 control-label" [ofFormRequiredLabel]="form.get('reportTitle')">Report Title
-                        <i class="fa fa-question-circle text-muted" ngbTooltip="Set Reports title." placement="right"></i>
-                    </label>
-                    <div class="col-md-10">
-                        <input class="form-control" type="text" formControlName="reportTitle">
-                        <of-form-field-validation-messages [ofFormControl]="form.get('reportTitle')">
-                        </of-form-field-validation-messages>
-                    </div>
-                </div>
-                <div class="form-group" [ofFormFieldValidationState]="form.get('companyImage')">
-                    <label class="col-md-2 control-label" [ofFormRequiredLabel]="form.get('companyImage')">Company Image
-                        <i class="fa fa-question-circle text-muted" ngbTooltip="Set Company Image." placement="right"></i>
-                    </label>
-                    <div class="col-md-2">
-                        <div class="input-group">
-                            <input class="form-control" type="text" formControlName="companyImage" readonly>
-                            <of-read-file [showFileName]="false" [asText]="false" [asDataUrl]="true" (complete)="onFileChange($event)"></of-read-file>
-                            <of-form-field-validation-messages [ofFormControl]="form.get('companyImage')">
+<div class="row">
+    <div class="col-md-12">
+        <div class="col-md-6">
+            <form [formGroup]="form" (ngSubmit)="save(form)" class="form-horizontal">
+                <!-- <of-form-fields-status [ofForm]="form"></of-form-fields-status> -->
+
+                <fieldset>
+                    <legend>
+                        <h3>Themes </h3>
+                    </legend>
+                    <div class="form-group" [ofFormFieldValidationState]="form.get('emailTheme')">
+                        <label class="col-md-5 control-label" [ofFormRequiredLabel]="form.get('emailTheme')">Email Theme
+                            <i class="fa fa-question-circle text-muted" ngbTooltip="Email theme for the current organization." placement="right"></i>
+                        </label>
+                        <div class="col-md-7">
+                            <select formControlName="emailTheme" class="form-control">
+                                <option value="" disabled>Select One...</option>
+                                <option *ngFor="let emailTheme of serverInfo.themes.email" [value]="emailTheme.name">{{emailTheme.name}}</option>
+                            </select>
+                            <of-form-field-validation-messages [ofFormControl]="form.get('emailTheme')">
                             </of-form-field-validation-messages>
                         </div>
                     </div>
-                    <div class="col-md-4" class="text-left">
-                        <img [src]="companyImageView" *ngIf="companyImageView" style="height: 100px;" class="thumbnail">
+                    <div class="form-group" [ofFormFieldValidationState]="form.get('reportTheme')">
+                        <label class="col-md-5 control-label" [ofFormRequiredLabel]="form.get('reportTheme')">Report Theme
+                            <i class="fa fa-question-circle text-muted" ngbTooltip="Report theme for the current organization." placement="right"></i>
+                        </label>
+                        <div class="col-md-7">
+                            <select formControlName="reportTheme" class="form-control">
+                                <option value="" disabled>Select One...</option>
+                                <option *ngFor="let reportTheme of serverInfo.reports.admin" [value]="reportTheme.name">{{reportTheme.name}}</option>
+                            </select>
+                            <of-form-field-validation-messages [ofFormControl]="form.get('reportTheme')">
+                            </of-form-field-validation-messages>
+                        </div>
+                    </div>
+                    <div class="form-group" [ofFormFieldValidationState]="form.get('reportTitle')">
+                        <label class="col-md-5 control-label" [ofFormRequiredLabel]="form.get('reportTitle')">Report Title
+                            <i class="fa fa-question-circle text-muted" ngbTooltip="Set Reports title." placement="right"></i>
+                        </label>
+                        <div class="col-md-7">
+                            <input class="form-control" type="text" formControlName="reportTitle">
+                            <of-form-field-validation-messages [ofFormControl]="form.get('reportTitle')">
+                            </of-form-field-validation-messages>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>
+                        <h3>Internationalization</h3>
+                    </legend>
+                    <div class="form-group" [ofFormFieldValidationState]="form.get('internationalizationEnabled')">
+                        <label class="col-md-5 control-label" [ofFormRequiredLabel]="form.get('internationalizationEnabled')">Internationalization Enabled
+                            <i class="fa fa-question-circle text-muted" ngbTooltip="Set true to enable internationalization on current organization."
+                                placement="right"></i>
+                        </label>
+                        <div class="col-md-7">
+                            <of-button-switch formControlName="internationalizationEnabled"></of-button-switch>
+                            <of-form-field-validation-messages [ofFormControl]="form.get('internationalizationEnabled')">
+                            </of-form-field-validation-messages>
+                        </div>
+                    </div>
+                    <div [hidden]="!form.get('internationalizationEnabled').value" class="form-group" [ofFormFieldValidationState]="form.get('defaultLocale')">
+                        <label class="col-md-5 control-label" [ofFormRequiredLabel]="form.get('defaultLocale')">Default Locale
+                            <i class="fa fa-question-circle text-muted" ngbTooltip="Default locale for the current organization. This is important for reports which are generated from the backend."
+                                placement="right"></i>
+                        </label>
+                        <div class="col-md-7">
+                            <select formControlName="defaultLocale" class="form-control">
+                                <option value="" disabled>Select One...</option>
+                                <option *ngFor="let locale of supportedLocales" [value]="locale">{{locale}}</option>
+                            </select>
+                            <of-form-field-validation-messages [ofFormControl]="form.get('defaultLocale')">
+                            </of-form-field-validation-messages>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <div class="form-group">
+                    <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-md-offset-9 col-lg-offset-9">
+                        <of-button-save [ofForm]="form" [working]="working"></of-button-save>
+                        <of-button-reset [ofForm]="form" (ofOnReset)="loadData()"></of-button-reset>
                     </div>
                 </div>
-            </fieldset>
+            </form>
+        </div>
+        <div class="col-md-6">
+            <form [formGroup]="formup" (ngSubmit)="upload(formup)" class="form-horizontal">
+                <!-- <of-form-fields-status [ofForm]="form"></of-form-fields-status> -->
+                <fieldset>
+                    <legend>
+                        <h3>Custom Avatar</h3>
+                    </legend>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <img [src]="companyImageView" *ngIf="companyImageView" style="height: 200px;" class="thumbnail">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-7">
+                        </div>
+                        <div class="col-md-5">
+                            <div class="col-md-7">
+                                <of-read-file [showFileName]="false" [asText]="false" [asDataUrl]="true" (complete)="onFileChange($event)"></of-read-file>
+                            </div>
+                            <of-button-upload [ofForm]="formup" [working]="working"></of-button-upload>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group" [ofFormFieldValidationState]="formup.get('file')">
+                            <div [hidden]="imageData">
+                                <input class="form-control" type="text" formControlName="file">
+                                <of-form-field-validation-messages [ofFormControl]="formup.get('file')">
+                                </of-form-field-validation-messages>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
         </div>
     </div>
-    <div class="form-group">
-        <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-md-offset-2 col-lg-offset-2">
-            <of-button-save [ofForm]="form" [working]="working"></of-button-save>
-            <of-button-reset [ofForm]="form" (ofOnReset)="loadData()"></of-button-reset>
-        </div>
-    </div>
-</form>
+</div>

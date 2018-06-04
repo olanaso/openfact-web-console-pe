@@ -206,5 +206,7 @@
   "last-id":"Numero",
   "document-type":"Tipo Documento",
   "add-item":"Agregar Item",
-  "retention-type":"Tipo de Retención"
+  "retention-type":"Tipo de Retención",
+  "upload": "Subir Logo",
+  "uploading": "Subiendo Logo..."
 }

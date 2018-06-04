@@ -8,6 +8,7 @@ import { Organization } from '../../../../../core/model/organization.model';
 import { DataService } from '../../../../../core/data/data.service';
 import { Document } from '../../../../../core/model/document.model';
 import { ToastsManager } from 'ng2-toastr';
+import { DialogService } from '../../../../../core/dialog/dialog.service';
 
 @Component({
   selector: 'of-document-actions',
@@ -55,7 +56,8 @@ export class DocumentActionsComponent implements OnInit {
               private router: Router,
               private modalService: NgbModal,
               private dataService: DataService,
-              private toastr: ToastsManager) {
+              private toastr: ToastsManager,
+              private dialog: DialogService) {
   }
 
   ngOnInit() {
@@ -75,7 +77,17 @@ export class DocumentActionsComponent implements OnInit {
   downloadPdf() {
     const queryParams: URLSearchParams = new URLSearchParams();
     queryParams.set('format', 'pdf');
-    this.document.downloadReport(queryParams);
+    this.document.getPdf(queryParams).subscribe(result => {
+      let file = new Uint8Array(result.file);
+      this.dialog.preview(result.fileName, file).result.then((data) => {
+        if (data === 'download') {
+          this.document.downloadReport(queryParams);
+        }
+      });
+    }, error => {
+      this.toastr.error('Error! Document download fail.');
+    });
+
   }
 
   sendToCustomer() {

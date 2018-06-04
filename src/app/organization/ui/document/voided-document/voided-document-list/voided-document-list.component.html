@@ -143,6 +143,8 @@
               </td>
               <td class="text-right">
                 <span *ngIf="item.requiredActions && item.requiredActions.length > 0">
+                      <i *ngIf="hasRequiredAction(item, 'VERIFICAR')" class="pficon pficon-error-circle-o"></i>
+                      {{!hasRequiredAction(item, 'VERIFICAR') ? '' : 'Verificar'}}
                       <i *ngIf="hasRequiredAction(item, 'CONSULTAR_TICKET')" class="pficon pficon-warning-triangle-o"></i>
                       {{!hasRequiredAction(item, 'CONSULTAR_TICKET') | yesNo: ('yes-no' | translate)}}
                 </span>

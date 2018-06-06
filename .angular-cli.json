@@ -29,7 +29,13 @@
       "scripts": [
         "../node_modules/keycloak-js/dist/keycloak.min.js",
         "../node_modules/ace-builds/src-min/ace.js",
-        "../node_modules/ace-builds/src-min/theme-eclipse.js"
+        "../node_modules/ace-builds/src-min/theme-eclipse.js",
+        "../node_modules/ace-builds/src-min/theme-github.js",
+        "../node_modules/ace-builds/src-min/theme-sqlserver.js",
+        "../node_modules/ace-builds/src-min/theme-iplastic.js",
+        "../node_modules/ace-builds/src-min/theme-monokai.js",        
+        "../node_modules/ace-builds/src-min/theme-tomorrow.js",
+        "../node_modules/ace-builds/src-min/theme-xcode.js"      
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

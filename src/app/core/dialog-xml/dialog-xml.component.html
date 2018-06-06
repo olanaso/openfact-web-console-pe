@@ -5,7 +5,16 @@
   <h4 class="modal-title">{{title}}</h4>
 </div>
 <div class="modal-body report">
-  <div ace-editor [text]="xml | prettyXml" [theme]="'eclipse'" [options]="options"  [readOnly]="true"  class="ace-editor"></div>
+  <!--  
+    [theme]="'eclipse'" 
+    [theme]="'github'" 
+    [theme]="'sqlserver'" 
+    [theme]="'iplastic'" 
+    [theme]="'monokai'" 
+    [theme]="'tomorrow'" 
+    [theme]="'xcode'" 
+   -->
+  <div ace-editor [text]="xml | prettyXml" [theme]="'iplastic'" [options]="options"  [readOnly]="true"  class="ace-editor"></div>
 </div>
 <div class="modal-footer">
   <button type="button" class="btn btn-default" (click)="activeModal.close('download')">

@@ -53,11 +53,11 @@ export class DocumentActionsComponent implements OnInit {
   thirdPartyByEmail: any = {};
 
   constructor(private route: ActivatedRoute,
-              private router: Router,
-              private modalService: NgbModal,
-              private dataService: DataService,
-              private toastr: ToastsManager,
-              private dialog: DialogService) {
+    private router: Router,
+    private modalService: NgbModal,
+    private dataService: DataService,
+    private toastr: ToastsManager,
+    private dialog: DialogService) {
   }
 
   ngOnInit() {
@@ -67,7 +67,15 @@ export class DocumentActionsComponent implements OnInit {
    * Actions
    */
   downloadXml() {
-    this.document.downloadXml();
+    this.document.getXml().subscribe(result => {
+      this.dialog.xmlpreview(result.fileName, result.file).result.then((data) => {
+        if (data === 'download') {
+          this.document.downloadXml();
+        }
+      });
+    }, error => {
+      this.toastr.error('Error! Document download fail.');
+    });
   }
 
   downloadCdr() {

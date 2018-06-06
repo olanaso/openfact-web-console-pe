@@ -68,6 +68,24 @@ export class Document extends Model {
       });
   }
 
+  getXml() {
+    const restangular = this.restangular.all('representation/xml');
+    const url = restangular.path;
+
+    return restangular.http
+      .get(url, {
+        headers: new Headers(),
+        responseType: ResponseContentType.Text
+      })
+      .map(response => {
+        const file = {
+          file: response["_body"],
+          fileName: (this['documentId'] || 'file') + '.xml'
+        };
+        return file;
+      });
+  }
+
   downloadReport(queryParams?: URLSearchParams) {
     const restangular = this.restangular.all('report');
     const url = restangular.path;

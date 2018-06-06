@@ -50,6 +50,7 @@ import { AccessDirective } from './directives/access.directive';
 import { LoadingComponent } from './components/loading/loading.component';
 import { ButtonSaveNewComponent } from './components/button-save-new/button-save-new.component';
 import { ButtonUploadComponent } from './components/button-upload/button-upload.component';
+import { PrettyXmlPipe } from './pipes/pretty-xml.pipe';
 
 @NgModule({
   imports: [
@@ -110,7 +111,8 @@ import { ButtonUploadComponent } from './components/button-upload/button-upload.
     AccessDirective,
     LoadingComponent,
     ButtonSaveNewComponent,
-    ButtonUploadComponent
+    ButtonUploadComponent,
+    PrettyXmlPipe
   ],
   exports: [
     NgbModule,
@@ -147,6 +149,7 @@ import { ButtonUploadComponent } from './components/button-upload/button-upload.
     ToArrayPipe,
     KeysPipe,
     ToDatePipe,
+    PrettyXmlPipe,
     YesNoPipe,
     FirstElementPipe,
     ToNumberPipe,

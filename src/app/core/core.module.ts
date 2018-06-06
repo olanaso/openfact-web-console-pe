@@ -52,20 +52,26 @@ import { DialogPreviewComponent } from './dialog-preview/dialog-preview.componen
 
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 
+import { AceEditorModule } from 'ng2-ace-editor';
+import { DialogXmlComponent } from './dialog-xml/dialog-xml.component';
+
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
     PdfViewerModule,
+    AceEditorModule
   ],
   declarations: [
     DialogComponent,
     LoadingComponent,
-    DialogPreviewComponent
+    DialogPreviewComponent,
+    DialogXmlComponent
   ],
   entryComponents: [
     DialogComponent,
-    DialogPreviewComponent
+    DialogPreviewComponent,
+    DialogXmlComponent
   ],
   exports: [
     LoadingComponent

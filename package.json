@@ -33,7 +33,7 @@
     "jw-bootstrap-switch-ng2": "1.0.2",
     "keycloak-js": "^3.0.0",
     "lodash": "^4.17.4",
-    "ng2-ace-editor": "^0.3.7",
+    "ng2-ace-editor": "^0.3.1",
     "ng2-file-upload": "^1.2.1",
     "ng2-pdf-viewer": "^5.0.1",
     "ng2-select": "^1.2.0",

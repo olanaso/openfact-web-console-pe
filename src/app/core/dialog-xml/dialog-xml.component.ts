@@ -10,7 +10,17 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class DialogXmlComponent implements OnInit {
 
 
-  options:any = {maxLines: 1000};
+  options:any = {
+    maxLines: 1000,
+    showPrintMargin: false,
+    showInvisibles: false,
+    highlightGutterLine: false,
+    highlightActiveLine: true,
+    fadeFoldWidgets: false,
+    showLineNumbers: true,
+    showGutter: true,
+    wrap: true
+  };
 
   @Input()
   title: string;

@@ -208,5 +208,6 @@
   "add-item":"Agregar Item",
   "retention-type":"Tipo de Retención",
   "upload": "Subir Logo",
-  "uploading": "Subiendo Logo..."
+  "uploading": "Subiendo Logo...",
+  "certificate-provider":"Activar para usar certificado del proveedor"
 }

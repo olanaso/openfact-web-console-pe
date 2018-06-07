@@ -207,5 +207,6 @@
   "add-item": "Add New Item",
   "retention-type": "Retention Type",
   "upload": "Upload picture",
-  "uploading": "Uploading..."
+  "uploading": "Uploading...",
+  "certificate-provider":"Check to use provider certificate"
 }

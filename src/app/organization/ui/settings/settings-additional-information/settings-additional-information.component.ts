@@ -65,6 +65,19 @@ export class SettingsAdditionalInformationComponent implements OnInit, OnDestroy
         streetName: [undefined, Validators.compose([Validators.required, Validators.maxLength(150)])],
       })
     });
+
+    this.form.get('additionalAccountId').valueChanges.subscribe(value => {
+      if (value) {
+        const tipoComprobante = this.tiposDocumentEntidad.find(f => f.codigo === value);
+        if (tipoComprobante) {
+          this.form.get('assignedIdentificationId').setValidators(Validators.compose([
+            Validators.required,
+            Validators.minLength(tipoComprobante.minlength),
+            Validators.maxLength(tipoComprobante.maxlength)
+          ]));
+        }
+      }
+    });
   }
 
   loadData() {

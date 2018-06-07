@@ -4,6 +4,8 @@ export interface GenericType {
     denominacion?: string;
     grupo?: string;
     length?: number;
+    minlength?: number;
+    maxlength?: number;
     afectaIgv?: boolean;
     valor?: number;
 }

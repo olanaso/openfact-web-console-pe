@@ -58,7 +58,8 @@ export class SettingsSmtpComponent implements OnInit, OnDestroy {
       starttls: [false, Validators.compose([Validators.required])],
       auth: [false],
       user: [undefined, Validators.compose([Validators.maxLength(150)])],
-      password: [undefined, Validators.compose([Validators.maxLength(150)])]
+      password: [undefined, Validators.compose([Validators.maxLength(150)])]/*,
+      to: [undefined, Validators.compose([Validators.required, Validators.maxLength(150)])]*/
     });
   }
 

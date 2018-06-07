@@ -144,8 +144,8 @@ export class PerceptionCreateComponent implements OnInit, OnDestroy {
         if (tipoComprobante) {
           this.form.get('entidadNumeroDeDocumento').setValidators(Validators.compose([
             Validators.required,
-            Validators.minLength(tipoComprobante.length),
-            Validators.maxLength(tipoComprobante.length)
+            Validators.minLength(tipoComprobante.minlength),
+            Validators.maxLength(tipoComprobante.maxlength)
           ]));
         }
       }

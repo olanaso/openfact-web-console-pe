@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { URLSearchParams } from '@angular/http';
 import { Organization } from '../../../../core/model/organization.model';
 import { DataService } from '../../../../core/data/data.service';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'of-settings-all-keys',
@@ -14,9 +15,8 @@ import { DataService } from '../../../../core/data/data.service';
 export class SettingsAllKeysComponent implements OnInit, OnDestroy {
 
   loading = false;
-
   dataSubscription: Subscription;
-
+  form: FormGroup;
   type = 'org.openfact.keys.KeyProvider';
   keys: any;
 
@@ -25,14 +25,31 @@ export class SettingsAllKeysComponent implements OnInit, OnDestroy {
 
   constructor(
     private activatedRoute: ActivatedRoute,
+    private formBuilder: FormBuilder,
     private dataService: DataService) {
   }
 
   ngOnInit() {
+    this.buildForm();
     this.dataSubscription = this.activatedRoute.data.subscribe(data => {
       this.organization = data['organization'];
       this.keys = data['keys'];
       this.loadComponents();
+      this.loadData();
+    });
+  }
+
+  buildForm() {
+    this.form = this.formBuilder.group({
+      masterCertificate: [undefined, Validators.compose([Validators.required])]
+    });
+    this.form.get('masterCertificate').valueChanges.subscribe(value => {     
+        this.save(value);      
+    });
+  }
+  loadData() {
+    this.form.patchValue({
+      masterCertificate: this.organization.masterCertificate
     });
   }
 
@@ -76,4 +93,14 @@ export class SettingsAllKeysComponent implements OnInit, OnDestroy {
     this.loading = false;
   }
 
+  save(data: boolean) {
+    this.organization.masterCertificate = data;
+    this.organization.save(this.organization).subscribe(
+      result => {
+        this.form.markAsPristine();
+      },
+      error => {
+      }
+    );
+  }
 }

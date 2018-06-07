@@ -1,5 +1,24 @@
 <of-settings-tabset [organization]="organization"></of-settings-tabset>
-
+<form [formGroup]="form" class="form-horizontal">
+    <br>
+    <div class="col-md-12">
+      <div class="col-md-6">
+        <div class="form-group" [ofFormFieldValidationState]="form.get('masterCertificate')">
+          <label class="col-md-2 control-label" [ofFormRequiredLabel]="form.get('masterCertificate')">Certificate
+            <i class="fa fa-question-circle text-muted" ngbTooltip="Set true to use provider certificate" placement="right"></i>
+          </label>
+          <div class="col-md-5">
+            <div class="checkbox">
+              <label>
+                <input formControlName="masterCertificate" type="checkbox"> Check for use provider certificate
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <div [hidden]="form.get('masterCertificate').value">
 <ul class="nav nav-tabs nav-tabs-pf">
   <li class="active">
     <a href="javascript:void(0)">{{'active' | translate}}</a>
@@ -48,3 +67,5 @@
   </table>
 
 </of-loading>
+</div>
+</form>

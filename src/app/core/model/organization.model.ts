@@ -22,6 +22,7 @@ export class Organization extends Model {
   additionalAccountId: string;
   supplierName: string;
   registrationName: string;
+  masterCertificate: boolean;
   postalAddress: PostalAddressRepresentation;
 
   createdTimestamp: Date;

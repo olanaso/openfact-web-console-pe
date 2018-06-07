@@ -7,6 +7,7 @@ import { Organization } from '../../../../core/model/organization.model';
 import { DataService } from '../../../../core/data/data.service';
 import { DialogService } from '../../../../core/dialog/dialog.service';
 import { ToastsManager } from 'ng2-toastr';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'of-settings-key-providers',
@@ -22,7 +23,7 @@ export class SettingsKeyProvidersComponent implements OnInit, OnDestroy {
   organization: Organization;
   serverInfo: any;
   enableUpload = false;
-
+  form: FormGroup;
   providers: any;
   instances: any;
 
@@ -30,23 +31,39 @@ export class SettingsKeyProvidersComponent implements OnInit, OnDestroy {
               private route: ActivatedRoute,
               private modalService: NgbModal,
               private dataService: DataService,
+              private formBuilder: FormBuilder,
               private toastr: ToastsManager,
               private dialogService: DialogService) {
   }
 
   ngOnInit() {
+    this.buildForm();
     this.dataSubscription = this.route.data.subscribe(data => {
       this.organization = data['organization'];
       this.serverInfo = data['serverInfo'];
       this.providers = this.serverInfo.componentTypes['org.openfact.keys.KeyProvider'];
       this.loadComponents();
+      this.loadData();
     });
   }
 
   ngOnDestroy() {
     this.dataSubscription.unsubscribe();
   }
-
+  
+  buildForm() {
+    this.form = this.formBuilder.group({
+      masterCertificate: [undefined, Validators.compose([Validators.required])]
+    });
+    this.form.get('masterCertificate').valueChanges.subscribe(value => {
+        this.save(value);      
+    });
+  }
+  loadData() {
+    this.form.patchValue({
+      masterCertificate:this.organization.masterCertificate
+    });
+  }
   loadComponents() {
     const queryParams = new URLSearchParams();
     queryParams.set('type', 'org.openfact.keys.KeyProvider');
@@ -84,5 +101,14 @@ export class SettingsKeyProvidersComponent implements OnInit, OnDestroy {
       }
     );
   }
-
+  save(data: boolean) {
+    this.organization.masterCertificate=data;
+    this.organization.save(this.organization).subscribe(
+      result => {
+        this.form.markAsPristine();
+      },
+      error => {
+      }
+    );
+  }
 }

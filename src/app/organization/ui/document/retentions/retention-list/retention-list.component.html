@@ -120,7 +120,9 @@
               </td>
             </tr>
             <tr *ngFor="let item of searchResult.items; let i = index;">
-              <td class="text-right">{{i+1}}</td>
+              <td class="text-right">
+                  <i class="pficon" [ngClass]="{'pficon-locked': item.closed}"></i> {{i+1}}
+              </td>
               <td>{{item.documentId}}</td>
               <td>{{item.createdTimestamp | date: 'dd/MM/yyyy'}}</td>
               <td class="text-right">{{item.attributes.sunatTotalPaidAmountCurrencyID}}</td>

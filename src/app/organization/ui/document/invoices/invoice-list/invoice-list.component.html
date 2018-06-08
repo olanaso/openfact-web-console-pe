@@ -107,6 +107,7 @@
               <th class="sorting text-right">#</th>
               <th class="sorting">ID</th>
               <th class="sorting">{{'issue-create-date' | translate}}</th>
+              <th class="sorting">{{'issue-date' | translate}}</th>
               <th class="sorting">{{'currency-code' | translate}}</th>
               <th class="sorting text-right">{{'payable-amount' | translate}}</th>
               <th class="sorting text-right">{{'customer-registration-name' | translate}}</th>
@@ -126,6 +127,7 @@
               <td class="text-right">{{i+1}}</td>
               <td>{{item.documentId}}</td>
               <td>{{item.createdTimestamp | date: 'dd/MM/yyyy'}}</td>
+              <td>{{item.issueDate | date: 'dd/MM/yyyy'}}</td>
               <td class="text-right">{{item.attributes.documentCurrencyCode}}</td>
               <td class="text-right">{{item.attributes.legalMonetaryTotalPayableAmount | firstElement | toNumber | number:'1.2-3'}}</td>
               <td class="text-right">{{item.attributes.customerPartyRegistrationName}}</td>

@@ -104,6 +104,7 @@
               <th class="sorting text-right">#</th>
               <th class="sorting">ID</th>
               <th class="sorting">{{'issue-create-date' | translate}}</th>
+              <th class="sorting">{{'issue-date' | translate}}</th>
               <th class="sorting">{{'voided' | translate}}</th>
               <th class="text-right">{{'customer-sended' | translate}}</th>
               <th class="text-right">{{'third-party-sended' | translate}}</th>
@@ -121,6 +122,7 @@
               <td class="text-right">{{i+1}}</td>
               <td>{{item.documentId}}</td>
               <td>{{item.createdTimestamp | date: 'dd/MM/yyyy'}}</td>
+              <td>{{item.issueDate | date: 'dd/MM/yyyy'}}</td>
               <td>
                 <span>
                   <i *ngIf="!item.enabled" class="pficon-error-circle-o"></i>

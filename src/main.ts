@@ -8,6 +8,6 @@ if (environment.production) {
   enableProdMode();
 }
 
-KeycloakOAuthService.init()
+KeycloakOAuthService.init({ onLoad: 'login-required' })
   .then(() => platformBrowserDynamic().bootstrapModule(AppModule))
   .catch(e => window.location.reload());

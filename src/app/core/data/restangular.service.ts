@@ -1,4 +1,3 @@
-import { ConfigService } from './../../config.service';
 import { Headers } from '@angular/http';
 import { Http } from '@angular/http';
 import { Injectable } from '@angular/core';
@@ -11,8 +10,8 @@ import { Router } from '@angular/router';
 import { URLSearchParams } from '@angular/http';
 import { ToastsManager } from 'ng2-toastr';
 
-export function RestangularServiceFactory(http: Http, router: Router, toastr: ToastsManager, config: ConfigService) {
-  return new RestangularService(http, router, toastr, {url: config.getSettings().apiEndpoint});
+export function RestangularServiceFactory(http: Http, router: Router, toastr: ToastsManager, url: string) {
+  return new RestangularService(http, router, toastr, {url: url});
 }
 
 @Injectable()

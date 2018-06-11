@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: openfact-ui
+type: Opaque
+data:
+  proxy.pass.url: ""
+  openfact.sso.api.url: "http://localhost:8080/auth"
+  openfact.sso.realm: "openfact"
+  openfact.sso.client.id: "openfact-web-console"
+  openfact.api.url: "http://localhost:8080/api"

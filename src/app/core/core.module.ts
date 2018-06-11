@@ -1,3 +1,5 @@
+import { OPENFACT_API_URL } from './../config/openfact-api';
+import { AUTH_API_URL } from './../config/auth-api';
 import {
   DocumentosRelacionadosPercepcionResolverService,
   DocumentosRelacionadosBajasResolverService,
@@ -15,7 +17,6 @@ import {
 import { ErrorHandler, NgModule } from '@angular/core';
 import { KEYCLOAK_HTTP_PROVIDER, KeycloakHttp } from './../keycloak/keycloak.http';
 
-import { ConfigService } from './../config.service';
 import { CreditNoteService } from './data/credit-note.service';
 import { CurrentOrganizationService } from './services/current-organization.service';
 import { DataService } from './data/data.service';
@@ -82,7 +83,7 @@ import { DialogXmlComponent } from './dialog-xml/dialog-xml.component';
     {
       provide: RestangularService,
       useFactory: RestangularServiceFactory,
-      deps: [Http, Router, ToastsManager, ConfigService]
+      deps: [Http, Router, ToastsManager, OPENFACT_API_URL]
     },
     DialogService,
     LoadingService,

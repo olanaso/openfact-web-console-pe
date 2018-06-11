@@ -1,9 +1,10 @@
+import { REALM } from './../../../config/realm.token';
+import { AUTH_API_URL } from './../../../config/auth-api';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 
 import { KeycloakOAuthService } from '../../../keycloak/keycloak.oauth.service';
 import { TranslateService } from 'ng2-translate';
-import { KeycloakConfigService } from '../../../keycloak.config.service';
 
 @Component({
   selector: 'of-admin-header',
@@ -24,7 +25,8 @@ export class AdminHeaderComponent implements OnInit {
   constructor(private router: Router,
               private route: ActivatedRoute,
               private translate: TranslateService,
-              private keycloakConfig: KeycloakConfigService) {
+               @Inject(AUTH_API_URL) private apiUrl: string,
+               @Inject(REALM) private realm: string,) {
   }
 
   ngOnInit() {
@@ -54,7 +56,7 @@ export class AdminHeaderComponent implements OnInit {
   }
 
   keycloak() {
-    window.open(this.keycloakConfig.getSettings()['auth-server-url'] + '/admin/' + this.keycloakConfig.getSettings().realm + '/console');
+    window.open(this.apiUrl + '/admin/' + this.realm + '/console');
   }
 
 }

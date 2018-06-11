@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: openfact-ui
+type: Opaque
+data:
+  proxy.pass.url: "https://192.168.1.6:8443"
+  openfact.sso.api.url: "http://keycloak-keycloak-sso.apps.console.sistcoop.org/auth"
+  openfact.sso.realm: "ahren"
+  openfact.sso.client.id: "openfact-web-console"
+  openfact.api.url: "http://openfactv2-openfact-ahren.apps.console.sistcoop.org/api"

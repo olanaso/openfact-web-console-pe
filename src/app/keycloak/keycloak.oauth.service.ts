@@ -7,11 +7,19 @@ export class KeycloakOAuthService {
 
   static auth: any = {};
 
-  static init(): Promise<any> {
-    const keycloakAuth: any = new Keycloak('/config/keycloak.json');
+  static init(initOptions?: any): Promise<any> {
+    // const keycloakAuth: any = new Keycloak('/config/keycloak.json');
+
+    const configOptions: string | {} = {
+      realm: window['OpenfactUIEnv']['ssoRealm'],
+      url: window['OpenfactUIEnv']['ssoApiUrl'],
+      clientId: window['OpenfactUIEnv']['ssoClientId']
+    };
+
+    const keycloakAuth: any = new Keycloak(configOptions);
 
     return new Promise((resolve, reject) => {
-      keycloakAuth.init({ onLoad: 'login-required' })
+      keycloakAuth.init(initOptions)
         .success(() => {
           KeycloakOAuthService.auth.authz = keycloakAuth;
           resolve();

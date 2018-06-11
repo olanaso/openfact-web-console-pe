@@ -1,4 +1,4 @@
-import { ConfigService, configServiceInitializer } from './config.service';
+import { OPENFACT_API_URL } from './config/openfact-api';
 import { TranslateLoader, TranslateModule, TranslateStaticLoader } from 'ng2-translate';
 
 import { APP_INITIALIZER } from '@angular/core';
@@ -27,7 +27,6 @@ import { LocalStorageModule } from 'angular-2-local-storage';
 import { ToastModule } from 'ng2-toastr';
 import { KeycloakOAuthService } from './keycloak/keycloak.oauth.service';
 import { KEYCLOAK_HTTP_PROVIDER } from './keycloak/keycloak.http';
-import { KeycloakConfigService, keycloakConfigServiceInitializer } from 'app/keycloak.config.service';
 import { SurenService } from './sunat/suren.service';
 import { Configuration } from './app.suren';
 
@@ -36,8 +35,17 @@ import { defineLocale } from 'ngx-bootstrap/bs-moment';
 import { es } from 'ngx-bootstrap/locale';
 defineLocale('es', es);
 
-export function restangularProviderConfigurer(restangularProvider: any, config: ConfigService) {
-  restangularProvider.setBaseUrl(config.getSettings().apiEndpoint);
+
+// Config
+import { openfactUIConfigProvider } from './config/openfact-ui-config.service';
+import { ApiLocatorService } from './config/api-locator.service';
+import { authApiUrlProvider } from './config/auth-api.provider';
+import { realmProvider } from './config/realm-token.provider';
+import { openfactApiUrlProvider } from './config/openfact-api.provider';
+import { REALM } from './config/realm.token';
+
+export function restangularProviderConfigurer(restangularProvider: any, apiUrl: string) {
+  restangularProvider.setBaseUrl(apiUrl);
 }
 
 export function createTranslateLoader(http: Http) {
@@ -67,11 +75,11 @@ export function getDatepickerConfig(): BsDatepickerConfig {
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule,  
+    HttpModule,
 
-    
+
     BrowserAnimationsModule,
-    RestangularModule.forRoot([ConfigService], restangularProviderConfigurer),
+    RestangularModule.forRoot([REALM], restangularProviderConfigurer),
     NgbModule.forRoot(),
     BsDropdownModule.forRoot(),
     BsDatepickerModule.forRoot(),
@@ -96,24 +104,17 @@ export function getDatepickerConfig(): BsDatepickerConfig {
     CoreModule
   ],
   providers: [
+    // Config
+    ApiLocatorService,
+    openfactUIConfigProvider,
+    authApiUrlProvider,
+    realmProvider,
+    openfactApiUrlProvider,
+
     SurenService,
     Configuration,
     KeycloakOAuthService,
     KEYCLOAK_HTTP_PROVIDER,
-    ConfigService,
-    {
-      provide: APP_INITIALIZER,
-      useFactory: configServiceInitializer,
-      deps: [ConfigService],
-      multi: true,
-    },
-    KeycloakConfigService,
-    {
-      provide: APP_INITIALIZER,
-      useFactory: keycloakConfigServiceInitializer,
-      deps: [KeycloakConfigService],
-      multi: true,
-    },
     { provide: BsDatepickerConfig, useFactory: getDatepickerConfig }
   ],
   bootstrap: [AppComponent]

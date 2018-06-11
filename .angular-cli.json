@@ -10,6 +10,7 @@
       "assets": [
         "assets",
         "config",
+        "config-local",
         "favicon.ico"
       ],
       "index": "index.html",
@@ -33,9 +34,9 @@
         "../node_modules/ace-builds/src-min/theme-github.js",
         "../node_modules/ace-builds/src-min/theme-sqlserver.js",
         "../node_modules/ace-builds/src-min/theme-iplastic.js",
-        "../node_modules/ace-builds/src-min/theme-monokai.js",        
+        "../node_modules/ace-builds/src-min/theme-monokai.js",
         "../node_modules/ace-builds/src-min/theme-tomorrow.js",
-        "../node_modules/ace-builds/src-min/theme-xcode.js"      
+        "../node_modules/ace-builds/src-min/theme-xcode.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {
